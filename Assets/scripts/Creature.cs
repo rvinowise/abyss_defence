@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(PolygonCollider2D))]
 public class Creature : MonoBehaviour
 {
     Divisible_body divisible_body;
@@ -22,8 +22,10 @@ public class Creature : MonoBehaviour
             Camera.main.ScreenToWorldPoint(
                 new Vector2(Input.mousePosition.x, 
                             Input.mousePosition.y)),
-            new Vector2(1f,0.5f)
+            new Vector2(0.5f,1f)
         );
         Destroy(gameObject);
     }
+
+    
 }

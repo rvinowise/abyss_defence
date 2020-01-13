@@ -1,4 +1,4 @@
-﻿/*Shader "MaskedTexture"
+﻿Shader "MaskedTexture"
 {
    Properties
    {
@@ -22,11 +22,11 @@
       }
    }
 }
-*/
-Shader "MaskedTexture"
+
+/*Shader "MaskedTexture"
  {
     Properties {
-		_Blend ("Blend", Range (0, 1) ) = 0.1 
+		_Blend ("Blend", Range (0, 1) ) = 0.5
 		_MainTex ("_MainTex", 2D) = "" 
 		_Mask ("_Mask", 2D) = ""
 	}
@@ -40,4 +40,57 @@ Shader "MaskedTexture"
 			}       
 		}
 	} 
- }
+ }*/
+ /*
+Shader "MaskedTexture"
+{
+   Properties
+   {
+      _MainTex ("_MainTex", 2D) = "white" {}
+      _Mask ("_Mask", 2D) = "white" {}
+      _Cutoff ("_Cutoff", Range (0,1)) = 0.1
+   }
+   SubShader
+   {
+      Tags {"Queue"="Transparent"}
+      Pass
+      {
+            GLSLPROGRAM
+           
+#ifdef VERTEX
+           
+            
+           
+            void main()
+            {
+                //gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+                //TextureCoordinate = gl_MultiTexCoord0.xy;
+				
+				gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+				gl_TexCoord[0].xy = gl_MultiTexCoord0.xy;
+ 
+            }
+           
+#endif
+           
+#ifdef FRAGMENT
+                       
+            uniform sampler2D _MainTex;
+			uniform sampler2D _Mask;
+           
+            void main()
+            {
+                gl_FragColor = mix(
+					texture2D(_MainTex,gl_TexCoord[0].xy),
+					texture2D(_Mask,gl_TexCoord[0].xy),
+					texture2D(_Mask,gl_TexCoord[0].xy).a/2
+				);
+				
+            }
+
+#endif
+           
+            ENDGLSL
+      }
+   }
+}*/

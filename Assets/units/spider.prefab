@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2480983533477515255}
   - component: {fileID: 4376426164618475106}
-  - component: {fileID: 61614758714266826}
   - component: {fileID: 2083865730782105406}
   - component: {fileID: 7373306617763999464}
-  - component: {fileID: 6437545129751716868}
+  - component: {fileID: 2913639377536917201}
+  - component: {fileID: 68312908688253471}
   m_Layer: 0
   m_Name: spider
   m_TagString: monster
@@ -86,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &61614758714266826
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4815158212316948925}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.038502254, y: -0.002962041}
-  m_Size: {x: 0.25637463, y: 0.09051895}
-  m_Direction: 1
 --- !u!50 &2083865730782105406
 Rigidbody2D:
   serializedVersion: 4
@@ -130,28 +114,60 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4815158212316948925}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e60c785cc4989934fa712febd8d547af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6437545129751716868
-MonoBehaviour:
+--- !u!60 &2913639377536917201
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4815158212316948925}
   m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.44, y: 0.39}
+    newSize: {x: 0.44, y: 0.39}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.0016236305, y: 0.052816994}
+      - {x: -0.052542806, y: 0.030372605}
+      - {x: -0.0901784, y: 0.04610389}
+      - {x: -0.14486527, y: 0.04055829}
+      - {x: -0.1755127, y: -0.002487462}
+      - {x: -0.14154735, y: -0.046053316}
+      - {x: -0.09377608, y: -0.05103256}
+      - {x: -0.053839743, y: -0.0348006}
+      - {x: -0.006269604, y: -0.057191182}
+      - {x: 0.064694285, y: -0.05182701}
+      - {x: 0.1047073, y: -0.007093597}
+      - {x: 0.07093415, y: 0.044562098}
+--- !u!114 &68312908688253471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4815158212316948925}
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79616dae7ec98924ca71ef8283b9234f, type: 3}
+  m_Script: {fileID: 11500000, guid: 69e313e30d0cb6e48acc96913ef06d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 2800000, guid: eca8afdc1ddde2d4eba8d43e944435ba, type: 3}
-  divider_mask_l: {fileID: 2800000, guid: bd021d45dcd8e4e44af25ab193474d47, type: 3}
-  divider_mask_r: {fileID: 2800000, guid: 831316edbf1a89d419e0d9275584c042, type: 3}
-  offals: {fileID: 2800000, guid: 77fc1a8e08c83a54491ca81badd9f02d, type: 3}
-  this_preset: {fileID: 4815158212316948925}
 --- !u!1001 &2065519706574480392
 PrefabInstance:
   m_ObjectHideFlags: 0
