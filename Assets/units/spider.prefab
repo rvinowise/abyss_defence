@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7373306617763999464}
   - component: {fileID: 2913639377536917201}
   - component: {fileID: 68312908688253471}
+  - component: {fileID: 7058068785539083774}
   m_Layer: 0
   m_Name: spider
   m_TagString: monster
@@ -114,7 +115,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4815158212316948925}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e60c785cc4989934fa712febd8d547af, type: 3}
   m_Name: 
@@ -168,6 +169,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e313e30d0cb6e48acc96913ef06d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7058068785539083774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4815158212316948925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9977e878d7bd87e41a741b1c06833037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  divider_mask_l: {fileID: 0}
+  divider_mask_r: {fileID: 0}
+  offals: {fileID: 0}
 --- !u!1001 &2065519706574480392
 PrefabInstance:
   m_ObjectHideFlags: 0

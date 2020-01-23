@@ -3,9 +3,8 @@
 
 #include "geometry_global.h"
 
-#include <vector>
+/*#include <vector>
 #include <list>
-
 #include <QLineF>
 #include <QPointF>
 #include <QPolygonF>
@@ -17,19 +16,24 @@ enum class LineSide
     Left,
     Right,
 };
-
-struct Vector2 {
+*/
+struct Point {
     float _x;
     float _y;
 
+    Point(){}
+    Point(float in_x, float in_y):
+        _x{in_x},
+        _y{in_y}
+    {}
     float x() const {
         return _x;
     }
     float y() const {
         return _y;
     }
-    Vector2 operator-(Vector2 other) const {
-        return Vector2{
+    Point operator-(Point other) const {
+        return Point{
             this->x() - other.x(),
             this->y() - other.y()
         };
@@ -40,32 +44,42 @@ struct Vector2 {
 };
 
 struct Line {
-    Vector2 _pt1;
-    Vector2 _pt2;
-    inline Vector2 p1() const  {
+    Point _pt1;
+    Point _pt2;
+    inline Point p1() const  {
         return _pt1;
     }
-    inline Vector2 p2() const {
+    inline Point p2() const {
         return _pt2;
     }
 };
 
 struct Polygon {
-    Vector2 *points;
-    size_t size;
+    Point *points{nullptr};
+    int size{0};
 
-    Vector2 operator [](int i) const {
+    Polygon():
+        size{0},
+        points{nullptr}
+    {}
+    Polygon(int in_size):
+        size{in_size}
+    {
+        points = new Point[in_size];
+    }
+    Point operator [](int i) const {
         return points[i];
     }
-    size_t count() const {
+    int count() const {
         return size;
     }
 
     ~Polygon() {
         delete points;
     }
-};
 
+};
+/*
 // splits convex and (!) concanve polygons along a line.
 // all sorts of evil configurations tested, except things
 // like non-manifold vertices, crossing edges and alike.
@@ -112,12 +126,15 @@ public:
     std::vector<PolyEdge *> EdgesOnLine;
 };
 
+extern "C"
+{
+
 // interface from C# function
-GEOMETRY_EXPORT size_t split_polygon(
+GEOMETRY_EXPORT int split_polygon_two(
         Polygon polygon,
         Line line,
         Polygon** out_polygons,
-        size_t* out_size
+        int* out_size
 )
 {
     QPolygonF qpolygon;
@@ -151,5 +168,58 @@ GEOMETRY_EXPORT size_t split_polygon(
     *out_size = pieces.size();
     return pieces.size();
 }
+
+GEOMETRY_EXPORT float add_floats_lol(
+        float f1, float f2,
+        float* out
+)
+{
+    QPolygonF qpolygon;
+    for (size_t i_point = 0; i_point < 5; i_point++) {
+        qpolygon << QPointF(
+                            i_point,
+                            i_point*2
+                            );
+    }
+    QLineF qline(
+                0.1,
+                0.1,
+                2,
+                2
+                );
+
+    *out = qline.p1().x();
+    return f1 + f2;
+}
+*/
+extern "C" {
+
+__declspec(dllexport) int add_floats(
+        Polygon polygon,
+        Polygon** out_polygons
+)
+{
+    int out_n = polygon.size+1;
+    *out_polygons = new Polygon[out_n];
+    for (int i=0;i<out_n;i++) {
+        for (int i_point = 0; i_point < (*out_polygons)[i].size; i_point++) {
+            (*out_polygons)[i].points[i_point] = Point(
+                        polygon.points[i_point].x()*i,
+                        polygon.points[i_point].y()*i
+                        );
+        }
+    }
+    return 1;
+}
+
+
+
+
+__declspec(dllexport) float add_floats_mul(float a, float b) {
+    return (a + b) * 2;
+}
+
+}
+
 
 #endif // POLYGON_SPLITTER_H

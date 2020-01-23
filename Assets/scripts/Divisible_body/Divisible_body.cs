@@ -2,76 +2,76 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using geometry;
+//using geometry.for_unmanaged;
 
-
-public class Divisible_body : MonoBehaviour
+[RequireComponent(typeof(PolygonCollider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+public partial class Divisible_body : MonoBehaviour
 {
-    
-
-    public Texture2D divider_mask_l;
-    public Texture2D divider_mask_r;
     public Texture2D offals;
     public Texture2D offals_divider_mask  {get;set;}
 
     private Shader alpha_shader {get;}
     private Material masked_material {get;set;}
-
     private Texture2D body;
     private Sprite body_sprite;
 
-    //public GameObject this_preset;
-
-/* public (Texture, Texture) divide_in_half2(Vector2 point_of_split, Vector2 direction) {
-        Texture left_part = new Texture2D(body.width, body.height, TextureFormat.ARGB32, false);
-        Texture right_part = new Texture2D(body.width, body.height, TextureFormat.ARGB32, false);
-        return (left_part, right_part);
-    }*/
-
     public void Awake() {
         masked_material = new Material(Shader.Find("MaskedTexture"));
-        gameObject.GetComponent<Debug_monitor>().update_gizmos();
-
-        test_create_path();
     }
 
-    public void test_create_path() {
-        PolygonCollider2D collider = gameObject.GetComponent<PolygonCollider2D>();
-        Vector2[] points =  { 
-            new Vector2(0.2f,0f),
-            new Vector2(0.2f,0.2f),
-            new Vector2(0.25f,0.15f),
-            new Vector2(0.30f,0.2f),
-            new Vector2(0.30f,-0.05f),
-            new Vector2(0.2f,-0.05f)
-            };
-        Debug.Log("paths:"+collider.pathCount);
-        //collider.SetPath(collider.pathCount-1, points);
-        collider.points = points;
-    }
-
-    public void divide_in_half(Vector2 point_of_split, Vector2 direction_of_split) {
-        body_sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
-        body = body_sprite.texture;
-       
-        GameObject right_part = create_a_part(divider_mask_r, point_of_split, direction_of_split);
-        GameObject left_part = create_a_part(divider_mask_l, point_of_split, direction_of_split);
-    }
     
-    GameObject create_a_part(
-        Texture2D divider_mask_l, 
-        Vector2 point_of_split,
-        Vector2 direction_of_split) 
+
+    public void split_by_ray(Ray2D ray_of_split) {
+
+        List<Polygon> collider_pieces = Polygon_splitter.split_polygon_by_ray(
+            new Polygon(gameObject.GetComponent<PolygonCollider2D>().GetPath(0)),
+            transform.InverseTransformRay(ray_of_split)
+        );
+        foreach(Polygon collider_piece in collider_pieces) {
+            Texture2D texture_piece = create_texture_for_polygon(collider_piece);
+            GameObject object_piece = create_gameobject_from_polygon_and_texture(
+                collider_piece, texture_piece
+            );
+        }
+        Destroy(gameObject);
+    }
+    Texture2D create_texture_for_polygon(
+        Polygon polygon) 
     {
+        body = gameObject.GetComponent<SpriteRenderer>().sprite.texture;
+        RenderTexture positioned_mask_texture = new RenderTexture(
+             body.width, body.height, 32, RenderTextureFormat.ARGB32
+             );
+        Texture_drawer.draw_polygon_on_texture(positioned_mask_texture, polygon);
+        
+        Texture2D out_texture = //positioned_mask_texture.toTexture2D();
+            Texture_drawer.apply_mask_to_texture(
+                gameObject.GetComponent<SpriteRenderer>().sprite.texture,
+                positioned_mask_texture
+            );
+         
+        positioned_mask_texture.Release();
+        return out_texture;
+    }
 
-        created_part.GetComponent<SpriteRenderer>().sprite = 
-            create_sprite_for_part(divider_mask_l, point_of_split, direction_of_split);
-        Destroy(created_part.GetComponent<PolygonCollider2D>());
-        created_part.AddComponent<PolygonCollider2D>();
+    GameObject create_gameobject_from_polygon_and_texture(
+        Polygon polygon, Texture2D texture) 
+    {
+        GameObject created_part = Instantiate(
+            gameObject, transform.position, transform.rotation);
+        
+        Sprite sprite = Sprite.Create(
+            texture, 
+            new Rect(0.0f, 0.0f, texture.width, texture.height), 
+            new Vector2(0.5f, 0.5f), 100.0f);
 
-        created_part.GetComponent<Debug_monitor>().update_gizmos();
-
+        created_part.GetComponent<PolygonCollider2D>().SetPath(0, polygon.points);
+        created_part.GetComponent<SpriteRenderer>().sprite = sprite;
         return created_part;
     }
+
 
     private Sprite create_sprite_for_part(
         Texture2D divider_mask_l, 
@@ -143,73 +143,10 @@ public class Divisible_body : MonoBehaviour
             new Rect(0.0f, 0.0f, final_texture.width, final_texture.height), 
             new Vector2(0.5f, 0.5f), 100.0f);
         
-        retun result_sprite;
+        return result_sprite;
     }
 
-/* Unity doesn't give the information about the Side of collision: have to guess it with a complex algorithm */
-    /*private PolygonCollider2D create_collider_for_part(
-        Vector2 point_of_split,
-        Vector2 direction_of_split
-    ) {
-        var full_collider = gameObject.GetComponent<PolygonCollider2D>();
-        var all_points = full_collider.points;
-        var left_points = new List<Vector2>(all_points.size+2);
-        var right_points = new List<Vector2>(all_points.size+2);
-        
-        //Vector2 point_of_split = collision.transform.posisiton;
-        Vector2 near_split_point = gameObject.transform.InverseTransformPoint(point_of_split);
-        //Vector2 direction_of_split = collision.transform.forward;
-        Vector2 farther_split_point = point_of_split+direction_of_split*1.1;
 
-        bool first_iteration = true;
-        Vector2 prev_path_point;
-        Tuple<Vector2, Vector2> side_of_collision;
-        Tuple<Vector2, Vector2> side_oppose_collision;
-        for (int i_point = 0; i_point < all_points.size; i_point++) {
-            var path_point = all_points[i_point];
-            var dir_to_path_point = path_point - point_of_split;
-            side = Math.Sign(Angle(direction_of_split, dir_to_path_point));
-  
-            bool side_has_changed;
-            if (first_iteration) {
-                first_iteration = false;
-                side_has_changed = false;
-                prev_side = side;
-            } else {
-                side_has_changed = side != prev_side;
-            }
-            
-            if (side_has_changed) {
-                prev_side = side;
-                right_points.Add(point_of_separation);
-                left_points.Add(point_of_separation.copy());
-            }
-
-            if (side > 0) {
-                right_points.Add(path_point);
-            } else {
-                left_points.Add(path_point);
-            }
-        }
-        bool last_points_of_separation_added = (
-            right_points.size + left_points.size == all_points.size + 4 
-        );
-        if (!last_points_of_separation_added) {
-            right_points.Add(point_of_separation);
-            left_points.Add(point_of_separation.copy());
-        }
-
-        return get_two_colliders_for_sprite(right_points, left_points);  
-    }*/
-
-    private Tuple<PolygonCollider2D,PolygonCollider2D> 
-    get_two_colliders_for_sprite(List<Vector2> right_points, List<Vector2> left_points) {
-        var left_collider = new PolygonCollider2D();
-        left_collider.SetPath(0, left_points);
-        var right_collider = new PolygonCollider2D();
-        right_collider.SetPath(0, right_points);
-        return Tuple.Create(right_collider, left_collider);
-    }
 
     void Start()
     {

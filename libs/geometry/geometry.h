@@ -1,4 +1,4 @@
-#ifndef GEOMETRY_H
+/*#ifndef GEOMETRY_H
 #define GEOMETRY_H
 
 #include "geometry_global.h"
@@ -9,4 +9,7 @@ public:
     Geometry();
 };
 
+
+
 #endif // GEOMETRY_H
+*/

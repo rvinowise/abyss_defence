@@ -1,5 +1,7 @@
-#include "geometry.h"
+/*#include "geometry.h"
 
 Geometry::Geometry()
 {
 }
+
+*/

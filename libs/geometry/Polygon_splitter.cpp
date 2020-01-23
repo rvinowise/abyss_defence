@@ -1,3 +1,5 @@
+#include "Polygon_splitter.h"
+/*
 #include <iterator>
 #include <cassert>
 #include <queue>
@@ -7,7 +9,7 @@
 #include <QPolygonF>
 #include <QVector2D>
 
-#include "Polygon_splitter.h"
+
 
 static LineSide GetSideOfLine(const QLineF &line, const QPointF &pt)
 {
@@ -229,3 +231,4 @@ void PolySplitter::CreateBridge(PolyEdge *srcEdge, PolyEdge *dstEdge)
     dstEdge->Prev->Next = b;
     dstEdge->Prev = a;
 }
+*/
