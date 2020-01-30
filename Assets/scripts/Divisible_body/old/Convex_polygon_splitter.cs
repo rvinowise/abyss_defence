@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEditor;
-using geometry;
+using geometry2d;
 
-namespace geometry {
+namespace geometry2d {
 
     static class Convex_polygon_splitter {
         public static List<Polygon> split_polygon_by_ray(

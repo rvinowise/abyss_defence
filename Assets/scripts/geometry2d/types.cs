@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-namespace geometry {
+namespace geometry2d {
+
+using Point = Vector2;
 
 public class Line {
     public Vector2 p1;
@@ -26,5 +28,7 @@ public class Polygon {
         points = new List<Vector2>(vectors);
     }
 }
+
+
 
 }

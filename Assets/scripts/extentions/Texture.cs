@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class ExtensionMethod
+public static partial class Unity_extension
 {
     public static Texture2D toTexture2D(this RenderTexture rTex)
     {

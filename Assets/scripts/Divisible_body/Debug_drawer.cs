@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using geometry;
+using geometry2d;
 
 [RequireComponent(typeof(LineRenderer))]
 public class Debug_drawer : MonoBehaviour

@@ -8,7 +8,10 @@ public class CameraScript : MonoBehaviour
 
     void Start()
     {
-        
+        /*Application.targetFrameRate = 2;
+        Time.fixedDeltaTime = 2f;*/
+        /*Time.timeScale = 0.001f;
+        Time.fixedDeltaTime = 0.02F * Time.timeScale;*/
     }
 
     void Update()

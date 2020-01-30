@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
-using geometry;
+using geometry2d;
 using ClipperLib;
 
 
-namespace geometry {
+namespace geometry2d {
 
     using Path = List<IntPoint>;
     using Paths = List<List<IntPoint>>;
@@ -53,7 +53,7 @@ namespace geometry {
                 ray_of_split.origin - (ray_of_split.direction * 0.1f),
                 ray_of_split.origin+ (ray_of_split.direction.Rotate(-90f) * 0.01f),
                 //new Vector2(0f,0f)
-                ray_of_split.origin + (ray_of_split.direction * 0.3f)
+                ray_of_split.origin + (ray_of_split.direction * 0.1f)
             });
             return wedge_of_split;
         }

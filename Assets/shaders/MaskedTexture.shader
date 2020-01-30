@@ -1,4 +1,4 @@
-﻿Shader "MaskedTexture"
+﻿/*Shader "MaskedTexture"
 {
    Properties
    {
@@ -18,10 +18,10 @@
       Pass
       {
          SetTexture [_Mask] {combine texture, texture}
-         SetTexture [_MainTex] {combine texture, previous * texture}
+         SetTexture [_MainTex] {combine texture, previous}
       }
    }
-}
+}*/
 
 /*Shader "MaskedTexture"
  {
@@ -41,7 +41,7 @@
 		}
 	} 
  }*/
- /*
+ 
 Shader "MaskedTexture"
 {
    Properties
@@ -74,23 +74,22 @@ Shader "MaskedTexture"
 #endif
            
 #ifdef FRAGMENT
-                       
-            uniform sampler2D _MainTex;
-			uniform sampler2D _Mask;
-           
-            void main()
-            {
-                gl_FragColor = mix(
-					texture2D(_MainTex,gl_TexCoord[0].xy),
-					texture2D(_Mask,gl_TexCoord[0].xy),
-					texture2D(_Mask,gl_TexCoord[0].xy).a/2
-				);
-				
-            }
+            
+			uniform sampler2D _MainTex;      
+            uniform sampler2D _Mask;
 
+			out vec4 colorOut;
+			//in smooth vec2 texCoords;
+			void main(){ 
+
+				 vec4 color = texture(_MainTex,gl_TexCoord[0].xy);
+				 vec4 mask  = texture(_Mask,gl_TexCoord[0].xy);
+
+				 colorOut =vec4(color.rgb,color.a * mask.r);//alpha value can be in any channel ,depends on texture format.
+			}
 #endif
            
             ENDGLSL
       }
    }
-}*/
+}

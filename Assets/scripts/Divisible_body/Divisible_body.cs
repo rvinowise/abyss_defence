@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using geometry;
+using geometry2d;
 //using geometry.for_unmanaged;
 
 [RequireComponent(typeof(PolygonCollider2D))]
@@ -44,9 +44,13 @@ public partial class Divisible_body : MonoBehaviour
         RenderTexture positioned_mask_texture = new RenderTexture(
              body.width, body.height, 32, RenderTextureFormat.ARGB32
              );
-        Texture_drawer.draw_polygon_on_texture(positioned_mask_texture, polygon);
+        Texture_drawer.draw_polygon_on_texture(
+            positioned_mask_texture, 
+            gameObject.GetComponent<SpriteRenderer>().sprite.pixelsPerUnit,
+            polygon);
         
-        Texture2D out_texture = //positioned_mask_texture.toTexture2D();
+        Texture2D out_texture = //gameObject.GetComponent<SpriteRenderer>().sprite.texture;
+            //positioned_mask_texture.toTexture2D();
             Texture_drawer.apply_mask_to_texture(
                 gameObject.GetComponent<SpriteRenderer>().sprite.texture,
                 positioned_mask_texture
@@ -65,7 +69,9 @@ public partial class Divisible_body : MonoBehaviour
         Sprite sprite = Sprite.Create(
             texture, 
             new Rect(0.0f, 0.0f, texture.width, texture.height), 
-            new Vector2(0.5f, 0.5f), 100.0f);
+            new Vector2(0.5f, 0.5f), 
+            gameObject.GetComponent<SpriteRenderer>().sprite.pixelsPerUnit
+            );
 
         created_part.GetComponent<PolygonCollider2D>().SetPath(0, polygon.points);
         created_part.GetComponent<SpriteRenderer>().sprite = sprite;
