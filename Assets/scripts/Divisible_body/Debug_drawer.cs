@@ -15,8 +15,8 @@ public class Debug_drawer : MonoBehaviour
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.01f;
-        lineRenderer.endWidth= 0.01f;
+        lineRenderer.startWidth = 0.02f;
+        lineRenderer.endWidth= 0.02f;
         lineRenderer.widthMultiplier = 1f;
         lineRenderer.loop = true;
          //lineRenderer.SetVertexCount(linePoints.Count);
@@ -24,14 +24,16 @@ public class Debug_drawer : MonoBehaviour
  
     void Update()
     {
-        draw_splitting_wedge();
-        mouse_control();
-        
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePos = rvi.Input.mouse_world_position();
         ray = new Ray2D(
-                mousePos,
-                new Vector2(0.5f,1f)
-            );
+            mousePos,
+            new Vector2(0.5f,1f)
+        );
+
+        draw_splitting_wedge();
+        //mouse_control();
+        
+        
     }
  
     void mouse_control() {
@@ -55,12 +57,15 @@ public class Debug_drawer : MonoBehaviour
     }
     
     void draw_splitting_wedge() {
-        
         Polygon wedge = Polygon_splitter.get_wedge_from_ray(ray);
-        lineRenderer.positionCount = wedge.points.Count;
-        for(int i = 0; i < wedge.points.Count; i++)
+        draw_polygon(wedge);
+    }
+
+    void draw_polygon(Polygon polygon) {
+        lineRenderer.positionCount = polygon.points.Count;
+        for(int i = 0; i < polygon.points.Count; i++)
         {
-            lineRenderer.SetPosition(i, wedge.points[i]);
+            lineRenderer.SetPosition(i, polygon.points[i]);
         }
     }
  

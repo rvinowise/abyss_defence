@@ -8,6 +8,18 @@ public static class Directions {
     public static Quaternion degrees_to_quaternion(float degrees) {
         return Quaternion.Euler(0f,0f,degrees);
     }
+
+    public static float normalize_degrees(float degrees) {
+        float norlmalized = degrees % 360f;
+        if (degrees < 0) {
+            norlmalized = degrees + 360f;
+        }
+        return norlmalized;
+    }
+
+    public static Vector2 degrees_to_vector(float degrees) {
+        return Quaternion.AngleAxis(degrees, Vector3.forward) * Vector3.right;
+    }
 }
 
 public static class Triangles {

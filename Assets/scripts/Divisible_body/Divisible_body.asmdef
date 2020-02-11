@@ -1,0 +1,9 @@
+﻿{
+	"name": "Divisible_body",
+	"references": [
+		"tools",
+        "geometry2d",
+		"extensions",
+		"third_party"
+    ]
+}

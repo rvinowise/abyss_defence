@@ -19,10 +19,4 @@ public class CameraScript : MonoBehaviour
         
     }
 
-    public void OnPostRender()
-    {
-        Debug.Log("OnPostRender");
-        Graphics.DrawTexture(
-            new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight), body);
-    } 
 }

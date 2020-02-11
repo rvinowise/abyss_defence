@@ -5,23 +5,21 @@ using geometry2d;
 
 static class Texture_drawer {
 
-    static private Material masked_material = new Material(Shader.Find("MaskedTexture"));//{get;set;}
-    static public Texture2D apply_mask_to_texture(Texture2D body, RenderTexture mask) {
-        RenderTexture result_texture = new RenderTexture(
-             body.width, body.height, 32, RenderTextureFormat.ARGB32
+    static private Material masked_material = 
+        new Material(Shader.Find("MaskedTexture"));
+    static private Material combining_material = 
+        new Material(Shader.Find("Combining_textures"));
+    
+    static public Texture2D apply_mask_to_texture(Texture2D basis, RenderTexture mask) {
+        RenderTexture combining_texture = new RenderTexture(
+             basis.width, basis.height, 32, RenderTextureFormat.ARGB32
              );
 
-        masked_material.SetTexture("_MainTex", body);
+        masked_material.SetTexture("_MainTex", basis);
         masked_material.SetTexture("_Mask", mask);
-        Graphics.Blit(body, result_texture, masked_material);
-        
-
-        RenderTexture.active = result_texture;
-        Texture2D final_texture = new Texture2D(body.width, body.height, TextureFormat.ARGB32, false);
-        final_texture.ReadPixels( new Rect(0, 0, final_texture.width, final_texture.height), 0, 0);
-        RenderTexture.active = null;
-        final_texture.Apply();
-        result_texture.Release(); //a
+        Graphics.Blit(basis, combining_texture, masked_material);
+    
+        Texture2D final_texture = combining_texture.move_to_texture();
 
         return final_texture;
     }
@@ -55,14 +53,24 @@ static class Texture_drawer {
             Vector2 point = polygon.points[indices[i]];
             GL.Vertex3(point.x, point.y, 0);
         }
-        /*GL.Vertex3(0f, 0f, 0);
-        GL.Vertex3(0f, 0.5f, 0);
-        GL.Vertex3(0.5f, 0f, 0);*/
-        
-        
         
         GL.End();
         GL.PopMatrix();
         RenderTexture.active= null;
+    }
+
+    static public Texture2D overlay_textures(
+        Texture2D texture1,
+        Texture2D texture2
+    ) {
+        RenderTexture combining_texture = new RenderTexture(
+             texture1.width, texture1.height, 32, RenderTextureFormat.ARGB32
+             );
+
+        combining_material.SetTexture("_Texture1", texture1);
+        combining_material.SetTexture("_Texture2", texture2);
+        Graphics.Blit(texture1, combining_texture, combining_material);
+        
+        return combining_texture.move_to_texture();
     }
 }
