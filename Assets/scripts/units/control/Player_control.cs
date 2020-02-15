@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,8 +21,10 @@ public class Player_control: IControl  {
     }
 
     public void read_input() {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
+        horizontal = rvi.Math.sign_or_zero(Input.GetAxis("Horizontal"));
+        vertical = rvi.Math.sign_or_zero(Input.GetAxis("Vertical"));
+        //Debug.Log("horizontal:" + horizontal);
+        //Debug.Log("vertical:" + vertical);
         
         Vector2 mousePos = rvi.Input.mouse_world_position();
         float desired_direction = transform.degrees_to(mousePos);

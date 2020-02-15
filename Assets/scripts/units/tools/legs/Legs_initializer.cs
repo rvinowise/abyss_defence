@@ -8,15 +8,12 @@ using System;
 namespace units {
 namespace limbs {
     
-/* assume that the base direction is towards the right */
+public partial class Leg_controller: Tool_controller {
+
 static class Legs_initializer {
-    static public Vector2 scale = new Vector2(0.65f,0.65f);
+    private static readonly Vector2 scale = new Vector2(0.65f,0.65f);
     
-    /// <summary>
-    /// arranges the parameters of legs making them look like spider
-    /// </summary>
-    /// <param name="controller">the component whose legs are initialized by this</param>
-    static public void init_for_spider(Leg_controller controller)
+    public static void init_for_spider(Leg_controller controller)
     {
         List<Leg> legs = create_legs(controller);
 
@@ -27,7 +24,8 @@ static class Legs_initializer {
             init_common_parameters(leg);
         }
 
-        controller.stable_leg_groups = new List<Stable_leg_group>() {
+        controller.init_moving_strategy();
+        ((strategy.Stable)controller.moving_strategy).stable_leg_groups = new List<Stable_leg_group>() {
             new Stable_leg_group(
                 new List<Leg>() {
                     controller.left_front_leg,
@@ -62,23 +60,18 @@ static class Legs_initializer {
 
     private static List<Leg> create_legs(Leg_controller controller)
     {
-        controller.legs = new List<Leg>() {
-            new Leg(controller.gameObject.transform),
-            new Leg(controller.gameObject.transform),
-            new Leg(controller.gameObject.transform),
-            new Leg(controller.gameObject.transform)
-        };
+        for (int i=0;i<4;i++) {
+            controller.legs.Add(new Leg(controller.gameObject.transform));
+        }
+        controller.left_front_leg.debug.name = "left_front_leg";
+        controller.right_front_leg.debug.name = "right_front_leg";
+        controller.left_hind_leg.debug.name = "left_hind_leg";
+        controller.right_hind_leg.debug.name = "right_hind_leg";
+
         return controller.legs;
     }
 
-    /*private static void set_parents(Leg_controller controller) {
-        Transform body = controller.gameObject.transform;
-        foreach (Leg leg in controller.legs) {
-            leg.femur.transform.SetParent(body);
-            leg.tibia.transform.SetParent(leg.femur.transform);
-        }
-    }*/
-
+    private const float rotation_speed = 8f;
     private static void init_left_front_leg(Leg leg, Sprite sprite_femur, Sprite sprite_tibia)
     {
         leg.attachment = new Vector2(0.30f, 0.45f) * scale;
@@ -86,13 +79,13 @@ static class Legs_initializer {
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.femur.tip = new Vector2(0.65f, 0f) * scale;
         leg.femur.spriteRenderer.sprite = sprite_femur;
-        leg.femur.rotation_speed = 6f;
+        leg.femur.rotation_speed = rotation_speed;
         leg.tibia.possible_span = new Span(-170f, 0f);
         //leg.tibia.comfortable_span = leg.tibia.possible_span.scaled(0.5f);
         leg.tibia.tip = new Vector2(0.85f, 0f) * scale;
         leg.tibia.spriteRenderer.sprite = sprite_tibia;
         leg.tibia.attachment_point = leg.femur.tip;
-        leg.tibia.rotation_speed = 6f;
+        leg.tibia.rotation_speed = rotation_speed;
 
         leg.femur.desired_relative_direction = Directions.degrees_to_quaternion(100f);
         leg.tibia.desired_relative_direction = Directions.degrees_to_quaternion(-100f);
@@ -100,18 +93,18 @@ static class Legs_initializer {
     
     private static void init_left_hind_leg(Leg leg, Sprite sprite_femur, Sprite sprite_tibia)
     {
-        leg.attachment = new Vector2(-0.40f, 0.5f) * scale;
+        leg.attachment = new Vector2(-0.35f, 0.45f) * scale;
         leg.femur.possible_span = new Span(10f, 180f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.femur.tip = new Vector2(0.65f, 0f) * scale;
         leg.femur.spriteRenderer.sprite = sprite_femur;
-        leg.femur.rotation_speed = 6f;
+        leg.femur.rotation_speed = rotation_speed;
         leg.tibia.possible_span = new Span(0f, 180f);
         //leg.tibia.comfortable_span = leg.tibia.possible_span.scaled(0.5f);
         leg.tibia.tip = new Vector2(0.85f, 0f) * scale;
         leg.tibia.spriteRenderer.sprite = sprite_tibia;
         leg.tibia.attachment_point = leg.femur.tip;
-        leg.tibia.rotation_speed = 6f;
+        leg.tibia.rotation_speed = rotation_speed;
         leg.femur.desired_relative_direction = Directions.degrees_to_quaternion(100f);
         leg.tibia.desired_relative_direction = Directions.degrees_to_quaternion(100f);
         
@@ -138,7 +131,7 @@ static class Legs_initializer {
         leg.femur_folding_direction = -1*leg.tibia.possible_span.sign_of_bigger_rotation();
     }
 
-    public static void mirror(Leg dst, Leg src) {
+    private static void mirror(Leg dst, Leg src) {
         // the base direction is to the right
         dst.attachment = new Vector2(
             src.attachment.x,
@@ -186,5 +179,6 @@ static class Legs_initializer {
 
 }
 
+}
 }    
 }

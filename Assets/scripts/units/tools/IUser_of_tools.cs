@@ -11,7 +11,7 @@ namespace units
 /* The only IUser_of_tools is the Component User_of_tools. delete this? */
 public interface IUser_of_tools
 {
-    IEnumerable<ITool_controller> tool_controllers {
+    IList<ITool_controller> tool_controllers {
         get;
     }
 

@@ -1,61 +1,111 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using UnityEngine;
+using rvinowise;
 
-namespace units {
-namespace limbs {
+namespace units.limbs {
 
 /* Leg controller */
-public class Leg_controller: Tool_controller
+public partial class Leg_controller: 
+    Tool_controller
+   ,units.IMover_in_space
 {
     /* parameters for editor */
-    public Sprite sprite_femur;
-    public Sprite sprite_tibia;
+    public Sprite sprite_femur;// = Resources.Load<Sprite>("sprites/basic_spider/femur.png");
+    public Sprite sprite_tibia;// = Resources.Load<Sprite>("sprites/basic_spider/tibia.png");
+    public bool needs_initialization = true;
 
-    /* legs that are enough to be stable if they are on the ground */
-    public List<Stable_leg_group> stable_leg_groups;
+    strategy.Moving_strategy moving_strategy;
+
+   
     
     internal List<Leg> legs {
         set {
             _legs = value;
-            left_front_leg = value[0];
-            right_front_leg = value[1];
-            left_hind_leg = value[2];
-            right_hind_leg = value[3];
+            init_moving_strategy();
         }
         get {
             return _legs;
         }
     }
-    internal Leg left_front_leg;
-    internal Leg right_front_leg;
-    internal Leg left_hind_leg;
-    internal Leg right_hind_leg;
-    private List<Leg> _legs;
+    internal Leg left_front_leg {
+        get { return legs[0];}
+        private set { legs[0] = value; }
+    }
+    internal Leg right_front_leg {
+        get { return legs[1];}
+        private set { legs[1] = value; }
+    }
+    internal Leg left_hind_leg {
+        get { return legs[2];}
+        private set { legs[2] = value; }
+    }
+    internal Leg right_hind_leg {
+        get { return legs[3];}
+        private set { legs[3] = value; }
+    }
+    private List<Leg> _legs = new List<Leg>();
 
     /* Tool_controller interface */
-    public override IEnumerable<Tool> tools {
-        get {
-            return legs;
-        }
+    public override IEnumerable<Tool> tools  {
+        get { return legs; }
+    }
+    public override void init() {
+        init_moving_strategy();
     }
 
     public override void add_tool(Tool tool) {
         Contract.Requires(tool is Leg);
-        legs.Add((Leg)tool);
+        Leg leg = tool as Leg;
+        legs.Add(leg);
+        leg.host = transform;
     }
 
+ 
+
+
+    void init_moving_strategy() {
+        moving_strategy = get_appropriate_moving_strategy();
+    }
+    private strategy.Moving_strategy get_appropriate_moving_strategy() {
+        if (legs.Count >= 4) {
+            return new strategy.Stable(legs);
+        } else if (legs.Count >=2 ) {
+            return new strategy.Grovelling(legs);
+        } else if (legs.Count == 1) {
+            return new strategy.Faltering(legs);
+        }
+        return null;
+    }
 
     void Awake()
     {
-        Legs_initializer.init_for_spider(this);
+        if (needs_initialization) {
+            Legs_initializer.init_for_spider(this);
+            needs_initialization = false;
+        }
+        if (legs == null) {
+            this.enabled = false;
+        }
     }
 
-    void Update()
-    {
+    void Update() {
+        destroy_invalid_legs(); //debug
         move_legs();
+    }
+
+    private void destroy_invalid_legs() {
+        for(int i_leg = 0; i_leg < legs.Count; i_leg++) {
+            Leg leg = legs[i_leg];
+            if (!leg.is_valid()) {
+                legs.RemoveAt(i_leg);
+                Deleter.Destroy(leg);
+            }
+        }
     }
 
     private void move_legs() {
@@ -63,7 +113,7 @@ public class Leg_controller: Tool_controller
             if (leg.is_up) {
                 move_in_the_air(leg);
             } else {
-                move_on_the_ground(leg);
+                moving_strategy.move_on_the_ground(leg);
             }
         }
     }
@@ -77,55 +127,9 @@ public class Leg_controller: Tool_controller
         }
     }
 
-    void move_on_the_ground(Leg leg) {
-        bool can_hold = leg.hold_onto_ground();
-        if (
-            (leg.is_twisted_badly())||
-            (!can_hold)
-            ) 
-        {
-            leg.debug.draw_lines(Color.red);
-            leg.raise_up();
-            leg.attach_to_attachment_points();
-        }
-        if (leg.is_twisted_uncomfortably()) {
-            if (is_standing_stable_without(leg)) {
-                leg.raise_up();
-                leg.attach_to_attachment_points();
-            }
-        }
-    }
+    
 
     
-    /* all the legs from at least one stable group will be on the ground
-    if the parameter leg is up */
-    private bool is_standing_stable_without(Leg leg)
-    {
-        Contract.Requires(!leg.is_up);
-        foreach (Stable_leg_group stable_leg_group in stable_leg_groups) {
-            if (stable_leg_group.contains(leg)) {
-               continue; 
-            }
-            if (stable_leg_group.all_down()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /* at least one leg will be on he ground if the parameter leg is raised up  */
-    bool can_move_without(Leg in_leg) {
-        Contract.Requires(!in_leg.is_up);
-        foreach (Leg leg in legs) {
-            if (leg == in_leg) {
-               continue; 
-            }
-            if (!leg.is_up) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     bool can_move() {
         foreach (Leg leg in legs) {
@@ -136,16 +140,8 @@ public class Leg_controller: Tool_controller
         return false;
     }
 
-    static float belly_friction = 2f;
+    static float belly_friction_multiplier = 0.9f;
 
-    bool belly_touches_ground() {
-        foreach (Stable_leg_group stable_leg_group in stable_leg_groups) {
-            if (stable_leg_group.all_down()) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     public float get_possible_impulse() {
         float impulse = 0;
@@ -154,12 +150,29 @@ public class Leg_controller: Tool_controller
                 impulse += leg.provided_impulse;
             }
         }
-        if (belly_touches_ground()) {
-            impulse /= belly_friction;
+        if (moving_strategy.belly_touches_ground()) {
+            impulse *= belly_friction_multiplier;
+        }
+        return impulse;
+    }
+    public float get_possible_rotation() {
+        float impulse = 0;
+        foreach (Leg leg in legs) {
+            if (!leg.is_up) {
+                impulse += leg.provided_impulse * 100;
+            }
+        }
+        if (moving_strategy.belly_touches_ground()) {
+            impulse *= belly_friction_multiplier;
         }
         return impulse;
     }
 
+    private void OnDrawGizmos() {
+        foreach (var leg in legs) {
+            leg.debug.draw_positions();
+        }
+    }
 }
 
 enum Impulse {
@@ -167,5 +180,4 @@ enum Impulse {
     Rotation
 }
 
-}
 }

@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEditor;
 
 //namespace old {
-public partial class Divisible_body : MonoBehaviour
+/*public partial class Divisible_body : MonoBehaviour
 {
 
     public Texture2D offals_divider_mask  {get;set;}
     private Material masked_material {get;set;}
-    private Texture2D body;
+    private Texture2D host;
     private Sprite body_sprite;
 
     public void Awake() {
@@ -50,10 +50,10 @@ public partial class Divisible_body : MonoBehaviour
 
 
         RenderTexture result_texture = new RenderTexture(
-             body.width, body.height, 32, RenderTextureFormat.ARGB32
+             host.width, host.height, 32, RenderTextureFormat.ARGB32
              );
         RenderTexture positioned_mask_texture = new RenderTexture(
-             body.width, body.height, 32, RenderTextureFormat.ARGB32
+             host.width, host.height, 32, RenderTextureFormat.ARGB32
              );
         RenderTexture.active = positioned_mask_texture;
 
@@ -70,7 +70,7 @@ public partial class Divisible_body : MonoBehaviour
         m = m * Matrix4x4.TRS(new Vector2(-0.5f,-0.5f), Quaternion.identity, Vector3.one);
         
         Vector2 mask_scaling = new Vector2(
-            divider_mask_l.width / body.width * 1f, divider_mask_l.height / body.height * 1f);
+            divider_mask_l.width / host.width * 1f, divider_mask_l.height / host.height * 1f);
         m = m * Matrix4x4.TRS(Vector3.zero, Quaternion.identity, mask_scaling);
         m = m * Matrix4x4.TRS(new Vector2(
             -(mask_scaling.x-1f) / 2f / mask_scaling.x, -(mask_scaling.y-1f)/ 2f / mask_scaling.y
@@ -82,12 +82,12 @@ public partial class Divisible_body : MonoBehaviour
             new Rect(0, 1, 1, -1), divider_mask_l);
         GL.PopMatrix();
 
-        masked_material.SetTexture("_MainTex", body);
+        masked_material.SetTexture("_MainTex", host);
         masked_material.SetTexture("_Mask", positioned_mask_texture);
-        Graphics.Blit(body, result_texture, masked_material);
+        Graphics.Blit(host, result_texture, masked_material);
         
         RenderTexture.active = result_texture;
-        Texture2D final_texture = new Texture2D(body.width, body.height, TextureFormat.ARGB32, false);
+        Texture2D final_texture = new Texture2D(host.width, host.height, TextureFormat.ARGB32, false);
         
         final_texture.ReadPixels( new Rect(0, 0, final_texture.width, final_texture.height), 0, 0);
         RenderTexture.active = null;
@@ -106,4 +106,4 @@ public partial class Divisible_body : MonoBehaviour
     }
 }
 
-//}
+//}*/

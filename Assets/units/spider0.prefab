@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 5752291905175017392}
   - component: {fileID: 5752291905175017393}
   - component: {fileID: 5752291905175017395}
+  - component: {fileID: 1979612820464281982}
   - component: {fileID: 5752291905175017394}
-  - component: {fileID: 8341287979483175478}
+  - component: {fileID: 7303750169085335170}
   m_Layer: 0
   m_Name: spider0
   m_TagString: Untagged
@@ -162,19 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inside: {fileID: 21300000, guid: 77fc1a8e08c83a54491ca81badd9f02d, type: 3}
---- !u!114 &5752291905175017394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5752291905175017389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ee05851f6a031448eb72ef8e9c2df3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8341287979483175478
+--- !u!114 &1979612820464281982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,3 +177,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite_femur: {fileID: 21300000, guid: b72078c9b5d93dc429d60479824bd0bb, type: 3}
   sprite_tibia: {fileID: 21300000, guid: 17e4abceb08151b469eac49d958fef42, type: 3}
+  needs_initialization: 1
+--- !u!114 &5752291905175017394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5752291905175017389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ee05851f6a031448eb72ef8e9c2df3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7303750169085335170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5752291905175017389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f126c813deb1bd24b9b4c20bfbd15608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

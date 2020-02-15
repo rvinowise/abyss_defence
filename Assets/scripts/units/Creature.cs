@@ -8,23 +8,12 @@ using units.limbs;
 namespace units {
 
 [RequireComponent(typeof(PolygonCollider2D))]
-[RequireComponent(typeof(User_of_tools))]
 public class Creature : MonoBehaviour
 {
     Divisible_body divisible_body;
     Leg_controller leg_controller;
     IControl control;
     
-    /* interface of IUser_of_tools */
-    public IEnumerable<ITool_controller> tool_controllers {
-        get {
-            return _tool_controllers;
-        }
-        private set {
-            _tool_controllers = value;
-        }
-    }
-    private IEnumerable<ITool_controller> _tool_controllers;
 
     private void Awake()
     {
@@ -39,14 +28,14 @@ public class Creature : MonoBehaviour
 
    void FixedUpdate() {
         control.read_input();
-        //apply_control(control);
+        apply_control(control);
    }
     
     private void apply_control(IControl control) {
         
         transform.rotate_to(
             control.rotation, 
-            leg_controller.get_possible_impulse() * rvi.Time.deltaTime
+            leg_controller.get_possible_rotation() * rvi.Time.deltaTime
         );
         
         transform.position += (Vector3)new Vector2(
@@ -68,7 +57,6 @@ public class Creature : MonoBehaviour
                 mousePos,
                 new Vector2(0.5f,1f)
             );
-        Divisible_body divisible_body = GetComponent<Divisible_body>(); 
         divisible_body.split_by_ray(ray);
         /*divisible_body.split_by_ray(
             new Ray2D(

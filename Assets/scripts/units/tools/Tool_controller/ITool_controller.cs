@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public interface ITool_controller
     }
 
     void add_tool(Tool tool);
+    void init();
 }
 
 }

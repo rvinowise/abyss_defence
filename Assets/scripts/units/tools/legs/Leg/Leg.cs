@@ -15,7 +15,7 @@ public class Leg: Tool
     public Segment tibia;// = new Segment();
     
     public int femur_folding_direction; //1 of -1
-    public float provided_impulse = 1f;
+    public float provided_impulse = 0.15f;
 
     /* group of legs that being on the ground with this leg provide stability */
     public Stable_leg_group stable_group;
@@ -25,6 +25,11 @@ public class Leg: Tool
     public float comfortable_distance;
 
     /* Tool interface */
+    public override Transform host {
+        get { return femur.host; }
+        set { femur.host = value; }
+    }
+
     public override Vector2 attachment {
         get {
             return femur.attachment_point;
@@ -35,33 +40,37 @@ public class Leg: Tool
     }
 
     /* current characteristics */
-    //point relative to the body where the leg is trying to reach normally
+    //point relative to the host where the leg is trying to reach normally
     public Vector2 holding_point;
     //whether leg is moving towards the aim or holding onto the ground
     public bool is_up = true;
 
 
-    public Leg(Transform in_body) {
+    public Leg(Transform inHost) {
         femur = new Segment("femur");
         tibia = new Segment("tibia");
-        femur.host = in_body;
         tibia.host = femur.transform;
-        body = in_body;
+        host = inHost;
         debug = new Debug(this);
     }
+
+    public void attach_to_body(Transform in_body) {
+        host = in_body;
+    }
+
     public Vector2 deduce_optimal_aim() {
         float full_length = femur.tip.magnitude + tibia.tip.magnitude;
         return attachment.normalized * full_length/2;
     }
 
     public bool has_reached_aim() {
-        /* this function is relative to the body,
-        because the desired position is relative to the body  */
+        /* this function is relative to the host,
+        because the desired position is relative to the host  */
         float allowed_angle = 5f;
         if (
             (
                 Quaternion.Angle(
-                    body.rotation*femur.desired_relative_direction,
+                    host.rotation*femur.desired_relative_direction,
                     femur.transform.rotation
                 ) <= allowed_angle
             )&&
@@ -96,12 +105,12 @@ public class Leg: Tool
     /* it's time to reposition */
     public bool is_twisted_uncomfortably() {
         Vector2 diff_with_optimal_point = 
-            (Vector2)body.transform.TransformPoint(optimal_relative_position) - 
+            (Vector2)host.transform.TransformPoint(optimal_relative_position) - 
             (Vector2)tibia.transform.TransformPoint(tibia.tip);
         if (diff_with_optimal_point.magnitude > comfortable_distance) {
             return true;
         } 
-        /*if (!is_within_span(femur.comfortable_span, femur, body)) 
+        /*if (!is_within_span(femur.comfortable_span, femur, host)) 
         {
             return true;
         } else {
@@ -114,7 +123,7 @@ public class Leg: Tool
     }
     /* physically can't be in this position */
     public bool is_twisted_badly() {
-        if (!is_within_span(femur.possible_span, femur, body)) 
+        if (!is_within_span(femur.possible_span, femur, host)) 
         {
             return true;
         } else {
@@ -140,7 +149,7 @@ public class Leg: Tool
     public void move_segments_towards_desired_direction() {
         femur.transform.rotation = 
             Quaternion.RotateTowards(femur.transform.rotation, 
-                                     femur.desired_relative_direction*body.transform.rotation,
+                                     femur.desired_relative_direction*host.transform.rotation,
                                      femur.rotation_speed);
             
         tibia.transform.rotation = 
@@ -149,12 +158,12 @@ public class Leg: Tool
                                      tibia.rotation_speed);
         
         /*Quaternion femur_relative_rotation = 
-            femur.transform.rotation*Quaternion.Inverse(body.transform.rotation);
+            femur.transform.rotation*Quaternion.Inverse(host.transform.rotation);
         Quaternion femur_new_relative_rotation = 
             Quaternion.RotateTowards(femur_relative_rotation, 
                                      femur.desired_relative_direction,
                                      1f);
-        femur.transform.rotation = femur_new_relative_rotation*body.transform.rotation;
+        femur.transform.rotation = femur_new_relative_rotation*host.transform.rotation;
             
         Quaternion tibia_relative_rotation = 
             tibia.transform.rotation*Quaternion.Inverse(femur.transform.rotation);
@@ -209,8 +218,9 @@ public class Leg: Tool
         Leg leg;
         Color problem_color = new Color(255,50,50);
         Color optimal_color = new Color(50,255,50);
-        float sphere_size = 0.01f;
-        bool debug_off = true; // MANU debug
+        float sphere_size = 0.05f;
+        bool debug_off = false; // MANU debug
+        public string name;
 
         public Debug(Leg _parent_leg) {
             leg = _parent_leg;
@@ -247,10 +257,22 @@ public class Leg: Tool
             
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(
-                leg.body.TransformPoint(leg.optimal_relative_position), sphere_size);
+                leg.host.TransformPoint(leg.optimal_relative_position), sphere_size);
          }
     }
     public Debug debug;
+
+    public bool is_valid() {
+        // this way it can be deleted from the editor when debugging
+        if (!femur.game_object) {
+            return false;
+        }
+        if (!tibia.game_object) {
+            return false;
+        }
+        return true;
+    }
+
 } 
 
 
