@@ -29,6 +29,7 @@ public abstract class Tool_controller:MonoBehaviour
     public abstract void add_tool(Tool tool);
 
     public abstract void init();
+    public abstract void update();
 }
 
 }

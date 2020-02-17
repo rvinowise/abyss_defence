@@ -25,20 +25,17 @@ public class User_of_tools:MonoBehaviour
         _tool_controllers.Add(tool_controller);
     }
 
-    /*public ITool_controller get_tool_controller_of_type(ITool_controller other) {
-        foreach (ITool_controller tool_controller in tool_controllers) {
-            if (tool_controller is other.GetType()) {
-                return tool_controller;
-            }
-        }
-        return null;
-    }*/
-
     private void Awake()
     {
         _tool_controllers = new List<ITool_controller>(
             GetComponents<ITool_controller>()
         );
+    }
+
+    private void Update() {
+        foreach (var tool_controller in tool_controllers) {
+            tool_controller.update();
+        }
     }
 
     public void init_tool_controllers() {

@@ -8,17 +8,23 @@ using units.limbs;
 namespace units {
 
 [RequireComponent(typeof(PolygonCollider2D))]
-public class Creature : MonoBehaviour
-{
-    Divisible_body divisible_body;
-    Leg_controller leg_controller;
+public class Creature : MonoBehaviour {
+    
+    public Species species;
+    
+    protected Divisible_body divisible_body;
+    protected User_of_tools user_of_tools;
+    
+    protected ITransporter transporter;
+    
     IControl control;
     
 
-    private void Awake()
+    protected virtual void Awake()
     {
         divisible_body = gameObject.GetComponent<Divisible_body>();
-        leg_controller = gameObject.GetComponent<Leg_controller>();
+        user_of_tools = GetComponent<User_of_tools>();
+        transporter = gameObject.GetComponent<Leg_controller>();
         
         control = new Player_control(this.transform);
 
@@ -35,15 +41,15 @@ public class Creature : MonoBehaviour
         
         transform.rotate_to(
             control.rotation, 
-            leg_controller.get_possible_rotation() * rvi.Time.deltaTime
+            transporter.get_possible_rotation() * rvi.Time.deltaTime
         );
         
         transform.position += (Vector3)new Vector2(
             Math.Sign(control.horizontal) * 
-                leg_controller.get_possible_impulse() * rvi.Time.deltaTime, 
+                transporter.get_possible_impulse() * rvi.Time.deltaTime, 
             
             Math.Sign(control.vertical) * 
-                leg_controller.get_possible_impulse() * rvi.Time.deltaTime
+                transporter.get_possible_impulse() * rvi.Time.deltaTime
         );
         /*Debug.DrawRay(
             transform.position, 
@@ -70,6 +76,13 @@ public class Creature : MonoBehaviour
     }
 
     
+    public enum Species {
+        Normal_spider,
+        Hexapod_spider
+    }
+    
 }
+
+
 
 }

@@ -11,8 +11,8 @@ namespace limbs {
 public class Leg: Tool 
 {
     /* constant characteristics */
-    public Segment femur;// = new Segment();
-    public Segment tibia;// = new Segment();
+    public readonly Segment femur;// = new Segment();
+    public readonly Segment tibia;// = new Segment();
     
     public int femur_folding_direction; //1 of -1
     public float provided_impulse = 0.15f;

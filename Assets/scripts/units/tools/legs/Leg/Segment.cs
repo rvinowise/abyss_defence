@@ -29,7 +29,7 @@ public class Segment {
     /* current characteristics */
     public Quaternion desired_relative_direction; //relative to attachment
     
-    public GameObject game_object;
+    public readonly GameObject game_object;
 
     public float length {
         get;

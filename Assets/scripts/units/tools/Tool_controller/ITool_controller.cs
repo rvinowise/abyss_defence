@@ -20,6 +20,7 @@ public interface ITool_controller
 
     void add_tool(Tool tool);
     void init();
+    void update();
 }
 
 }

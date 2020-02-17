@@ -11,8 +11,8 @@ namespace units.limbs {
 
 /* Leg controller */
 public partial class Leg_controller: 
-    Tool_controller
-   ,units.IMover_in_space
+    ITool_controller
+   ,ITransporter
 {
     /* parameters for editor */
     public Sprite sprite_femur;// = Resources.Load<Sprite>("sprites/basic_spider/femur.png");
@@ -64,10 +64,15 @@ public partial class Leg_controller:
         legs.Add(leg);
         leg.host = transform;
     }
+    
+    public override void update() {
+        destroy_invalid_legs(); //debug
+        move_legs();
+    }
 
  
 
-
+    /* Leg_controller itself */
     void init_moving_strategy() {
         moving_strategy = get_appropriate_moving_strategy();
     }
@@ -93,10 +98,7 @@ public partial class Leg_controller:
         }
     }
 
-    void Update() {
-        destroy_invalid_legs(); //debug
-        move_legs();
-    }
+    
 
     private void destroy_invalid_legs() {
         for(int i_leg = 0; i_leg < legs.Count; i_leg++) {

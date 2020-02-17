@@ -35,13 +35,13 @@ public static class Tools_splitter
         }
 
         foreach (var piece_object in piece_objects) {
-            remove_unnecessary_components(piece_object);
+            remove_unnecessary_tool_controllers(piece_object);
             init_tool_controllers(piece_object);
         }
 
     }
 
-    private static void remove_unnecessary_components(GameObject game_object) {
+    private static void remove_unnecessary_tool_controllers(GameObject game_object) {
         User_of_tools user_of_tools = game_object.GetComponent<User_of_tools>();
         user_of_tools.remove_empty_controllers();
     }
