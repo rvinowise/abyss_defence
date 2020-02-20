@@ -18,7 +18,7 @@ public class Hexapod_spider:Creature {
     
     protected override ITransporter create_transporter() {
         Leg_controller leg_controller =
-            userOfEquipment.add_equipment_controller<Leg_controller>();
+            user_of_equipment.add_equipment_controller<Leg_controller>();
         init.Legs.init(
             leg_controller
         );

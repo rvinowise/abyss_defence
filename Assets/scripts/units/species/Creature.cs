@@ -12,7 +12,7 @@ public abstract class Creature : MonoBehaviour {
     
     
     protected Divisible_body divisible_body;
-    protected User_of_equipment userOfEquipment;
+    protected User_of_equipment user_of_equipment;
     
     /* equipment used by this gameObject */
     public ITransporter transporter;
@@ -24,7 +24,7 @@ public abstract class Creature : MonoBehaviour {
     protected virtual void Awake()
     {
         divisible_body = gameObject.GetComponent<Divisible_body>();
-        userOfEquipment = GetComponent<User_of_equipment>();
+        user_of_equipment = GetComponent<User_of_equipment>();
         control = new Player_control(this.transform);
 
         equip();
@@ -85,12 +85,6 @@ public abstract class Creature : MonoBehaviour {
                 new Vector2(0.5f,1f)
             )
         );*/
-    }
-
-    
-    public enum Species {
-        Normal_spider,
-        Hexapod_spider
     }
     
 }

@@ -39,23 +39,13 @@ public class Divisible_body : MonoBehaviour {
         Sprite inside
     ) {
         List<GameObject> piece_objects = new List<GameObject>();
-        foreach (Polygon collider_piece in collider_pieces) {
-            Texture2D texture_piece;
-            if (inside) {
-                texture_piece =
-                    Texture_splitter.create_texture_with_insides_for_polygon(
-                        body,
-                        inside,
-                        collider_piece
-                    );
-            }
-            else {
-                texture_piece =
-                    Texture_splitter.create_texture_for_polygon(
-                        body,
-                        collider_piece
-                    );
-            }
+        foreach (Polygon collider_piece in collider_pieces)
+        {
+            Texture2D texture_piece =
+                Texture_splitter.create_texture_for_polygon(
+                    body,
+                    collider_piece,
+                    inside);
 
             piece_objects.Add(
                 create_gameobject_from_polygon_and_texture(
@@ -67,7 +57,8 @@ public class Divisible_body : MonoBehaviour {
     }
 
     private GameObject create_gameobject_from_polygon_and_texture(
-        Polygon polygon, Texture2D texture) {
+        Polygon polygon, Texture2D texture) 
+    {
         GameObject created_part = Instantiate(
             gameObject, transform.position, transform.rotation);
 

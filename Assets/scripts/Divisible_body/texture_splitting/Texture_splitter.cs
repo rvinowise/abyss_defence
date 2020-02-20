@@ -11,7 +11,22 @@ static class Texture_splitter {
     
     //Texture2D sticking_out;
 
-
+    static public Texture2D create_texture_for_polygon(
+        Sprite basis,
+        Polygon polygon,
+        Sprite inside=null)
+    {
+        if (inside)
+        {
+            return create_texture_with_insides_for_polygon(
+                basis,
+                inside,
+                polygon);
+        }
+        return create_simple_texture_for_polygon(
+            basis,
+            polygon);
+    }
     static public Texture2D create_texture_with_insides_for_polygon(
         Sprite basis,
         Sprite inside,
@@ -61,7 +76,7 @@ static class Texture_splitter {
         return final_texture;
     }
 
-    static public Texture2D create_texture_for_polygon(
+    static public Texture2D create_simple_texture_for_polygon(
         Sprite basis,
         Polygon polygon
     ) 
@@ -89,6 +104,7 @@ static class Texture_splitter {
         return out_texture;
     }
 
+    
     private static Vector2 adjust_polygon_to_sprite_pivot(Polygon polygon, Sprite sprite) {
         Vector2 shift_in_texture = 
             sprite.pivot -
