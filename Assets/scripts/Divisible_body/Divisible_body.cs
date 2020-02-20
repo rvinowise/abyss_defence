@@ -4,26 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using geometry2d;
-using units;
-using Tool = units.Tool;
+using rvinowise.units;
+using Tool = rvinowise.units.Tool;
 
+
+namespace rvinowise.units.equipment {
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class Divisible_body : MonoBehaviour
-{
+public class Divisible_body : MonoBehaviour {
     public Sprite inside;
-    
-    
+
+
     public void split_by_ray(Ray2D ray_of_split) {
 
         List<Polygon> collider_pieces = Polygon_splitter.split_polygon_by_ray(
             new Polygon(gameObject.GetComponent<PolygonCollider2D>().GetPath(0)),
             transform.InverseTransformRay(ray_of_split)
         );
-        
+
         Sprite body = gameObject.GetComponent<SpriteRenderer>().sprite;
-        
+
         IEnumerable<GameObject> piece_objects = create_objects_for_colliders(
             collider_pieces, body, inside
         );
@@ -36,20 +37,20 @@ public class Divisible_body : MonoBehaviour
         IEnumerable<Polygon> collider_pieces,
         Sprite body,
         Sprite inside
-    ) 
-    {
-        List<GameObject> piece_objects = new List<GameObject>();    
-        foreach(Polygon collider_piece in collider_pieces) {
+    ) {
+        List<GameObject> piece_objects = new List<GameObject>();
+        foreach (Polygon collider_piece in collider_pieces) {
             Texture2D texture_piece;
             if (inside) {
-                texture_piece= 
+                texture_piece =
                     Texture_splitter.create_texture_with_insides_for_polygon(
                         body,
                         inside,
                         collider_piece
                     );
-            } else {
-                texture_piece= 
+            }
+            else {
+                texture_piece =
                     Texture_splitter.create_texture_for_polygon(
                         body,
                         collider_piece
@@ -78,19 +79,15 @@ public class Divisible_body : MonoBehaviour
             body_sprite.pixelsPerUnit
         );
 
-        created_part.GetComponent<PolygonCollider2D>().SetPath(0, polygon.points);
+        created_part.GetComponent<PolygonCollider2D>().SetPath(0, polygon.points.ToArray());
         created_part.GetComponent<SpriteRenderer>().sprite = sprite;
         return created_part;
     }
 
-    void Start()
-    {
-    }
+    void Start() { }
 
-    void Update()
-    {
+    void Update() { }
 
-    }
 
-     
+}
 }

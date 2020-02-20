@@ -7,23 +7,18 @@ using System.Diagnostics.Contracts;
 using UnityEngine;
 using rvinowise;
 
-namespace units.limbs {
+namespace rvinowise.units.equipment.limbs {
 
 /* Leg controller */
 public partial class Leg_controller: 
-    ITool_controller
+    Equipment_controller
    ,ITransporter
 {
-    /* parameters for editor */
-    public Sprite sprite_femur;// = Resources.Load<Sprite>("sprites/basic_spider/femur.png");
-    public Sprite sprite_tibia;// = Resources.Load<Sprite>("sprites/basic_spider/tibia.png");
-    public bool needs_initialization = true;
+    public strategy.Moving_strategy moving_strategy;
 
-    strategy.Moving_strategy moving_strategy;
-
-   
     
-    internal List<Leg> legs {
+    
+    public List<Leg> legs {
         set {
             _legs = value;
             init_moving_strategy();
@@ -32,30 +27,35 @@ public partial class Leg_controller:
             return _legs;
         }
     }
-    internal Leg left_front_leg {
+    public Leg left_front_leg {
         get { return legs[0];}
         private set { legs[0] = value; }
     }
-    internal Leg right_front_leg {
+    public Leg right_front_leg {
         get { return legs[1];}
         private set { legs[1] = value; }
     }
-    internal Leg left_hind_leg {
+    public Leg left_hind_leg {
         get { return legs[2];}
         private set { legs[2] = value; }
     }
-    internal Leg right_hind_leg {
+    public Leg right_hind_leg {
         get { return legs[3];}
         private set { legs[3] = value; }
     }
     private List<Leg> _legs = new List<Leg>();
 
+    
+    
     /* Tool_controller interface */
     public override IEnumerable<Tool> tools  {
         get { return legs; }
     }
-    public override void init() {
-        init_moving_strategy();
+
+    
+    
+    public override IEquipment_controller copy_empty_into(User_of_equipment dst_host) {
+        return new Leg_controller(dst_host);
     }
 
     public override void add_tool(Tool tool) {
@@ -64,16 +64,60 @@ public partial class Leg_controller:
         legs.Add(leg);
         leg.host = transform;
     }
-    
+
+    public override void init() {
+        init_moving_strategy();
+    }
+
     public override void update() {
         destroy_invalid_legs(); //debug
         move_legs();
     }
 
+    
+    /* ITransporter interface */
+    public ITransporter get_copy() {
+        Leg_controller new_leg_controller = new Leg_controller();
+        return new_leg_controller; //TODO
+    }
  
+    public float get_possible_impulse() {
+        float impulse = 0;
+        foreach (Leg leg in legs) {
+            if (!leg.is_up) {
+                impulse += leg.provided_impulse;
+            }
+        }
+        if (moving_strategy.belly_touches_ground()) {
+            impulse *= belly_friction_multiplier;
+        }
+        return impulse;
+    }
 
+    public float get_possible_rotation() {
+        float impulse = 0;
+        foreach (Leg leg in legs) {
+            if (!leg.is_up) {
+                impulse += leg.provided_impulse * 100;
+            }
+        }
+        if (moving_strategy.belly_touches_ground()) {
+            impulse *= belly_friction_multiplier;
+        }
+        return impulse;
+    }
+
+    
     /* Leg_controller itself */
-    void init_moving_strategy() {
+    public Leg_controller(User_of_equipment in_user):base() {
+        userOfEquipment = in_user;
+    }
+    
+    /* i need this function only for a generic adder (constructors can't have parameters there)*/
+    public Leg_controller():base()  {
+    }
+    
+    public void init_moving_strategy() {
         moving_strategy = get_appropriate_moving_strategy();
     }
     private strategy.Moving_strategy get_appropriate_moving_strategy() {
@@ -89,13 +133,7 @@ public partial class Leg_controller:
 
     void Awake()
     {
-        if (needs_initialization) {
-            Legs_initializer.init_for_spider(this);
-            needs_initialization = false;
-        }
-        if (legs == null) {
-            this.enabled = false;
-        }
+
     }
 
     
@@ -145,30 +183,7 @@ public partial class Leg_controller:
     static float belly_friction_multiplier = 0.9f;
 
 
-    public float get_possible_impulse() {
-        float impulse = 0;
-        foreach (Leg leg in legs) {
-            if (!leg.is_up) {
-                impulse += leg.provided_impulse;
-            }
-        }
-        if (moving_strategy.belly_touches_ground()) {
-            impulse *= belly_friction_multiplier;
-        }
-        return impulse;
-    }
-    public float get_possible_rotation() {
-        float impulse = 0;
-        foreach (Leg leg in legs) {
-            if (!leg.is_up) {
-                impulse += leg.provided_impulse * 100;
-            }
-        }
-        if (moving_strategy.belly_touches_ground()) {
-            impulse *= belly_friction_multiplier;
-        }
-        return impulse;
-    }
+    
 
     private void OnDrawGizmos() {
         foreach (var leg in legs) {

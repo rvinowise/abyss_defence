@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace units {
-namespace limbs {
+namespace rvinowise.units.equipment.limbs {
 
 public class Segment {
     /* constant characteristics */
@@ -92,5 +91,4 @@ public class Segment {
     }
 }
 
-}
 }

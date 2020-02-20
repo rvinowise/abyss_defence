@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace units {
-namespace limbs {
+namespace rvinowise.units.equipment.limbs {
 
 public struct Span {
     /* possible rotation of a segment relative to it's attachment  */
@@ -39,5 +38,4 @@ public struct Span {
     }
 }
 
-}
 }

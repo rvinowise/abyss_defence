@@ -6,7 +6,6 @@ using geometry2d;
 public class Debug_drawer : MonoBehaviour
 {
     
-    public GameObject divided;
 
     LineRenderer lineRenderer;
     bool pressed = false;

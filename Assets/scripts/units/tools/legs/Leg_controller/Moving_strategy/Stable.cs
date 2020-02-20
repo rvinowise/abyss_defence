@@ -6,19 +6,17 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace units {
-namespace limbs {
-namespace strategy {
+namespace rvinowise.units.equipment.limbs.strategy {
 
 /* always keep the belly above the ground:
  best speed and control
  */
-internal class Stable: Moving_strategy
+public class Stable: Moving_strategy
 {
-    internal Stable(IList<Leg> in_legs) : base(in_legs) { }
+    public Stable(IList<Leg> in_legs) : base(in_legs) { }
 
     /* legs that are enough to be stable if they are on the ground */
-    internal List<Stable_leg_group> stable_leg_groups;
+    public List<Stable_leg_group> stable_leg_groups;
 
     internal override void move_on_the_ground(Leg leg) {
         bool can_hold = leg.hold_onto_ground();
@@ -65,6 +63,4 @@ internal class Stable: Moving_strategy
     }
 }
 
-}
-}
 }

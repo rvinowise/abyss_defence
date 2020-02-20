@@ -7,7 +7,7 @@ using static rvi.Input;
 using geometry2d;
 using static geometry2d.Directions;
 
-namespace units {
+namespace rvinowise.units {
 
 public class Player_control: IControl  {
     public float horizontal {get;private set;}

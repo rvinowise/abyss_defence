@@ -6,9 +6,7 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace units {
-namespace limbs {
-namespace strategy {
+namespace rvinowise.units.equipment.limbs.strategy {
 
 /* don't try to raise the belly above the ground,
    but keep one leg on the ground to move constantly:
@@ -57,6 +55,4 @@ internal class Grovelling: Moving_strategy
     }
 }
 
-}
-}
 }

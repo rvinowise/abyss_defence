@@ -1,36 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using rvinowise.units.equipment;
 using UnityEngine;
-using geometry2d;
-using units.limbs;
 
-namespace units {
+
+namespace rvinowise.units {
 
 [RequireComponent(typeof(PolygonCollider2D))]
-public class Creature : MonoBehaviour {
+public abstract class Creature : MonoBehaviour {
     
-    public Species species;
     
     protected Divisible_body divisible_body;
-    protected User_of_tools user_of_tools;
+    protected User_of_equipment userOfEquipment;
     
-    protected ITransporter transporter;
+    /* equipment used by this gameObject */
+    public ITransporter transporter;
+    public IWeaponry weaponry;
     
     IControl control;
-    
 
+    
     protected virtual void Awake()
     {
         divisible_body = gameObject.GetComponent<Divisible_body>();
-        user_of_tools = GetComponent<User_of_tools>();
-        transporter = gameObject.GetComponent<Leg_controller>();
-        
+        userOfEquipment = GetComponent<User_of_equipment>();
         control = new Player_control(this.transform);
 
+        equip();
     }
 
+    public void copy_from(Creature src_creature) {
+        //user_of_tools
+        transporter = src_creature.transporter.get_copy();
+        //weaponry = src_creature.weaponry.get_copy();
+    }
+    
+    public void equip() {
+        transporter = create_transporter();
+        //weaponry = get_weaponry();
+    }
 
+    protected abstract ITransporter create_transporter(); 
+    protected abstract IWeaponry get_weaponry();
 
    void FixedUpdate() {
         control.read_input();
@@ -82,7 +94,6 @@ public class Creature : MonoBehaviour {
     }
     
 }
-
 
 
 }

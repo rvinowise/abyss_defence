@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using geometry2d;
 using static geometry2d.Directions;
-using units;
+using rvinowise.units;
 
-namespace units {
-namespace limbs {
+namespace rvinowise.units.equipment.limbs {
 
 public class Leg: Tool 
 {
@@ -215,11 +214,11 @@ public class Leg: Tool
     
 
     public class Debug {
-        Leg leg;
+        private readonly Leg leg;
         Color problem_color = new Color(255,50,50);
         Color optimal_color = new Color(50,255,50);
-        float sphere_size = 0.05f;
-        bool debug_off = false; // MANU debug
+        private const float sphere_size = 0.05f;
+        private const bool debug_off = false; // MANU debug
         public string name;
 
         public Debug(Leg _parent_leg) {
@@ -260,7 +259,7 @@ public class Leg: Tool
                 leg.host.TransformPoint(leg.optimal_relative_position), sphere_size);
          }
     }
-    public Debug debug;
+    public readonly Debug debug;
 
     public bool is_valid() {
         // this way it can be deleted from the editor when debugging
@@ -279,5 +278,4 @@ public class Leg: Tool
 
 
 
-}
 }

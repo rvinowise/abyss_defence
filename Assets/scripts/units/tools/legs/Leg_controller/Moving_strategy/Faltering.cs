@@ -6,9 +6,8 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace units {
-namespace limbs {
-namespace strategy {
+namespace rvinowise.units.equipment.limbs.strategy {
+
 
 /* don't try to move constantly - all legs can be raised up:
  bad speed and control
@@ -36,6 +35,4 @@ internal class Faltering: Moving_strategy
     }
 }
 
-}
-}
 }

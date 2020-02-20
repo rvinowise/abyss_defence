@@ -6,11 +6,8 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace units {
-namespace limbs {
-namespace strategy {
-
-internal abstract class Moving_strategy {
+namespace rvinowise.units.equipment.limbs.strategy {
+public abstract class Moving_strategy {
 
     protected readonly IList<Leg> legs;
 
@@ -23,6 +20,4 @@ internal abstract class Moving_strategy {
     internal abstract bool belly_touches_ground();
 }
 
-}
-}
 }
