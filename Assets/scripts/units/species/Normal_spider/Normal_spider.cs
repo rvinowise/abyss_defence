@@ -28,8 +28,8 @@ public class Normal_spider: Creature {
         return leg_controller;
     }
 
-    protected override IWeaponry get_weaponry() {
-        throw new NotImplementedException();
+    protected IWeaponry weaponry {
+        get { throw new NotImplementedException(); }
     }
 }
 }

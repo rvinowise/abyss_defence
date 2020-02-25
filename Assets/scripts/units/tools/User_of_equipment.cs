@@ -7,13 +7,18 @@ using UnityEngine;
 using rvinowise;
 using rvinowise.units;
 using rvinowise.units.equipment;
+using rvinowise.units.debug;
 
 namespace rvinowise.units.equipment
 {
 public class User_of_equipment:MonoBehaviour
 {
     private IList<IEquipment_controller> _equipment_controllers = new List<IEquipment_controller>();
-    
+
+    public IControl control;
+    public ITransporter transporter { get; set; }
+    public IWeaponry weaponry { get; set; }
+
     public IList<IEquipment_controller> equipment_controllers {
         get {
             return _equipment_controllers;
@@ -25,7 +30,12 @@ public class User_of_equipment:MonoBehaviour
             }
         }
     }
-
+    
+    private void Awake()
+    {
+        debug = new Debug(this);
+        debug.increase_counter();
+    }
     public void add_equipment_controller(IEquipment_controller tool_controller) {
         tool_controller.add_to_user(this);
         _equipment_controllers.Add(tool_controller);
@@ -39,18 +49,20 @@ public class User_of_equipment:MonoBehaviour
         return new_tool_controller;
     }
 
-    public void copy_tool_controllers_from(User_of_equipment src_user) {
-        foreach (var src_tool_controller in src_user.equipment_controllers) {
-            equipment_controllers.Add(src_tool_controller.copy_empty_into(this));
-        }
+    public void copy_equipment_controllers_from(User_of_equipment src_user) {
+        transporter = src_user.transporter?.copy_empty_into(this) as ITransporter;
+        weaponry = src_user.weaponry?.copy_empty_into(this) as IWeaponry;
+        
     }
-    
 
-    private void Awake()
-    {
-        debug = new Debug(this);
-        debug.increase_counter();
-    }
+    /*private void copy_array_of_equipment_controllers(User_of_equipment src_user) {
+        foreach (var src_equipment_controller in src_user.equipment_controllers) {
+            equipment_controllers.Add(src_equipment_controller.copy_empty_into(this));
+        }
+    }*/
+
+
+    
 
     private void FixedUpdate() {
         foreach (var equipment_controller in equipment_controllers) {
@@ -93,18 +105,23 @@ public class User_of_equipment:MonoBehaviour
         }*/
     }
 
-    public class Debug: debug.Debugger {
+    void OnDrawGizmos() {
+        foreach (Equipment_controller equipment_controller in equipment_controllers) {
+            equipment_controller.on_draw_gizmos();
+        }
+    }
+    
+    public class Debug: Debugger {
         //private User_of_tools user_of_tools;
         protected override ref int count {
             get { return ref _count; }
         }
-        protected int _count = 0;
+        static protected int _count = 0;
 
         public Debug(User_of_equipment in_user):base(in_user) {
         }
 
     }
-
     public Debug debug;
 }
 

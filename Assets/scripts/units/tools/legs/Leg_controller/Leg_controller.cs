@@ -6,17 +6,21 @@ using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 using rvinowise;
+using rvinowise.units;
 
 namespace rvinowise.units.equipment.limbs {
 
 /* Leg controller */
-public partial class Leg_controller: 
+public class Leg_controller: 
     Equipment_controller
    ,ITransporter
 {
     public strategy.Moving_strategy moving_strategy;
 
-    
+
+    private IControl control {
+        get { return user_of_equipment.control; }
+    }
     
     public List<Leg> legs {
         set {
@@ -47,13 +51,11 @@ public partial class Leg_controller:
 
     
     
-    /* Tool_controller interface */
+    /* Equipment_controller interface */
     public override IEnumerable<Tool> tools  {
         get { return legs; }
     }
 
-    
-    
     public override IEquipment_controller copy_empty_into(User_of_equipment dst_host) {
         return new Leg_controller(dst_host);
     }
@@ -74,14 +76,46 @@ public partial class Leg_controller:
         move_legs();
     }
 
+    public override void on_draw_gizmos() {
+        foreach (Leg leg in legs) {
+            leg.debug.draw_positions();
+            leg.debug.draw_desired_directions(Color.green, 0.1f);
+        }
+        //draw_moving_direction();
+    }
+
+    private void draw_moving_direction() {
+        UnityEngine.Debug.DrawLine(
+            this.user_of_equipment.transform.position, 
+            (Vector2)this.user_of_equipment.transform.position +
+            control.moving_direction_vector,
+            Color.green,
+            1f
+        );
+    }
+    
     
     /* ITransporter interface */
-    public ITransporter get_copy() {
-        Leg_controller new_leg_controller = new Leg_controller();
-        return new_leg_controller; //TODO
+
+    public void move_in_direction(Vector2 face_direction) {
+        Vector2 delta_movement = (face_direction * get_possible_impulse() * rvi.Time.deltaTime);
+        transform.position += (Vector3)delta_movement;
     }
- 
+    public void move_in_direction(float direction) {
+        throw new NotImplementedException();
+    }
+    
+    public void rotate_to_direction(float face_direction) {
+        transform.rotate_to(
+            face_direction, 
+            get_possible_rotation() * rvi.Time.deltaTime
+        );
+    }
+    
     public float get_possible_impulse() {
+        if (moving_strategy is null) {
+            return 0f;
+        }
         float impulse = 0;
         foreach (Leg leg in legs) {
             if (!leg.is_up) {
@@ -94,7 +128,12 @@ public partial class Leg_controller:
         return impulse;
     }
 
+    
+    static float belly_friction_multiplier = 0.9f;
     public float get_possible_rotation() {
+        if (moving_strategy is null) {
+            return 0f;
+        }
         float impulse = 0;
         foreach (Leg leg in legs) {
             if (!leg.is_up) {
@@ -109,8 +148,13 @@ public partial class Leg_controller:
 
     
     /* Leg_controller itself */
-    public Leg_controller(User_of_equipment in_user):base() {
-        userOfEquipment = in_user;
+    
+    /* the distance that the optimal_position is moved in during walking */
+    public float moving_offset_distance = 0.3f;
+    
+    public Leg_controller(User_of_equipment in_user):base(in_user) {
+        
+        
     }
     
     /* i need this function only for a generic adder (constructors can't have parameters there)*/
@@ -159,6 +203,7 @@ public partial class Leg_controller:
     }
     
     void move_in_the_air(Leg leg) {
+        determine_optimal_directions_for(leg);
         if (leg.has_reached_aim()) {
             leg.put_down();
         } else {
@@ -167,8 +212,16 @@ public partial class Leg_controller:
         }
     }
 
-    
+    private void determine_optimal_directions_for(Leg leg) {
+        Vector2 shift_to_moving_direction =
+            control.moving_direction_vector *
+            moving_offset_distance;
 
+        leg.set_optimal_position(
+            (Vector2)leg.host.TransformPoint(leg.optimal_relative_position_standing) + 
+            shift_to_moving_direction
+        );
+    }
     
 
     bool can_move() {
@@ -180,16 +233,8 @@ public partial class Leg_controller:
         return false;
     }
 
-    static float belly_friction_multiplier = 0.9f;
-
 
     
-
-    private void OnDrawGizmos() {
-        foreach (var leg in legs) {
-            leg.debug.draw_positions();
-        }
-    }
 }
 
 enum Impulse {

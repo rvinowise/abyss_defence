@@ -3,7 +3,9 @@
     "references": [
         "geometry2d",
 		"tools",
-		"extensions"
+		"extensions",
+        "control",
+        "debug"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

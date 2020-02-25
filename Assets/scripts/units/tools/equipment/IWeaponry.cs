@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 namespace rvinowise.units.equipment {
-public interface IWeaponry {
+public interface IWeaponry: IEquipment_controller {
     
 }
 }

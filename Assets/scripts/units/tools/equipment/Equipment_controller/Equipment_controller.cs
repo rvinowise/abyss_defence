@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
+using rvinowise.units.debug;
 using UnityEngine;
 
 namespace rvinowise.units.equipment
 {
 
-/* this class is needed only to make the User_of_tools component
-necessary with the Tool_controller. Otherwise direct implementing 
-IEquipment_controller is enough.
- 
+/*
 represents a coherent system of several objects, 
 which work together under control of this object:
 Legs, Weapons etc. 
@@ -17,11 +15,14 @@ public abstract class Equipment_controller:
     IEquipment_controller
     
 {
-    protected User_of_equipment userOfEquipment; //host
+    protected User_of_equipment user_of_equipment; //host
 
-    public Equipment_controller() {
+    public Equipment_controller(User_of_equipment in_user) {
         debug = new Debug(this);
         debug.increase_counter();
+        
+        user_of_equipment = in_user;
+        in_user.equipment_controllers.Add(this);
     }
 
     ~Equipment_controller() {
@@ -30,7 +31,7 @@ public abstract class Equipment_controller:
     
     public Transform transform {
         get {
-            return userOfEquipment.transform;
+            return user_of_equipment.transform;
         }
     }
     
@@ -38,7 +39,7 @@ public abstract class Equipment_controller:
         get;
     }
     public void add_to_user(User_of_equipment in_user) {
-        userOfEquipment = in_user;
+        user_of_equipment = in_user;
     }
 
     public abstract IEquipment_controller copy_empty_into(User_of_equipment dst_host);
@@ -48,17 +49,26 @@ public abstract class Equipment_controller:
     public abstract void init();
     public abstract void update();
 
-    public class Debug: debug.Debugger {
+    public class Debug: Debugger {
         protected override ref int count {
             get { return ref _count; }
         }
-        protected int _count = 0;
+        static protected int _count = 0;
 
         public Debug(Equipment_controller in_controller):base(in_controller) {
         }
     }
 
     public Debug debug;
+
+    protected Equipment_controller() {
+        
+    }
+
+    public virtual void on_draw_gizmos() {
+    
+    }
+    
 }
 
 }

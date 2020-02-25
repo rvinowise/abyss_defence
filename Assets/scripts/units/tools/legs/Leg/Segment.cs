@@ -5,7 +5,7 @@ using UnityEngine;
 namespace rvinowise.units.equipment.limbs {
 
 public class Segment {
-    /* constant characteristics */
+    /* constant characteristics. they are written during construction */
     public Vector2 tip {
         get {
             return _tip;
@@ -24,9 +24,14 @@ public class Segment {
     public Transform host;
     public Vector2 attachment_point;
     public float rotation_speed;
+    
+    /* the most comfortable direction if the body isn't moving.
+     determined during construction*/
+    public Quaternion desired_relative_direction_standing { get; set; } //relative to attachment
 
     /* current characteristics */
-    public Quaternion desired_relative_direction; //relative to attachment
+    
+    public Quaternion desired_direction { get; set; }
     
     public readonly GameObject game_object;
 
@@ -86,6 +91,7 @@ public class Segment {
         }
     }
     
+
     public void attach_to_host() {
         game_object.transform.position = host.TransformPoint(attachment_point);
     }

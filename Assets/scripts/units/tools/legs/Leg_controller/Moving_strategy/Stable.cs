@@ -13,7 +13,9 @@ namespace rvinowise.units.equipment.limbs.strategy {
  */
 public class Stable: Moving_strategy
 {
-    public Stable(IList<Leg> in_legs) : base(in_legs) { }
+    public Stable(IList<Leg> in_legs) : base(in_legs) {
+        
+    }
 
     /* legs that are enough to be stable if they are on the ground */
     public List<Stable_leg_group> stable_leg_groups;
@@ -28,8 +30,8 @@ public class Stable: Moving_strategy
             leg.debug.draw_lines(Color.red);
             leg.raise_up();
             leg.attach_to_attachment_points();
-        }
-        if (leg.is_twisted_uncomfortably()) {
+        } 
+        else if (leg.is_twisted_uncomfortably()) {
             if (is_standing_stable_without(leg)) {
                 leg.raise_up();
                 leg.attach_to_attachment_points();

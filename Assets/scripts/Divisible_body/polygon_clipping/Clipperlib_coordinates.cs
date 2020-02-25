@@ -23,7 +23,7 @@ public static class Clipperlib_coordinates
         );
     }
     static public Path float_coord_to_int(Polygon float_polygon) {
-        Path int_polygon = new Path();
+        Path int_polygon = new Path(float_polygon.points.Count);
         foreach (Vector2 vector in float_polygon.points) {
             int_polygon.Add(float_coord_to_int(vector));
         }
@@ -31,11 +31,11 @@ public static class Clipperlib_coordinates
     }
 
     static public List<Polygon> int_coord_to_float(Pathes int_solution) {
-        List<Polygon> float_polygons = new List<Polygon>();
+        List<Polygon> float_polygons = new List<Polygon>(int_solution.Count);
         foreach (Path int_polygon in int_solution) {
             float_polygons.Add(new Polygon(int_polygon.Count));
             foreach (ClipperLib.IntPoint int_point in int_polygon) {
-                float_polygons.Last().points.Add(new Vector2(
+                float_polygons[float_polygons.Count-1].points.Add(new Vector2(
                     int_point.X / float_int_multiplier,
                     int_point.Y / float_int_multiplier
                 ));

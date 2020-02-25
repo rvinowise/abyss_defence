@@ -1,7 +1,9 @@
 {
     "name": "tools",
     "references": [
-		"geometry2d"
+		"geometry2d",
+		"control",
+		"debug"
 	],
     "includePlatforms": [],
     "excludePlatforms": [],

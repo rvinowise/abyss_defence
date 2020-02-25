@@ -75,9 +75,6 @@ public class Divisible_body : MonoBehaviour {
         return created_part;
     }
 
-    void Start() { }
-
-    void Update() { }
 
 
 }

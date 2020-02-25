@@ -7,7 +7,7 @@ using rvinowise.units.equipment.limbs.strategy;
 
 
 namespace rvinowise.units.normal_spider.init {
-using units.equipment.limbs;
+using rvinowise.units.equipment.limbs;
 using units;
 
 static class Legs {
@@ -28,18 +28,10 @@ static class Legs {
             init_common_parameters(leg);
         }
 
-        //controller.init_moving_strategy();
-        controller.moving_strategy = new equipment.limbs.strategy.Stable(controller.legs) {
-            stable_leg_groups = new List<Stable_leg_group>() {
-                new Stable_leg_group(
-                    new List<Leg>() {controller.left_front_leg, controller.right_hind_leg}
-                ),
-                new Stable_leg_group(
-                    new List<Leg>() {controller.right_front_leg, controller.left_hind_leg}
-                )
-            }
-        };
+        create_moving_strategy(controller);
     }
+
+    
 
     private static void init_parameters_that_shoud_be_mirrored(Leg_controller controller) {
         init_left_front_leg(
@@ -85,8 +77,8 @@ static class Legs {
         leg.tibia.attachment_point = leg.femur.tip;
         leg.tibia.rotation_speed = rotation_speed;
 
-        leg.femur.desired_relative_direction = Directions.degrees_to_quaternion(100f);
-        leg.tibia.desired_relative_direction = Directions.degrees_to_quaternion(-100f);
+        leg.femur.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
+        leg.tibia.desired_relative_direction_standing = Directions.degrees_to_quaternion(-100f);
     }
 
     private static void init_left_hind_leg(Leg leg, Sprite sprite_femur, Sprite sprite_tibia) {
@@ -102,8 +94,8 @@ static class Legs {
         leg.tibia.spriteRenderer.sprite = sprite_tibia;
         leg.tibia.attachment_point = leg.femur.tip;
         leg.tibia.rotation_speed = rotation_speed;
-        leg.femur.desired_relative_direction = Directions.degrees_to_quaternion(100f);
-        leg.tibia.desired_relative_direction = Directions.degrees_to_quaternion(100f);
+        leg.femur.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
+        leg.tibia.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
 
     }
 
@@ -117,13 +109,10 @@ static class Legs {
     }
 
     private static void init_optimal_relative_position(Leg leg) {
-        leg.optimal_relative_position =
-            leg.attachment +
-            (Vector2) (leg.femur.desired_relative_direction * leg.femur.tip) +
-            (Vector2) (
-                leg.tibia.desired_relative_direction *
-                leg.femur.desired_relative_direction *
-                leg.tibia.tip
+        leg.optimal_relative_position_standing =
+            leg.get_end_position_from_angles(
+                leg.femur.desired_relative_direction_standing,
+                leg.tibia.desired_relative_direction_standing
             );
     }
 
@@ -150,10 +139,10 @@ static class Legs {
             src.tibia.tip.x,
             -src.tibia.tip.y
         );
-        dst.femur.desired_relative_direction =
-            Quaternion.Inverse(src.femur.desired_relative_direction);
-        dst.tibia.desired_relative_direction =
-            Quaternion.Inverse(src.tibia.desired_relative_direction);
+        dst.femur.desired_relative_direction_standing =
+            Quaternion.Inverse(src.femur.desired_relative_direction_standing);
+        dst.tibia.desired_relative_direction_standing =
+            Quaternion.Inverse(src.tibia.desired_relative_direction_standing);
         dst.femur_folding_direction = src.femur_folding_direction * -1;
 
         dst.femur.spriteRenderer.sprite = src.femur.spriteRenderer.sprite;
@@ -177,6 +166,19 @@ static class Legs {
         dst.tibia.rotation_speed = src.tibia.rotation_speed;
     }
 
+    
+    private static void create_moving_strategy(Leg_controller controller) {
+        controller.moving_strategy = new equipment.limbs.strategy.Stable(controller.legs) {
+            stable_leg_groups = new List<Stable_leg_group>() {
+                new Stable_leg_group(
+                    new List<Leg>() {controller.left_front_leg, controller.right_hind_leg}
+                ),
+                new Stable_leg_group(
+                    new List<Leg>() {controller.right_front_leg, controller.left_hind_leg}
+                )
+            }
+        };
+    }
 
 }
 
