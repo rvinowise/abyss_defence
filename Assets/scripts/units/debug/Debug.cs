@@ -3,7 +3,7 @@
 namespace rvinowise.units.debug {
 
 public abstract class Debugger {
-    public static bool is_off = true; //MANU
+    public static bool is_off = false; //MANU
     
     public System.Object obj;
 

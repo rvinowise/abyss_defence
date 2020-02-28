@@ -7,6 +7,7 @@ using UnityEngine;
 using geometry2d;
 using rvinowise.units.equipment;
 using rvinowise.units.equipment.limbs;
+using units.equipment.transport;
 
 namespace rvinowise.units.hexapod_spider {
 

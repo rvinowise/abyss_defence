@@ -1,10 +1,11 @@
 {
-    "name": "control",
+    "name": "Legs",
     "references": [
-		"geometry2d",
+        "geometry2d",
+		"equipment",
 		"extensions",
-		"equipment"
-	],
+        "debug"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

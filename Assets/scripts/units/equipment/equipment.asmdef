@@ -1,9 +1,8 @@
 {
-    "name": "control",
+    "name": "equipment",
     "references": [
 		"geometry2d",
-		"extensions",
-		"equipment"
+		"debug"
 	],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using geometry2d;
+using rvinowise;
 
 [RequireComponent(typeof(LineRenderer))]
 public class Debug_drawer : MonoBehaviour
@@ -23,7 +24,7 @@ public class Debug_drawer : MonoBehaviour
  
     void Update()
     {
-        Vector2 mousePos = rvi.Input.mouse_world_position();
+        Vector2 mousePos = rvinowise.rvi.Input.mouse_world_position();
         ray = new Ray2D(
             mousePos,
             new Vector2(0.5f,1f)

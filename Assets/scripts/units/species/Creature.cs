@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using rvinowise.units.control;
 using rvinowise.units.equipment;
+using units.control;
+using units.equipment.transport;
 using UnityEngine;
 
 
@@ -13,27 +16,20 @@ public abstract class Creature : MonoBehaviour {
     public bool needs_initialisation = true; //it was added ineditor and created from scratch
     
     protected Divisible_body divisible_body;
-    protected User_of_equipment user_of_equipment;
-    
-    /* equipment used by this gameObject */
-    public ITransporter transporter {
-        get { return user_of_equipment.transporter; }
-        set => user_of_equipment.transporter = value;
-    }
-    public IWeaponry weaponry {
-        get { return user_of_equipment.weaponry; }
-        set => user_of_equipment.weaponry = value;
+
+
+    protected User_of_equipment user_of_equipment {
+        get { return intelligence.user_of_equipment; }
     }
     
-    IControl control;
+    Intelligence intelligence;
 
     
     protected virtual void Awake()
     {
         divisible_body = gameObject.GetComponent<Divisible_body>();
-        control = new Player_control(this.transform);
-        user_of_equipment = GetComponent<User_of_equipment>();
-        user_of_equipment.control = control;
+        intelligence = new Player_control(transform);
+        intelligence.user_of_equipment = GetComponent<User_of_equipment>();
 
         if (needs_initialisation) {
             equip();
@@ -42,7 +38,7 @@ public abstract class Creature : MonoBehaviour {
     }
     
     public void equip() {
-        transporter = create_transporter();
+        intelligence.transporter = create_transporter();
         //weaponry = get_weaponry();
     }
 
@@ -50,21 +46,10 @@ public abstract class Creature : MonoBehaviour {
     //protected abstract IWeaponry get_weaponry();
 
    void FixedUpdate() {
-        control.read_input();
-        apply_control(control);
+       intelligence.update();
    }
     
-    private void apply_control(IControl control) {
-
-        transporter.rotate_to_direction(control.face_direction_degrees);
-        transporter.move_in_direction(control.moving_direction_vector);
-        
-        
-        /*Debug.DrawRay(
-            transform.position, 
-            Directions.degrees_to_vector(control.rotation)
-            ); */
-    }
+    
 
     void OnMouseDown() {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -73,15 +58,7 @@ public abstract class Creature : MonoBehaviour {
                 new Vector2(0.5f,1f)
             );
         divisible_body.split_by_ray(ray);
-        /*divisible_body.split_by_ray(
-            new Ray2D(
-                Camera.main.ScreenToWorldPoint(
-                    new Vector2(Input.mousePosition.x, 
-                                Input.mousePosition.y)
-                ),
-                new Vector2(0.5f,1f)
-            )
-        );*/
+
     }
     
 }

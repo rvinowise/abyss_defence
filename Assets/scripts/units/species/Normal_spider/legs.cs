@@ -51,7 +51,7 @@ static class Legs {
 
     private static List<Leg> create_legs(Leg_controller controller) {
         for (int i = 0; i < 4; i++) {
-            controller.add_tool(new Leg(controller.transform));
+            controller.add_tool(new Leg(controller.game_object.transform));
         }
         controller.left_front_leg.debug.name = "left_front_leg";
         controller.right_front_leg.debug.name = "right_front_leg";

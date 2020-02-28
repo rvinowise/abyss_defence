@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 using geometry2d;
 using rvinowise.units;
-using Tool = rvinowise.units.Tool;
+using rvinowise.units.equipment;
 
 
 namespace rvinowise.units.equipment {
