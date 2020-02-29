@@ -3,16 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
+using System.Linq;
 using UnityEngine;
 using rvinowise;
 using rvinowise.units;
 using units.equipment.transport;
+using rvinowise.rvi.contracts;
+using rvinowise.units.equipment.limbs.strategy;
 
 namespace rvinowise.units.equipment.limbs {
 
 /* Leg controller */
-public class Leg_controller: 
+public partial class Leg_controller: 
     Equipment_controller
    ,ITransporter
 {
@@ -72,6 +74,11 @@ public class Leg_controller:
         execute_commands(this.command_batch);
         move_legs();
     }
+    
+    
+
+
+    /* Leg_controller interface */
 
     public override void on_draw_gizmos() {
         foreach (Leg leg in legs) {

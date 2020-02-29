@@ -12,10 +12,19 @@ public class Guns_controller:
     Equipment_controller
     ,IWeaponry 
 {
+    
+    
     public override IEnumerable<Tool> tools { get; }
-    public override IEquipment_controller copy_empty_into(User_of_equipment dst_host) {
-        throw new NotImplementedException();
+
+    public Guns_controller(User_of_equipment dst_host) : base(dst_host) {
+        
     }
+    
+    public override IEquipment_controller copy_empty_into(User_of_equipment dst_host) {
+        return new Guns_controller(dst_host);
+    }
+
+    
 
     public override void init() {
         throw new NotImplementedException();
@@ -28,5 +37,6 @@ public class Guns_controller:
     public override void add_tool(Tool tool) {
         throw new NotImplementedException();
     }
+    
 }
 }

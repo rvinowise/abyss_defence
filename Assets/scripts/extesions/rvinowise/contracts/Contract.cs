@@ -35,5 +35,15 @@ public class Contract {
         //UnityEngine.Assertions.Assert.IsTrue(condition);
 #endif
     }
+    
+    /* not strict requirement, but most logical use of the code.
+     if broken, something is not optimal */
+    public static void Assume( bool condition, string message="")
+    {
+#if RVI_CONTRACTS
+        UnityEngine.Debug.Assert(condition, message);
+        //UnityEngine.Assertions.Assert.IsTrue(condition);
+#endif
+    }
 }
 }

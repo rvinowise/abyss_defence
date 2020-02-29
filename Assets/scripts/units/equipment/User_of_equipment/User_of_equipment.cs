@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using UnityEngine;
 using rvinowise;
 using rvinowise.units;
 using rvinowise.units.equipment;
+using rvinowise.rvi.contracts;
 using rvinowise.units.debug;
 using units.equipment.transport;
 
 namespace rvinowise.units.equipment
 {
-public class User_of_equipment:MonoBehaviour
+public partial class User_of_equipment:MonoBehaviour
 {
 
     public GameObject game_object {
@@ -21,30 +21,30 @@ public class User_of_equipment:MonoBehaviour
     public ITransporter transporter { get; set; }
     public IWeaponry weaponry { get; set; }
 
-    public IList<IEquipment_controller> equipment_controllers {
+    public IList<Equipment_controller> equipment_controllers {
         get {
             return _equipment_controllers;
         }
         private set {
-            _equipment_controllers = (List<IEquipment_controller>)value;
-            foreach (IEquipment_controller equipment_controller in _equipment_controllers) {
+            _equipment_controllers = (List<Equipment_controller>)value;
+            foreach (Equipment_controller equipment_controller in _equipment_controllers) {
                 equipment_controller.add_to_user(this);
             }
         }
     }
-    private IList<IEquipment_controller> _equipment_controllers = new List<IEquipment_controller>();
+    private IList<Equipment_controller> _equipment_controllers = new List<Equipment_controller>();
     
     private void Awake()
     {
         debug = new Debug(this);
         debug.increase_counter();
     }
-    public void add_equipment_controller(IEquipment_controller tool_controller) {
+    public void add_equipment_controller(Equipment_controller tool_controller) {
         tool_controller.add_to_user(this);
         _equipment_controllers.Add(tool_controller);
     }
     public T add_equipment_controller<T>() where T: 
-        IEquipment_controller, new()   
+        Equipment_controller, new()   
     {
         T new_tool_controller = new T();
         new_tool_controller.add_to_user(this);
@@ -52,7 +52,7 @@ public class User_of_equipment:MonoBehaviour
         return new_tool_controller;
     }
 
-    public void copy_equipment_controllers_from(User_of_equipment src_user) {
+    public void add_equipment_controllers_after(User_of_equipment src_user) {
         transporter = src_user.transporter?.copy_empty_into(this) as ITransporter;
         weaponry = src_user.weaponry?.copy_empty_into(this) as IWeaponry;
         
@@ -84,9 +84,9 @@ public class User_of_equipment:MonoBehaviour
     }
 
     public void remove_empty_controllers() {
-        List<IEquipment_controller> new_tool_controllers = new List<IEquipment_controller>(equipment_controllers.Count);
+        List<Equipment_controller> new_tool_controllers = new List<Equipment_controller>(equipment_controllers.Count);
         for (int i_tool_controller = 0; i_tool_controller < equipment_controllers.Count; i_tool_controller++) {
-            IEquipment_controller tool_controller = equipment_controllers[i_tool_controller];
+            Equipment_controller tool_controller = equipment_controllers[i_tool_controller];
             if (tool_controller.tools.Any()) {
                 new_tool_controllers.Add(tool_controller);
             }
@@ -99,7 +99,7 @@ public class User_of_equipment:MonoBehaviour
     }
 
     private void destroy_tool_controller(
-        IEquipment_controller tool_controller) 
+        Equipment_controller tool_controller) 
     {
         /*IEquipment_controller component_tool_controller =
             tool_controller as IEquipment_controller;
@@ -107,6 +107,8 @@ public class User_of_equipment:MonoBehaviour
             Destroy(component_tool_controller);
         }*/
     }
+
+    
 
     void OnDrawGizmos() {
         foreach (Equipment_controller equipment_controller in equipment_controllers) {

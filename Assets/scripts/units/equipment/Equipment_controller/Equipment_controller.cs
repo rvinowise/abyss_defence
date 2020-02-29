@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using rvinowise.units.debug;
 using UnityEngine;
+using rvinowise.rvi.contracts;
 
 namespace rvinowise.units.equipment
 {
@@ -10,9 +12,8 @@ represents a coherent system of several objects,
 which work together under control of this object:
 Legs, Weapons etc. 
 */
-//[RequireComponent(typeof(User_of_tools))]
 public abstract class Equipment_controller:
-    IEquipment_controller
+    IEquipment_controller 
     
 {
     protected User_of_equipment user_of_equipment; //host
@@ -26,6 +27,10 @@ public abstract class Equipment_controller:
     
     public abstract IEnumerable<Tool> tools {
         get;
+    }
+
+    public bool has_tool(Tool in_tool) {
+        return tools.Any(tool => tool == in_tool);
     }
     
     
@@ -64,6 +69,16 @@ public abstract class Equipment_controller:
 
     public abstract void init();
     public abstract void update();
+
+    public virtual void distribute_data_across(
+        IEnumerable<Equipment_controller> new_controllers
+    ) {
+        Contract.Requires( ! tools.Any());
+        foreach (var new_controller in new_controllers) {
+            Contract.Assume(new_controller.tools.Any());    
+        }
+    }
+
 
     public class Debug: Debugger {
         protected override ref int count {

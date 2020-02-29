@@ -5,7 +5,7 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace rvinowise.units.equipment.guns.Rifle {
+namespace rvinowise.units.equipment.guns {
 
 public class Rifle: Tool {
 

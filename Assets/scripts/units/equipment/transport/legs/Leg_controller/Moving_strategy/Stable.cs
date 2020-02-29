@@ -18,7 +18,7 @@ public class Stable: Moving_strategy
     }
 
     /* legs that are enough to be stable if they are on the ground */
-    public List<Stable_leg_group> stable_leg_groups;
+    public IList<Stable_leg_group> stable_leg_groups = new List<Stable_leg_group>();
 
     internal override void move_on_the_ground(Leg leg) {
         bool can_hold = leg.hold_onto_ground();

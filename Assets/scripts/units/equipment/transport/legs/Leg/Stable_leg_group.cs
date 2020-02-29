@@ -8,7 +8,7 @@ namespace rvinowise.units.equipment.limbs {
 
 
 public class Stable_leg_group {
-    List<Leg> legs;
+    public List<Leg> legs;
     
     public Stable_leg_group(List<Leg> in_legs) {
         legs = in_legs;
