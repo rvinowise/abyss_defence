@@ -21,6 +21,8 @@ public class arms {
         
         IList<Arm> arms = create_arms(controller);
 
+        init_common_parameters(controller);
+        
         init_parameters_that_shoud_be_mirrored(controller);
 
         foreach (Arm arm in arms) {
@@ -36,6 +38,16 @@ public class arms {
         }
 
         return controller.arms;
+    }
+
+    private static void init_common_parameters(Arm_controller controller) {
+        foreach (Arm arm in controller.arms) {
+            init_common_characteristic(arm);
+        }
+    }
+
+    private static void init_common_characteristic(Arm arm) {
+        
     }
 
     private static void init_parameters_that_shoud_be_mirrored(Arm_controller controller) {
