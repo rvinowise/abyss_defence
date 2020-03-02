@@ -5,11 +5,11 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace rvinowise.units.equipment.guns {
+namespace rvinowise.units.equipment {
 
-public class Rifle: Tool {
+public class Command_batch {
 
-    
+    public int priority;
 
 }
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace units.equipment.transport {
+namespace rvinowise.units.equipment.transport {
 
-public class Command_batch {
+public class Command_batch: equipment.Command_batch {
     
     public float moving_direction_degrees/* {
         get { return _moving_direction_degrees;}

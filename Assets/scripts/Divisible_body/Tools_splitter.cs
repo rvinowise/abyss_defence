@@ -82,12 +82,6 @@ public static class Tools_splitter {
         user_of_equipment.remove_empty_controllers();
     }
 
-    private static void init_tool_controllers(GameObject game_object) {
-        User_of_equipment user_of_equipment =
-            game_object.GetComponent<User_of_equipment>();
-        user_of_equipment.init_equipment_controllers();
-    }
-
     private static bool tool_is_inside_object(units.Tool tool, GameObject game_object) {
         PolygonCollider2D collider = game_object.GetComponent<PolygonCollider2D>();
         Contract.Requires(collider.pathCount == 1, "only simple polygons");

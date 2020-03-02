@@ -4,6 +4,7 @@ using UnityEngine;
 using geometry2d;
 using static geometry2d.Directions;
 using rvinowise.units;
+using units.equipment.segments;
 
 namespace rvinowise.units.equipment.limbs {
 

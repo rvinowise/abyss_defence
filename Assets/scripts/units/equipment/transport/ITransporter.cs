@@ -9,10 +9,9 @@ public interface ITransporter:IEquipment_controller {
     float get_possible_impulse();
 
     //void command(transport.Command_batch command_batch);
-    
-    transport.Command_batch command_batch { get; }
+    void command(transport.Command_batch command_batch);
 
-    
+
 }
 
 }

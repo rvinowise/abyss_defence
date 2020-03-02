@@ -77,12 +77,6 @@ public partial class User_of_equipment:MonoBehaviour
         debug.decrease_counter();
     }
 
-    public void init_equipment_controllers() {
-        foreach (IEquipment_controller equipment_controller in equipment_controllers) {
-            equipment_controller.init();
-        }
-    }
-
     public void remove_empty_controllers() {
         List<Equipment_controller> new_tool_controllers = new List<Equipment_controller>(equipment_controllers.Count);
         for (int i_tool_controller = 0; i_tool_controller < equipment_controllers.Count; i_tool_controller++) {

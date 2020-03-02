@@ -28,6 +28,28 @@ public abstract class Equipment_controller:
     public abstract IEnumerable<Tool> tools {
         get;
     }
+    
+    public Transform transform {
+        get {
+            return user_of_equipment.transform;
+        }
+    }
+
+    private IList<equipment.Command_batch> command_batches;
+
+    public void command(Command_batch command_batch) {
+        command_batches.Add(command_batch);
+    }
+
+    protected Command_batch get_combined_commands() {
+        Command_batch result = new_command_batch(); 
+        foreach (var command_batch in command_batches) {
+            
+        }
+    }
+
+    protected abstract Command_batch new_command_batch();
+
 
     public bool has_tool(Tool in_tool) {
         return tools.Any(tool => tool == in_tool);
@@ -67,18 +89,22 @@ public abstract class Equipment_controller:
 
     public abstract void add_tool(Tool tool);
 
-    public abstract void init();
-    public abstract void update();
+    public virtual void init() { }
 
-    public virtual void distribute_data_across(
-        IEnumerable<Equipment_controller> new_controllers
-    ) {
-        Contract.Requires( ! tools.Any());
-        foreach (var new_controller in new_controllers) {
-            Contract.Assume(new_controller.tools.Any());    
-        }
+    public virtual void update() {
+        execute_commands();
     }
 
+    protected abstract void execute_commands();
+        
+
+    public virtual void distribute_data_across(
+        IEnumerable<Equipment_controller> new_controllers) 
+    {
+        
+    }
+
+    
 
     public class Debug: Debugger {
         protected override ref int count {

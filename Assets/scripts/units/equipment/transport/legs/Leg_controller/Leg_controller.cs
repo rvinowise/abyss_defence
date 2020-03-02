@@ -23,7 +23,7 @@ public partial class Leg_controller:
     public List<Leg> legs {
         set {
             _legs = value;
-            init_moving_strategy();
+            guess_moving_strategy();
         }
         get {
             return _legs;
@@ -65,20 +65,19 @@ public partial class Leg_controller:
         leg.host = transform;
     }
 
-    public override void init() {
-        init_moving_strategy();
-    }
 
     public override void update() {
         destroy_invalid_legs(); //debug
-        execute_commands(this.command_batch);
+        execute_commands();
         move_legs();
     }
-    
-    
+
+    /* ITransporter interface */
 
 
-    /* Leg_controller interface */
+
+
+    /* Leg_controller itself */
 
     public override void on_draw_gizmos() {
         foreach (Leg leg in legs) {
@@ -99,7 +98,8 @@ public partial class Leg_controller:
     }*/
     
 
-    private void execute_commands(Command_batch command_batch) {
+    private void execute_commands() {
+        transport.Command_batch command_batch = get_combined_commands();
         move_in_direction(command_batch.moving_direction_vector);
         rotate_to_direction(command_batch.face_direction_degrees);
     }
@@ -137,6 +137,8 @@ public partial class Leg_controller:
     }
 
     
+    
+
     static float belly_friction_multiplier = 0.9f;
     public float get_possible_rotation() {
         if (moving_strategy is null) {
@@ -164,13 +166,9 @@ public partial class Leg_controller:
     
     /* the distance that the optimal_position is moved in during walking */
     public float moving_offset_distance = 0.3f;
-    
+
     private Rigidbody2D rigid_body { get; set; }
-    private Transform transform {
-        get {
-            return user_of_equipment.transform;
-        }
-    }
+    
 
     public Leg_controller(User_of_equipment in_user):base(in_user) {
         
@@ -187,19 +185,17 @@ public partial class Leg_controller:
         Contract.Requires(rigid_body != null);
     }
     
-    public void init_moving_strategy() {
-        moving_strategy = get_appropriate_moving_strategy();
-    }
-    private strategy.Moving_strategy get_appropriate_moving_strategy() {
-        if (legs.Count >= 4) {
-            return new strategy.Stable(legs);
-        } else if (legs.Count >=2 ) {
-            return new strategy.Grovelling(legs);
+    public void guess_moving_strategy() {
+        /*if (legs.Count >= 4) {
+            moving_strategy = new strategy.Stable(legs); //no use without Stable_leg_groups assigned by creators
+        } else*/ 
+        if (legs.Count >=2 ) {
+            moving_strategy = new strategy.Grovelling(legs);
         } else if (legs.Count == 1) {
-            return new strategy.Faltering(legs);
+            moving_strategy = new strategy.Faltering(legs);
         }
-        return null;
     }
+
 
     void Awake()
     {

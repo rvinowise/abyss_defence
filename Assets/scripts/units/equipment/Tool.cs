@@ -16,6 +16,10 @@ public abstract class Tool
     public virtual Vector2 attachment{
         get;set;
     }
+
+    public Vector2 position {
+        get { return host.TransformPoint(attachment); }
+    }
 }
 
 }

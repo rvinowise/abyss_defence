@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using geometry2d;
 using rvinowise.units.equipment.limbs.strategy;
+using units.equipment.segments;
 
 
 namespace rvinowise.units.normal_spider.init {

@@ -40,8 +40,17 @@ public partial class Leg_controller {
             if (base_controller.moving_strategy is strategy.Stable stable_strategy) {
                 distribute_stable_legs_groups(stable_strategy, new_leg_controllers);
             }
+            init_moving_strategies(new_leg_controllers);
         }
-    
+
+        private static void init_moving_strategies(IEnumerable<Leg_controller> leg_controllers) {
+            foreach (var leg_controller in leg_controllers) {
+                if (leg_controller.moving_strategy == null) {
+                    leg_controller.guess_moving_strategy();
+                }
+            }
+        }
+
         private static void distribute_stable_legs_groups(
             strategy.Stable stable_strategy,
             IEnumerable<Leg_controller> all_leg_controllers) 

@@ -15,7 +15,8 @@ namespace rvinowise.units.equipment {
 public class Divisible_body : MonoBehaviour {
     public Sprite inside;
 
-
+    public bool needs_initialisation = true; //it was added ineditor and created from scratch
+    
     public void split_by_ray(Ray2D ray_of_split) {
 
         List<Polygon> collider_pieces = Polygon_splitter.split_polygon_by_ray(
