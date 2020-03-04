@@ -9,14 +9,12 @@ using rvinowise;
 using rvinowise.units;
 using units.equipment.transport;
 using rvinowise.rvi.contracts;
-using rvinowise.units.equipment.limbs.strategy;
+using rvinowise.units.equipment.limbs.legs.strategy;
 
-namespace rvinowise.units.equipment.limbs {
-
-/* Leg controller */
+namespace rvinowise.units.equipment.limbs.legs {
 public partial class Leg_controller: 
     Equipment_controller
-   ,ITransporter
+    ,ITransporter
 {
     public strategy.Moving_strategy moving_strategy;
     
@@ -50,17 +48,22 @@ public partial class Leg_controller:
     
     
     /* Equipment_controller interface */
-    public override IEnumerable<Tool> tools  {
+    public override IEnumerable<Child> tools  {
         get { return legs; }
     }
 
     public override IEquipment_controller copy_empty_into(User_of_equipment dst_host) {
         return new Leg_controller(dst_host);
     }
+    
+    protected override void init_components() {
+        rigid_body = game_object.GetComponent<Rigidbody2D>();
+        Contract.Requires(rigid_body != null);
+    }
 
-    public override void add_tool(Tool tool) {
-        Contract.Requires(tool is Leg);
-        Leg leg = tool as Leg;
+    public override void add_tool(Child child) {
+        Contract.Requires(child is Leg);
+        Leg leg = child as Leg;
         legs.Add(leg);
         leg.host = transform;
     }
@@ -73,30 +76,6 @@ public partial class Leg_controller:
     }
 
     /* ITransporter interface */
-
-
-
-
-    /* Leg_controller itself */
-
-    public override void on_draw_gizmos() {
-        foreach (Leg leg in legs) {
-            leg.debug.draw_positions();
-            leg.debug.draw_desired_directions(Color.green, 0.1f);
-        }
-        //draw_moving_direction();
-    }
-
-    /*private void draw_moving_direction() {
-        UnityEngine.Debug.DrawLine(
-            this.user_of_equipment.transform.position, 
-            (Vector2)this.user_of_equipment.transform.position +
-            control.moving_direction_vector,
-            Color.green,
-            1f
-        );
-    }*/
-    
 
     private void execute_commands() {
         transport.Command_batch command_batch = get_combined_commands();
@@ -136,8 +115,6 @@ public partial class Leg_controller:
         return impulse;
     }
 
-    
-    
 
     static float belly_friction_multiplier = 0.9f;
     public float get_possible_rotation() {
@@ -162,6 +139,8 @@ public partial class Leg_controller:
     }
     private Command_batch _command_batch = new Command_batch();
     
+    
+    
     /* Leg_controller itself */
     
     /* the distance that the optimal_position is moved in during walking */
@@ -180,15 +159,9 @@ public partial class Leg_controller:
         
     }
 
-    protected override void init_components() {
-        rigid_body = game_object.GetComponent<Rigidbody2D>();
-        Contract.Requires(rigid_body != null);
-    }
+    
     
     public void guess_moving_strategy() {
-        /*if (legs.Count >= 4) {
-            moving_strategy = new strategy.Stable(legs); //no use without Stable_leg_groups assigned by creators
-        } else*/ 
         if (legs.Count >=2 ) {
             moving_strategy = new strategy.Grovelling(legs);
         } else if (legs.Count == 1) {
@@ -258,12 +231,23 @@ public partial class Leg_controller:
     }
 
 
-    
+    public override void on_draw_gizmos() {
+        foreach (Leg leg in legs) {
+            leg.debug.draw_positions();
+            leg.debug.draw_desired_directions(Color.green, 0.1f);
+        }
+        //draw_moving_direction();
+    }
+
+    /*private void draw_moving_direction() {
+        UnityEngine.Debug.DrawLine(
+            this.user_of_equipment.transform.position, 
+            (Vector2)this.user_of_equipment.transform.position +
+            control.moving_direction_vector,
+            Color.green,
+            1f
+        );
+    }*/
+}
 }
 
-enum Impulse {
-    Moving,
-    Rotation
-}
-
-}

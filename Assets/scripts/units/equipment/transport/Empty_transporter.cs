@@ -40,8 +40,8 @@ public class Empty_transporter: ITransporter {
         return new Empty_transporter();
     }
 
-    public IEnumerable<Tool> tools { get; }
-    public void add_tool(Tool tool) {
+    public IEnumerable<Child> tools { get; }
+    public void add_tool(Child child) {
         throw new NotImplementedException();
     }
 

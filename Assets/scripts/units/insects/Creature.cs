@@ -26,8 +26,10 @@ public abstract class Creature : MonoBehaviour {
     protected virtual void Awake()
     {
         divisible_body = gameObject.GetComponent<Divisible_body>();
-        intelligence = new Player_control(transform);
-        intelligence.user_of_equipment = GetComponent<User_of_equipment>();
+        intelligence = new Player_control(
+            transform,
+            GetComponent<User_of_equipment>()
+        );
 
         if (divisible_body.needs_initialisation) {
             equip();

@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 using rvinowise;
+using rvinowise.units.equipment.limbs.legs;
 
 
-namespace rvinowise.units.equipment.limbs.strategy {
+namespace rvinowise.units.equipment.limbs.legs.strategy {
 
 
 /* don't try to move constantly - all legs can be raised up:

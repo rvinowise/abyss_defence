@@ -25,7 +25,7 @@ public abstract class Equipment_controller:
         }
     }
     
-    public abstract IEnumerable<Tool> tools {
+    public abstract IEnumerable<Child> tools {
         get;
     }
     
@@ -41,18 +41,18 @@ public abstract class Equipment_controller:
         command_batches.Add(command_batch);
     }
 
-    protected Command_batch get_combined_commands() {
+    /*protected Command_batch get_combined_commands() {
         Command_batch result = new_command_batch(); 
         foreach (var command_batch in command_batches) {
             
         }
-    }
+    }*/
 
     protected abstract Command_batch new_command_batch();
 
 
-    public bool has_tool(Tool in_tool) {
-        return tools.Any(tool => tool == in_tool);
+    public bool has_tool(Child in_child) {
+        return tools.Any(tool => tool == in_child);
     }
     
     
@@ -87,7 +87,7 @@ public abstract class Equipment_controller:
 
     public abstract IEquipment_controller copy_empty_into(User_of_equipment dst_host);
 
-    public abstract void add_tool(Tool tool);
+    public abstract void add_tool(Child child);
 
     public virtual void init() { }
 

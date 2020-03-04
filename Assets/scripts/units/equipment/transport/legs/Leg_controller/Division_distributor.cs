@@ -5,10 +5,10 @@ using System.Linq;
 using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.equipment.limbs.strategy;
+using rvinowise.units.equipment.limbs.legs.strategy;
 
 
-namespace rvinowise.units.equipment.limbs {
+namespace rvinowise.units.equipment.limbs.legs {
 
 public partial class Leg_controller {
 
@@ -81,7 +81,7 @@ public partial class Leg_controller {
     
         private static Equipment_controller get_controller_with_all_tools_from( //#generalize
             IEnumerable<Equipment_controller> all_controllers,
-            IEnumerable<Tool> in_legs
+            IEnumerable<Child> in_legs
             ) 
         {
             foreach (var controller in all_controllers) {
@@ -94,7 +94,7 @@ public partial class Leg_controller {
     
         //#generalize
         private static bool all_tools_are_within_controller(
-            IEnumerable<Tool> in_tools, 
+            IEnumerable<Child> in_tools, 
             Equipment_controller controller) 
         {
             foreach (var tool in in_tools) {

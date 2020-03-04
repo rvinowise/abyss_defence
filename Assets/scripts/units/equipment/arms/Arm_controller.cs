@@ -8,6 +8,7 @@ using rvinowise.rvi.contracts;
 using rvinowise.units;
 using rvinowise.units.equipment;
 using rvinowise.units.equipment.limbs;
+using rvinowise.units.equipment.limbs.arms;
 
 
 namespace units.equipment.arms {
@@ -18,7 +19,7 @@ public class Arm_controller:
 {
     
     /* Equipment_controller interface */
-    public override IEnumerable<Tool> tools {
+    public override IEnumerable<Child> tools {
         get { return arms; }
     }
     public IList<Arm> arms = new List<Arm>();
@@ -32,9 +33,9 @@ public class Arm_controller:
         
     }
 
-    public override void add_tool(Tool tool) {
-        Contract.Requires(tool is Arm);
-        arms.Add(tool as Arm);
+    public override void add_tool(Child child) {
+        Contract.Requires(child is Arm);
+        arms.Add(child as Arm);
     }
 
     protected override Command_batch new_command_batch() {
@@ -60,5 +61,9 @@ public class Arm_controller:
     
 
     /* Arm_controller itself */
+    public Arm_controller(User_of_equipment user) : base(user) {
+        
+    }
+    
 }
 }

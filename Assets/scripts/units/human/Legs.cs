@@ -16,7 +16,7 @@ public class Legs: Equipment_controller,
     private Rigidbody2D rigidbody;
     
     /* Equipment_controller interface */
-    public override IEnumerable<Tool> tools { get; }
+    public override IEnumerable<Child> tools { get; }
     protected override Command_batch new_command_batch() {
         throw new NotImplementedException();
     }
@@ -25,7 +25,7 @@ public class Legs: Equipment_controller,
         throw new NotImplementedException();
     }
 
-    public override void add_tool(Tool tool) {
+    public override void add_tool(Child child) {
         throw new NotImplementedException();
     }
 
@@ -62,7 +62,7 @@ public class Legs: Equipment_controller,
 
     private float acceleration = 0.1f;
     
-    Legs() {
+    public Legs(User_of_equipment in_user):base(in_user) {
         
     }
 

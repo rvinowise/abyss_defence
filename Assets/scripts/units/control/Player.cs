@@ -5,6 +5,7 @@ using UnityEngine;
 //using static UnityEngine.Input;
 using geometry2d;
 using rvinowise.units.control;
+using rvinowise.units.equipment;
 using units.control;
 using static geometry2d.Directions;
 
@@ -14,7 +15,11 @@ public class Player_control: Intelligence  {
     
     private Transform transform;
 
-    public Player_control(Transform in_transform) {
+    public Player_control(
+        Transform in_transform,
+        User_of_equipment in_user)
+    :base(in_user) 
+    {
         transform = in_transform;
     }
 

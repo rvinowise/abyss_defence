@@ -7,6 +7,7 @@ using UnityEngine;
 using geometry2d;
 using rvinowise.units.equipment;
 using rvinowise.units.equipment.limbs;
+using rvinowise.units.equipment.limbs.legs;
 using units.equipment.transport;
 
 

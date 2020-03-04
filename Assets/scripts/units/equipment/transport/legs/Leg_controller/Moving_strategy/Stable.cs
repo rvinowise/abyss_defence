@@ -5,8 +5,9 @@ using System.Diagnostics;
 using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
+using rvinowise.units.equipment.limbs.legs;
 
-namespace rvinowise.units.equipment.limbs.strategy {
+namespace rvinowise.units.equipment.limbs.legs.strategy {
 
 /* always keep the belly above the ground:
  best speed and control

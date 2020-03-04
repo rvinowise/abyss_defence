@@ -64,7 +64,7 @@ public static class Tools_splitter {
         {
             Equipment_controller distributed_tool_controller =
                 user_of_equipment.equipment_controllers[i_tool_controller];
-            foreach (units.Tool tool in distributed_tool_controller.tools) {
+            foreach (units.Child tool in distributed_tool_controller.tools) {
                 foreach (GameObject piece_object in piece_objects) {
                     if (tool_is_inside_object(tool, piece_object)) {
                         attach_tool_to_object(piece_object, i_tool_controller, tool);
@@ -82,13 +82,13 @@ public static class Tools_splitter {
         user_of_equipment.remove_empty_controllers();
     }
 
-    private static bool tool_is_inside_object(units.Tool tool, GameObject game_object) {
+    private static bool tool_is_inside_object(units.Child child, GameObject game_object) {
         PolygonCollider2D collider = game_object.GetComponent<PolygonCollider2D>();
         Contract.Requires(collider.pathCount == 1, "only simple polygons");
         if (
             System.Convert.ToBoolean(
                 ClipperLib.Clipper.PointInPolygon(
-                    Clipperlib_coordinates.float_coord_to_int(tool.attachment),
+                    Clipperlib_coordinates.float_coord_to_int(child.attachment),
                     Clipperlib_coordinates.float_coord_to_int(new Polygon(collider.GetPath(0)))
                 )
             )
@@ -101,13 +101,13 @@ public static class Tools_splitter {
     private static void attach_tool_to_object(
         GameObject piece_object,
         int i_tool_controller,
-        Tool tool) 
+        Child child) 
     {
         User_of_equipment piece_user_of_equipment =
             piece_object.GetComponent<User_of_equipment>();
         Equipment_controller piece_tool_controller =
             piece_user_of_equipment.equipment_controllers[i_tool_controller];
-        piece_tool_controller.add_tool(tool);
+        piece_tool_controller.add_tool(child);
     }
 }
 

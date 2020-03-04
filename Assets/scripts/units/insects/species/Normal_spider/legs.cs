@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using geometry2d;
-using rvinowise.units.equipment.limbs.strategy;
-using units.equipment.segments;
+using rvinowise.units.equipment.limbs.legs;
+using rvinowise.units.equipment.limbs.legs.strategy;
 
 
 namespace rvinowise.units.normal_spider.init {
@@ -62,7 +62,7 @@ static class Legs {
         return controller.legs;
     }
 
-    private const float rotation_speed = 8f;
+    private const float rotation_speed = 360f;
 
     private static void init_left_front_leg(Leg leg, Sprite sprite_femur, Sprite sprite_tibia) {
         leg.attachment = new Vector2(0.30f, 0.45f) * scale;
@@ -75,7 +75,7 @@ static class Legs {
         //leg.tibia.comfortable_span = leg.tibia.possible_span.scaled(0.5f);
         leg.tibia.tip = new Vector2(0.85f, 0f) * scale;
         leg.tibia.spriteRenderer.sprite = sprite_tibia;
-        leg.tibia.attachment_point = leg.femur.tip;
+        leg.tibia.attachment = leg.femur.tip;
         leg.tibia.rotation_speed = rotation_speed;
 
         leg.femur.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
@@ -93,7 +93,7 @@ static class Legs {
         //leg.tibia.comfortable_span = leg.tibia.possible_span.scaled(0.5f);
         leg.tibia.tip = new Vector2(0.85f, 0f) * scale;
         leg.tibia.spriteRenderer.sprite = sprite_tibia;
-        leg.tibia.attachment_point = leg.femur.tip;
+        leg.tibia.attachment = leg.femur.tip;
         leg.tibia.rotation_speed = rotation_speed;
         leg.femur.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
         leg.tibia.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
@@ -118,7 +118,7 @@ static class Legs {
     }
 
     private static void init_femur_folding_direction(Leg leg) {
-        leg.femur_folding_direction = -1 * leg.tibia.possible_span.sign_of_bigger_rotation();
+        leg.folding_direction = -1 * leg.tibia.possible_span.sign_of_bigger_rotation();
     }
 
     private static void mirror(Leg dst, Leg src) {
@@ -144,7 +144,7 @@ static class Legs {
             Quaternion.Inverse(src.femur.desired_relative_direction_standing);
         dst.tibia.desired_relative_direction_standing =
             Quaternion.Inverse(src.tibia.desired_relative_direction_standing);
-        dst.femur_folding_direction = src.femur_folding_direction * -1;
+        dst.folding_direction = src.folding_direction * -1;
 
         dst.femur.spriteRenderer.sprite = src.femur.spriteRenderer.sprite;
         dst.tibia.spriteRenderer.sprite = src.tibia.spriteRenderer.sprite;
@@ -162,14 +162,14 @@ static class Legs {
     }
 
     private static void copy_not_mirrored_leg_parameters(Leg dst, Leg src) {
-        dst.tibia.attachment_point = src.femur.tip;
+        dst.tibia.attachment = src.femur.tip;
         dst.femur.rotation_speed = src.femur.rotation_speed;
         dst.tibia.rotation_speed = src.tibia.rotation_speed;
     }
 
     
     private static void create_moving_strategy(Leg_controller controller) {
-        controller.moving_strategy = new equipment.limbs.strategy.Stable(controller.legs) {
+        controller.moving_strategy = new equipment.limbs.legs.strategy.Stable(controller.legs) {
             stable_leg_groups = new List<Stable_leg_group>() {
                 new Stable_leg_group(
                     new List<Leg>() {controller.left_front_leg, controller.right_hind_leg}

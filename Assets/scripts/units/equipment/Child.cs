@@ -8,7 +8,7 @@ using UnityEngine;
 namespace rvinowise.units
 {
 
-public abstract class Tool
+public abstract class Child
 {
     public virtual Transform host { get; set; }
     

@@ -11,7 +11,7 @@ using units.equipment.transport;
 
 
 
-namespace rvinowise.units {
+namespace rvinowise.units.human {
 
 using rvinowise.units.equipment;
 
@@ -22,27 +22,28 @@ public class Human:
 {
  
     private Intelligence intelligence;
-    
+    private User_of_equipment user_of_equipment;
+    private Head head;
     
     protected virtual void Awake()
     {
-        intelligence = new Player_control(transform);
-        intelligence.user_of_equipment = GetComponent<User_of_equipment>();
-
+        user_of_equipment = GetComponent<User_of_equipment>();
+        intelligence = new Player_control(transform, user_of_equipment);
+        
         equip();
     }
     
     public void equip() {
         intelligence.transporter = create_transporter();
         intelligence.weaponry = create_weaponry();
-        //weaponry = get_weaponry();
+        head = new Head();
     }
 
     protected ITransporter create_transporter() {
-        return new humanoid.Legs();
+        return new units.equipment.humanoid.Legs(user_of_equipment);
     }
     protected IWeaponry create_weaponry() {
-        return new Arm_controller();
+        return new Arm_controller(user_of_equipment);
     }
     //protected abstract IWeaponry get_weaponry();
 

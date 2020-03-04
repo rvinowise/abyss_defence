@@ -16,7 +16,7 @@ public class Guns_controller:
     private IList<Rifle> rifles;
 
 
-    public override IEnumerable<Tool> tools { get; }
+    public override IEnumerable<Child> tools { get; }
 
     public Guns_controller(User_of_equipment dst_host) : base(dst_host) {
         
@@ -31,13 +31,27 @@ public class Guns_controller:
     public override void update() {
     }
 
-    public override void add_tool(Tool tool) {
-        if (tool is Rifle rifle) {
+    public override void add_tool(Child child) {
+        if (child is Rifle rifle) {
             rifle.host = transform;
             rifles.Add(rifle);
         }
         
     }
-    
+
+    protected override Command_batch new_command_batch() {
+        throw new NotImplementedException();
+    }
+
+    protected override void execute_commands() {
+    }
+
+    /* IWeaponry interface */
+    public void fire() {
+        
+    }
+
+    public void shoot(GameObject target) {
+    }
 }
 }

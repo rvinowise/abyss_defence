@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace rvinowise.units.equipment.limbs {
+namespace rvinowise.units.equipment.limbs.legs {
 
 
 

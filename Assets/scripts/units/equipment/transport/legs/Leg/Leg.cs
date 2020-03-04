@@ -4,17 +4,16 @@ using UnityEngine;
 using geometry2d;
 using static geometry2d.Directions;
 using rvinowise.units;
-using units.equipment.segments;
 
-namespace rvinowise.units.equipment.limbs {
+namespace rvinowise.units.equipment.limbs.legs {
 
-public class Leg: Tool 
+public class Leg: Child, ILimb2 
 {
     /* constant characteristics */
     public readonly Segment femur;
     public readonly Segment tibia;
-    
-    public int femur_folding_direction; //1 of -1
+
+    public int folding_direction { get; set; } //1 of -1
     public float provided_impulse = 0.20f;
 
     /* group of legs that being on the ground with this leg provide stability */
@@ -25,7 +24,7 @@ public class Leg: Tool
     // maximum distance from the optimal point after which the leg should be repositionned
     public float comfortable_distance;
 
-    /* Tool interface */
+    /* Child interface */
     public override Transform host {
         get { return femur.host; }
         set { femur.host = value; }
@@ -33,13 +32,24 @@ public class Leg: Tool
 
     public override Vector2 attachment {
         get {
-            return femur.attachment_point;
+            return femur.attachment;
         }
         set {
-            femur.attachment_point = value;
+            femur.attachment = value;
         }
     }
 
+    
+    /* ILimb2 interface */
+    public limbs.Segment segment1 {
+        get { return femur;}
+    }
+    public limbs.Segment segment2 {
+        get { return tibia;}
+    }
+    
+    /* Leg itself */
+    
     /* current characteristics */
     //
     public Vector2 holding_point;
@@ -155,12 +165,12 @@ public class Leg: Tool
         femur.transform.rotation = 
             Quaternion.RotateTowards(femur.transform.rotation, 
                                      femur.desired_direction,
-                                     femur.rotation_speed);
+                                     femur.rotation_speed * Time.deltaTime);
             
         tibia.transform.rotation = 
             Quaternion.RotateTowards(tibia.transform.rotation,
                                      tibia.desired_direction,
-                                     tibia.rotation_speed);
+                                     tibia.rotation_speed * Time.deltaTime);
     }
 
     /* faster calculation but not precise */
@@ -188,7 +198,7 @@ public class Leg: Tool
         }
         femur.set_direction(
             femur.transform.degrees_to(holding_point)+
-            (femur_angle_offset*(float)femur_folding_direction)
+            (femur_angle_offset*(float)folding_direction)
         );
 
         tibia.attach_to_host();
@@ -350,7 +360,7 @@ public class Leg: Tool
         
         femur.desired_direction = degrees_to_quaternion(
             ((Vector2)femur.position).degrees_to(desired_position) +
-            (femur_angle_offset * (float) femur_folding_direction)
+            (femur_angle_offset * (float) folding_direction)
         );
 
         Vector2 tibia_position =

@@ -24,6 +24,10 @@ public abstract class Intelligence {
         get { return user_of_equipment.weaponry; }
         set => user_of_equipment.weaponry = value;
     }
+
+    public Intelligence(User_of_equipment in_user) {
+        user_of_equipment = in_user;
+    }
     
     public virtual void update() {
 

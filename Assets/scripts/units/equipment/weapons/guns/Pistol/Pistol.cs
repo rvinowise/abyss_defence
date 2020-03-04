@@ -8,7 +8,7 @@ public class Pistol:
     Weapon
 {
     
-    /* Tool interface */
+    /* Child interface */
     public override Transform host {
         get { return _host; }
         set { _host = value; }

@@ -1,15 +1,12 @@
 ﻿using System;
 
-namespace units.equipment.segments {
+namespace rvinowise.units.equipment.limbs {
 
 public struct Span {
     /* possible rotation of a segment relative to it's attachment  */
-    public float min; //maximum rotation to the left (counter-clockwise)
-    public float max; //maximum rotation to the right (clockwise)
-    /*public Span(float _min, float _max) {
-        min = _min;
-        max = _max;
-    }*/
+    public readonly float min; //maximum rotation to the left (counter-clockwise)
+    public readonly float max; //maximum rotation to the right (clockwise)
+
     public Span(float val1, float val2) {
         min = Math.Min(val1, val2);
         max = Math.Max(val1, val2);

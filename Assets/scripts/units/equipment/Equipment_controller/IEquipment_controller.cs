@@ -8,11 +8,11 @@ which work together under control of this object:
 Legs, Weapons etc. */
 public interface IEquipment_controller
 {
-    IEnumerable<Tool> tools {
+    IEnumerable<Child> tools {
         get;
     }
     
-    void add_tool(Tool tool);
+    void add_tool(Child child);
     
     /* i need this function only for a generic adder (constructors can't have parameters there)*/
     void add_to_user(User_of_equipment in_user);
