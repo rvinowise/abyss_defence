@@ -17,6 +17,13 @@ public static partial class Unity_extension
     public static float to_dergees(this Vector2 in_direction) {
         return Mathf.Atan2(in_direction.y, in_direction.x) * Mathf.Rad2Deg;
     }
+    public static Quaternion to_quaternion_OLD(this Vector2 in_direction) {
+        return Quaternion.Euler(0f,0f,in_direction.to_dergees());
+    }
+    public static Quaternion to_quaternion(this Vector2 in_direction) {
+        return Quaternion.FromToRotation(Vector2.right, in_direction);
+    }
+    
     public static bool within_square_from(this Vector2 position, Vector2 aim, float distance) {
         Vector2 difference = aim-position;
         if (

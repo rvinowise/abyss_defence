@@ -5,15 +5,15 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace rvinowise.units.equipment.transport {
+namespace rvinowise.units.parts.transport {
 
-public class Command_batch: equipment.Command_batch {
+public class Command_batch: parts.Command_batch {
     
-    public float moving_direction_degrees/* {
+    /*public float moving_direction_degrees {
         get { return _moving_direction_degrees;}
         private set { _moving_direction_degrees = value; }
     }
-    private float _moving_direction_degrees*/;
+    private float _moving_direction_degrees;*/
 
     public Vector2 moving_direction_vector/* {
         get { return _moving_direction_vector; }
@@ -21,11 +21,12 @@ public class Command_batch: equipment.Command_batch {
     }
     private Vector2 _moving_direction_vector*/;
 
-    public float face_direction_degrees/* {
-        get { return _face_direction_degrees;}
-        private set { _face_direction_degrees = value; }
+    public float face_direction_degrees {
+        get { return face_direction_quaternion.degrees(); }
+        //private set { _face_direction_degrees = value; }
     }
-    private float _face_direction_degrees*/;
-    
+    //private float _face_direction_degrees;
+
+    public Quaternion face_direction_quaternion { get; set; }
 }
 }

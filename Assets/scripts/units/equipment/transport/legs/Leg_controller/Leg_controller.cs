@@ -1,51 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using UnityEngine;
-using rvinowise;
-using rvinowise.units;
-using units.equipment.transport;
-using rvinowise.rvi.contracts;
-using rvinowise.units.equipment.limbs.legs.strategy;
 
-namespace rvinowise.units.equipment.limbs.legs {
+using UnityEngine;
+using rvinowise.rvi.contracts;
+using geometry2d;
+using rvinowise.units.parts.transport;
+using static geometry2d.Directions;
+
+namespace rvinowise.units.parts.limbs.legs {
 public partial class Leg_controller: 
     Equipment_controller
     ,ITransporter
 {
-    public strategy.Moving_strategy moving_strategy;
-    
-    public List<Leg> legs {
-        set {
-            _legs = value;
-            guess_moving_strategy();
-        }
-        get {
-            return _legs;
-        }
-    }
-    public Leg left_front_leg {
-        get { return legs[0];}
-        private set { legs[0] = value; }
-    }
-    public Leg right_front_leg {
-        get { return legs[1];}
-        private set { legs[1] = value; }
-    }
-    public Leg left_hind_leg {
-        get { return legs[2];}
-        private set { legs[2] = value; }
-    }
-    public Leg right_hind_leg {
-        get { return legs[3];}
-        private set { legs[3] = value; }
-    }
-    private List<Leg> _legs = new List<Leg>();
-
-    
     
     /* Equipment_controller interface */
     public override IEnumerable<Child> tools  {
@@ -74,31 +42,15 @@ public partial class Leg_controller:
         execute_commands();
         move_legs();
     }
+    
+    protected override void execute_commands() {
+        move_in_direction(command_batch.moving_direction_vector);
+        rotate_to_direction(command_batch.face_direction_quaternion);
+    }
 
     /* ITransporter interface */
-
-    private void execute_commands() {
-        transport.Command_batch command_batch = get_combined_commands();
-        move_in_direction(command_batch.moving_direction_vector);
-        rotate_to_direction(command_batch.face_direction_degrees);
-    }
     
-    public void move_in_direction(Vector2 moving_direction) {
-        Vector2 delta_movement = (moving_direction * get_possible_impulse() * rvi.Time.deltaTime);
-        //transform.position += (Vector3)delta_movement;
-        rigid_body.MovePosition((Vector2)transform.position + delta_movement);
-    }
-    public void move_in_direction(float direction) {
-        throw new NotImplementedException();
-    }
-    
-    public void rotate_to_direction(float face_direction) {
-        transform.rotate_to(
-            face_direction, 
-            get_possible_rotation() * rvi.Time.deltaTime
-        );
-    }
-    
+    static float belly_friction_multiplier = 0.9f;
     public float get_possible_impulse() {
         if (moving_strategy is null) {
             return 0f;
@@ -115,8 +67,7 @@ public partial class Leg_controller:
         return impulse;
     }
 
-
-    static float belly_friction_multiplier = 0.9f;
+    
     public float get_possible_rotation() {
         if (moving_strategy is null) {
             return 0f;
@@ -133,15 +84,66 @@ public partial class Leg_controller:
         return impulse;
     }
 
-
-    public Command_batch command_batch {
+    public transport.Command_batch command_batch {
         get { return _command_batch; }
     }
-    private Command_batch _command_batch = new Command_batch();
+    private transport.Command_batch _command_batch = new transport.Command_batch();
+
+    
+    
+    
+    public void move_in_direction(Vector2 moving_direction) {
+        Vector2 delta_movement = (moving_direction * get_possible_impulse() * rvi.Time.deltaTime);
+        //transform.position += (Vector3)delta_movement;
+        rigid_body.MovePosition((Vector2)transform.position + delta_movement);
+    }
+    
+    public void rotate_to_direction(Quaternion face_direction) {
+        transform.rotate_to(
+            face_direction, 
+            get_possible_rotation() * rvi.Time.deltaTime
+        );
+        /*transform.rotation = Quaternion.RotateTowards(
+            transform.rotation, 
+            face_direction, 
+            get_possible_rotation() * rvi.Time.deltaTime);*/
+    }
+    
+    
+    
     
     
     
     /* Leg_controller itself */
+    
+    public strategy.Moving_strategy moving_strategy;
+    
+    public List<Leg> legs {
+        set {
+            _legs = value;
+            guess_moving_strategy();
+        }
+        get {
+            return _legs;
+        }
+    }
+    public Leg left_front_leg {
+        get { return legs[0];}
+        private set { legs[0] = value; }
+    }
+    public Leg right_front_leg {
+        get { return legs[1];}
+        private set { legs[1] = value; }
+    }
+    public Leg left_hind_leg {
+        get { return legs[2];}
+        private set { legs[2] = value; }
+    }
+    public Leg right_hind_leg {
+        get { return legs[3];}
+        private set { legs[3] = value; }
+    }
+    private List<Leg> _legs = new List<Leg>();
     
     /* the distance that the optimal_position is moved in during walking */
     public float moving_offset_distance = 0.3f;
@@ -170,12 +172,6 @@ public partial class Leg_controller:
     }
 
 
-    void Awake()
-    {
-
-    }
-
-    
 
     private void destroy_invalid_legs() {
         for(int i_leg = 0; i_leg < legs.Count; i_leg++) {

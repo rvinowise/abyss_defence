@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System;
 using rvinowise.units.control;
-using rvinowise.units.equipment;
-using units.control;
-using units.equipment.transport;
+using rvinowise.units.parts;
+using rvinowise.units.control;
+using rvinowise.units.parts.transport;
 using UnityEngine;
 
 
 namespace rvinowise.units {
 
 [RequireComponent(typeof(PolygonCollider2D))]
+[RequireComponent(typeof(User_of_equipment))]
 public abstract class Creature : MonoBehaviour {
     
     protected Divisible_body divisible_body;

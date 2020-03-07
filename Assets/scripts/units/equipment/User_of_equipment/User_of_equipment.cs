@@ -5,12 +5,12 @@ using System.Linq;
 using UnityEngine;
 using rvinowise;
 using rvinowise.units;
-using rvinowise.units.equipment;
+using rvinowise.units.parts;
 using rvinowise.rvi.contracts;
 using rvinowise.units.debug;
-using units.equipment.transport;
+using rvinowise.units.parts.transport;
 
-namespace rvinowise.units.equipment
+namespace rvinowise.units.parts
 {
 public partial class User_of_equipment:MonoBehaviour
 {
@@ -67,7 +67,7 @@ public partial class User_of_equipment:MonoBehaviour
 
     
 
-    private void FixedUpdate() {
+    private void Update() {
         foreach (var equipment_controller in equipment_controllers) {
             equipment_controller.update();
         }

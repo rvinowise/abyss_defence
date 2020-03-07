@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 using rvinowise;
-using rvinowise.units.equipment.limbs.legs;
+using rvinowise.units.parts.limbs.legs;
 
 
-namespace rvinowise.units.equipment.limbs.legs.strategy {
+namespace rvinowise.units.parts.limbs.legs.strategy {
 
 /* don't try to raise the belly above the ground,
    but keep one leg on the ground to move constantly:

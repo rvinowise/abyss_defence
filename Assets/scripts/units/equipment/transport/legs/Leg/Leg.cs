@@ -5,7 +5,7 @@ using geometry2d;
 using static geometry2d.Directions;
 using rvinowise.units;
 
-namespace rvinowise.units.equipment.limbs.legs {
+namespace rvinowise.units.parts.limbs.legs {
 
 public class Leg: Child, ILimb2 
 {
@@ -149,8 +149,8 @@ public class Leg: Child, ILimb2
         }
         return false;
     }
-    private bool is_within_span(Span span, Segment segment, Transform attachment) {
-        float delta_degrees = attachment.delta_degrees(segment.transform);
+    private bool is_within_span(Span span, Segment segment, Transform host) {
+        float delta_degrees = host.delta_degrees(segment.transform);
         if (
             (delta_degrees > span.max)||
             (delta_degrees < span.min)

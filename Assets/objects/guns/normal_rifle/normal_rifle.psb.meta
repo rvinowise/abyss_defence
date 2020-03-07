@@ -31,7 +31,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 339
+    spritePixelsToUnits: 1000
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -2981,7 +2981,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 236
+      x: 252
       y: 49
       width: 0
       height: 0
@@ -2995,21 +2995,65 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
+    uvTransform: {x: 37, y: -65}
+  - name: Hue/Saturation 1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 236
+      y: 49
+      width: 0
+      height: 0
+    spriteID: 4c9a51f11b4d2ae418f3d8b5b7d019cf
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
     uvTransform: {x: 21, y: -65}
+  - name: Hue/Saturation 2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 244
+      y: 49
+      width: 0
+      height: 0
+    spriteID: 3067cc1c90ea9894db5a798e9a5e8032
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 29, y: -65}
   platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0.25, y: 0.75}
   documentAlignment: 9
   importHiddenLayers: 0
   importedTextureWidth: 256
-  importedTextureHeight: 128
+  importedTextureHeight: 256
   documentSize: {x: 215, y: 114}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
   textureActualWidth: 256
-  textureActualHeight: 128
+  textureActualHeight: 256
   spritePackingTag: 
   resliceFromLayer: 0
   characterMode: 1
@@ -3022,6 +3066,13 @@ ScriptedImporter:
     spriteID: 00000000000000000000000000000000
     layerID: 8
     mosaicPosition: {x: 0, y: 0}
+  - name: Hue/Saturation 1
+    spriteName: Hue/Saturation 1
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 4c9a51f11b4d2ae418f3d8b5b7d019cf
+    layerID: 13
+    mosaicPosition: {x: 236, y: 49}
   - name: barrel
     spriteName: barrel
     isGroup: 0
@@ -3050,6 +3101,13 @@ ScriptedImporter:
     spriteID: dac89d46bfb36f44c97793eebca69b8f
     layerID: 4
     mosaicPosition: {x: 60, y: 67}
+  - name: Hue/Saturation 2
+    spriteName: Hue/Saturation 2
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 3067cc1c90ea9894db5a798e9a5e8032
+    layerID: 14
+    mosaicPosition: {x: 244, y: 49}
   - name: frame
     spriteName: frame
     isGroup: 0
@@ -3063,7 +3121,7 @@ ScriptedImporter:
     parentIndex: -1
     spriteID: 717e3c47538189b439dba4cee8308362
     layerID: 2
-    mosaicPosition: {x: 236, y: 49}
+    mosaicPosition: {x: 252, y: 49}
   characterData:
     bones:
     - name: bone_1

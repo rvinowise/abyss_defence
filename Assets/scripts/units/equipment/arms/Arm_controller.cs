@@ -3,15 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreLinq.Extensions;
 using UnityEngine;
-using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units;
-using rvinowise.units.equipment;
-using rvinowise.units.equipment.limbs;
-using rvinowise.units.equipment.limbs.arms;
 
 
-namespace units.equipment.arms {
+namespace rvinowise.units.parts.limbs.arms {
 
 public class Arm_controller: 
     Equipment_controller
@@ -30,6 +25,12 @@ public class Arm_controller:
     }
 
     public override void update() {
+        foreach (Arm arm in arms) {
+            arm.update();
+        }
+    }
+
+    protected override void execute_commands() {
         
     }
 
@@ -38,10 +39,7 @@ public class Arm_controller:
         arms.Add(child as Arm);
     }
 
-    protected override Command_batch new_command_batch() {
-        throw new NotImplementedException();
-    }
-    
+
     /* IWeaponry interface */
     public void fire() {
     }
@@ -58,7 +56,6 @@ public class Arm_controller:
         return fastest_weapon;
     }
 
-    
 
     /* Arm_controller itself */
     public Arm_controller(User_of_equipment user) : base(user) {

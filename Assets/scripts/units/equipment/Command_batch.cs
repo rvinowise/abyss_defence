@@ -5,11 +5,10 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace rvinowise.units.equipment {
+namespace rvinowise.units.parts {
 
 public class Command_batch {
 
-    public int priority;
 
 }
 }

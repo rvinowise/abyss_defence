@@ -6,10 +6,10 @@ using UnityEngine;
 using UnityEditor;
 using geometry2d;
 using rvinowise.units;
-using rvinowise.units.equipment;
+using rvinowise.units.parts;
 using rvinowise.rvi.contracts;
 
-namespace rvinowise.units.equipment {
+namespace rvinowise.units.parts {
 public static class Tools_splitter {
     internal static void split_controllers_of_tools(
         GameObject src_object,

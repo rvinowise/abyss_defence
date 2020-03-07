@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
-using rvinowise.units.equipment.weapons;
+using rvinowise.units.parts.weapons;
+using Object = UnityEngine.Object;
 
 
-namespace rvinowise.units.equipment.guns {
+namespace rvinowise.units.parts.guns {
 
-public class Rifle: Weapon {
+public class Rifle: Gun {
     
     
     /* Child interface */
@@ -22,6 +23,10 @@ public class Rifle: Weapon {
 
     public override void fire() {
         
+    }
+
+    public override Object get_projectile() {
+        throw new NotImplementedException();
     }
 }
 }

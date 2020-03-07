@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 using rvinowise;
-using rvinowise.units.equipment.limbs.legs;
+using rvinowise.units.parts.limbs.legs;
 
 
-namespace rvinowise.units.equipment.limbs.legs.strategy {
+namespace rvinowise.units.parts.limbs.legs.strategy {
 public abstract class Moving_strategy {
 
     protected readonly IList<Leg> legs;

@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
-using rvinowise.units.equipment;
-using units.equipment.transport;
+using rvinowise.units.parts;
+using rvinowise.units.parts.transport;
 
 
-namespace units.control {
+namespace rvinowise.units.control {
 
 /* asks tool controllers what they can do,
  orders some actions from them based on this information,

@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
-using units.equipment.transport;
+using rvinowise.units.parts.limbs.legs;
+using rvinowise.units.parts.transport;
 
 
-namespace rvinowise.units.equipment.humanoid {
+namespace rvinowise.units.parts.humanoid {
 
 public class Legs: Equipment_controller,
     ITransporter {
@@ -17,9 +18,6 @@ public class Legs: Equipment_controller,
     
     /* Equipment_controller interface */
     public override IEnumerable<Child> tools { get; }
-    protected override Command_batch new_command_batch() {
-        throw new NotImplementedException();
-    }
 
     public override IEquipment_controller copy_empty_into(User_of_equipment dst_host) {
         throw new NotImplementedException();
@@ -30,11 +28,12 @@ public class Legs: Equipment_controller,
     }
 
     public override void update() {
-        base.update();
+        execute_commands();
     }
 
     protected override void execute_commands() {
-        
+        move_in_direction(command_batch.moving_direction_vector);
+        rotate_to_direction(command_batch.face_direction_degrees);
     }
 
     protected override void init_components() {
@@ -44,31 +43,31 @@ public class Legs: Equipment_controller,
     
     /* ITransporter interface */
 
+    public transport.Command_batch command_batch { get; } = new transport.Command_batch();
+    
+
     public float get_possible_rotation() {
-        return 360f;
+        return 220f;
     }
 
     public float get_possible_impulse() {
-        return 1f;
+        return 20f;
     }
 
- 
 
-    public void command(Command_batch command_batch) {
-    }
-    
-    
     /* Legs itself */
 
-    private float acceleration = 0.1f;
-    
+    private float acceleration = 0.339f * Settings.scale;
+
+    public Legs() : base() { }
+
     public Legs(User_of_equipment in_user):base(in_user) {
         
     }
 
     public void move_in_direction(Vector2 direction) {
         Vector2 force = direction * get_possible_impulse() * Time.deltaTime;
-        rigidbody.AddForce(direction);
+        rigidbody.MovePosition(rigidbody.position + force);
     }
     
     public void rotate_to_direction(float face_direction) {

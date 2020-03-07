@@ -6,7 +6,7 @@ using rvinowise;
 using rvinowise.rvi.contracts;
 
 
-namespace rvinowise.units.equipment.guns {
+namespace rvinowise.units.parts.guns {
 
 
 public class Guns_controller:
@@ -39,9 +39,6 @@ public class Guns_controller:
         
     }
 
-    protected override Command_batch new_command_batch() {
-        throw new NotImplementedException();
-    }
 
     protected override void execute_commands() {
     }
@@ -49,6 +46,10 @@ public class Guns_controller:
     /* IWeaponry interface */
     public void fire() {
         
+    }
+
+    public void shoot(Transform target) {
+        throw new NotImplementedException();
     }
 
     public void shoot(GameObject target) {

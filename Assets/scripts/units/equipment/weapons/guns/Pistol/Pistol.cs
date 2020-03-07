@@ -1,11 +1,11 @@
 ﻿using rvinowise.units;
-using rvinowise.units.equipment.weapons;
+using rvinowise.units.parts.weapons;
 using UnityEngine;
 
-namespace units.equipment.weapons.guns.Pistol {
+namespace rvinowise.units.parts.weapons.guns.Pistol {
 
 public class Pistol: 
-    Weapon
+    Gun
 {
     
     /* Child interface */
@@ -17,12 +17,17 @@ public class Pistol:
 
     private GameObject game_object;
     
-    /* Weapon interface */
+    /* Gun interface */
     public override void fire() {
+    }
+
+    public override Object get_projectile() {
+        throw new System.NotImplementedException();
     }
 
     public override float time_to_readiness() {
         return 0;
     }
+    
 }
 }

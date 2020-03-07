@@ -2,10 +2,10 @@
 using System.Collections;
 using UnityEngine;
 
-namespace rvinowise.units.equipment {
+namespace rvinowise.units.parts {
 public interface IWeaponry: IEquipment_controller {
     void fire();
 
-    void shoot(GameObject target);
+    void shoot(Transform target);
 }
 }

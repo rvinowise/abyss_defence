@@ -3,20 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using geometry2d;
-using rvinowise.units.equipment.limbs.legs;
-using rvinowise.units.equipment.limbs.legs.strategy;
+using rvinowise.units.parts.limbs.legs;
+using rvinowise.units.parts.limbs.legs.strategy;
 
 
 namespace rvinowise.units.normal_spider.init {
-using rvinowise.units.equipment.limbs;
-using units;
+using parts.limbs;
 
 static class Legs {
-    private static readonly Vector2 scale = new Vector2(0.65f, 0.65f);
+    private static readonly float scale = 1f * Settings.scale;
     private static Sprite sprite_femur;// = Resources.Load<Sprite>("sprites/basic_spider/femur.png");
     private static Sprite sprite_tibia;// = Resources.Load<Sprite>("sprites/basic_spider/tibia.png");
 
-    public static void init(Leg_controller controller) {
+    public static Leg_controller init(Leg_controller controller) {
         sprite_femur = Resources.Load<Sprite>("basic_spider/femur");
         sprite_tibia = Resources.Load<Sprite>("basic_spider/tibia");
         
@@ -30,6 +29,7 @@ static class Legs {
         }
 
         create_moving_strategy(controller);
+        return controller;
     }
 
     
@@ -65,15 +65,15 @@ static class Legs {
     private const float rotation_speed = 360f;
 
     private static void init_left_front_leg(Leg leg, Sprite sprite_femur, Sprite sprite_tibia) {
-        leg.attachment = new Vector2(0.30f, 0.45f) * scale;
+        leg.attachment = new Vector2(0.195f, 0.2925f) * scale;
         leg.femur.possible_span = new Span(0f, 170f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
-        leg.femur.tip = new Vector2(0.65f, 0f) * scale;
+        leg.femur.tip = new Vector2(0.4225f, 0f) * scale;
         leg.femur.spriteRenderer.sprite = sprite_femur;
         leg.femur.rotation_speed = rotation_speed;
         leg.tibia.possible_span = new Span(-170f, 0f);
         //leg.tibia.comfortable_span = leg.tibia.possible_span.scaled(0.5f);
-        leg.tibia.tip = new Vector2(0.85f, 0f) * scale;
+        leg.tibia.tip = new Vector2(0.5525f, 0f) * scale;
         leg.tibia.spriteRenderer.sprite = sprite_tibia;
         leg.tibia.attachment = leg.femur.tip;
         leg.tibia.rotation_speed = rotation_speed;
@@ -83,15 +83,15 @@ static class Legs {
     }
 
     private static void init_left_hind_leg(Leg leg, Sprite sprite_femur, Sprite sprite_tibia) {
-        leg.attachment = new Vector2(-0.35f, 0.45f) * scale;
+        leg.attachment = new Vector2(-0.2275f, 0.2925f) * scale;
         leg.femur.possible_span = new Span(10f, 180f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
-        leg.femur.tip = new Vector2(0.65f, 0f) * scale;
+        leg.femur.tip = new Vector2(0.4225f, 0f) * scale;
         leg.femur.spriteRenderer.sprite = sprite_femur;
         leg.femur.rotation_speed = rotation_speed;
         leg.tibia.possible_span = new Span(0f, 180f);
         //leg.tibia.comfortable_span = leg.tibia.possible_span.scaled(0.5f);
-        leg.tibia.tip = new Vector2(0.85f, 0f) * scale;
+        leg.tibia.tip = new Vector2(0.5525f, 0f) * scale;
         leg.tibia.spriteRenderer.sprite = sprite_tibia;
         leg.tibia.attachment = leg.femur.tip;
         leg.tibia.rotation_speed = rotation_speed;
@@ -106,7 +106,7 @@ static class Legs {
     }
 
     private static void init_common_parameters(Leg leg) {
-        leg.comfortable_distance = 0.3f;
+        leg.comfortable_distance = 0.3f * scale;
     }
 
     private static void init_optimal_relative_position(Leg leg) {
@@ -169,7 +169,7 @@ static class Legs {
 
     
     private static void create_moving_strategy(Leg_controller controller) {
-        controller.moving_strategy = new equipment.limbs.legs.strategy.Stable(controller.legs) {
+        controller.moving_strategy = new parts.limbs.legs.strategy.Stable(controller.legs) {
             stable_leg_groups = new List<Stable_leg_group>() {
                 new Stable_leg_group(
                     new List<Leg>() {controller.left_front_leg, controller.right_hind_leg}

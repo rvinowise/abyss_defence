@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using units.equipment.transport;
+using rvinowise.units.parts.transport;
 using UnityEngine;
 
-namespace rvinowise.units.equipment {
+namespace rvinowise.units.parts {
     
 /* provides information about possible speed and rotation for a moving Unit */
 public class Empty_transporter: ITransporter {
@@ -18,11 +18,8 @@ public class Empty_transporter: ITransporter {
         return 0;
     }
 
-    public Command_batch command_batch { get; }
+    public transport.Command_batch command_batch { get; }
 
-    public void command(Command_batch command_batch) {
-        
-    }
 
     public void rotate_to_direction(float direction) {
         throw new NotImplementedException();

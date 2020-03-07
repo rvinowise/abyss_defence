@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace rvinowise.units.equipment.limbs {
+namespace rvinowise.units.parts.limbs {
 
-public class Segment: Body_part {
+public class Segment: Turning_element {
     /* constant characteristics. they are written during construction */
     public Vector2 tip {
         get {
@@ -35,7 +35,7 @@ public class Segment: Body_part {
         private set;
     }
 
-    
+
     
     
 }

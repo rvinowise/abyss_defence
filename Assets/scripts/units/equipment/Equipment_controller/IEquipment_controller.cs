@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace rvinowise.units.equipment
+namespace rvinowise.units.parts
 {
 
 /* represents a coherent system of several objects, 

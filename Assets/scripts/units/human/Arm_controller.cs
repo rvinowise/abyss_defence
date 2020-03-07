@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
-using rvinowise.units.equipment.limbs;
-using rvinowise.units.equipment.limbs.arms;
+using rvinowise.units.parts.limbs;
 
 
-namespace units.equipment.arms.humanoid {
+namespace rvinowise.units.parts.limbs.arms.humanoid {
 
-public class Arm_controller: arms.Arm_controller {
+public class Arm_controller: limbs.arms.Arm_controller {
 
     public Arm left_arm {
         get { return arms[0]; }
@@ -21,5 +20,6 @@ public class Arm_controller: arms.Arm_controller {
         set { arms[1] = value; }
     }
 
+    public Arm_controller(User_of_equipment user) : base(user) { }
 }
 }

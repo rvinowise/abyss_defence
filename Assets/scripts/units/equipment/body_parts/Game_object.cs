@@ -16,6 +16,7 @@ public class Game_object:Child {
         get {
             return transform.rotation;
         }
+        set => transform.rotation = value;
     }
     public Transform transform {
         get {
@@ -64,7 +65,11 @@ public class Game_object:Child {
     }
 
     public void attach_to_host() {
-        game_object.transform.position = host.TransformPoint(attachment);
+        position = host.TransformPoint(attachment);
+    }
+
+    public void update() {
+        attach_to_host();
     }
 
 }

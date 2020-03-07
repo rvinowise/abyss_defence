@@ -6,7 +6,7 @@ using rvinowise;
 using rvinowise.rvi.contracts;
 
 
-namespace rvinowise.units.equipment {
+namespace rvinowise.units.parts {
 
 public partial class User_of_equipment {
     public static class Data_distributor {

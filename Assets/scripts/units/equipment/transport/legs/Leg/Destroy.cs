@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using rvinowise.units.equipment.limbs;
-using rvinowise.units.equipment.limbs.legs;
+using rvinowise.units.parts.limbs;
+using rvinowise.units.parts.limbs.legs;
 using UnityEngine;
 using static UnityEngine.Object; //Destroy()
 

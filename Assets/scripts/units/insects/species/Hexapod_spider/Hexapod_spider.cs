@@ -5,10 +5,10 @@ using System.Linq;
 
 using UnityEngine;
 using geometry2d;
-using rvinowise.units.equipment;
-using rvinowise.units.equipment.limbs;
-using rvinowise.units.equipment.limbs.legs;
-using units.equipment.transport;
+using rvinowise.units.parts;
+using rvinowise.units.parts.limbs;
+using rvinowise.units.parts.limbs.legs;
+using rvinowise.units.parts.transport;
 
 namespace rvinowise.units.hexapod_spider {
 

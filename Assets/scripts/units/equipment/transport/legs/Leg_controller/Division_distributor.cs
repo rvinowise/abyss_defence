@@ -5,10 +5,10 @@ using System.Linq;
 using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.equipment.limbs.legs.strategy;
+using rvinowise.units.parts.limbs.legs.strategy;
 
 
-namespace rvinowise.units.equipment.limbs.legs {
+namespace rvinowise.units.parts.limbs.legs {
 
 public partial class Leg_controller {
 

@@ -5,7 +5,7 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace rvinowise.units.equipment.limbs.legs {
+namespace rvinowise.units.parts.limbs.legs {
 
 public class Segment: limbs.Segment {
 

@@ -5,7 +5,7 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace rvinowise.units.equipment.weapons {
+namespace rvinowise.units.parts.weapons {
 
 public interface IWeapon {
 

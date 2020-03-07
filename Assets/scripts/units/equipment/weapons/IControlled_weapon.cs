@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
-using rvinowise.units.equipment.weapons;
+using rvinowise.units.parts.weapons;
 
 
-namespace units.equipment.weapons {
+namespace rvinowise.units.parts.weapons {
 
 public interface IControlled_weapon: IWeapon {
 

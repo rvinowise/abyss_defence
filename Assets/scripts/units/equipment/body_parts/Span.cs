@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace rvinowise.units.equipment.limbs {
+namespace rvinowise.units.parts.limbs {
 
 public struct Span {
     /* possible rotation of a segment relative to it's attachment  */

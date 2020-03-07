@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using rvinowise.units.equipment;
+using rvinowise.units.parts;
 
 
 namespace rvinowise.units.control {

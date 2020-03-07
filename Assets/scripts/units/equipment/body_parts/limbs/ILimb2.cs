@@ -5,7 +5,7 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace rvinowise.units.equipment.limbs {
+namespace rvinowise.units.parts.limbs {
 
 public interface ILimb2 {
 

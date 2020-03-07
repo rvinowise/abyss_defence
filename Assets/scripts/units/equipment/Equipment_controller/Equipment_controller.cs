@@ -4,7 +4,7 @@ using rvinowise.units.debug;
 using UnityEngine;
 using rvinowise.rvi.contracts;
 
-namespace rvinowise.units.equipment
+namespace rvinowise.units.parts
 {
 
 /*
@@ -35,20 +35,12 @@ public abstract class Equipment_controller:
         }
     }
 
-    private IList<equipment.Command_batch> command_batches;
+    private IList<Command_batch> command_batches;
 
     public void command(Command_batch command_batch) {
         command_batches.Add(command_batch);
     }
 
-    /*protected Command_batch get_combined_commands() {
-        Command_batch result = new_command_batch(); 
-        foreach (var command_batch in command_batches) {
-            
-        }
-    }*/
-
-    protected abstract Command_batch new_command_batch();
 
 
     public bool has_tool(Child in_child) {

@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using geometry2d;
-using rvinowise.units.equipment.limbs;
-using rvinowise.units.equipment.limbs.init;
-using rvinowise.units.equipment.limbs.legs;
-using rvinowise.units.equipment;
+using rvinowise.units.parts.limbs;
+using rvinowise.units.parts.limbs.init;
+using rvinowise.units.parts.limbs.legs;
+using rvinowise.units.parts;
 
 namespace rvinowise.units.hexapod_spider.init {
 
 
 static class Legs {
-    private static readonly Vector2 scale = new Vector2(0.65f, 0.65f);
+    private static readonly float scale = 1.0236f * Settings.scale;
     private static Sprite sprite_femur;// = Resources.Load<Sprite>("sprites/basic_spider/femur.png");
     private static Sprite sprite_tibia;// = Resources.Load<Sprite>("sprites/basic_spider/tibia.png");*/
 
@@ -31,7 +31,7 @@ static class Legs {
     }
 
     private static void create_moving_strategy(Leg_controller controller) {
-        controller.moving_strategy = new equipment.limbs.legs.strategy.Stable(controller.legs) {
+        controller.moving_strategy = new parts.limbs.legs.strategy.Stable(controller.legs) {
             stable_leg_groups = new List<Stable_leg_group>() {
                 new Stable_leg_group(
                     new List<Leg>() {
@@ -86,7 +86,7 @@ static class Legs {
     private const float rotation_speed = 360f;
 
     private static void init_left_front_leg(Leg leg) {
-        leg.attachment = new Vector2(0.2275f, 0.325f);
+        leg.attachment = new Vector2(0.2275f, 0.325f)* scale;
         leg.femur.possible_span = new Span(0f, 170f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.tibia.possible_span = new Span(-170f, 0f);
@@ -97,7 +97,7 @@ static class Legs {
     }
     
     private static void init_left_middle_leg(Leg leg) {
-        leg.attachment = new Vector2(0f, 0.65f) * scale;
+        leg.attachment = new Vector2(0f, 0.4225f) * scale;
         leg.femur.possible_span = new Span(20f, 160f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.tibia.possible_span = new Span(0f, 170f);
@@ -108,7 +108,7 @@ static class Legs {
     }
 
     private static void init_left_hind_leg(Leg leg) {
-        leg.attachment = new Vector2(-0.45f, 0.5f) * scale;
+        leg.attachment = new Vector2(-0.2925f, 0.325f) * scale;
         leg.femur.possible_span = new Span(10f, 180f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.tibia.possible_span = new Span(0f, 170f);
@@ -118,12 +118,12 @@ static class Legs {
     }
 
     private static void init_common_characteristic(Leg leg) {
-        leg.comfortable_distance = 0.6f;
-        leg.femur.tip = new Vector2(0.4225f, 0f);
+        leg.comfortable_distance = 0.6f * scale;
+        leg.femur.tip = new Vector2(0.4225f, 0f) * scale;
         leg.femur.spriteRenderer.sprite = sprite_femur;
         leg.femur.rotation_speed = rotation_speed;
 //        leg.tibia.tip = new Vector2(0.5525f, 0f);
-        leg.tibia.tip = new Vector2(0.56f, 0f);
+        leg.tibia.tip = new Vector2(0.56f, 0f) * scale;
         leg.tibia.spriteRenderer.sprite = sprite_tibia;
         leg.tibia.attachment = leg.femur.tip;
         leg.tibia.rotation_speed = rotation_speed;
@@ -153,7 +153,7 @@ static class Legs {
         foreach (Leg leg in controller.legs) {
             init_common_characteristic(leg);
         }
-        controller.moving_offset_distance = 0.40f;
+        controller.moving_offset_distance = 0.40f * scale;
     }
     
     private static void init_femur_folding_direction(Leg leg) {
@@ -161,7 +161,7 @@ static class Legs {
     }
 
     private static void mirror(Leg dst, Leg src) {
-        equipment.limbs.init.Initializer.mirror(dst, src);
+        parts.limbs.init.Initializer.mirror(dst, src);
         
         dst.femur.desired_relative_direction_standing =
             Quaternion.Inverse(src.femur.desired_relative_direction_standing);

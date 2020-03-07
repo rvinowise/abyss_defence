@@ -5,10 +5,10 @@ using UnityEngine;
 using UnityEditor;
 using geometry2d;
 using rvinowise.units;
-using rvinowise.units.equipment;
+using rvinowise.units.parts;
 
 
-namespace rvinowise.units.equipment {
+namespace rvinowise.units.parts {
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
