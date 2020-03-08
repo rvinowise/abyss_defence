@@ -30,7 +30,7 @@ ScriptedImporter:
     spriteExtrude: 1
     spriteMeshType: 1
     alignment: 9
-    spritePivot: {x: 0.1173295, y: 0.37973213}
+    spritePivot: {x: 0.110496104, y: 0.37973213}
     spritePixelsToUnits: 300
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
@@ -62,9 +62,9 @@ ScriptedImporter:
     compressionQualitySet: 0
     textureFormatSet: 0
   spriteImportData:
-  - name: hand_gun_1
+  - name: grip_gun_1
     originalName: 
-    pivot: {x: 0.1173295, y: 0.37973213}
+    pivot: {x: 0.110496104, y: 0.37973213}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:

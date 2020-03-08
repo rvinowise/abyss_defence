@@ -19,10 +19,9 @@ public class Turning_element: Game_object {
     }
 
     public void update() {
-        old_rotation = rotation;
-        base.update();
-        check_possible_angles();
-        rotate_with_host();
+        //base.update();
+        //check_possible_angles();
+        //rotate_with_host();
         preserve_possible_rotation();
     }
 
@@ -30,11 +29,11 @@ public class Turning_element: Game_object {
         
     }
 
-    private void rotate_with_host() {
+    /*private void rotate_with_host() {
         if (host is Turning_element turning_element) {
             rotation *= host.rotation  * Quaternion.Inverse(turning_element.old_rotation);
         }
-    }
+    }*/
 
     private void preserve_possible_rotation() {
         float delta_degrees = host.delta_degrees(transform);
@@ -44,6 +43,10 @@ public class Turning_element: Game_object {
         else if (delta_degrees < possible_span.min) {
             rotation = host.rotation * degrees_to_quaternion(possible_span.min);
         }
+    }
+
+    public void rotate_to(Quaternion direction) {
+        transform.rotate_to(direction, rotation_speed );
     }
 }
 }

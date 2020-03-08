@@ -13,15 +13,15 @@ public abstract class Child
     public virtual Transform host { get; set; }
     
     //point relative to the host where the leg is attached to it
-    public virtual Vector2 attachment{
-        get;set;
+    public virtual Vector2 attachment {
+        get { return _attachment; }
+        set { _attachment = value; }
     }
+    private Vector2 _attachment;
 
-    public Vector2 position {
-        get { return host.TransformPoint(attachment); }
-    }
+
     
-    
+
 }
 
 }

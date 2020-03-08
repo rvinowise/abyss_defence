@@ -12,6 +12,13 @@ public struct Span {
         max = Math.Max(val1, val2);
     }
 
+    public Span mirror() {
+        return new Span(
+            -max,
+            -min
+        );
+    }
+
     public int sign_of_bigger_rotation() {
         if (Math.Abs(min) > Math.Abs(max)) {
             return Math.Sign(min);

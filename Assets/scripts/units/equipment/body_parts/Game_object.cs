@@ -12,6 +12,8 @@ public class Game_object:Child {
 
     public readonly GameObject game_object; 
     
+    
+    /* GameObject fields */
     public Quaternion rotation {
         get {
             return transform.rotation;
@@ -47,6 +49,13 @@ public class Game_object:Child {
         get {
             return game_object.GetComponent<SpriteRenderer>();
         }
+    }
+    
+    /*  Game_object itself */
+
+    public Vector2 local_position { //same as attachment but with Unity's parenting
+        get { return game_object.transform.localPosition; }
+        set { game_object.transform.localPosition = value; }
     }
     
     public Game_object() {

@@ -47,11 +47,11 @@ public class Legs: Equipment_controller,
     
 
     public float get_possible_rotation() {
-        return 220f;
+        return 110f;
     }
 
     public float get_possible_impulse() {
-        return 20f;
+        return 1f;
     }
 
 

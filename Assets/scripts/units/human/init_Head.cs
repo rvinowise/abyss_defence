@@ -15,11 +15,13 @@ public class Head {
         parts.head.Head head) 
     {
         head.possible_span = new Span(90,-90);
-        head.rotation_speed = 10;
+        head.rotation_speed = 340;
         head.host = host.transform;
         head.attachment = new Vector2(0,0);
         head.spriteRenderer.sprite = host.head_sprite;
         head.spriteRenderer.sortingLayerName = "on body";
+        head.transform.parent = host.transform;
+        head.transform.localPosition = head.attachment;
         return head;
     }
 

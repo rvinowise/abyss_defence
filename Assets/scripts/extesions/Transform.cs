@@ -52,7 +52,10 @@ public static partial class Unity_extension
         transform.rotation = Quaternion.RotateTowards(transform.rotation, needed_rotation, in_speed);
     }
     public static void rotate_to(this Transform transform, Quaternion needed_rotation, float in_speed) {
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, needed_rotation, in_speed);
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            needed_rotation,
+            in_speed * Time.deltaTime);
     }
 
 

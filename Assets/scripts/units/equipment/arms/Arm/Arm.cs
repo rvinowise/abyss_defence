@@ -36,13 +36,13 @@ public class Arm: Child, ILimb3 {
 
     
     /* ILimb2 interface */
-    public Segment segment1 {
+    public limbs.Segment segment1 {
         get { return upper_arm;}
     }
-    public Segment segment2 {
+    public limbs.Segment segment2 {
         get { return forearm;}
     }
-    public Segment segment3 {
+    public limbs.Segment segment3 {
             get { return hand;}
         }
     
@@ -66,6 +66,10 @@ public class Arm: Child, ILimb3 {
     }
 
     public void update() {
+        upper_arm.rotate_to(upper_arm.desired_direction);
+        forearm.rotate_to(forearm.desired_direction);
+        hand.rotate_to(hand.desired_direction);
+        
         upper_arm.update();
         forearm.update();
         hand.update();

@@ -21,11 +21,7 @@ public class Segment: Turning_element {
     /* current characteristics */
     
     public Quaternion desired_direction { get; set; }
-
-    public Segment(string name): base(name) {
-        
-    }
-
+    
     public float length {
         get;
         private set;
@@ -34,6 +30,34 @@ public class Segment: Turning_element {
         get;
         private set;
     }
+
+    public Segment(string name): base(name) {
+        
+    }
+    
+    public virtual void mirror_from(limbs.Segment src) {
+        this.attachment = new Vector2(
+            src.attachment.x,
+            -src.attachment.y
+        );
+        this.local_position = new Vector2(
+            src.local_position.x,
+            -src.local_position.y
+        );
+        
+        this.possible_span = src.possible_span.mirror();
+        this.tip = new Vector2(
+            src.tip.x,
+            -src.tip.y
+        );
+        
+        //this.folding_direction = src.folding_direction * -1;
+
+        this.spriteRenderer.sprite = src.spriteRenderer.sprite;
+        this.spriteRenderer.flipY = !src.spriteRenderer.flipY;
+    }
+
+    
 
 
     

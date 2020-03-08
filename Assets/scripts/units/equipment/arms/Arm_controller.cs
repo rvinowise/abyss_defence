@@ -26,8 +26,20 @@ public class Arm_controller:
 
     public override void update() {
         foreach (Arm arm in arms) {
+            set_desired_direction(arm);
             arm.update();
         }
+    }
+
+    private void set_desired_direction(Arm arm) {
+        var direction_to_mouse = transform.quaternion_to(rvi.Input.mouse_world_position());
+        arm.upper_arm.desired_direction =
+            arm.upper_arm.desired_idle_direction * direction_to_mouse;
+        
+        arm.forearm.desired_direction =
+            arm.forearm.desired_idle_direction * direction_to_mouse;
+        arm.hand.desired_direction =
+            arm.hand.desired_idle_direction * direction_to_mouse;
     }
 
     protected override void execute_commands() {
