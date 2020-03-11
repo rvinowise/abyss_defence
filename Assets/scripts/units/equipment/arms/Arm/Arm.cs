@@ -5,6 +5,7 @@ using geometry2d;
 using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
+using rvinowise.units.parts.limbs.arms.strategy;
 using rvinowise.units.parts.weapons;
 
 
@@ -47,6 +48,7 @@ public class Arm: Limb3 {
 
     private Gun held_tool;
     public Baggage baggage;
+    public arms.strategy.Strategy strategy;
     
     public Arm(Transform inHost) {
         upper_arm = new Segment("upper_arm");
@@ -63,10 +65,15 @@ public class Arm: Limb3 {
         hand.game_object.GetComponent<SpriteRenderer>().sortingOrder = -10;
         hand.host = forearm.transform;
         
+        strategy = new Idle_vigilant();
+        
         debug = new Arm.Debug(this);
     }
 
     public void update() {
+
+        apply_moving_strategy();
+        
         debug.draw_desired_directions();
         upper_arm.update();
         forearm.update();
@@ -76,6 +83,8 @@ public class Arm: Limb3 {
 
     public void take_tool_from_baggage() {
         Contract.Requires(held_tool == null, "must be free in order to grab a tool");
+
+        strategy = new strategy.Reach_into_bag(baggage.transform);
         set_desired_directions(get_orientation_touching_baggage());
     }
 
