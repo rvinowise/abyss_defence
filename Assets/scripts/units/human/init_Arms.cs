@@ -69,23 +69,25 @@ public class Arms {
         
         arm.upper_arm.possible_span = new Span(100f, -50f);
         arm.upper_arm.tip = new Vector2(0.30f, 0f);
-        arm.upper_arm.spriteRenderer.sprite = sprite_upper_arm;
         arm.upper_arm.local_position = new Vector2(0f, 0.32f);
         arm.upper_arm.desired_idle_direction = Directions.degrees_to_quaternion(20f);
+        arm.upper_arm.spriteRenderer.sprite = sprite_upper_arm;
         //arm.upper_arm.desired_idle_direction = Directions.degrees_to_quaternion(0f);
         
         arm.forearm.possible_span = new Span(0f, -160f);
-        arm.forearm.tip = new Vector2(0.38f, 0f);
-        arm.forearm.spriteRenderer.sprite = sprite_forearm;
+        arm.forearm.tip = new Vector2(0.30f, 0f);
         arm.forearm.local_position = arm.upper_arm.tip;
         arm.forearm.desired_idle_direction = Directions.degrees_to_quaternion(-20f);
+        arm.forearm.spriteRenderer.sprite = sprite_forearm;
         //arm.forearm.desired_idle_direction = Directions.degrees_to_quaternion(0f);
         
         arm.hand.possible_span = new Span(45f, -70f);
         arm.hand.tip = new Vector2(0.12f, 0f);
-        arm.hand.spriteRenderer.sprite = Resources.Load<Sprite>("human/hand/grip_gun");
-        arm.hand.local_position = arm.upper_arm.tip;
+        arm.hand.local_position = arm.forearm.tip; //todo set localPosition automatically since it's always = parent.tip
         arm.hand.desired_idle_direction = Directions.degrees_to_quaternion(0f);
+        arm.hand.spriteRenderer.sprite = Resources.Load<Sprite>("human/hand/grip_gun");
+
+        arm.folding_direction = 1;
     }
 
     private static void mirror(Arm arm_dst , Arm arm_src) {

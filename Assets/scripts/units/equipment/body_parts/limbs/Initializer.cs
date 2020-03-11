@@ -10,7 +10,7 @@ namespace rvinowise.units.parts.limbs.init{
 
 public static class Initializer {
 
-    public static void mirror(ILimb2 dst, ILimb2 src) {
+    public static void mirror(Limb2 dst, Limb2 src) {
         // the base direction is to the right
         dst.segment1.mirror_from(src.segment1);
         dst.segment2.mirror_from(src.segment2);
@@ -18,8 +18,8 @@ public static class Initializer {
         dst.folding_direction = src.folding_direction * -1;
     }
     
-    public static void mirror(ILimb3 dst, ILimb3 src) {
-        mirror((ILimb2)dst, (ILimb2)src);
+    public static void mirror(Limb3 dst, Limb3 src) {
+        mirror((Limb2)dst, (Limb2)src);
         dst.segment3.mirror_from(src.segment3);
     }
 

@@ -38,7 +38,7 @@ public partial class Leg_controller:
 
 
     public override void update() {
-        destroy_invalid_legs(); //debug
+        destroy_invalid_legs(); //debug_limb
         execute_commands();
         move_legs();
     }
@@ -230,7 +230,7 @@ public partial class Leg_controller:
     public override void on_draw_gizmos() {
         foreach (Leg leg in legs) {
             leg.debug.draw_positions();
-            leg.debug.draw_desired_directions(Color.green, 0.1f);
+            leg.debug.draw_desired_directions(0.1f);
         }
         //draw_moving_direction();
     }

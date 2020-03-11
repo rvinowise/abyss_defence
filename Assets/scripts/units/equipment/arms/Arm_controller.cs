@@ -17,29 +17,15 @@ public class Arm_controller:
     public override IEnumerable<Child> tools {
         get { return arms; }
     }
-    public IList<Arm> arms = new List<Arm>();
     
-    IList<Held_weapon> held_weapons = new List<Held_weapon>();
     public override IEquipment_controller copy_empty_into(User_of_equipment dst_host) {
         throw new NotImplementedException();
     }
 
     public override void update() {
         foreach (Arm arm in arms) {
-            set_desired_direction(arm);
             arm.update();
         }
-    }
-
-    private void set_desired_direction(Arm arm) {
-        var direction_to_mouse = transform.quaternion_to(rvi.Input.mouse_world_position());
-        arm.upper_arm.desired_direction =
-            arm.upper_arm.desired_idle_direction * direction_to_mouse;
-        
-        arm.forearm.desired_direction =
-            arm.forearm.desired_idle_direction * direction_to_mouse;
-        arm.hand.desired_direction =
-            arm.hand.desired_idle_direction * direction_to_mouse;
     }
 
     protected override void execute_commands() {
@@ -61,18 +47,26 @@ public class Arm_controller:
         fastest_weapon.shoot(target);
     }
 
-    private Held_weapon get_weapon_reaching_faster(Transform target) {
-        Held_weapon fastest_weapon = held_weapons.MinBy(
+    private Held_tool get_weapon_reaching_faster(Transform target) {
+        Held_tool fastest_tool = held_tools.MinBy(
             held_weapon => held_weapon.time_to_shooting(target)
         ).First();
-        return fastest_weapon;
+        return fastest_tool;
     }
 
 
     /* Arm_controller itself */
+    
+    public IList<Arm> arms = new List<Arm>();
+    
+    public IList<Held_tool> held_tools = new List<Held_tool>();
+    
+    
     public Arm_controller(User_of_equipment user) : base(user) {
         
     }
-    
+
+    public Arm_controller() : base() { }
+
 }
 }

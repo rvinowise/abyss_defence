@@ -20,6 +20,19 @@ public static class Directions {
     public static Vector2 degrees_to_vector(float degrees) {
         return Quaternion.AngleAxis(degrees, Vector3.forward) * Vector3.right;
     }
+
+    public static Side side(Quaternion rotation) {
+        if (rotation.eulerAngles.z > Mathf.Epsilon) {
+            return Side.LEFT;
+        } else if (rotation.eulerAngles.z < Mathf.Epsilon) {
+            return Side.RIGHT;
+        }
+        return Side.NONE;
+    }
+
+    public enum Side {
+        LEFT,RIGHT, NONE
+    }
 }
 
 public static class Triangles {

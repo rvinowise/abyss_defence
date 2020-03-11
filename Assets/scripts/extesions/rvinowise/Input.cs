@@ -13,6 +13,11 @@ public class Input: unity::Input
     {
         return Camera.main.ScreenToWorldPoint(unity::Input.mousePosition);
     }
+
+    public static int mouse_wheel_steps() {
+        float wheel_movement = Input.GetAxis("Mouse ScrollWheel");
+        return (int)System.Math.Round(wheel_movement * 10);
+    }
 }
 
 }

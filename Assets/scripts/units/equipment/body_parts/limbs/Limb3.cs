@@ -7,9 +7,9 @@ using rvinowise;
 
 namespace rvinowise.units.parts.limbs {
 
-public interface ILimb3: ILimb2 {
+public class Limb3: Limb2 {
 
-    Segment segment3 { get; }
+    public Segment segment3 { get; set; } //an appendage at the end, to direct the tools
     
 
 }

@@ -6,7 +6,7 @@ using rvinowise;
 using rvinowise.rvi.contracts;
 
 
-namespace rvinowise.units.parts.guns {
+namespace rvinowise.units.parts.weapons.guns {
 
 
 public class Guns_controller:

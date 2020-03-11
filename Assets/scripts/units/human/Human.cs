@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using geometry2d;
 using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
 using rvinowise.units.control;
-using rvinowise.units.parts;
 using rvinowise.units.control;
 using rvinowise.units.parts.head;
 using rvinowise.units.parts.limbs.arms.humanoid;
 using rvinowise.units.parts.transport;
+using rvinowise.units.parts.weapons;
+using rvinowise.units.parts.weapons.guns.Pistol;
 using UnityEngine.UIElements;
-
 
 namespace rvinowise.units.human {
 
@@ -21,43 +22,75 @@ using parts;
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(User_of_equipment))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Human: 
-    MonoBehaviour {
+    MonoBehaviour 
+{
     public Sprite head_sprite;
     
     private Intelligence intelligence;
     private User_of_equipment user_of_equipment;
     private Head head;
     private Arm_controller arms;
+    private parts.humanoid.Baggage baggage;
     
     private SpriteRenderer sprite_renderer;
     
     protected virtual void Awake()
     {
-        
-        
-        
         init_components();
-        init_body();
+        init_parts();
         
     }
 
     private void init_components() {
         user_of_equipment = GetComponent<User_of_equipment>();
-        Contract.Requires(user_of_equipment != null);
         sprite_renderer = GetComponent<SpriteRenderer>();
         
     }
 
-    private void init_body() {
-        intelligence = new Player_control(transform, user_of_equipment);
-        intelligence.transporter = create_transporter();
-        
-        this.sprite_renderer.sprite = Resources.Load<Sprite>("human/body");
+    private void init_parts() {
+        init_body_parts();
+        init_baggage();
+
+        init_intelligence();
+    }
+
+    private void init_body_parts() {
+        sprite_renderer.sprite = Resources.Load<Sprite>("human/body");
         head = init.Head.init(this, new Head());
         arms = init.Arms.init(
-            new parts.limbs.arms.humanoid.Arm_controller(user_of_equipment)
+            user_of_equipment.add_equipment_controller<parts.limbs.arms.humanoid.Arm_controller>()
         );
+        //user_of_equipment.weaponry = arms;
+        baggage = new parts.humanoid.Baggage {
+            items = new List<Gun> {
+                new Pistol(),
+                new Pistol()
+            }
+        };
+    }
+
+    private void init_baggage() {
+        baggage.transform.parent = transform;
+        baggage.transform.localRotation = Directions.degrees_to_quaternion(30f);
+        baggage.transform.localPosition = new Vector2(0f, -0.3f);
+        /*baggage.transform.localRotation = Directions.degrees_to_quaternion(90f);
+        baggage.transform.localPosition = new Vector2(0.4f, -0.4f);*/
+        arms.left_arm.baggage = arms.right_arm.baggage = baggage;
+
+        baggage.game_object.AddComponent<SpriteRenderer>();
+        var sprite_renderer = baggage.game_object.GetComponent<SpriteRenderer>();
+        sprite_renderer.sprite = Resources.Load<Sprite>("guns/pistol/pistol");
+        //Resources.Load<Sprite>("/guns/pistol/pistol");
+    }
+
+    private void init_intelligence() {
+        intelligence = new Player_control(transform, user_of_equipment);
+        intelligence.transporter = create_transporter();
+        ((Player_control) intelligence).arm_controller = arms;
+        intelligence.baggage = baggage;
+        intelligence.sensory_organ = head;
     }
 
 
@@ -72,8 +105,8 @@ public class Human:
 
     void Update() {
         intelligence.update();
+        
         head.update();
-        head.desired_direction = (rvi.Input.mouse_world_position() - head.position).to_quaternion();
     }
     
     

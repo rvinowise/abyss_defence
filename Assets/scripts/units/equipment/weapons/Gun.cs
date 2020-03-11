@@ -7,6 +7,7 @@ using rvinowise;
 
 namespace rvinowise.units.parts.weapons {
 
+/* a tool consisting of one element which can shoot */
 public abstract class Gun: 
     Game_object,
     IWeapon 
@@ -16,6 +17,10 @@ public abstract class Gun:
     public float reload_time;
 
     public Vector2 muzzle_place;
+    public Vector2 tip {
+        get { return muzzle_place; }
+        set { muzzle_place = value; }
+    }
     public GameObject game_object;
     /* current values */
     private float last_shot_time = 0f;

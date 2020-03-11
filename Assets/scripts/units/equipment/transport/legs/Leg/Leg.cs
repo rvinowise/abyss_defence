@@ -7,11 +7,17 @@ using rvinowise.units;
 
 namespace rvinowise.units.parts.limbs.legs {
 
-public class Leg: Child, ILimb2 
+public class Leg: Limb2 
 {
     /* constant characteristics */
-    public readonly Segment femur;
-    public readonly Segment tibia;
+    public Segment femur {
+        get { return segment1 as legs.Segment;}
+        set { segment1 = value; }
+    }
+    public Segment tibia {
+        get { return segment1 as legs.Segment;}
+        set { segment1 = value; }
+    }
 
     public int folding_direction { get; set; } //1 of -1
     public float provided_impulse = 0.20f;
@@ -39,14 +45,6 @@ public class Leg: Child, ILimb2
         }
     }
 
-    
-    /* ILimb2 interface */
-    public limbs.Segment segment1 {
-        get { return femur;}
-    }
-    public limbs.Segment segment2 {
-        get { return tibia;}
-    }
     
     /* Leg itself */
     
@@ -214,91 +212,7 @@ public class Leg: Child, ILimb2
 
     
 
-    public class Debug {
-        private readonly Leg leg;
-        Color problem_color = new Color(255,50,50);
-        Color optimal_color = new Color(50,255,50);
-        private const float sphere_size = 0.05f;
-        public string name;
-        private bool debug_off {
-            get { return rvinowise.units.debug.Debugger.is_off; }
-        }
-
-        public Debug(Leg _parent_leg) {
-            leg = _parent_leg;
-        }
-
-        public void draw_lines(Color color, float time=1f) {
-            if (debug_off) {
-                return;
-            }
-            UnityEngine.Debug.DrawLine(
-                leg.femur.position, 
-                leg.femur.transform.TransformPoint(leg.femur.tip), 
-                color,
-                time
-            );
-            UnityEngine.Debug.DrawLine(
-                leg.tibia.position, 
-                leg.tibia.transform.TransformPoint(leg.tibia.tip), 
-                color,
-                time
-            );
-        }
-        public void draw_desired_directions(Color color, float time=0.1f) {
-            if (debug_off) {
-                return;
-            }
-            UnityEngine.Debug.DrawLine(
-                leg.femur.position, 
-                leg.femur.position +
-                    (Vector2)(
-                        leg.femur.desired_direction *
-                        leg.femur.tip
-                    ),
-                Color.cyan,
-                time
-            );
-            Vector2 tibia_position =
-                leg.femur.position +
-                (Vector2) (leg.femur.desired_direction * leg.femur.tip);
-            UnityEngine.Debug.DrawLine(
-                tibia_position, 
-                tibia_position + 
-                    (Vector2)(
-                        leg.tibia.desired_direction *
-                        leg.tibia.tip
-                    ),
-                Color.white,
-                time
-            );
-        }
-        
-        public void draw_positions() {
-            if (debug_off) {
-                return;
-            }
-            /*if (name != "left_hind_leg") {
-                return;
-            }*/
-            /*Gizmos.color = Color.cyan;
-            Gizmos.DrawSphere(
-                leg.tibia.transform.TransformPoint(leg.tibia.tip), sphere_size);*/
-            
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(leg.holding_point, sphere_size);
-            
-            Gizmos.color = Color.white;
-            Gizmos.DrawSphere(
-                leg.host.TransformPoint(leg.optimal_relative_position_standing), sphere_size);
-            
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(
-                leg.optimal_position, sphere_size);
-           
-        }
-    }
-    public readonly Debug debug;
+    
 
     public bool is_valid() {
         // this way it can be deleted from the editor when debugging
@@ -341,35 +255,49 @@ public class Leg: Child, ILimb2
         set_desired_directions_by_position(optimal_position);
     }
 
-    private void set_desired_directions_by_position(Vector2 desired_position) {
-        //all positions are in global coordinates
-        float distance_to_aim = 
-            ((Vector2)femur.position).distance_to(desired_position);
-        float femur_angle_offset = 
-            geometry2d.Triangles.get_angle_by_lengths(
-                femur.length,
-                distance_to_aim,
-                tibia.length
-            );
-        if (float.IsNaN(femur_angle_offset)) {
-            // leg can't reach the desired position physically
-            debug.draw_lines(Color.magenta,0.5f);
-            //return;
-            femur_angle_offset = 0f; // assuming the Leg can become straight
+    public new class Debug: Limb2.Debug {
+        private readonly Leg leg;
+
+        protected override Limb2 limb2 {
+            get { return leg; }
         }
-        
-        femur.desired_direction = degrees_to_quaternion(
-            ((Vector2)femur.position).degrees_to(desired_position) +
-            (femur_angle_offset * (float) folding_direction)
-        );
 
-        Vector2 tibia_position =
-            femur.position +
-            (Vector2) (femur.desired_direction * femur.tip);
+        public Debug(Leg parent):base(parent) {
+            leg = parent;
+        }
 
-        tibia.desired_direction = degrees_to_quaternion(
-            tibia_position.degrees_to(desired_position)
-        );
+        public void draw_positions() {
+            if (debug_off) {
+                return;
+            }
+            /*if (name != "left_hind_leg") {
+                return;
+            }*/
+            /*Gizmos.color = Color.cyan;
+            Gizmos.DrawSphere(
+                leg.segment2.transform.TransformPoint(leg.segment2.tip), sphere_size);*/
+            
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(leg.holding_point, sphere_size);
+            
+            Gizmos.color = Color.white;
+            Gizmos.DrawSphere(
+                leg.host.TransformPoint(leg.optimal_relative_position_standing), sphere_size);
+            
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(
+                leg.optimal_position, sphere_size);
+           
+        }
+    }
+    public Leg.Debug debug {
+        get { return _debug; }
+        private set { _debug = value; }
+    }
+    private Leg.Debug _debug;
+
+    protected override Limb2.Debug debug_limb {
+        get { return _debug; }
     }
 } 
 

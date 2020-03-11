@@ -21,5 +21,6 @@ public class Arm_controller: limbs.arms.Arm_controller {
     }
 
     public Arm_controller(User_of_equipment user) : base(user) { }
+    public Arm_controller() : base() { }
 }
 }

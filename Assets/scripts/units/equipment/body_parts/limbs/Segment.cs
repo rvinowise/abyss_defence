@@ -1,3 +1,4 @@
+using geometry2d;
 using UnityEngine;
 
 namespace rvinowise.units.parts.limbs {
@@ -16,12 +17,6 @@ public class Segment: Turning_element {
     }
     private Vector2 _tip;
     
-    
-
-    /* current characteristics */
-    
-    public Quaternion desired_direction { get; set; }
-    
     public float length {
         get;
         private set;
@@ -30,6 +25,9 @@ public class Segment: Turning_element {
         get;
         private set;
     }
+    
+
+    /* current characteristics */
 
     public Segment(string name): base(name) {
         

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
 using rvinowise.units.parts;
+using rvinowise.units.parts.sensors;
 using rvinowise.units.parts.transport;
+using Baggage = rvinowise.units.parts.Baggage;
 
 
 namespace rvinowise.units.control {
@@ -15,6 +17,10 @@ namespace rvinowise.units.control {
 public abstract class Intelligence {
     
     public User_of_equipment user_of_equipment;
+
+    public Baggage baggage;
+
+    public ISensory_organ sensory_organ;
     
     public ITransporter transporter {
         get { return user_of_equipment.transporter; }
@@ -30,7 +36,11 @@ public abstract class Intelligence {
     }
     
     public virtual void update() {
+        read_input();
+    }
 
+    protected virtual void read_input() {
+        
     }
 }
 }

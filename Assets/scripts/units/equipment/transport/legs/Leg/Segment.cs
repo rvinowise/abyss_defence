@@ -13,6 +13,8 @@ public class Segment: limbs.Segment {
      determined during construction*/
     public Quaternion desired_relative_direction_standing { get; set; } //relative to attachment
     
+    
+    /* limbs.Segment interface */
     public Segment(string name):base(name) {
     }
 

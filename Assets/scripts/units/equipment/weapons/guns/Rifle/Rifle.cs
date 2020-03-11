@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
-using rvinowise.units.parts.weapons;
 using Object = UnityEngine.Object;
 
 
-namespace rvinowise.units.parts.guns {
+namespace rvinowise.units.parts.weapons.guns {
 
 public class Rifle: Gun {
     

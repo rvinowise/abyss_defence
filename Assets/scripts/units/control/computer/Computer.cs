@@ -5,11 +5,12 @@ using UnityEngine;
 
 //using static UnityEngine.Input;
 using geometry2d;
+using rvinowise.units.parts;
 using static geometry2d.Directions;
 
 namespace rvinowise.units.control {
 
-public class AI: Control  {
+public class Computer: Intelligence  {
     public float horizontal {get;private set;}
     public float vertical {get;private set;}
     
@@ -33,9 +34,6 @@ public class AI: Control  {
 
     private Transform transform;
 
-    public AI(Transform in_transform) {
-        transform = in_transform;
-    }
 
     public void read_input() {
         read_moving_direction(
@@ -61,6 +59,8 @@ public class AI: Control  {
         Vector2 mousePos = rvi.Input.mouse_world_position();
         degrees = transform.degrees_to(mousePos);
     }
+
+    public Computer(User_of_equipment in_user) : base(in_user) { }
 }
 
 }
