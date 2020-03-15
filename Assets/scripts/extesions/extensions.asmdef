@@ -1,7 +1,8 @@
 {
     "name": "extensions",
     "references": [
-		"geometry2d"
+		"geometry2d",
+		"Unity.InputSystem"
 	],
     "includePlatforms": [],
     "excludePlatforms": [],

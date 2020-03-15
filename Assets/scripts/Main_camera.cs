@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using rvinowise.rvi.contracts;
+using rvinowise.ui.input;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Input = UnityEngine.Input;
 
 public class Main_camera : MonoBehaviour {
     
@@ -10,26 +13,52 @@ public class Main_camera : MonoBehaviour {
     public float max_zoom = 10f;
 
     private float zoom;
-    private Camera camera;
+    private Camera main_camera;
+
+    private Unity_input input;
+    
     void Awake() {
-        camera = GetComponent<Camera>();
-        Contract.Requires(camera != null, "Main_camera component should be attached only to Cameras");
-        Contract.Requires(camera.orthographic, "the 2D game should use orthographic cameras only");
-        zoom = camera.orthographicSize;
+        main_camera = GetComponent<Camera>();
+        Contract.Requires(main_camera != null, "Main_camera component should be attached only to Cameras");
+        Contract.Requires(main_camera.orthographic, "the 2D game should use orthographic cameras only");
+        zoom = main_camera.orthographicSize;
+
+        init_input();
+
     }
 
-    void Update() {
-        float wheel_movement = Input.GetAxis("Mouse ScrollWheel");
-        if (wheel_movement != 0) {
+    private void init_input() {
+        /*input = new Unity_input();
+        input.Player.Scroll.performed += input_change_zoom;
+        input.Player.Scroll.Enable();*/
+    }
+
+    private void OnDisable() {
+        /*input.Player.Scroll.performed -= input_change_zoom;
+        input.Player.Scroll.Disable();*/
+    }
+
+    private void input_change_zoom() {
+        //float wheel_movement = context.ReadValue<float>();
+        float wheel_movement = rvinowise.ui.input.Input.instance.scroll_value;
+        
+        if (rvinowise.ui.input.Input.instance.zoom_held 
+            &&
+            wheel_movement != 0) 
+        {
             zoom -= adjust_to_current_zoom(wheel_movement);
             zoom = preserve_possible_zoom(zoom);
-            camera.orthographicSize = zoom;
-            //Debug.Log("orthographicSize:" + camera.orthographicSize);
+            main_camera.orthographicSize = zoom;
+            //Debug.Log("orthographicSize:" + main_camera.orthographicSize);
         }
-        
     }
 
-    private static float zoom_speed = 2f;
+
+    void Update() {
+        input_change_zoom();
+    }
+
+    private static float zoom_speed = 0.0016f;
     private float adjust_to_current_zoom(float zoom_delta) {
         //zoom_delta = (zoom / max_zoom) * zoom_delta * zoom_speed;
         zoom_delta = Mathf.Pow(zoom, 0.8f) * zoom_delta * zoom_speed;

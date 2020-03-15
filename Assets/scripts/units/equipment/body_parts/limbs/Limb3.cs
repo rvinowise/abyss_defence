@@ -11,6 +11,12 @@ public class Limb3: Limb2 {
 
     public Segment segment3 { get; set; } //an appendage at the end, to direct the tools
     
+    public bool at_desired_rotation() {
+        return (
+            base.at_desired_rotation() &&
+            this.segment3.at_desired_rotation()
+        );
 
+    }
 }
 }

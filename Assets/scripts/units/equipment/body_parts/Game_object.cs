@@ -26,6 +26,13 @@ public class Game_object:Child {
         }
     }
     
+    public Transform parent {
+        get {
+            return transform.parent;
+        }
+        set { transform.parent = value; }
+    }
+    
     public Vector2 position {
         get {
             return transform.position;

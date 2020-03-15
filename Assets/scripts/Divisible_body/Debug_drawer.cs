@@ -2,6 +2,7 @@
 using UnityEngine;
 using geometry2d;
 using rvinowise;
+using Input = rvinowise.ui.input.Input;
 
 [RequireComponent(typeof(LineRenderer))]
 public class Debug_drawer : MonoBehaviour
@@ -24,7 +25,7 @@ public class Debug_drawer : MonoBehaviour
  
     void Update()
     {
-        Vector2 mousePos = rvinowise.rvi.Input.mouse_world_position();
+        Vector2 mousePos = Input.instance.mouse_world_position;
         ray = new Ray2D(
             mousePos,
             new Vector2(0.5f,1f)
@@ -39,7 +40,7 @@ public class Debug_drawer : MonoBehaviour
     void mouse_control() {
         if (
             (!pressed)&&
-            (Input.GetMouseButtonDown(0))
+            (UnityEngine.Input.GetMouseButtonDown(0))
            ) 
         {
             pressed = true;
@@ -49,7 +50,7 @@ public class Debug_drawer : MonoBehaviour
 
         if (
             (pressed)&&
-            (!Input.GetMouseButtonDown(0))
+            (!UnityEngine.Input.GetMouseButtonDown(0))
            ) 
         {
             pressed = false;

@@ -6,7 +6,6 @@ using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
 using rvinowise.units.control;
-using rvinowise.units.control;
 using rvinowise.units.parts.head;
 using rvinowise.units.parts.limbs.arms.humanoid;
 using rvinowise.units.parts.transport;
@@ -50,10 +49,30 @@ public class Human:
     }
 
     private void init_parts() {
-        init_body_parts();
         init_baggage();
+        init_body_parts();
 
         init_intelligence();
+    }
+
+    private void init_baggage() {
+        baggage = new parts.humanoid.Baggage {
+            items = new List<Gun> {
+                new Pistol(),
+                new Pistol()
+            }
+        };
+        baggage.transform.parent = transform;
+        baggage.transform.localRotation = Directions.degrees_to_quaternion(30f);
+        baggage.transform.localPosition = new Vector2(0.10f, -0.23f);
+//        baggage.transform.localRotation = Directions.degrees_to_quaternion(50f);
+//        baggage.transform.localPosition = new Vector2(0.4f, 0f);
+        
+
+        baggage.game_object.AddComponent<SpriteRenderer>();
+        var sprite_renderer = baggage.game_object.GetComponent<SpriteRenderer>();
+        sprite_renderer.sprite = Resources.Load<Sprite>("guns/pistol/pistol");
+        //Resources.Load<Sprite>("/guns/pistol/pistol");
     }
 
     private void init_body_parts() {
@@ -62,27 +81,11 @@ public class Human:
         arms = init.Arms.init(
             user_of_equipment.add_equipment_controller<parts.limbs.arms.humanoid.Arm_controller>()
         );
-        //user_of_equipment.weaponry = arms;
-        baggage = new parts.humanoid.Baggage {
-            items = new List<Gun> {
-                new Pistol(),
-                new Pistol()
-            }
-        };
-    }
-
-    private void init_baggage() {
-        baggage.transform.parent = transform;
-        baggage.transform.localRotation = Directions.degrees_to_quaternion(30f);
-        baggage.transform.localPosition = new Vector2(0f, -0.3f);
-        /*baggage.transform.localRotation = Directions.degrees_to_quaternion(90f);
-        baggage.transform.localPosition = new Vector2(0.4f, -0.4f);*/
         arms.left_arm.baggage = arms.right_arm.baggage = baggage;
+        arms.left_arm.idle_target = arms.right_arm.idle_target =
+            ui.input.Input.instance.cursor.center.transform;
+        //user_of_equipment.weaponry = arms;
 
-        baggage.game_object.AddComponent<SpriteRenderer>();
-        var sprite_renderer = baggage.game_object.GetComponent<SpriteRenderer>();
-        sprite_renderer.sprite = Resources.Load<Sprite>("guns/pistol/pistol");
-        //Resources.Load<Sprite>("/guns/pistol/pistol");
     }
 
     private void init_intelligence() {

@@ -19,7 +19,6 @@ public class Leg: Limb2
         set { segment1 = value; }
     }
 
-    public int folding_direction { get; set; } //1 of -1
     public float provided_impulse = 0.20f;
 
     /* group of legs that being on the ground with this leg provide stability */

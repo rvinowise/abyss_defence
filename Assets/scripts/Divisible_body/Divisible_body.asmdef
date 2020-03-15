@@ -4,6 +4,8 @@
 		"equipment",
         "geometry2d",
 		"extensions",
-		"third_party"
+		"third_party",
+		"input",
+		"debug"
     ]
 }

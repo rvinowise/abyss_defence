@@ -6,7 +6,8 @@ using UnityEngine;
 //using static UnityEngine.Input;
 using geometry2d;
 using rvinowise.units.parts;
-using static geometry2d.Directions;
+
+using Input = rvinowise.ui.input.Input;
 
 namespace rvinowise.units.control {
 
@@ -47,16 +48,16 @@ public class Computer: Intelligence  {
     }
 
     public void read_moving_direction(out float degrees, out Vector2 vector) {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
-        
-        Vector2 direction_vector = new Vector2(horizontal,vertical);
+        //horizontal = Input.GetAxis("Horizontal");
+        //vertical = Input.GetAxis("Vertical");
+
+        Vector2 direction_vector = Input.instance.moving_vector;
         vector = direction_vector.normalized;
         degrees = direction_vector.to_dergees();
     }
     
     public void read_face_direction(out float degrees) {
-        Vector2 mousePos = rvi.Input.mouse_world_position();
+        Vector2 mousePos = rvinowise.ui.input.Input.instance.mouse_world_position;
         degrees = transform.degrees_to(mousePos);
     }
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using geometry2d;
+using UnityEngine;
 
 namespace rvinowise.units.parts.limbs {
 
@@ -35,6 +37,26 @@ public struct Span {
             middle-(scale * Math.Abs(diff_to_max))
         );
         return span;
+    }
+
+    public float degrees_closer_to(float in_degrees) {
+        if (
+            (Mathf.Abs(min)-Mathf.Abs(in_degrees)) < 
+            (Mathf.Abs(max)-Mathf.Abs(in_degrees))
+        )
+        {
+            return min;
+        }
+        return max;
+    }
+    
+    public float degrees_in_direction(Side side) {
+        
+        if (side == Side.RIGHT)
+        {
+            return min;
+        }
+        return max;
     }
 }
 

@@ -7,11 +7,11 @@ using rvinowise;
 using rvinowise.rvi.contracts;
 using rvinowise.units.parts.limbs.arms.strategy;
 using rvinowise.units.parts.weapons;
-
+using Input = rvinowise.ui.input.Input;
 
 namespace rvinowise.units.parts.limbs.arms  {
 
-public class Arm: Limb3 {
+public class Arm: Limb3, IUse_strategies {
 
     /* constant characteristics */
     public Segment upper_arm {
@@ -46,11 +46,16 @@ public class Arm: Limb3 {
     
     /* Arm itself */
 
+    /* parameters assigned by creators */
+    public Baggage baggage; // where to take tools from
+    public Transform idle_target; // pay attention to it, when idle
+    
     private Gun held_tool;
-    public Baggage baggage;
     public arms.strategy.Strategy strategy;
     
-    public Arm(Transform inHost) {
+    private Strategy_builder strategy_builder;
+    
+    public Arm(Transform inHost, Transform in_idle_target) {
         upper_arm = new Segment("upper_arm");
         upper_arm.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "arms";
         upper_arm.host = inHost;
@@ -64,51 +69,59 @@ public class Arm: Limb3 {
         hand.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "arms";
         hand.game_object.GetComponent<SpriteRenderer>().sortingOrder = -10;
         hand.host = forearm.transform;
+
+        idle_target = in_idle_target;
         
-        strategy = new Idle_vigilant();
-        
+        strategy_builder = new Strategy_builder(this);
+        strategy = new Idle_vigilant(this, idle_target);
+
+
         debug = new Arm.Debug(this);
     }
 
     public void update() {
+        strategy?.update();
 
-        apply_moving_strategy();
-        
-        debug.draw_desired_directions();
         upper_arm.update();
         forearm.update();
         hand.update();
+        
+        debug?.draw_desired_directions();
     }
+
+
 
 
     public void take_tool_from_baggage() {
         Contract.Requires(held_tool == null, "must be free in order to grab a tool");
 
-        strategy = new strategy.Reach_into_bag(baggage.transform);
-        set_desired_directions(get_orientation_touching_baggage());
+        /*strategy = new strategy.Put_hand_before_bag(this, baggage);
+        strategy.next = new strategy.Move_hand_into_bag(this, baggage);
+        strategy.next.next = new strategy.Put_hand_before_bag(this, baggage);
+        strategy.next.next.next = new strategy.Idle_vigilant(this, idle_target);
+        strategy.start();*/
+        
+        strategy = new strategy.Move_hand_into_loose_bag(this, baggage);
+        strategy.next = new strategy.Idle_vigilant(this, idle_target);
+        strategy.start();
+        
+        /*strategy_builder.add( );
+        
+        strategy_builder.add(
+            Put_hand_before_bag.add(baggage).next = Move_hand_into_bag.add(baggage)
+        ).add(
+                
+        )*/
+
     }
 
-    private bool tool_touches_baggage() {
+    /*private bool tool_touches_baggage() {
         return held_tool.transform.orientation() == get_orientation_touching_baggage();
-    }
+    }*/
 
-    private void set_desired_directions(Orientation needed_tool_orientation) {
-        set_desired_directions_by_position(needed_tool_orientation.position);
-        hand.desired_direction = needed_tool_orientation.rotation;
-    }
     
-    private Orientation get_orientation_touching_baggage() {
-        return new Orientation(
-            baggage.position,// + (Vector2)(aggage.rotation * hand.tip),
-            baggage.rotation * Directions.degrees_to_quaternion(180f),
-            null
-        );
-        /*return new Orientation(
-            Vector2.zero,
-            Quaternion.Inverse(Quaternion.identity),
-            baggage.transform
-        );*/
-    }
+    
+    
     
     
     public new class Debug: Limb2.Debug {

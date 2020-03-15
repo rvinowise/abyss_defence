@@ -33,7 +33,10 @@ public class Arms {
 
     private static IList<Arm> create_arms(Arm_controller controller) {
         for (int i = 0; i < 2; i++) {
-            controller.add_tool(new Arm(controller.game_object.transform));
+            controller.add_tool(new Arm(
+                controller.game_object.transform,
+                rvinowise.ui.input.Input.instance.cursor.center.transform
+            ));
         }
 
         return controller.arms;
@@ -48,13 +51,13 @@ public class Arms {
     private const float rotation_speed = 240f;
     private static void init_common_characteristic(Arm arm, Transform parent) {
         arm.upper_arm.rotation_speed = 200f;
-        arm.upper_arm.transform.parent = parent;
+        arm.upper_arm.parent = parent;
         
         arm.forearm.rotation_speed = 240f;
-        arm.forearm.transform.parent = arm.upper_arm.transform;
+        arm.forearm.parent = arm.upper_arm.transform;
         
         arm.hand.rotation_speed = 300f;
-        arm.hand.transform.parent = arm.forearm.transform;
+        arm.hand.parent = arm.forearm.transform;
     }
 
     private static void init_parameters_that_shoud_be_mirrored(Arm_controller controller) {
@@ -67,21 +70,21 @@ public class Arms {
     private static void init_left_arm(Arm arm) {
         arm.attachment = new Vector2(0f, 0.32f);
         
-        arm.upper_arm.possible_span = new Span(100f, -50f);
+        arm.upper_arm.possible_span = new Span(100f, -70f);
         arm.upper_arm.tip = new Vector2(0.30f, 0f);
         arm.upper_arm.local_position = new Vector2(0f, 0.32f);
         arm.upper_arm.desired_idle_direction = Directions.degrees_to_quaternion(20f);
         arm.upper_arm.spriteRenderer.sprite = sprite_upper_arm;
         //arm.upper_arm.desired_idle_direction = Directions.degrees_to_quaternion(0f);
         
-        arm.forearm.possible_span = new Span(0f, -160f);
+        arm.forearm.possible_span = new Span(0f, -170f);
         arm.forearm.tip = new Vector2(0.30f, 0f);
         arm.forearm.local_position = arm.upper_arm.tip;
         arm.forearm.desired_idle_direction = Directions.degrees_to_quaternion(-20f);
         arm.forearm.spriteRenderer.sprite = sprite_forearm;
         //arm.forearm.desired_idle_direction = Directions.degrees_to_quaternion(0f);
         
-        arm.hand.possible_span = new Span(45f, -70f);
+        arm.hand.possible_span = new Span(45f, -80f);
         arm.hand.tip = new Vector2(0.12f, 0f);
         arm.hand.local_position = arm.forearm.tip; //todo set localPosition automatically since it's always = parent.tip
         arm.hand.desired_idle_direction = Directions.degrees_to_quaternion(0f);

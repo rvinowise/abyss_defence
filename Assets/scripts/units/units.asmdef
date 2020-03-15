@@ -1,0 +1,13 @@
+﻿{
+    "name": "units",
+    "references": [
+        "equipment",
+        "Legs",
+        "geometry2d",
+        "debug",
+        "extensions",
+        "input",
+        "Divisible_body",
+        "settings"
+    ]
+}

@@ -32,6 +32,10 @@ public class Turning_element: Game_object {
         
     }
 
+    public bool at_desired_rotation() {
+        return this.rotation == this.desired_direction;
+    }
+
 
     private void preserve_possible_rotation() {
         float delta_degrees = host.delta_degrees(transform);

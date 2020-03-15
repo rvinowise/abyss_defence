@@ -5,7 +5,6 @@ using UnityEngine;
 using rvinowise;
 using rvinowise.units.parts.weapons;
 
-
 namespace rvinowise.units.parts.humanoid {
 
 /* keeps track of unit's posessions */

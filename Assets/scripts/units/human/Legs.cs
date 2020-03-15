@@ -57,7 +57,7 @@ public class Legs: Equipment_controller,
 
     /* Legs itself */
 
-    private float acceleration = 0.339f * Settings.scale;
+    private float acceleration = 0.339f * rvinowise.Settings.scale;
 
     public Legs() : base() { }
 

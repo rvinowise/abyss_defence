@@ -13,6 +13,8 @@ public class Baggage: Turning_element {
 
     public List<Gun> items { get; set; } = new List<Gun>();
 
+    public float entering_span = 30f;
+
     public int ensure_borders(int index) {
         if (Math.Abs(index) > items.Count) {
             index = items.Count % index;

@@ -9,7 +9,21 @@ namespace rvinowise.units.parts.limbs.arms.strategy {
 
 public abstract class Strategy {
 
-    public abstract void set_desired_directions(Arm arm);
+    protected Arm arm;
+    public Strategy next;
+
+    protected Strategy(Arm in_arm) {
+        arm = in_arm;
+    }
+    public abstract void update();
+    public virtual void start() {}
+    protected virtual void end() {}
+
+    protected void start_next() {
+        this.end();
+        arm.strategy = next;
+        next?.start();
+    }
 
 }
 }

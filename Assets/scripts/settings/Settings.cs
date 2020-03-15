@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using rvinowise;
-
-
-namespace rvinowise {
+﻿namespace rvinowise {
 
 public class Settings {
 

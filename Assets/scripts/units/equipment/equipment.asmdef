@@ -3,14 +3,7 @@
     "references": [
 		"geometry2d",
 		"debug",
-		"extensions"
-	],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": []
+		"extensions",
+		"input"
+	]
 }

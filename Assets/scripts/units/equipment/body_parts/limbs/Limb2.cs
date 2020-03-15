@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using geometry2d;
 using UnityEngine;
 using rvinowise;
@@ -44,7 +45,7 @@ public partial class Limb2: Child {
         
         segment1.desired_direction = degrees_to_quaternion(
             segment1.position.degrees_to(desired_position) +
-            (segment1_angle_offset * folding_direction)
+            (folding_direction *  segment1_angle_offset )
         );
 
         Vector2 segment2_position =
@@ -54,6 +55,14 @@ public partial class Limb2: Child {
         segment2.desired_direction = degrees_to_quaternion(
             segment2_position.degrees_to(desired_position)
         );
+    }
+
+    public bool at_desired_rotation() {
+        return (
+            this.segment1.at_desired_rotation() &&
+            this.segment2.at_desired_rotation()
+        );
+
     }
     
     

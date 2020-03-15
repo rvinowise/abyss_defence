@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,28 +22,24 @@ public static class Directions {
         return Quaternion.AngleAxis(degrees, Vector3.forward) * Vector3.right;
     }
 
-    public static Side side(Quaternion rotation) {
-        if (rotation.eulerAngles.z > Mathf.Epsilon) {
-            return Side.LEFT;
-        } else if (rotation.eulerAngles.z < Mathf.Epsilon) {
-            return Side.RIGHT;
+    
+
+    
+    public static class Triangles {
+        public static float get_angle_by_lengths(float side1, float side2, float opposite_side) {
+            float cos_of_angle = 
+                (Mathf.Pow(side1,2) + Mathf.Pow(side2,2) - Mathf.Pow(opposite_side,2))
+                /
+                (2*side1*side2);
+            return Mathf.Acos(cos_of_angle)*Mathf.Rad2Deg;
         }
-        return Side.NONE;
+    }
+    
+    public static float normalise_degrees(float degrees) {
+        degrees = degrees % 180;
+        return degrees;
     }
 
-    public enum Side {
-        LEFT,RIGHT, NONE
-    }
-}
-
-public static class Triangles {
-    public static float get_angle_by_lengths(float side1, float side2, float opposite_side) {
-        float cos_of_angle = 
-            (Mathf.Pow(side1,2) + Mathf.Pow(side2,2) - Mathf.Pow(opposite_side,2))
-            /
-            (2*side1*side2);
-        return Mathf.Acos(cos_of_angle)*Mathf.Rad2Deg;
-    }
 }
 
 }

@@ -6,18 +6,20 @@ using UnityEngine;
 using geometry2d;
 using rvinowise.units.control;
 using rvinowise.units.parts;
-using rvinowise.units.control;
 using rvinowise.units.parts.limbs.arms;
 using static geometry2d.Directions;
+using Input = rvinowise.ui.input.Input;
 
 namespace rvinowise.units.control {
 
 public class Player_control : Intelligence {
 
     private Transform transform;
-    private Quaternion last_rotation;
+    private float last_rotation;
 
-    public Arm_controller arm_controller; //todo abstraction leak
+    public rvinowise.units.parts.limbs.arms.humanoid.Arm_controller arm_controller; //todo abstraction leak
+
+    protected rvinowise.ui.input.Unity_input input;
 
     public Player_control(
         Transform in_transform,
@@ -32,31 +34,26 @@ public class Player_control : Intelligence {
     }
 
 
-    private void read_input() {
+    protected override void read_input() {
         read_transporter_input();
-        read_tools_input();
+        read_switching_items_input();
         //read_switching_items_input();
         read_sensory_organs_input();
     }
 
+    public bool is_switching_tool { get; set; } = false;
+
     private void read_tools_input() {
         if (read_switching_items_input()) {
-            is_switching_tool = true;
             foreach (Arm arm in arm_controller.arms) {
                 arm.take_tool_from_baggage();
             }
         }
-        if (!is_switching_tool) {
-            foreach (Arm arm in arm_controller.arms) {
-                idle(arm);
-            }
-        }
+       
     }
 
-    public bool is_switching_tool { get; set; } = false;
-
     private void idle(Arm arm) {
-        var direction_to_mouse = transform.quaternion_to(rvi.Input.mouse_world_position());
+        var direction_to_mouse = transform.quaternion_to(Input.instance.mouse_world_position);
         arm.upper_arm.desired_direction =
             arm.upper_arm.desired_idle_direction * direction_to_mouse;
         
@@ -67,21 +64,25 @@ public class Player_control : Intelligence {
     }
 
     private void read_sensory_organs_input() {
-        sensory_organ?.pay_attention_to(rvi.Input.mouse_world_position());
+        sensory_organ?.pay_attention_to(Input.instance.mouse_world_position);
     }
 
     private bool read_switching_items_input() {
         if (baggage == null) {
             return false;
         }
-        int wheel_steps = rvi.Input.mouse_wheel_steps();
+        if (Input.instance.zoom_held) {
+            return false;
+        }
+        int wheel_steps = Input.instance.mouse_wheel_steps;
         if (Math.Abs(wheel_steps) > 0) {
         
-            if (Directions.side(last_rotation) == Directions.Side.LEFT) {
-                //baggage.switch_left_item(wheel_steps);
+            if (Side.from_degrees(last_rotation) == Directions.Side.LEFT) {
+                arm_controller.left_arm.take_tool_from_baggage();
             }
             else {
-                //baggage.switch_right_item(wheel_steps);
+                arm_controller.right_arm.take_tool_from_baggage();
+
             }
             return true;
         }
@@ -96,17 +97,18 @@ public class Player_control : Intelligence {
         transporter.command_batch.face_direction_quaternion = read_face_direction();
 
         Vector2 read_moving_direction() {
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
-
-            Vector2 direction_vector = new Vector2(horizontal, vertical);
+            Vector2 direction_vector = Input.instance.moving_vector;
             return direction_vector.normalized;
         }
 
         Quaternion read_face_direction() {
-            Vector2 mousePos = rvi.Input.mouse_world_position();
+            Vector2 mousePos = Input.instance.mouse_world_position;
             Quaternion needed_direction = (mousePos - (Vector2) transform.position).to_quaternion();
-            last_rotation = Quaternion.Inverse(needed_direction) * transform.rotation;
+            float angle_difference = transform.rotation.degrees_to(needed_direction);
+            if (Mathf.Abs(angle_difference) > (float)Mathf.Epsilon) {
+                last_rotation = angle_difference;
+            }
+    
             return needed_direction;
         }
     }

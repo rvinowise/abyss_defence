@@ -4,7 +4,8 @@
         "geometry2d",
 		"equipment",
 		"extensions",
-        "debug"
+        "debug",
+        "settings"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

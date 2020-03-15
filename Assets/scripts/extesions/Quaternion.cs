@@ -14,4 +14,17 @@ public static partial class Unity_extension
     public static float degrees(this Quaternion quaternion) {
         return quaternion.eulerAngles.z;
     }
+
+    public static float degrees_to(this Quaternion from, Quaternion to) {
+        return (((to.eulerAngles.z - from.eulerAngles.z) + 180f) % 360f) -180f;
+    }
+    public static float abs_degrees_to(this Quaternion from, Quaternion to) {
+        return Quaternion.Angle(from, to);
+    }
+    
+    public static bool equal(this Quaternion from, Quaternion to) {
+        return Quaternion.Angle(from, to) <= Mathf.Epsilon;
+    }
+    
+ 
 }

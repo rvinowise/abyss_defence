@@ -14,16 +14,10 @@ public class Head: Turning_element, ISensory_organ {
 
     /* Head itself */
 
-    //public Vector2 desired_direction_vector;
-    public Quaternion desired_direction;
-    
     public Head() {
         
     }
     
-    public Transform transform {
-        get { return game_object.transform; }
-    }
     
     public override void update() {
         transform.rotation = 

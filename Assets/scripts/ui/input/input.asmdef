@@ -1,0 +1,8 @@
+﻿{
+  "name": "input",
+  "references": [
+    "geometry2d",
+    "extensions",
+    "debug"
+  ]
+}
