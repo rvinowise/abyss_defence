@@ -8,6 +8,7 @@
         "extensions",
         "input",
         "Divisible_body",
-        "settings"
+        "settings",
+        "third_party"
     ]
 }

@@ -15,11 +15,11 @@ public class Leg: Limb2
         set { segment1 = value; }
     }
     public Segment tibia {
-        get { return segment1 as legs.Segment;}
-        set { segment1 = value; }
+        get { return segment2 as legs.Segment;}
+        set { segment2 = value; }
     }
 
-    public float provided_impulse = 0.20f;
+    public float provided_impulse = 0.2f;
 
     /* group of legs that being on the ground with this leg provide stability */
     public Stable_leg_group stable_group;
@@ -180,28 +180,7 @@ public class Leg: Limb2
     }
     /* slower calculation but precise */
     public bool hold_onto_ground() {
-        
-        femur.attach_to_host();
-
-        float distance_to_aim = femur.transform.distance_to(holding_point);
-        float femur_angle_offset = 
-            geometry2d.Triangles.get_angle_by_lengths(
-                femur.length,
-                distance_to_aim,
-                tibia.length
-            );
-        if (float.IsNaN(femur_angle_offset)) {
-            return false;    
-        }
-        femur.set_direction(
-            femur.transform.degrees_to(holding_point)+
-            (femur_angle_offset*(float)folding_direction)
-        );
-
-        tibia.attach_to_host();
-
-        tibia.direct_to(holding_point);
-        return true;
+        return hold_onto_point(holding_point);
     }
 
     public void attach_to_attachment_points() {

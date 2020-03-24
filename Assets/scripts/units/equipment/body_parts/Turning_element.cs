@@ -22,6 +22,8 @@ public class Turning_element: Game_object {
     }
     public Turning_element(string name):base(name) {
     }
+    public Turning_element(string name, GameObject prefab):base(name, prefab) {
+    }
 
     public virtual void update() {
         transform.rotate_to(target_direction, rotation_speed);

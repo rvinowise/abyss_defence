@@ -26,8 +26,15 @@ public struct Span {
             return Math.Sign(min);
         }
         return Math.Sign(max);
-
     }
+    
+    public geometry2d.Side side_of_bigger_rotation() {
+        if (Math.Abs(min) > Math.Abs(max)) {
+            return geometry2d.Side.from_degrees(min);
+        }
+        return geometry2d.Side.from_degrees(max);
+    }
+    
     public Span scaled(float scale) {
         float middle = (this.min + this.max)/2;
         float diff_to_min = Math.Abs(this.min) - Math.Abs(middle);

@@ -15,7 +15,7 @@ public static class Initializer {
         dst.segment1.mirror_from(src.segment1);
         dst.segment2.mirror_from(src.segment2);
 
-        dst.folding_direction = src.folding_direction * -1;
+        //dst.folding_direction = -src.folding_direction; //! it's not needed because it's inferred from the angles
     }
     
     public static void mirror(Limb3 dst, Limb3 src) {

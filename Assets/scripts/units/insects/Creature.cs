@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using rvinowise.units.parts;
 using rvinowise.units.control;
+using rvinowise.units.control.human;
 using rvinowise.units.parts.transport;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ public abstract class Creature : MonoBehaviour {
     protected virtual void Awake()
     {
         divisible_body = gameObject.GetComponent<Divisible_body>();
-        intelligence = new Player_control(
+        intelligence = new Player(
             transform,
             GetComponent<User_of_equipment>()
         );

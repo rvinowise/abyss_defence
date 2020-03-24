@@ -6,11 +6,12 @@ using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
 using rvinowise.units.control;
+using rvinowise.units.control.human;
 using rvinowise.units.parts.head;
 using rvinowise.units.parts.limbs.arms.humanoid;
+using rvinowise.units.parts.tools;
 using rvinowise.units.parts.transport;
-using rvinowise.units.parts.weapons;
-using rvinowise.units.parts.weapons.guns.Pistol;
+using rvinowise.units.parts.weapons.guns;
 using UnityEngine.UIElements;
 
 namespace rvinowise.units.human {
@@ -56,23 +57,50 @@ public class Human:
     }
 
     private void init_baggage() {
-        baggage = new parts.humanoid.Baggage {
-            items = new List<Gun> {
-                new Pistol(),
-                new Pistol()
-            }
-        };
+        baggage = new parts.humanoid.Baggage();
+        put_tools_into_baggage(baggage);
+        
         baggage.transform.parent = transform;
-        baggage.transform.localRotation = Directions.degrees_to_quaternion(30f);
-        baggage.transform.localPosition = new Vector2(0.10f, -0.23f);
-//        baggage.transform.localRotation = Directions.degrees_to_quaternion(50f);
-//        baggage.transform.localPosition = new Vector2(0.4f, 0f);
+        /*baggage.transform.localRotation = Directions.degrees_to_quaternion(30f);
+        baggage.transform.localPosition = new Vector2(0.10f, -0.23f);*/
+        baggage.transform.localRotation = Directions.degrees_to_quaternion(0f);
+        baggage.transform.localPosition = new Vector2(0f, 0f);
         
 
         baggage.game_object.AddComponent<SpriteRenderer>();
         var sprite_renderer = baggage.game_object.GetComponent<SpriteRenderer>();
         sprite_renderer.sprite = Resources.Load<Sprite>("guns/pistol/pistol");
         //Resources.Load<Sprite>("/guns/pistol/pistol");
+    }
+
+    private void put_tools_into_baggage(Baggage baggage) {
+        Tool pistol1 = Game_object.instantiate_stashed(
+            "objects/guns/desert_eagle/desert_eagle" 
+        ).GetComponent<Tool>(); 
+        
+        Tool pistol2 = Game_object.instantiate_stashed(
+            pistol1
+        ).GetComponent<Tool>();
+        
+        Tool break_sawedoff1 = Game_object.instantiate_stashed(
+            "objects/guns/break_sawedoff/break_sawedoff" 
+        ).GetComponent<Tool>();
+        
+        Tool break_sawedoff2 = Game_object.instantiate_stashed(
+            break_sawedoff1
+        ).GetComponent<Tool>();
+        
+        Tool pump_shotgun = Game_object.instantiate_stashed(
+            "objects/guns/pump_shotgun/pump_shotgun" 
+        ).GetComponent<Tool>();
+
+        baggage.items = new List<Tool> {
+            pistol1,
+            pistol2,
+            break_sawedoff1,
+            break_sawedoff2,
+            pump_shotgun
+        };
     }
 
     private void init_body_parts() {
@@ -89,9 +117,9 @@ public class Human:
     }
 
     private void init_intelligence() {
-        intelligence = new Player_control(transform, user_of_equipment);
+        intelligence = new Player(transform, user_of_equipment);
         intelligence.transporter = create_transporter();
-        ((Player_control) intelligence).arm_controller = arms;
+        ((Player) intelligence).arm_controller = arms;
         intelligence.baggage = baggage;
         intelligence.sensory_organ = head;
     }

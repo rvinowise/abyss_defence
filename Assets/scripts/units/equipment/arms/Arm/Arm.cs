@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using geometry2d;
 using UnityEngine;
-using rvinowise;
 using rvinowise.rvi.contracts;
+using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.limbs.arms.strategy;
-using rvinowise.units.parts.weapons;
-using Input = rvinowise.ui.input.Input;
+using rvinowise.units.parts.tools;
 
 namespace rvinowise.units.parts.limbs.arms  {
 
-public class Arm: Limb3, IUse_strategies {
+public partial class Arm: Limb3/*, IDo_actions*/ {
 
     /* constant characteristics */
     public Segment upper_arm {
@@ -27,33 +24,24 @@ public class Arm: Limb3, IUse_strategies {
         get { return segment3 as arms.Segment;}
         set { segment3 = value; }
     }
+   
     
-
-    /* Child interface */
-    public override Transform host {
-        get { return upper_arm.host; }
-        set { upper_arm.host = value; }
-    }
-
-    public override Vector2 attachment {
-        get {
-            return upper_arm.attachment;
-        }
-        set {
-            upper_arm.attachment = value;
-        }
-    }
+    /* IDo_actions interface */
+    
+    private readonly Action_tree action_tree;
+    
     
     /* Arm itself */
 
     /* parameters assigned by creators */
     public Baggage baggage; // where to take tools from
     public Transform idle_target; // pay attention to it, when idle
+
+    public Tool held_tool {
+        get { return held_part?.tool; }
+    }
+    public Holding_place held_part;
     
-    private Gun held_tool;
-    public arms.strategy.Strategy strategy;
-    
-    private Strategy_builder strategy_builder;
     
     public Arm(Transform inHost, Transform in_idle_target) {
         upper_arm = new Segment("upper_arm");
@@ -65,129 +53,124 @@ public class Arm: Limb3, IUse_strategies {
         forearm.game_object.GetComponent<SpriteRenderer>().sortingOrder = -1;
         forearm.host = upper_arm.transform;
 
-        hand = new Segment("hand");
+        hand = new Segment(
+            "hand", 
+            Resources.Load<GameObject>("objects/units/human/hand")
+        );
         hand.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "arms";
         hand.game_object.GetComponent<SpriteRenderer>().sortingOrder = -10;
         hand.host = forearm.transform;
 
         idle_target = in_idle_target;
         
-        strategy_builder = new Strategy_builder(this);
-        strategy = new Idle_vigilant(this, idle_target);
+        action_tree = new Action_tree(this);
+        action_tree.current_action = Idle_vigilant.create(action_tree, idle_target);
 
 
         debug = new Arm.Debug(this);
     }
 
     public void update() {
-        strategy?.update();
+        action_tree?.update();
 
         upper_arm.update();
         forearm.update();
         hand.update();
         
-        debug?.draw_desired_directions();
+        if (this.folding_direction == Side.LEFT) {
+            debug?.draw_desired_directions();
+            //debug?.draw_lines(Color.red, 10f);
+
+            /*UnityEngine.Debug.Log(
+                "direction_diff: "+ 
+                ((
+                     upper_arm.rotation.inverse() *
+                     forearm.rotation
+                 ).degrees())
+            );
+            UnityEngine.Debug.Log(
+                "upper_arm: "+ 
+                (
+                        upper_arm.rotation
+                    ).degrees()
+            );
+            UnityEngine.Debug.Log(
+                "forearm: "+ 
+                (
+                    forearm.rotation
+                ).degrees()
+            );*/
+        }
     }
 
 
+    public void hold_tool(Tool tool) {
+        /*if (tool.is_in_bag()) {
+            take_tool_from_baggage(tool);
+        }
+        else if (tool.is_held()) {
+            support_held_tool(tool);
+        }*/
+    }
 
-
-    public void take_tool_from_baggage() {
+    public void take_tool_from_baggage(Tool tool) {
         Contract.Requires(held_tool == null, "must be free in order to grab a tool");
 
-        /*strategy = new strategy.Put_hand_before_bag(this, baggage);
-        strategy.next = new strategy.Move_hand_into_bag(this, baggage);
-        strategy.next.next = new strategy.Put_hand_before_bag(this, baggage);
-        strategy.next.next.next = new strategy.Idle_vigilant(this, idle_target);
-        strategy.start();*/
-        
-        strategy = new strategy.Move_hand_into_loose_bag(this, baggage);
-        strategy.next = new strategy.Idle_vigilant(this, idle_target);
-        strategy.start();
-        
-        /*strategy_builder.add( );
-        
-        strategy_builder.add(
-            Put_hand_before_bag.add(baggage).next = Move_hand_into_bag.add(baggage)
-        ).add(
-                
-        )*/
+        action_tree.current_action = strategy.Put_hand_before_bag.create(action_tree, baggage);
+        action_tree.next = strategy.Move_hand_into_bag.create(action_tree, baggage);
+        action_tree.next = strategy.Grab_tool.create(
+            action_tree, baggage, tool);
+        action_tree.next = strategy.Put_hand_before_bag.create(action_tree, baggage);
+        action_tree.next = strategy.Idle_vigilant.create(action_tree, idle_target);
 
     }
 
-    /*private bool tool_touches_baggage() {
-        return held_tool.transform.orientation() == get_orientation_touching_baggage();
-    }*/
+    public void support_held_tool(Tool tool) {
+        Contract.Requires(held_tool == null, "must be free in order to grab a tool");
+        
+        action_tree.current_action = strategy.Reach_holding_part_of_tool.create(
+            action_tree, 
+            tool.second_holding
+        );
+        action_tree.next = strategy.Attach_to_holding_part_of_tool.create(
+            action_tree,
+            tool.second_holding
+        );
+    }
 
-    
-    
-    
-    
-    
-    public new class Debug: Limb2.Debug {
-        private readonly Arm arm;
+    public void stash_tool_to_bag() {
+        Contract.Requires(held_tool != null, "must hold a tool in order to stash it");
+        action_tree.current_action = strategy.Put_hand_before_bag.create(action_tree, baggage);
+        action_tree.next = strategy.Move_hand_into_bag.create(action_tree, baggage);
+    }
 
-        protected override Limb2 limb2 {
-            get { return arm; }
+
+    public void attach_tool_to_hand_for_holding(Holding_place new_held_part) {
+        if (held_part != null) {
+            deattach_tool_from_hand(held_part);
         }
-
-        public Debug(Arm parent):base(parent) {
-            arm = parent;
+        this.held_part = new_held_part;
+        if (new_held_part != null) {
+            attach_tool_to_hand(new_held_part);
         }
-
-        public void draw_desired_directions(float time=0.1f) {
-            if (debug_off) {
-                return;
-            }
-            //base.draw_desired_directions();
+        
+        void deattach_tool_from_hand(Holding_place held_part) {
+            held_part.tool.gameObject.transform.parent = null;
             
-            UnityEngine.Debug.DrawLine(
-                limb2.segment1.position, 
-                limb2.segment1.position +
-                (Vector2)(
-                    limb2.segment1.desired_direction *
-                    limb2.segment1.tip
-                ),
-                Color.cyan,
-                time
-            );
-            Vector2 segment2_position =
-                limb2.segment1.position +
-                (Vector2) (limb2.segment1.desired_direction * limb2.segment1.tip);
-            UnityEngine.Debug.DrawLine(
-                segment2_position, 
-                segment2_position + 
-                (Vector2)(
-                    limb2.segment2.desired_direction *
-                    limb2.segment2.tip
-                ),
-                Color.white,
-                time
-            );
+            this.hand.gesture = Hand_gesture.Relaxed;
+        }
+        void attach_tool_to_hand(Holding_place held_part) {
+            Transform tool_transform = held_part.tool.gameObject.transform;
+            tool_transform.parent = this.hand.transform;
+            tool_transform.localPosition = 
+                held_part.attachment_point + 
+                hand.tip;
+            tool_transform.localRotation = held_part.grip_direction.to_quaternion();
             
-            Vector2 hand_position =
-                segment2_position +
-                (Vector2) (limb2.segment2.desired_direction * limb2.segment2.tip);
-            UnityEngine.Debug.DrawLine(
-                hand_position, 
-                hand_position +
-                (Vector2)(
-                    arm.hand.desired_direction *
-                    arm.hand.tip
-                ),
-                Color.cyan,
-                time
-            );
+            this.hand.gesture = Hand_gesture.Grip_of_vertical;
         }
     }
-    public Arm.Debug debug {
-        get { return _debug; }
-        private set { _debug = value; }
-    }
-    private Arm.Debug _debug;
 
-    protected override Limb2.Debug debug_limb {
-        get { return _debug; }
-    }
+    
 }
 }

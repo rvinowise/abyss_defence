@@ -14,6 +14,10 @@ public class Side : Headspring.Enumeration<Side, int> {
         
     private Side(int value, string displayName) : base(value, displayName) { }
         
+    
+    public static Side operator - (Side in_side) {
+        return in_side.mirror();
+    } 
     public Side mirror() {
         return Side.FromValue(this.Value * -1);
     }
@@ -29,7 +33,7 @@ public class Side : Headspring.Enumeration<Side, int> {
 
     public float turn_degrees(float degrees) {
         Contract.Assume(degrees >= 0, "not sure how to handle turning negative degrees into a direction");
-        Contract.Assume(this != NONE, "not sure how to handle turning into NONE-side");
+        Contract.Assume(this != NONE, "not sure how to handle turning into Side.NONE");
         return degrees * this.Value;
     } 
     

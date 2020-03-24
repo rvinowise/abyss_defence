@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
 using rvinowise.units;
+using UnityEditor.Animations;
 
 
 namespace rvinowise {
@@ -57,6 +58,16 @@ public class Game_object:Child {
             return game_object.GetComponent<SpriteRenderer>();
         }
     }
+    public Animator animator  {
+        get {
+            if (_animator == null) {
+                _animator = game_object.GetComponent<Animator>();
+            }
+            return _animator;
+        }
+        set { _animator = value; }
+    }
+    private Animator _animator;
     
     /*  Game_object itself */
 
@@ -73,6 +84,23 @@ public class Game_object:Child {
         game_object = new GameObject(name);
         game_object.AddComponent<SpriteRenderer>();
     }
+    public Game_object(string name, GameObject prefab) {
+        game_object = GameObject.Instantiate(prefab, Vector2.zero, Quaternion.identity);
+    }
+    
+    
+    
+    
+    public void activate() {
+        game_object.SetActive(true);
+    }
+    public void deactivate() {
+        game_object.SetActive(false);
+    }
+    public bool active() {
+        return game_object.activeSelf;
+    }
+    
     public void direct_to(Vector2 in_aim) {
         transform.direct_to(in_aim);
     }
@@ -87,6 +115,43 @@ public class Game_object:Child {
     public void update() {
         attach_to_host();
     }
+    
+    public static GameObject instantiate_stashed(GameObject prefab) {
+        GameObject game_object = GameObject.Instantiate(
+            prefab,
+            Vector3.zero,
+            Quaternion.identity);
+        game_object.SetActive(false);
+        return game_object;
+    }
+    public static GameObject instantiate_stashed(Component component) {
+        return instantiate_stashed(component.gameObject);
+    }
+    public static GameObject instantiate_stashed(string name) {
+        GameObject prefab = Resources.Load<GameObject>(name);
+        
+        return instantiate_stashed(prefab);
+    }
+
+
+    
+    public string animation {
+        set {
+            if (value != null) {
+                if (animator == null) {
+                    animator = game_object.AddComponent<Animator>();
+                }
+                RuntimeAnimatorController controller = Resources.Load<RuntimeAnimatorController>(value);
+                animator.runtimeAnimatorController = controller;
+            }
+            else {
+                if (animator != null) {
+                    Component.Destroy(animator);
+                }
+            }
+        }
+    }
+    
 
 }
 }

@@ -118,7 +118,7 @@ static class Legs {
     }
 
     private static void init_femur_folding_direction(Leg leg) {
-        leg.folding_direction = -1 * leg.tibia.possible_span.sign_of_bigger_rotation();
+        leg.folding_direction = -leg.tibia.possible_span.side_of_bigger_rotation();
     }
 
     private static void mirror(Leg dst, Leg src) {
@@ -144,7 +144,7 @@ static class Legs {
             Quaternion.Inverse(src.femur.desired_relative_direction_standing);
         dst.tibia.desired_relative_direction_standing =
             Quaternion.Inverse(src.tibia.desired_relative_direction_standing);
-        dst.folding_direction = src.folding_direction * -1;
+        //dst.folding_direction = -src.folding_direction; //inferred at the end
 
         dst.femur.spriteRenderer.sprite = src.femur.spriteRenderer.sprite;
         dst.tibia.spriteRenderer.sprite = src.tibia.spriteRenderer.sprite;

@@ -157,7 +157,7 @@ static class Legs {
     }
     
     private static void init_femur_folding_direction(Leg leg) {
-        leg.folding_direction = -1 * leg.tibia.possible_span.sign_of_bigger_rotation();
+        leg.folding_direction = -leg.tibia.possible_span.side_of_bigger_rotation();
     }
 
     private static void mirror(Leg dst, Leg src) {

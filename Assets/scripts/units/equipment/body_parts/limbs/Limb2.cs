@@ -15,7 +15,7 @@ public partial class Limb2: Child {
     public Segment segment1 { get; set; } //beginning (root)
     public Segment segment2 { get; set; } //ending (leaf)
 
-    public int folding_direction { get; set; } //1 of -1
+    public geometry2d.Side folding_direction { get; set; } //1 of -1
     
     protected virtual Limb2.Debug debug_limb { get; set; }
 
@@ -25,7 +25,9 @@ public partial class Limb2: Child {
     }
     
     public void set_desired_directions_by_position(Vector2 desired_position) {
-        Contract.Requires(folding_direction != 0, "folding_direction is needed for bending the arm");
+        Contract.Requires((folding_direction != Side.NONE) && (folding_direction != null),
+            "folding_direction is needed for bending the arm"
+        );
         
         //all positions are in global coordinates
         float distance_to_aim = 
@@ -37,7 +39,7 @@ public partial class Limb2: Child {
                 segment2.length
             );
         if (float.IsNaN(segment1_angle_offset)) {
-            // leg can't reach the desired position physically
+            // limb can't reach the desired position physically
             debug_limb.draw_lines(Color.magenta,0.5f);
             //return;
             segment1_angle_offset = 0f; // assuming the Leg can become straight
@@ -64,10 +66,52 @@ public partial class Limb2: Child {
         );
 
     }
-    
-    
-    
 
+
+    public bool hold_onto_point(Vector2 holding_point) {
+        segment1.attach_to_host();
+        
+        float distance_to_aim = segment1.transform.distance_to(holding_point);
+        float segment1_angle_offset = 
+            geometry2d.Triangles.get_angle_by_lengths(
+                segment1.length,
+                distance_to_aim,
+                segment2.length
+            );
+        if (float.IsNaN(segment1_angle_offset)) {
+            return false;    
+        }
+        segment1.set_direction(
+            segment1.transform.degrees_to(holding_point)+
+            (folding_direction * segment1_angle_offset )
+        );
+
+        segment2.attach_to_host();
+
+        segment2.direct_to(holding_point);
+        return true;
+    }
     
+    public bool hold_onto_point2(Vector2 holding_point) {
+        
+        float distance_to_aim = segment1.transform.distance_to(holding_point);
+        float segment1_angle_offset = 
+            geometry2d.Triangles.get_angle_by_lengths(
+                segment1.length,
+                distance_to_aim,
+                segment2.length
+            );
+        if (float.IsNaN(segment1_angle_offset)) {
+            return false;    
+        }
+        segment1.set_direction(
+            segment1.transform.degrees_to(holding_point)+
+            (folding_direction * segment1_angle_offset )
+        );
+
+
+        segment2.direct_to(holding_point);
+        return true;
+    }
 }
 }

@@ -32,6 +32,10 @@ public class Segment: Turning_element {
     public Segment(string name): base(name) {
         
     }
+
+    public Segment(string name, GameObject prefab) : base(name, prefab) {
+        
+    }
     
     public virtual void mirror_from(limbs.Segment src) {
         this.attachment = new Vector2(

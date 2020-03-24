@@ -26,5 +26,9 @@ public static partial class Unity_extension
         return Quaternion.Angle(from, to) <= Mathf.Epsilon;
     }
     
+    public static Quaternion inverse(this Quaternion rotation) {
+        return Quaternion.Inverse(rotation);
+    }
+    
  
 }

@@ -22,24 +22,18 @@ public static class Directions {
         return Quaternion.AngleAxis(degrees, Vector3.forward) * Vector3.right;
     }
 
-    
 
-    
-    public static class Triangles {
-        public static float get_angle_by_lengths(float side1, float side2, float opposite_side) {
-            float cos_of_angle = 
-                (Mathf.Pow(side1,2) + Mathf.Pow(side2,2) - Mathf.Pow(opposite_side,2))
-                /
-                (2*side1*side2);
-            return Mathf.Acos(cos_of_angle)*Mathf.Rad2Deg;
-        }
-    }
-    
-    public static float normalise_degrees(float degrees) {
-        degrees = degrees % 180;
-        return degrees;
-    }
+}
 
+
+public static class Triangles {
+    public static float get_angle_by_lengths(float side1, float side2, float opposite_side) {
+        float cos_of_angle = 
+            (Mathf.Pow(side1,2) + Mathf.Pow(side2,2) - Mathf.Pow(opposite_side,2))
+            /
+            (2*side1*side2);
+        return Mathf.Acos(cos_of_angle)*Mathf.Rad2Deg;
+    }
 }
 
 }

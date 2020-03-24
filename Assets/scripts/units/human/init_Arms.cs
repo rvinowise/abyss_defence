@@ -27,6 +27,9 @@ public class Arms {
         init_common_parameters(controller);
         
         init_parameters_that_shoud_be_mirrored(controller);
+        foreach (Arm arm in arms) {
+            init_parameters_that_can_be_inferred(arm);
+        }
 
         return controller;
     }
@@ -58,6 +61,9 @@ public class Arms {
         
         arm.hand.rotation_speed = 300f;
         arm.hand.parent = arm.forearm.transform;
+        
+        //arm.hand.spriteRenderer.sprite = Resources.Load<Sprite>("human/hand/grip_gun");
+        //arm.hand.animation = "human/hand/animator";
     }
 
     private static void init_parameters_that_shoud_be_mirrored(Arm_controller controller) {
@@ -70,14 +76,14 @@ public class Arms {
     private static void init_left_arm(Arm arm) {
         arm.attachment = new Vector2(0f, 0.32f);
         
-        arm.upper_arm.possible_span = new Span(100f, -70f);
+        arm.upper_arm.possible_span = new Span(100f, -50f);
         arm.upper_arm.tip = new Vector2(0.30f, 0f);
         arm.upper_arm.local_position = new Vector2(0f, 0.32f);
         arm.upper_arm.desired_idle_direction = Directions.degrees_to_quaternion(20f);
         arm.upper_arm.spriteRenderer.sprite = sprite_upper_arm;
         //arm.upper_arm.desired_idle_direction = Directions.degrees_to_quaternion(0f);
         
-        arm.forearm.possible_span = new Span(0f, -170f);
+        arm.forearm.possible_span = new Span(0f, -150f);
         arm.forearm.tip = new Vector2(0.30f, 0f);
         arm.forearm.local_position = arm.upper_arm.tip;
         arm.forearm.desired_idle_direction = Directions.degrees_to_quaternion(-20f);
@@ -85,16 +91,18 @@ public class Arms {
         //arm.forearm.desired_idle_direction = Directions.degrees_to_quaternion(0f);
         
         arm.hand.possible_span = new Span(45f, -80f);
-        arm.hand.tip = new Vector2(0.12f, 0f);
+        arm.hand.tip = new Vector2(0.11f, -0.02f);
         arm.hand.local_position = arm.forearm.tip; //todo set localPosition automatically since it's always = parent.tip
         arm.hand.desired_idle_direction = Directions.degrees_to_quaternion(0f);
-        arm.hand.spriteRenderer.sprite = Resources.Load<Sprite>("human/hand/grip_gun");
-
-        arm.folding_direction = 1;
+        //arm.folding_direction = geometry2d.Side.LEFT;
     }
 
     private static void mirror(Arm arm_dst , Arm arm_src) {
         parts.limbs.init.Initializer.mirror(arm_dst, arm_src);
+    }
+
+    public static void init_parameters_that_can_be_inferred(Arm arm) {
+        arm.folding_direction = -arm.segment2.possible_span.side_of_bigger_rotation();
     }
 }
 }

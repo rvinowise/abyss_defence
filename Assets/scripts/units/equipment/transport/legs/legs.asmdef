@@ -5,7 +5,8 @@
 		"equipment",
 		"extensions",
         "debug",
-        "settings"
+        "settings",
+        "third_party"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

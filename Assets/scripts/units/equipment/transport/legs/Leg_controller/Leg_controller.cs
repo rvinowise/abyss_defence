@@ -67,7 +67,7 @@ public partial class Leg_controller:
         return impulse;
     }
 
-    
+    private const float rotate_faster_than_move = 3000f;
     public float get_possible_rotation() {
         if (moving_strategy is null) {
             return 0f;
@@ -75,7 +75,7 @@ public partial class Leg_controller:
         float impulse = 0;
         foreach (Leg leg in legs) {
             if (!leg.is_up) {
-                impulse += leg.provided_impulse * 100;
+                impulse += leg.provided_impulse * rotate_faster_than_move;
             }
         }
         if (moving_strategy.belly_touches_ground()) {

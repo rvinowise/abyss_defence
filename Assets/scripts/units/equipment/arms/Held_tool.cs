@@ -6,6 +6,7 @@ using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
 using rvinowise.units.parts.weapons;
+using rvinowise.units.parts.weapons.guns;
 
 
 namespace rvinowise.units.parts.limbs.arms {

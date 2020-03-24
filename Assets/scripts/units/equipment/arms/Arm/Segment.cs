@@ -10,8 +10,13 @@ namespace rvinowise.units.parts.limbs.arms {
 public class Segment: limbs.Segment {
 
     public Quaternion desired_idle_direction; //aim there if no task is given
+    public Hand_gesture gesture {
+        get { return _gesture;} 
+        set{ animator.SetInteger("Gesture", value.Value);} 
+    }
+    private Hand_gesture _gesture;
 
-    
+
     public override void mirror_from(limbs.Segment src) {
         base.mirror_from(src);
         if (src is arms.Segment arms_src) {
@@ -22,6 +27,9 @@ public class Segment: limbs.Segment {
     
     /* limbs.Segment interface */
     public Segment(string name):base(name) {
+        
+    }
+    public Segment(string name, GameObject prefab):base(name, prefab) {
         
     }
 }
