@@ -35,5 +35,7 @@ public class Action: parts.actions.Action {
     public Action() {
         
     }
+    
+    public override void update() {}
 }
 }

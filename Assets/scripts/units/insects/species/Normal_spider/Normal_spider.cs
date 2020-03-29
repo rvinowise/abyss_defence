@@ -29,5 +29,6 @@ public class Normal_spider: Creature {
     protected IWeaponry weaponry {
         get { throw new NotImplementedException(); }
     }
+    
 }
 }

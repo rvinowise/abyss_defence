@@ -2,6 +2,7 @@
 using UnityEngine;
 using geometry2d;
 using rvinowise;
+using rvinowise.units.parts;
 using Input = rvinowise.ui.input.Input;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -12,7 +13,8 @@ public class Debug_drawer : MonoBehaviour
     LineRenderer lineRenderer;
     bool pressed = false;
     Ray2D ray;
-
+    private Divisible_body divisible_body;
+    
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -20,6 +22,9 @@ public class Debug_drawer : MonoBehaviour
         lineRenderer.endWidth= 0.02f;
         lineRenderer.widthMultiplier = 1f;
         lineRenderer.loop = true;
+        
+        divisible_body = gameObject.GetComponent<Divisible_body>(); 
+
          //lineRenderer.SetVertexCount(linePoints.Count);
     }
  
@@ -37,15 +42,14 @@ public class Debug_drawer : MonoBehaviour
         
     }
  
-    void mouse_control() {
+    /*void mouse_control() {
         if (
             (!pressed)&&
             (UnityEngine.Input.GetMouseButtonDown(0))
            ) 
         {
             pressed = true;
-            //Divisible_body divisible_body = divided.GetComponent<Divisible_body>(); 
-            //divisible_body.split_by_ray(ray);
+            divisible_body.split_by_ray(ray);
         }
 
         if (
@@ -55,8 +59,18 @@ public class Debug_drawer : MonoBehaviour
         {
             pressed = false;
         }
-    }
-    
+    }*/
+
+    /*void UnityApiMouseEvents() {
+        RaycastHit hit;
+        if (Physics.Raycast(hit)) {
+            if (hit.rigidbody != null)
+                hit.rigidbody.gameObject.SendMessage("OnMouseDown");
+            else
+                hit.collider.SendMessage("OnMouseDown");
+        }
+    }*/
+
     void draw_splitting_wedge() {
         Polygon wedge = Polygon_splitter.get_wedge_from_ray(ray);
         draw_polygon(wedge);

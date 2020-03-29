@@ -88,7 +88,7 @@ public static class Tools_splitter {
         if (
             System.Convert.ToBoolean(
                 ClipperLib.Clipper.PointInPolygon(
-                    Clipperlib_coordinates.float_coord_to_int(child.attachment),
+                    Clipperlib_coordinates.float_coord_to_int(child.local_position),
                     Clipperlib_coordinates.float_coord_to_int(new Polygon(collider.GetPath(0)))
                 )
             )

@@ -5,12 +5,16 @@ using rvinowise.rvi.contracts;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.limbs.arms.strategy;
 using rvinowise.units.parts.tools;
+using UnityEngine.UIElements;
 
 namespace rvinowise.units.parts.limbs.arms  {
 
 public partial class Arm: Limb3/*, IDo_actions*/ {
 
     /* constant characteristics */
+
+    private Arm_controller controller;
+    
     public Segment upper_arm {
         get { return segment1 as arms.Segment;}
         set { segment1 = value; }
@@ -19,16 +23,29 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         get { return segment2 as arms.Segment;}
         set { segment2 = value; }
     }
-    
-    public Segment hand {
-        get { return segment3 as arms.Segment;}
-        set { segment3 = value; }
+
+    public override limbs.Segment segment3 {
+        get{
+            return _hand;
+        }
     }
-   
+    /*public Hand hand {
+        get { return segment3 as arms.Hand;}
+        set { segment3 = value; }
+    }*/
+    public Hand hand {
+        get { return _hand;}
+        set { _hand = value; }
+    }
+    private Hand _hand;
+
+    public float length {
+        get { return upper_arm.length + forearm.length + hand.length; }
+    }
     
     /* IDo_actions interface */
-    
-    private readonly Action_tree action_tree;
+
+    public readonly Action_tree action_tree;
     
     
     /* Arm itself */
@@ -43,28 +60,34 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
     public Holding_place held_part;
     
     
-    public Arm(Transform inHost, Transform in_idle_target) {
+    public Arm(Arm_controller in_controller, Transform in_idle_target) {
+        controller = in_controller;
+        
         upper_arm = new Segment("upper_arm");
         upper_arm.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "arms";
-        upper_arm.host = inHost;
+        upper_arm.parent = in_controller.transform;
         
         forearm = new Segment("forearm");
         forearm.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "arms";
         forearm.game_object.GetComponent<SpriteRenderer>().sortingOrder = -1;
-        forearm.host = upper_arm.transform;
+        forearm.parent = upper_arm.transform;
 
-        hand = new Segment(
+        hand = new Hand(
             "hand", 
             Resources.Load<GameObject>("objects/units/human/hand")
         );
         hand.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "arms";
         hand.game_object.GetComponent<SpriteRenderer>().sortingOrder = -10;
-        hand.host = forearm.transform;
+        hand.parent = forearm.transform;
 
         idle_target = in_idle_target;
         
         action_tree = new Action_tree(this);
-        action_tree.current_action = Idle_vigilant.create(action_tree, idle_target);
+        action_tree.current_action = Idle_vigilant_only_arm.create(
+            action_tree, 
+            idle_target,
+            controller.user_of_equipment.transporter
+            );
 
 
         debug = new Arm.Debug(this);
@@ -73,36 +96,13 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
     public void update() {
         action_tree?.update();
 
-        upper_arm.update();
-        forearm.update();
-        hand.update();
-        
-        if (this.folding_direction == Side.LEFT) {
-            debug?.draw_desired_directions();
-            //debug?.draw_lines(Color.red, 10f);
+        base.preserve_possible_rotations();
 
-            /*UnityEngine.Debug.Log(
-                "direction_diff: "+ 
-                ((
-                     upper_arm.rotation.inverse() *
-                     forearm.rotation
-                 ).degrees())
-            );
-            UnityEngine.Debug.Log(
-                "upper_arm: "+ 
-                (
-                        upper_arm.rotation
-                    ).degrees()
-            );
-            UnityEngine.Debug.Log(
-                "forearm: "+ 
-                (
-                    forearm.rotation
-                ).degrees()
-            );*/
-        }
+
+        TEST_draw_debug_lines();
     }
-
+    
+    
 
     public void hold_tool(Tool tool) {
         /*if (tool.is_in_bag()) {
@@ -121,7 +121,11 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         action_tree.next = strategy.Grab_tool.create(
             action_tree, baggage, tool);
         action_tree.next = strategy.Put_hand_before_bag.create(action_tree, baggage);
-        action_tree.next = strategy.Idle_vigilant.create(action_tree, idle_target);
+        
+        action_tree.next = strategy.Idle_vigilant_only_arm.create(
+            action_tree, 
+            idle_target, 
+            controller.user_of_equipment.transporter);
 
     }
 
@@ -135,6 +139,17 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         action_tree.next = strategy.Attach_to_holding_part_of_tool.create(
             action_tree,
             tool.second_holding
+        );
+
+        move_main_arm_closer(tool);
+    }
+
+    private void move_main_arm_closer(Tool tool) {
+        Arm main_arm = tool.main_holding.holding_arm;
+        main_arm.action_tree.current_action = strategy.Idle_vigilant_main_arm.create(
+            main_arm.action_tree, 
+            idle_target,
+            controller.user_of_equipment.transporter
         );
     }
 
@@ -155,13 +170,14 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         }
         
         void deattach_tool_from_hand(Holding_place held_part) {
-            held_part.tool.gameObject.transform.parent = null;
+            
+            held_part.holding_arm = null;
             
             this.hand.gesture = Hand_gesture.Relaxed;
         }
         void attach_tool_to_hand(Holding_place held_part) {
+            held_part.holding_arm = this;
             Transform tool_transform = held_part.tool.gameObject.transform;
-            tool_transform.parent = this.hand.transform;
             tool_transform.localPosition = 
                 held_part.attachment_point + 
                 hand.tip;
@@ -170,6 +186,7 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
             this.hand.gesture = Hand_gesture.Grip_of_vertical;
         }
     }
+
 
     
 }

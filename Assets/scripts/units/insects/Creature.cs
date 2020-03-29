@@ -26,6 +26,7 @@ public abstract class Creature : MonoBehaviour {
     protected virtual void Awake()
     {
         divisible_body = gameObject.GetComponent<Divisible_body>();
+        
         intelligence = new Player(
             transform,
             GetComponent<User_of_equipment>()
@@ -47,6 +48,17 @@ public abstract class Creature : MonoBehaviour {
 
    void FixedUpdate() {
        intelligence.update();
+   }
+
+   public void OnMouseDown() {
+       
+       Vector2 mousePos = ui.input.Input.instance.mouse_world_position;
+       Ray2D ray = new Ray2D(
+           mousePos,
+           new Vector2(0.5f,1f)
+       );
+       
+       divisible_body.split_by_ray(ray);
    }
     
     

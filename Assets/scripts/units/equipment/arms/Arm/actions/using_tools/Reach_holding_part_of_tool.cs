@@ -34,9 +34,13 @@ public class Reach_holding_part_of_tool:Action_reach_somewhere {
 
     protected override Orientation get_desired_orientation() {
         return new Orientation(
-            holding_place.position,
+            holding_place.position - (Vector2)(holding_place.rotation * arm.hand.tip) ,
             holding_place.rotation
         );
+    }
+    
+    protected override bool complete(Orientation desired_orientation) {
+        return base.complete(desired_orientation);
     }
 }
 }

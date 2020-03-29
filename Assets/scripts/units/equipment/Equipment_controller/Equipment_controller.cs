@@ -16,7 +16,7 @@ public abstract class Equipment_controller:
     IEquipment_controller 
     
 {
-    protected User_of_equipment user_of_equipment; //host
+    public User_of_equipment user_of_equipment; //parent
 
 
     public GameObject game_object {

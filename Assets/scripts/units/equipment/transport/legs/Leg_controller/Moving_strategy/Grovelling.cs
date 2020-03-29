@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using UnityEngine;
 using rvinowise;
+using rvinowise.rvi.contracts;
 using rvinowise.units.parts.limbs.legs;
 
 
@@ -27,12 +27,10 @@ internal class Grovelling: Moving_strategy
         {
             leg.debug.draw_lines(Color.red);
             leg.raise_up();
-            leg.attach_to_attachment_points();
         }
         if (leg.is_twisted_uncomfortably()) {
             if (can_move_without(leg)) {
                 leg.raise_up();
-                leg.attach_to_attachment_points();
             }
         }
     }

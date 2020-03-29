@@ -1,9 +1,10 @@
 {
     "name": "extensions",
     "references": [
-		"geometry2d",
-		"Unity.InputSystem"
-	],
+        "GUID:d86d3c3a35ad46db8568d11a601ba3ab",
+        "GUID:d6170e6ebce1fd846b79cc5bd35cc5d8",
+        "Unity.InputSystem"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
@@ -11,5 +12,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": []
+    "versionDefines": [],
+    "noEngineReferences": false
 }

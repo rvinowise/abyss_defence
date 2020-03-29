@@ -8,16 +8,15 @@ using UnityEngine;
 namespace rvinowise.units
 {
 
-public abstract class Child
+public interface Child
 {
-    public virtual Transform host { get; set; }
+    Transform parent { get; set; }
     
-    //point relative to the host where the leg is attached to it
-    public virtual Vector2 attachment {
-        get { return _attachment; }
-        set { _attachment = value; }
+    //point relative to the parent where the leg is attached to it
+    Vector2 local_position {
+        get;
+        set;
     }
-    private Vector2 _attachment;
 
 
     

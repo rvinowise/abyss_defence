@@ -13,8 +13,11 @@ namespace rvinowise.units.parts.weapons.guns {
 
 public class Break_sewedoff: Gun {
 
+    public override float weight { set; get; } = 3f;
+    public override float stock_length { get; } = 0f;
+
     protected override void init_holding_places() {
-        main_holding = new Holding_place(this);
+        main_holding = Holding_place.main(this);
         second_holding = new Holding_place(this) {
             attachment_point = new Vector2(0.2f, 0f),
             grip_gesture = Hand_gesture.Support_of_horizontal,

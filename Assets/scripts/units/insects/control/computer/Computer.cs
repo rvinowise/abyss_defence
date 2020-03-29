@@ -12,6 +12,7 @@ using Input = rvinowise.ui.input.Input;
 namespace rvinowise.units.control.spider {
 
 public class Computer: Intelligence  {
+    
     public float horizontal {get;private set;}
     public float vertical {get;private set;}
     

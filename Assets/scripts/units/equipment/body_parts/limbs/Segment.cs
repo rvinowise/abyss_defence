@@ -15,7 +15,7 @@ public class Segment: Turning_element {
             sqr_length = Mathf.Pow(length,2);
         }
     }
-    private Vector2 _tip;
+    protected Vector2 _tip;
     
     public float length {
         get;
@@ -38,9 +38,9 @@ public class Segment: Turning_element {
     }
     
     public virtual void mirror_from(limbs.Segment src) {
-        this.attachment = new Vector2(
-            src.attachment.x,
-            -src.attachment.y
+        this.local_position = new Vector2(
+            src.local_position.x,
+            -src.local_position.y
         );
         this.local_position = new Vector2(
             src.local_position.x,
@@ -57,6 +57,10 @@ public class Segment: Turning_element {
 
         this.spriteRenderer.sprite = src.spriteRenderer.sprite;
         this.spriteRenderer.flipY = !src.spriteRenderer.flipY;
+    }
+
+    public Vector2 desired_tip() {
+        return this.position + tip.Rotate(desired_direction);
     }
 
     

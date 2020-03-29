@@ -65,7 +65,7 @@ static class Legs {
     private const float rotation_speed = 360f;
 
     private static void init_left_front_leg(Leg leg, Sprite sprite_femur, Sprite sprite_tibia) {
-        leg.attachment = new Vector2(0.195f, 0.2925f) * scale;
+        leg.local_position = new Vector2(0.195f, 0.2925f) * scale;
         leg.femur.possible_span = new Span(0f, 170f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.femur.tip = new Vector2(0.4225f, 0f) * scale;
@@ -75,7 +75,7 @@ static class Legs {
         //leg.tibia.comfortable_span = leg.tibia.possible_span.scaled(0.5f);
         leg.tibia.tip = new Vector2(0.5525f, 0f) * scale;
         leg.tibia.spriteRenderer.sprite = sprite_tibia;
-        leg.tibia.attachment = leg.femur.tip;
+        leg.tibia.local_position = leg.femur.tip;
         leg.tibia.rotation_speed = rotation_speed;
 
         leg.femur.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
@@ -83,7 +83,7 @@ static class Legs {
     }
 
     private static void init_left_hind_leg(Leg leg, Sprite sprite_femur, Sprite sprite_tibia) {
-        leg.attachment = new Vector2(-0.2275f, 0.2925f) * scale;
+        leg.local_position = new Vector2(-0.2275f, 0.2925f) * scale;
         leg.femur.possible_span = new Span(10f, 180f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.femur.tip = new Vector2(0.4225f, 0f) * scale;
@@ -93,7 +93,7 @@ static class Legs {
         //leg.tibia.comfortable_span = leg.tibia.possible_span.scaled(0.5f);
         leg.tibia.tip = new Vector2(0.5525f, 0f) * scale;
         leg.tibia.spriteRenderer.sprite = sprite_tibia;
-        leg.tibia.attachment = leg.femur.tip;
+        leg.tibia.local_position = leg.femur.tip;
         leg.tibia.rotation_speed = rotation_speed;
         leg.femur.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
         leg.tibia.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
@@ -122,10 +122,10 @@ static class Legs {
     }
 
     private static void mirror(Leg dst, Leg src) {
-        // the base direction is to the right
-        dst.attachment = new Vector2(
-            src.attachment.x,
-            -src.attachment.y
+        // the base direction_quaternion is to the right
+        dst.local_position = new Vector2(
+            src.local_position.x,
+            -src.local_position.y
         );
         dst.femur.possible_span = mirror_span(src.femur.possible_span);
         //dst.femur.comfortable_span = mirror_span(src.femur.comfortable_span);
@@ -162,7 +162,7 @@ static class Legs {
     }
 
     private static void copy_not_mirrored_leg_parameters(Leg dst, Leg src) {
-        dst.tibia.attachment = src.femur.tip;
+        dst.tibia.local_position = src.femur.tip;
         dst.femur.rotation_speed = src.femur.rotation_speed;
         dst.tibia.rotation_speed = src.tibia.rotation_speed;
     }

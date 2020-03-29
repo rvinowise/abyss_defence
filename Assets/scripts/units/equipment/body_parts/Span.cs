@@ -5,7 +5,7 @@ using UnityEngine;
 namespace rvinowise.units.parts.limbs {
 
 public struct Span {
-    /* possible rotation of a segment relative to it's attachment  */
+    /* possible rotation of a segment relative to it's local_position  */
     public readonly float min; //maximum rotation to the left (counter-clockwise)
     public readonly float max; //maximum rotation to the right (clockwise)
 

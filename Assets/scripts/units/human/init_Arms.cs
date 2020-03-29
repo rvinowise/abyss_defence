@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using geometry2d;
 using UnityEngine;
 using rvinowise;
+using rvinowise.units.parts;
 using rvinowise.units.parts.limbs;
 using rvinowise.units.parts.limbs.arms;
 //using Arm_controller = rvinowise.units.parts.limbs.Arms.humanoid.Arm_controller;
@@ -18,9 +19,18 @@ public class Arms {
     private static Sprite sprite_upper_arm;
     private static Sprite sprite_forearm;
 
-    public static Arm_controller init(Arm_controller controller) {
+    private static Baggage baggage;
+    private static Transform idle_target;
+    
+    public static Arm_controller init(
+        Arm_controller controller,
+        Baggage in_baggage,
+        Transform in_idle_target
+    ) {
         sprite_upper_arm = Resources.Load<Sprite>("human/upper_arm");
         sprite_forearm = Resources.Load<Sprite>("human/forearm");
+        baggage = in_baggage;
+        idle_target = in_idle_target;
         
         IList<Arm> arms = create_arms(controller);
 
@@ -28,16 +38,21 @@ public class Arms {
         
         init_parameters_that_shoud_be_mirrored(controller);
         foreach (Arm arm in arms) {
-            init_parameters_that_can_be_inferred(arm);
+            init_arm_parameters_that_can_be_inferred(arm);
         }
+        init_parameters_that_can_be_inferred(controller);
 
+        controller.arms.RemoveAt(0);
+        
         return controller;
     }
+
+    
 
     private static IList<Arm> create_arms(Arm_controller controller) {
         for (int i = 0; i < 2; i++) {
             controller.add_tool(new Arm(
-                controller.game_object.transform,
+                controller,
                 rvinowise.ui.input.Input.instance.cursor.center.transform
             ));
         }
@@ -62,8 +77,8 @@ public class Arms {
         arm.hand.rotation_speed = 300f;
         arm.hand.parent = arm.forearm.transform;
         
-        //arm.hand.spriteRenderer.sprite = Resources.Load<Sprite>("human/hand/grip_gun");
-        //arm.hand.animation = "human/hand/animator";
+        arm.baggage = baggage;
+        arm.idle_target = idle_target;
     }
 
     private static void init_parameters_that_shoud_be_mirrored(Arm_controller controller) {
@@ -74,24 +89,23 @@ public class Arms {
     }
 
     private static void init_left_arm(Arm arm) {
-        arm.attachment = new Vector2(0f, 0.32f);
+        arm.local_position = new Vector2(0f, 0.32f);
         
         arm.upper_arm.possible_span = new Span(100f, -50f);
         arm.upper_arm.tip = new Vector2(0.30f, 0f);
         arm.upper_arm.local_position = new Vector2(0f, 0.32f);
         arm.upper_arm.desired_idle_direction = Directions.degrees_to_quaternion(20f);
         arm.upper_arm.spriteRenderer.sprite = sprite_upper_arm;
-        //arm.upper_arm.desired_idle_direction = Directions.degrees_to_quaternion(0f);
         
         arm.forearm.possible_span = new Span(0f, -150f);
         arm.forearm.tip = new Vector2(0.30f, 0f);
         arm.forearm.local_position = arm.upper_arm.tip;
         arm.forearm.desired_idle_direction = Directions.degrees_to_quaternion(-20f);
         arm.forearm.spriteRenderer.sprite = sprite_forearm;
-        //arm.forearm.desired_idle_direction = Directions.degrees_to_quaternion(0f);
         
-        arm.hand.possible_span = new Span(45f, -80f);
-        arm.hand.tip = new Vector2(0.11f, -0.02f);
+        //arm.hand.possible_span = new Span(45f, -80f);
+        arm.hand.possible_span = new Span(90f, -80f);
+        
         arm.hand.local_position = arm.forearm.tip; //todo set localPosition automatically since it's always = parent.tip
         arm.hand.desired_idle_direction = Directions.degrees_to_quaternion(0f);
         //arm.folding_direction = geometry2d.Side.LEFT;
@@ -101,8 +115,13 @@ public class Arms {
         parts.limbs.init.Initializer.mirror(arm_dst, arm_src);
     }
 
-    public static void init_parameters_that_can_be_inferred(Arm arm) {
+    private static void init_arm_parameters_that_can_be_inferred(Arm arm) {
         arm.folding_direction = -arm.segment2.possible_span.side_of_bigger_rotation();
+    }
+    private static void init_parameters_that_can_be_inferred(Arm_controller controller) {
+        controller.shoulder_span =
+            (controller.left_arm.local_position - controller.right_arm.local_position).
+            magnitude;
     }
 }
 }

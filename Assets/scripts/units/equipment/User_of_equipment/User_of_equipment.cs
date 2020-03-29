@@ -58,14 +58,6 @@ public partial class User_of_equipment:MonoBehaviour
         
     }
 
-    /*private void copy_array_of_equipment_controllers(User_of_equipment src_user) {
-        foreach (var src_equipment_controller in src_user.equipment_controllers) {
-            equipment_controllers.Add(src_equipment_controller.copy_empty_into(this));
-        }
-    }*/
-
-
-    
 
     private void Update() {
         foreach (var equipment_controller in equipment_controllers) {
@@ -95,11 +87,7 @@ public partial class User_of_equipment:MonoBehaviour
     private void destroy_tool_controller(
         Equipment_controller tool_controller) 
     {
-        /*IEquipment_controller component_tool_controller =
-            tool_controller as IEquipment_controller;
-        if (component_tool_controller) {
-            Destroy(component_tool_controller);
-        }*/
+
     }
 
     

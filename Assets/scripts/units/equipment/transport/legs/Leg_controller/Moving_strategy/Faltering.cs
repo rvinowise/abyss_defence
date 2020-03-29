@@ -27,7 +27,6 @@ internal class Faltering: Moving_strategy
         {
             leg.debug.draw_lines(Color.red);
             leg.raise_up();
-            leg.attach_to_attachment_points();
         }
     }
 

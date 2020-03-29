@@ -22,6 +22,11 @@ public abstract class Gun:
         get { return muzzle_place; }
         set { muzzle_place = value; }
     }
+
+    public virtual float stock_length { get; }
+    public float butt_to_second_grip_distance {
+        get { return stock_length + second_holding.attachment_point.magnitude; }
+    }
     
     /* current values */
     private float last_shot_time = 0f;

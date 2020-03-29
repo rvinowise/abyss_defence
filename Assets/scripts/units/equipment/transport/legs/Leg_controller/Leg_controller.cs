@@ -26,14 +26,20 @@ public partial class Leg_controller:
     
     protected override void init_components() {
         rigid_body = game_object.GetComponent<Rigidbody2D>();
-        Contract.Requires(rigid_body != null);
+        if (rigid_body != null) {
+            move_in_direction = move_in_direction_as_rigidbody;
+        }
+        else {
+            move_in_direction = move_in_direction_as_transform;
+        }
+        //Contract.Requires(rigid_body != null);
     }
 
     public override void add_tool(Child child) {
         Contract.Requires(child is Leg);
         Leg leg = child as Leg;
         legs.Add(leg);
-        leg.host = transform;
+        leg.parent = transform;
     }
 
 
@@ -67,7 +73,9 @@ public partial class Leg_controller:
         return impulse;
     }
 
+
     private const float rotate_faster_than_move = 3000f;
+
     public float get_possible_rotation() {
         if (moving_strategy is null) {
             return 0f;
@@ -84,18 +92,28 @@ public partial class Leg_controller:
         return impulse;
     }
 
+    public Quaternion direction_quaternion {
+        get { return transform.rotation; }
+    }
+
     public transport.Command_batch command_batch {
         get { return _command_batch; }
     }
     private transport.Command_batch _command_batch = new transport.Command_batch();
 
-    
-    
-    
-    public void move_in_direction(Vector2 moving_direction) {
+
+
+
+    private delegate void Move_in_direction(Vector2 moving_direction);
+    private Move_in_direction move_in_direction;
+        
+    public void move_in_direction_as_rigidbody(Vector2 moving_direction) {
         Vector2 delta_movement = (moving_direction * get_possible_impulse() * rvi.Time.deltaTime);
-        //transform.position += (Vector3)delta_movement;
         rigid_body.MovePosition((Vector2)transform.position + delta_movement);
+    }
+    public void move_in_direction_as_transform(Vector2 moving_direction) {
+        Vector2 delta_movement = (moving_direction * get_possible_impulse() * rvi.Time.deltaTime);
+        transform.position += (Vector3)delta_movement;
     }
     
     public void rotate_to_direction(Quaternion face_direction) {
@@ -199,7 +217,6 @@ public partial class Leg_controller:
             leg.put_down();
         } else {
             leg.move_segments_towards_desired_direction();
-            leg.attach_to_attachment_points();
         }
     }
 
@@ -209,7 +226,7 @@ public partial class Leg_controller:
             moving_offset_distance;
 
         leg.set_optimal_position(
-            (Vector2)leg.host.TransformPoint(leg.optimal_relative_position_standing) + 
+            (Vector2)leg.parent.TransformPoint(leg.optimal_relative_position_standing) + 
             shift_to_moving_direction
         );
     }

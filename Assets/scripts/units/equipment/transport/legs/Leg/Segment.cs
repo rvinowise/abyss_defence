@@ -9,9 +9,9 @@ namespace rvinowise.units.parts.limbs.legs {
 
 public class Segment: limbs.Segment {
 
-    /* the most comfortable direction if the body isn't moving.
+    /* the most comfortable direction_quaternion if the body isn't moving.
      determined during construction*/
-    public Quaternion desired_relative_direction_standing { get; set; } //relative to attachment
+    public Quaternion desired_relative_direction_standing { get; set; } //relative to local_position
     
     
     /* limbs.Segment interface */

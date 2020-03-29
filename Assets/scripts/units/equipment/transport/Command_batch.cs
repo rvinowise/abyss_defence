@@ -22,7 +22,7 @@ public class Command_batch: parts.Command_batch {
     private Vector2 _moving_direction_vector*/;
 
     public float face_direction_degrees {
-        get { return face_direction_quaternion.degrees(); }
+        get { return face_direction_quaternion.to_float_degrees(); }
         //private set { _face_direction_degrees = value; }
     }
     //private float _face_direction_degrees;

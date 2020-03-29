@@ -7,13 +7,13 @@ using UnityEngine;
 namespace rvinowise.units.parts.weapons.guns {
 
 public class Pistol: 
-    Gun
-{
+    Gun {
 
+    
     protected override void init_holding_places() {
-        main_holding = new Holding_place(this);
+        main_holding = Holding_place.main(this);
         second_holding = new Holding_place(this) {
-            grip_gesture = Hand_gesture.Relaxed,
+            grip_gesture = Hand_gesture.Support_of_horizontal,
             grip_direction = new Degree(-45f)
         };
     }

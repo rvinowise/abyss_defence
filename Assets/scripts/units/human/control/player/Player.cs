@@ -7,8 +7,11 @@ using geometry2d;
 using rvinowise.units.control;
 using rvinowise.units.parts;
 using rvinowise.units.parts.limbs.arms;
+using rvinowise.units.parts.limbs.arms.strategy;
+using rvinowise.units.parts.weapons.guns;
 using static geometry2d.Directions;
 using Input = rvinowise.ui.input.Input;
+using Arm_controller = rvinowise.units.parts.limbs.arms.humanoid.Arm_controller;
 
 namespace rvinowise.units.control.human {
 
@@ -19,14 +22,15 @@ public class Player : Human {
     private float last_rotation;
     private int[] held_tool_index;
 
-    public rvinowise.units.parts.limbs.arms.humanoid.Arm_controller arm_controller; //todo abstraction leak
+    public Arm_controller arm_controller; 
 
     public Player(
         Transform in_transform,
-        User_of_equipment in_user): base(in_user) 
+        User_of_equipment in_user
+    )
+        : base(in_user) 
     {
         transform = in_transform;
-        //arm_controller = weaponry as Arm_controller;
     }
 
     public override void update() {
@@ -37,20 +41,9 @@ public class Player : Human {
     protected override void read_input() {
         read_transporter_input();
         read_switching_items_input();
-        //read_switching_items_input();
         read_sensory_organs_input();
     }
 
-    public bool is_switching_tool { get; set; } = false;
-
-    /*private void read_tools_input() {
-        if (read_switching_items_input()) {
-            foreach (Arm arm in arm_controller.arms) {
-                arm.take_tool_from_baggage();
-            }
-        }
-       
-    }*/
 
     private void idle(Arm arm) {
         var direction_to_mouse = transform.quaternion_to(Input.instance.mouse_world_position);
@@ -78,12 +71,12 @@ public class Player : Human {
         
             if (Side.from_degrees(last_rotation) == geometry2d.Side.LEFT) {
                 arm_controller.left_arm.support_held_tool(
-                    baggage.items[0]
+                    baggage.items[4]
                 );
             }
             else {
                 arm_controller.right_arm.take_tool_from_baggage(
-                    baggage.items[0]    
+                    baggage.items[4]    
                 );
 
             }
@@ -125,12 +118,50 @@ public class Player : Human {
         Quaternion read_face_direction() {
             Vector2 mousePos = Input.instance.mouse_world_position;
             Quaternion needed_direction = (mousePos - (Vector2) transform.position).to_quaternion();
-            float angle_difference = transform.rotation.degrees_to(needed_direction);
-            if (Mathf.Abs(angle_difference) > (float)Mathf.Epsilon) {
-                last_rotation = angle_difference;
+            if (has_gun_in_2hands(out var gun))
+            {
+                needed_direction *= get_additional_rotation_for_2hands_gun(gun); 
+                    
             }
-    
+            save_last_rotation(needed_direction);
+
             return needed_direction;
+        }
+    }
+
+    private bool has_gun_in_2hands(out Gun out_gun) {
+        if (
+            (arm_controller?.right_arm.action_tree.current_action is Idle_vigilant_main_arm) &&
+            (arm_controller?.right_arm.held_tool is Gun gun)
+        ) {
+            out_gun = gun;
+            return true;
+        }
+        out_gun = null;
+        return false;
+    }
+
+    private Quaternion get_additional_rotation_for_2hands_gun(Gun gun) {
+        
+        float body_rotation = 
+            geometry2d.Triangles.get_angle_by_lengths(
+                arm_controller.shoulder_span,
+                gun.butt_to_second_grip_distance,
+                arm_controller.left_arm.length-arm_controller.left_arm.hand.length
+            ) -90f;
+        
+        
+        if (float.IsNaN(body_rotation)) {
+            return Quaternion.identity;
+        }
+        
+        return degrees_to_quaternion(body_rotation);
+    }
+
+    private void save_last_rotation(Quaternion needed_direction) {
+        float angle_difference = transform.rotation.degrees_to(needed_direction);
+        if (Mathf.Abs(angle_difference) > (float) Mathf.Epsilon) {
+            last_rotation = angle_difference;
         }
     }
 }

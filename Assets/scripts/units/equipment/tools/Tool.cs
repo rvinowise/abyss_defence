@@ -10,6 +10,8 @@ namespace rvinowise.units.parts.tools {
 public abstract class Tool: MonoBehaviour
 {
 
+    public virtual float weight { set; get; }
+    
     public Holding_place main_holding;
     public Holding_place second_holding;
 
@@ -30,7 +32,8 @@ public abstract class Tool: MonoBehaviour
 
 
     protected virtual void init_holding_places() {
-        main_holding = new Holding_place(this);
+        main_holding = Holding_place.main(this);
+        
     }
     
 
@@ -50,9 +53,31 @@ public class Holding_place {
         get { return grip_direction.to_quaternion(); }
     }
     public Tool tool;
+    public bool is_main;
+    public Arm holding_arm {
+        get { return _holding_arm; }
+        set {
+            _holding_arm = value;
+            if (is_main) {
+                tool.gameObject.transform.parent = _holding_arm.hand.transform;
+            }
+        }
+    }
+    public Arm _holding_arm;
 
     public Holding_place(Tool in_tool) {
         tool = in_tool;
+    }
+
+    public static Holding_place main(Tool in_tool) {
+        Holding_place holding_place = new Holding_place(in_tool);
+        holding_place.is_main = true;
+        return holding_place;
+    }
+    public static Holding_place secondary(Tool in_tool) {
+        Holding_place holding_place = new Holding_place(in_tool);
+        holding_place.is_main = false;
+        return holding_place;
     }
     
     public Vector2 position {
@@ -63,7 +88,6 @@ public class Holding_place {
     public Quaternion rotation {
         get { return tool.transform.rotation * grip_direction_quaternion; }
     }
-
     
 }
 

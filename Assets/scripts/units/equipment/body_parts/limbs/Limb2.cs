@@ -6,6 +6,7 @@ using geometry2d;
 using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
+using UnityEngine.Assertions;
 using static geometry2d.Directions;
 
 
@@ -17,11 +18,27 @@ public partial class Limb2: Child {
 
     public geometry2d.Side folding_direction { get; set; } //1 of -1
     
+    public Transform parent {
+        get { return segment1.parent;}
+        set { segment1.parent = value; }
+    }
+    public Vector2 local_position {
+        get { return segment1.local_position; }
+        set { segment1.local_position = value; }
+    }
+    
     protected virtual Limb2.Debug debug_limb { get; set; }
 
-
-    public void reach_point(Vector2 desired_position) {
-        
+    
+    
+    public virtual void rotate_to_desired_directions() {
+        segment1.rotate_to_desired_direction();
+        segment2.rotate_to_desired_direction();
+    }
+    
+    public virtual void preserve_possible_rotations() {
+        segment1.preserve_possible_rotation();
+        segment2.preserve_possible_rotation();
     }
     
     public void set_desired_directions_by_position(Vector2 desired_position) {
@@ -69,7 +86,6 @@ public partial class Limb2: Child {
 
 
     public bool hold_onto_point(Vector2 holding_point) {
-        segment1.attach_to_host();
         
         float distance_to_aim = segment1.transform.distance_to(holding_point);
         float segment1_angle_offset = 
@@ -79,6 +95,7 @@ public partial class Limb2: Child {
                 segment2.length
             );
         if (float.IsNaN(segment1_angle_offset)) {
+            UnityEngine.Debug.Assert(true, "can't hold onto the point");
             return false;    
         }
         segment1.set_direction(
@@ -86,32 +103,11 @@ public partial class Limb2: Child {
             (folding_direction * segment1_angle_offset )
         );
 
-        segment2.attach_to_host();
 
         segment2.direct_to(holding_point);
         return true;
     }
     
-    public bool hold_onto_point2(Vector2 holding_point) {
-        
-        float distance_to_aim = segment1.transform.distance_to(holding_point);
-        float segment1_angle_offset = 
-            geometry2d.Triangles.get_angle_by_lengths(
-                segment1.length,
-                distance_to_aim,
-                segment2.length
-            );
-        if (float.IsNaN(segment1_angle_offset)) {
-            return false;    
-        }
-        segment1.set_direction(
-            segment1.transform.degrees_to(holding_point)+
-            (folding_direction * segment1_angle_offset )
-        );
-
-
-        segment2.direct_to(holding_point);
-        return true;
-    }
+    
 }
 }

@@ -13,7 +13,7 @@ namespace rvinowise.units.control {
 
 /* asks tool controllers what they can do,
  orders some actions from them based on this information,
- they do these actions later in the same update step */
+ they do these actions later in the same preserve_possible_rotations step */
 public abstract class Intelligence {
     
     public User_of_equipment user_of_equipment;

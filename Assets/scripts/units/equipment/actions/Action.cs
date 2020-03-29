@@ -40,6 +40,8 @@ public abstract partial class Action {
         action_tree.change(next);
     }
 
+    public virtual void OnDrawGizmos() {
+    }
 }
 
 

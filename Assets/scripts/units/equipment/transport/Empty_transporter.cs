@@ -18,6 +18,8 @@ public class Empty_transporter: ITransporter {
         return 0;
     }
 
+    public Quaternion direction_quaternion { get; }
+
     public transport.Command_batch command_batch { get; }
 
 

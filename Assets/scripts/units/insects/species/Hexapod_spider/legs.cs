@@ -86,7 +86,7 @@ static class Legs {
     private const float rotation_speed = 360f;
 
     private static void init_left_front_leg(Leg leg) {
-        leg.attachment = new Vector2(0.2275f, 0.325f)* scale;
+        leg.local_position = new Vector2(0.2275f, 0.325f)* scale;
         leg.femur.possible_span = new Span(0f, 170f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.tibia.possible_span = new Span(-170f, 0f);
@@ -97,7 +97,7 @@ static class Legs {
     }
     
     private static void init_left_middle_leg(Leg leg) {
-        leg.attachment = new Vector2(0f, 0.4225f) * scale;
+        leg.local_position = new Vector2(0f, 0.4225f) * scale;
         leg.femur.possible_span = new Span(20f, 160f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.tibia.possible_span = new Span(0f, 170f);
@@ -108,7 +108,7 @@ static class Legs {
     }
 
     private static void init_left_hind_leg(Leg leg) {
-        leg.attachment = new Vector2(-0.2925f, 0.325f) * scale;
+        leg.local_position = new Vector2(-0.2925f, 0.325f) * scale;
         leg.femur.possible_span = new Span(10f, 180f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.tibia.possible_span = new Span(0f, 170f);
@@ -125,7 +125,7 @@ static class Legs {
 //        leg.tibia.tip = new Vector2(0.5525f, 0f);
         leg.tibia.tip = new Vector2(0.56f, 0f) * scale;
         leg.tibia.spriteRenderer.sprite = sprite_tibia;
-        leg.tibia.attachment = leg.femur.tip;
+        leg.tibia.local_position = leg.femur.tip;
         leg.tibia.rotation_speed = rotation_speed;
     }
 
@@ -139,7 +139,7 @@ static class Legs {
 
     private static void init_optimal_relative_position(Leg leg) {
         leg.optimal_relative_position_standing =
-            leg.attachment +
+            leg.local_position +
             (Vector2) (leg.femur.desired_relative_direction_standing * leg.femur.tip) +
             (Vector2) (
                 leg.tibia.desired_relative_direction_standing *
@@ -172,7 +172,7 @@ static class Legs {
     }
 
     private static void copy_not_mirrored_leg_parameters(Leg dst, Leg src) {
-        dst.tibia.attachment = src.femur.tip;
+        dst.tibia.local_position = src.femur.tip;
         dst.femur.rotation_speed = src.femur.rotation_speed;
         dst.tibia.rotation_speed = src.tibia.rotation_speed;
     }

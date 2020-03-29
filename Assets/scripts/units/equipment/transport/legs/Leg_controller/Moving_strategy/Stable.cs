@@ -30,12 +30,10 @@ public class Stable: Moving_strategy
         {
             leg.debug.draw_lines(Color.red);
             leg.raise_up();
-            leg.attach_to_attachment_points();
         } 
         else if (leg.is_twisted_uncomfortably()) {
             if (is_standing_stable_without(leg)) {
                 leg.raise_up();
-                leg.attach_to_attachment_points();
             }
         }
     }

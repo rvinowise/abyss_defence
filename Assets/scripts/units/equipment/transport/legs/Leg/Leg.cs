@@ -7,7 +7,7 @@ using rvinowise.units;
 
 namespace rvinowise.units.parts.limbs.legs {
 
-public class Leg: Limb2 
+public partial class Leg: Limb2 
 {
     /* constant characteristics */
     public Segment femur {
@@ -29,20 +29,6 @@ public class Leg: Limb2
     // maximum distance from the optimal point after which the leg should be repositionned
     public float comfortable_distance;
 
-    /* Child interface */
-    public override Transform host {
-        get { return femur.host; }
-        set { femur.host = value; }
-    }
-
-    public override Vector2 attachment {
-        get {
-            return femur.attachment;
-        }
-        set {
-            femur.attachment = value;
-        }
-    }
 
     
     /* Leg itself */
@@ -61,23 +47,23 @@ public class Leg: Limb2
         tibia = new Segment("tibia");
         femur.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "legs";
         tibia.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "legs";
-        tibia.host = femur.transform;
-        host = inHost;
+        tibia.parent = femur.transform;
+        parent = inHost;
         debug = new Debug(this);
     }
 
     public void attach_to_body(Transform in_body) {
-        host = in_body;
+        parent = in_body;
     }
 
     public Vector2 deduce_optimal_aim() {
         float full_length = femur.tip.magnitude + tibia.tip.magnitude;
-        return attachment.normalized * full_length/2;
+        return local_position.normalized * full_length/2;
     }
 
     public bool has_reached_aim() {
-        /* this function is relative to the host,
-        because the desired position is relative to the host  */
+        /* this function is relative to the parent,
+        because the desired position is relative to the parent  */
         float allowed_angle = 5f;
         if (
             (
@@ -117,12 +103,12 @@ public class Leg: Limb2
     /* it's time to reposition */
     public bool is_twisted_uncomfortably() {
         Vector2 diff_with_optimal_point = 
-            (Vector2)host.transform.TransformPoint(optimal_relative_position_standing) - 
+            (Vector2)parent.transform.TransformPoint(optimal_relative_position_standing) - 
             (Vector2)tibia.transform.TransformPoint(tibia.tip);
         if (diff_with_optimal_point.magnitude > comfortable_distance) {
             return true;
         } 
-        /*if (!is_within_span(femur.comfortable_span, femur, host)) 
+        /*if (!is_within_span(femur.comfortable_span, femur, parent)) 
         {
             return true;
         } else {
@@ -135,7 +121,7 @@ public class Leg: Limb2
     }
     /* physically can't be in this position */
     public bool is_twisted_badly() {
-        if (!is_within_span(femur.possible_span, femur, host)) 
+        if (!is_within_span(femur.possible_span, femur, parent)) 
         {
             return true;
         } else {
@@ -146,8 +132,8 @@ public class Leg: Limb2
         }
         return false;
     }
-    private bool is_within_span(Span span, Segment segment, Transform host) {
-        float delta_degrees = host.delta_degrees(segment.transform);
+    private bool is_within_span(Span span, Segment segment, Transform parent) {
+        float delta_degrees = parent.delta_degrees(segment.transform);
         if (
             (delta_degrees > span.max)||
             (delta_degrees < span.min)
@@ -170,23 +156,12 @@ public class Leg: Limb2
                                      tibia.rotation_speed * Time.deltaTime);
     }
 
-    /* faster calculation but not precise */
-    public void hold_onto_ground_FAST(Vector2 holding_point) {
-        tibia.direct_to(holding_point);
-        femur.set_direction(
-            femur.transform.degrees_to(holding_point)+
-            (90f-femur.transform.sqr_distance_to(holding_point)*1440f)
-        );
-    }
+   
     /* slower calculation but precise */
     public bool hold_onto_ground() {
         return hold_onto_point(holding_point);
     }
 
-    public void attach_to_attachment_points() {
-        femur.attach_to_host();
-        tibia.attach_to_host();
-    }
 
     
 
@@ -209,7 +184,7 @@ public class Leg: Limb2
         ) 
     {
         Vector2 position =
-            attachment +
+            local_position +
             (Vector2) (femur_rotation * femur.tip) +
             (Vector2) (
                 tibia_rotation *
@@ -233,50 +208,7 @@ public class Leg: Limb2
         set_desired_directions_by_position(optimal_position);
     }
 
-    public new class Debug: Limb2.Debug {
-        private readonly Leg leg;
-
-        protected override Limb2 limb2 {
-            get { return leg; }
-        }
-
-        public Debug(Leg parent):base(parent) {
-            leg = parent;
-        }
-
-        public void draw_positions() {
-            if (debug_off) {
-                return;
-            }
-            /*if (name != "left_hind_leg") {
-                return;
-            }*/
-            /*Gizmos.color = Color.cyan;
-            Gizmos.DrawSphere(
-                leg.segment2.transform.TransformPoint(leg.segment2.tip), sphere_size);*/
-            
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(leg.holding_point, sphere_size);
-            
-            Gizmos.color = Color.white;
-            Gizmos.DrawSphere(
-                leg.host.TransformPoint(leg.optimal_relative_position_standing), sphere_size);
-            
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(
-                leg.optimal_position, sphere_size);
-           
-        }
-    }
-    public Leg.Debug debug {
-        get { return _debug; }
-        private set { _debug = value; }
-    }
-    private Leg.Debug _debug;
-
-    protected override Limb2.Debug debug_limb {
-        get { return _debug; }
-    }
+    
 } 
 
 

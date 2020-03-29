@@ -38,6 +38,7 @@ public class Move_hand_into_loose_bag: Action {
             start_next();
         } else {
             set_desired_directions(arm);
+            arm.rotate_to_desired_directions();
         }
     }
 

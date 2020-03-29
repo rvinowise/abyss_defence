@@ -45,5 +45,23 @@ public struct Degree {
         result.normalize();
         return result;
     }
+    public static Degree operator * (Degree degree1, float multiplier) {
+        Degree result = new Degree(degree1.degrees * multiplier);
+        result.normalize();
+        return result;
+    }
+
+    public Degree use_minus() {
+        if (degrees > 180) {
+            degrees = degrees - 360 ; 
+        } else if (degrees < -180) {
+            degrees = degrees + 360 ; 
+        }
+        return this;
+    }
+    
+    public Side side() {
+        return Side.from_degrees(this.use_minus().degrees);
+    }
 }
 }

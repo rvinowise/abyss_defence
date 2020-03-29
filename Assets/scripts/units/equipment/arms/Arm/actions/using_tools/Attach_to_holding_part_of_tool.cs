@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using geometry2d;
 using UnityEngine;
 using rvinowise.units.parts.limbs.arms.actions;
@@ -29,13 +30,13 @@ public class Attach_to_holding_part_of_tool: Action {
     }
     
     private void set_directions(Orientation hand_orientation) {
-        arm.hold_onto_point2(hand_orientation.position);
+        arm.hold_onto_point(hand_orientation.position);
         arm.hand.rotation = hand_orientation.rotation;
     }
 
     private Orientation get_orientation() {
         return new Orientation(
-            holding_place.position,
+            holding_place.position - (Vector2)(holding_place.rotation * arm.hand.tip) ,
             holding_place.rotation
         );
     }

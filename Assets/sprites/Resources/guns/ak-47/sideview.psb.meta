@@ -26,12 +26,12 @@ ScriptedImporter:
     streamingMipmapsPriority: 0
     nPOTScale: 1
     sRGBTexture: 1
-    spriteMode: 2
+    spriteMode: 1
     spriteExtrude: 1
     spriteMeshType: 1
-    alignment: 0
-    spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 100
+    alignment: 9
+    spritePivot: {x: 0.35426962, y: 0.5607647}
+    spritePixelsToUnits: 790
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -62,18 +62,18 @@ ScriptedImporter:
     compressionQualitySet: 0
     textureFormatSet: 0
   spriteImportData:
-  - name: 
+  - name: sideview_1
     originalName: 
-    pivot: {x: 0, y: 0}
-    alignment: 0
+    pivot: {x: 0.35426962, y: 0.5607647}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 0
-      height: 0
-    spriteID: 
+      width: 1164
+      height: 480
+    spriteID: abe642d76bcee6541aeb0ec81a08b66e
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -142,8 +142,8 @@ ScriptedImporter:
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
-  textureActualWidth: 2048
-  textureActualHeight: 512
+  textureActualWidth: 1164
+  textureActualHeight: 480
   spritePackingTag: 
   resliceFromLayer: 0
   characterMode: 1

@@ -57,7 +57,7 @@ public class Move_hand_into_bag: Action {
         if (complete(desired_orientation)) {
             start_next();
         } else {
-            set_desired_directions(arm, desired_orientation);
+            arm.rotate_to_orientation(desired_orientation);
         }
     }
     

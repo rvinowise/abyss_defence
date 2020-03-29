@@ -11,7 +11,7 @@ namespace rvinowise.units.parts.limbs.init{
 public static class Initializer {
 
     public static void mirror(Limb2 dst, Limb2 src) {
-        // the base direction is to the right
+        // the base direction_quaternion is to the right
         dst.segment1.mirror_from(src.segment1);
         dst.segment2.mirror_from(src.segment2);
 

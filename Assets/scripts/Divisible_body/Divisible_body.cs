@@ -39,6 +39,7 @@ public class Divisible_body : MonoBehaviour {
         Sprite body,
         Sprite inside
     ) {
+        detach_children(gameObject);
         List<GameObject> piece_objects = new List<GameObject>();
         foreach (Polygon collider_piece in collider_pieces)
         {
@@ -57,6 +58,13 @@ public class Divisible_body : MonoBehaviour {
         return piece_objects;
     }
 
+    private void detach_children(GameObject game_object) {
+         //Transform[] children = GetComponentsInChildren<Transform>();
+         foreach (Transform child_transform in gameObject.direct_children()) {
+             child_transform.SetParent(null, false);
+         }
+    }
+
     private GameObject create_gameobject_from_polygon_and_texture(
         Polygon polygon, Texture2D texture) 
     {
@@ -73,6 +81,7 @@ public class Divisible_body : MonoBehaviour {
 
         created_part.GetComponent<PolygonCollider2D>().SetPath(0, polygon.points.ToArray());
         created_part.GetComponent<SpriteRenderer>().sprite = sprite;
+        created_part.GetComponent<Divisible_body>().needs_initialisation = false;
         return created_part;
     }
 

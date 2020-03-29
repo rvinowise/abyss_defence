@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
 using rvinowise.units;
-using UnityEditor.Animations;
 
 
 namespace rvinowise {
@@ -31,7 +30,7 @@ public class Game_object:Child {
         get {
             return transform.parent;
         }
-        set { transform.parent = value; }
+        set { transform.SetParent(value, false); }
     }
     
     public Vector2 position {
@@ -53,6 +52,10 @@ public class Game_object:Child {
         }
     }
     
+    public Vector2 local_position { //same as local_position but with Unity's parenting
+        get { return transform.localPosition; }
+        set { transform.localPosition = value; }
+    }
     public SpriteRenderer spriteRenderer {
         get {
             return game_object.GetComponent<SpriteRenderer>();
@@ -69,12 +72,8 @@ public class Game_object:Child {
     }
     private Animator _animator;
     
-    /*  Game_object itself */
 
-    public Vector2 local_position { //same as attachment but with Unity's parenting
-        get { return game_object.transform.localPosition; }
-        set { game_object.transform.localPosition = value; }
-    }
+    
     
     public Game_object() {
         game_object = new GameObject();
@@ -108,12 +107,8 @@ public class Game_object:Child {
         transform.set_direction(in_direction);
     }
 
-    public void attach_to_host() {
-        position = host.TransformPoint(attachment);
-    }
 
-    public void update() {
-        attach_to_host();
+    public virtual void update() {
     }
     
     public static GameObject instantiate_stashed(GameObject prefab) {
@@ -151,7 +146,8 @@ public class Game_object:Child {
             }
         }
     }
-    
 
+
+    
 }
 }

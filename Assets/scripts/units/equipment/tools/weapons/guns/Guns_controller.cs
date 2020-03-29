@@ -33,7 +33,7 @@ public class Guns_controller:
 
     public override void add_tool(Child child) {
         /*if (child is Ak47 rifle) {
-            rifle.host = transform;
+            rifle.parent = transform;
             rifles.Add(rifle);
         }*/
         

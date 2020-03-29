@@ -81,6 +81,34 @@ public partial class Arm /*, IDo_actions*/ {
         get { return _debug; }
     }
     
+    
+    private void TEST_draw_debug_lines() {
+        //if (this.folding_direction == Side.LEFT) {
+        debug?.draw_desired_directions();
+        //debug?.draw_lines(Color.red, 10f);
+
+        /*UnityEngine.Debug.Log(
+            "direction_diff: "+ 
+            ((
+                 upper_arm.rotation.inverse() *
+                 forearm.rotation
+             ).to_float_degrees())
+        );
+        UnityEngine.Debug.Log(
+            "upper_arm: "+ 
+            (
+                    upper_arm.rotation
+                ).to_float_degrees()
+        );
+        UnityEngine.Debug.Log(
+            "forearm: "+ 
+            (
+                forearm.rotation
+            ).to_float_degrees()
+        );*/
+        // }
+    }
+    
 }
 
 }

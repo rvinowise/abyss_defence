@@ -14,7 +14,7 @@ public class Legs: Equipment_controller,
     ITransporter {
     
     
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D moved_body;
     
     /* Equipment_controller interface */
     public override IEnumerable<Child> tools { get; }
@@ -37,8 +37,8 @@ public class Legs: Equipment_controller,
     }
 
     protected override void init_components() {
-        rigidbody = game_object.GetComponent<Rigidbody2D>();
-        Contract.Requires(rigidbody != null);
+        moved_body = game_object.GetComponent<Rigidbody2D>();
+        Contract.Requires(moved_body != null);
     }
     
     /* ITransporter interface */
@@ -54,6 +54,10 @@ public class Legs: Equipment_controller,
         return 1f;
     }
 
+    public Quaternion direction_quaternion {
+        get { return transform.rotation; }
+    }
+
 
     /* Legs itself */
 
@@ -67,7 +71,7 @@ public class Legs: Equipment_controller,
 
     public void move_in_direction(Vector2 direction) {
         Vector2 force = direction * get_possible_impulse() * Time.deltaTime;
-        rigidbody.MovePosition(rigidbody.position + force);
+        moved_body.MovePosition(moved_body.position + force);
     }
     
     public void rotate_to_direction(float face_direction) {
