@@ -51,7 +51,7 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
     /* Arm itself */
 
     /* parameters assigned by creators */
-    public Baggage baggage; // where to take tools from
+    public Baggage baggage; // where to take children from
     public Transform idle_target; // pay attention to it, when idle
 
     public Tool held_tool {
@@ -86,7 +86,7 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         action_tree.current_action = Idle_vigilant_only_arm.create(
             action_tree, 
             idle_target,
-            controller.user_of_equipment.transporter
+            controller.host.transporter
             );
 
 
@@ -125,7 +125,8 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         action_tree.next = strategy.Idle_vigilant_only_arm.create(
             action_tree, 
             idle_target, 
-            controller.user_of_equipment.transporter);
+            controller.host.transporter
+        );
 
     }
 
@@ -149,7 +150,7 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         main_arm.action_tree.current_action = strategy.Idle_vigilant_main_arm.create(
             main_arm.action_tree, 
             idle_target,
-            controller.user_of_equipment.transporter
+            controller.host.transporter
         );
     }
 

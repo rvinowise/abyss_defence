@@ -10,28 +10,31 @@ using rvinowise.units.parts.transport;
 
 namespace rvinowise.units.parts.humanoid {
 
-public class Legs: Equipment_controller,
+public class Legs: Children_group,
     ITransporter {
     
     
     private Rigidbody2D moved_body;
     
-    /* Equipment_controller interface */
-    public override IEnumerable<Child> tools { get; }
+    /* Children_group interface */
+    public override IEnumerable<Child> children { get; }
 
-    public override IEquipment_controller copy_empty_into(User_of_equipment dst_host) {
+
+    public override IChildren_group copy_empty_into(IChildren_groups_host dst_host) {
         throw new NotImplementedException();
     }
 
-    public override void add_tool(Child child) {
+    public override void add_child(Child child) {
         throw new NotImplementedException();
     }
 
-    public override void update() {
+    
+
+    public void update() {
         execute_commands();
     }
 
-    protected override void execute_commands() {
+    protected void execute_commands() {
         move_in_direction(command_batch.moving_direction_vector);
         rotate_to_direction(command_batch.face_direction_degrees);
     }
@@ -44,6 +47,7 @@ public class Legs: Equipment_controller,
     /* ITransporter interface */
 
     public transport.Command_batch command_batch { get; } = new transport.Command_batch();
+    Command_batch IExecute_commands.command_batch => command_batch;
     
 
     public float get_possible_rotation() {
@@ -51,7 +55,7 @@ public class Legs: Equipment_controller,
     }
 
     public float get_possible_impulse() {
-        return 1f;
+      return 1f;
     }
 
     public Quaternion direction_quaternion {
@@ -65,7 +69,7 @@ public class Legs: Equipment_controller,
 
     public Legs() : base() { }
 
-    public Legs(User_of_equipment in_user):base(in_user) {
+    public Legs(IChildren_groups_host in_user):base(in_user) {
         
     }
 

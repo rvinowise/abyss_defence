@@ -51,7 +51,7 @@ public class Arms {
 
     private static IList<Arm> create_arms(Arm_controller controller) {
         for (int i = 0; i < 2; i++) {
-            controller.add_tool(new Arm(
+            controller.add_child(new Arm(
                 controller,
                 rvinowise.ui.input.Input.instance.cursor.center.transform
             ));

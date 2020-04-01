@@ -4,35 +4,35 @@ using System.Collections.Generic;
 using MoreLinq.Extensions;
 using UnityEngine;
 using rvinowise.rvi.contracts;
-
+using rvinowise.units.parts;
 
 namespace rvinowise.units.parts.limbs.arms {
 
 public class Arm_controller: 
-    Equipment_controller
+    Children_group
     ,IWeaponry
 {
     
-    /* Equipment_controller interface */
-    public override IEnumerable<Child> tools {
+    /* Children_group interface */
+    public override IEnumerable<Child> children {
         get { return arms; }
     }
     
-    public override IEquipment_controller copy_empty_into(User_of_equipment dst_host) {
+    public override IChildren_group copy_empty_into(IChildren_groups_host dst_host) {
         throw new NotImplementedException();
     }
 
-    public override void update() {
+
+    public Command_batch command_batch { get; }
+
+    public void update() {
         foreach (Arm arm in arms) {
             arm.update();
         }
     }
 
-    protected override void execute_commands() {
-        
-    }
 
-    public override void add_tool(Child child) {
+    public override void add_child(Child child) {
         Contract.Requires(child is Arm);
         arms.Add(child as Arm);
     }
@@ -62,7 +62,7 @@ public class Arm_controller:
     public IList<Held_tool> held_tools = new List<Held_tool>();
     
     
-    public Arm_controller(User_of_equipment user) : base(user) {
+    public Arm_controller(IChildren_groups_host user) : base(user) {
         
     }
 

@@ -15,51 +15,51 @@ static class Legs {
     private static Sprite sprite_femur;// = Resources.Load<Sprite>("sprites/basic_spider/femur.png");
     private static Sprite sprite_tibia;// = Resources.Load<Sprite>("sprites/basic_spider/tibia.png");
 
-    public static Leg_controller init(Leg_controller controller) {
+    public static Spider_leg_group init(Spider_leg_group @group) {
         sprite_femur = Resources.Load<Sprite>("basic_spider/femur");
         sprite_tibia = Resources.Load<Sprite>("basic_spider/tibia");
         
-        List<Leg> legs = create_legs(controller);
+        List<Leg> legs = create_legs(@group);
 
-        init_parameters_that_shoud_be_mirrored(controller);
+        init_parameters_that_shoud_be_mirrored(@group);
 
         foreach (Leg leg in legs) {
             init_parameters_that_can_be_inferred(leg);
             init_common_parameters(leg);
         }
 
-        create_moving_strategy(controller);
-        return controller;
+        create_moving_strategy(@group);
+        return @group;
     }
 
     
 
-    private static void init_parameters_that_shoud_be_mirrored(Leg_controller controller) {
+    private static void init_parameters_that_shoud_be_mirrored(Spider_leg_group @group) {
         init_left_front_leg(
-            controller.left_front_leg,
+            @group.left_front_leg,
             sprite_femur,
             sprite_tibia
         );
-        mirror(controller.right_front_leg, controller.left_front_leg);
+        mirror(@group.right_front_leg, @group.left_front_leg);
 
         init_left_hind_leg(
-            controller.left_hind_leg,
+            @group.left_hind_leg,
             sprite_femur,
             sprite_tibia
         );
-        mirror(controller.right_hind_leg, controller.left_hind_leg);
+        mirror(@group.right_hind_leg, @group.left_hind_leg);
     }
 
-    private static List<Leg> create_legs(Leg_controller controller) {
+    private static List<Leg> create_legs(Spider_leg_group leg_group) {
         for (int i = 0; i < 4; i++) {
-            controller.add_tool(new Leg(controller.game_object.transform));
+            leg_group.add_child(new Leg(leg_group.game_object.transform));
         }
-        controller.left_front_leg.debug.name = "left_front_leg";
-        controller.right_front_leg.debug.name = "right_front_leg";
-        controller.left_hind_leg.debug.name = "left_hind_leg";
-        controller.right_hind_leg.debug.name = "right_hind_leg";
+        leg_group.left_front_leg.debug.name = "left_front_leg";
+        leg_group.right_front_leg.debug.name = "right_front_leg";
+        leg_group.left_hind_leg.debug.name = "left_hind_leg";
+        leg_group.right_hind_leg.debug.name = "right_hind_leg";
 
-        return controller.legs;
+        return leg_group.legs;
     }
 
     private const float rotation_speed = 360f;
@@ -168,14 +168,14 @@ static class Legs {
     }
 
     
-    private static void create_moving_strategy(Leg_controller controller) {
-        controller.moving_strategy = new parts.limbs.legs.strategy.Stable(controller.legs) {
+    private static void create_moving_strategy(Spider_leg_group @group) {
+        @group.moving_strategy = new parts.limbs.legs.strategy.Stable(@group.legs) {
             stable_leg_groups = new List<Stable_leg_group>() {
                 new Stable_leg_group(
-                    new List<Leg>() {controller.left_front_leg, controller.right_hind_leg}
+                    new List<Leg>() {@group.left_front_leg, @group.right_hind_leg}
                 ),
                 new Stable_leg_group(
-                    new List<Leg>() {controller.right_front_leg, controller.left_hind_leg}
+                    new List<Leg>() {@group.right_front_leg, @group.left_hind_leg}
                 )
             }
         };

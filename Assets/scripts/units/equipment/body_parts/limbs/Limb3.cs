@@ -10,7 +10,7 @@ namespace rvinowise.units.parts.limbs {
 
 public class Limb3: Limb2 {
 
-    public virtual Segment segment3 { get; set; } //an appendage at the end, to direct the tools
+    public virtual Segment segment3 { get; set; } //an appendage at the end, to direct the children
 
     public Limb3() {
         

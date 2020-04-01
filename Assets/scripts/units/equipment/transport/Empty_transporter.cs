@@ -21,6 +21,7 @@ public class Empty_transporter: ITransporter {
     public Quaternion direction_quaternion { get; }
 
     public transport.Command_batch command_batch { get; }
+    Command_batch IExecute_commands.command_batch => command_batch;
 
 
     public void rotate_to_direction(float direction) {
@@ -44,17 +45,19 @@ public class Empty_transporter: ITransporter {
         throw new NotImplementedException();
     }
 
-    public void add_to_user(User_of_equipment in_user) {
+    public void add_to_user(IChildren_groups_host in_user) {
         throw new NotImplementedException();
     }
 
-    public IEquipment_controller copy_empty_into(User_of_equipment dst_host) {
+    public IChildren_group copy_empty_into(IChildren_groups_host dst_host) {
         throw new NotImplementedException();
     }
 
     public void init() {
         throw new NotImplementedException();
     }
+
+    
 
     public void update() {
         throw new NotImplementedException();

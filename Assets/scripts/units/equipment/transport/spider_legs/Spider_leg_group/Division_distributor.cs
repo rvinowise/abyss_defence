@@ -10,10 +10,10 @@ using rvinowise.units.parts.limbs.legs.strategy;
 
 namespace rvinowise.units.parts.limbs.legs {
 
-public partial class Leg_controller {
+public partial class Spider_leg_group {
 
     public override void distribute_data_across(
-        IEnumerable<Equipment_controller> new_controllers
+        IEnumerable<Children_group> new_controllers
     ) {
         base.distribute_data_across(new_controllers);
         Division_distributor.distribute_data_across(
@@ -26,24 +26,24 @@ public partial class Leg_controller {
     public static class Division_distributor {
         
         public static void distribute_data_across(
-            Leg_controller base_controller,
-            IEnumerable<Equipment_controller> new_controllers
+            Spider_leg_group base_group,
+            IEnumerable<Children_group> new_controllers
         ) {
             
-            IEnumerable<Leg_controller> new_leg_controllers = 
-                new_controllers.Cast<Leg_controller>().ToList();
+            IEnumerable<Spider_leg_group> new_leg_controllers = 
+                new_controllers.Cast<Spider_leg_group>().ToList();
     
             foreach (var leg_controller in new_leg_controllers) {
                 Contract.Requires(leg_controller != null);    
             }
 
-            if (base_controller.moving_strategy is strategy.Stable stable_strategy) {
+            if (base_group.moving_strategy is strategy.Stable stable_strategy) {
                 distribute_stable_legs_groups(stable_strategy, new_leg_controllers);
             }
             init_moving_strategies(new_leg_controllers);
         }
 
-        private static void init_moving_strategies(IEnumerable<Leg_controller> leg_controllers) {
+        private static void init_moving_strategies(IEnumerable<Spider_leg_group> leg_controllers) {
             foreach (var leg_controller in leg_controllers) {
                 if (leg_controller.moving_strategy == null) {
                     leg_controller.guess_moving_strategy();
@@ -53,14 +53,14 @@ public partial class Leg_controller {
 
         private static void distribute_stable_legs_groups(
             strategy.Stable stable_strategy,
-            IEnumerable<Leg_controller> all_leg_controllers) 
+            IEnumerable<Spider_leg_group> all_leg_controllers) 
         {
             foreach (var stable_leg_group in stable_strategy.stable_leg_groups) {
                 if (
                     get_controller_with_all_tools_from(
                         all_leg_controllers,
                         stable_leg_group.legs
-                    ) is Leg_controller undivided_controller) 
+                    ) is Spider_leg_group undivided_controller) 
                 {
                     if (undivided_controller.moving_strategy == null) {
                         undivided_controller.moving_strategy = new strategy.Stable(
@@ -79,8 +79,8 @@ public partial class Leg_controller {
             }
         }
     
-        private static Equipment_controller get_controller_with_all_tools_from( //#generalize
-            IEnumerable<Equipment_controller> all_controllers,
+        private static Children_group get_controller_with_all_tools_from( //#generalize
+            IEnumerable<Children_group> all_controllers,
             IEnumerable<Child> in_legs
             ) 
         {
@@ -95,10 +95,10 @@ public partial class Leg_controller {
         //#generalize
         private static bool all_tools_are_within_controller(
             IEnumerable<Child> in_tools, 
-            Equipment_controller controller) 
+            Children_group controller) 
         {
             foreach (var tool in in_tools) {
-                if (!controller.has_tool(tool)) {
+                if (!controller.has_child(tool)) {
                     return false;
                 }
             }

@@ -12,6 +12,6 @@ public class Spider:Intelligence {
     
     
     
-    public Spider(User_of_equipment in_user) : base(in_user) { }
+    public Spider( ) : base() { }
 }
 }

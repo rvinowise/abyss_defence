@@ -16,23 +16,16 @@ namespace rvinowise.units.control {
  they do these actions later in the same preserve_possible_rotations step */
 public abstract class Intelligence {
     
-    public User_of_equipment user_of_equipment;
 
     public Baggage baggage;
 
     public ISensory_organ sensory_organ;
-    
-    public ITransporter transporter {
-        get { return user_of_equipment.transporter; }
-        set => user_of_equipment.transporter = value;
-    }
-    public IWeaponry weaponry {
-        get { return user_of_equipment.weaponry; }
-        set => user_of_equipment.weaponry = value;
-    }
 
-    public Intelligence(User_of_equipment in_user) {
-        user_of_equipment = in_user;
+    public ITransporter transporter { get; set; }
+
+    public IWeaponry weaponry{ get; set; }
+
+    public Intelligence() {
     }
     
     public virtual void update() {

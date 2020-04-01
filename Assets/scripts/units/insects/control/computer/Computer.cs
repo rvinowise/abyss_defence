@@ -62,7 +62,7 @@ public class Computer: Intelligence  {
         degrees = transform.degrees_to(mousePos);
     }
 
-    public Computer(User_of_equipment in_user) : base(in_user) { }
+    public Computer( ) : base() { }
 }
 
 }

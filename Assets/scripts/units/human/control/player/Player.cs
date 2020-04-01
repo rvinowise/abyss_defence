@@ -25,10 +25,9 @@ public class Player : Human {
     public Arm_controller arm_controller; 
 
     public Player(
-        Transform in_transform,
-        User_of_equipment in_user
+        Transform in_transform
     )
-        : base(in_user) 
+        : base() 
     {
         transform = in_transform;
     }

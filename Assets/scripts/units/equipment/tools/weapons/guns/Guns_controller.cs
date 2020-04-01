@@ -10,28 +10,30 @@ namespace rvinowise.units.parts.weapons.guns {
 
 
 public class Guns_controller:
-    Equipment_controller
+    Children_group
     ,IWeaponry 
 {
     private IList<Ak47> rifles;
 
 
-    public override IEnumerable<Child> tools { get; }
+    public override IEnumerable<Child> children { get; }
 
-    public Guns_controller(User_of_equipment dst_host) : base(dst_host) {
+    public Guns_controller(IChildren_groups_host dst_host) : base(dst_host) {
         
     }
     
-    public override IEquipment_controller copy_empty_into(User_of_equipment dst_host) {
+    public override IChildren_group copy_empty_into(IChildren_groups_host dst_host) {
         return new Guns_controller(dst_host);
     }
 
-    
 
-    public override void update() {
+    public Command_batch command_batch { get; }
+
+    public void update() {
     }
 
-    public override void add_tool(Child child) {
+
+    public override void add_child(Child child) {
         /*if (child is Ak47 rifle) {
             rifle.parent = transform;
             rifles.Add(rifle);
@@ -39,9 +41,6 @@ public class Guns_controller:
         
     }
 
-
-    protected override void execute_commands() {
-    }
 
     /* IWeaponry interface */
     public void fire() {

@@ -1,7 +1,6 @@
 {
     "name": "equipment",
     "references": [
-		"geometry2d",
 		"debug",
 		"extensions",
 		"input",

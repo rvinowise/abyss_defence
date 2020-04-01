@@ -18,17 +18,26 @@ public class Normal_spider: Creature {
         base.Awake();
     }
 
+
+    public override ITransporter transporter {
+        get { return sprider_transporter; }
+        protected set { sprider_transporter = value as Spider_leg_group; }
+    }
+    private Spider_leg_group sprider_transporter;
+
+
+    protected override void create_equipment() {
+        sprider_transporter = new Spider_leg_group(divisible_body);
+    }
+    
+    protected override void fill_equipment_with_children() {
+        init.Legs.init(sprider_transporter);
+    }
+
+  
     
 
-    protected override ITransporter create_transporter() {
-        return init.Legs.init(
-            user_of_equipment.add_equipment_controller<Leg_controller>()
-        );
-    }
 
-    protected IWeaponry weaponry {
-        get { throw new NotImplementedException(); }
-    }
     
 }
 }

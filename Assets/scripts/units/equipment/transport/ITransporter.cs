@@ -4,7 +4,7 @@ using UnityEngine;
 namespace rvinowise.units.parts.transport {
     
 /* provides information about possible speed and rotation for a moving Unit */
-public interface ITransporter:IEquipment_controller {
+public interface ITransporter: IExecute_commands {
     float get_possible_rotation();
     float get_possible_impulse();
     

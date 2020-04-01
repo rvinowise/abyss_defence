@@ -3,7 +3,6 @@
     "references": [
         "equipment",
         "Legs",
-        "geometry2d",
         "debug",
         "extensions",
         "input",

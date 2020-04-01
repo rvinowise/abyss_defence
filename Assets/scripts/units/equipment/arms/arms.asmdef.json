@@ -1,4 +1,5 @@
-﻿{
+﻿/*
+{
   "name": "arms",
   "references": [
     "geometry2d",
@@ -15,4 +16,4 @@
   "autoReferenced": true,
   "defineConstraints": [],
   "versionDefines": []
-}
+}*/

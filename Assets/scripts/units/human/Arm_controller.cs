@@ -25,7 +25,7 @@ public class Arm_controller: limbs.arms.Arm_controller {
     }
     public float shoulder_span { get; set; }
 
-    public Arm_controller(User_of_equipment user) : base(user) { }
+    public Arm_controller(IChildren_groups_host user) : base(user) { }
     public Arm_controller() : base() { }
 }
 }

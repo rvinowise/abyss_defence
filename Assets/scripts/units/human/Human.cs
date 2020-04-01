@@ -23,7 +23,6 @@ using parts;
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(User_of_equipment))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Human: 
     MonoBehaviour 
@@ -39,7 +38,7 @@ public class Human:
     private parts.humanoid.Baggage baggage;
     
     
-    private User_of_equipment user_of_equipment;
+    private IChildren_groups_host user_of_equipment;
     private Intelligence intelligence;
 
 
@@ -51,7 +50,6 @@ public class Human:
     }
 
     private void init_components() {
-        user_of_equipment = GetComponent<User_of_equipment>();
         sprite_renderer = GetComponent<SpriteRenderer>();
         
     }
@@ -119,7 +117,7 @@ public class Human:
         head = init.Head.init(this, new Head());
         
         arms = init.Arms.init(
-            user_of_equipment.add_equipment_controller<parts.limbs.arms.humanoid.Arm_controller>(),
+            new Arm_controller(),
             baggage,
             ui.input.Input.instance.cursor.center.transform
         );
@@ -129,7 +127,7 @@ public class Human:
     }
 
     private void init_intelligence() {
-        intelligence = new Player(transform, user_of_equipment);
+        intelligence = new Player(transform);
         intelligence.transporter = create_transporter();
         ((Player) intelligence).arm_controller = arms;
         intelligence.baggage = baggage;

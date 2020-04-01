@@ -1,9 +1,13 @@
 {
-    "name": "geometry2d",
     "references": [
+        "equipment",
+        "Divisible_body",
+        "extensions",
         "debug",
+        "settings",
         "third_party"
     ],
+    "name": "Legs",
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

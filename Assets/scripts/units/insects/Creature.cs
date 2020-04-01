@@ -4,50 +4,60 @@ using System;
 using rvinowise.units.parts;
 using rvinowise.units.control;
 using rvinowise.units.control.human;
+using rvinowise.units.control.spider;
 using rvinowise.units.parts.transport;
 using UnityEngine;
 
 namespace rvinowise.units {
 
 [RequireComponent(typeof(PolygonCollider2D))]
-[RequireComponent(typeof(User_of_equipment))]
-public abstract class Creature : MonoBehaviour {
+public abstract class Creature: MonoBehaviour
+{
+    /* IChildren_groups_host interface */
+    public virtual ITransporter transporter { get; protected set; }
+    public virtual IWeaponry weaponry { get; set; }
     
+    
+    /* Creature itself */
     protected Divisible_body divisible_body;
 
-
-    protected User_of_equipment user_of_equipment {
-        get { return intelligence.user_of_equipment; }
-    }
     
     Intelligence intelligence;
 
     
     protected virtual void Awake()
     {
-        divisible_body = gameObject.GetComponent<Divisible_body>();
-        
-        intelligence = new Player(
-            transform,
-            GetComponent<User_of_equipment>()
-        );
+        init_components();
 
+        create_equipment();
+        init_intelligence();
         if (divisible_body.needs_initialisation) {
-            equip();
+            fill_equipment_with_children();
             divisible_body.needs_initialisation = false;
         }
     }
-    
-    public void equip() {
-        intelligence.transporter = create_transporter();
-        //weaponry = get_weaponry();
+
+    private void init_components() {
+        divisible_body = gameObject.GetComponent<Divisible_body>();
     }
 
-    protected abstract ITransporter create_transporter(); 
-    //protected abstract IWeaponry get_weaponry();
+    protected virtual void create_equipment() {}
+
+    private void init_intelligence() {
+        intelligence = new Player(transform);
+        intelligence.transporter = transporter;
+    }
+
+    protected virtual void fill_equipment_with_children() {}
+
 
    void FixedUpdate() {
        intelligence.update();
+   }
+   
+   void Update() {
+       transporter?.update();
+       weaponry?.update();
    }
 
    public void OnMouseDown() {
@@ -60,11 +70,9 @@ public abstract class Creature : MonoBehaviour {
        
        divisible_body.split_by_ray(ray);
    }
-    
-    
 
-    
-    
+
+   
 }
 
 

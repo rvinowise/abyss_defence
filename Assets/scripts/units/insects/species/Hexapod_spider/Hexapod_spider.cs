@@ -18,17 +18,20 @@ public class Hexapod_spider:Creature {
         
     }
     
-    protected override ITransporter create_transporter() {
-        Leg_controller leg_controller =
-            user_of_equipment.add_equipment_controller<Leg_controller>();
-        init.Legs.init(
-            leg_controller
-        );
-        return leg_controller;
-    }
+    public override ITransporter transporter => spider_transporter;
+    private Spider_leg_group spider_transporter;
 
-    protected IWeaponry weaponry {
-        get { throw new NotImplementedException(); }
+
+    protected override void create_equipment() {
+        spider_transporter = new Spider_leg_group(divisible_body);
     }
+    
+    protected override void fill_equipment_with_children() {
+        init.Legs.init(spider_transporter);
+    }
+    
+    
+
+ 
 }
 }

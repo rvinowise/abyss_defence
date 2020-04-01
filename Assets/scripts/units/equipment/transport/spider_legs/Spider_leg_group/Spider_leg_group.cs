@@ -10,18 +10,18 @@ using rvinowise.units.parts.transport;
 using static geometry2d.Directions;
 
 namespace rvinowise.units.parts.limbs.legs {
-public partial class Leg_controller: 
-    Equipment_controller
+public partial class Spider_leg_group: 
+    Children_group
     ,ITransporter
 {
     
-    /* Equipment_controller interface */
-    public override IEnumerable<Child> tools  {
+    /* Children_group interface */
+    public override IEnumerable<Child> children  {
         get { return legs; }
     }
 
-    public override IEquipment_controller copy_empty_into(User_of_equipment dst_host) {
-        return new Leg_controller(dst_host);
+    public override IChildren_group copy_empty_into(IChildren_groups_host dst_host) {
+        return new Spider_leg_group(dst_host);
     }
     
     protected override void init_components() {
@@ -35,7 +35,7 @@ public partial class Leg_controller:
         //Contract.Requires(rigid_body != null);
     }
 
-    public override void add_tool(Child child) {
+    public override void add_child(Child child) {
         Contract.Requires(child is Leg);
         Leg leg = child as Leg;
         legs.Add(leg);
@@ -43,20 +43,22 @@ public partial class Leg_controller:
     }
 
 
-    public override void update() {
+    
+
+    public void update() {
         destroy_invalid_legs(); //debug_limb
         execute_commands();
         move_legs();
     }
     
-    protected override void execute_commands() {
+    protected void execute_commands() {
         move_in_direction(command_batch.moving_direction_vector);
         rotate_to_direction(command_batch.face_direction_quaternion);
     }
 
     /* ITransporter interface */
     
-    static float belly_friction_multiplier = 0.9f;
+    private static float belly_friction_multiplier = 0.9f;
     public float get_possible_impulse() {
         if (moving_strategy is null) {
             return 0f;
@@ -96,12 +98,8 @@ public partial class Leg_controller:
         get { return transform.rotation; }
     }
 
-    public transport.Command_batch command_batch {
-        get { return _command_batch; }
-    }
-    private transport.Command_batch _command_batch = new transport.Command_batch();
-
-
+    parts.Command_batch IExecute_commands.command_batch => command_batch;
+    public transport.Command_batch command_batch { get; } = new transport.Command_batch();
 
 
     private delegate void Move_in_direction(Vector2 moving_direction);
@@ -132,7 +130,7 @@ public partial class Leg_controller:
     
     
     
-    /* Leg_controller itself */
+    /* Spider_leg_group itself */
     
     public strategy.Moving_strategy moving_strategy;
     
@@ -169,13 +167,13 @@ public partial class Leg_controller:
     private Rigidbody2D rigid_body { get; set; }
     
 
-    public Leg_controller(User_of_equipment in_user):base(in_user) {
+    public Spider_leg_group(IChildren_groups_host in_host):base(in_host) {
         
         
     }
 
     /* i need this function only for a generic adder (constructors can't have parameters there)*/
-    public Leg_controller():base() {
+    public Spider_leg_group():base() {
         
     }
 
@@ -244,7 +242,7 @@ public partial class Leg_controller:
     }
 
 
-    public override void on_draw_gizmos() {
+    public void on_draw_gizmos() {
         foreach (Leg leg in legs) {
             leg.debug.draw_positions();
             leg.debug.draw_desired_directions(0.1f);

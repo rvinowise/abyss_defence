@@ -12,81 +12,81 @@ namespace rvinowise.units.hexapod_spider.init {
 
 
 static class Legs {
-    private static readonly float scale = 1.0236f * Settings.scale;
+    private static readonly float scale = 1f * Settings.scale;
     private static Sprite sprite_femur;// = Resources.Load<Sprite>("sprites/basic_spider/femur.png");
     private static Sprite sprite_tibia;// = Resources.Load<Sprite>("sprites/basic_spider/tibia.png");*/
 
-    public static void init(Leg_controller controller) {
+    public static void init(Spider_leg_group @group) {
         sprite_femur = Resources.Load<Sprite>("basic_spider/femur");
         sprite_tibia = Resources.Load<Sprite>("basic_spider/tibia");
         
-        List<Leg> legs = create_legs(controller);
+        List<Leg> legs = create_legs(@group);
         
-        init_common_parameters(controller);
-        init_parameters_that_shoud_be_mirrored(controller);
+        init_common_parameters(@group);
+        init_parameters_that_shoud_be_mirrored(@group);
 
-        init_parameters_that_can_be_inferred(controller);
+        init_parameters_that_can_be_inferred(@group);
         
-        create_moving_strategy(controller);
+        create_moving_strategy(@group);
     }
 
-    private static void create_moving_strategy(Leg_controller controller) {
-        controller.moving_strategy = new parts.limbs.legs.strategy.Stable(controller.legs) {
+    private static void create_moving_strategy(Spider_leg_group @group) {
+        @group.moving_strategy = new parts.limbs.legs.strategy.Stable(@group.legs) {
             stable_leg_groups = new List<Stable_leg_group>() {
                 new Stable_leg_group(
                     new List<Leg>() {
-                        controller.left_front_leg,
-                        controller.right_hind_leg
+                        @group.left_front_leg,
+                        @group.right_hind_leg
                     }
                 ),
                 new Stable_leg_group(
                     new List<Leg>() {
-                        controller.legs[4],
-                        controller.legs[5]
+                        @group.legs[4],
+                        @group.legs[5]
                     }
                 ),
                 new Stable_leg_group(
                     new List<Leg>() {
-                        controller.right_front_leg,
-                        controller.left_hind_leg
+                        @group.right_front_leg,
+                        @group.left_hind_leg
                     }
                 )
             }
         };
     }
 
-    private static void init_parameters_that_shoud_be_mirrored(Leg_controller controller) {
+    private static void init_parameters_that_shoud_be_mirrored(Spider_leg_group @group) {
         init_left_front_leg(
-            controller.left_front_leg
+            @group.left_front_leg
         );
-        mirror(controller.right_front_leg, controller.left_front_leg);
+        mirror(@group.right_front_leg, @group.left_front_leg);
 
         init_left_hind_leg(
-            controller.left_hind_leg
+            @group.left_hind_leg
         );
-        mirror(controller.right_hind_leg, controller.left_hind_leg);
+        mirror(@group.right_hind_leg, @group.left_hind_leg);
 
         init_left_middle_leg(
-            controller.legs[4]);
-        mirror(controller.legs[5], controller.legs[4]);
+            @group.legs[4]);
+        mirror(@group.legs[5], @group.legs[4]);
     }
 
-    private static List<Leg> create_legs(Leg_controller controller) {
+    private static List<Leg> create_legs(Spider_leg_group @group) {
         for (int i = 0; i < 6; i++) {
-            controller.add_tool(new Leg(controller.game_object.transform));
+            @group.add_child(new Leg(@group.game_object.transform));
         }
-        controller.left_front_leg.debug.name = "left_front_leg";
-        controller.right_front_leg.debug.name = "right_front_leg";
-        controller.left_hind_leg.debug.name = "left_hind_leg";
-        controller.right_hind_leg.debug.name = "right_hind_leg";
+        @group.left_front_leg.debug.name = "left_front_leg";
+        @group.right_front_leg.debug.name = "right_front_leg";
+        @group.left_hind_leg.debug.name = "left_hind_leg";
+        @group.right_hind_leg.debug.name = "right_hind_leg";
 
-        return controller.legs;
+        return @group.legs;
     }
 
     private const float rotation_speed = 360f;
 
     private static void init_left_front_leg(Leg leg) {
-        leg.local_position = new Vector2(0.2275f, 0.325f)* scale;
+        leg.local_position = new Vector2(0.21f, 0.27f)* scale;
         leg.femur.possible_span = new Span(0f, 170f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.tibia.possible_span = new Span(-170f, 0f);
@@ -97,7 +97,7 @@ static class Legs {
     }
     
     private static void init_left_middle_leg(Leg leg) {
-        leg.local_position = new Vector2(0f, 0.4225f) * scale;
+        leg.local_position = new Vector2(0f, 0.43f) * scale;
         leg.femur.possible_span = new Span(20f, 160f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.tibia.possible_span = new Span(0f, 170f);
@@ -108,7 +108,7 @@ static class Legs {
     }
 
     private static void init_left_hind_leg(Leg leg) {
-        leg.local_position = new Vector2(-0.2925f, 0.325f) * scale;
+        leg.local_position = new Vector2(-0.31f, 0.33f) * scale;
         leg.femur.possible_span = new Span(10f, 180f);
         //leg.femur.comfortable_span = leg.femur.possible_span.scaled(0.5f);
         leg.tibia.possible_span = new Span(0f, 170f);
@@ -129,8 +129,8 @@ static class Legs {
         leg.tibia.rotation_speed = rotation_speed;
     }
 
-    private static void init_parameters_that_can_be_inferred(Leg_controller controller) {
-        foreach (Leg leg in controller.legs) {
+    private static void init_parameters_that_can_be_inferred(Spider_leg_group @group) {
+        foreach (Leg leg in @group.legs) {
             init_optimal_relative_position(leg);
             init_femur_folding_direction(leg);    
         }
@@ -149,11 +149,11 @@ static class Legs {
     }
 
     
-    private static void init_common_parameters(Leg_controller controller) {
-        foreach (Leg leg in controller.legs) {
+    private static void init_common_parameters(Spider_leg_group @group) {
+        foreach (Leg leg in @group.legs) {
             init_common_characteristic(leg);
         }
-        controller.moving_offset_distance = 0.40f * scale;
+        @group.moving_offset_distance = 0.40f * scale;
     }
     
     private static void init_femur_folding_direction(Leg leg) {

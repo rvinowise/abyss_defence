@@ -12,6 +12,6 @@ public class Human:Intelligence {
     
     
     
-    public Human(User_of_equipment in_user) : base(in_user) { }
+    public Human() : base() { }
 }
 }
