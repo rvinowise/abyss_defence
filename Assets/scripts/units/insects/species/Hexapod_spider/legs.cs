@@ -16,7 +16,7 @@ static class Legs {
     private static Sprite sprite_femur;// = Resources.Load<Sprite>("sprites/basic_spider/femur.png");
     private static Sprite sprite_tibia;// = Resources.Load<Sprite>("sprites/basic_spider/tibia.png");*/
 
-    public static void init(Spider_leg_group @group) {
+    public static void init(Creeping_leg_group @group) {
         sprite_femur = Resources.Load<Sprite>("basic_spider/femur");
         sprite_tibia = Resources.Load<Sprite>("basic_spider/tibia");
         
@@ -30,7 +30,7 @@ static class Legs {
         create_moving_strategy(@group);
     }
 
-    private static void create_moving_strategy(Spider_leg_group @group) {
+    private static void create_moving_strategy(Creeping_leg_group @group) {
         @group.moving_strategy = new parts.limbs.legs.strategy.Stable(@group.legs) {
             stable_leg_groups = new List<Stable_leg_group>() {
                 new Stable_leg_group(
@@ -55,7 +55,7 @@ static class Legs {
         };
     }
 
-    private static void init_parameters_that_shoud_be_mirrored(Spider_leg_group @group) {
+    private static void init_parameters_that_shoud_be_mirrored(Creeping_leg_group @group) {
         init_left_front_leg(
             @group.left_front_leg
         );
@@ -71,7 +71,7 @@ static class Legs {
         mirror(@group.legs[5], @group.legs[4]);
     }
 
-    private static List<Leg> create_legs(Spider_leg_group @group) {
+    private static List<Leg> create_legs(Creeping_leg_group @group) {
         for (int i = 0; i < 6; i++) {
             @group.add_child(new Leg(@group.game_object.transform));
         }
@@ -129,7 +129,7 @@ static class Legs {
         leg.tibia.rotation_speed = rotation_speed;
     }
 
-    private static void init_parameters_that_can_be_inferred(Spider_leg_group @group) {
+    private static void init_parameters_that_can_be_inferred(Creeping_leg_group @group) {
         foreach (Leg leg in @group.legs) {
             init_optimal_relative_position(leg);
             init_femur_folding_direction(leg);    
@@ -149,7 +149,7 @@ static class Legs {
     }
 
     
-    private static void init_common_parameters(Spider_leg_group @group) {
+    private static void init_common_parameters(Creeping_leg_group @group) {
         foreach (Leg leg in @group.legs) {
             init_common_characteristic(leg);
         }

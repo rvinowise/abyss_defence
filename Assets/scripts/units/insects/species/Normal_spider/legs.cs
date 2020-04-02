@@ -15,7 +15,7 @@ static class Legs {
     private static Sprite sprite_femur;// = Resources.Load<Sprite>("sprites/basic_spider/femur.png");
     private static Sprite sprite_tibia;// = Resources.Load<Sprite>("sprites/basic_spider/tibia.png");
 
-    public static Spider_leg_group init(Spider_leg_group @group) {
+    public static Creeping_leg_group init(Creeping_leg_group @group) {
         sprite_femur = Resources.Load<Sprite>("basic_spider/femur");
         sprite_tibia = Resources.Load<Sprite>("basic_spider/tibia");
         
@@ -34,7 +34,7 @@ static class Legs {
 
     
 
-    private static void init_parameters_that_shoud_be_mirrored(Spider_leg_group @group) {
+    private static void init_parameters_that_shoud_be_mirrored(Creeping_leg_group @group) {
         init_left_front_leg(
             @group.left_front_leg,
             sprite_femur,
@@ -50,7 +50,7 @@ static class Legs {
         mirror(@group.right_hind_leg, @group.left_hind_leg);
     }
 
-    private static List<Leg> create_legs(Spider_leg_group leg_group) {
+    private static List<Leg> create_legs(Creeping_leg_group leg_group) {
         for (int i = 0; i < 4; i++) {
             leg_group.add_child(new Leg(leg_group.game_object.transform));
         }
@@ -168,7 +168,7 @@ static class Legs {
     }
 
     
-    private static void create_moving_strategy(Spider_leg_group @group) {
+    private static void create_moving_strategy(Creeping_leg_group @group) {
         @group.moving_strategy = new parts.limbs.legs.strategy.Stable(@group.legs) {
             stable_leg_groups = new List<Stable_leg_group>() {
                 new Stable_leg_group(

@@ -10,7 +10,7 @@ using rvinowise.units.parts.limbs.legs.strategy;
 
 namespace rvinowise.units.parts.limbs.legs {
 
-public partial class Spider_leg_group {
+public partial class Creeping_leg_group {
 
     public override void distribute_data_across(
         IEnumerable<Children_group> new_controllers
@@ -26,12 +26,12 @@ public partial class Spider_leg_group {
     public static class Division_distributor {
         
         public static void distribute_data_across(
-            Spider_leg_group base_group,
+            Creeping_leg_group base_group,
             IEnumerable<Children_group> new_controllers
         ) {
             
-            IEnumerable<Spider_leg_group> new_leg_controllers = 
-                new_controllers.Cast<Spider_leg_group>().ToList();
+            IEnumerable<Creeping_leg_group> new_leg_controllers = 
+                new_controllers.Cast<Creeping_leg_group>().ToList();
     
             foreach (var leg_controller in new_leg_controllers) {
                 Contract.Requires(leg_controller != null);    
@@ -43,7 +43,7 @@ public partial class Spider_leg_group {
             init_moving_strategies(new_leg_controllers);
         }
 
-        private static void init_moving_strategies(IEnumerable<Spider_leg_group> leg_controllers) {
+        private static void init_moving_strategies(IEnumerable<Creeping_leg_group> leg_controllers) {
             foreach (var leg_controller in leg_controllers) {
                 if (leg_controller.moving_strategy == null) {
                     leg_controller.guess_moving_strategy();
@@ -53,14 +53,14 @@ public partial class Spider_leg_group {
 
         private static void distribute_stable_legs_groups(
             strategy.Stable stable_strategy,
-            IEnumerable<Spider_leg_group> all_leg_controllers) 
+            IEnumerable<Creeping_leg_group> all_leg_controllers) 
         {
             foreach (var stable_leg_group in stable_strategy.stable_leg_groups) {
                 if (
                     get_controller_with_all_tools_from(
                         all_leg_controllers,
                         stable_leg_group.legs
-                    ) is Spider_leg_group undivided_controller) 
+                    ) is Creeping_leg_group undivided_controller) 
                 {
                     if (undivided_controller.moving_strategy == null) {
                         undivided_controller.moving_strategy = new strategy.Stable(

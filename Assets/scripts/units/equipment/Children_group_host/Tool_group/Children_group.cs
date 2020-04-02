@@ -10,7 +10,7 @@ namespace rvinowise.units.parts
 /*
 represents a coherent system of several objects, 
 which work together under control of this object:
-Legs, Weapons etc. 
+creeping_legs, Weapons etc. 
 */
 public abstract class Children_group:
     IChildren_group 
@@ -21,18 +21,15 @@ public abstract class Children_group:
         get { return host.game_object; }
     }
 
-
-    public abstract IEnumerable<Child> children {
-        get;
-    }
-    
     public Transform transform {
         get {
             return game_object.transform;
         }
     }
-
-
+    
+    public abstract IEnumerable<Child> children {
+        get;
+    }
 
     public bool has_child(Child in_child) {
         return children.Any(tool => tool == in_child);
@@ -64,7 +61,7 @@ public abstract class Children_group:
         debug = new Debug(this);
         debug.increase_counter();
         
-        
+        init_components();
     }
     
     protected virtual void init_components() { }
@@ -76,11 +73,8 @@ public abstract class Children_group:
     
     public void add_to_user(IChildren_groups_host in_user) {
         host = in_user;
-        init_components();
     }
 
-
-    public abstract IChildren_group copy_empty_into(IChildren_groups_host dst_host);
 
     public abstract void add_child(Child child);
 
@@ -89,10 +83,8 @@ public abstract class Children_group:
 
 
     public virtual void distribute_data_across(
-        IEnumerable<Children_group> new_controllers) 
-    {
-        
-    }
+        IEnumerable<Children_group> new_controllers
+    ) {}
 
     
 

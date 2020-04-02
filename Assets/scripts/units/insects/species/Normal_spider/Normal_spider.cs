@@ -21,13 +21,13 @@ public class Normal_spider: Creature {
 
     public override ITransporter transporter {
         get { return sprider_transporter; }
-        protected set { sprider_transporter = value as Spider_leg_group; }
+        protected set { sprider_transporter = value as Creeping_leg_group; }
     }
-    private Spider_leg_group sprider_transporter;
+    private Creeping_leg_group sprider_transporter;
 
 
     protected override void create_equipment() {
-        sprider_transporter = new Spider_leg_group(divisible_body);
+        sprider_transporter = new Creeping_leg_group(divisible_body);
     }
     
     protected override void fill_equipment_with_children() {

@@ -42,8 +42,6 @@ public class Arms {
         }
         init_parameters_that_can_be_inferred(controller);
 
-        controller.arms.RemoveAt(0);
-        
         return controller;
     }
 

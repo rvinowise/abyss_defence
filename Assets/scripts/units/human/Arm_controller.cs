@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
 using rvinowise.units.parts.limbs;
+using rvinowise.units.parts.transport;
 
 namespace rvinowise.units.parts.limbs.arms.humanoid {
 
@@ -25,7 +26,10 @@ public class Arm_controller: limbs.arms.Arm_controller {
     }
     public float shoulder_span { get; set; }
 
-    public Arm_controller(IChildren_groups_host user) : base(user) { }
-    public Arm_controller() : base() { }
+    public Arm_controller(IChildren_groups_host in_user, ITransporter transporter) 
+        : base(in_user, transporter) { }
+    
+    public Arm_controller(GameObject in_user, ITransporter transporter) 
+        : base(in_user, transporter) { }
 }
 }

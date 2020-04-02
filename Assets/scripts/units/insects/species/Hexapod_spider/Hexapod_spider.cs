@@ -18,16 +18,16 @@ public class Hexapod_spider:Creature {
         
     }
     
-    public override ITransporter transporter => spider_transporter;
-    private Spider_leg_group spider_transporter;
+    public override ITransporter transporter => _creeping_transporter;
+    private Creeping_leg_group _creeping_transporter;
 
 
     protected override void create_equipment() {
-        spider_transporter = new Spider_leg_group(divisible_body);
+        _creeping_transporter = new Creeping_leg_group(divisible_body);
     }
     
     protected override void fill_equipment_with_children() {
-        init.Legs.init(spider_transporter);
+        init.Legs.init(_creeping_transporter);
     }
     
     

@@ -23,7 +23,6 @@ public static class Children_splitter {
 
         IList<IChildren_groups_host> piece_users = get_users_of_tools_from(piece_objects);
 
-        copy_children_group(user_of_equipment, piece_users);
 
         distribute_children_to_pieces(user_of_equipment, piece_objects);
 
@@ -44,15 +43,6 @@ public static class Children_splitter {
         return all_users;
     }
 
-    private static void copy_children_group(
-        IChildren_groups_host src_children_group, 
-        IList<IChildren_groups_host> piece_users) 
-    {
-        foreach (var dst_children_group in piece_users) {
-            //Contract.Requires(!dst_user_of_equipment.children_groups.Any());
-            dst_children_group.add_equipment_controllers_after(src_children_group);
-        }
-    }
     
     
 

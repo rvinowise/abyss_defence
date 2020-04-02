@@ -4,6 +4,8 @@ using UnityEngine;
 using rvinowise.rvi.contracts;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.limbs.arms.strategy;
+using rvinowise.units.parts.limbs.arms.strategy.idle_vigilant;
+using rvinowise.units.parts.limbs.arms.strategy.idle_vigilant.main_arm;
 using rvinowise.units.parts.tools;
 using UnityEngine.UIElements;
 
@@ -86,7 +88,7 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         action_tree.current_action = Idle_vigilant_only_arm.create(
             action_tree, 
             idle_target,
-            controller.host.transporter
+            controller.transporter
             );
 
 
@@ -125,7 +127,7 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         action_tree.next = strategy.Idle_vigilant_only_arm.create(
             action_tree, 
             idle_target, 
-            controller.host.transporter
+            controller.transporter
         );
 
     }
@@ -147,10 +149,10 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
 
     private void move_main_arm_closer(Tool tool) {
         Arm main_arm = tool.main_holding.holding_arm;
-        main_arm.action_tree.current_action = strategy.Idle_vigilant_main_arm.create(
+        main_arm.action_tree.current_action = Idle_vigilant_main_arm.create(
             main_arm.action_tree, 
             idle_target,
-            controller.host.transporter
+            controller.transporter
         );
     }
 

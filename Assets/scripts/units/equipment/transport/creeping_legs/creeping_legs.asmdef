@@ -7,7 +7,7 @@
         "settings",
         "third_party"
     ],
-    "name": "Legs",
+    "name": "creeping_legs",
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

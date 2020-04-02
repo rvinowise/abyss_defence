@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7363212734991334696}
   - component: {fileID: 5183462403606251466}
   - component: {fileID: 2887941280063261027}
-  - component: {fileID: 2687582989295320441}
   m_Layer: 0
   m_Name: human
   m_TagString: Untagged
@@ -171,15 +170,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head_sprite: {fileID: 5063274702506691058, guid: d5b291fc826a1ea4f81256b170c48342,
     type: 3}
---- !u!114 &2687582989295320441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4699325419533840714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4aff860716f0d442bf16b75b9ae3e26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

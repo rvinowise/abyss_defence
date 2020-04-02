@@ -8,6 +8,8 @@ using rvinowise.units.control;
 using rvinowise.units.parts;
 using rvinowise.units.parts.limbs.arms;
 using rvinowise.units.parts.limbs.arms.strategy;
+using rvinowise.units.parts.limbs.arms.strategy.idle_vigilant;
+using rvinowise.units.parts.limbs.arms.strategy.idle_vigilant.main_arm;
 using rvinowise.units.parts.weapons.guns;
 using static geometry2d.Directions;
 using Input = rvinowise.ui.input.Input;
@@ -17,12 +19,12 @@ namespace rvinowise.units.control.human {
 
 public class Player : Human {
 
-    private Transform transform;
+    
     
     private float last_rotation;
     private int[] held_tool_index;
 
-    public Arm_controller arm_controller; 
+    
 
     public Player(
         Transform in_transform
@@ -70,12 +72,12 @@ public class Player : Human {
         
             if (Side.from_degrees(last_rotation) == geometry2d.Side.LEFT) {
                 arm_controller.left_arm.support_held_tool(
-                    baggage.items[4]
+                    baggage.items[1]
                 );
             }
             else {
                 arm_controller.right_arm.take_tool_from_baggage(
-                    baggage.items[4]    
+                    baggage.items[1]    
                 );
 
             }

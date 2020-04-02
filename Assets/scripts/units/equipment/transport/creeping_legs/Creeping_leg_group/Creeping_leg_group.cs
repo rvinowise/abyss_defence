@@ -10,7 +10,7 @@ using rvinowise.units.parts.transport;
 using static geometry2d.Directions;
 
 namespace rvinowise.units.parts.limbs.legs {
-public partial class Spider_leg_group: 
+public partial class Creeping_leg_group: 
     Children_group
     ,ITransporter
 {
@@ -20,10 +20,6 @@ public partial class Spider_leg_group:
         get { return legs; }
     }
 
-    public override IChildren_group copy_empty_into(IChildren_groups_host dst_host) {
-        return new Spider_leg_group(dst_host);
-    }
-    
     protected override void init_components() {
         rigid_body = game_object.GetComponent<Rigidbody2D>();
         if (rigid_body != null) {
@@ -32,7 +28,6 @@ public partial class Spider_leg_group:
         else {
             move_in_direction = move_in_direction_as_transform;
         }
-        //Contract.Requires(rigid_body != null);
     }
 
     public override void add_child(Child child) {
@@ -45,16 +40,7 @@ public partial class Spider_leg_group:
 
     
 
-    public void update() {
-        destroy_invalid_legs(); //debug_limb
-        execute_commands();
-        move_legs();
-    }
     
-    protected void execute_commands() {
-        move_in_direction(command_batch.moving_direction_vector);
-        rotate_to_direction(command_batch.face_direction_quaternion);
-    }
 
     /* ITransporter interface */
     
@@ -126,11 +112,20 @@ public partial class Spider_leg_group:
     }
     
     
+    public void update() {
+        destroy_invalid_legs(); //debug_limb
+        execute_commands();
+        move_legs();
+    }
+    
+    protected void execute_commands() {
+        move_in_direction(command_batch.moving_direction_vector);
+        rotate_to_direction(command_batch.face_direction_quaternion);
+    }
     
     
     
-    
-    /* Spider_leg_group itself */
+    /* Creeping_leg_group itself */
     
     public strategy.Moving_strategy moving_strategy;
     
@@ -167,13 +162,13 @@ public partial class Spider_leg_group:
     private Rigidbody2D rigid_body { get; set; }
     
 
-    public Spider_leg_group(IChildren_groups_host in_host):base(in_host) {
+    public Creeping_leg_group(IChildren_groups_host in_host):base(in_host) {
         
         
     }
 
     /* i need this function only for a generic adder (constructors can't have parameters there)*/
-    public Spider_leg_group():base() {
+    public Creeping_leg_group():base() {
         
     }
 

@@ -2,7 +2,7 @@
     "name": "units",
     "references": [
         "equipment",
-        "Legs",
+        "creeping_legs",
         "debug",
         "extensions",
         "input",

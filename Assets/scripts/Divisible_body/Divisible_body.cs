@@ -24,41 +24,14 @@ public class Divisible_body : MonoBehaviour
     /* IChildren_groups_host */
     
     public ITransporter transporter { get; set; }
-    public IWeaponry weaponry { get; set; }
 
     public GameObject game_object {
         get {return gameObject;}
     }
     
-    public IList<Children_group> children_groups {
-        get {
-            return _children_groups;
-        }
-        private set {
-            _children_groups = (List<Children_group>)value;
-            /*foreach (Children_group equipment_controller in _children_groups) {
-                equipment_controller.add_to_user(this);
-            }*/
-        }
-    }
-    private IList<Children_group> _children_groups = new List<Children_group>();
-    public T add_equipment_controller<T>() where T: 
-        Children_group, new()   
-    {
-        T new_children_group = new T();
-        new_children_group.add_to_user(this);
-        _children_groups.Add(new_children_group);
-        return new_children_group;
-    }
+    public IList<Children_group> children_groups { get; } = new List<Children_group>();
 
-    public void add_equipment_controllers_after(IChildren_groups_host src_user) {
-        /*transporter = src_user.transporter?.copy_empty_into(this) as ITransporter;
-        weaponry = src_user.weaponry?.copy_empty_into(this) as IWeaponry;
-*/
-        //throw new NotImplementedException();
-    }
 
-    
     /* Divisible_body itself */
     public void split_by_ray(Ray2D ray_of_split) {
 

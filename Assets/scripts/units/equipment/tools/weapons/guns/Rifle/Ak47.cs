@@ -14,7 +14,7 @@ namespace rvinowise.units.parts.weapons.guns {
 public class Ak47: Gun {
     
     public override float weight { set; get; } = 4f;
-    public override float stock_length { get; } = 0.1f;
+    public override float stock_length { get; } = 0.45f;
     
     protected override void init_holding_places() {
         main_holding = Holding_place.main(this);

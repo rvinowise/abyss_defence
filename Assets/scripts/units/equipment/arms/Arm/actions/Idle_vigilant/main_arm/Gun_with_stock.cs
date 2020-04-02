@@ -1,18 +1,17 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using geometry2d;
 using UnityEngine;
 using rvinowise;
+using geometry2d;
 using rvinowise.units.parts.limbs.arms.actions;
-using rvinowise.units.parts.strategy;
 using rvinowise.units.parts.weapons.guns;
-using Action = rvinowise.units.parts.limbs.arms.actions.Action;
 
 
-namespace rvinowise.units.parts.limbs.arms.strategy {
+namespace rvinowise.units.parts.limbs.arms.strategy.idle_vigilant.main_arm {
 
-public class Idle_vigilant_main_arm: Action {
+public class Gun_with_stock: actions.Action
+{
 
     /* parameters given by the user */
     private Transform target;
@@ -25,21 +24,22 @@ public class Idle_vigilant_main_arm: Action {
     
     
     
-    public static Idle_vigilant_main_arm create(
+    public static Gun_with_stock create(
         Action_tree in_action_tree, 
         Transform in_target,
         transport.ITransporter in_transporter
     ) {
-        Idle_vigilant_main_arm action = (Idle_vigilant_main_arm)pool.get(typeof(Idle_vigilant_main_arm), in_action_tree);
+        Gun_with_stock action = (Gun_with_stock)pool.get(typeof(Gun_with_stock), in_action_tree);
         action.target = in_target;
         action.transporter = in_transporter;
         return action;
     }
-    public Idle_vigilant_main_arm(Action_tree in_action_tree, Transform in_target): base(in_action_tree) {
+    
+    public Gun_with_stock(Action_tree in_action_tree, Transform in_target): base(in_action_tree) {
         target = in_target;
     }
     
-    public Idle_vigilant_main_arm() {
+    public Gun_with_stock() {
         
     }
     
@@ -49,7 +49,12 @@ public class Idle_vigilant_main_arm: Action {
         if (arm.held_tool is Gun gun) {
             held_gun = gun;
 
-            distance_shoulder_to_wrist = held_gun.stock_length - arm.hand.length + shoulder_thickness;
+            if (gun.has_stock) {
+                distance_shoulder_to_wrist = held_gun.stock_length - arm.hand.length + shoulder_thickness;
+            }
+            else {
+                distance_shoulder_to_wrist = arm.length/2f;
+            }
             upper_arm_offset_turn =
                 arm.folding_direction.turn_quaternion(
                     geometry2d.Triangles.get_quaternion_by_lengths(
@@ -134,5 +139,6 @@ public class Idle_vigilant_main_arm: Action {
         Gizmos.DrawSphere(position_of_wrist,1f);
         Gizmos.DrawSphere(new Vector2(0f,0f),1f);
     }
+
 }
 }

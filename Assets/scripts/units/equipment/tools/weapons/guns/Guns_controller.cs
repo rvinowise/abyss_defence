@@ -22,10 +22,6 @@ public class Guns_controller:
         
     }
     
-    public override IChildren_group copy_empty_into(IChildren_groups_host dst_host) {
-        return new Guns_controller(dst_host);
-    }
-
 
     public Command_batch command_batch { get; }
 

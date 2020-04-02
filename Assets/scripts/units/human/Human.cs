@@ -39,7 +39,7 @@ public class Human:
     
     
     private IChildren_groups_host user_of_equipment;
-    private Intelligence intelligence;
+    private units.control.human.Human intelligence;
 
 
     protected virtual void Awake()
@@ -115,39 +115,31 @@ public class Human:
         sprite_renderer.sprite = Resources.Load<Sprite>("human/body");
         
         head = init.Head.init(this, new Head());
+
+        legs = new Legs(this.gameObject);
         
         arms = init.Arms.init(
-            new Arm_controller(),
+            new Arm_controller(gameObject, legs),
             baggage,
             ui.input.Input.instance.cursor.center.transform
         );
-        
-        legs = new Legs();
-
     }
 
     private void init_intelligence() {
-        intelligence = new Player(transform);
-        intelligence.transporter = create_transporter();
-        ((Player) intelligence).arm_controller = arms;
+        intelligence = new control.human.Player(transform);
+        intelligence.transporter = this.legs;
+        intelligence.arm_controller = arms;
         intelligence.baggage = baggage;
         intelligence.sensory_organ = head;
     }
 
 
-    protected ITransporter create_transporter() {
-        return user_of_equipment.
-            add_equipment_controller<units.parts.humanoid.Legs>();
-    }
-    protected IWeaponry create_weaponry() {
-        return new Arm_controller(user_of_equipment);
-    }
-    //protected abstract IWeaponry get_weaponry();
-
     void Update() {
         intelligence.update();
         
         head.update();
+        legs.update();
+        arms.update();
     }
 
 }
