@@ -15,6 +15,9 @@ public static partial class Unity_extension {
     public static float to_float_degrees(this Quaternion quaternion) {
         return quaternion.eulerAngles.z;
     }
+    public static Vector2 to_vector(this Quaternion quaternion) {
+        return quaternion * Vector2.right;
+    }
     
     public static Degree to_degrees(this Quaternion quaternion) {
         return new Degree(quaternion.eulerAngles.z);

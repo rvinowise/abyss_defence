@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using geometry2d;
 using rvinowise.units.parts;
 using rvinowise.units.control;
 using rvinowise.units.control.human;
@@ -19,7 +20,7 @@ public abstract class Creature: MonoBehaviour
     
     
     /* Creature itself */
-    protected Divisible_body divisible_body;
+    public Divisible_body divisible_body;
 
     
     Intelligence intelligence;
@@ -68,11 +69,40 @@ public abstract class Creature: MonoBehaviour
            new Vector2(0.5f,1f)
        );
        
-       divisible_body.split_by_ray(ray);
+       //divisible_body.split_by_ray(ray);
    }
 
+   public void OnCollisionEnter2D(Collision2D other) {
+       Bullet other_bullet = other.gameObject.GetComponent<Bullet>();
+       if (other_bullet != null) {
+           //Rigidbody2D other_rigid = other.rigidbody;
 
-   
+           Ray2D ray_of_impact = new Ray2D(
+               other_bullet.last_physics.position,
+               other_bullet.last_physics.velocity
+           );
+           
+           
+           Polygon wedge = Polygon_splitter.get_wedge_from_ray(ray_of_impact);
+           Debug_drawer.instance.draw_polygon_debug(wedge);
+           
+           var pieces = divisible_body.split_by_ray(ray_of_impact);
+           push_pieces_away(pieces, ray_of_impact, other_bullet.last_physics.velocity.magnitude);
+           
+           Destroy(other_bullet.gameObject);
+       }
+   }
+
+   private void push_pieces_away(IEnumerable<GameObject> pieces, Ray2D ray, float force) {
+       foreach (var piece in pieces) {
+           Vector2 push_vector = 
+               ((Vector2)piece.transform.position - ray.origin).normalized *
+               force;
+           var rigidbody = piece.GetComponent<Rigidbody2D>();
+           rigidbody.AddForce(push_vector / 100f);
+           rigidbody.AddTorque(50f);
+       }
+   }
 }
 
 

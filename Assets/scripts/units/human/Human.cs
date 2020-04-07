@@ -134,7 +134,7 @@ public class Human:
     }
 
 
-    void Update() {
+    void FixedUpdate() {
         intelligence.update();
         
         head.update();

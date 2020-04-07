@@ -1,0 +1,10 @@
+{
+    "name": "effects",
+    "references": [
+        "extensions",
+        "debug",
+        "settings",
+        "third_party"
+    ]
+    
+}

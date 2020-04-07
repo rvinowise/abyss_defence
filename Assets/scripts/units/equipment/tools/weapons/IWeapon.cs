@@ -9,7 +9,7 @@ namespace rvinowise.units.parts.weapons {
 
 public interface IWeapon {
 
-    void fire();
+    void pull_trigger();
 
     float time_to_readiness();
 

@@ -14,7 +14,7 @@ namespace geometry2d {
     using Path = List<IntPoint>;
     using Pathes = List<List<IntPoint>>;
 
-    static class Polygon_splitter {
+    public static class Polygon_splitter {
         public static List<Polygon> split_polygon_by_ray(
             Polygon polygon,
             Ray2D ray_of_split) 
@@ -49,9 +49,9 @@ namespace geometry2d {
 
         static public Polygon get_wedge_from_ray(Ray2D ray_of_split) {
             Polygon wedge_of_split = new Polygon(new Vector2[] {
-                ray_of_split.origin + (ray_of_split.direction.Rotate(-90f) * 0.01f),
-                ray_of_split.origin + (ray_of_split.direction * 1f),
-                ray_of_split.origin + (ray_of_split.direction.Rotate(90f) * 0.01f),
+                ray_of_split.origin + (ray_of_split.direction.rotate(-90f) * 0.01f),
+                ray_of_split.origin + (ray_of_split.direction * 10f),
+                ray_of_split.origin + (ray_of_split.direction.rotate(90f) * 0.01f),
                 ray_of_split.origin - (ray_of_split.direction * 1f)
             });
             return wedge_of_split;

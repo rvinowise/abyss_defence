@@ -29,7 +29,7 @@ public class Held_tool: IWeapon {
         return Math.Max(need_to_wait, time_for_rotation);
     }
 
-    public void fire() {
+    public void pull_trigger() {
         gun.pull_trigger();
     }
 

@@ -43,6 +43,9 @@ public static partial class Unity_extension
     public static float get_degrees(this Transform transform) {
         return ((Vector2)transform.right).to_dergees();
     }
+    public static Vector2 get_direction_vector(this Transform transform) {
+        return ((Vector2) transform.right);
+    }
     public static float delta_degrees(this Transform transform, Transform other) {
         return //Quaternion.Angle(transform.rotation, other.rotation);
             Mathf.DeltaAngle(transform.rotation.eulerAngles.z, other.rotation.eulerAngles.z);

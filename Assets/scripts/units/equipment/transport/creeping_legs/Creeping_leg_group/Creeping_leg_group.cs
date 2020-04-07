@@ -93,7 +93,8 @@ public partial class Creeping_leg_group:
         
     public void move_in_direction_as_rigidbody(Vector2 moving_direction) {
         Vector2 delta_movement = (moving_direction * get_possible_impulse() * rvi.Time.deltaTime);
-        rigid_body.MovePosition((Vector2)transform.position + delta_movement);
+        //rigid_body.MovePosition((Vector2)transform.position + delta_movement);
+        rigid_body.AddForce(delta_movement*10000f);
     }
     public void move_in_direction_as_transform(Vector2 moving_direction) {
         Vector2 delta_movement = (moving_direction * get_possible_impulse() * rvi.Time.deltaTime);

@@ -26,12 +26,12 @@ ScriptedImporter:
     streamingMipmapsPriority: 0
     nPOTScale: 1
     sRGBTexture: 1
-    spriteMode: 2
+    spriteMode: 1
     spriteExtrude: 1
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 100
+    spritePixelsToUnits: 200
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -62,18 +62,18 @@ ScriptedImporter:
     compressionQualitySet: 0
     textureFormatSet: 0
   spriteImportData:
-  - name: 
+  - name: bullet_pistol_1
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 0
-      height: 0
-    spriteID: 
+      width: 12
+      height: 9
+    spriteID: 1293a54e591d10a4882739e5a140d203
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -120,8 +120,8 @@ ScriptedImporter:
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
-  textureActualWidth: 32
-  textureActualHeight: 32
+  textureActualWidth: 12
+  textureActualHeight: 9
   spritePackingTag: 
   resliceFromLayer: 0
   characterMode: 1

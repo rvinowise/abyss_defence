@@ -18,16 +18,19 @@ public abstract class Tool: MonoBehaviour
     public Degree direction = new Degree(0);
     
     
-    protected SpriteRenderer spriteRenderer;
+    protected SpriteRenderer sprite_renderer;
+    protected Rigidbody2D rigid_body;
 
     
-    public virtual void Awake() {
+    protected virtual void Awake() {
         init_components();
         init_holding_places();
     }
 
-    private void init_components() {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+    protected virtual void init_components() {
+        sprite_renderer = gameObject.GetComponent<SpriteRenderer>();
+        rigid_body = gameObject.GetComponent<Rigidbody2D>();
+        
     }
 
 
@@ -45,8 +48,12 @@ public abstract class Tool: MonoBehaviour
     }
 }
 
+public interface IHave_velocity {
+    Vector2 velocity { get; set; }
+}
+
 public class Holding_place {
-    public Vector2 attachment_point = Vector2.zero;
+    public Vector2 place_on_tool = Vector2.zero;
     public Hand_gesture grip_gesture = Hand_gesture.Relaxed;
     public Degree grip_direction = new Degree(0);
     public Quaternion grip_direction_quaternion {
@@ -65,6 +72,10 @@ public class Holding_place {
     }
     public Arm _holding_arm;
 
+    public IHave_velocity holder {
+        get { return holding_arm.hand; }
+    }
+
     public Holding_place(Tool in_tool) {
         tool = in_tool;
     }
@@ -82,7 +93,7 @@ public class Holding_place {
     
     public Vector2 position {
         get{
-            return tool.transform.TransformPoint(attachment_point);
+            return tool.transform.TransformPoint(place_on_tool);
         }
     }
     public Quaternion rotation {

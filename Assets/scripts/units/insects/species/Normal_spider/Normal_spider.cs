@@ -35,7 +35,7 @@ public class Normal_spider: Creature {
     }
 
   
-    
+
 
 
     

@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
 using geometry2d;
+using rvinowise.units.parts.tools;
 
 
 namespace rvinowise.units.parts.limbs.arms {
 
-public class Hand:Segment {
+public class Hand:Segment,
+IHave_velocity
+{
 
     public Side side = Side.LEFT;
     
@@ -24,6 +27,8 @@ public class Hand:Segment {
     }
     private Hand_gesture _gesture;
     
+    public Vector2 velocity { get; set; }
+
     public Hand(string name) : base(name) { }
     public Hand(string name, GameObject prefab) : base(name, prefab) { }
 

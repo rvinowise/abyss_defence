@@ -60,8 +60,15 @@ public class Idle_vigilant_only_arm: Action {
         
         arm.hand.desired_direction =
             arm.hand.desired_idle_direction * direction_to_target;
-        
+
+        Vector2 last_hand_position = arm.hand.transform.position;
         arm.rotate_to_desired_directions();
+        Vector2 desired_hand_movement = (Vector2)arm.hand.transform.position - last_hand_position;
+        arm.hand.velocity += desired_hand_movement;
+
+        arm.hand.transform.position = last_hand_position + arm.hand.velocity;
+        
+        arm.hold_onto_point(arm.hand.transform.position);
     }
     
     private Quaternion determine_desired_direction_of_upper_arm(

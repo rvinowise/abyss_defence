@@ -9,12 +9,12 @@ public static partial class Unity_extension
     {
         return new Vector2(src.x, src.y);
     }
-    public static Vector2 Rotate(this Vector2 v, float degrees)
+    public static Vector2 rotate(this Vector2 v, float degrees)
     {
          return Quaternion.Euler(0, 0, degrees) * v;
     }
     
-    public static Vector2 Rotate(this Vector2 v, Quaternion rotation)
+    public static Vector2 rotate(this Vector2 v, Quaternion rotation)
     {
         return rotation * v;
     }
@@ -56,4 +56,23 @@ public static partial class Unity_extension
         Vector2 vector_distance = in_aim - (Vector2)position;
         return vector_distance.magnitude;
     }
+    
+   
+    public static List<Vector3> to_list_vector3 (this List<Vector2> list2)
+    {
+        return new List<Vector3>(
+            System.Array.ConvertAll (list2.ToArray(), getV3fromV2)
+        );
+    }
+     
+    private static Vector3 getV3fromV2 (Vector2 vector2)
+    {
+        return new Vector3(vector2.x, vector2.y);
+    }
+
+    /*public static Vector2(this Vector2 in_vector) {
+        return new Vector2(
+            in_vector.x + 
+        );
+    }*/
 }

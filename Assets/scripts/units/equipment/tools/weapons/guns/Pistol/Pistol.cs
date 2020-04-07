@@ -9,6 +9,9 @@ namespace rvinowise.units.parts.weapons.guns {
 public class Pistol: 
     Gun {
 
+    [SerializeField]
+    public Transform shell_ejector;
+    //public GameObject projectile;
     
     protected override void init_holding_places() {
         main_holding = Holding_place.main(this);
@@ -20,12 +23,8 @@ public class Pistol:
     
     
     /* Gun interface */
-    public override void fire() {
-    }
 
-    public override Object get_projectile() {
-        throw new System.NotImplementedException();
-    }
+    //public override GameObject projectile { get; set; }
 
     public override float time_to_readiness() {
         return 0;

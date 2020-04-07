@@ -43,8 +43,32 @@ public class Player : Human {
         read_transporter_input();
         read_switching_items_input();
         read_sensory_organs_input();
+        read_using_tools_input();
     }
 
+
+    private void read_using_tools_input() {
+        bool wants_to_use = UnityEngine.Input.GetMouseButtonDown(0); //Input.instance.mouse_down();
+        if (!wants_to_use) {
+            return;
+        }
+        bool has_shot = false;
+        if (arm_controller?.right_arm.held_tool is Gun right_gun) {
+            if (right_gun.ready_to_fire()) {
+                right_gun.pull_trigger();
+                has_shot = true;
+            }
+        }
+        if (has_shot) {
+            return;
+        }
+        if (arm_controller?.left_arm.held_tool is Gun left_gun) {
+            if (left_gun.ready_to_fire()) {
+                left_gun.pull_trigger();
+            }
+        }  
+        
+    }
 
     private void idle(Arm arm) {
         var direction_to_mouse = transform.quaternion_to(Input.instance.mouse_world_position);
@@ -71,8 +95,8 @@ public class Player : Human {
         if (Math.Abs(wheel_steps) > 0) {
         
             if (Side.from_degrees(last_rotation) == geometry2d.Side.LEFT) {
-                arm_controller.left_arm.support_held_tool(
-                    baggage.items[1]
+                arm_controller.left_arm.take_tool_from_baggage(
+                    baggage.items[0]
                 );
             }
             else {

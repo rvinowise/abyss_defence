@@ -104,16 +104,6 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         TEST_draw_debug_lines();
     }
     
-    
-
-    public void hold_tool(Tool tool) {
-        /*if (tool.is_in_bag()) {
-            take_tool_from_baggage(tool);
-        }
-        else if (tool.is_held()) {
-            support_held_tool(tool);
-        }*/
-    }
 
     public void take_tool_from_baggage(Tool tool) {
         Contract.Requires(held_tool == null, "must be free in order to grab a tool");
@@ -149,7 +139,7 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
 
     private void move_main_arm_closer(Tool tool) {
         Arm main_arm = tool.main_holding.holding_arm;
-        main_arm.action_tree.current_action = Idle_vigilant_main_arm.create(
+        main_arm.action_tree.current_action = strategy.idle_vigilant.main_arm.Gun_without_stock.create(
             main_arm.action_tree, 
             idle_target,
             controller.transporter
@@ -182,7 +172,7 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
             held_part.holding_arm = this;
             Transform tool_transform = held_part.tool.gameObject.transform;
             tool_transform.localPosition = 
-                held_part.attachment_point + 
+                held_part.place_on_tool + 
                 hand.tip;
             tool_transform.localRotation = held_part.grip_direction.to_quaternion();
             
@@ -190,7 +180,5 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         }
     }
 
-
-    
 }
 }

@@ -1,4 +1,5 @@
-﻿using rvinowise.units;
+﻿using extesions;
+using rvinowise.units;
 using UnityEngine;
 using geometry2d;
 using Headspring;
@@ -11,6 +12,7 @@ public class Turning_element: Game_object {
     
     public Span possible_span;
     public float rotation_speed;
+    public Saved_physics last_physics = new Saved_physics();
     //public Turning_element.Strategy strategy = Strategy.Reach_desired_direction;
 
     public Quaternion desired_direction {
@@ -27,6 +29,7 @@ public class Turning_element: Game_object {
     }
 
     public virtual void rotate_to_desired_direction() {
+        last_physics.position = transform.position;
         transform.rotate_to(target_direction, rotation_speed);
     }
 
