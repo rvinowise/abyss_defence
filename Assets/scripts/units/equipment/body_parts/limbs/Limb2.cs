@@ -35,6 +35,10 @@ public partial class Limb2: Child {
         segment1.rotate_to_desired_direction();
         segment2.rotate_to_desired_direction();
     }
+    public virtual void jump_to_desired_directions() {
+        segment1.jump_to_desired_direction();
+        segment2.jump_to_desired_direction();
+    }
     
     public virtual void preserve_possible_rotations() {
         segment1.preserve_possible_rotation();

@@ -29,6 +29,7 @@ public class Pistol:
     public override float time_to_readiness() {
         return 0;
     }
-    
+
+
 }
 }

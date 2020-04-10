@@ -26,6 +26,11 @@ public class Limb3: Limb2 {
         base.rotate_to_desired_directions();
         segment3.rotate_to_desired_direction();
     }
+    
+    public virtual void jump_to_desired_directions() {
+        base.jump_to_desired_directions();
+        segment3.jump_to_desired_direction();
+    }
 
     public void rotate_to_orientation(Orientation needed_orientation) {
         set_desired_directions_by_position(needed_orientation.position);

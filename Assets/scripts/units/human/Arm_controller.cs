@@ -31,5 +31,13 @@ public class Arm_controller: limbs.arms.Arm_controller {
     
     public Arm_controller(GameObject in_user, ITransporter transporter) 
         : base(in_user, transporter) { }
+    
+    
+    
+    public void reload() {
+        Arm ammo_taker = null;
+        Arm weapon_holder = null;
+        
+    }
 }
 }

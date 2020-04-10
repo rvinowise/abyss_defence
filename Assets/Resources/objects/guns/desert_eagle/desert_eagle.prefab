@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6121768017280805874}
   - component: {fileID: 1201677594883345000}
   - component: {fileID: -6670056117548300769}
-  - component: {fileID: -7999114037125900446}
   m_Layer: 0
   m_Name: desert_eagle
   m_TagString: Untagged
@@ -70,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ace1bdcab64e5d947e168a7c3b909b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fire_rate_delay: 0.5
+  fire_rate_delay: 0.1
   reload_time: 0
   muzzle: {fileID: 8454711743962537359}
   projectile: {fileID: 3326040087712740765, guid: 309f5670943cca146955842662ce0ba9,
@@ -80,27 +79,8 @@ MonoBehaviour:
     type: 3}
   animator: {fileID: 0}
   shell_ejector: {fileID: 407324513766382050}
---- !u!50 &-7999114037125900446
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1936059040042004714}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.6
-  m_LinearDrag: 0.1
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  magazine: {fileID: 1034737149163476093, guid: 2c9e402c9f578e642b9950a5fd72f3d9,
+    type: 3}
 --- !u!1 &2486645662213847114
 GameObject:
   m_ObjectHideFlags: 0

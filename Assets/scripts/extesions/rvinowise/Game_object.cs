@@ -128,6 +128,16 @@ public class Game_object:Child {
         return instantiate_stashed(prefab);
     }
 
+    public static GameObject instantiate(GameObject prefab) {
+        GameObject game_object = GameObject.Instantiate(
+            prefab,
+            Vector3.zero,
+            Quaternion.identity);
+        return game_object;
+    }
+    public static Component instantiate(Component component) {
+        return instantiate(component.gameObject).GetComponent<Component>();
+    }
 
     
     public string animation {

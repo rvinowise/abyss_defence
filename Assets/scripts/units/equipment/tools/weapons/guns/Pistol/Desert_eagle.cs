@@ -17,6 +17,18 @@ public class Desert_eagle: Pistol {
     private Saved_physics last_physics = new Saved_physics();
 
 
+
+    void Awake() {
+        base.Awake();
+        GameObject magazine_prefab = Resources.Load<GameObject>(
+            "objects/guns/desert_eagle/magazine"    
+        );
+        insert_magazine(
+            Game_object.instantiate(magazine_prefab).GetComponent<Magazine>()    
+        );
+    }
+    
+    
     void FixedUpdate()
     {
         //last_physics.velocity = rigid_body.velocity;
@@ -24,7 +36,6 @@ public class Desert_eagle: Pistol {
     }
 
     void Update() {
-        
     }
 
     private static readonly int animation_fire = Animator.StringToHash("fire");
@@ -35,10 +46,14 @@ public class Desert_eagle: Pistol {
         return frames / 60f / animation_state.speed;
     }
 
-    private static float recoil_force = 1f;
-    protected override GameObject fire() {
-        animator.SetTrigger("fire");
+    public static float recoil_force = 0.15f;
+    protected override Bullet fire() {
         var new_projectile = base.fire();
+        if (new_projectile == null) {
+            return null;
+        }
+        
+        animator.SetTrigger("fire");
         propell_projectile(new_projectile);
         
         StartCoroutine(
@@ -58,7 +73,7 @@ public class Desert_eagle: Pistol {
 
     private float projectile_force = 10f;
 
-    private void propell_projectile(GameObject projectile) {
+    private void propell_projectile(Bullet projectile) {
         Rigidbody2D rigid_body = projectile.GetComponent<Rigidbody2D>();
         rigid_body.AddForce(transform.rotation.to_vector() * projectile_force, ForceMode2D.Impulse);
     }
@@ -77,7 +92,7 @@ public class Desert_eagle: Pistol {
     private void eject_bullet_shell() {
         float ejection_force = 5f;
         GameObject new_shell = GameObject.Instantiate(
-            bullet_shell, 
+            bullet_shell_prefab, 
             shell_ejector.position,
             transform.rotation
         );

@@ -75,4 +75,14 @@ public static partial class Unity_extension
             in_vector.x + 
         );
     }*/
+
+    public static Vector2 shortened(this Vector2 vector, float length) {
+        Vector2 change = vector.normalized * length;
+        if (change.magnitude > vector.magnitude) {
+            return Vector2.zero;
+        }
+        Vector2 result = vector - change;
+
+        return result;
+    }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fba6c46c42d54b5499ef0fb4c1709ac8
+guid: 8d10375b18cdb0240844dfc60ec09a0a
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -26,12 +26,12 @@ ScriptedImporter:
     streamingMipmapsPriority: 0
     nPOTScale: 1
     sRGBTexture: 1
-    spriteMode: 2
+    spriteMode: 1
     spriteExtrude: 1
     spriteMeshType: 1
-    alignment: 0
-    spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 900
+    alignment: 9
+    spritePivot: {x: 0.49783343, y: 0.5474833}
+    spritePixelsToUnits: 750
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -62,18 +62,18 @@ ScriptedImporter:
     compressionQualitySet: 0
     textureFormatSet: 0
   spriteImportData:
-  - name: 
+  - name: magazine_1
     originalName: 
-    pivot: {x: 0, y: 0}
-    alignment: 0
+    pivot: {x: 0.49783343, y: 0.5474833}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 0
-      height: 0
-    spriteID: 
+      width: 263
+      height: 210
+    spriteID: 46776c98ae0139c4e9dd1b0139b32b4c
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -86,18 +86,18 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: full
+  - name: magazine
     originalName: 
-    pivot: {x: 0.32481155, y: 0.64473957}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 1218
-      height: 84
-    spriteID: c7c57c9ac3cfac34b824b9a07497e62a
+      width: 213
+      height: 166
+    spriteID: 36eae6de99ac34b4faa83a4db4457ce3
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -107,32 +107,32 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -68, y: -76}
+    uvTransform: {x: -21, y: -13}
   platformSettings: []
   mosaicLayers: 1
-  documentPivot: {x: 0.3237061, y: 0.52}
-  documentAlignment: 9
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
   importHiddenLayers: 0
-  importedTextureWidth: 2048
-  importedTextureHeight: 128
-  documentSize: {x: 1361, y: 279}
+  importedTextureWidth: 256
+  importedTextureHeight: 256
+  documentSize: {x: 263, y: 210}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
-  textureActualWidth: 2048
-  textureActualHeight: 128
+  textureActualWidth: 263
+  textureActualHeight: 210
   spritePackingTag: 
   resliceFromLayer: 0
   characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: full
-    spriteName: full
+  - name: magazine
+    spriteName: magazine
     isGroup: 0
     parentIndex: -1
-    spriteID: c7c57c9ac3cfac34b824b9a07497e62a
-    layerID: 3
+    spriteID: 36eae6de99ac34b4faa83a4db4457ce3
+    layerID: 2
     mosaicPosition: {x: 4, y: 4}
   characterData:
     bones: []
@@ -140,7 +140,7 @@ ScriptedImporter:
     dimension: {x: 0, y: 0}
     characterGroups: []
   generateGOHierarchy: 0
-  textureAssetName: wielded Texture
-  prefabAssetName: wielded Prefab
-  spriteLibAssetName: wielded Sprite Lib
+  textureAssetName: magazine Texture
+  prefabAssetName: magazine Prefab
+  spriteLibAssetName: magazine Sprite Lib
   secondarySpriteTextures: []

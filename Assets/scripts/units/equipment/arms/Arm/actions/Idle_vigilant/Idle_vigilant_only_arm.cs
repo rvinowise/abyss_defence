@@ -6,6 +6,7 @@ using UnityEngine;
 using rvinowise;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.strategy;
+using rvinowise.units.parts.weapons.guns;
 using Action = rvinowise.units.parts.limbs.arms.actions.Action;
 
 
@@ -36,6 +37,9 @@ public class Idle_vigilant_only_arm: Action {
     
     public override void start() {
     }
+    
+    
+    const float controllable_velocity = 0.1f;
     public override void update() {
         
         var direction_to_target = arm.upper_arm.transform.quaternion_to(target.position);
@@ -61,14 +65,30 @@ public class Idle_vigilant_only_arm: Action {
         arm.hand.desired_direction =
             arm.hand.desired_idle_direction * direction_to_target;
 
-        Vector2 last_hand_position = arm.hand.transform.position;
-        arm.rotate_to_desired_directions();
-        Vector2 desired_hand_movement = (Vector2)arm.hand.transform.position - last_hand_position;
-        arm.hand.velocity += desired_hand_movement;
-
-        arm.hand.transform.position = last_hand_position + arm.hand.velocity;
         
-        arm.hold_onto_point(arm.hand.transform.position);
+        /* smooth movement with velocity for recoil */
+        
+        Vector2 last_hand_position = arm.hand.transform.position;
+        //arm.jump_to_desired_directions();
+
+
+        arm.rotate_to_desired_directions();
+        Vector2 desired_hand_position = (Vector2) arm.hand.transform.position;
+        Vector2 desired_hand_movement = desired_hand_position - last_hand_position;
+        arm.hand.velocity += desired_hand_movement;
+        Vector2 final_hand_position = last_hand_position + arm.hand.velocity;
+        
+        if (arm.hand.velocity.magnitude < controllable_velocity) {
+            arm.hand.velocity = Vector2.zero;
+        } else {
+            float slowing_drag = (Desert_eagle.recoil_force - controllable_velocity) / 0.2f;
+            arm.hand.velocity = arm.hand.velocity.shortened(slowing_drag * Time.deltaTime);
+        }
+        Debug.DrawLine(arm.hand.position,arm.hand.position+arm.hand.velocity*10f,Color.cyan);
+        Debug.DrawLine(arm.hand.position,final_hand_position, Color.red);
+
+
+        arm.hold_onto_point(final_hand_position);
     }
     
     private Quaternion determine_desired_direction_of_upper_arm(

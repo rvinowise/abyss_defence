@@ -7,6 +7,8 @@ namespace rvinowise.ui.input {
 public class Input: MonoBehaviour {
     
     static public Input instance;
+
+    public UnityEngine.Input unity;
     
     public Vector2 mouse_world_position { get; private set; }
     public Vector2 moving_vector { get; private set; }
@@ -38,6 +40,10 @@ public class Input: MonoBehaviour {
             UnityEngine.Input.mousePosition
         );
 
+    }
+
+    public bool button_presed(string name) {
+        return UnityEngine.Input.GetButton(name);
     }
 
     private Vector2 read_moving_vector() {

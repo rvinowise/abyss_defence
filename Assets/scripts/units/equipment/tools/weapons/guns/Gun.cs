@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
+using rvinowise.rvi.contracts;
 using rvinowise.units.parts.tools;
+using UnityEngine.Serialization;
 
 
 namespace rvinowise.units.parts.weapons.guns {
@@ -14,20 +16,22 @@ public abstract class Gun:
     IWeapon 
 {
     /* constant characteristics */
+    [SerializeField]
     public float fire_rate_delay;
 
-    public float reload_time;
-
-    public Transform muzzle;
-
-    public UnityEngine.GameObject projectile;// { get; set; }
-    public UnityEngine.GameObject spark;
+    //public float reload_time;
     [SerializeField]
-    public GameObject bullet_shell;
+    public Transform muzzle;
+    [SerializeField]
+    public UnityEngine.GameObject spark;
     
+    [SerializeField]
+    public GameObject bullet_shell_prefab;
+    [SerializeField] public GameObject magazine_prefab;
+        
     /* components */
-    public Animator animator;
-    
+    public Animator animator { get; set; }
+
     /* inner characteristics */
     public Vector2 tip {
         get { return muzzle.localPosition; }
@@ -51,6 +55,9 @@ public abstract class Gun:
     /* current values */
     private float last_shot_time = 0f;
 
+    private guns.Magazine magazine;
+
+
 
     protected override void Awake() {
         base.Awake();
@@ -61,13 +68,14 @@ public abstract class Gun:
         animator = GetComponent<Animator>();
     }
 
-    protected virtual GameObject fire() {
+    public void insert_magazine(Magazine in_magazine) {
+        magazine = in_magazine;
+    }
+    
+    protected virtual Bullet fire() {
+        Contract.Requires(can_fire(), "function Fire must be invoked after making sure it's possible");
         last_shot_time = Time.time;
-        GameObject new_projectile = GameObject.Instantiate(
-            projectile, 
-            muzzle.position,
-            transform.rotation
-        );
+        Bullet new_projectile = magazine.retrieve_round();
         GameObject new_spark = Instantiate(
             spark,
             muzzle.position,
@@ -83,12 +91,16 @@ public abstract class Gun:
     }
 
     public void pull_trigger() {
-        if (ready_to_fire()) {
+        if (can_fire()) {
             fire();
         }
         else {
             
         }
+    }
+
+    private bool can_fire() {
+        return ready_to_fire() && !magazine.empty();
     }
 
     public virtual bool ready_to_fire() {

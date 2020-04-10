@@ -28,6 +28,7 @@ IHave_velocity
     private Hand_gesture _gesture;
     
     public Vector2 velocity { get; set; }
+    public float linear_drag { get; set; } = 0.02f;
 
     public Hand(string name) : base(name) { }
     public Hand(string name, GameObject prefab) : base(name, prefab) { }

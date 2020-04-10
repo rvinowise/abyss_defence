@@ -5,7 +5,7 @@ using System.Diagnostics.Contracts;
 using UnityEngine;
 
 
-namespace rvinowise.units
+namespace rvinowise
 {
 
 public interface Child

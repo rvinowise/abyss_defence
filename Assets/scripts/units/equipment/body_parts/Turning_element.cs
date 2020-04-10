@@ -29,8 +29,10 @@ public class Turning_element: Game_object {
     }
 
     public virtual void rotate_to_desired_direction() {
-        last_physics.position = transform.position;
         transform.rotate_to(target_direction, rotation_speed);
+    }
+    public virtual void jump_to_desired_direction() {
+        transform.rotation = target_direction.direction;
     }
 
 

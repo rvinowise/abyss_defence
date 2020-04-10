@@ -66,8 +66,13 @@ public class Player : Human {
             if (left_gun.ready_to_fire()) {
                 left_gun.pull_trigger();
             }
-        }  
-        
+        }
+
+        bool wants_to_reload = Input.instance.button_presed("reload");
+        if (wants_to_reload) {
+            
+        }
+
     }
 
     private void idle(Arm arm) {
@@ -93,21 +98,21 @@ public class Player : Human {
         
         int wheel_steps = Input.instance.mouse_wheel_steps;
         if (Math.Abs(wheel_steps) > 0) {
-        
-            if (Side.from_degrees(last_rotation) == geometry2d.Side.LEFT) {
-                arm_controller.left_arm.take_tool_from_baggage(
-                    baggage.items[0]
-                );
-            }
-            else {
-                arm_controller.right_arm.take_tool_from_baggage(
-                    baggage.items[1]    
-                );
 
-            }
+            Arm selected_arm = get_selected_arm();
+            selected_arm.take_tool_from_baggage(
+                baggage.items[0]    
+            );
             return true;
         }
         return false;
+    }
+
+    private Arm get_selected_arm() {
+        if (Side.from_degrees(last_rotation) == geometry2d.Side.LEFT) {
+            return arm_controller.left_arm;
+        }
+        return arm_controller.right_arm;
     }
 
     private int get_desired_weapon_index() {

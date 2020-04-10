@@ -26,7 +26,7 @@ ScriptedImporter:
     streamingMipmapsPriority: 0
     nPOTScale: 1
     sRGBTexture: 1
-    spriteMode: 1
+    spriteMode: 2
     spriteExtrude: 1
     spriteMeshType: 1
     alignment: 9
@@ -86,10 +86,32 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: with_magazine copy
+  - name: without_magazine
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.3330854, y: 0.4700576}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 328
+      width: 1057
+      height: 216
+    spriteID: f4b1ba226b558ad478d566ec883d22d3
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -58, y: 173}
+  - name: with_magazine
+    originalName: 
+    pivot: {x: 0.3317614, y: 0.6360533}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -97,7 +119,7 @@ ScriptedImporter:
       y: 4
       width: 1057
       height: 316
-    spriteID: 2a7298752eed6f84490d45e86443cae2
+    spriteID: a1396bc340b325a40b64f87e1e1e08c0
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -108,61 +130,39 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -58, y: -51}
-  - name: Layer 1
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 1069
-      y: 4
-      width: 0
-      height: 0
-    spriteID: d96d3f557ed19754fab2cdbaaae79619
-    internalID: 0
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -95, y: -476}
   platformSettings: []
   mosaicLayers: 1
-  documentPivot: {x: 0, y: 0}
-  documentAlignment: 7
+  documentPivot: {x: 0.333, y: 0.6360533}
+  documentAlignment: 9
   importHiddenLayers: 0
   importedTextureWidth: 2048
-  importedTextureHeight: 512
+  importedTextureHeight: 1024
   documentSize: {x: 1164, y: 480}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
-  textureActualWidth: 1164
-  textureActualHeight: 480
+  textureActualWidth: 2048
+  textureActualHeight: 1024
   spritePackingTag: 
   resliceFromLayer: 0
   characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: with_magazine copy
-    spriteName: with_magazine copy
+  - name: without_magazine
+    spriteName: without_magazine
     isGroup: 0
     parentIndex: -1
-    spriteID: 2a7298752eed6f84490d45e86443cae2
-    layerID: 11
+    spriteID: f4b1ba226b558ad478d566ec883d22d3
+    layerID: 7
+    mosaicPosition: {x: 4, y: 328}
+  - name: with_magazine
+    spriteName: with_magazine
+    isGroup: 0
+    parentIndex: -1
+    spriteID: a1396bc340b325a40b64f87e1e1e08c0
+    layerID: 3
     mosaicPosition: {x: 4, y: 4}
-  - name: Layer 1
-    spriteName: Layer 1
-    isGroup: 0
-    parentIndex: -1
-    spriteID: d96d3f557ed19754fab2cdbaaae79619
-    layerID: 2
-    mosaicPosition: {x: 1069, y: 4}
   characterData:
     bones: []
     parts: []

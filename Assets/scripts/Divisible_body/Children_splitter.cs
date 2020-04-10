@@ -56,7 +56,7 @@ public static class Children_splitter {
         {
             Children_group distributed_children_controller =
                 IChildren_groups_host.children_groups[i_children_group];
-            foreach (units.Child tool in distributed_children_controller.children) {
+            foreach (Child tool in distributed_children_controller.children) {
                 foreach (GameObject piece_object in piece_objects) {
                     if (tool_is_inside_object(tool, piece_object)) {
                         attach_tool_to_object(piece_object, i_children_group, tool);
@@ -74,7 +74,7 @@ public static class Children_splitter {
         user_of_equipment.remove_empty_controllers();*/
     }
 
-    private static bool tool_is_inside_object(units.Child child, GameObject game_object) {
+    private static bool tool_is_inside_object(Child child, GameObject game_object) {
         PolygonCollider2D collider = game_object.GetComponent<PolygonCollider2D>();
         Contract.Requires(collider.pathCount == 1, "only simple polygons");
         if (

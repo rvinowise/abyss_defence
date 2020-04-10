@@ -69,7 +69,8 @@ public class Arms {
         arm.upper_arm.rotation_speed = 200f;
         arm.upper_arm.parent = parent;
         
-        arm.forearm.rotation_speed = 240f;
+        //arm.forearm.rotation_speed = 240f;
+        arm.forearm.rotation_speed = 400f;
         arm.forearm.parent = arm.upper_arm.transform;
         
         arm.hand.rotation_speed = 300f;

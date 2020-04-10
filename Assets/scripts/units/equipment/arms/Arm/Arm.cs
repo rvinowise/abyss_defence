@@ -101,7 +101,7 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         base.preserve_possible_rotations();
 
 
-        TEST_draw_debug_lines();
+        //TEST_draw_debug_lines();
     }
     
 
@@ -179,6 +179,8 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
             this.hand.gesture = Hand_gesture.Grip_of_vertical;
         }
     }
+
+    
 
 }
 }
