@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf7c34a0dc4e6348bea04faa70406ee, type: 3}
+  m_Name: human_sprite_library
+  m_EditorClassIdentifier: 
+  m_Labels:
+  - m_Name: hands
+    m_Hash: 1714303992
+    m_CategoryList:
+    - m_Name: 
+      m_Hash: 0
+      m_Sprite: {fileID: -2405231478145933514, guid: 18a135aead0b8bb48a45c2bba9e24aaa,
+        type: 3}
+  - m_Name: head
+    m_Hash: -1477183844
+    m_CategoryList:
+    - m_Name: tousled_blonde
+      m_Hash: -2005233160
+      m_Sprite: {fileID: 5063274702506691058, guid: d5b291fc826a1ea4f81256b170c48342,
+        type: 3}
+  - m_Name: upper_arm
+    m_Hash: 861882043
+    m_CategoryList:
+    - m_Name: brown_leather
+      m_Hash: -758008421
+      m_Sprite: {fileID: -4720146703161618083, guid: 5ab7689fdf6ba504592fbd7bad0216f9,
+        type: 3}
+    - m_Name: 
+      m_Hash: 0
+      m_Sprite: {fileID: 0}
+  - m_Name: forearm
+    m_Hash: 1683818550
+    m_CategoryList:
+    - m_Name: brown_leather
+      m_Hash: -758008421
+      m_Sprite: {fileID: 7870566629467361705, guid: af2f34fbc3c09434eba90bb12fc76dc3,
+        type: 3}
+  - m_Name: body
+    m_Hash: -609743950
+    m_CategoryList:
+    - m_Name: brown_leather
+      m_Hash: -758008421
+      m_Sprite: {fileID: 7074203676963678560, guid: 99f339077068748489692b3c839ff090,
+        type: 3}

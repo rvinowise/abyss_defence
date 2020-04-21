@@ -26,12 +26,12 @@ ScriptedImporter:
     streamingMipmapsPriority: 0
     nPOTScale: 1
     sRGBTexture: 1
-    spriteMode: 1
+    spriteMode: 2
     spriteExtrude: 1
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 250
+    spritePixelsToUnits: 100
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -62,18 +62,18 @@ ScriptedImporter:
     compressionQualitySet: 0
     textureFormatSet: 0
   spriteImportData:
-  - name: human_1
+  - name: 
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 500
-      height: 400
-    spriteID: 45100f3a81a83a84ba3da3855133ad94
+      width: 0
+      height: 0
+    spriteID: 
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -93,11 +93,11 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 381
-      y: 4
+      x: 4
+      y: 91
       width: 84
-      height: 104
-    spriteID: d21116e8c1abcb845bb56449e0c6d4bd
+      height: 106
+    spriteID: 4f5bd7b57f6868b4a8c205858a7b912c
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -107,51 +107,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 173, y: -94}
-  - name: hand
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 118
-      width: 358
-      height: 60
-    spriteID: 10bdd80335074aa44bd409e35dda18bf
-    internalID: 0
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -69, y: -126}
-  - name: upper_arm
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 202
-      width: 366
-      height: 70
-    spriteID: af2e370abbdd85041a24aa85bf7846b0
-    internalID: 0
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -64, y: 79}
+    uvTransform: {x: -404, y: -57}
   - name: body
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -160,32 +116,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 280
-      width: 226
-      height: 85
-    spriteID: 92a820ec39529774b8041d14fa1d6f03
-    internalID: 0
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -133, y: 179}
-  - name: pistol
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 473
       y: 4
-      width: 30
-      height: 85
-    spriteID: 9e12ad0bd3126fc4a985c1ea82fd2618
+      width: 228
+      height: 79
+    spriteID: dae8d8aa8aca6264db337fc4a17f7791
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -195,19 +129,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 396, y: -265}
-  - name: Hue/Saturation 1
+    uvTransform: {x: -333, y: -147}
+  - name: upper_arm copy
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 473
-      y: 97
-      width: 0
-      height: 0
-    spriteID: bb009577af6667e48876b8527a5c282a
+      x: 96
+      y: 91
+      width: 113
+      height: 52
+    spriteID: 1b305e523add16a419452454514db8cc
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -217,19 +151,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -27, y: -303}
-  - name: forearm
+    uvTransform: {x: -431, y: -74}
+  - name: forearm copy
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 4
-      width: 369
-      height: 106
-    spriteID: b843d6724efefbd4d82eec47e71dbd32
+      x: 96
+      y: 211
+      width: 106
+      height: 42
+    spriteID: e81986a169fe6ac41a147d933d7b7508
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -239,89 +173,285 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -64, y: -156}
+    uvTransform: {x: -519, y: 39}
+  - name: hand idle
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 96
+      y: 311
+      width: 91
+      height: 40
+    spriteID: ed28b7f6d51cc504396e724ee3642fea
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -598, y: 134}
+  - name: hand fist
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 180
+      y: 359
+      width: 71
+      height: 41
+    spriteID: ff20926742f32bc48a1ec2495bb1997b
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -514, y: 128}
+  - name: hand trigger
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 96
+      y: 359
+      width: 76
+      height: 44
+    spriteID: 0a3f168744d743645bbedf5248f63da3
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -598, y: 248}
+  - name: pistol full left
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 96
+      y: 463
+      width: 132
+      height: 24
+    spriteID: 58767d0fd6203fa419f7c9bd5fbc7c41
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 43, y: 280}
+  - name: upper_arm copy_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 96
+      y: 151
+      width: 113
+      height: 52
+    spriteID: 3ef5977e7b06cc14ea8e0b5e5b4f2050
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -164, y: -14}
+  - name: forearm copy_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 96
+      y: 261
+      width: 106
+      height: 42
+    spriteID: 110b7d261aedfbc4480e2ed477c83121
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -83, y: 89}
+  - name: hand copy
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 96
+      y: 411
+      width: 76
+      height: 44
+    spriteID: 5fa94cbc51d295e4aac8fcac1fbb6015
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -34, y: 238}
   platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
   importHiddenLayers: 0
-  importedTextureWidth: 512
+  importedTextureWidth: 256
   importedTextureHeight: 512
-  documentSize: {x: 500, y: 400}
+  documentSize: {x: 900, y: 500}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
-  textureActualWidth: 500
-  textureActualHeight: 400
+  textureActualWidth: 256
+  textureActualHeight: 512
   spritePackingTag: 
   resliceFromLayer: 0
   characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
+  - name: hand_gestures
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 
+    layerID: 56
+    mosaicPosition: {x: 0, y: 0}
   - name: human
     spriteName: 
     isGroup: 1
     parentIndex: -1
-    spriteID: 00000000000000000000000000000000
+    spriteID: 
     layerID: 10
     mosaicPosition: {x: 0, y: 0}
-  - name: pistol
-    spriteName: 
-    isGroup: 1
-    parentIndex: 0
-    spriteID: 
-    layerID: 15
-    mosaicPosition: {x: 0, y: 0}
-  - name: pistol
-    spriteName: pistol
-    isGroup: 0
-    parentIndex: 1
-    spriteID: 9e12ad0bd3126fc4a985c1ea82fd2618
-    layerID: 20
-    mosaicPosition: {x: 473, y: 4}
   - name: head
     spriteName: head
     isGroup: 0
-    parentIndex: 0
-    spriteID: d21116e8c1abcb845bb56449e0c6d4bd
+    parentIndex: 1
+    spriteID: 4f5bd7b57f6868b4a8c205858a7b912c
     layerID: 9
-    mosaicPosition: {x: 381, y: 4}
+    mosaicPosition: {x: 4, y: 91}
   - name: body
     spriteName: body
     isGroup: 0
-    parentIndex: 0
-    spriteID: 92a820ec39529774b8041d14fa1d6f03
+    parentIndex: 1
+    spriteID: dae8d8aa8aca6264db337fc4a17f7791
     layerID: 4
-    mosaicPosition: {x: 4, y: 280}
-  - name: Hue/Saturation 1
-    spriteName: Hue/Saturation 1
-    isGroup: 0
-    parentIndex: 0
-    spriteID: bb009577af6667e48876b8527a5c282a
-    layerID: 25
-    mosaicPosition: {x: 473, y: 97}
-  - name: upper_arm
-    spriteName: upper_arm
-    isGroup: 0
-    parentIndex: 0
-    spriteID: af2e370abbdd85041a24aa85bf7846b0
-    layerID: 5
-    mosaicPosition: {x: 4, y: 202}
-  - name: forearm
-    spriteName: forearm
-    isGroup: 0
-    parentIndex: 0
-    spriteID: b843d6724efefbd4d82eec47e71dbd32
-    layerID: 6
     mosaicPosition: {x: 4, y: 4}
-  - name: hand
-    spriteName: hand
+  - name: arm adjusted copy
+    spriteName: 
+    isGroup: 1
+    parentIndex: 1
+    spriteID: 
+    layerID: 38
+    mosaicPosition: {x: 0, y: 0}
+  - name: upper_arm copy
+    spriteName: upper_arm copy
     isGroup: 0
-    parentIndex: 0
-    spriteID: 10bdd80335074aa44bd409e35dda18bf
-    layerID: 7
-    mosaicPosition: {x: 4, y: 118}
+    parentIndex: 4
+    spriteID: 1b305e523add16a419452454514db8cc
+    layerID: 37
+    mosaicPosition: {x: 96, y: 91}
+  - name: forearm copy
+    spriteName: forearm copy
+    isGroup: 0
+    parentIndex: 4
+    spriteID: e81986a169fe6ac41a147d933d7b7508
+    layerID: 35
+    mosaicPosition: {x: 96, y: 211}
+  - name: hand idle
+    spriteName: hand idle
+    isGroup: 0
+    parentIndex: 4
+    spriteID: ed28b7f6d51cc504396e724ee3642fea
+    layerID: 62
+    mosaicPosition: {x: 96, y: 311}
+  - name: hand fist
+    spriteName: hand fist
+    isGroup: 0
+    parentIndex: 4
+    spriteID: ff20926742f32bc48a1ec2495bb1997b
+    layerID: 60
+    mosaicPosition: {x: 180, y: 359}
+  - name: hand trigger
+    spriteName: hand trigger
+    isGroup: 0
+    parentIndex: 4
+    spriteID: 0a3f168744d743645bbedf5248f63da3
+    layerID: 34
+    mosaicPosition: {x: 96, y: 359}
+  - name: arm adjusted
+    spriteName: 
+    isGroup: 1
+    parentIndex: 1
+    spriteID: 
+    layerID: 31
+    mosaicPosition: {x: 0, y: 0}
+  - name: pistol full left
+    spriteName: pistol full left
+    isGroup: 0
+    parentIndex: 10
+    spriteID: 58767d0fd6203fa419f7c9bd5fbc7c41
+    layerID: 55
+    mosaicPosition: {x: 96, y: 463}
+  - name: upper_arm copy
+    spriteName: upper_arm copy_1
+    isGroup: 0
+    parentIndex: 10
+    spriteID: 3ef5977e7b06cc14ea8e0b5e5b4f2050
+    layerID: 27
+    mosaicPosition: {x: 96, y: 151}
+  - name: forearm copy
+    spriteName: forearm copy_1
+    isGroup: 0
+    parentIndex: 10
+    spriteID: 110b7d261aedfbc4480e2ed477c83121
+    layerID: 29
+    mosaicPosition: {x: 96, y: 261}
+  - name: hand copy
+    spriteName: hand copy
+    isGroup: 0
+    parentIndex: 10
+    spriteID: 5fa94cbc51d295e4aac8fcac1fbb6015
+    layerID: 30
+    mosaicPosition: {x: 96, y: 411}
   characterData:
     bones: []
     parts: []

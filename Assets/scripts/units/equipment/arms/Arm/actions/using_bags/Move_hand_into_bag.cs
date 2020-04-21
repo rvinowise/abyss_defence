@@ -4,23 +4,27 @@ using System.Collections.Generic;
 using geometry2d;
 using UnityEngine;
 using rvinowise;
+using rvinowise.units.parts.actions;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.strategy;
-using Action = rvinowise.units.parts.limbs.arms.actions.Action;
+using units.equipment.arms.Arm.actions;
 
 
-namespace rvinowise.units.parts.limbs.arms.strategy {
+namespace rvinowise.units.parts.limbs.arms.actions {
 
-public class Move_hand_into_bag: Action {
+public class Move_hand_into_bag: Action_of_arm {
 
     private Baggage bag;
     private float old_rotation_speed;
 
     
     public static Move_hand_into_bag create(
-        Action_tree in_action_tree, Baggage in_bag
+        Action_parent in_action_parent, 
+        Arm in_arm,
+        Baggage in_bag
     ) {
-        var action = (Move_hand_into_bag)pool.get(typeof(Move_hand_into_bag), in_action_tree);
+        var action = (Move_hand_into_bag)pool.get(typeof(Move_hand_into_bag), in_action_parent);
+        action.arm = in_arm;
         action.bag = in_bag;
         return action;
     }
@@ -28,17 +32,15 @@ public class Move_hand_into_bag: Action {
         
     }
     
-    public Move_hand_into_bag(Action_tree in_action_tree, Baggage in_bag) : base(in_action_tree) {
-        bag = in_bag;
-        
-    }
 
-    public override void start() {
+    public override void init_state() {
+        base.init_state();
         slow_movements(arm);
     }
 
-    public override void end() {
+    public override void restore_state() {
         restore_movements(arm);
+        base.restore_state();
     }
 
     private void slow_movements(Arm arm) {
@@ -55,20 +57,12 @@ public class Move_hand_into_bag: Action {
     public override void update() {
         Orientation desired_orientation = get_orientation_touching_baggage();
         if (complete(desired_orientation)) {
-            start_next();
+            transition_to_next_action();
         } else {
             arm.rotate_to_orientation(desired_orientation);
         }
     }
     
-    private void set_desired_directions(Arm arm, Orientation needed_tool_orientation) {
-        arm.set_desired_directions_by_position(needed_tool_orientation.position);
-        //arm.hand.desired_direction = needed_tool_orientation.rotation;
-        arm.hand.desired_direction = Directions.degrees_to_quaternion(
-                                         -arm.folding_direction * 90f
-                                     ) * 
-                                     arm.forearm.desired_direction;
-    }
     
     private Orientation get_orientation_touching_baggage() {
         return new Orientation(

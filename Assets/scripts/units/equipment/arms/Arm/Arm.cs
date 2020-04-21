@@ -2,11 +2,11 @@
 using geometry2d;
 using UnityEngine;
 using rvinowise.rvi.contracts;
+using rvinowise.units.parts.actions;
 using rvinowise.units.parts.limbs.arms.actions;
-using rvinowise.units.parts.limbs.arms.strategy;
-using rvinowise.units.parts.limbs.arms.strategy.idle_vigilant;
-using rvinowise.units.parts.limbs.arms.strategy.idle_vigilant.main_arm;
+using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.tools;
+using units.equipment.arms.Arm.actions;
 using UnityEngine.UIElements;
 
 namespace rvinowise.units.parts.limbs.arms  {
@@ -47,21 +47,19 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
     
     /* IDo_actions interface */
 
-    public readonly Action_tree action_tree;
-    
+    public Action_parent action = new Action_parent();
     
     /* Arm itself */
 
     /* parameters assigned by creators */
     public Baggage baggage; // where to take children from
-    public Transform idle_target; // pay attention to it, when idle
+    public Transform idle_target; // pay attention to it, when start_idle_action
 
     public Tool held_tool {
         get { return held_part?.tool; }
     }
     public Holding_place held_part;
-    
-    
+
     public Arm(Arm_controller in_controller, Transform in_idle_target) {
         controller = in_controller;
         
@@ -83,39 +81,45 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         hand.parent = forearm.transform;
 
         idle_target = in_idle_target;
-        
-        action_tree = new Action_tree(this);
-        action_tree.current_action = Idle_vigilant_only_arm.create(
-            action_tree, 
-            idle_target,
-            controller.transporter
-            );
+        start_idle_action();
 
+        
 
         debug = new Arm.Debug(this);
     }
 
+    public void start_idle_action() {
+        action.current_child_action = Idle_vigilant_only_arm.create(
+            action,
+            this,
+            idle_target,
+            controller.transporter
+        );
+    }
     public void update() {
-        action_tree?.update();
+        if (folding_direction == Side.RIGHT) {
+            bool test = true;
+        }
+        action?.update();
 
         base.preserve_possible_rotations();
 
 
-        //TEST_draw_debug_lines();
+        TEST_draw_debug_lines();
     }
     
 
     public void take_tool_from_baggage(Tool tool) {
+        if (folding_direction == Side.RIGHT) {
+            bool test = true;
+        }
         Contract.Requires(held_tool == null, "must be free in order to grab a tool");
 
-        action_tree.current_action = strategy.Put_hand_before_bag.create(action_tree, baggage);
-        action_tree.next = strategy.Move_hand_into_bag.create(action_tree, baggage);
-        action_tree.next = strategy.Grab_tool.create(
-            action_tree, baggage, tool);
-        action_tree.next = strategy.Put_hand_before_bag.create(action_tree, baggage);
+        action.current_child_action = actions.Take_tool_from_bag.create(action, this, baggage, tool);
         
-        action_tree.next = strategy.Idle_vigilant_only_arm.create(
-            action_tree, 
+        action.new_next_child = actions.Idle_vigilant_only_arm.create(
+            action,
+            this,
             idle_target, 
             controller.transporter
         );
@@ -125,12 +129,12 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
     public void support_held_tool(Tool tool) {
         Contract.Requires(held_tool == null, "must be free in order to grab a tool");
         
-        action_tree.current_action = strategy.Reach_holding_part_of_tool.create(
-            action_tree, 
+        action.current_child_action = actions.Arm_reach_holding_part_of_tool.create(
+            action, 
             tool.second_holding
         );
-        action_tree.next = strategy.Attach_to_holding_part_of_tool.create(
-            action_tree,
+        action.new_next_child = actions.Attach_to_holding_part_of_tool.create(
+            action,
             tool.second_holding
         );
 
@@ -139,8 +143,8 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
 
     private void move_main_arm_closer(Tool tool) {
         Arm main_arm = tool.main_holding.holding_arm;
-        main_arm.action_tree.current_action = strategy.idle_vigilant.main_arm.Gun_without_stock.create(
-            main_arm.action_tree, 
+        main_arm.action.current_child_action = actions.idle_vigilant.main_arm.Gun_without_stock.create(
+            main_arm.action, 
             idle_target,
             controller.transporter
         );
@@ -148,8 +152,8 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
 
     public void stash_tool_to_bag() {
         Contract.Requires(held_tool != null, "must hold a tool in order to stash it");
-        action_tree.current_action = strategy.Put_hand_before_bag.create(action_tree, baggage);
-        action_tree.next = strategy.Move_hand_into_bag.create(action_tree, baggage);
+        action.current_child_action = actions.Put_hand_before_bag.create(action, this, baggage);
+        action.new_next_child = actions.Move_hand_into_bag.create(action, this, baggage);
     }
 
 
@@ -171,12 +175,13 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         void attach_tool_to_hand(Holding_place held_part) {
             held_part.holding_arm = this;
             Transform tool_transform = held_part.tool.gameObject.transform;
-            tool_transform.localPosition = 
-                held_part.place_on_tool + 
-                hand.tip;
-            tool_transform.localRotation = held_part.grip_direction.to_quaternion();
+            tool_transform.localPosition =
+                hand.tip -
+                held_part.place_on_tool;
+            tool_transform.localRotation = 
+                held_part.grip_direction.adjust_to_side(this.folding_direction).to_quaternion();
             
-            this.hand.gesture = Hand_gesture.Grip_of_vertical;
+            this.hand.gesture = held_part.grip_gesture;
         }
     }
 

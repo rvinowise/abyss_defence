@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 //using static UnityEngine.Input;
 using geometry2d;
+using rvinowise.debug;
 using rvinowise.units.control;
 using rvinowise.units.parts;
 using rvinowise.units.parts.limbs.arms;
-using rvinowise.units.parts.limbs.arms.strategy;
-using rvinowise.units.parts.limbs.arms.strategy.idle_vigilant;
-using rvinowise.units.parts.limbs.arms.strategy.idle_vigilant.main_arm;
+using rvinowise.units.parts.limbs.arms.actions;
+using rvinowise.units.parts.limbs.arms.actions.idle_vigilant;
+using rvinowise.units.parts.limbs.arms.actions.idle_vigilant.main_arm;
 using rvinowise.units.parts.weapons.guns;
 using static geometry2d.Directions;
 using Input = rvinowise.ui.input.Input;
@@ -48,10 +49,28 @@ public class Player : Human {
 
 
     private void read_using_tools_input() {
-        bool wants_to_use = UnityEngine.Input.GetMouseButtonDown(0); //Input.instance.mouse_down();
-        if (!wants_to_use) {
-            return;
+        Arm selected_arm = get_selected_arm();
+        if (selected_arm.held_tool is Gun gun) {
+            use_gun(selected_arm, gun);
         }
+    
+        
+
+    }
+
+    private void use_gun(Arm arm, Gun gun) {
+        bool wants_to_shoot = UnityEngine.Input.GetMouseButtonDown(0); //Input.instance.mouse_down();
+        if (wants_to_shoot) {
+            
+        }
+        
+        bool wants_to_reload = Input.instance.button_presed("reload");
+        if (wants_to_reload) {
+            if (!arm_controller.is_reloading_now(arm)) {
+                arm_controller.reload(arm);
+            }
+        }
+        
         bool has_shot = false;
         if (arm_controller?.right_arm.held_tool is Gun right_gun) {
             if (right_gun.ready_to_fire()) {
@@ -68,11 +87,7 @@ public class Player : Human {
             }
         }
 
-        bool wants_to_reload = Input.instance.button_presed("reload");
-        if (wants_to_reload) {
-            
-        }
-
+        
     }
 
     private void idle(Arm arm) {
@@ -97,6 +112,9 @@ public class Player : Human {
         int tool_index = get_desired_weapon_index();
         
         int wheel_steps = Input.instance.mouse_wheel_steps;
+        if (wheel_steps != 0) {
+            Debug.Log("wheel_steps=" + wheel_steps);
+        }
         if (Math.Abs(wheel_steps) > 0) {
 
             Arm selected_arm = get_selected_arm();
@@ -123,6 +141,9 @@ public class Player : Human {
         return 0;
     }
 
+    /*private bool wants_to_switch_tool() {
+        return (switching_items_is_possible() && )
+    }*/
     private bool switching_items_is_possible() {
         if (baggage == null) {
             return false;
@@ -161,7 +182,7 @@ public class Player : Human {
 
     private bool has_gun_in_2hands(out Gun out_gun) {
         if (
-            (arm_controller?.right_arm.action_tree.current_action is Idle_vigilant_main_arm) &&
+            (arm_controller?.right_arm.action.current_child_action is Idle_vigilant_main_arm) &&
             (arm_controller?.right_arm.held_tool is Gun gun)
         ) {
             out_gun = gun;

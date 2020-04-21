@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf7c34a0dc4e6348bea04faa70406ee, type: 3}
+  m_Name: human
+  m_EditorClassIdentifier: 
+  m_Labels:
+  - m_Name: gun
+    m_Hash: 1251722587
+    m_CategoryList:
+    - m_Name: desert_eagle_idle
+      m_Hash: 1980998592
+      m_Sprite: {fileID: -1604808960616924164, guid: 218c4e61419e95c41914dab2a196fcc6,
+        type: 3}
+    - m_Name: desert_eagle_sideview
+      m_Hash: -336003740
+      m_Sprite: {fileID: 5843916652954292162, guid: b71079aa52c4da54caab42f655783124,
+        type: 3}
+  - m_Name: magazine_hand
+    m_Hash: 661302835
+    m_CategoryList:
+    - m_Name: open_sideview
+      m_Hash: 1610880677
+      m_Sprite: {fileID: 3646939671055892210, guid: a2c0477dd2f32e54e8145c24d6ab61ee,
+        type: 3}
+    - m_Name: relaxed
+      m_Hash: 1766689268
+      m_Sprite: {fileID: 89888252640120718, guid: 0d515dc3e06c74d4bbf963b1de1392f2,
+        type: 3}
+  - m_Name: gun_hand
+    m_Hash: -1882774812
+    m_CategoryList:
+    - m_Name: open_sideview
+      m_Hash: 1610880677
+      m_Sprite: {fileID: 3646939671055892210, guid: a2c0477dd2f32e54e8145c24d6ab61ee,
+        type: 3}
+    - m_Name: relaxed
+      m_Hash: 1766689268
+      m_Sprite: {fileID: 89888252640120718, guid: 0d515dc3e06c74d4bbf963b1de1392f2,
+        type: 3}
+    - m_Name: trigger
+      m_Hash: 443223901
+      m_Sprite: {fileID: -4029788330691941778, guid: 8d1917be67b0d21489f35904e957ec79,
+        type: 3}

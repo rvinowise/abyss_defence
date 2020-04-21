@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
 using geometry2d;
+using rvinowise.units.parts.actions;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.weapons.guns;
+using units.equipment.arms.Arm.actions;
 
 
-namespace rvinowise.units.parts.limbs.arms.strategy.idle_vigilant.main_arm {
+namespace rvinowise.units.parts.limbs.arms.actions.idle_vigilant.main_arm {
 
-public class Gun_with_stock: actions.Action
+public class Gun_with_stock: actions.Action_of_arm
 {
 
     /* parameters given by the user */
@@ -25,18 +27,14 @@ public class Gun_with_stock: actions.Action
     
     
     public static Gun_with_stock create(
-        Action_tree in_action_tree, 
+        Action_parent in_action_parent,
         Transform in_target,
         transport.ITransporter in_transporter
     ) {
-        Gun_with_stock action = (Gun_with_stock)pool.get(typeof(Gun_with_stock), in_action_tree);
+        Gun_with_stock action = (Gun_with_stock)pool.get(typeof(Gun_with_stock), in_action_parent);
         action.target = in_target;
         action.transporter = in_transporter;
         return action;
-    }
-    
-    public Gun_with_stock(Action_tree in_action_tree, Transform in_target): base(in_action_tree) {
-        target = in_target;
     }
     
     public Gun_with_stock() {
@@ -45,7 +43,8 @@ public class Gun_with_stock: actions.Action
     
     const float shoulder_thickness = 0.15f;
     private float distance_shoulder_to_wrist;
-    public override void start() {
+    public override void init_state() {
+        base.init_state();
         if (arm.held_tool is Gun gun) {
             held_gun = gun;
 
@@ -134,11 +133,7 @@ public class Gun_with_stock: actions.Action
     }
 
     
-    public override void OnDrawGizmos() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(position_of_wrist,1f);
-        Gizmos.DrawSphere(new Vector2(0f,0f),1f);
-    }
+ 
 
 }
 }

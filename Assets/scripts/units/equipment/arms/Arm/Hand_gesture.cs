@@ -9,9 +9,16 @@ using rvinowise;
 namespace rvinowise.units.parts.limbs.arms {
 
 public class Hand_gesture : Headspring.Enumeration<Hand_gesture, int> {
-    public static readonly Hand_gesture Relaxed = new Hand_gesture(0, "Relaxed");
+    public static readonly Hand_gesture Relaxed = new Hand_gesture(
+        0,
+        "Relaxed",
+        new Vector2(0.11f, 0f)
+    );
     public static readonly Hand_gesture Grip_of_vertical = new Hand_gesture(
-        1, "Grip_of_vertical",new Vector2(0.11f, 0f/*-0.02f*/));
+        1, 
+        "Grip_of_vertical",
+        new Vector2(0.11f, 0f)
+    );
     
     public static readonly Hand_gesture Support_of_horizontal = new Hand_gesture(
         2, "Support_of_horizontal", new Vector2(0.13f, 0f));

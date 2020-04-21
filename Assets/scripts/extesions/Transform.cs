@@ -61,20 +61,20 @@ public static partial class Unity_extension
             in_speed * Time.deltaTime);
     }
     public static void rotate_to(this Transform transform, Relative_direction needed_rotation, float in_speed) {
-        if (needed_rotation.relative_to == null) {
+        //if (needed_rotation.relative_to == null) {
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation,
                 needed_rotation.direction,
                 in_speed * Time.deltaTime);
-        }
+        /*}
         else {
             Quaternion absolute_rotation =
-                needed_rotation.direction * needed_rotation.relative_to.rotation;
+                needed_rotation.direction;// * needed_rotation.relative_to.rotation;
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation,
                 absolute_rotation,
                 in_speed * Time.deltaTime);
-        }
+        }*/
         
     }
 
@@ -82,6 +82,19 @@ public static partial class Unity_extension
         return new Orientation(
             transform.position,
             transform.rotation
+        );
+    }
+
+    public static void flipY(this Transform transform, bool in_flip) {
+        float flip = 1;
+        if (in_flip) {
+            flip = -1;
+        }
+        
+        transform.localScale = new Vector3(
+            transform.localScale.x,
+             flip *transform.localScale.y,
+            transform.localScale.z
         );
     }
 

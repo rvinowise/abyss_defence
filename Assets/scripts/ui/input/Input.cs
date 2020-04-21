@@ -43,7 +43,7 @@ public class Input: MonoBehaviour {
     }
 
     public bool button_presed(string name) {
-        return UnityEngine.Input.GetButton(name);
+        return UnityEngine.Input.GetButtonDown(name);
     }
 
     private Vector2 read_moving_vector() {

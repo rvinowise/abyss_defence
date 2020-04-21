@@ -17,7 +17,7 @@ public class Debug_monitor : MonoBehaviour
         if (points == null || points.Length == 0) {
             return;
         }
-		// for every point (except for the last one), draw line to the next point
+		// for every point (except for the last one), draw line to the add_next_child point
 		for(int i = 0; i < points.Length-1; i++)
 		{
             Debug.DrawLine(

@@ -50,6 +50,16 @@ public struct Degree {
         result.normalize();
         return result;
     }
+    public static Degree operator + (Degree degree1, float degree2) {
+        Degree result = new Degree(degree1.degrees + degree2);
+        result.normalize();
+        return result;
+    }
+    public static Degree operator - (Degree degree1, float degree2) {
+        Degree result = new Degree(degree1.degrees - degree2);
+        result.normalize();
+        return result;
+    }
 
     public Degree use_minus() {
         if (degrees > 180) {
@@ -62,6 +72,13 @@ public struct Degree {
     
     public Side side() {
         return Side.from_degrees(this.use_minus().degrees);
+    }
+
+    public Degree adjust_to_side(Side side) {
+        if (side == Side.RIGHT) {
+            return new Degree(-this.degrees);
+        }
+        return this;
     }
 }
 }

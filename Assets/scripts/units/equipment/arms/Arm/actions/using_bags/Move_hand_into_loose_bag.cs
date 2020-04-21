@@ -4,30 +4,25 @@ using System.Collections.Generic;
 using geometry2d;
 using UnityEngine;
 using rvinowise;
+using rvinowise.units.parts.actions;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.strategy;
 using static geometry2d.Directions;
-using Action = rvinowise.units.parts.limbs.arms.actions.Action;
 
-namespace rvinowise.units.parts.limbs.arms.strategy {
+namespace rvinowise.units.parts.limbs.arms.actions {
 
-public class Move_hand_into_loose_bag: Action {
+public class Move_hand_into_loose_bag: Action_of_arm {
 
     private Baggage bag;
     private float old_rotation_speed;
 
-    public Move_hand_into_loose_bag(Action_tree in_action_tree, Baggage in_bag) : base(in_action_tree) {
-        bag = in_bag;
-    }
     public Move_hand_into_loose_bag() {
         
     }
 
-    public override void start() {
+    public override void init_state() {
+        base.init_state();
         set_desired_directions(arm);
-    }
-
-    public override void end() {
     }
 
 
@@ -35,7 +30,7 @@ public class Move_hand_into_loose_bag: Action {
 
     public override void update() {
         if (complete()) {
-            start_next();
+            transition_to_next_action();
         } else {
             set_desired_directions(arm);
             arm.rotate_to_desired_directions();

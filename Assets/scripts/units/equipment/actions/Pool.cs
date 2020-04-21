@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
 using rvinowise.units.parts.strategy;
+using units.equipment.arms.Arm.actions;
 
 
 namespace rvinowise.units.parts.actions {
@@ -14,15 +15,19 @@ public abstract partial class Action {
         private Dictionary<System.Type, Queue<TBase>> types_to_objects = 
             new Dictionary<Type, Queue<TBase>>();
 
-        public TBase get(System.Type type, Action_tree in_action_tree) {
+        public TBase get(
+            System.Type type, 
+            Action_parent in_action_sequence_builder
+        ) {
             Queue<TBase> bases = get_or_create_place_for_type(type);
 
             if (bases.Count == 0) {
-                TBase new_base = create_new_object(type, in_action_tree);
+                TBase new_base = create_new_object(type, in_action_sequence_builder);
                 return new_base;
             }
             TBase restored_action = bases.Dequeue();
-            restored_action.action_tree = in_action_tree;
+            restored_action.attach_to_parent(in_action_sequence_builder);
+            
             return restored_action;
         }
 
@@ -42,9 +47,12 @@ public abstract partial class Action {
         }
 
 
-        TBase create_new_object(Type type, Action_tree in_action_tree) {
+        TBase create_new_object(
+            Type type, 
+            Action_parent in_action_parent
+        ) {
             TBase new_base = (TBase) Activator.CreateInstance(type);
-            new_base.action_tree = in_action_tree;
+            new_base.parent_action = in_action_parent;
             return new_base;
         }
     }

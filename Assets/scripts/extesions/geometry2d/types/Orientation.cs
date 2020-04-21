@@ -10,12 +10,30 @@ public class Orientation {
 
     public Vector2 position;
     public Quaternion rotation;
+    
+    public Vector2 local_position;
+    public Vector2 local_direction;
 
     public Transform parent;
     
     
     public Orientation() {}
 
+    public Orientation(
+        Transform in_parent
+    ) 
+    {
+        position = Vector2.zero;
+        rotation = Quaternion.identity;
+        parent = in_parent;
+    }
+
+    public static Orientation from_transform(Transform in_transform) {
+        return new Orientation() {
+            position = in_transform.position,
+            rotation = in_transform.rotation
+        };
+    }
     public Orientation(
         Vector2 in_position, 
         Quaternion in_rotation,
@@ -41,6 +59,11 @@ public class Orientation {
     }
     public static bool operator !=(Orientation obj1, Orientation obj2) {
         return !(obj1 == obj2);
+    }
+
+    public void adjust_to_parent() {
+        position = parent.TransformPoint(local_position);
+        rotation = ((Vector2)parent.TransformDirection(local_direction)).to_quaternion();
     }
 }
 }

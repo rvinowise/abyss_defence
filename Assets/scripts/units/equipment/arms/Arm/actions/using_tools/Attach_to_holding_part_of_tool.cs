@@ -1,25 +1,28 @@
 using System.Linq.Expressions;
 using geometry2d;
+using rvinowise.units.parts.actions;
 using UnityEngine;
-using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.tools;
+using units.equipment.arms.Arm.actions;
 
 
-namespace rvinowise.units.parts.limbs.arms.strategy {
+namespace rvinowise.units.parts.limbs.arms.actions {
 
-public class Attach_to_holding_part_of_tool: Action {
+public class Attach_to_holding_part_of_tool: Action_of_arm {
 
     private Holding_place holding_place;
     
     public static Attach_to_holding_part_of_tool create(
-        Action_tree in_action_tree, Holding_place holding_place
+        Action_parent in_action_parent, 
+        Holding_place holding_place
     ) {
-        var action = (Attach_to_holding_part_of_tool)pool.get(typeof(Attach_to_holding_part_of_tool), in_action_tree);
+        var action = (Attach_to_holding_part_of_tool)pool.get(typeof(Attach_to_holding_part_of_tool), in_action_parent);
         action.holding_place = holding_place;
         return action;
     }
 
-    public override void start() {
+    public override void init_state() {
+        base.init_state();
         arm.hand.gesture = Hand_gesture.Support_of_horizontal;
     }
 

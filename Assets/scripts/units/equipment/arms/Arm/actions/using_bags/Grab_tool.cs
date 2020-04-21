@@ -5,24 +5,28 @@ using geometry2d;
 using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
+using rvinowise.units.parts.actions;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.strategy;
 using rvinowise.units.parts.tools;
-using Action = rvinowise.units.parts.limbs.arms.actions.Action;
+using units.equipment.arms.Arm.actions;
 
 
-namespace rvinowise.units.parts.limbs.arms.strategy {
+namespace rvinowise.units.parts.limbs.arms.actions {
 
-public class Grab_tool: Action {
+public class Grab_tool: Action_of_arm {
 
     private Baggage bag;
     private Tool tool;
 
     
     public static Grab_tool create(
-        Action_tree in_action_tree, Baggage in_bag, Tool in_tool
+        Action_parent in_action_parent, 
+        Arm in_arm,
+        Baggage in_bag, Tool in_tool
     ) {
-        var action = (Grab_tool)pool.get(typeof(Grab_tool), in_action_tree);
+        var action = (Grab_tool)pool.get(typeof(Grab_tool), in_action_parent);
+        action.arm = in_arm;
         action.bag = in_bag;
         action.tool = in_tool;
         return action;
@@ -32,14 +36,15 @@ public class Grab_tool: Action {
     }
 
 
-    public override void start() {
+    public override void init_state() {
+        base.init_state();
         if (arm.held_part != null) {
             stash_old_tool();
         }
         if (tool != null) {
             take_new_tool();
         }
-        start_next();
+        transition_to_next_action();
     }
 
     private void stash_old_tool() {

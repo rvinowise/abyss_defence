@@ -4,38 +4,36 @@ using System.Collections.Generic;
 using geometry2d;
 using UnityEngine;
 using rvinowise;
+using rvinowise.units.parts.actions;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.strategy;
 using rvinowise.units.parts.weapons.guns;
-using Action = rvinowise.units.parts.limbs.arms.actions.Action;
+using units.equipment.arms.Arm.actions;
 
 
-namespace rvinowise.units.parts.limbs.arms.strategy {
+namespace rvinowise.units.parts.limbs.arms.actions {
 
-public class Idle_vigilant_only_arm: Action {
+public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
 
     private Transform target;
     private transport.ITransporter transporter; // movements of arms depend on where the body is moving
     
     public static Idle_vigilant_only_arm create(
-        Action_tree in_action_tree,
+        Action_parent in_action_parent,
+        Arm in_arm,
         Transform in_target,
         transport.ITransporter in_transporter
     ) {
-        Idle_vigilant_only_arm action = (Idle_vigilant_only_arm)pool.get(typeof(Idle_vigilant_only_arm), in_action_tree);
+        Idle_vigilant_only_arm action = (Idle_vigilant_only_arm)pool.get(typeof(Idle_vigilant_only_arm), in_action_parent);
+        action.arm = in_arm;
         action.target = in_target;
         action.transporter = in_transporter;
         return action;
     }
-    public Idle_vigilant_only_arm(Action_tree in_action_tree, Transform in_target): base(in_action_tree) {
-        target = in_target;
-    }
     
-    public Idle_vigilant_only_arm() {
-        
-    }
     
-    public override void start() {
+    public override void init_state() {
+        base.init_state();
     }
     
     

@@ -45,7 +45,7 @@ public abstract class Creature: MonoBehaviour
     protected virtual void create_equipment() {}
 
     private void init_intelligence() {
-        intelligence = new Player(transform);
+        intelligence = new Computer();
         intelligence.transporter = transporter;
     }
 

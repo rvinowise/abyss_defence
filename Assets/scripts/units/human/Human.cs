@@ -109,6 +109,11 @@ public class Human:
             pump_shotgun,
             ak47
         };
+
+        Magazine desert_eagle_magazine = Game_object.instantiate_stashed(
+            "objects/guns/desert_eagle/magazine" 
+        ).GetComponent<Magazine>();
+        baggage.insert_ammo_for_gun(pistol1.GetComponent<Desert_eagle>(), desert_eagle_magazine);
     }
 
     private void init_body_parts() {

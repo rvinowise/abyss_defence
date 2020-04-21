@@ -11,7 +11,13 @@ public class Pistol:
 
     [SerializeField]
     public Transform shell_ejector;
+    public Slot magazine_slot { get; private set; }
     //public GameObject projectile;
+    
+    protected override void init_components() {
+        base.init_components();
+        magazine_slot = GetComponentInChildren<Slot>();
+    }
     
     protected override void init_holding_places() {
         main_holding = Holding_place.main(this);

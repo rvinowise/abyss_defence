@@ -4,21 +4,25 @@ using System.Collections.Generic;
 using geometry2d;
 using UnityEngine;
 using rvinowise;
+using rvinowise.units.parts.actions;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.strategy;
-using Action = rvinowise.units.parts.limbs.arms.actions.Action;
+using units.equipment.arms.Arm.actions;
 
 
-namespace rvinowise.units.parts.limbs.arms.strategy {
+namespace rvinowise.units.parts.limbs.arms.actions {
 
-public class Put_hand_before_bag: Action {
+public class Put_hand_before_bag: Action_of_arm {
 
     private Baggage bag;
 
     public static Put_hand_before_bag create(
-        Action_tree in_action_tree, Baggage in_bag
+        Action_parent in_action_parent,
+        Arm in_arm,
+        Baggage in_bag
     ) {
-        var action = (Put_hand_before_bag)pool.get(typeof(Put_hand_before_bag), in_action_tree);
+        var action = (Put_hand_before_bag)pool.get(typeof(Put_hand_before_bag), in_action_parent);
+        action.arm = in_arm;
         action.bag = in_bag;
         //action.init(in_bag);
         return action;
@@ -30,7 +34,8 @@ public class Put_hand_before_bag: Action {
         
     }
 
-    public override void start() {
+    public override void init_state() {
+        base.init_state();
         if (arm.held_tool == null) {
             arm.hand.gesture = Hand_gesture.Open_sideview;
         }
@@ -38,17 +43,12 @@ public class Put_hand_before_bag: Action {
     public override void update() {
         Orientation desired_orientation = get_desired_orientation();
         if (complete(desired_orientation)) {
-            start_next();
+            transition_to_next_action();
         } else {
             arm.rotate_to_orientation(desired_orientation);
         }
     }
     
-    private void set_desired_directions(Orientation needed_tool_orientation) {
-        arm.set_desired_directions_by_position(needed_tool_orientation.position);
-        arm.hand.desired_direction = needed_tool_orientation.rotation;
-    }
-
     private static Vector2 bag_offset = new Vector2(0.3f,0f);
     private Orientation get_desired_orientation() {
         return new Orientation(

@@ -13,7 +13,6 @@ public class Turning_element: Game_object {
     public Span possible_span;
     public float rotation_speed;
     public Saved_physics last_physics = new Saved_physics();
-    //public Turning_element.Strategy strategy = Strategy.Reach_desired_direction;
 
     public Quaternion desired_direction {
         get { return target_direction.direction;}
