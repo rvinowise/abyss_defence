@@ -22,11 +22,13 @@ public class Segment: limbs.Segment {
 
     
     /* limbs.Segment interface */
-    public Segment(string name):base(name) {
-        
-    }
-    public Segment(string name, GameObject prefab):base(name, prefab) {
-        
+  
+    
+    public static Segment create(string in_name) {
+        GameObject game_object = new GameObject(in_name);
+        game_object.AddComponent<SpriteRenderer>();
+        var new_component = game_object.add_component<Segment>();
+        return new_component;
     }
 }
 }

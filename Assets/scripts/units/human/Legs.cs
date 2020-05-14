@@ -31,6 +31,7 @@ public class Legs:
 
     public float get_possible_rotation() {
         return 110f;
+        //return 0f;
     }
 
     public float get_possible_impulse() {

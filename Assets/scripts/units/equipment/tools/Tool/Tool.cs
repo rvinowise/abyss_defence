@@ -14,13 +14,8 @@ public abstract class Tool: MonoBehaviour
     
     public Holding_place main_holding;
     public Holding_place second_holding;
-
-    public Degree direction = new Degree(0);
     
-    
-    public SpriteRenderer sprite_renderer;
     public Animator animator;
-    //protected Rigidbody2D rigid_body;
 
     
     protected virtual void Awake() {
@@ -29,7 +24,6 @@ public abstract class Tool: MonoBehaviour
     }
 
     protected virtual void init_components() {
-        sprite_renderer = gameObject.GetComponent<SpriteRenderer>();
         animator = gameObject.GetComponent<Animator>();
         //rigid_body = gameObject.GetComponent<Rigidbody2D>();
         

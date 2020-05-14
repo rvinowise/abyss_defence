@@ -33,6 +33,8 @@ public class Player : Human {
         : base() 
     {
         transform = in_transform;
+        
+        
     }
 
     public override void update() {
@@ -66,9 +68,7 @@ public class Player : Human {
         
         bool wants_to_reload = Input.instance.button_presed("reload");
         if (wants_to_reload) {
-            if (!arm_controller.is_reloading_now(arm)) {
-                arm_controller.reload(arm);
-            }
+            arm_controller.reload(arm);
         }
         
         bool has_shot = false;
@@ -126,7 +126,7 @@ public class Player : Human {
         return false;
     }
 
-    private Arm get_selected_arm() {
+    public Arm get_selected_arm() {
         if (Side.from_degrees(last_rotation) == geometry2d.Side.LEFT) {
             return arm_controller.left_arm;
         }

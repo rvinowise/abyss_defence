@@ -42,11 +42,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: body
-    uniqueID: 315254047
-    locked: 0
   - name: under body
     uniqueID: 2584921089
+    locked: 0
+  - name: arms
+    uniqueID: 3302420939
+    locked: 0
+  - name: body
+    uniqueID: 315254047
     locked: 0
   - name: on body
     uniqueID: 738386907

@@ -9,7 +9,7 @@ using rvinowise.units.parts.transport;
 
 namespace rvinowise.units.parts.limbs.arms {
 
-public class Arm_controller: 
+public class Arm_controller: /*MonoBehaviour,*/
     IChildren_group
     ,IWeaponry
 {

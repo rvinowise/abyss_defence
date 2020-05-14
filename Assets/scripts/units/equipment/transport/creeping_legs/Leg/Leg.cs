@@ -43,8 +43,8 @@ public partial class Leg: Limb2
     public Vector2 optimal_position;
 
     public Leg(Transform inHost) {
-        femur = new Segment("femur");
-        tibia = new Segment("tibia");
+        femur = Segment.create("femur");
+        tibia = Segment.create("tibia");
         femur.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "legs";
         tibia.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "legs";
         tibia.parent = femur.transform;

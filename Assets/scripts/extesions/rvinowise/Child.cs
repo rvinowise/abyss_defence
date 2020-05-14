@@ -12,7 +12,7 @@ public interface Child
 {
     Transform parent { get; set; }
     
-    //point relative to the parent where the leg is attached to it
+    //point relative to the parent where this Child is attached to it
     Vector2 local_position {
         get;
         set;

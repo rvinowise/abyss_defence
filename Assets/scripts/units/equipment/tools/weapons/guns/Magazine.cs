@@ -26,12 +26,13 @@ public class Magazine : Tool {
     
     /* Tool interface */
     protected override void init_holding_places() {
-        main_holding =  new Holding_place(this) {
+        /*main_holding =  new Holding_place(this) {
             is_main = true,
-            place_on_tool = new Vector2(-0.1f, 0f),
-            grip_gesture = Hand_gesture.Relaxed,
+            grip_gesture = Hand_gesture.Hold_horizontal_flat_oject,
+            place_on_tool = new Vector2(-0.0f, 0f),
             grip_direction = new Degree(-30f)
-        };
+        };*/
+        main_holding = transform.Find("main_holding_place")?.GetComponent<Holding_place>();
     }
 
     public Bullet retrieve_round() {

@@ -1,37 +1,48 @@
-﻿using extesions;
+﻿using System.Runtime.CompilerServices;
+using extesions;
 using rvinowise.units;
 using UnityEngine;
 using geometry2d;
 using Headspring;
+using UnityEditor;
 using static geometry2d.Directions;
 
 namespace rvinowise.units.parts.limbs{
 
-public class Turning_element: Game_object {
+public class Turning_element: Component_creator {
     
+    /* parameters from the editor */
     
+    [SerializeField]
+    public Transform rotated_bone;
+
     public Span possible_span;
     public float rotation_speed;
-    public Saved_physics last_physics = new Saved_physics();
 
+    /*  */
+    
+    public Saved_physics last_physics = new Saved_physics();
+    
     public Quaternion desired_direction {
         get { return target_direction.direction;}
         set { target_direction.direction = value; }
     }
     public Relative_direction target_direction;
-    
-    public Turning_element():base() {
-    }
-    public Turning_element(string name):base(name) {
-    }
-    public Turning_element(string name, GameObject prefab):base(name, prefab) {
+
+    protected void Awake() {
+        //base.Awake();
+        if (rotated_bone == null) { // if not specified in the Editor - by-default rotate itself
+            rotated_bone = this.transform;
+        }
     }
 
+   
+
     public virtual void rotate_to_desired_direction() {
-        transform.rotate_to(target_direction, rotation_speed);
+        rotated_bone.rotate_to(target_direction, rotation_speed);
     }
     public virtual void jump_to_desired_direction() {
-        transform.rotation = target_direction.direction;
+        rotated_bone.rotation = target_direction.direction;
     }
 
 
@@ -41,12 +52,12 @@ public class Turning_element: Game_object {
 
 
     public void preserve_possible_rotation() {
-        float delta_degrees = parent.delta_degrees(transform);
+        float delta_degrees = rotated_bone.parent.delta_degrees(rotated_bone);
         if (delta_degrees > possible_span.max) {
-            rotation = parent.rotation * degrees_to_quaternion(possible_span.max);
+            rotated_bone.rotation = rotated_bone.parent.rotation * degrees_to_quaternion(possible_span.max);
         }
         else if (delta_degrees < possible_span.min) {
-            rotation = parent.rotation * degrees_to_quaternion(possible_span.min);
+            rotated_bone.rotation = rotated_bone.parent.rotation * degrees_to_quaternion(possible_span.min);
         }
     }
 

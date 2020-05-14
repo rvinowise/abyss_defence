@@ -6,6 +6,7 @@ using UnityEngine;
 using rvinowise;
 using rvinowise.debug;
 using rvinowise.rvi.contracts;
+using rvinowise.units.control.human;
 using rvinowise.units.parts.limbs;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.limbs.arms.actions.using_guns.reloading;
@@ -16,6 +17,7 @@ namespace rvinowise.units.parts.limbs.arms.humanoid {
 
 public class Arm_controller: limbs.arms.Arm_controller {
 
+    private units.human.Human human;
     public Arm left_arm {
         get { return arms[0]; }
         set { arms[0] = value; }
@@ -31,69 +33,64 @@ public class Arm_controller: limbs.arms.Arm_controller {
 
     public Arm_controller(IChildren_groups_host in_user, ITransporter transporter) 
         : base(in_user, transporter) { }
-    
-    public Arm_controller(GameObject in_user, ITransporter transporter) 
-        : base(in_user, transporter) { }
+
+    public Arm_controller(units.human.Human in_user, ITransporter transporter)
+        : base(in_user.gameObject, transporter) {
+        human = in_user;
+    }
     
     
     
     public void reload(Arm gun_arm) {
         Contract.Requires(gun_arm.held_tool is Gun, "reloaded arm must hold a gun");
-        Log.info("started reloading");
-        
-        Arm magazine_arm = other_arm(gun_arm);
 
         if (is_reloading_now(gun_arm)) {
             return;
         }
+        Log.info("started reloading");
         
+        Arm magazine_arm = other_arm(gun_arm);
+
+        //human.animator.SetTrigger("reload_pistol");
         
         if (gun_arm.held_tool is Pistol pistol) {
 
-            /*gun_arm.action.current_child_action = Reload_pistol.create(
-                gun_arm.action,
-                gun_arm,
-                magazine_arm,
-                magazine_arm.baggage,
-                pistol,
-                gun_arm.baggage.retrieve_ammo_for_gun(pistol) as Magazine
-            );*/
-            
             magazine_arm.action.current_child_action = actions.Take_tool_from_bag.create(
                 magazine_arm.action, 
                 magazine_arm, 
                 magazine_arm.baggage,
                 gun_arm.baggage.retrieve_ammo_for_gun(pistol) as Magazine
             );
-            magazine_arm.action.new_next_child = actions.Idle_vigilant_only_arm.create(
+            /*magazine_arm.action.new_next_child = actions.Idle_vigilant_only_arm.create(
                 magazine_arm.action,
                 magazine_arm,
                 magazine_arm.idle_target, 
                 transporter
-            );
+            );*/
 
 
             gun_arm.action.current_child_action = Arm_reach_relative_directions.create(
                 gun_arm.action, 
                 gun_arm,
-                Directions.degrees_to_quaternion(-45f),
+                Directions.degrees_to_quaternion(-45+90f),
                 Directions.degrees_to_quaternion(90f),
                 Directions.degrees_to_quaternion(5f)
             );
-            gun_arm.action.new_next_child = actions.Idle_vigilant_only_arm.create(
+            /*gun_arm.action.new_next_child = actions.Idle_vigilant_only_arm.create(
                 gun_arm.action,
                 gun_arm,
                 gun_arm.idle_target, 
                 transporter
-            );
+            );*/
+                        
         }
 
 
     }
 
     public bool is_reloading_now(Arm weapon_holder) {
-        Arm ammo_taker = other_arm(weapon_holder); 
-        if (ammo_taker.action.current_child_action.GetType() == typeof(Reload_pistol)) {
+        //Arm ammo_taker = other_arm(weapon_holder); 
+        if (weapon_holder.action.current_child_action.GetType() == typeof(Arm_reach_relative_directions)) {
             return true;
         }
         return false;

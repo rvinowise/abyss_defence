@@ -53,11 +53,7 @@ public abstract partial class Action {
 
     protected void transition_to_next_action() {
         #region debug;
-        
         Log.info($"{GetType()} transition_to_next_action");
-        if (GetType() == typeof(Take_tool_from_bag)) {
-            bool test = true;
-        }
         #endregion
         if (next_action != null) {
             transition_to(next_action);

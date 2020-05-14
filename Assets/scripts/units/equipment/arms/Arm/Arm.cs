@@ -15,7 +15,7 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
 
     /* constant characteristics */
 
-    private Arm_controller controller;
+    public Arm_controller controller;
     
     public Segment upper_arm {
         get { return segment1 as arms.Segment;}
@@ -31,10 +31,7 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
             return _hand;
         }
     }
-    /*public Hand hand {
-        get { return segment3 as arms.Hand;}
-        set { segment3 = value; }
-    }*/
+
     public Hand hand {
         get { return _hand;}
         set { _hand = value; }
@@ -60,25 +57,21 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
     }
     public Holding_place held_part;
 
-    public Arm(Arm_controller in_controller, Transform in_idle_target) {
+    public Arm(
+        Arm_controller in_controller, 
+        Transform in_idle_target,
+        Segment in_upper_arm,
+        Segment in_forearm,
+        Hand in_hand
+    ) 
+    {
         controller = in_controller;
         
-        upper_arm = new Segment("upper_arm");
-        upper_arm.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "arms";
-        upper_arm.parent = in_controller.transform;
-        
-        forearm = new Segment("forearm");
-        forearm.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "arms";
-        forearm.game_object.GetComponent<SpriteRenderer>().sortingOrder = -1;
-        forearm.parent = upper_arm.transform;
+        upper_arm = in_upper_arm;
 
-        hand = new Hand(
-            "hand", 
-            Resources.Load<GameObject>("objects/units/human/hand")
-        );
-        hand.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "arms";
-        hand.game_object.GetComponent<SpriteRenderer>().sortingOrder = -10;
-        hand.parent = forearm.transform;
+        forearm = in_forearm;
+
+        hand = in_hand;
 
         idle_target = in_idle_target;
         start_idle_action();
@@ -165,27 +158,24 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         if (new_held_part != null) {
             attach_tool_to_hand(new_held_part);
         }
-        
-        void deattach_tool_from_hand(Holding_place held_part) {
-            
-            held_part.holding_arm = null;
-            
-            this.hand.gesture = Hand_gesture.Relaxed;
-        }
-        void attach_tool_to_hand(Holding_place held_part) {
-            held_part.holding_arm = this;
-            Transform tool_transform = held_part.tool.gameObject.transform;
-            tool_transform.localPosition =
-                hand.tip -
-                held_part.place_on_tool;
-            tool_transform.localRotation = 
-                held_part.grip_direction.adjust_to_side(this.folding_direction).to_quaternion();
-            
-            this.hand.gesture = held_part.grip_gesture;
-        }
     }
 
-    
+    void deattach_tool_from_hand(Holding_place held_part) {
+        held_part.hold_by(null);
+        this.hand.gesture = Hand_gesture.Relaxed;
+    }
+    void attach_tool_to_hand(Holding_place held_part) {
+        hand.gesture = held_part.grip_gesture;
 
+        Tool tool = held_part.tool;
+        set_Z_for_holding(tool);
+        held_part.hold_by(this);
+    }
+
+    private void set_Z_for_holding(Tool tool) {
+        tool.gameObject.set_sorting_layer("arms", hand.bottom_sorting_order+1 );
+    }
+
+  
 }
 }

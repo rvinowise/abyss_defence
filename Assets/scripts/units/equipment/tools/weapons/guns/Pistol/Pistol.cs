@@ -20,11 +20,14 @@ public class Pistol:
     }
     
     protected override void init_holding_places() {
-        main_holding = Holding_place.main(this);
-        second_holding = new Holding_place(this) {
-            grip_gesture = Hand_gesture.Support_of_horizontal,
-            grip_direction = new Degree(-45f)
-        };
+        main_holding = Holding_place.create(transform);
+        main_holding.is_main = true;
+        main_holding.grip_gesture = Hand_gesture.Grip_of_vertical;
+        
+        second_holding = Holding_place.create(transform);
+        second_holding.is_main = false;
+        second_holding.grip_gesture = Hand_gesture.Support_of_horizontal;
+        second_holding.grip_direction = new Degree(-45f);
     }
     
     

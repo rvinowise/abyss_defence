@@ -53,7 +53,7 @@ public class Grab_tool: Action_of_arm {
     }
 
     private void take_new_tool() {
-        //bag.remove_tool(tool);
+        ///bag.remove_tool(tool);
         tool.activate();
         arm.attach_tool_to_hand_for_holding(tool.main_holding);
     }

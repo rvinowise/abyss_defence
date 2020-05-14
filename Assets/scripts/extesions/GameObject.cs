@@ -28,4 +28,30 @@ public static partial class Unity_extension
         return children;
     }
     
+    public static void set_sorting_layer(
+        this GameObject game_object, 
+        string layer,
+        int bottom_level
+    ) {
+        set_sorting_layer_recursive(game_object, layer, bottom_level);
+    }
+         
+    private static void set_sorting_layer_recursive(
+        GameObject game_object, 
+        string layer,
+        int bottom_level    
+    ) {
+        SpriteRenderer sprite = game_object.gameObject.GetComponent<SpriteRenderer>();
+        if (sprite)
+        {
+            sprite.sortingLayerName = layer;
+            float local_order = ((float)sprite.sortingOrder % 1);
+            sprite.sortingOrder = bottom_level;// + local_order;
+        }
+             
+        foreach (Transform child in game_object.transform) {
+            set_sorting_layer_recursive(child.gameObject, layer, bottom_level);
+        }
+    }
+    
 }

@@ -25,6 +25,18 @@ public class Hand_gesture : Headspring.Enumeration<Hand_gesture, int> {
     
     public static readonly Hand_gesture Open_sideview = new Hand_gesture(3, "Open_sideview");
 
+    public static readonly Hand_gesture Hold_gun_sideview = new Hand_gesture(
+        4, 
+        "Hold_gun_sideview",
+        new Vector2(0.11f, 0f)
+    );
+    
+    public static readonly Hand_gesture Hold_horizontal_flat_object = new Hand_gesture(
+        5, 
+        "Hold_horizontal_flat_object",
+        new Vector2(0.11f, 0f)
+    );
+    
     private Hand_gesture(int value, string displayName) : base(value, displayName) {
         this.valuable_point = new Vector2(0.11f, -0.02f);
     }

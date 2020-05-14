@@ -100,7 +100,10 @@ public abstract class Gun:
     }
 
     private bool can_fire() {
-        return ready_to_fire() && !magazine.empty();
+        return 
+            ready_to_fire() && 
+            magazine != null &&
+            !magazine.empty();
     }
 
     public virtual bool ready_to_fire() {

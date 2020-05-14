@@ -10,6 +10,7 @@ using rvinowise.units.control.human;
 using rvinowise.units.parts.head;
 using rvinowise.units.parts.humanoid;
 using rvinowise.units.parts.limbs.arms;
+using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.tools;
 using rvinowise.units.parts.transport;
 using rvinowise.units.parts.weapons.guns;
@@ -23,17 +24,19 @@ using parts;
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(SpriteRenderer))]
 public class Human: 
     MonoBehaviour 
 {
+    
+    /* parameters from the editor */
     public Sprite head_sprite;
-    private SpriteRenderer sprite_renderer;
+    public init.Arms_initializer arms_initializer;
+    
     
 
     /* parts of the human*/
-    private Head head;
     private Arm_controller arms;
+    private Head head;
     private units.parts.humanoid.Legs legs;
     private parts.humanoid.Baggage baggage;
     
@@ -41,17 +44,25 @@ public class Human:
     private IChildren_groups_host user_of_equipment;
     private units.control.human.Human intelligence;
 
-
+    
+    /* components */
+    private SpriteRenderer sprite_renderer;
+    private Animator animator;
+    
     protected virtual void Awake()
     {
         init_components();
         init_parts();
-        
+
+        //animator.SetBool("open_hand", true);
     }
 
     private void init_components() {
-        sprite_renderer = GetComponent<SpriteRenderer>();
-        
+        animator = GetComponent<Animator>();
+        if (animator){
+            //animator.SetTrigger("reload_pistol");
+            animator.enabled = false;
+        }
     }
 
     private void init_parts() {
@@ -62,7 +73,7 @@ public class Human:
     }
 
     private void init_baggage() {
-        baggage = new parts.humanoid.Baggage();
+        baggage = parts.humanoid.Baggage.create();
         put_tools_into_baggage(baggage);
         
         baggage.transform.parent = transform;
@@ -76,27 +87,27 @@ public class Human:
     }
 
     private void put_tools_into_baggage(Baggage baggage) {
-        Tool pistol1 = Game_object.instantiate_stashed(
+        Tool pistol1 = Component_creator.instantiate_stashed(
             "objects/guns/desert_eagle/desert_eagle" 
         ).GetComponent<Tool>(); 
         
-        Tool pistol2 = Game_object.instantiate_stashed(
+        Tool pistol2 = Component_creator.instantiate_stashed(
             pistol1
         ).GetComponent<Tool>();
         
-        Tool break_sawedoff1 = Game_object.instantiate_stashed(
+        Tool break_sawedoff1 = Component_creator.instantiate_stashed(
             "objects/guns/break_sawedoff/break_sawedoff" 
         ).GetComponent<Tool>();
         
-        Tool break_sawedoff2 = Game_object.instantiate_stashed(
+        Tool break_sawedoff2 = Component_creator.instantiate_stashed(
             break_sawedoff1
         ).GetComponent<Tool>();
         
-        Tool pump_shotgun = Game_object.instantiate_stashed(
+        Tool pump_shotgun = Component_creator.instantiate_stashed(
             "objects/guns/pump_shotgun/pump_shotgun" 
         ).GetComponent<Tool>();
 
-        Tool ak47 = Game_object.instantiate_stashed(
+        Tool ak47 = Component_creator.instantiate_stashed(
             "objects/guns/ak47/ak47" 
         ).GetComponent<Tool>();
         
@@ -110,24 +121,24 @@ public class Human:
             ak47
         };
 
-        Magazine desert_eagle_magazine = Game_object.instantiate_stashed(
+        Magazine desert_eagle_magazine = Component_creator.instantiate(
             "objects/guns/desert_eagle/magazine" 
         ).GetComponent<Magazine>();
         baggage.insert_ammo_for_gun(pistol1.GetComponent<Desert_eagle>(), desert_eagle_magazine);
     }
 
     private void init_body_parts() {
-        sprite_renderer.sprite = Resources.Load<Sprite>("human/body");
         
-        head = init.Head.init(this, new Head());
+        head = init.Head.init(this, Head.create());
 
         legs = new Legs(this.gameObject);
         
-        arms = init.Arms.init(
-            new Arm_controller(gameObject, legs),
+        arms = arms_initializer.init(
+            new Arm_controller(this, legs),
             baggage,
             ui.input.Input.instance.cursor.center.transform
         );
+        
     }
 
     private void init_intelligence() {
@@ -136,6 +147,20 @@ public class Human:
         intelligence.arm_controller = arms;
         intelligence.baggage = baggage;
         intelligence.sensory_organ = head;
+        
+        //test
+        /*Arm arm = ((control.human.Player)intelligence).get_selected_arm();
+        arm.action.current_child_action = Grab_tool.create(
+            arm.action, arm, baggage, baggage.items[0] 
+        );
+        
+        arm.action.new_next_child = Idle_vigilant_only_arm.create(
+            arm.action,
+            arm,
+            arm.idle_target, 
+            arm.controller.transporter
+        );*/
+        //endtest
     }
 
 
@@ -147,5 +172,27 @@ public class Human:
         arms.update();
     }
 
+    void LateUpdate() {
+        //private void OnAnimatorIK(int layerIndex) {
+        
+    }
+
+    void change_tool_animation(string in_animation) {
+        Arm arm = arms.right_arm;
+        Contract.Requires(
+            arm.held_tool != null,
+            "must hold a tool to change its animation"
+        );
+        switch (in_animation) {
+            case "sideview":
+                arm.held_tool.animator.SetBool(in_animation, true);
+                break;
+            case "slide":
+                arm.held_tool.animator.SetTrigger(in_animation);
+                break;
+        }
+        
+    }
+    
 }
 }

@@ -4,27 +4,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
 using geometry2d;
+using rvinowise.rvi.contracts;
 using rvinowise.units.parts.limbs.arms;
-
+using units.equipment.arms.Arm.actions;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
 
 namespace rvinowise.units.parts.tools {
 
-public class Holding_place {
-    public Vector2 place_on_tool = Vector2.zero;
-    public Hand_gesture grip_gesture = Hand_gesture.Relaxed;
-    public Degree grip_direction = new Degree(0);
-    public Quaternion grip_direction_quaternion {
-        get { return grip_direction.to_quaternion(); }
-    }
-    public Tool tool;
+public class Holding_place: MonoBehaviour
+{
+    //public Vector2 place_on_tool = Vector2.zero;
+    //public Degree grip_direction = new Degree(0);
+    [SerializeField]
     public bool is_main;
+    [SerializeField] 
+    public string grip_gesture_from_editor = ""; 
+    
+    public Hand_gesture grip_gesture = Hand_gesture.Relaxed;
+    
+    public Quaternion grip_direction_quaternion {
+        get {
+            return transform.localRotation;
+            //return grip_direction.to_quaternion();
+        }
+    }
+    public Vector2 place_on_tool {
+        set { transform.localPosition = value; }
+        get { return transform.localPosition; }
+    }
+    public Degree grip_direction {
+        set { transform.localRotation = value.to_quaternion(); }
+        get { return transform.localRotation.to_degrees(); }
+    }
+
+    public Tool tool { get; set; }
+    
     public Arm holding_arm {
         get { return _holding_arm; }
-        set {
+        private set {
             _holding_arm = value;
-            if (is_main) {
-                tool.gameObject.transform.parent = _holding_arm.hand.transform;
-            }
+            
         }
     }
     public Arm _holding_arm;
@@ -33,28 +53,89 @@ public class Holding_place {
         get { return holding_arm.hand; }
     }
 
-    public Holding_place(Tool in_tool) {
-        tool = in_tool;
-    }
-
-    public static Holding_place main(Tool in_tool) {
-        Holding_place holding_place = new Holding_place(in_tool);
-        holding_place.is_main = true;
-        return holding_place;
-    }
-    public static Holding_place secondary(Tool in_tool) {
-        Holding_place holding_place = new Holding_place(in_tool);
-        holding_place.is_main = false;
-        return holding_place;
-    }
-    
     public Vector2 position {
         get{
-            return tool.transform.TransformPoint(place_on_tool);
+            //return tool.transform.TransformPoint(place_on_tool);
+            return transform.position;
         }
     }
     public Quaternion rotation {
-        get { return tool.transform.rotation * grip_direction_quaternion; }
+        get {
+            //return tool.transform.rotation * grip_direction_quaternion;
+            return transform.rotation;
+        }
+    }
+    
+
+    public static Holding_place main(Tool in_tool) {
+        Holding_place holding_place = Holding_place.create(in_tool.transform);
+        holding_place.is_main = true;
+        holding_place.grip_gesture = Hand_gesture.Grip_of_vertical;
+
+        return holding_place;
+    }
+    public static Holding_place secondary(Tool in_tool) {
+        Holding_place holding_place = Holding_place.create(in_tool.transform);
+        holding_place.is_main = false;
+        holding_place.grip_gesture = Hand_gesture.Grip_of_vertical;
+
+        return holding_place;
+    }
+
+    public static Holding_place create(Transform in_parent) {
+        Tool parent_tool =  in_parent.GetComponent<Tool>();
+        Contract.Requires(parent_tool  != null, "the parent of a Holding_place must be a Tool");
+        
+        GameObject game_object = new GameObject();
+        game_object.transform.parent = in_parent;
+        Holding_place holding_place = game_object.add_component<Holding_place>();
+        holding_place.tool = parent_tool;
+        
+        return holding_place;
+    }
+    public static Holding_place create(
+        bool _is_main,
+        Hand_gesture _hand_gesture,// = Hand_gesture.Relaxed,
+        Vector2 _position,// = Vector2.zero,
+        Quaternion _rotation// = Quaternion.identity
+    ) {
+        GameObject game_object = new GameObject();
+        Holding_place holding_place = game_object.add_component<Holding_place>();
+        holding_place.is_main = _is_main;
+        holding_place.grip_gesture = _hand_gesture;
+        holding_place.transform.localPosition = _position;
+        holding_place.transform.localRotation = _rotation;
+
+        return holding_place;
+    }
+    
+
+
+    protected void Awake() {
+        //base.Awake();
+        Tool parent_tool =  transform?.parent.GetComponent<Tool>();
+        Contract.Requires(parent_tool  != null, "the parent of a Holding_place must be a Tool");
+
+        tool = parent_tool;
+        if (grip_gesture_from_editor != "") {
+            grip_gesture = Hand_gesture.Parse(grip_gesture_from_editor);
+        }
+    }
+    
+    public void hold_by(Arm in_arm) {
+        holding_arm = in_arm;
+        if (is_main) {
+            tool.transform.parent = in_arm?.hand.valuable_point.transform;
+
+            Vector2 inversed_position = -this.transform.localPosition;
+            Quaternion inversed_rotation = this.transform.localRotation.inverse();
+            
+            tool.transform.localPosition =
+                inversed_position.rotate(inversed_rotation);
+
+            tool.transform.localRotation =
+                inversed_rotation;
+        }
     }
     
 }

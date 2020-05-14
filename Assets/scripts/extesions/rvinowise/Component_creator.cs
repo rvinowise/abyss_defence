@@ -8,9 +8,14 @@ using rvinowise.units;
 
 namespace rvinowise {
 
-public class Game_object:Child {
+public class Component_creator:
+    MonoBehaviour,
+    Child 
+{
 
-    public readonly GameObject game_object; 
+    public GameObject game_object {
+        get { return this.gameObject; }
+}
     
     
     /* GameObject fields */
@@ -52,7 +57,7 @@ public class Game_object:Child {
         }
     }
     
-    public Vector2 local_position { //same as local_position but with Unity's parenting
+    public Vector2 local_position {
         get { return transform.localPosition; }
         set { transform.localPosition = value; }
     }
@@ -61,33 +66,6 @@ public class Game_object:Child {
             return game_object.GetComponent<SpriteRenderer>();
         }
     }
-    public Animator animator  {
-        get {
-            if (_animator == null) {
-                _animator = game_object.GetComponent<Animator>();
-            }
-            return _animator;
-        }
-        set { _animator = value; }
-    }
-    private Animator _animator;
-    
-
-    
-    
-    public Game_object() {
-        game_object = new GameObject();
-        game_object.AddComponent<SpriteRenderer>();
-    }
-    public Game_object(string name) {
-        game_object = new GameObject(name);
-        game_object.AddComponent<SpriteRenderer>();
-    }
-    public Game_object(string name, GameObject prefab) {
-        game_object = GameObject.Instantiate(prefab, Vector2.zero, Quaternion.identity);
-    }
-    
-    
     
     
     public void activate() {
@@ -138,24 +116,14 @@ public class Game_object:Child {
     public static Component instantiate(Component component) {
         return instantiate(component.gameObject).GetComponent<Component>();
     }
+    
+    public static GameObject instantiate(string name) {
+        GameObject prefab = Resources.Load<GameObject>(name);
+        
+        return instantiate(prefab);
+    }
 
     
-    public string animation {
-        set {
-            if (value != null) {
-                if (animator == null) {
-                    animator = game_object.AddComponent<Animator>();
-                }
-                RuntimeAnimatorController controller = Resources.Load<RuntimeAnimatorController>(value);
-                animator.runtimeAnimatorController = controller;
-            }
-            else {
-                if (animator != null) {
-                    Component.Destroy(animator);
-                }
-            }
-        }
-    }
 
 
     

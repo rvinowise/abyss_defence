@@ -67,11 +67,9 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
         /* smooth movement with velocity for recoil */
         
         Vector2 last_hand_position = arm.hand.transform.position;
-        //arm.jump_to_desired_directions();
-
 
         arm.rotate_to_desired_directions();
-        Vector2 desired_hand_position = (Vector2) arm.hand.transform.position;
+        /*Vector2 desired_hand_position = (Vector2) arm.hand.transform.position;
         Vector2 desired_hand_movement = desired_hand_position - last_hand_position;
         arm.hand.velocity += desired_hand_movement;
         Vector2 final_hand_position = last_hand_position + arm.hand.velocity;
@@ -86,7 +84,7 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
         Debug.DrawLine(arm.hand.position,final_hand_position, Color.red);
 
 
-        arm.hold_onto_point(final_hand_position);
+        arm.hold_onto_point(final_hand_position);*/
     }
     
     private Quaternion determine_desired_direction_of_upper_arm(

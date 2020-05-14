@@ -23,9 +23,9 @@ public class Desert_eagle: Pistol {
         GameObject magazine_prefab = Resources.Load<GameObject>(
             "objects/guns/desert_eagle/magazine"    
         );
-        insert_magazine(
-            Game_object.instantiate(magazine_prefab).GetComponent<Magazine>()    
-        );
+        /*insert_magazine(
+            Component_creator.instantiate(magazine_prefab).GetComponent<Magazine>()    
+        );*/
     }
     
     
