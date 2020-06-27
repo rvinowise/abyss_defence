@@ -13,7 +13,7 @@ public abstract class Arm_reach_somewhere: arms.actions.Action_of_arm {
     public override void update() {
         Orientation desired_orientation = get_desired_orientation();
         if (complete(desired_orientation)) {
-            transition_to_next_action();
+            reached_goal();
         } else {
             arm.rotate_to_orientation(desired_orientation);
         }

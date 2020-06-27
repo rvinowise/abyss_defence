@@ -5,7 +5,6 @@ using UnityEngine;
 using geometry2d;
 using rvinowise.units.parts.actions;
 using rvinowise.units.parts.limbs.arms;
-using units.equipment.arms.Arm.actions;
 
 
 namespace units.equipment.parts.actions.Action {
@@ -17,11 +16,11 @@ public class Arm_reach_transform: rvinowise.units.parts.actions.Action {
     public Transform desired_transform;
     
     public static rvinowise.units.parts.actions.Action create(
-        Action_parent in_parent, 
+        Action_sequential_parent in_sequential_parent, 
         Arm in_arm, 
         Transform in_desired_orientation
     ) {
-        var action = (Arm_reach_transform)pool.get(typeof(Arm_reach_transform), in_parent);
+        var action = (Arm_reach_transform)pool.get(typeof(Arm_reach_transform), in_sequential_parent);
         action.arm = in_arm;
         action.desired_transform = in_desired_orientation;
         
@@ -29,7 +28,7 @@ public class Arm_reach_transform: rvinowise.units.parts.actions.Action {
     }
     public override void update() {
         if (complete(desired_transform)) {
-            transition_to_next_action();
+            reached_goal();
         } else {
             arm.rotate_to_orientation(Orientation.from_transform(desired_transform));
         }

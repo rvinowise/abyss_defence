@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
 using geometry2d;
+using rvinowise.units.parts.actions;
 using rvinowise.units.parts.tools;
-using units.equipment.arms.Arm.actions;
 using units.equipment.parts.actions.Action;
 
 
@@ -19,12 +19,12 @@ public class Push_object_into_slot: Arm_reach_orientation {
 
     
     public static Push_object_into_slot create(
-        Action_parent in_action_parent, 
+        Action_sequential_parent in_action_sequential_parent, 
         Arm in_arm,
         Tool in_insertee,
         Slot in_slot
     ) {
-        var action = (Push_object_into_slot)pool.get(typeof(Push_object_into_slot), in_action_parent);
+        var action = (Push_object_into_slot)pool.get(typeof(Push_object_into_slot), in_action_sequential_parent);
         action.arm = in_arm;
         action.insertee = in_insertee;
         action.slot = in_slot;

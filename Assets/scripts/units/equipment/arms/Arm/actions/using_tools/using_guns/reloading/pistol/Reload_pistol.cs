@@ -6,12 +6,11 @@ using rvinowise;
 using geometry2d;
 using rvinowise.units.parts.actions;
 using rvinowise.units.parts.weapons.guns;
-using units.equipment.arms.Arm.actions;
 
 
 namespace rvinowise.units.parts.limbs.arms.actions.using_guns.reloading {
 
-public class Reload_pistol: Action_parent {
+public class Reload_pistol: Action_sequential_parent {
 
     private Arm gun_arm;
     private Arm magazine_arm;
@@ -20,14 +19,14 @@ public class Reload_pistol: Action_parent {
     private Magazine magazine;
     
     public static Reload_pistol create(
-        Action_parent in_action_sequence_builder,
+        Action_sequential_parent in_action_sequential_sequence_builder,
         Arm in_gun_arm,
         Arm in_magazine_arm,
         Baggage in_bag, 
         Pistol in_tool,
         Magazine in_magazine
     ) {
-        var action = (Reload_pistol)pool.get(typeof(Reload_pistol), in_action_sequence_builder);
+        var action = (Reload_pistol)pool.get(typeof(Reload_pistol), in_action_sequential_sequence_builder);
         action.gun_arm = in_gun_arm;
         action.magazine_arm = in_magazine_arm;
         action.bag = in_bag;
@@ -57,8 +56,8 @@ public class Reload_pistol: Action_parent {
             gun.magazine_slot
         );*/
 
-        gun_arm.action.current_child_action = Arm_reach_relative_directions.create(
-            gun_arm.action, 
+        gun_arm.action_sequential.current_child_action_setter = Arm_reach_relative_directions.create(
+            gun_arm.action_sequential, 
             gun_arm,
             Directions.degrees_to_quaternion(45f),
             Directions.degrees_to_quaternion(90f),

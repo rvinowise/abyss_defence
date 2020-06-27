@@ -9,7 +9,6 @@ using rvinowise.units.parts.actions;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.strategy;
 using rvinowise.units.parts.tools;
-using units.equipment.arms.Arm.actions;
 
 
 namespace rvinowise.units.parts.limbs.arms.actions {
@@ -21,11 +20,11 @@ public class Grab_tool: Action_of_arm {
 
     
     public static Grab_tool create(
-        Action_parent in_action_parent, 
+        Action_sequential_parent in_action_sequential_parent, 
         Arm in_arm,
         Baggage in_bag, Tool in_tool
     ) {
-        var action = (Grab_tool)pool.get(typeof(Grab_tool), in_action_parent);
+        var action = (Grab_tool)pool.get(typeof(Grab_tool), in_action_sequential_parent);
         action.arm = in_arm;
         action.bag = in_bag;
         action.tool = in_tool;
@@ -44,7 +43,7 @@ public class Grab_tool: Action_of_arm {
         if (tool != null) {
             take_new_tool();
         }
-        transition_to_next_action();
+        reached_goal();
     }
 
     private void stash_old_tool() {

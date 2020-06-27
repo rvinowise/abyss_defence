@@ -6,7 +6,6 @@ using rvinowise;
 using geometry2d;
 using rvinowise.rvi.contracts;
 using rvinowise.units.parts.limbs.arms;
-using units.equipment.arms.Arm.actions;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 

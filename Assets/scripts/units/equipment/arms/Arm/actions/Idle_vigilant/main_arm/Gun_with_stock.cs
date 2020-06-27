@@ -7,7 +7,6 @@ using geometry2d;
 using rvinowise.units.parts.actions;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.weapons.guns;
-using units.equipment.arms.Arm.actions;
 
 
 namespace rvinowise.units.parts.limbs.arms.actions.idle_vigilant.main_arm {
@@ -27,11 +26,11 @@ public class Gun_with_stock: actions.Action_of_arm
     
     
     public static Gun_with_stock create(
-        Action_parent in_action_parent,
+        Action_sequential_parent in_action_sequential_parent,
         Transform in_target,
         transport.ITransporter in_transporter
     ) {
-        Gun_with_stock action = (Gun_with_stock)pool.get(typeof(Gun_with_stock), in_action_parent);
+        Gun_with_stock action = (Gun_with_stock)pool.get(typeof(Gun_with_stock), in_action_sequential_parent);
         action.target = in_target;
         action.transporter = in_transporter;
         return action;

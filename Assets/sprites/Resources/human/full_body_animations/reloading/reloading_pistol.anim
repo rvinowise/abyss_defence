@@ -561,7 +561,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/hand_r bottom
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/top
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -586,7 +586,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/hand_r top
+    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/bottom
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -611,7 +611,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l top
+    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/top
   m_ScaleCurves: []
   m_FloatCurves:
   - curve:
@@ -713,8 +713,27 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/hand_r top
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/bottom
     classID: 1
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -3
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_SortingOrder
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/bottom
+    classID: 212
     script: {fileID: 0}
   - curve:
       serializedVersion: 2
@@ -730,7 +749,7 @@ AnimationClip:
         outWeight: 0
       - serializedVersion: 3
         time: 1.5
-        value: 0
+        value: 1
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -741,7 +760,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l bottom
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/top
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -769,26 +788,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_SortingOrder
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l top
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: -3
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_SortingOrder
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l bottom
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/top
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -805,7 +805,7 @@ AnimationClip:
         outWeight: 0
       - serializedVersion: 3
         time: 1.5
-        value: 1
+        value: 0
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -816,18 +816,15 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l top
+    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/top
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 6a8a28cd4fb2b31488a0ba1e18a2e84b, type: 3}
-    - time: 1.5
-      value: {fileID: -2405231478145933514, guid: 18a135aead0b8bb48a45c2bba9e24aaa,
-        type: 3}
+      value: {fileID: 21300000, guid: f5d703240b840134f91c40ba03c37270, type: 3}
     attribute: m_Sprite
-    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/hand_r bottom
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/bottom
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -837,14 +834,17 @@ AnimationClip:
       value: {fileID: 1950250109949125521, guid: 43c32924e0375da4392cc5aadc76669b,
         type: 3}
     attribute: m_Sprite
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l top
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/top
     classID: 212
     script: {fileID: 0}
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: f5d703240b840134f91c40ba03c37270, type: 3}
+      value: {fileID: 21300000, guid: 6a8a28cd4fb2b31488a0ba1e18a2e84b, type: 3}
+    - time: 1.5
+      value: {fileID: -2405231478145933514, guid: 18a135aead0b8bb48a45c2bba9e24aaa,
+        type: 3}
     attribute: m_Sprite
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l bottom
+    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/bottom
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 60
@@ -925,77 +925,77 @@ AnimationClip:
       customType: 26
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3356674134
+      path: 143877847
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3549821333
-      attribute: 2086281974
-      script: {fileID: 0}
-      typeID: 1
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 2950628808
+      path: 143877847
       attribute: 3762991556
       script: {fileID: 0}
       typeID: 212
       customType: 26
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3549821333
-      attribute: 3762991556
-      script: {fileID: 0}
-      typeID: 212
-      customType: 26
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 2950628808
+      path: 3353332237
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3214506758
+      path: 3353332237
+      attribute: 3762991556
+      script: {fileID: 0}
+      typeID: 212
+      customType: 26
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 375709873
+      attribute: 2086281974
+      script: {fileID: 0}
+      typeID: 1
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 143877847
       attribute: 0
       script: {fileID: 0}
       typeID: 212
       customType: 23
       isPPtrCurve: 1
     - serializedVersion: 2
-      path: 2950628808
+      path: 3353332237
       attribute: 0
       script: {fileID: 0}
       typeID: 212
       customType: 23
       isPPtrCurve: 1
     - serializedVersion: 2
-      path: 3549821333
+      path: 4145006430
       attribute: 0
       script: {fileID: 0}
       typeID: 212
       customType: 23
       isPPtrCurve: 1
     - serializedVersion: 2
-      path: 3214506758
+      path: 3353332237
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3356674134
+      path: 4145006430
       attribute: 1
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2950628808
+      path: 375709873
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -1009,11 +1009,11 @@ AnimationClip:
       customType: 4
       isPPtrCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 6a8a28cd4fb2b31488a0ba1e18a2e84b, type: 3}
-    - {fileID: -2405231478145933514, guid: 18a135aead0b8bb48a45c2bba9e24aaa, type: 3}
+    - {fileID: 21300000, guid: f5d703240b840134f91c40ba03c37270, type: 3}
     - {fileID: 21300000, guid: 2b5370969cca41341b55a2230ffc7852, type: 3}
     - {fileID: 1950250109949125521, guid: 43c32924e0375da4392cc5aadc76669b, type: 3}
-    - {fileID: 21300000, guid: f5d703240b840134f91c40ba03c37270, type: 3}
+    - {fileID: 21300000, guid: 6a8a28cd4fb2b31488a0ba1e18a2e84b, type: 3}
+    - {fileID: -2405231478145933514, guid: 18a135aead0b8bb48a45c2bba9e24aaa, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -2781,7 +2781,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/hand_r top
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/bottom
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -2789,6 +2789,25 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
+        value: -3
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_SortingOrder
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/bottom
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
         value: 0
         inSlope: 0
         outSlope: 0
@@ -2809,7 +2828,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/hand_r bottom
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/top
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2837,7 +2856,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/hand_r bottom
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/top
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2865,91 +2884,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/hand_r bottom
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1.5
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.x
-    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/hand_r top
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1.5
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.y
-    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/hand_r top
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1.5
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.z
-    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/hand_r top
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/top
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -2966,7 +2901,7 @@ AnimationClip:
         outWeight: 0
       - serializedVersion: 3
         time: 1.5
-        value: 0
+        value: 1
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -2977,92 +2912,8 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l bottom
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/top
     classID: 1
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1.5
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.x
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l top
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1.5
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.y
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l top
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1.5
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalPosition.z
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l top
-    classID: 4
     script: {fileID: 0}
   - curve:
       serializedVersion: 2
@@ -3089,7 +2940,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_SortingOrder
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l top
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/top
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -3097,19 +2948,168 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -3
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_SortingOrder
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l bottom
-    classID: 212
+    attribute: m_LocalPosition.x
+    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/bottom
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/bottom
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/bottom
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/top
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/top
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.z
+    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/top
+    classID: 4
     script: {fileID: 0}
   - curve:
       serializedVersion: 2
@@ -3125,7 +3125,7 @@ AnimationClip:
         outWeight: 0
       - serializedVersion: 3
         time: 1.5
-        value: 1
+        value: 0
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -3136,7 +3136,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l/hand_l top
+    path: b_body/b_shoulder_r/b_upper_arm_r/b_forearm_r/b_hand_r/hand_r/top
     classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves:

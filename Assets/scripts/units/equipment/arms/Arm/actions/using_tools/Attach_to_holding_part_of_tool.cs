@@ -3,7 +3,6 @@ using geometry2d;
 using rvinowise.units.parts.actions;
 using UnityEngine;
 using rvinowise.units.parts.tools;
-using units.equipment.arms.Arm.actions;
 
 
 namespace rvinowise.units.parts.limbs.arms.actions {
@@ -13,10 +12,10 @@ public class Attach_to_holding_part_of_tool: Action_of_arm {
     private Holding_place holding_place;
     
     public static Attach_to_holding_part_of_tool create(
-        Action_parent in_action_parent, 
+        Action_sequential_parent in_action_sequential_parent, 
         Holding_place holding_place
     ) {
-        var action = (Attach_to_holding_part_of_tool)pool.get(typeof(Attach_to_holding_part_of_tool), in_action_parent);
+        var action = (Attach_to_holding_part_of_tool)pool.get(typeof(Attach_to_holding_part_of_tool), in_action_sequential_parent);
         action.holding_place = holding_place;
         return action;
     }

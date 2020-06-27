@@ -7,6 +7,7 @@ using rvinowise;
 using rvinowise.rvi.contracts;
 using rvinowise.units.control;
 using rvinowise.units.control.human;
+using rvinowise.units.parts.actions;
 using rvinowise.units.parts.head;
 using rvinowise.units.parts.humanoid;
 using rvinowise.units.parts.limbs.arms;
@@ -15,6 +16,7 @@ using rvinowise.units.parts.tools;
 using rvinowise.units.parts.transport;
 using rvinowise.units.parts.weapons.guns;
 using UnityEngine.UIElements;
+using Action = rvinowise.units.parts.actions.Action;
 using Arm_controller = rvinowise.units.parts.limbs.arms.humanoid.Arm_controller;
 
 namespace rvinowise.units.human {
@@ -35,7 +37,7 @@ public class Human:
     
 
     /* parts of the human*/
-    private Arm_controller arms;
+    private Arm_controller arm_controller;
     private Head head;
     private units.parts.humanoid.Legs legs;
     private parts.humanoid.Baggage baggage;
@@ -43,7 +45,8 @@ public class Human:
     
     private IChildren_groups_host user_of_equipment;
     private units.control.human.Human intelligence;
-
+    public Action action_tree;    
+    
     
     /* components */
     private SpriteRenderer sprite_renderer;
@@ -133,7 +136,7 @@ public class Human:
 
         legs = new Legs(this.gameObject);
         
-        arms = arms_initializer.init(
+        arm_controller = arms_initializer.init(
             new Arm_controller(this, legs),
             baggage,
             ui.input.Input.instance.cursor.center.transform
@@ -144,7 +147,7 @@ public class Human:
     private void init_intelligence() {
         intelligence = new control.human.Player(transform);
         intelligence.transporter = this.legs;
-        intelligence.arm_controller = arms;
+        intelligence.arm_controller = arm_controller;
         intelligence.baggage = baggage;
         intelligence.sensory_organ = head;
         
@@ -169,16 +172,15 @@ public class Human:
         
         head.update();
         legs.update();
-        arms.update();
-    }
-
-    void LateUpdate() {
-        //private void OnAnimatorIK(int layerIndex) {
         
+        if (!animator.enabled) {
+            arm_controller.update();
+        }
     }
 
+    /* invoked from the animation (in keyframes) */
     void change_tool_animation(string in_animation) {
-        Arm arm = arms.right_arm;
+        Arm arm = arm_controller.right_arm;
         Contract.Requires(
             arm.held_tool != null,
             "must hold a tool to change its animation"

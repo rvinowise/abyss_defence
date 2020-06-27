@@ -49,7 +49,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand l
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves:
@@ -57,7 +57,7 @@ AnimationClip:
     - time: 0
       value: {fileID: 89888252640120718, guid: 0d515dc3e06c74d4bbf963b1de1392f2, type: 3}
     attribute: m_Sprite
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand l
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 60
@@ -68,14 +68,14 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2754186392
+      path: 210692513
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 2754186392
+      path: 210692513
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -111,25 +111,6 @@ AnimationClip:
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_IsActive
-    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand l
-    classID: 1
-    script: {fileID: 0}
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -186,6 +167,25 @@ AnimationClip:
     attribute: localEulerAnglesRaw.z
     path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l
     classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_IsActive
+    path: b_body/b_shoulder_l/b_upper_arm_l/b_forearm_l/b_hand_l/hand_l
+    classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves:
   - curve:

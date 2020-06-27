@@ -5,8 +5,8 @@ using UnityEngine;
 using rvinowise;
 using geometry2d;
 using rvinowise.rvi.contracts;
+using rvinowise.units.parts.actions;
 using rvinowise.units.parts.weapons.guns;
-using units.equipment.arms.Arm.actions;
 using Vector2 = System.Numerics.Vector2;
 
 
@@ -20,7 +20,7 @@ public class Expose_gun_for_reloading_COMPLEX: parts.actions.Action {
     private Pistol pistol;
     
     public static parts.actions.Action create(
-        Action_parent in_parent, 
+        Action_sequential_parent in_sequential_parent, 
         Arm in_arm
     ) {
         Contract.Requires(
@@ -28,7 +28,7 @@ public class Expose_gun_for_reloading_COMPLEX: parts.actions.Action {
             "the arm must hold a gun to reload it"
         );
         
-        var action = (Expose_gun_for_reloading_COMPLEX)pool.get(typeof(Expose_gun_for_reloading_COMPLEX), in_parent);
+        var action = (Expose_gun_for_reloading_COMPLEX)pool.get(typeof(Expose_gun_for_reloading_COMPLEX), in_sequential_parent);
         action.arm = in_arm;
         
         if (in_arm.held_tool is Pistol pistol) {

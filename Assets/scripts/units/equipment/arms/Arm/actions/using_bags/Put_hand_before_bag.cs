@@ -7,7 +7,6 @@ using rvinowise;
 using rvinowise.units.parts.actions;
 using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.strategy;
-using units.equipment.arms.Arm.actions;
 
 
 namespace rvinowise.units.parts.limbs.arms.actions {
@@ -17,11 +16,11 @@ public class Put_hand_before_bag: Action_of_arm {
     private Baggage bag;
 
     public static Put_hand_before_bag create(
-        Action_parent in_action_parent,
+        Action_sequential_parent in_action_sequential_parent,
         Arm in_arm,
         Baggage in_bag
     ) {
-        var action = (Put_hand_before_bag)pool.get(typeof(Put_hand_before_bag), in_action_parent);
+        var action = (Put_hand_before_bag)pool.get(typeof(Put_hand_before_bag), in_action_sequential_parent);
         action.arm = in_arm;
         action.bag = in_bag;
         //action.init(in_bag);
@@ -43,7 +42,7 @@ public class Put_hand_before_bag: Action_of_arm {
     public override void update() {
         Orientation desired_orientation = get_desired_orientation();
         if (complete(desired_orientation)) {
-            transition_to_next_action();
+            reached_goal();
         } else {
             arm.rotate_to_orientation(desired_orientation);
         }
