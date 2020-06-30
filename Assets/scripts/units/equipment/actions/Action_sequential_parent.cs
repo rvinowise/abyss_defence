@@ -53,19 +53,7 @@ public class Action_sequential_parent:
     //private Queue<Action> child_actions = new Queue<Action>();
     
     
-    public override void attach_to_parent(Action_sequential_parent in_action_sequential_parent) {
-        base.attach_to_parent(in_action_sequential_parent);
-        discard_child_action_chain();
-    }
-
     
-
-    private void discard_child_action_chain() {
-        foreach(Action child_action in child_actions) {
-            child_action.discard();
-        }
-        current_child_action = null;
-    }
 
 
     public override void update() {
@@ -97,6 +85,32 @@ public class Action_sequential_parent:
         current_child_action = next_action;
         current_child_action.init_state();
 
+    }
+    
+    
+    public override void finish() {
+        Contract.Requires(
+            !child_actions.Any(),
+            "sequential parent can only finish when no child actions left in the queue"
+        );
+        Contract.Requires(
+            current_child_action.finished,
+            "parent action can only finish when its current child is finished"
+        );
+        
+        base.finish();
+    }
+
+    public override void discard() {
+        discard_child_action_chain();
+        base.discard();
+    }
+    
+    private void discard_child_action_chain() {
+        foreach(Action child_action in child_actions) {
+            child_action.discard();
+        }
+        current_child_action = null;
     }
     
 }

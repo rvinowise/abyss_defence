@@ -15,6 +15,7 @@ using rvinowise.units.parts.limbs.arms.actions;
 using rvinowise.units.parts.tools;
 using rvinowise.units.parts.transport;
 using rvinowise.units.parts.weapons.guns;
+using units.human.actions;
 using UnityEngine.UIElements;
 using Action = rvinowise.units.parts.actions.Action;
 using Arm_controller = rvinowise.units.parts.limbs.arms.humanoid.Arm_controller;
@@ -151,6 +152,14 @@ public class Human:
         intelligence.baggage = baggage;
         intelligence.sensory_organ = head;
         
+        action_tree = Idle_vigilant_body.create(
+            null,
+            arm_controller.left_arm,
+            arm_controller.right_arm,
+            ui.input.Input.instance.cursor.center.transform,
+            legs
+        );
+        
         //test
         /*Arm arm = ((control.human.Player)intelligence).get_selected_arm();
         arm.action.current_child_action = Grab_tool.create(
@@ -174,6 +183,7 @@ public class Human:
         legs.update();
         
         if (!animator.enabled) {
+            action_tree.update();
             arm_controller.update();
         }
     }

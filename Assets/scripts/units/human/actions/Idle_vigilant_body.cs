@@ -1,0 +1,50 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using rvinowise;
+using geometry2d;
+using rvinowise.units.parts.actions;
+using rvinowise.units.parts.limbs.arms;
+using rvinowise.units.parts.limbs.arms.actions;
+using rvinowise.units.parts.transport;
+
+
+namespace units.human.actions {
+
+public class Idle_vigilant_body: Action_parallel_parent {
+
+
+    private Arm left_arm;
+    private Arm right_arm;
+    private Transform target;
+    private ITransporter transporter; // movements of arms depend on where the body is moving
+    
+    public static Idle_vigilant_body create(   
+        Action_parent in_action_parent,
+        Arm in_left_arm,
+        Arm in_right_arm,
+        Transform in_target,
+        ITransporter in_transporter
+    ) {
+        Idle_vigilant_body action = (Idle_vigilant_body)pool.get(typeof(Idle_vigilant_body), in_action_parent);
+        action.left_arm = in_left_arm;
+        action.right_arm = in_right_arm;
+        action.target = in_target;
+        action.transporter = in_transporter;
+        
+        action.init_child_actions();
+        return action;
+    }
+    
+    private void init_child_actions() {
+        child_actions.Add(
+            Idle_vigilant_only_arm.create(this, left_arm, target, transporter)
+        );
+        child_actions.Add(
+            Idle_vigilant_only_arm.create(this, right_arm, target, transporter)
+        );
+  
+    }
+}
+}

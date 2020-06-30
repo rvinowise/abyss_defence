@@ -5,7 +5,7 @@ using geometry2d;
 using UnityEngine;
 using rvinowise;
 using rvinowise.units.parts.limbs.arms.actions;
-using rvinowise.units.parts.strategy;
+
 using rvinowise.units.parts.weapons.guns;
 
 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
-using rvinowise.units.parts.strategy;
+
 
 
 namespace rvinowise.units.parts.actions {
@@ -16,16 +16,16 @@ public abstract partial class Action {
 
         public TBase get(
             System.Type type, 
-            Action_sequential_parent in_action_sequential_sequence_builder
+            Action_parent in_action_parent
         ) {
             Queue<TBase> bases = get_or_create_place_for_type(type);
 
             if (bases.Count == 0) {
-                TBase new_base = create_new_object(type, in_action_sequential_sequence_builder);
+                TBase new_base = create_new_object(type, in_action_parent);
                 return new_base;
             }
             TBase restored_action = bases.Dequeue();
-            restored_action.attach_to_parent(in_action_sequential_sequence_builder);
+            restored_action.attach_to_parent(in_action_parent);
             
             return restored_action;
         }
@@ -48,7 +48,7 @@ public abstract partial class Action {
 
         TBase create_new_object(
             Type type, 
-            Action_sequential_parent in_parent
+            Action_parent in_parent
         ) {
             TBase new_base = (TBase) Activator.CreateInstance(type);
             new_base.parent_action = in_parent;

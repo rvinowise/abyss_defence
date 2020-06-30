@@ -6,7 +6,7 @@ using UnityEngine;
 using rvinowise;
 using rvinowise.units.parts.actions;
 using rvinowise.units.parts.limbs.arms.actions;
-using rvinowise.units.parts.strategy;
+
 using rvinowise.units.parts.weapons.guns;
 
 
@@ -18,12 +18,12 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
     private transport.ITransporter transporter; // movements of arms depend on where the body is moving
     
     public static Idle_vigilant_only_arm create(
-        Action_sequential_parent in_action_sequential_parent,
+        Action_parent in_action_parent,
         Arm in_arm,
         Transform in_target,
         transport.ITransporter in_transporter
     ) {
-        Idle_vigilant_only_arm action = (Idle_vigilant_only_arm)pool.get(typeof(Idle_vigilant_only_arm), in_action_sequential_parent);
+        Idle_vigilant_only_arm action = (Idle_vigilant_only_arm)pool.get(typeof(Idle_vigilant_only_arm), in_action_parent);
         action.arm = in_arm;
         action.target = in_target;
         action.transporter = in_transporter;

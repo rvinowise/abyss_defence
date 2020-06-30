@@ -56,8 +56,8 @@ public class Reload_pistol: Action_sequential_parent {
             gun.magazine_slot
         );*/
 
-        gun_arm.action_sequential.current_child_action_setter = Arm_reach_relative_directions.create(
-            gun_arm.action_sequential, 
+        gun_arm.action.current_child_action_setter = Arm_reach_relative_directions.create(
+            gun_arm.action, 
             gun_arm,
             Directions.degrees_to_quaternion(45f),
             Directions.degrees_to_quaternion(90f),

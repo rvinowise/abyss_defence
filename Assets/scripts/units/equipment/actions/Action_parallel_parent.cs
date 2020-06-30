@@ -13,6 +13,13 @@ public class Action_parallel_parent:
     Action_parent
 {
 
+    public static Action_parallel_parent create(
+        Action_parent in_action_parent
+    ) {
+        var action = (Action_parallel_parent)pool.get(typeof(Action_parallel_parent), in_action_parent);
+        
+        return action;
+    }
     
     public List<Action> child_actions = new List<Action>();
 
@@ -30,11 +37,6 @@ public class Action_parallel_parent:
     
     //private Queue<Action> child_actions = new Queue<Action>();
     
-    
-    public override void attach_to_parent(Action_sequential_parent in_action_sequential_parent) {
-        base.attach_to_parent(in_action_sequential_parent);
-        discard_child_actions();
-    }
 
     private void discard_child_actions() {
         foreach (Action child_action in child_actions) {

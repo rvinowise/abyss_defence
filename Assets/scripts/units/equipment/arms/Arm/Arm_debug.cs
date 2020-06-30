@@ -6,7 +6,7 @@ using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
 using rvinowise.units.parts.limbs.arms.actions;
-using rvinowise.units.parts.strategy;
+
 using Action = rvinowise.units.parts.actions.Action;
 using Input = rvinowise.ui.input.Input;
 

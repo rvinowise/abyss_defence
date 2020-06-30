@@ -182,7 +182,7 @@ public class Player : Human {
 
     private bool has_gun_in_2hands(out Gun out_gun) {
         if (
-            (arm_controller?.right_arm.action_sequential.current_child_action is Idle_vigilant_main_arm) &&
+            (arm_controller?.right_arm.action.current_child_action is Idle_vigilant_main_arm) &&
             (arm_controller?.right_arm.held_tool is Gun gun)
         ) {
             out_gun = gun;

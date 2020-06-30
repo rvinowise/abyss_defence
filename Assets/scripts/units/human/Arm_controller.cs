@@ -55,8 +55,8 @@ public class Arm_controller: limbs.arms.Arm_controller {
         
         if (gun_arm.held_tool is Pistol pistol) {
 
-            magazine_arm.action_sequential.current_child_action_setter = actions.Take_tool_from_bag.create(
-                magazine_arm.action_sequential, 
+            magazine_arm.action.current_child_action_setter = actions.Take_tool_from_bag.create(
+                magazine_arm.action, 
                 magazine_arm, 
                 magazine_arm.baggage,
                 gun_arm.baggage.retrieve_ammo_for_gun(pistol) as Magazine
@@ -69,8 +69,8 @@ public class Arm_controller: limbs.arms.Arm_controller {
             );*/
 
 
-            gun_arm.action_sequential.current_child_action_setter = Arm_reach_relative_directions.create(
-                gun_arm.action_sequential, 
+            gun_arm.action.current_child_action_setter = Arm_reach_relative_directions.create(
+                gun_arm.action, 
                 gun_arm,
                 Directions.degrees_to_quaternion(-45+90f),
                 Directions.degrees_to_quaternion(90f),
@@ -90,7 +90,7 @@ public class Arm_controller: limbs.arms.Arm_controller {
 
     public bool is_reloading_now(Arm weapon_holder) {
         //Arm ammo_taker = other_arm(weapon_holder); 
-        if (weapon_holder.action_sequential.current_child_action.GetType() == typeof(Arm_reach_relative_directions)) {
+        if (weapon_holder.action.current_child_action.GetType() == typeof(Arm_reach_relative_directions)) {
             return true;
         }
         return false;

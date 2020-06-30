@@ -45,12 +45,20 @@ public abstract partial class Action {
         
     }
 
-    protected void reset() {
-        parent_action = null;
-        finished = false;
-    }
+    
     
 
+    ~Action() {
+        debug_count--;
+        Debug.Log("Action qty= "+debug_count);
+        Log.info(string.Format("Action is destroyed. type= {1}, qty= {0}", 
+            debug_count,
+            this.GetType()
+        ));
+    }
+
+    public virtual void update() {}
+    
     protected void reached_goal() {
         #region debug;
         Log.info($"{GetType()} finish");
@@ -72,31 +80,22 @@ public abstract partial class Action {
         discard();
     }
 
-
-
-    ~Action() {
-        debug_count--;
-        Debug.Log("Action qty= "+debug_count);
-        Log.info(string.Format("Action is destroyed. type= {1}, qty= {0}", 
-            debug_count,
-            this.GetType()
-        ));
+    public virtual void discard() {
+        reset();
+        pool.return_to_pool(this);
     }
 
-    public virtual void update() {}
-
+    protected void reset() {
+        parent_action = null;
+        finished = false;
+    }
+    
     public virtual void init_state() {
         Log.info(($"{GetType()} Action is started."));
     }
 
     public virtual void restore_state() {
         Log.info($"{GetType()} Action is ended. ");
-    }
-
-
-    public void discard() {
-        reset();
-        pool.return_to_pool(this);
     }
 }
 

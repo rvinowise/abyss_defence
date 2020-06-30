@@ -10,7 +10,10 @@ using UnityEngine.UIElements;
 
 namespace rvinowise.units.parts.limbs.arms  {
 
-public partial class Arm: Limb3/*, IDo_actions*/ {
+public partial class Arm: 
+    Limb3, IPerform_actions 
+
+{
 
     /* constant characteristics */
 
@@ -41,9 +44,9 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         get { return upper_arm.length + forearm.length + hand.length; }
     }
     
-    /* IDo_actions interface */
+    /* IPerform_actions interface */
 
-    public Action_sequential_parent action_sequential = new Action_sequential_parent();
+    public Action_parent action = new Action_sequential_parent();
     
     /* Arm itself */
 
@@ -81,8 +84,8 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
     }
 
     public void start_idle_action() {
-        action_sequential.current_child_action_setter = Idle_vigilant_only_arm.create(
-            action_sequential,
+        action.current_child_action_setter = Idle_vigilant_only_arm.create(
+            action,
             this,
             idle_target,
             controller.transporter
@@ -90,7 +93,7 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
     }
     public void update() {
         
-        action_sequential?.update();
+        //action_sequential?.update(); actions are moved into Human (the centralized control)
 
         base.preserve_possible_rotations();
 
@@ -105,12 +108,12 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
         }
         Contract.Requires(held_tool == null, "must be free in order to grab a tool");
 
-        action_sequential.current_child_action_setter = actions.Take_tool_from_bag.create(
-            action_sequential, this, baggage, tool
+        action.current_child_action_setter = actions.Take_tool_from_bag.create(
+            action, this, baggage, tool
         );
         
-        action_sequential.new_next_child = actions.Idle_vigilant_only_arm.create(
-            action_sequential,
+        action.new_next_child = actions.Idle_vigilant_only_arm.create(
+            action,
             this,
             idle_target, 
             controller.transporter
@@ -121,12 +124,12 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
     public void support_held_tool(Tool tool) {
         Contract.Requires(held_tool == null, "must be free in order to grab a tool");
         
-        action_sequential.current_child_action_setter = actions.Arm_reach_holding_part_of_tool.create(
-            action_sequential, 
+        action.current_child_action_setter = actions.Arm_reach_holding_part_of_tool.create(
+            action, 
             tool.second_holding
         );
-        action_sequential.new_next_child = actions.Attach_to_holding_part_of_tool.create(
-            action_sequential,
+        action.new_next_child = actions.Attach_to_holding_part_of_tool.create(
+            action,
             tool.second_holding
         );
 
@@ -135,8 +138,8 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
 
     private void move_main_arm_closer(Tool tool) {
         Arm main_arm = tool.main_holding.holding_arm;
-        main_arm.action_sequential.current_child_action_setter = actions.idle_vigilant.main_arm.Gun_without_stock.create(
-            main_arm.action_sequential, 
+        main_arm.action.current_child_action_setter = actions.idle_vigilant.main_arm.Gun_without_stock.create(
+            main_arm.action, 
             idle_target,
             controller.transporter
         );
@@ -144,8 +147,8 @@ public partial class Arm: Limb3/*, IDo_actions*/ {
 
     public void stash_tool_to_bag() {
         Contract.Requires(held_tool != null, "must hold a tool in order to stash it");
-        action_sequential.current_child_action_setter = actions.Put_hand_before_bag.create(action_sequential, this, baggage);
-        action_sequential.new_next_child = actions.Move_hand_into_bag.create(action_sequential, this, baggage);
+        action.current_child_action_setter = actions.Put_hand_before_bag.create(action, this, baggage);
+        action.new_next_child = actions.Move_hand_into_bag.create(action, this, baggage);
     }
 
 
