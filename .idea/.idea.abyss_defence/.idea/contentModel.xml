@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\rvino\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\rvino\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_abyss_defence.335022230.00" t="ExcludeRecursive" />
+    <e p="D:\prj\abyss_defence" t="IncludeRecursive">
+      <e p="abyss_defence.sln" t="IncludeFlat" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Destroy_on_exit.cs" t="Include" />
+        <e p="Destroy_on_exit2.cs" t="Include" />
+        <e p="link.xml" t="Include" />
+        <e p="Plugins" t="Include">
+          <e p="dotnet" t="Include">
+            <e p="Headspring" t="Include">
+              <e p="Enumeration.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Resources" t="Include">
+          <e p="shaders" t="Include">
+            <e p="combining_textures.shader" t="Include" />
+            <e p="masked_texture.shader" t="Include" />
+            <e p="Sprites-With_depth.shader" t="Include" />
+          </e>
+        </e>
+        <e p="Samples" t="Include">
+          <e p="2D Animation" t="Include">
+            <e p="3.1.1" t="Include">
+              <e p="Samples" t="Include">
+                <e p="5 SpriteSwap" t="Include">
+                  <e p="scripts" t="Include">
+                    <e p="Editor" t="Include">
+                      <e p="BuildAssetBundle.cs" t="Include" />
+                      <e p="Unity.2D.Animation.Samples.Editor.asmdef" t="Include" />
+                    </e>
+                    <e p="Runtime" t="Include">
+                      <e p="LoadSwapDLC.cs" t="Include" />
+                      <e p="SwapFullSkin.cs" t="Include" />
+                      <e p="SwapPart.cs" t="Include" />
+                      <e p="Unity.2D.Animation.Samples.Runtime.asmdef" t="Include" />
+                    </e>
+                  </e>
+                </e>
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="scripts" t="Include">
+          <e p="debug" t="Include">
+            <e p="contracts" t="Include">
+              <e p="Contract.cs" t="Include" />
+              <e p="Exception.cs" t="Include" />
+            </e>
+            <e p="debug.asmdef" t="Include" />
+            <e p="Debug.cs" t="Include" />
+            <e p="Debugger.cs" t="Include" />
+            <e p="Log.cs" t="Include" />
+          </e>
+          <e p="Debug_monitor.cs" t="Include" />
+          <e p="Divisible_body" t="Include">
+            <e p="Children_splitter.cs" t="Include" />
+            <e p="Debug_drawer.cs" t="Include" />
+            <e p="Divisible_body.asmdef" t="Include" />
+            <e p="Divisible_body.cs" t="Include" />
+            <e p="ISplittable.cs" t="Include" />
+            <e p="old" t="Include">
+              <e p="Convex_polygon_splitter.cs" t="Include" />
+              <e p="Divisible_body_old.cs" t="Include" />
+              <e p="Polygon_splitter_cpp.cs" t="Include" />
+            </e>
+            <e p="polygon_clipping" t="Include">
+              <e p="Clipperlib_coordinates.cs" t="Include" />
+              <e p="Polygon_splitter.cs" t="Include" />
+            </e>
+            <e p="texture_splitting" t="Include">
+              <e p="Texture_drawer.cs" t="Include" />
+              <e p="Texture_splitter.cs" t="Include" />
+            </e>
+          </e>
+          <e p="effects" t="Include">
+            <e p="effects.asmdef" t="Include" />
+            <e p="liquids" t="Include">
+              <e p="Droplet.cs" t="Include" />
+              <e p="Puddle.cs" t="Include" />
+            </e>
+            <e p="Persistent_residue" t="Include">
+              <e p="Leaving_persistent_residue.cs" t="Include" />
+              <e p="Persistent_residue_holder.cs" t="Include" />
+              <e p="Persistent_residue_router.cs" t="Include" />
+              <e p="Stained_surface.cs" t="Include" />
+            </e>
+            <e p="Smoke_trail" t="Include">
+              <e p="Segment.cs" t="Include" />
+              <e p="Smoke_trail.cs" t="Include" />
+            </e>
+            <e p="Trajectory_flyer" t="Include">
+              <e p="Trajectory_flyer.cs" t="Include" />
+            </e>
+          </e>
+          <e p="extesions" t="Include">
+            <e p="Dictionary_of_containers.cs" t="Include" />
+            <e p="extensions.asmdef" t="Include" />
+            <e p="GameObject.cs" t="Include" />
+            <e p="geometry2d" t="Include">
+              <e p="functions.cs" t="Include" />
+              <e p="types" t="Include">
+                <e p="Degree.cs" t="Include" />
+                <e p="Dimension.cs" t="Include" />
+                <e p="Orientation.cs" t="Include" />
+                <e p="Polygon.cs" t="Include" />
+                <e p="Relative_direction.cs" t="Include" />
+                <e p="Side.cs" t="Include" />
+                <e p="types.cs" t="Include" />
+                <e p="types_for_unmanaged.cs" t="Include" />
+              </e>
+            </e>
+            <e p="InputAction.cs" t="Include" />
+            <e p="Mathf.cs" t="Include" />
+            <e p="MonoBehaviour.cs" t="Include" />
+            <e p="object_pools" t="Include">
+              <e p="IPooled_object.cs" t="Include" />
+              <e p="Object_pool.cs" t="Include" />
+              <e p="Pooled_object.cs" t="Include" />
+            </e>
+            <e p="Quaternion.cs" t="Include" />
+            <e p="rvinowise" t="Include">
+              <e p="Component_creator.cs" t="Include" />
+              <e p="Components.cs" t="Include" />
+              <e p="ICompound_object.cs" t="Include" />
+              <e p="Math.cs" t="Include" />
+              <e p="Time.cs" t="Include" />
+              <e p="Vector.cs" t="Include" />
+            </e>
+            <e p="Saved_physics.cs" t="Include" />
+            <e p="Sprite.cs" t="Include" />
+            <e p="SpriteLibrary.cs" t="Include" />
+            <e p="SpriteRenderer.cs" t="Include" />
+            <e p="SpriteResolver.cs" t="Include" />
+            <e p="Texture.cs" t="Include" />
+            <e p="Transform.cs" t="Include" />
+            <e p="Vector.cs" t="Include" />
+          </e>
+          <e p="settings" t="Include">
+            <e p="settings.asmdef" t="Include" />
+            <e p="Settings.cs" t="Include" />
+          </e>
+          <e p="third_party" t="Include">
+            <e p="clipper.cs" t="Include" />
+            <e p="Headspring" t="Include">
+              <e p="Enumeration.cs" t="Include" />
+              <e p="LICENSE.txt" t="Include" />
+            </e>
+            <e p="third_party.asmdef" t="Include" />
+            <e p="Triangulator.cs" t="Include" />
+          </e>
+          <e p="ui" t="Include">
+            <e p="input" t="Include">
+              <e p="input.asmdef" t="Include" />
+              <e p="Input.cs" t="Include" />
+              <e p="mouse" t="Include">
+                <e p="Cursor.cs" t="Include" />
+              </e>
+              <e p="new_input" t="Include">
+                <e p="Input.cs" t="Include" />
+                <e p="Unity_input.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Main_camera.cs" t="Include" />
+          </e>
+          <e p="units" t="Include">
+            <e p="Animation" t="Include">
+              <e p="Reloading_SMB.cs" t="Include" />
+            </e>
+            <e p="control" t="Include">
+              <e p="Intelligence.cs" t="Include" />
+            </e>
+            <e p="equipment" t="Include">
+              <e p="actions" t="Include">
+                <e p="Action.cs" t="Include" />
+                <e p="Action_parallel_parent.cs" t="Include" />
+                <e p="Action_parent.cs" t="Include" />
+                <e p="Action_sequence_builder.cs" t="Include" />
+                <e p="Action_sequential_parent.cs" t="Include" />
+                <e p="IPerform_actions.cs" t="Include" />
+                <e p="Pool.cs" t="Include" />
+              </e>
+              <e p="arms" t="Include">
+                <e p="Arm" t="Include">
+                  <e p="actions" t="Include">
+                    <e p="Action_of_arm.cs" t="Include" />
+                    <e p="Arm_reach_orientation.cs" t="Include" />
+                    <e p="Arm_reach_relative_directions.cs" t="Include" />
+                    <e p="Arm_reach_somewhere.cs" t="Include" />
+                    <e p="Arm_reach_transform.cs" t="Include" />
+                    <e p="Idle_vigilant" t="Include">
+                      <e p="Idle_vigilant_only_arm.cs" t="Include" />
+                      <e p="main_arm" t="Include">
+                        <e p="Gun_with_stock.cs" t="Include" />
+                        <e p="Gun_without_stock.cs" t="Include" />
+                        <e p="Idle_vigilant_main_arm.cs" t="Include" />
+                      </e>
+                    </e>
+                    <e p="using_bags" t="Include">
+                      <e p="Grab_tool.cs" t="Include" />
+                      <e p="Move_hand_into_bag.cs" t="Include" />
+                      <e p="Move_hand_into_loose_bag.cs" t="Include" />
+                      <e p="Put_hand_before_bag.cs" t="Include" />
+                      <e p="Take_tool_from_bag.cs" t="Include" />
+                    </e>
+                    <e p="using_tools" t="Include">
+                      <e p="Arm_reach_holding_part_of_tool.cs" t="Include" />
+                      <e p="Attach_to_holding_part_of_tool.cs" t="Include" />
+                      <e p="Push_object_into_slot.cs" t="Include" />
+                    </e>
+                  </e>
+                  <e p="Arm.cs" t="Include" />
+                  <e p="Arm_debug.cs" t="Include" />
+                  <e p="Hand.cs" t="Include" />
+                  <e p="Hand_gesture.cs" t="Include" />
+                  <e p="Segment.cs" t="Include" />
+                </e>
+                <e p="Arm_controller.cs" t="Include" />
+                <e p="Held_tool.cs" t="Include" />
+              </e>
+              <e p="baggage" t="Include">
+                <e p="Baggage.cs" t="Include" />
+                <e p="Slot.cs" t="Include" />
+              </e>
+              <e p="body_parts" t="Include">
+                <e p="limbs" t="Include">
+                  <e p="Debug.cs" t="Include" />
+                  <e p="Initializer.cs" t="Include" />
+                  <e p="Limb2.cs" t="Include" />
+                  <e p="Limb3.cs" t="Include" />
+                  <e p="Segment.cs" t="Include" />
+                </e>
+                <e p="Span.cs" t="Include" />
+                <e p="Turning_element.cs" t="Include" />
+              </e>
+              <e p="Children_group_host" t="Include">
+                <e p="Children_groups_host.cs" t="Include" />
+                <e p="Data_distributor.cs" t="Include" />
+                <e p="IChildren_groups_host.cs" t="Include" />
+                <e p="Tool_group" t="Include">
+                  <e p="Children_group.cs" t="Include" />
+                  <e p="IChildren_group.cs" t="Include" />
+                </e>
+              </e>
+              <e p="Command_batch.cs" t="Include" />
+              <e p="equipment.asmdef" t="Include" />
+              <e p="IExecute_commands.cs" t="Include" />
+              <e p="sensors" t="Include">
+                <e p="ISensory_organ.cs" t="Include" />
+              </e>
+              <e p="tools" t="Include">
+                <e p="Tool" t="Include">
+                  <e p="Ammunition.cs" t="Include" />
+                  <e p="Holding_place.cs" t="Include" />
+                  <e p="Tool.cs" t="Include" />
+                </e>
+                <e p="weapons" t="Include">
+                  <e p="guns" t="Include">
+                    <e p="Break_shotgun" t="Include">
+                      <e p="Break_sewedoff.cs" t="Include" />
+                    </e>
+                    <e p="common" t="Include">
+                      <e p="Bullet.cs" t="Include" />
+                      <e p="Bullet_shell.cs" t="Include" />
+                    </e>
+                    <e p="Gun.cs" t="Include" />
+                    <e p="Guns_controller.cs" t="Include" />
+                    <e p="Magazine.cs" t="Include" />
+                    <e p="Pistol" t="Include">
+                      <e p="Desert_eagle.cs" t="Include" />
+                      <e p="Explosive_bullet.cs" t="Include" />
+                      <e p="Hollow_bulet.cs" t="Include" />
+                      <e p="Magazine.cs" t="Include" />
+                      <e p="Penetrating_bullet.cs" t="Include" />
+                      <e p="Pistol.cs" t="Include" />
+                    </e>
+                    <e p="Pump_shotgun" t="Include">
+                      <e p="Pump_shotgun.cs" t="Include" />
+                    </e>
+                    <e p="Rifle" t="Include">
+                      <e p="Ak47.cs" t="Include" />
+                    </e>
+                  </e>
+                  <e p="IControlled_weapon.cs" t="Include" />
+                  <e p="IWeapon.cs" t="Include" />
+                  <e p="IWeaponry.cs" t="Include" />
+                  <e p="Projectile.cs" t="Include" />
+                </e>
+              </e>
+              <e p="transport" t="Include">
+                <e p="Command_batch.cs" t="Include" />
+                <e p="creeping_legs" t="Include">
+                  <e p="Creeping_leg_group" t="Include">
+                    <e p="Creeping_leg_group.cs" t="Include" />
+                    <e p="Division_distributor.cs" t="Include" />
+                    <e p="Moving_strategy" t="Include">
+                      <e p="Faltering.cs" t="Include" />
+                      <e p="Grovelling.cs" t="Include" />
+                      <e p="Moving_strategy.cs" t="Include" />
+                      <e p="Stable.cs" t="Include" />
+                    </e>
+                  </e>
+                  <e p="creeping_legs.asmdef" t="Include" />
+                  <e p="Leg" t="Include">
+                    <e p="Debug.cs" t="Include" />
+                    <e p="Destroy.cs" t="Include" />
+                    <e p="Leg.cs" t="Include" />
+                    <e p="Segment.cs" t="Include" />
+                    <e p="Stable_leg_group.cs" t="Include" />
+                  </e>
+                </e>
+                <e p="Empty_transporter.cs" t="Include" />
+                <e p="ITransporter.cs" t="Include" />
+              </e>
+            </e>
+            <e p="gore" t="Include">
+              <e p="Bleeding_body.cs" t="Include" />
+              <e p="Wound.cs" t="Include" />
+            </e>
+            <e p="human" t="Include">
+              <e p="actions" t="Include">
+                <e p="Idle_vigilant_body.cs" t="Include" />
+                <e p="Play_body_animation.cs" t="Include" />
+                <e p="Start_recorded_animation.cs" t="Include" />
+                <e p="using_guns" t="Include">
+                  <e p="reloading" t="Include">
+                    <e p="Insert_object_into_slot.cs" t="Include" />
+                    <e p="Pistol" t="Include">
+                      <e p="Expose_gun_for_reloading_COMPLEX.cs" t="Include" />
+                      <e p="Prepare_reloading_of_gun_arm.cs" t="Include" />
+                      <e p="Reload_pistol.cs" t="Include" />
+                      <e p="Reload_shotgun.cs" t="Include" />
+                    </e>
+                  </e>
+                </e>
+              </e>
+              <e p="Arm_controller.cs" t="Include" />
+              <e p="Arms_initializer.cs" t="Include" />
+              <e p="Baggage.cs" t="Include" />
+              <e p="control" t="Include">
+                <e p="Human.cs" t="Include" />
+                <e p="player" t="Include">
+                  <e p="Player.cs" t="Include" />
+                </e>
+              </e>
+              <e p="Head.cs" t="Include" />
+              <e p="Humanoid.cs" t="Include" />
+              <e p="init_Head.cs" t="Include" />
+              <e p="Legs.cs" t="Include" />
+              <e p="SMB.cs" t="Include" />
+              <e p="User_of_tools.cs" t="Include" />
+            </e>
+            <e p="insects" t="Include">
+              <e p="control" t="Include">
+                <e p="computer" t="Include">
+                  <e p="Computer.cs" t="Include" />
+                </e>
+                <e p="player" t="Include">
+                  <e p="Player.cs" t="Include" />
+                </e>
+                <e p="Spider.cs" t="Include" />
+              </e>
+              <e p="Creature.cs" t="Include" />
+              <e p="species" t="Include">
+                <e p="Hexapod_spider" t="Include">
+                  <e p="Hexapod_spider.cs" t="Include" />
+                  <e p="Legs.cs" t="Include" />
+                </e>
+                <e p="Normal_spider" t="Include">
+                  <e p="Legs.cs" t="Include" />
+                  <e p="Normal_spider.cs" t="Include" />
+                </e>
+              </e>
+            </e>
+            <e p="units.asmdef" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="creeping_legs.csproj" t="IncludeRecursive" />
+      <e p="debug.csproj" t="IncludeRecursive" />
+      <e p="Divisible_body.csproj" t="IncludeRecursive" />
+      <e p="effects.csproj" t="IncludeRecursive" />
+      <e p="equipment.csproj" t="IncludeRecursive" />
+      <e p="extensions.csproj" t="IncludeRecursive" />
+      <e p="input.csproj" t="IncludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="settings.csproj" t="IncludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="third_party.csproj" t="IncludeRecursive" />
+      <e p="units.csproj" t="IncludeRecursive" />
+      <e p="Unity.2D.Animation.Samples.Editor.csproj" t="IncludeRecursive" />
+      <e p="Unity.2D.Animation.Samples.Runtime.csproj" t="IncludeRecursive" />
+    </e>
+  </component>
+</project>

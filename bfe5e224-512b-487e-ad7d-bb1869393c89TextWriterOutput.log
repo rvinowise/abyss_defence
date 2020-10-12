@@ -1,0 +1,103 @@
+trace_source Information: 1 : #########################################################
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 1
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm Action is started.
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 2
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm Action is started.
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag, qty= 3
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 4
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag, qty= 5
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Grab_tool, qty= 6
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 7
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 8
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.actions.Action_sequential_parent, qty= 9
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag Action is started.
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag, qty= 10
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 11
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag, qty= 12
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Grab_tool, qty= 13
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 14
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 15
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.actions.Action_sequential_parent, qty= 16
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag Action is started.
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag, qty= 17
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 18
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag, qty= 19
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Grab_tool, qty= 20
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 21
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 22
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.actions.Action_sequential_parent, qty= 23
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag Action is started.
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag, qty= 24
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 25
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag, qty= 26
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Grab_tool, qty= 27
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 28
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 29
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.actions.Action_sequential_parent, qty= 30
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag Action is started.
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag, qty= 31
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 32
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag, qty= 33
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Grab_tool, qty= 34
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 35
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 36
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.actions.Action_sequential_parent, qty= 37
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag Action is started.
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag, qty= 38
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 39
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag, qty= 40
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Grab_tool, qty= 41
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 42
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 43
+trace_source Information: 1 : Action is created. type= rvinowise.units.parts.actions.Action_sequential_parent, qty= 44
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag Action is started.
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag finish
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag Action is ended. 
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag Action is started.
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag finish
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag Action is ended. 
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Grab_tool Action is started.
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Grab_tool finish
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Grab_tool Action is ended. 
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag Action is started.
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag finish
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag finish
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag Action is ended. 
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag Action is ended. 
+trace_source Information: 1 : rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm Action is started.
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag, qty= 43
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag, qty= 42
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Grab_tool, qty= 41
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.actions.Action_sequential_parent, qty= 40
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 39
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag, qty= 38
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.actions.Action_sequential_parent, qty= 37
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 36
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 35
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 34
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 33
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 32
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Grab_tool, qty= 31
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag, qty= 30
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.actions.Action_sequential_parent, qty= 29
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 28
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag, qty= 27
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 26
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 25
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Grab_tool, qty= 24
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 23
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 22
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 21
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 20
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Put_hand_before_bag, qty= 19
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.actions.Action_sequential_parent, qty= 18
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Grab_tool, qty= 17
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 16
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Grab_tool, qty= 15
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag, qty= 14
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Take_tool_from_bag, qty= 13
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag, qty= 12
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 11
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.actions.Action_sequential_parent, qty= 10
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag, qty= 9
+trace_source Information: 1 : Action is destroyed. type= rvinowise.units.parts.limbs.arms.actions.Move_hand_into_bag, qty= 8
