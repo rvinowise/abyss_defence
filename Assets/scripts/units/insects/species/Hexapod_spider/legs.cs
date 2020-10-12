@@ -5,7 +5,7 @@ using UnityEngine;
 using geometry2d;
 using rvinowise.units.parts.limbs;
 using rvinowise.units.parts.limbs.init;
-using rvinowise.units.parts.limbs.legs;
+using rvinowise.units.parts.limbs.creeping_legs;
 using rvinowise.units.parts;
 
 namespace rvinowise.units.hexapod_spider.init {
@@ -31,28 +31,28 @@ static class Legs {
     }
 
     private static void create_moving_strategy(Creeping_leg_group @group) {
-        @group.moving_strategy = new parts.limbs.legs.strategy.Stable(@group.legs) {
-            stable_leg_groups = new List<Stable_leg_group>() {
-                new Stable_leg_group(
-                    new List<Leg>() {
-                        @group.left_front_leg,
-                        @group.right_hind_leg
-                    }
-                ),
-                new Stable_leg_group(
-                    new List<Leg>() {
-                        @group.legs[4],
-                        @group.legs[5]
-                    }
-                ),
-                new Stable_leg_group(
-                    new List<Leg>() {
-                        @group.right_front_leg,
-                        @group.left_hind_leg
-                    }
-                )
-            }
+        group.stable_leg_groups = new List<Stable_leg_group>() {
+            new Stable_leg_group(
+                new List<Leg>() {
+                    @group.left_front_leg,
+                    @group.right_hind_leg
+                }
+            ),
+            new Stable_leg_group(
+                new List<Leg>() {
+                    @group.legs[4],
+                    @group.legs[5]
+                }
+            ),
+            new Stable_leg_group(
+                new List<Leg>() {
+                    @group.right_front_leg,
+                    @group.left_hind_leg
+                }
+            )
         };
+
+        @group.moving_strategy = new parts.limbs.creeping_legs.strategy.Stable(@group.legs, @group);
     }
 
     private static void init_parameters_that_shoud_be_mirrored(Creeping_leg_group @group) {

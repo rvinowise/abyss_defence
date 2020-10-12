@@ -19,13 +19,23 @@ namespace geometry2d {
             Polygon polygon,
             Ray2D ray_of_split) 
         {
-            Path int_polygon = float_coord_to_int(polygon);
-            Path int_wedge_of_split = float_coord_to_int(get_wedge_from_ray(ray_of_split));
+            return remove_polygon_from_polygon(
+                polygon, 
+                get_wedge_from_ray(ray_of_split)
+            );
+        }
+        
+        public static List<Polygon> remove_polygon_from_polygon(
+            Polygon base_polygon,
+            Polygon removed_polygon) 
+        {
+            Path int_base_polygon = float_coord_to_int(base_polygon);
+            Path int_removed_polygon = float_coord_to_int(removed_polygon);
 
             Pathes int_solution = new Pathes();
             ClipperLib.Clipper clipper = new ClipperLib.Clipper();
-            clipper.AddPath(int_polygon, PolyType.ptSubject, true);
-            clipper.AddPath(int_wedge_of_split, PolyType.ptClip, true);
+            clipper.AddPath(int_base_polygon, PolyType.ptSubject, true);
+            clipper.AddPath(int_removed_polygon, PolyType.ptClip, true);
             clipper.Execute(ClipType.ctDifference, int_solution);
 
             List<Polygon> result = int_coord_to_float(int_solution);

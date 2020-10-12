@@ -14,6 +14,7 @@ public class Debug_drawer : MonoBehaviour
 
     LineRenderer lineRenderer;
     bool pressed = false;
+    private Polygon wedge;
     private Divisible_body divisible_body;
 
     #region singleton
@@ -48,24 +49,25 @@ public class Debug_drawer : MonoBehaviour
     {
         Vector2 mousePos = Input.instance.mouse_world_position;
 
-        /*draw_splitting_wedge(
+        wedge = Polygon_splitter.get_wedge_from_ray(
             new Ray2D(
                 mousePos,
-                new Vector2(0.5f,1f)
+                new Vector2(0.5f, 1f)
             )
-        );*/
+        );
         
+        //draw_polygon(wedge);
         
     }
  
-    /*void mouse_control() {
+    void mouse_control() {
         if (
             (!pressed)&&
             (UnityEngine.Input.GetMouseButtonDown(0))
            ) 
         {
             pressed = true;
-            divisible_body.split_by_ray(ray);
+            divisible_body?.remove_polygon(wedge);
         }
 
         if (
@@ -75,7 +77,7 @@ public class Debug_drawer : MonoBehaviour
         {
             pressed = false;
         }
-    }*/
+    }
 
     /*void UnityApiMouseEvents() {
         RaycastHit hit;
@@ -86,12 +88,8 @@ public class Debug_drawer : MonoBehaviour
                 hit.collider.SendMessage("OnMouseDown");
         }
     }*/
-
-    void draw_splitting_wedge(Ray2D ray) {
-        Polygon wedge = Polygon_splitter.get_wedge_from_ray(ray);
-        draw_polygon(wedge);
-    }
-
+    
+    
     public void draw_polygon(Polygon polygon) {
         lineRenderer.positionCount = polygon.points.Count;
         for(int i = 0; i < polygon.points.Count; i++)

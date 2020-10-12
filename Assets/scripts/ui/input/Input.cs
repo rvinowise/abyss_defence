@@ -45,12 +45,31 @@ public class Input: MonoBehaviour {
     public bool button_presed(string name) {
         return UnityEngine.Input.GetButtonDown(name);
     }
+    
+    public bool GetMouseButtonDown(int index) {
+        return UnityEngine.Input.GetMouseButtonDown(index);
+    }
 
     private Vector2 read_moving_vector() {
+        //Debug.Log("read_moving_vector");
         float horizontal = UnityEngine.Input.GetAxis("Horizontal");
         float vertical = UnityEngine.Input.GetAxis("Vertical");
 
+        /*Debug.Log(
+            String.Format("horizontal: {0}",
+                horizontal
+            )
+        );*/
+        
         Vector2 direction_vector = new Vector2(horizontal, vertical);
+        
+        /*Debug.Log(
+            String.Format("Input: {0} ; {1}",
+                Input.instance.moving_vector,
+                Input.instance.mouse_world_position
+            )
+        );*/
+        
         return direction_vector.normalized;
     }
 

@@ -13,6 +13,10 @@ public static partial class Unity_extension
         );
     }
 
+    public static Polygon InverseTransformPolygon(this Transform transform, Polygon polygon) {
+        return polygon.get_relative_to(transform);
+    }
+    
     public static void direct_to(this Transform transform, Vector2 in_aim) {
         Vector2 targetDirection = in_aim - (Vector2)transform.position;
         transform.set_direction(targetDirection);
@@ -61,21 +65,11 @@ public static partial class Unity_extension
             in_speed * Time.deltaTime);
     }
     public static void rotate_to(this Transform transform, Relative_direction needed_rotation, float in_speed) {
-        //if (needed_rotation.relative_to == null) {
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
-                needed_rotation.direction,
-                in_speed * Time.deltaTime);
-        /*}
-        else {
-            Quaternion absolute_rotation =
-                needed_rotation.direction;// * needed_rotation.relative_to.rotation;
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
-                absolute_rotation,
-                in_speed * Time.deltaTime);
-        }*/
-        
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            needed_rotation.rotation,
+            in_speed * Time.deltaTime
+        );
     }
 
     public static Orientation orientation(this Transform transform) {
@@ -95,6 +89,15 @@ public static partial class Unity_extension
             transform.localScale.x,
              flip *transform.localScale.y,
             transform.localScale.z
+        );
+    }
+    
+    public static void scale(
+        this Transform transform,
+        float in_scale
+    ) {
+        transform.localScale = new Vector2(
+            in_scale,in_scale
         );
     }
 

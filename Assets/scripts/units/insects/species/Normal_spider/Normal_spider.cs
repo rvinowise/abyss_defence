@@ -7,7 +7,7 @@ using UnityEngine;
 using geometry2d;
 using rvinowise.units.parts;
 using rvinowise.units.parts.limbs;
-using rvinowise.units.parts.limbs.legs;
+using rvinowise.units.parts.limbs.creeping_legs;
 using rvinowise.units.parts.transport;
 
 
@@ -27,7 +27,7 @@ public class Normal_spider: Creature {
 
 
     protected override void create_equipment() {
-        sprider_transporter = new Creeping_leg_group(divisible_body);
+        sprider_transporter = new Creeping_leg_group(divisible_body, this);
     }
     
     protected override void fill_equipment_with_children() {

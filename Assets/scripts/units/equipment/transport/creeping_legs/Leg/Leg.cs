@@ -5,17 +5,17 @@ using geometry2d;
 using static geometry2d.Directions;
 using rvinowise.units;
 
-namespace rvinowise.units.parts.limbs.legs {
+namespace rvinowise.units.parts.limbs.creeping_legs {
 
 public partial class Leg: Limb2 
 {
     /* constant characteristics */
     public Segment femur {
-        get { return segment1 as legs.Segment;}
+        get { return segment1 as creeping_legs.Segment;}
         set { segment1 = value; }
     }
     public Segment tibia {
-        get { return segment2 as legs.Segment;}
+        get { return segment2 as creeping_legs.Segment;}
         set { segment2 = value; }
     }
 
@@ -26,6 +26,10 @@ public partial class Leg: Limb2
     
     /* where the end of the Leg should be for the maximum comfort, if the body is standing steel */
     public Vector2 optimal_relative_position_standing;
+    
+    /* where the tip of it should reach, according to moving plans */
+    public Vector2 optimal_position;
+    
     // maximum distance from the optimal point after which the leg should be repositionned
     public float comfortable_distance;
 
@@ -39,8 +43,7 @@ public partial class Leg: Limb2
     //whether leg is moving towards the aim or holding onto the ground
     public bool is_up = true;
 
-    /* where the tip of it should reach, according to moving plans */
-    public Vector2 optimal_position;
+    
 
     public Leg(Transform inHost) {
         femur = Segment.create("femur");
@@ -68,13 +71,13 @@ public partial class Leg: Limb2
         if (
             (
                 Quaternion.Angle(
-                    femur.desired_direction,
+                    femur.target_quaternion,
                     femur.transform.rotation
                 ) <= allowed_angle
             )&&
             (
                 Quaternion.Angle(
-                    tibia.desired_direction,
+                    tibia.target_quaternion,
                     tibia.transform.rotation
                 ) <= allowed_angle
             )
@@ -102,21 +105,24 @@ public partial class Leg: Limb2
 
     /* it's time to reposition */
     public bool is_twisted_uncomfortably() {
-        Vector2 diff_with_optimal_point = 
+        /*Vector2 diff_with_optimal_point = 
             (Vector2)parent.transform.TransformPoint(optimal_relative_position_standing) - 
+            (Vector2)tibia.transform.TransformPoint(tibia.tip);*/
+        Vector2 diff_with_optimal_point = 
+            optimal_position - 
             (Vector2)tibia.transform.TransformPoint(tibia.tip);
+
+        /*if (debug.name == "left_front_leg") {
+            UnityEngine.Debug.Log(
+                "diff_with_optimal_point= "+diff_with_optimal_point+
+                "comfortable_distance= "+comfortable_distance
+            );
+        }*/
+        
         if (diff_with_optimal_point.magnitude > comfortable_distance) {
             return true;
         } 
-        /*if (!is_within_span(femur.comfortable_span, femur, parent)) 
-        {
-            return true;
-        } else {
-            if (!is_within_span(tibia.comfortable_span, tibia, femur.transform))
-            {
-                return true;
-            }
-        }*/
+
         return false;
     }
     /* physically can't be in this position */
@@ -124,12 +130,12 @@ public partial class Leg: Limb2
         if (!is_within_span(femur.possible_span, femur, parent)) 
         {
             return true;
-        } else {
-            if (!is_within_span(tibia.possible_span, tibia, femur.transform))
-            {
-                return true;
-            }
         }
+        if (!is_within_span(tibia.possible_span, tibia, femur.transform))
+        {
+            return true;
+        }
+        
         return false;
     }
     private bool is_within_span(Span span, Segment segment, Transform parent) {
@@ -145,15 +151,18 @@ public partial class Leg: Limb2
     }
 
     public void move_segments_towards_desired_direction() {
-        femur.transform.rotation = 
+        /*femur.transform.rotation = 
             Quaternion.RotateTowards(femur.transform.rotation, 
-                                     femur.desired_direction,
+                                     femur.target_quaternion,
                                      femur.rotation_speed * Time.deltaTime);
             
         tibia.transform.rotation = 
             Quaternion.RotateTowards(tibia.transform.rotation,
-                                     tibia.desired_direction,
-                                     tibia.rotation_speed * Time.deltaTime);
+                                     tibia.target_quaternion,
+                                     tibia.rotation_speed * Time.deltaTime);*/
+        
+        femur.rotate_to_desired_direction();
+        tibia.rotate_to_desired_direction();
     }
 
    
@@ -194,18 +203,13 @@ public partial class Leg: Limb2
         return position;
     }
 
-    /*public void get_angles_from_end_position(
-        Vector2 end_position,
-        out Quaternion femur_rotation,
-        out Quaternion tibia_rotation     
-        ) 
-    {
-        
-    }*/
 
-    public void set_optimal_position(Vector2 in_optimal_position) {
+    public void set_desired_position(Vector2 in_optimal_position) {
         optimal_position = in_optimal_position;
-        set_desired_directions_by_position(optimal_position);
+    }
+    
+    public void set_desired_directions_by_position() {
+        base.set_desired_directions_by_position(optimal_position);
     }
 
     

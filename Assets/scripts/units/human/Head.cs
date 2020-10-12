@@ -22,18 +22,18 @@ public class Head: Turning_element, ISensory_organ {
     }
     
     
-    public override void update() {
+    protected override void update_rotation() {
         transform.rotation = 
             Quaternion.RotateTowards(transform.rotation, 
-                desired_direction,
+                target_quaternion,
                 rotation_speed * Time.deltaTime);
 
-        base.update();
-        preserve_possible_rotation();
+        base.update_rotation();
+        collide_with_rotation_borders();
     }
 
     public void pay_attention_to(Vector2 point) {
-        desired_direction = (point - position).to_quaternion();
+        target_quaternion = (point - position).to_quaternion();
     }
 }
 

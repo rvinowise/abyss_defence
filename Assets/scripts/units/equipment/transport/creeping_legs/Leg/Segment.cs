@@ -5,7 +5,7 @@ using UnityEngine;
 using rvinowise;
 
 
-namespace rvinowise.units.parts.limbs.legs {
+namespace rvinowise.units.parts.limbs.creeping_legs {
 
 public class Segment: limbs.Segment {
 

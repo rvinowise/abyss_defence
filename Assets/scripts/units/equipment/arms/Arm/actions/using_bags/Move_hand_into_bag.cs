@@ -14,15 +14,17 @@ namespace rvinowise.units.parts.limbs.arms.actions {
 public class Move_hand_into_bag: Action_of_arm {
 
     private Baggage bag;
-    private float old_rotation_speed;
+    private float old_upper_arm_rotation_speed;
+    private float old_shoulder_rotation_speed;
 
     
     public static Move_hand_into_bag create(
-        Action_sequential_parent in_action_sequential_parent, 
         Arm in_arm,
         Baggage in_bag
     ) {
-        var action = (Move_hand_into_bag)pool.get(typeof(Move_hand_into_bag), in_action_sequential_parent);
+        var action = (Move_hand_into_bag)pool.get(typeof(Move_hand_into_bag));
+        action.actor = in_arm;
+        
         action.arm = in_arm;
         action.bag = in_bag;
         return action;
@@ -34,6 +36,10 @@ public class Move_hand_into_bag: Action_of_arm {
 
     public override void init_state() {
         base.init_state();
+        arm.shoulder.target_direction = new Relative_direction(
+            45f, arm.shoulder.parent
+        ).adjust_to_side_for_left(arm.folding_direction);
+        
         slow_movements(arm);
     }
 
@@ -43,22 +49,29 @@ public class Move_hand_into_bag: Action_of_arm {
     }
 
     private void slow_movements(Arm arm) {
-        old_rotation_speed = arm.upper_arm.rotation_speed;
+        old_upper_arm_rotation_speed = arm.upper_arm.rotation_speed;
         arm.upper_arm.rotation_speed /= 2f;
+        
+        old_shoulder_rotation_speed = arm.shoulder.rotation_speed;
+        arm.shoulder.rotation_speed /= 2f;
+        
         Debug.Log("slow_movements: "+arm.upper_arm.rotation_speed);
     }
     private void restore_movements(Arm arm) {
-        arm.upper_arm.rotation_speed = old_rotation_speed;
+        arm.upper_arm.rotation_speed = old_upper_arm_rotation_speed;
+        arm.shoulder.rotation_speed = old_shoulder_rotation_speed;
         Debug.Log("restore_movements: "+arm.upper_arm.rotation_speed);
     }
 
 
     public override void update() {
+        base.update();
         Orientation desired_orientation = get_orientation_touching_baggage();
+        arm.rotate_to_orientation(desired_orientation);
         if (complete(desired_orientation)) {
-            reached_goal();
+            mark_as_reached_goal();
         } else {
-            arm.rotate_to_orientation(desired_orientation);
+            mark_as_has_not_reached_goal();
         }
     }
     
@@ -73,7 +86,7 @@ public class Move_hand_into_bag: Action_of_arm {
 
     protected bool complete(Orientation desired_orientation) {
         if (
-            arm.hand.position == desired_orientation.position /*&&
+            arm.hand.position.close_enough_to(desired_orientation.position) /*&&
             arm.hand.rotation.abs_degrees_to(desired_orientation.rotation) < bag.entering_span*/
             ) 
         {

@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 using rvinowise;
 
-
+using Debug = rvinowise.rvi.Debug;
 
 namespace rvinowise.units.parts.actions {
 
@@ -18,21 +19,43 @@ public abstract partial class Action {
             System.Type type, 
             Action_parent in_action_parent
         ) {
-            Queue<TBase> bases = get_or_create_place_for_type(type);
-
-            if (bases.Count == 0) {
-                TBase new_base = create_new_object(type, in_action_parent);
-                return new_base;
-            }
-            TBase restored_action = bases.Dequeue();
+            TBase restored_action = get(type);
             restored_action.attach_to_parent(in_action_parent);
             
             return restored_action;
         }
+        
+        public TBase get(System.Type type) {
+            Queue<TBase> bases = get_or_create_place_for_type(type);
+
+            if (bases.Count == 0) {
+                TBase new_base = create_new_object(type);
+                return new_base;
+            }
+            TBase restored_action = bases.Dequeue();
+            restored_action.is_free_in_pool = false;
+
+            return restored_action;
+        }
+
+        private bool check_if_correctly_cleaned(Action in_action) {
+            if (in_action is Action_sequential_parent sequential_parent) {
+                Debug.Assert(sequential_parent.current_child_action == null);
+                Debug.Assert(sequential_parent.queued_child_actions.Count == 0);
+            } else if (in_action is Action_parallel_parent parallel_parent) {
+                Debug.Assert(parallel_parent.child_actions.Count == 0);
+            }
+            Debug.Assert(in_action.parent_action == null);
+            Debug.Assert(!in_action.reached_goal);
+            return true;
+        }
 
         public void return_to_pool(TBase obj) {
+            check_if_correctly_cleaned(obj);
+            
             Queue<TBase> bases = get_or_create_place_for_type(obj.GetType());
             bases.Enqueue(obj);
+            obj.is_free_in_pool = true;
         }
 
         private Queue<TBase> get_or_create_place_for_type(System.Type type) {
@@ -47,11 +70,9 @@ public abstract partial class Action {
 
 
         TBase create_new_object(
-            Type type, 
-            Action_parent in_parent
+            Type type
         ) {
             TBase new_base = (TBase) Activator.CreateInstance(type);
-            new_base.parent_action = in_parent;
             return new_base;
         }
     }

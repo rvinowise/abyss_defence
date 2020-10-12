@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d417e1c944c427e9917c4d45d48641b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation_speed: 0
   rotated_bone: {fileID: 0}
+  rotation_speed: 0
+  rotation_acceleration: 550
   desired_idle_direction: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &691073410968300663
 GameObject:
@@ -148,6 +149,7 @@ MonoBehaviour:
     m_Center: {x: -1.9571314, y: -0.82848954, z: 0}
     m_Extent: {x: 0.18049836, y: 0.097851634, z: 0}
   m_UseBatching: 1
+  m_AlwaysUpdate: 1
 --- !u!1 &1454146246651765545
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +283,7 @@ MonoBehaviour:
     m_Center: {x: -1.9752996, y: -0.8810556, z: 0}
     m_Extent: {x: 0.22116327, y: 0.06802276, z: 0}
   m_UseBatching: 1
+  m_AlwaysUpdate: 1
 --- !u!1 &3683835538357830713
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,8 +360,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d417e1c944c427e9917c4d45d48641b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation_speed: 0
   rotated_bone: {fileID: 0}
+  rotation_speed: 0
+  rotation_acceleration: 550
   desired_idle_direction: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4428350312683271327
 GameObject:
@@ -404,8 +408,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d417e1c944c427e9917c4d45d48641b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation_speed: 0
   rotated_bone: {fileID: 0}
+  rotation_speed: 0
+  rotation_acceleration: 550
   desired_idle_direction: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4451682145766597335
 GameObject:
@@ -542,6 +547,7 @@ MonoBehaviour:
     m_Center: {x: -0.00086161494, y: -0.0008428693, z: 0}
     m_Extent: {x: 0.13166666, y: 0.37885505, z: 0}
   m_UseBatching: 1
+  m_AlwaysUpdate: 1
 --- !u!1 &5802100931288322993
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,6 +650,7 @@ MonoBehaviour:
     m_Center: {x: -1.9567031, y: -0.8270962, z: 0}
     m_Extent: {x: 0.17430341, y: 0.06935835, z: 0}
   m_UseBatching: 1
+  m_AlwaysUpdate: 1
 --- !u!1 &6598045197388648836
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,6 +753,7 @@ MonoBehaviour:
     m_Center: {x: -1.9559965, y: -0.82942605, z: 0}
     m_Extent: {x: 0.17538184, y: 0.06973413, z: 0}
   m_UseBatching: 1
+  m_AlwaysUpdate: 1
 --- !u!1 &7187119723724288117
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,8 +798,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d417e1c944c427e9917c4d45d48641b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation_speed: 0
   rotated_bone: {fileID: 0}
+  rotation_speed: 0
+  rotation_acceleration: 550
   desired_idle_direction: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8188980893315664307
 GameObject:
@@ -837,8 +846,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d417e1c944c427e9917c4d45d48641b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation_speed: 0
   rotated_bone: {fileID: 0}
+  rotation_speed: 0
+  rotation_acceleration: 550
   desired_idle_direction: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8194077011704300137
 GameObject:
@@ -942,6 +952,7 @@ MonoBehaviour:
     m_Center: {x: -1.9562783, y: -0.8270746, z: 0}
     m_Extent: {x: 0.18209505, y: 0.09583002, z: 0}
   m_UseBatching: 1
+  m_AlwaysUpdate: 1
 --- !u!1 &8444768118596753784
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,9 +1097,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea9f9b2c80433a4eaec96a7978039d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotated_bone: {fileID: 0}
+  rotation_speed: 0
+  rotation_acceleration: 550
   head_sprite: {fileID: 5063274702506691058, guid: d5b291fc826a1ea4f81256b170c48342,
     type: 3}
   arms_initializer: {fileID: 9148836409303791780}
+  baggage: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &9148836409303791780
 MonoBehaviour:
@@ -1102,12 +1117,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a07493b6e544ac097cdf8ab4996b9fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shoulder_l: {fileID: 7499686254540179850}
   upper_arm_l: {fileID: 3501004666914021001}
   forearm_l: {fileID: 3327756369308434531}
-  hand_l: {fileID: 0}
+  hand_l: {fileID: 2572822126847054916}
+  shoulder_r: {fileID: 8787825043015230325}
   upper_arm_r: {fileID: 7630039608290203209}
   forearm_r: {fileID: 4001595984241616771}
-  hand_r: {fileID: 0}
+  hand_r: {fileID: 5179629003869251849}
 --- !u!1 &8881027964506822277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1152,8 +1169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d417e1c944c427e9917c4d45d48641b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation_speed: 0
   rotated_bone: {fileID: 0}
+  rotation_speed: 0
+  rotation_acceleration: 550
   desired_idle_direction: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &2369329881576246027
 PrefabInstance:
@@ -1265,6 +1283,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2369329881576246027}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5179629003869251849 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7421987004738298370, guid: 6cfdaf50b6d90954bad11434f7393ea0,
+    type: 3}
+  m_PrefabInstance: {fileID: 2369329881576246027}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b87b7c150d5495b9f49fad82fdd2bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4950777381393937990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1395,6 +1425,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cfdaf50b6d90954bad11434f7393ea0, type: 3}
+--- !u!114 &2572822126847054916 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7421987004738298370, guid: 6cfdaf50b6d90954bad11434f7393ea0,
+    type: 3}
+  m_PrefabInstance: {fileID: 4950777381393937990}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b87b7c150d5495b9f49fad82fdd2bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4452357885191033973 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8754225974737805875, guid: 6cfdaf50b6d90954bad11434f7393ea0,

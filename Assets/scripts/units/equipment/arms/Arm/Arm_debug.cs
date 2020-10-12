@@ -36,7 +36,7 @@ public partial class Arm /*, IDo_actions*/ {
                 limb2.segment1.position, 
                 limb2.segment1.position +
                 (Vector2)(
-                    limb2.segment1.desired_direction *
+                    limb2.segment1.target_quaternion *
                     limb2.segment1.tip
                 ),
                 Color.cyan,
@@ -44,12 +44,12 @@ public partial class Arm /*, IDo_actions*/ {
             );
             Vector2 segment2_position =
                 limb2.segment1.position +
-                (Vector2) (limb2.segment1.desired_direction * limb2.segment1.tip);
+                (Vector2) (limb2.segment1.target_quaternion * limb2.segment1.tip);
             UnityEngine.Debug.DrawLine(
                 segment2_position, 
                 segment2_position + 
                 (Vector2)(
-                    limb2.segment2.desired_direction *
+                    limb2.segment2.target_quaternion *
                     limb2.segment2.tip
                 ),
                 Color.white,
@@ -58,12 +58,12 @@ public partial class Arm /*, IDo_actions*/ {
             
             Vector2 hand_position =
                 segment2_position +
-                (Vector2) (limb2.segment2.desired_direction * limb2.segment2.tip);
+                (Vector2) (limb2.segment2.target_quaternion * limb2.segment2.tip);
             UnityEngine.Debug.DrawLine(
                 hand_position, 
                 hand_position +
                 (Vector2)(
-                    arm.hand.desired_direction *
+                    arm.hand.target_quaternion *
                     arm.hand.tip
                 ),
                 Color.cyan,

@@ -4,7 +4,9 @@
         "extensions",
         "debug",
         "settings",
-        "third_party"
+        "third_party",
+        "input",
+        "Unity.2D.Animation.Runtime"
     ]
     
 }

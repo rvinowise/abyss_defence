@@ -11,7 +11,7 @@ namespace rvinowise.units.control.human {
 
 public class Human:Intelligence {
     
-    protected Transform transform;
+    
     public parts.limbs.arms.humanoid.Arm_controller arm_controller;
     
     

@@ -72,7 +72,7 @@ public class Segment: Turning_element {
         length = (transform.position - next_segment.transform.position).magnitude;
     }
     public Vector2 desired_tip() {
-        return this.position + tip.rotate(desired_direction);
+        return this.position + tip.rotate(target_quaternion);
     }
 
     

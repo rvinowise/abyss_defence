@@ -18,4 +18,13 @@ public static partial class Unity_extension
         render_texture.Release();
         return final_texture;
     }
+
+    public static void save_to_file(this Texture2D in_texture, string filename) {
+        string file_path = "./saved_textures/" + filename+".png";
+        System.IO.FileInfo file = new System.IO.FileInfo(file_path);
+        file.Directory.Create(); // If the directory already exists, this method does nothing.
+
+        byte[] texture_png = in_texture.EncodeToPNG();
+        System.IO.File.WriteAllBytes(file.FullName, texture_png);
+    }
 }

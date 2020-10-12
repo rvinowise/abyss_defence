@@ -13,10 +13,9 @@ namespace rvinowise.units.control {
 
 /* asks tool controllers what they can do,
  orders some actions from them based on this information,
- they do these actions later in the same preserve_possible_rotations step */
+ they do these actions later in the same step */
 public abstract class Intelligence {
     
-
     public Baggage baggage;
 
     public ISensory_organ sensory_organ;
@@ -24,6 +23,9 @@ public abstract class Intelligence {
     public ITransporter transporter { get; set; }
 
     public IWeaponry weaponry{ get; set; }
+    
+    protected Transform body_transform;
+    public float last_rotation;
 
     public Intelligence() {
     }
@@ -34,6 +36,13 @@ public abstract class Intelligence {
 
     protected virtual void read_input() {
         
+    }
+    
+    protected void save_last_rotation(Quaternion needed_direction) {
+        float angle_difference = body_transform.rotation.degrees_to(needed_direction).degrees;
+        if (Mathf.Abs(angle_difference) > (float) Mathf.Epsilon) {
+            last_rotation = angle_difference;
+        }
     }
 }
 }

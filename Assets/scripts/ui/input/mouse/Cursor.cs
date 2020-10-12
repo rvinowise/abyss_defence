@@ -30,6 +30,9 @@ public class Cursor {
 
     public void update() {
         center.transform.position = Input.instance.mouse_world_position;
+        //var test = Input.instance.mouse_world_position;
+        //center.transform.position = test;
+        //center.transform.position = new Vector2(1f,1f);
     }
 
 }

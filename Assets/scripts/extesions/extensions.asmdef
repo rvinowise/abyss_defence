@@ -1,9 +1,10 @@
 {
     "name": "extensions",
     "references": [
-        "GUID:d86d3c3a35ad46db8568d11a601ba3ab",
-        "GUID:d6170e6ebce1fd846b79cc5bd35cc5d8",
-        "Unity.InputSystem"
+        "debug",
+        "third_party",
+        "Unity.InputSystem",
+        "Unity.2D.Animation.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

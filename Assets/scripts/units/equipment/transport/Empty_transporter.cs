@@ -10,13 +10,8 @@ namespace rvinowise.units.parts {
 public class Empty_transporter: ITransporter {
     private ITransporter _transporter_implementation;
 
-    public float get_possible_rotation() {
-        return 0;
-    }
-
-    public float get_possible_impulse() {
-        return 0;
-    }
+    public float possible_rotation { get; set; } = 0f;
+    public float possible_impulse { get; set; } = 0f;
 
     public Quaternion direction_quaternion { get; }
 
@@ -40,8 +35,8 @@ public class Empty_transporter: ITransporter {
         return new Empty_transporter();
     }
 
-    public IEnumerable<Child> tools { get; }
-    public void add_tool(Child child) {
+    public IEnumerable<ICompound_object> tools { get; }
+    public void add_tool(ICompound_object compound_object) {
         throw new NotImplementedException();
     }
 

@@ -7,7 +7,7 @@ using rvinowise;
 using geometry2d;
 
 
-namespace extesions {
+namespace extensions {
 
 public class Dictionary_of_containers<TContainer, TValue> where TValue: class {
 

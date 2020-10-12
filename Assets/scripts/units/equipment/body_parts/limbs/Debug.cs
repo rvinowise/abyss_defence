@@ -9,7 +9,7 @@ using static geometry2d.Directions;
 
 namespace rvinowise.units.parts.limbs {
 
-public partial class Limb2 : Child { 
+public partial class Limb2 : ICompound_object { 
     public class Debug {
         protected virtual Limb2 limb2 { get; }
         protected Color problem_color = new Color(255,50,50);
@@ -49,7 +49,7 @@ public partial class Limb2 : Child {
                 limb2.segment1.position, 
                 limb2.segment1.position +
                     (Vector2)(
-                        limb2.segment1.desired_direction *
+                        limb2.segment1.target_quaternion *
                         limb2.segment1.tip
                     ),
                 Color.cyan,
@@ -57,12 +57,12 @@ public partial class Limb2 : Child {
             );
             Vector2 segment2_position =
                 limb2.segment1.position +
-                (Vector2) (limb2.segment1.desired_direction * limb2.segment1.tip);
+                (Vector2) (limb2.segment1.target_quaternion * limb2.segment1.tip);
             UnityEngine.Debug.DrawLine(
                 segment2_position, 
                 segment2_position + 
                     (Vector2)(
-                        limb2.segment2.desired_direction *
+                        limb2.segment2.target_quaternion *
                         limb2.segment2.tip
                     ),
                 Color.white,

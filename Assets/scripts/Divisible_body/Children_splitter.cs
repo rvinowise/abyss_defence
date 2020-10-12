@@ -23,7 +23,7 @@ public static class Children_splitter {
 
         IList<IChildren_groups_host> piece_users = get_users_of_tools_from(piece_objects);
 
-
+        
         distribute_children_to_pieces(user_of_equipment, piece_objects);
 
         Children_groups_host.Data_distributor.distribute_data_across(user_of_equipment, piece_users);
@@ -47,16 +47,16 @@ public static class Children_splitter {
     
 
     private static void distribute_children_to_pieces(
-        IChildren_groups_host IChildren_groups_host,
+        IChildren_groups_host children_groups_host,
         IEnumerable<GameObject> piece_objects) {
 
         for (int i_children_group = 0;
-            i_children_group < IChildren_groups_host.children_groups.Count;
+            i_children_group < children_groups_host.children_groups.Count;
             i_children_group++) 
         {
             Children_group distributed_children_controller =
-                IChildren_groups_host.children_groups[i_children_group];
-            foreach (Child tool in distributed_children_controller.children) {
+                children_groups_host.children_groups[i_children_group];
+            foreach (ICompound_object tool in distributed_children_controller.children) {
                 foreach (GameObject piece_object in piece_objects) {
                     if (tool_is_inside_object(tool, piece_object)) {
                         attach_tool_to_object(piece_object, i_children_group, tool);
@@ -74,13 +74,13 @@ public static class Children_splitter {
         user_of_equipment.remove_empty_controllers();*/
     }
 
-    private static bool tool_is_inside_object(Child child, GameObject game_object) {
+    private static bool tool_is_inside_object(ICompound_object compound_object, GameObject game_object) {
         PolygonCollider2D collider = game_object.GetComponent<PolygonCollider2D>();
         Contract.Requires(collider.pathCount == 1, "only simple polygons");
         if (
             System.Convert.ToBoolean(
                 ClipperLib.Clipper.PointInPolygon(
-                    Clipperlib_coordinates.float_coord_to_int(child.local_position),
+                    Clipperlib_coordinates.float_coord_to_int(compound_object.main_object.transform.localPosition),
                     Clipperlib_coordinates.float_coord_to_int(new Polygon(collider.GetPath(0)))
                 )
             )
@@ -93,13 +93,13 @@ public static class Children_splitter {
     private static void attach_tool_to_object(
         GameObject piece_object,
         int i_children_group,
-        Child child) 
+        ICompound_object compound_object) 
     {
         IChildren_groups_host piece_children_groups_host =
             piece_object.GetComponent<IChildren_groups_host>();
         Children_group piece_children_group =
             piece_children_groups_host.children_groups[i_children_group];
-        piece_children_group.add_child(child);
+        piece_children_group.add_child(compound_object);
     }
 }
 

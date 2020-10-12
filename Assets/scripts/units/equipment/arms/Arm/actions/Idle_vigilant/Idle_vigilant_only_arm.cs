@@ -18,12 +18,14 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
     private transport.ITransporter transporter; // movements of arms depend on where the body is moving
     
     public static Idle_vigilant_only_arm create(
-        Action_parent in_action_parent,
         Arm in_arm,
         Transform in_target,
         transport.ITransporter in_transporter
     ) {
-        Idle_vigilant_only_arm action = (Idle_vigilant_only_arm)pool.get(typeof(Idle_vigilant_only_arm), in_action_parent);
+        Idle_vigilant_only_arm action = 
+            (Idle_vigilant_only_arm)pool.get(typeof(Idle_vigilant_only_arm));
+        action.actor = in_arm;
+        
         action.arm = in_arm;
         action.target = in_target;
         action.transporter = in_transporter;
@@ -33,6 +35,12 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
     
     public override void init_state() {
         base.init_state();
+        arm.shoulder.target_direction = new Relative_direction(
+            arm.shoulder.desired_idle_direction,arm.shoulder.parent    
+        );
+        arm.upper_arm.target_direction.relative_to = null;
+        arm.forearm.target_direction.relative_to = null;
+        arm.hand.target_direction.relative_to = null;
     }
     
     
@@ -46,20 +54,22 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
             transporter.direction_quaternion.to_float_degrees()
         ).use_minus();
         
-        arm.upper_arm.desired_direction = 
+        /*arm.upper_arm.target_quaternion = 
             determine_desired_direction_of_upper_arm(direction_to_target, body_wants_to_turn);
         
-        arm.forearm.desired_direction = 
-            determine_desired_direction_of_forearm(direction_to_target, body_wants_to_turn);
+        arm.forearm.target_quaternion = 
+            determine_desired_direction_of_forearm(direction_to_target, body_wants_to_turn);*/
         
+        /*arm.shoulder.target_quaternion = 
+            arm.shoulder.desired_idle_direction * transporter.direction_quaternion;*/
         
-        arm.upper_arm.desired_direction =
+        arm.upper_arm.target_quaternion =
             arm.upper_arm.desired_idle_direction * direction_to_target;
         
-        arm.forearm.desired_direction =
+        arm.forearm.target_quaternion =
             arm.forearm.desired_idle_direction * direction_to_target;
         
-        arm.hand.desired_direction =
+        arm.hand.target_quaternion =
             arm.hand.desired_idle_direction * direction_to_target;
 
         

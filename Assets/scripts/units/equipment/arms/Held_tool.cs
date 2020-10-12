@@ -57,7 +57,7 @@ public class Held_tool: IWeapon {
 
     private void set_desired_directions(Orientation tool_orientation) {
         trigger_arm.set_desired_directions_by_position(tool_orientation.position);
-        trigger_arm.hand.desired_direction = tool_orientation.rotation;
+        trigger_arm.hand.target_quaternion = tool_orientation.rotation;
     }
 
     private Orientation get_orientation_touching_baggage() {

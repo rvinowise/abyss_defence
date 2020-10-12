@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5280326378378947275}
+  - component: {fileID: 3213244143463634813}
   - component: {fileID: 5280326378378947274}
   - component: {fileID: 1034737149163476093}
   m_Layer: 0
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5280326378378947277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 417931160994653562}
@@ -34,6 +35,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &3213244143463634813
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5280326378378947277}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &5280326378378947274
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -100,8 +120,8 @@ MonoBehaviour:
   main_holding: {fileID: 0}
   second_holding: {fileID: 0}
   animator: {fileID: 0}
-  rounds_qty: 9
-  bullet_prefab: {fileID: 8271570929504040083, guid: 309f5670943cca146955842662ce0ba9,
+  rounds_qty: 100
+  projectile_prefab: {fileID: 4991994977472840630, guid: 7fc502688ebc5874eae4f4ed36822dec,
     type: 3}
 --- !u!1 &6224762526246276494
 GameObject:

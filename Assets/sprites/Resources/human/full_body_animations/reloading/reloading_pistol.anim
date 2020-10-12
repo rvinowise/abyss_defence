@@ -3414,23 +3414,30 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: change_tool_animation
-    data: idle
+    functionName: change_main_tool_animation
+    data: sideview
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 1
+    messageOptions: 0
+  - time: 1.4833333
+    functionName: apply_ammunition_to_gun
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.5166667
-    functionName: change_tool_animation
+  - time: 1.5
+    functionName: change_main_tool_animation
     data: sideview
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 2.1666667
-    functionName: change_tool_animation
+    functionName: change_main_tool_animation
     data: slide
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0

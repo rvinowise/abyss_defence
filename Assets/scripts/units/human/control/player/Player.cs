@@ -22,17 +22,17 @@ public class Player : Human {
 
     
     
-    private float last_rotation;
+    
     private int[] held_tool_index;
 
     
 
     public Player(
-        Transform in_transform
+        Transform in_body_transform
     )
         : base() 
     {
-        transform = in_transform;
+        body_transform = in_body_transform;
         
         
     }
@@ -63,14 +63,20 @@ public class Player : Human {
     private void use_gun(Arm arm, Gun gun) {
         bool wants_to_shoot = UnityEngine.Input.GetMouseButtonDown(0); //Input.instance.mouse_down();
         if (wants_to_shoot) {
-            
+            shoot();
         }
-        
-        bool wants_to_reload = Input.instance.button_presed("reload");
-        if (wants_to_reload) {
-            arm_controller.reload(arm);
+        else {
+
+            bool wants_to_reload = Input.instance.button_presed("reload");
+            if (wants_to_reload) {
+                Debug.Log("arm_controller.reload(arm);");
+                arm_controller.reload(arm);
+            }
         }
-        
+
+    }
+
+    private void shoot() {
         bool has_shot = false;
         if (arm_controller?.right_arm.held_tool is Gun right_gun) {
             if (right_gun.ready_to_fire()) {
@@ -86,18 +92,16 @@ public class Player : Human {
                 left_gun.pull_trigger();
             }
         }
-
-        
     }
 
     private void idle(Arm arm) {
-        var direction_to_mouse = transform.quaternion_to(Input.instance.mouse_world_position);
-        arm.upper_arm.desired_direction =
+        var direction_to_mouse = body_transform.quaternion_to(Input.instance.mouse_world_position);
+        arm.upper_arm.target_quaternion =
             arm.upper_arm.desired_idle_direction * direction_to_mouse;
         
-        arm.forearm.desired_direction =
+        arm.forearm.target_quaternion =
             arm.forearm.desired_idle_direction * direction_to_mouse;
-        arm.hand.desired_direction =
+        arm.hand.target_quaternion =
             arm.hand.desired_idle_direction * direction_to_mouse;
     }
 
@@ -163,12 +167,15 @@ public class Player : Human {
 
         Vector2 read_moving_direction() {
             Vector2 direction_vector = Input.instance.moving_vector;
+            
+            
+            
             return direction_vector.normalized;
         }
 
         Quaternion read_face_direction() {
-            Vector2 mousePos = Input.instance.mouse_world_position;
-            Quaternion needed_direction = (mousePos - (Vector2) transform.position).to_quaternion();
+            Vector2 mousePos = Input.instance.cursor.center.transform.position;
+            Quaternion needed_direction = (mousePos - (Vector2) body_transform.position).to_quaternion();
             if (has_gun_in_2hands(out var gun))
             {
                 needed_direction *= get_additional_rotation_for_2hands_gun(gun); 
@@ -182,7 +189,7 @@ public class Player : Human {
 
     private bool has_gun_in_2hands(out Gun out_gun) {
         if (
-            (arm_controller?.right_arm.action.current_child_action is Idle_vigilant_main_arm) &&
+            (arm_controller?.right_arm.current_action is Idle_vigilant_main_arm) &&
             (arm_controller?.right_arm.held_tool is Gun gun)
         ) {
             out_gun = gun;
@@ -209,12 +216,7 @@ public class Player : Human {
         return degrees_to_quaternion(body_rotation);
     }
 
-    private void save_last_rotation(Quaternion needed_direction) {
-        float angle_difference = transform.rotation.degrees_to(needed_direction);
-        if (Mathf.Abs(angle_difference) > (float) Mathf.Epsilon) {
-            last_rotation = angle_difference;
-        }
-    }
+    
 }
 
 }

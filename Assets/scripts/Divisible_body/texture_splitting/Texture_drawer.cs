@@ -5,15 +5,24 @@ using geometry2d;
 
 static class Texture_drawer {
 
-    static private Material masked_material = 
+    /*private static readonly Material masked_material = 
         new Material(Shader.Find("MaskedTexture"));
-    static private Material combining_material = 
-        new Material(Shader.Find("Combining_textures"));
+    private static readonly Material combining_material = 
+        new Material(Shader.Find("Combining_textures"));*/
+    private static readonly Material masked_material = 
+        Resources.Load<Material>("shaders/masked_texture");
+    private static readonly Material combining_material = 
+        Resources.Load<Material>("shaders/combining_textures");
+    //private static readonly Material mask_material =
+    //    new Material(Shader.Find("GUI/Text Shader"));
+    private static readonly Material mask_material =
+        Resources.Load<Material>("shaders/default");
     
-    static public Texture2D apply_mask_to_texture(Texture2D basis, RenderTexture mask) {
+    public static Texture2D apply_mask_to_texture(Texture2D basis, RenderTexture mask) {
+        
         RenderTexture combining_texture = new RenderTexture(
-             basis.width, basis.height, 32, RenderTextureFormat.ARGB32
-             );
+             basis.width, basis.height, 0, RenderTextureFormat.Default
+        );
 
         masked_material.SetTexture("_MainTex", basis);
         masked_material.SetTexture("_Mask", mask);
@@ -24,7 +33,7 @@ static class Texture_drawer {
         return final_texture;
     }
 
-    static public void draw_polygon_on_texture(
+    public static void draw_polygon_on_texture(
         RenderTexture texture, 
         float pixelsPerUnit,
         Polygon polygon) 
@@ -33,10 +42,12 @@ static class Texture_drawer {
         
         Triangulator tr = new Triangulator(polygon.points.ToArray());
         int[] indices = tr.Triangulate();
-        
+
         GL.PushMatrix();
         GL.LoadOrtho();
         GL.Clear(true, true, Color.clear);
+        
+        mask_material.SetPass(0);
         
         Matrix4x4 m = Matrix4x4.identity;
         m = m * Matrix4x4.TRS(new Vector2(0.5f,0.5f), Quaternion.identity, Vector3.one);
@@ -47,9 +58,8 @@ static class Texture_drawer {
 
         GL.Begin(GL.TRIANGLES);
         GL.Color(new Color(1f,1f,1f));
-        
+
         for (int i=0; i< indices.Length; i++) {
-            
             Vector2 point = polygon.points[indices[i]];
             GL.Vertex3(point.x, point.y, 0);
         }
@@ -59,12 +69,12 @@ static class Texture_drawer {
         RenderTexture.active= null;
     }
 
-    static public Texture2D overlay_textures(
+    public static Texture2D overlay_textures(
         Texture2D texture1,
         Texture2D texture2
     ) {
         RenderTexture combining_texture = new RenderTexture(
-             texture1.width, texture1.height, 32, RenderTextureFormat.ARGB32
+             texture1.width, texture1.height, 0, RenderTextureFormat.ARGB32
              );
 
         combining_material.SetTexture("_Texture1", texture1);
@@ -73,4 +83,6 @@ static class Texture_drawer {
         
         return combining_texture.move_to_texture();
     }
+    
+    
 }

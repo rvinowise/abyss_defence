@@ -4,16 +4,28 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 using rvinowise;
-using rvinowise.units.parts.limbs.legs;
+using rvinowise.units.parts.limbs.creeping_legs;
+using rvinowise.units.parts.transport;
+using Contract = rvinowise.rvi.contracts.Contract;
 
-
-namespace rvinowise.units.parts.limbs.legs.strategy {
+namespace rvinowise.units.parts.limbs.creeping_legs.strategy {
 public abstract class Moving_strategy {
 
     protected readonly IList<Leg> legs;
+    protected readonly Creeping_leg_group creeping_legs_group;
+    
+    
 
-    protected Moving_strategy(IList<Leg> in_legs) {
+    protected Moving_strategy(IList<Leg> in_legs, Creeping_leg_group in_creeping_legs_group) {
         legs = in_legs;
+        creeping_legs_group = in_creeping_legs_group;
+    }
+
+    protected void raise_up(Leg leg) {
+        Contract.Requires(!leg.is_up);
+        
+        leg.raise_up();
+        creeping_legs_group.possible_impulse -= leg.provided_impulse;
     }
 
     //internal abstract void move_legs();

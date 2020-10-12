@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using extesions;
+using extensions;
 using UnityEngine;
 using rvinowise;
+using rvinowise.rvi.contracts;
 using rvinowise.units.parts.limbs;
 using rvinowise.units.parts.tools;
 using rvinowise.units.parts.weapons.guns;
@@ -14,7 +15,7 @@ namespace rvinowise.units.parts {
 public class Baggage: Turning_element {
 
     public List<Tool> items { get; set; } = new List<Tool>();
-    public Dictionary_of_containers<Gun, Tool> ammos = new Dictionary_of_containers<Gun, Tool>();
+    public Dictionary_of_containers<Gun, Ammunition> ammos = new Dictionary_of_containers<Gun, Ammunition>();
 
     public float entering_span = 30f;
 
@@ -38,13 +39,24 @@ public class Baggage: Turning_element {
         tool.activate();
     }
 
-    public void insert_ammo_for_gun(Gun gun, Tool in_ammo) {
+    public void insert_ammo_for_gun(Gun gun, Ammunition in_ammo) {
+        Contract.Assert(gun != null);
+        Contract.Assert(in_ammo != null);
         ammos.insert(gun.GetType(), in_ammo);
     }
 
 
-    public Tool retrieve_ammo_for_gun(Gun in_gun) {
+    public Ammunition retrieve_ammo_for_gun(Gun in_gun) {
+        
         return ammos.get(in_gun.GetType());
     }
+    
+    /*public Ammunition retrieve_ammo_for_gun(
+        Gun in_gun,
+        Ammo_type in_type
+    ) {
+        Ammunition ammo = Instantiate();
+        return ammos.get(in_gun.GetType());
+    }*/
 }
 }

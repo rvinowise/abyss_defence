@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.limbs.legs;
+using rvinowise.units.parts.limbs.creeping_legs;
 using rvinowise.units.parts.transport;
-
+using rvinowise.units.parts.limbs;
+using geometry2d;
 
 namespace rvinowise.units.parts.humanoid {
 
 public class Legs: 
-    ITransporter 
+    ITransporter
 {
     
     /* ITransporter interface */
@@ -27,19 +28,14 @@ public class Legs:
     protected void execute_commands() {
         move_in_direction(command_batch.moving_direction_vector);
         rotate_to_direction(command_batch.face_direction_degrees);
+        
     }
 
-    public float get_possible_rotation() {
-        return 110f;
-        //return 0f;
-    }
-
-    public float get_possible_impulse() {
-      return 1f;
-    }
+    public float possible_rotation {get;set;} = 400f;
+    public float possible_impulse { get; set; } =1f;
 
     public Quaternion direction_quaternion {
-        get { return user.transform.rotation; }
+        get { return turning_element.rotation; }
     }
 
 
@@ -47,7 +43,8 @@ public class Legs:
     
     private GameObject user;
     
-    private Rigidbody2D moved_body;
+    private Rigidbody2D rigidbody;
+    private Turning_element turning_element;
 
     private float acceleration = 0.339f * rvinowise.Settings.scale;
 
@@ -61,21 +58,23 @@ public class Legs:
     }
     
     protected void init_components() {
-        moved_body = user.GetComponent<Rigidbody2D>();
-        Contract.Requires(moved_body != null);
+        rigidbody = user.GetComponent<Rigidbody2D>();
+        turning_element = user.GetComponent<Turning_element>();
+        turning_element.rotation_acceleration = possible_rotation;
+        
+        Contract.Requires(rigidbody != null);
+        Contract.Requires(turning_element != null);
     }
 
 
     public void move_in_direction(Vector2 direction) {
-        Vector2 force = direction * get_possible_impulse() * Time.deltaTime;
-        moved_body.MovePosition(moved_body.position + force);
+        Vector2 force = direction * possible_impulse * Time.deltaTime;
+        rigidbody.MovePosition(rigidbody.position + force);
     }
     
     public void rotate_to_direction(float face_direction) {
-        user.transform.rotate_to(
-            face_direction, 
-            get_possible_rotation() * rvi.Time.deltaTime
-        );
+        turning_element.target_quaternion = Directions.degrees_to_quaternion(face_direction);
+        turning_element.rotate_to_desired_direction();
     }
 }
 }

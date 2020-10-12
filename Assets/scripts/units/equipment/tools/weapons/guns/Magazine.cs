@@ -11,12 +11,12 @@ using rvinowise.units.parts.tools;
 
 namespace rvinowise.units.parts.weapons.guns {
 
-public class Magazine : Tool {
+public class Magazine : Ammunition {
 
     public virtual int max_rounds_qty { get; set; }
     [SerializeField] public int rounds_qty;
 
-    [SerializeField] public Bullet bullet_prefab;
+    [SerializeField] public Projectile projectile_prefab;
 
     public Magazine() { }
 
@@ -26,19 +26,13 @@ public class Magazine : Tool {
     
     /* Tool interface */
     protected override void init_holding_places() {
-        /*main_holding =  new Holding_place(this) {
-            is_main = true,
-            grip_gesture = Hand_gesture.Hold_horizontal_flat_oject,
-            place_on_tool = new Vector2(-0.0f, 0f),
-            grip_direction = new Degree(-30f)
-        };*/
         main_holding = transform.Find("main_holding_place")?.GetComponent<Holding_place>();
     }
 
-    public Bullet retrieve_round() {
+    public Projectile retrieve_round(Transform in_muzzle) {
         if (rounds_qty > 0) {
             rounds_qty--;
-            return get_bullet_object();
+            return get_bullet_object(in_muzzle);
         }
         return null;
     }
@@ -48,8 +42,8 @@ public class Magazine : Tool {
         return rounds_qty == 0;
     }
 
-    protected Bullet get_bullet_object() {
-        return Instantiate(bullet_prefab, transform.position, transform.rotation);
+    protected Projectile get_bullet_object(Transform in_muzzle) {
+        return Instantiate(projectile_prefab, in_muzzle.position, in_muzzle.rotation);
     }
 }
 

@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
+using rvinowise.rvi.contracts;
 using rvinowise.units;
+using UnityEngine.Assertions;
 
 
 namespace rvinowise {
 
 public class Component_creator:
     MonoBehaviour,
-    Child 
+    ICompound_object 
 {
 
     public GameObject game_object {
@@ -31,11 +33,16 @@ public class Component_creator:
         }
     }
     
+    /* ICompound_object interface */
     public Transform parent {
         get {
             return transform.parent;
         }
         set { transform.SetParent(value, false); }
+    }
+
+    public GameObject main_object {
+        get { return gameObject; }
     }
     
     public Vector2 position {
@@ -119,6 +126,7 @@ public class Component_creator:
     
     public static GameObject instantiate(string name) {
         GameObject prefab = Resources.Load<GameObject>(name);
+        Contract.Assert(prefab != null);
         
         return instantiate(prefab);
     }

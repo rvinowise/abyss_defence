@@ -7,7 +7,7 @@ using UnityEngine;
 using geometry2d;
 using rvinowise.units.parts;
 using rvinowise.units.parts.limbs;
-using rvinowise.units.parts.limbs.legs;
+using rvinowise.units.parts.limbs.creeping_legs;
 using rvinowise.units.parts.transport;
 
 namespace rvinowise.units.hexapod_spider {
@@ -23,7 +23,8 @@ public class Hexapod_spider:Creature {
 
 
     protected override void create_equipment() {
-        _creeping_transporter = new Creeping_leg_group(divisible_body);
+        _creeping_transporter = new Creeping_leg_group(divisible_body, this);
+        _creeping_transporter = new Creeping_leg_group(divisible_body, this);
     }
     
     protected override void fill_equipment_with_children() {

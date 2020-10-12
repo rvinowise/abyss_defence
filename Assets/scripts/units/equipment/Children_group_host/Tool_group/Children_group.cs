@@ -27,12 +27,12 @@ public abstract class Children_group:
         }
     }
     
-    public abstract IEnumerable<Child> children {
+    public abstract IEnumerable<ICompound_object> children {
         get;
     }
 
-    public bool has_child(Child in_child) {
-        return children.Any(tool => tool == in_child);
+    public bool has_child(ICompound_object in_compound_object) {
+        return children.Any(tool => tool == in_compound_object);
     }
     
     
@@ -76,7 +76,7 @@ public abstract class Children_group:
     }
 
 
-    public abstract void add_child(Child child);
+    public abstract void add_child(ICompound_object compound_object);
 
     public virtual void init() { }
 
@@ -86,6 +86,11 @@ public abstract class Children_group:
         IEnumerable<Children_group> new_controllers
     ) {}
 
+    public virtual void shift_center(Vector2 in_shift) {
+        foreach (ICompound_object child in children) {
+            child.main_object.transform.localPosition += (Vector3)in_shift;
+        }
+    }
     
 
     public class Debug: Debugger {

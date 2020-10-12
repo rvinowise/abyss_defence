@@ -19,9 +19,9 @@ public class Arm_reach_holding_part_of_tool:Arm_reach_somewhere {
     }
     
     public static Arm_reach_holding_part_of_tool create(
-        Action_sequential_parent in_action_sequential_parent, Holding_place holding_place
+        Holding_place holding_place
     ) {
-        var action = (Arm_reach_holding_part_of_tool)pool.get(typeof(Arm_reach_holding_part_of_tool), in_action_sequential_parent);
+        var action = (Arm_reach_holding_part_of_tool)pool.get(typeof(Arm_reach_holding_part_of_tool));
         action.holding_place = holding_place;
         return action;
     }

@@ -16,11 +16,12 @@ public class Put_hand_before_bag: Action_of_arm {
     private Baggage bag;
 
     public static Put_hand_before_bag create(
-        Action_sequential_parent in_action_sequential_parent,
         Arm in_arm,
         Baggage in_bag
     ) {
-        var action = (Put_hand_before_bag)pool.get(typeof(Put_hand_before_bag), in_action_sequential_parent);
+        var action = (Put_hand_before_bag)pool.get(typeof(Put_hand_before_bag));
+        action.actor = in_arm;
+        
         action.arm = in_arm;
         action.bag = in_bag;
         //action.init(in_bag);
@@ -35,16 +36,21 @@ public class Put_hand_before_bag: Action_of_arm {
 
     public override void init_state() {
         base.init_state();
+        arm.shoulder.target_direction = new Relative_direction(
+            60f, arm.shoulder.parent
+        ).adjust_to_side_for_left(arm.folding_direction);
         if (arm.held_tool == null) {
             arm.hand.gesture = Hand_gesture.Open_sideview;
         }
     }
     public override void update() {
+        base.update();
         Orientation desired_orientation = get_desired_orientation();
-        if (complete(desired_orientation)) {
-            reached_goal();
+        arm.rotate_to_orientation(desired_orientation);
+        if (is_reached_goal(desired_orientation)) {
+            mark_as_reached_goal();
         } else {
-            arm.rotate_to_orientation(desired_orientation);
+            mark_as_has_not_reached_goal();
         }
     }
     
@@ -57,9 +63,9 @@ public class Put_hand_before_bag: Action_of_arm {
         );
     }
 
-    protected bool complete(Orientation desired_orientation) {
+    protected bool is_reached_goal(Orientation desired_orientation) {
         if (
-            arm.hand.position == desired_orientation.position &&
+            arm.hand.position.close_enough_to(desired_orientation.position) &&
             arm.hand.rotation.abs_degrees_to(desired_orientation.rotation) < bag.entering_span
         ) 
         {

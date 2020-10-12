@@ -42,8 +42,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: stained ground
+    uniqueID: 3580056349
+    locked: 0
   - name: under body
     uniqueID: 2584921089
+    locked: 0
+  - name: legs
+    uniqueID: 1470508103
     locked: 0
   - name: arms
     uniqueID: 3302420939
@@ -51,6 +57,12 @@ TagManager:
   - name: body
     uniqueID: 315254047
     locked: 0
+  - name: in hands
+    uniqueID: 39092089
+    locked: 0
   - name: on body
     uniqueID: 738386907
+    locked: 0
+  - name: flying junk
+    uniqueID: 334106981
     locked: 0

@@ -6,7 +6,7 @@ using rvinowise;
 using geometry2d;
 
 
-namespace extesions {
+namespace extensions {
 
 public class Saved_physics {
 

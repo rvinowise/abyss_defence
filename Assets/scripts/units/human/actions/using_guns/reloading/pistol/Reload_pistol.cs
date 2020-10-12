@@ -1,0 +1,105 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using rvinowise;
+using geometry2d;
+using rvinowise.rvi.contracts;
+using rvinowise.units.humanoid;
+using rvinowise.units.parts.actions;
+using rvinowise.units.parts.tools;
+using rvinowise.units.parts.weapons.guns;
+using units.human.actions;
+
+namespace rvinowise.units.parts.limbs.arms.actions.using_guns.reloading {
+
+public class Reload_pistol: Action_sequential_parent {
+    
+    private static readonly int animation_reload_pistol = Animator.StringToHash("reload_pistol");    
+
+    private Animator animator;
+    private Humanoid body;
+    
+    public Arm gun_arm;
+    public Arm magazine_arm;
+    private Baggage bag;
+    private Pistol gun;
+    private Ammunition magazine;
+    
+
+    public static Reload_pistol create(
+        Arm in_gun_arm,
+        Arm in_magazine_arm,
+        Baggage in_bag, 
+        Pistol in_tool,
+        Ammunition in_magazine
+    ) {
+        var action = (Reload_pistol)pool.get(typeof(Reload_pistol));
+        action.gun_arm = in_gun_arm;
+        action.magazine_arm = in_magazine_arm;
+        action.bag = in_bag;
+        action.gun = in_tool;
+        action.magazine = in_magazine;
+        action.init_child_actions();
+        
+        return action;
+    }
+    
+    public static Reload_pistol create(
+        Humanoid in_body,
+        Arm in_gun_arm,
+        Arm in_magazine_arm,
+        Baggage in_bag, 
+        Pistol in_tool,
+        Ammunition in_magazine
+    ) {
+        var action = (Reload_pistol)pool.get(typeof(Reload_pistol));
+        action.set_actor(in_body);
+        
+        action.animator = in_body.animator;
+        action.body = in_body;
+        action.gun_arm = in_gun_arm;
+        action.magazine_arm = in_magazine_arm;
+        action.bag = in_bag;
+        action.gun = in_tool;
+        action.magazine = in_magazine;
+        action.init_child_actions();
+        
+        return action;
+    }
+
+    public override void init_state() {
+        base.init_state();
+        
+    }
+
+    public void init_child_actions() {
+        
+        this.add_child(
+            rvinowise.units.parts.actions.Action_parallel_parent.create(
+                actions.Arm_reach_relative_directions.create_assuming_left_arm(
+                    gun_arm,
+                    -45f,
+                    -90f,
+                    0f
+                ),
+                actions.Take_tool_from_bag.create(
+                    magazine_arm,
+                    bag,
+                    magazine
+                )
+            )
+        );
+        this.add_child(
+            Start_recorded_animation.create(
+                animator,
+                animation_reload_pistol
+            )
+        );
+        
+
+    }
+
+
+}
+}

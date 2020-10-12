@@ -66,6 +66,7 @@ public class Gun_with_stock: actions.Action_of_arm
 
     private Vector2 position_of_wrist;
     public override void update() {
+        base.update();
         
         var direction_to_target = arm.upper_arm.transform.quaternion_to(target.position);
 
@@ -74,16 +75,16 @@ public class Gun_with_stock: actions.Action_of_arm
             transporter.direction_quaternion.to_float_degrees()
         ).use_minus();
         
-        arm.upper_arm.desired_direction = 
+        arm.upper_arm.target_quaternion = 
             determine_desired_direction_of_upper_arm(direction_to_target, body_wants_to_turn);
 
 
         
-        arm.forearm.desired_direction = 
+        arm.forearm.target_quaternion = 
             determine_desired_direction_of_forearm(direction_to_target, body_wants_to_turn);
 
 
-        arm.hand.desired_direction =
+        arm.hand.target_quaternion =
             direction_to_target;
         
         arm.rotate_to_desired_directions();

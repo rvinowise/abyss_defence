@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 using rvinowise;
-using rvinowise.units.parts.limbs.legs;
+using rvinowise.units.parts.limbs.creeping_legs;
+using rvinowise.units.parts.transport;
 
 
-namespace rvinowise.units.parts.limbs.legs.strategy {
+namespace rvinowise.units.parts.limbs.creeping_legs.strategy {
 
 
 /* don't try to move constantly - all legs can be raised up:
@@ -15,7 +16,8 @@ namespace rvinowise.units.parts.limbs.legs.strategy {
  */
 internal class Faltering: Moving_strategy
 {
-    internal Faltering(IList<Leg> in_legs) : base(in_legs) { }
+    internal Faltering(IList<Leg> in_legs, Creeping_leg_group in_creeping_legs_group):
+        base(in_legs, in_creeping_legs_group) { }
 
 
     internal override void move_on_the_ground(Leg leg) {
@@ -26,7 +28,7 @@ internal class Faltering: Moving_strategy
         ) 
         {
             leg.debug.draw_lines(Color.red);
-            leg.raise_up();
+            raise_up(leg);
         }
     }
 

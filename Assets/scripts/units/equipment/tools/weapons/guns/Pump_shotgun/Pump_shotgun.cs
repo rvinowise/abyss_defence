@@ -13,8 +13,18 @@ namespace rvinowise.units.parts.weapons.guns {
 
 public class Pump_shotgun: Gun {
     
+    [SerializeField]
+    public Transform shell_ejector;
+    public Slot reloading_slot { get; private set; }
+    
     public override float weight { set; get; } = 6f;
     public override float stock_length { get; } = 0.45f;
+
+
+    public int max_rounds = 12;
+    
+    /* current values */
+    public int rounds_n;
     
     protected override void init_holding_places() {
         main_holding = Holding_place.main(this);
@@ -24,6 +34,19 @@ public class Pump_shotgun: Gun {
         second_holding.grip_direction = new Degree(-70f);
     }
     
-    
+    protected override void init_components() {
+        base.init_components();
+        reloading_slot = GetComponentInChildren<Slot>();
+    }
+
+    public override void apply_ammunition(Ammunition in_ammunition) {
+        if (rounds_n < max_rounds) {
+            rounds_n++;
+        }
+    }
+
+    public bool can_apply_ammunition(Ammunition in_ammunition) {
+        return rounds_n < max_rounds;
+    }
 }
 }

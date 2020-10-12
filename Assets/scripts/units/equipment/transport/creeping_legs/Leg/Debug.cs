@@ -6,7 +6,7 @@ using rvinowise;
 using geometry2d;
 
 
-namespace rvinowise.units.parts.limbs.legs {
+namespace rvinowise.units.parts.limbs.creeping_legs {
 
 public partial class Leg : Limb2 {
     

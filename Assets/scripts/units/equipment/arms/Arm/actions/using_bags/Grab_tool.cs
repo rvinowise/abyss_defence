@@ -19,11 +19,12 @@ public class Grab_tool: Action_of_arm {
 
     
     public static Grab_tool create(
-        Action_sequential_parent in_action_sequential_parent, 
         Arm in_arm,
         Baggage in_bag, Tool in_tool
     ) {
-        var action = (Grab_tool)pool.get(typeof(Grab_tool), in_action_sequential_parent);
+        var action = (Grab_tool)pool.get(typeof(Grab_tool));
+        action.actor = in_arm;
+        
         action.arm = in_arm;
         action.bag = in_bag;
         action.tool = in_tool;
@@ -42,7 +43,7 @@ public class Grab_tool: Action_of_arm {
         if (tool != null) {
             take_new_tool();
         }
-        reached_goal();
+        mark_as_reached_goal();
     }
 
     private void stash_old_tool() {

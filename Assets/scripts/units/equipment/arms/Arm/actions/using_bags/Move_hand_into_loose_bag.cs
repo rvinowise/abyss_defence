@@ -29,8 +29,9 @@ public class Move_hand_into_loose_bag: Action_of_arm {
 
 
     public override void update() {
+        base.update();
         if (complete()) {
-            reached_goal();
+            mark_as_reached_goal();
         } else {
             set_desired_directions(arm);
             arm.rotate_to_desired_directions();
@@ -38,16 +39,16 @@ public class Move_hand_into_loose_bag: Action_of_arm {
     }
 
     private void set_desired_directions(Arm arm) {
-        arm.upper_arm.desired_direction =
+        arm.upper_arm.target_quaternion =
             arm.upper_arm.parent.rotation *
             degrees_to_quaternion(arm.upper_arm.possible_span.degrees_in_direction(-arm.folding_direction));
         
-        arm.forearm.desired_direction =
-            arm.upper_arm.desired_direction *
+        arm.forearm.target_quaternion =
+            arm.upper_arm.target_quaternion *
             degrees_to_quaternion(arm.forearm.possible_span.degrees_in_direction(-arm.folding_direction));
         
-        arm.hand.desired_direction =
-            arm.forearm.desired_direction *
+        arm.hand.target_quaternion =
+            arm.forearm.target_quaternion *
             degrees_to_quaternion(arm.hand.possible_span.degrees_in_direction(-arm.folding_direction));
         
         /*arm.hand.desired_direction = Directions.degrees_to_quaternion(

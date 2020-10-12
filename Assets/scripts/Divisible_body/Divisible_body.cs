@@ -23,7 +23,6 @@ public class Divisible_body : MonoBehaviour
     
     /* IChildren_groups_host */
     
-    public ITransporter transporter { get; set; }
 
     public GameObject game_object {
         get {return gameObject;}
@@ -35,28 +34,38 @@ public class Divisible_body : MonoBehaviour
     /* Divisible_body itself */
     public IEnumerable<GameObject> split_by_ray(Ray2D ray_of_split) {
 
-        List<Polygon> collider_pieces = Polygon_splitter.split_polygon_by_ray(
+        return remove_polygon(
+            Polygon_splitter.get_wedge_from_ray(ray_of_split)  
+        );
+        
+    }
+
+    public IEnumerable<GameObject> remove_polygon(Polygon polygon_of_split) {
+        List<Polygon> collider_pieces = Polygon_splitter.remove_polygon_from_polygon(
             new Polygon(gameObject.GetComponent<PolygonCollider2D>().GetPath(0)),
-            transform.InverseTransformRay(ray_of_split)
+            transform.InverseTransformPolygon(polygon_of_split)
         );
 
         Sprite body = gameObject.GetComponent<SpriteRenderer>().sprite;
 
-        IEnumerable<GameObject> piece_objects = create_objects_for_colliders(
+        List<GameObject> piece_objects = create_objects_for_colliders(
             collider_pieces, body, inside
         );
 
         Children_splitter.split_children_groups(gameObject, piece_objects);
 
+        adjust_center_of_colliders_and_children(piece_objects, collider_pieces);
+
+        preserve_impulse_in_pieces(piece_objects);
         
         Destroy(gameObject);
         
         return piece_objects;
     }
 
-  
 
-    private IEnumerable<GameObject> create_objects_for_colliders(
+
+    private List<GameObject> create_objects_for_colliders(
         IEnumerable<Polygon> collider_pieces,
         Sprite body,
         Sprite inside
@@ -80,6 +89,29 @@ public class Divisible_body : MonoBehaviour
         return object_pieces;
     }
 
+    private void adjust_center_of_colliders_and_children(
+        List<GameObject> piece_objects,
+        List<Polygon> collider_pieces
+    ) {
+        for (int i_piece = 0; i_piece < piece_objects.Count; i_piece ++) {
+            
+            GameObject created_part = piece_objects[i_piece];
+            IChildren_groups_host children_group_host = created_part.GetComponent<IChildren_groups_host>();
+            
+            Polygon collider_polygon = collider_pieces[i_piece];
+            Vector2 polygon_shift = -collider_polygon.middle;
+            collider_polygon.move(polygon_shift); 
+            
+            foreach (Children_group children_group in children_group_host.children_groups) {
+                children_group.shift_center(polygon_shift);
+            }
+
+            
+            created_part.GetComponent<PolygonCollider2D>().SetPath(0, collider_polygon.points.ToArray());
+        }
+    }
+    
+    /* to avoid duplication of the Children when duplicating the Body */
     private void detach_children(GameObject game_object) {
          //Transform[] children = GetComponentsInChildren<Transform>();
          foreach (Transform child_transform in gameObject.direct_children()) {
@@ -88,12 +120,13 @@ public class Divisible_body : MonoBehaviour
     }
 
     private GameObject create_gameobject_from_polygon_and_texture(
-        Polygon polygon, Texture2D texture) 
+        Polygon polygon, Texture2D texture
+    ) 
     {
         
 
         Vector2 polygon_shift = -polygon.middle;
-        polygon.move(polygon_shift); //center the polygon
+        //polygon.move(polygon_shift); 
 
         Sprite body_sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
         
@@ -119,7 +152,59 @@ public class Divisible_body : MonoBehaviour
     }
 
 
+    private void preserve_impulse_in_pieces(List<GameObject> piece_objects) {
+        Rigidbody2D rigid_body = gameObject.GetComponent<Rigidbody2D>();
+        if (rigid_body) {
+            foreach (GameObject piece in piece_objects) {
+                Rigidbody2D piece_rigid_body = piece.GetComponent<Rigidbody2D>();
+                
+                //piece_rigid_body.velocity = rigid_body.velocity;// / Time.deltaTime;
+                //piece_rigid_body.angularVelocity= rigid_body.angularVelocity;// / Time.deltaTime;
+                
+                piece_rigid_body.AddForce(rigid_body.velocity / Time.deltaTime, ForceMode2D.Impulse);
+                piece_rigid_body.AddTorque(rigid_body.angularVelocity / Time.deltaTime, ForceMode2D.Impulse);
+
+            }
+        }
+    }
     
+    
+    public void OnCollisionEnter2D(Collision2D other) {
+        Debug.Log("OnCollisionEnter2D in "+this.gameObject.name);
+        Projectile collided_projectile = other.gameObject.GetComponent<Projectile>();
+        if (collided_projectile != null) {
+
+            Vector2 contact_point = other.GetContact(0).point;
+            Ray2D ray_of_impact = new Ray2D(
+                contact_point, other.GetContact(0).relativeVelocity
+            );
+           
+            Polygon removed_polygon = collided_projectile.get_damaged_area(
+                ray_of_impact
+            );
+            Destroy(collided_projectile.gameObject);
+            
+            Debug_drawer.instance.draw_polygon_debug(removed_polygon, 5f);
+
+            var pieces = remove_polygon(removed_polygon);
+            //push_pieces_away(pieces, contact_point, collided_projectile.last_physics.velocity.magnitude);
+        }
+    }
+
+    private void push_pieces_away(
+        IEnumerable<GameObject> pieces,
+        Vector2 contact_point,
+        float force
+    ) {
+        foreach (var piece in pieces) {
+            Vector2 push_vector = 
+                ((Vector2)piece.transform.position - contact_point).normalized *
+                force;
+            var rigidbody = piece.GetComponent<Rigidbody2D>();
+            rigidbody.AddForce(push_vector, ForceMode2D.Impulse);
+            //rigidbody.AddTorque(50f);
+        }
+    }
     
 
 }

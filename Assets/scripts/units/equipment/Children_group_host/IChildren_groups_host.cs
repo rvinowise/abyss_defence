@@ -11,7 +11,6 @@ namespace rvinowise.units.parts {
 
 public interface IChildren_groups_host {
 
-    ITransporter transporter { get; }
     
     GameObject game_object { get; }
     

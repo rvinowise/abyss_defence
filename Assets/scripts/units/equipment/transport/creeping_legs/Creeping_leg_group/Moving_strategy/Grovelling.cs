@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.limbs.legs;
+using rvinowise.units.parts.limbs.creeping_legs;
+using rvinowise.units.parts.transport;
 
 
-namespace rvinowise.units.parts.limbs.legs.strategy {
+namespace rvinowise.units.parts.limbs.creeping_legs.strategy {
 
 /* don't try to raise the belly above the ground,
    but keep one leg on the ground to move constantly:
@@ -15,9 +16,10 @@ namespace rvinowise.units.parts.limbs.legs.strategy {
 */
 internal class Grovelling: Moving_strategy
 {
-    internal Grovelling(IList<Leg> in_legs) : base(in_legs) { }
+    internal Grovelling(IList<Leg> in_legs, Creeping_leg_group in_creeping_legs_group):
+        base(in_legs, in_creeping_legs_group) { }
 
-
+   
     internal override void move_on_the_ground(Leg leg) {
         bool can_hold = leg.hold_onto_ground();
         if (
@@ -26,11 +28,18 @@ internal class Grovelling: Moving_strategy
         ) 
         {
             leg.debug.draw_lines(Color.red);
-            leg.raise_up();
+            raise_up(leg);
+
         } 
         else if (leg.is_twisted_uncomfortably()) {
             if (can_move_without(leg)) {
-                leg.raise_up();
+                raise_up(leg);
+                
+            }
+            else {
+                if (leg.debug.name == "left_hind_leg") {
+                    Debug.Log("left_hind_leg is_twisted_uncomfortably but !can_move_without");
+                }
             }
         }
     }

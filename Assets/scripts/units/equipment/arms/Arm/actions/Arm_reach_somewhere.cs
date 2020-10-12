@@ -11,9 +11,10 @@ namespace rvinowise.units.parts.limbs.arms.actions {
 public abstract class Arm_reach_somewhere: arms.actions.Action_of_arm {
 
     public override void update() {
+        base.update();
         Orientation desired_orientation = get_desired_orientation();
         if (complete(desired_orientation)) {
-            reached_goal();
+            mark_as_reached_goal();
         } else {
             arm.rotate_to_orientation(desired_orientation);
         }
@@ -22,7 +23,7 @@ public abstract class Arm_reach_somewhere: arms.actions.Action_of_arm {
     protected abstract Orientation get_desired_orientation();
     protected virtual void set_desired_directions(Arm arm, Orientation needed_orientation) {
         arm.set_desired_directions_by_position(needed_orientation.position);
-        arm.hand.desired_direction = needed_orientation.rotation;
+        arm.hand.target_quaternion = needed_orientation.rotation;
     }
 
     protected virtual float touching_distance{ 

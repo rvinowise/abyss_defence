@@ -55,7 +55,7 @@ public abstract class Gun:
     /* current values */
     private float last_shot_time = 0f;
 
-    private guns.Magazine magazine;
+    public guns.Magazine magazine;
 
 
 
@@ -68,14 +68,16 @@ public abstract class Gun:
         animator = GetComponent<Animator>();
     }
 
-    public void insert_magazine(Magazine in_magazine) {
-        magazine = in_magazine;
+    
+
+    public virtual void apply_ammunition(Ammunition in_ammunition) {
+        in_ammunition.deactivate();
     }
     
-    protected virtual Bullet fire() {
+    protected virtual Projectile fire() {
         Contract.Requires(can_fire(), "function Fire must be invoked after making sure it's possible");
         last_shot_time = Time.time;
-        Bullet new_projectile = magazine.retrieve_round();
+        Projectile new_projectile = magazine.retrieve_round(muzzle);
         GameObject new_spark = Instantiate(
             spark,
             muzzle.position,
@@ -99,15 +101,12 @@ public abstract class Gun:
         }
     }
 
-    private bool can_fire() {
-        return 
-            ready_to_fire() && 
-            magazine != null &&
-            !magazine.empty();
-    }
-
     public virtual bool ready_to_fire() {
         return (Time.time - last_shot_time) > fire_rate_delay;
+    }
+
+    protected virtual bool can_fire() {
+        return ready_to_fire();
     }
 }
 }

@@ -20,12 +20,11 @@ public class Play_body_animation : Action_sequential_parent {
     private Animator animator;
 
     public static Play_body_animation create(
-        Action_parent in_action_parent,
         Arm in_left_arm,
         Arm in_right_arm,
         Animator in_animator
     ) {
-        Play_body_animation action = (Play_body_animation) pool.get(typeof(Play_body_animation), in_action_parent);
+        Play_body_animation action = (Play_body_animation) pool.get(typeof(Play_body_animation));
         action.left_arm = in_left_arm;
         action.right_arm = in_right_arm;
         action.animator = in_animator;
@@ -37,12 +36,12 @@ public class Play_body_animation : Action_sequential_parent {
     private void init_child_actions() {
 
         Action_parallel_parent preparing_arms = Action_parallel_parent.create(this);
-        preparing_arms.add_child();
+        //preparing_arms.add_child();
             
-        child_actions.Enqueue(preparing_arms);
+        add_child(preparing_arms);
         
-        child_actions.Enqueue(
-            Start_recorded_animation.create(this, animator)
+        add_child(
+            Start_recorded_animation.create(animator,0)
         );
     }
 }

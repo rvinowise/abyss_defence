@@ -13,16 +13,18 @@ using Arm_controller = rvinowise.units.parts.limbs.arms.humanoid.Arm_controller;
 using rvinowise.units.parts.limbs.arms.humanoid;
 
 
-namespace rvinowise.units.human.init {
+namespace rvinowise.units.humanoid.init {
 
 public class Arms_initializer: MonoBehaviour
 {
     [Header("left arm bones")]
+    public Segment shoulder_l;
     public Segment upper_arm_l;
     public Segment forearm_l;
     public parts.limbs.arms.Hand hand_l;
     
     [Header("right arm bones")]
+    public Segment shoulder_r;
     public Segment upper_arm_r;
     public Segment forearm_r;
     public parts.limbs.arms.Hand hand_r;
@@ -59,7 +61,8 @@ public class Arms_initializer: MonoBehaviour
         controller.add_child(
             new Arm(
                 controller,
-                rvinowise.ui.input.Input.instance.cursor.center.transform,
+                //rvinowise.ui.input.Input.instance.cursor.center.transform,
+                shoulder_l,
                 upper_arm_l,
                 forearm_l,
                 hand_l
@@ -68,7 +71,8 @@ public class Arms_initializer: MonoBehaviour
         controller.add_child(
             new Arm(
                 controller,
-                rvinowise.ui.input.Input.instance.cursor.center.transform,
+                //rvinowise.ui.input.Input.instance.cursor.center.transform,
+                shoulder_r,
                 upper_arm_r,
                 forearm_r,
                 hand_r
@@ -86,13 +90,17 @@ public class Arms_initializer: MonoBehaviour
 
     private const float rotation_speed = 240f;
     private static void init_common_characteristic(Arm arm, Transform parent) {
+        
+        /*arm.shoulder.rotation_speed = 10f;
         arm.upper_arm.rotation_speed = 200f;
-        
-        //arm.forearm.rotation_speed = 240f;
         arm.forearm.rotation_speed = 400f;
+        arm.hand.rotation_speed = 300f;*/
         
-        arm.hand.rotation_speed = 300f;
-        
+        arm.shoulder.rotation_acceleration = 400f;
+        arm.upper_arm.rotation_acceleration = 600f;
+        arm.forearm.rotation_acceleration = 600f;
+        arm.hand.rotation_acceleration = 800f;
+
         arm.baggage = baggage;
         arm.idle_target = idle_target;
     }
@@ -105,28 +113,30 @@ public class Arms_initializer: MonoBehaviour
     }
 
     private static void init_left_arm(Arm arm) {
-        //arm.local_position = new Vector2(0f, 0.32f);
         
+        arm.shoulder.possible_span = new Span(120f, 45f);
+        //arm.shoulder.possible_span = new Span(110f, 80f);
+        //arm.shoulder.length = (arm.shoulder.position - arm.upper_arm.position).magnitude;
+        arm.shoulder.init_length_to(arm.upper_arm);
+        arm.shoulder.desired_idle_direction = Directions.degrees_to_quaternion(90f);
+
         arm.upper_arm.possible_span = new Span(10f, -140f);
-        //arm.upper_arm.tip = new Vector2(0.30f, 0f);
-        arm.upper_arm.length = (arm.upper_arm.position - arm.forearm.position).magnitude;
+        //arm.upper_arm.length = (arm.upper_arm.position - arm.forearm.position).magnitude;
         arm.upper_arm.init_length_to(arm.forearm);
-        ///arm.upper_arm.local_position = new Vector2(0f, 0.32f);
         arm.upper_arm.desired_idle_direction = Directions.degrees_to_quaternion(20f);
         
         arm.forearm.possible_span = new Span(0f, -150f);
-        //arm.forearm.tip = new Vector2(0.30f, 0f);
+        //arm.forearm.possible_span = new Span(0f, -170f);
         arm.forearm.init_length_to(arm.hand);
-        //arm.forearm.local_position = arm.upper_arm.tip;
         arm.forearm.desired_idle_direction = Directions.degrees_to_quaternion(-20f);
         
-        arm.hand.possible_span = new Span(90f, -80f);
-        
-        ///arm.hand.local_position = arm.forearm.tip; //todo set localPosition automatically since it's always = parent.tip
+        //arm.hand.possible_span = new Span(80f, -80f);
+        arm.hand.possible_span = new Span(20f, -80f);
         arm.hand.desired_idle_direction = Directions.degrees_to_quaternion(0f);
     }
 
     private static void mirror(Arm arm_dst , Arm arm_src) {
+        arm_dst.shoulder.mirror_from(arm_src.shoulder);
         parts.limbs.init.Initializer.mirror(arm_dst, arm_src);
     }
 

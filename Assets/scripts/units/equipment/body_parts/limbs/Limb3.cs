@@ -32,15 +32,15 @@ public class Limb3: Limb2 {
         segment3.jump_to_desired_direction();
     }
 
-    public void rotate_to_orientation(Orientation needed_orientation) {
+    public virtual void rotate_to_orientation(Orientation needed_orientation) {
         set_desired_directions_by_position(needed_orientation.position);
-        segment3.desired_direction = needed_orientation.rotation;
+        segment3.target_quaternion = needed_orientation.rotation;
         rotate_to_desired_directions();
     }
     
     public override void preserve_possible_rotations() {
         base.preserve_possible_rotations();
-        segment3.preserve_possible_rotation();
+        segment3.collide_with_rotation_borders();
     }
     
     public bool at_desired_rotation() {

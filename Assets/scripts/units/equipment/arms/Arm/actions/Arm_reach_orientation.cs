@@ -25,8 +25,9 @@ public class Arm_reach_orientation: arms.actions.Action_of_arm {
         return action;
     }
     public override void update() {
+        base.update();
         if (complete(desired_orientation)) {
-            reached_goal();
+            mark_as_reached_goal();
         } else {
             arm.rotate_to_orientation(desired_orientation);
         }
@@ -34,7 +35,7 @@ public class Arm_reach_orientation: arms.actions.Action_of_arm {
 
     protected virtual void set_desired_directions(Arm arm, Orientation needed_orientation) {
         arm.set_desired_directions_by_position(needed_orientation.position);
-        arm.hand.desired_direction = needed_orientation.rotation;
+        arm.hand.target_quaternion = needed_orientation.rotation;
     }
 
     protected virtual float touching_distance{ 

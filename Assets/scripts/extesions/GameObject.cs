@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using extensions.pooling;
+using rvinowise.rvi.contracts;
 using UnityEngine;
 
 public static partial class Unity_extension
@@ -37,7 +39,7 @@ public static partial class Unity_extension
     }
          
     private static void set_sorting_layer_recursive(
-        GameObject game_object, 
+        this GameObject game_object, 
         string layer,
         int bottom_level    
     ) {
@@ -52,6 +54,27 @@ public static partial class Unity_extension
         foreach (Transform child in game_object.transform) {
             set_sorting_layer_recursive(child.gameObject, layer, bottom_level);
         }
+    }
+
+    public static TComponent get_from_pool<TComponent>(
+        this GameObject prefab   
+    ) 
+        where TComponent: MonoBehaviour
+    {
+        Pooled_object pooled_object = prefab.GetComponent<Pooled_object>();
+        Contract.Requires(pooled_object != null, "pooled prefabs must have the Pooled_object component");
+        TComponent returned_component = pooled_object.pool.get().GetComponent<TComponent>();
+        return returned_component;
+    }
+
+    public static void copy_physics_from(
+        this GameObject in_object,
+        GameObject src_object
+    ) {
+        in_object.transform.position = src_object.transform.position;
+        in_object.transform.rotation = src_object.transform.rotation;
+        in_object.transform.localScale = src_object.transform.localScale;
+        
     }
     
 }

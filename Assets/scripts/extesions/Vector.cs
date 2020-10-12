@@ -18,7 +18,7 @@ public static partial class Unity_extension
     {
         return rotation * v;
     }
-
+    
     public static float to_dergees(this Vector2 in_direction) {
         return Mathf.Atan2(in_direction.y, in_direction.x) * Mathf.Rad2Deg;
     }
@@ -56,7 +56,10 @@ public static partial class Unity_extension
         Vector2 vector_distance = in_aim - (Vector2)position;
         return vector_distance.magnitude;
     }
-    
+
+    public static bool close_enough_to(this Vector2 position, Vector2 in_aim) {
+        return position.sqr_distance_to(in_aim) <= 0.01f;
+    }
    
     public static List<Vector3> to_list_vector3 (this List<Vector2> list2)
     {
@@ -85,4 +88,8 @@ public static partial class Unity_extension
 
         return result;
     }
+    
+    
+    
 }
+

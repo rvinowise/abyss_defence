@@ -17,7 +17,7 @@ public class Arm_controller: /*MonoBehaviour,*/
     /* IChildren_group interface */
     protected IChildren_groups_host host;
     
-    public IEnumerable<Child> children {
+    public IEnumerable<ICompound_object> children {
         get { return arms; }
     }
 
@@ -35,9 +35,9 @@ public class Arm_controller: /*MonoBehaviour,*/
     }
 
 
-    public void add_child(Child child) {
-        Contract.Requires(child is Arm);
-        arms.Add(child as Arm);
+    public void add_child(ICompound_object compound_object) {
+        Contract.Requires(compound_object is Arm);
+        arms.Add(compound_object as Arm);
     }
 
     public void add_to_user(IChildren_groups_host in_host) {

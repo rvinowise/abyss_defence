@@ -39,6 +39,18 @@ public class Pistol:
         return 0;
     }
 
+    protected override bool can_fire() {
+        return ready_to_fire()&&
+               (magazine!=null) &&
+               !magazine.empty();
+    }
 
+    public void insert_magazine(Magazine in_magazine) {
+        magazine = in_magazine;
+    }
+
+    public override void apply_ammunition(Ammunition in_ammunition) {
+        base.apply_ammunition(in_ammunition);
+    }
 }
 }

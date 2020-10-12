@@ -6,13 +6,17 @@ using rvinowise.units.parts;
 using rvinowise.units.control;
 using rvinowise.units.control.human;
 using rvinowise.units.control.spider;
+using rvinowise.effects.liquids;
+using rvinowise.units.gore;
+using rvinowise.units.parts.limbs;
+using rvinowise.units.parts.limbs.creeping_legs;
 using rvinowise.units.parts.transport;
 using UnityEngine;
 
 namespace rvinowise.units {
 
 [RequireComponent(typeof(PolygonCollider2D))]
-public abstract class Creature: MonoBehaviour
+public abstract class Creature: Turning_element
 {
     /* IChildren_groups_host interface */
     public virtual ITransporter transporter { get; protected set; }
@@ -21,6 +25,7 @@ public abstract class Creature: MonoBehaviour
     
     /* Creature itself */
     public Divisible_body divisible_body;
+    public Bleeding_body bleeding_body;
 
     
     Intelligence intelligence;
@@ -28,6 +33,8 @@ public abstract class Creature: MonoBehaviour
     
     protected virtual void Awake()
     {
+        base.Awake();
+        
         init_components();
 
         create_equipment();
@@ -45,7 +52,7 @@ public abstract class Creature: MonoBehaviour
     protected virtual void create_equipment() {}
 
     private void init_intelligence() {
-        intelligence = new Computer();
+        intelligence = new control.spider.Player(transform);
         intelligence.transporter = transporter;
     }
 
@@ -54,54 +61,63 @@ public abstract class Creature: MonoBehaviour
 
    void FixedUpdate() {
        intelligence.update();
+       
+       transporter?.update();
+       weaponry?.update();
    }
    
    void Update() {
-       transporter?.update();
-       weaponry?.update();
+       
    }
 
    public void OnMouseDown() {
        
        Vector2 mousePos = ui.input.Input.instance.mouse_world_position;
-       Ray2D ray = new Ray2D(
-           mousePos,
-           new Vector2(0.5f,1f)
+       Polygon wedge = Polygon_splitter.get_wedge_from_ray(
+           new Ray2D(
+               mousePos,
+               new Vector2(0.5f, 1f)
+           )
        );
        
-       //divisible_body.split_by_ray(ray);
+       //divisible_body.split_by_polygon(wedge);
    }
 
-   public void OnCollisionEnter2D(Collision2D other) {
-       Bullet other_bullet = other.gameObject.GetComponent<Bullet>();
-       if (other_bullet != null) {
-           //Rigidbody2D other_rigid = other.rigidbody;
+   /*public void OnCollisionEnter2D(Collision2D other) {
+       Projectile collided_projectile = other.gameObject.GetComponent<Projectile>();
+       if (collided_projectile != null) {
 
-           Ray2D ray_of_impact = new Ray2D(
-               other_bullet.last_physics.position,
-               other_bullet.last_physics.velocity
+           Vector2 contact_point = other.GetContact(0).point;
+           
+           Polygon removed_polygon = collided_projectile.get_damaged_area(
+               contact_point
            );
+           Debug_drawer.instance.draw_polygon_debug(removed_polygon);
            
+           var pieces = divisible_body.remove_polygon(removed_polygon);
+           //push_pieces_away(pieces, contact_point, collided_projectile.last_physics.velocity.magnitude);
            
-           Polygon wedge = Polygon_splitter.get_wedge_from_ray(ray_of_impact);
-           Debug_drawer.instance.draw_polygon_debug(wedge);
-           
-           var pieces = divisible_body.split_by_ray(ray_of_impact);
-           push_pieces_away(pieces, ray_of_impact, other_bullet.last_physics.velocity.magnitude);
-           
-           Destroy(other_bullet.gameObject);
+           //Destroy(collided_projectile.gameObject);
        }
    }
 
-   private void push_pieces_away(IEnumerable<GameObject> pieces, Ray2D ray, float force) {
+   private void push_pieces_away(
+       IEnumerable<GameObject> pieces,
+       Vector2 contact_point,
+       float force
+   ) {
        foreach (var piece in pieces) {
            Vector2 push_vector = 
-               ((Vector2)piece.transform.position - ray.origin).normalized *
+               ((Vector2)piece.transform.position - contact_point).normalized *
                force;
            var rigidbody = piece.GetComponent<Rigidbody2D>();
-           rigidbody.AddForce(push_vector / 100f);
-           rigidbody.AddTorque(50f);
+           rigidbody.AddForce(push_vector, ForceMode2D.Impulse);
+           //rigidbody.AddTorque(50f);
        }
+   }*/
+   
+   public void OnDrawGizmos() {
+       ((Creeping_leg_group)transporter)?.on_draw_gizmos();
    }
 }
 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6121768017280805874}
   - component: {fileID: 1201677594883345000}
-  - component: {fileID: -6670056117548300769}
+  - component: {fileID: -5211986024171691197}
   m_Layer: 0
   m_Name: desert_eagle
   m_TagString: Untagged
@@ -58,7 +58,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-6670056117548300769
+--- !u!114 &-5211986024171691197
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,13 +70,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ace1bdcab64e5d947e168a7c3b909b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite_renderer: {fileID: 0}
-  animator: {fileID: 0}
-  fire_rate_delay: 0.1
+  main_holding: {fileID: 0}
+  second_holding: {fileID: 0}
+  animator: {fileID: 1201677594883345000}
+  fire_rate_delay: 0.2
   muzzle: {fileID: 8454711743962537359}
   spark: {fileID: 1597065929984423301, guid: 8f766c7240d912a42b811144d99ae39e, type: 3}
-  bullet_shell_prefab: {fileID: 0}
+  bullet_shell_prefab: {fileID: 7102603128024256053, guid: a0651299a17882944898fedc396ac4b9,
+    type: 3}
   magazine_prefab: {fileID: 0}
+  magazine: {fileID: 0}
   shell_ejector: {fileID: 407324513766382050}
 --- !u!1 &2486645662213847114
 GameObject:
@@ -187,6 +190,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -209,7 +213,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -992546357
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -1604808960616924164, guid: 218c4e61419e95c41914dab2a196fcc6,
     type: 3}
@@ -239,9 +243,10 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 1603077837345815462}
   m_Bounds:
-    m_Center: {x: 0.15011519, y: -0.00075862557, z: 0}
+    m_Center: {x: 0.15011477, y: -0.00075862557, z: 0}
     m_Extent: {x: 0.263384, y: 0.047088, z: 0}
   m_UseBatching: 1
+  m_AlwaysUpdate: 1
 --- !u!1 &4448868872574746899
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,13 +270,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4448868872574746899}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6121768017280805874}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &5157373566871718194
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +324,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -341,7 +347,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -992546357
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7990538195955252711, guid: 218c4e61419e95c41914dab2a196fcc6,
     type: 3}
@@ -371,9 +377,10 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 3422936070000912851}
   m_Bounds:
-    m_Center: {x: 0.15117428, y: -0.006559845, z: 0}
+    m_Center: {x: 0.15117434, y: -0.006559845, z: 0}
     m_Extent: {x: 0.268, y: 0.039371993, z: 0}
   m_UseBatching: 1
+  m_AlwaysUpdate: 1
 --- !u!1 &6225702412166556149
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +458,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -473,7 +481,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -992546357
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 8254601344943402192, guid: 218c4e61419e95c41914dab2a196fcc6,
     type: 3}
@@ -506,6 +514,7 @@ MonoBehaviour:
     m_Center: {x: 0.13614434, y: 0.0015490875, z: 0}
     m_Extent: {x: 0.214, y: 0.047983993, z: 0}
   m_UseBatching: 1
+  m_AlwaysUpdate: 1
 --- !u!1 &6748268878473605797
 GameObject:
   m_ObjectHideFlags: 0

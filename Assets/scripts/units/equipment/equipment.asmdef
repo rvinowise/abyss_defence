@@ -1,9 +1,11 @@
 {
     "name": "equipment",
     "references": [
+	    "effects",
 		"debug",
 		"extensions",
 		"input",
-		"third_party"
+		"third_party",
+		"Unity.2D.Animation.Runtime"
 	]
 }

@@ -1,31 +1,19 @@
-﻿using System.Threading;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using rvinowise;
 
-namespace rvinowise.units.debug {
 
-public abstract class Debugger {
-    public static bool is_off = false; //MANU
-    
-    public System.Object obj;
+namespace rvinowise.rvi {
 
-    public Debugger(System.Object in_object) {
-        obj = in_object;
-    }
+public  static class Debug {
 
-    protected abstract ref int count { get; }
-
-    public void increase_counter() {
-        if (is_off) {
-            return;
+    public static void Assert(bool in_condition) {
+        if (!in_condition) {
+            UnityEngine.Debug.Assert(false);
         }
-        Interlocked.Increment(ref count);
-        UnityEngine.Debug.Log(obj.GetType()+" added ("+count +")");
     }
-    public void decrease_counter() {
-        if (is_off) {
-            return;
-        }
-        Interlocked.Decrement(ref count);
-        UnityEngine.Debug.Log(obj.GetType()+" destroyed ("+count +")");
-    }
+
 }
 }

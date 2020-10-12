@@ -16,7 +16,7 @@ public class Guns_controller:
     private IList<Ak47> rifles;
 
 
-    public override IEnumerable<Child> children { get; }
+    public override IEnumerable<ICompound_object> children { get; }
 
     public Guns_controller(IChildren_groups_host dst_host) : base(dst_host) {
         
@@ -29,7 +29,7 @@ public class Guns_controller:
     }
 
 
-    public override void add_child(Child child) {
+    public override void add_child(ICompound_object compound_object) {
         /*if (child is Ak47 rifle) {
             rifle.parent = transform;
             rifles.Add(rifle);

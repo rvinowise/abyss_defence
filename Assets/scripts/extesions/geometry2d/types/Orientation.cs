@@ -65,5 +65,7 @@ public class Orientation {
         position = parent.TransformPoint(local_position);
         rotation = ((Vector2)parent.TransformDirection(local_direction)).to_quaternion();
     }
+
+    
 }
 }

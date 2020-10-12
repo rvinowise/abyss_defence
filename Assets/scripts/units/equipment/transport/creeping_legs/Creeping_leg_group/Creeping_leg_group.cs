@@ -7,16 +7,17 @@ using UnityEngine;
 using rvinowise.rvi.contracts;
 using geometry2d;
 using rvinowise.units.parts.transport;
+using UnityEngine.Assertions;
 using static geometry2d.Directions;
 
-namespace rvinowise.units.parts.limbs.legs {
+namespace rvinowise.units.parts.limbs.creeping_legs {
 public partial class Creeping_leg_group: 
     Children_group
     ,ITransporter
 {
     
     /* Children_group interface */
-    public override IEnumerable<Child> children  {
+    public override IEnumerable<ICompound_object> children  {
         get { return legs; }
     }
 
@@ -30,14 +31,19 @@ public partial class Creeping_leg_group:
         }
     }
 
-    public override void add_child(Child child) {
-        Contract.Requires(child is Leg);
-        Leg leg = child as Leg;
+    public override void add_child(ICompound_object compound_object) {
+        Contract.Requires(compound_object is Leg);
+        Leg leg = compound_object as Leg;
         legs.Add(leg);
         leg.parent = transform;
     }
 
-
+    public override void shift_center(Vector2 in_shift) {
+        foreach (Leg leg in legs) {
+            leg.main_object.transform.localPosition += (Vector3)in_shift;
+            leg.optimal_relative_position_standing = (leg.optimal_relative_position_standing + in_shift);
+        }
+    }
     
 
     
@@ -45,9 +51,12 @@ public partial class Creeping_leg_group:
     /* ITransporter interface */
     
     private static float belly_friction_multiplier = 0.9f;
-    public float get_possible_impulse() {
+    
+    public float possible_impulse { get; set; }
+
+    private void init_possible_impulse() {
         if (moving_strategy is null) {
-            return 0f;
+            possible_impulse = 0f;
         }
         float impulse = 0;
         foreach (Leg leg in legs) {
@@ -58,26 +67,16 @@ public partial class Creeping_leg_group:
         if (moving_strategy.belly_touches_ground()) {
             impulse *= belly_friction_multiplier;
         }
-        return impulse;
+        possible_impulse = impulse;
     }
 
 
-    private const float rotate_faster_than_move = 3000f;
 
-    public float get_possible_rotation() {
-        if (moving_strategy is null) {
-            return 0f;
-        }
-        float impulse = 0;
-        foreach (Leg leg in legs) {
-            if (!leg.is_up) {
-                impulse += leg.provided_impulse * rotate_faster_than_move;
-            }
-        }
-        if (moving_strategy.belly_touches_ground()) {
-            impulse *= belly_friction_multiplier;
-        }
-        return impulse;
+    private const float rotate_faster_than_move = 200f;
+
+    public float possible_rotation {
+        get { return possible_impulse * rotate_faster_than_move; }
+        set{ Contract.Assert(false, "set possible_impulse instead");}
     }
 
     public Quaternion direction_quaternion {
@@ -92,24 +91,23 @@ public partial class Creeping_leg_group:
     private Move_in_direction move_in_direction;
         
     public void move_in_direction_as_rigidbody(Vector2 moving_direction) {
-        Vector2 delta_movement = (moving_direction * get_possible_impulse() * rvi.Time.deltaTime);
+        Vector2 delta_movement = (moving_direction * possible_impulse * rvi.Time.deltaTime);
         //rigid_body.MovePosition((Vector2)transform.position + delta_movement);
         rigid_body.AddForce(delta_movement*10000f);
     }
     public void move_in_direction_as_transform(Vector2 moving_direction) {
-        Vector2 delta_movement = (moving_direction * get_possible_impulse() * rvi.Time.deltaTime);
+        Vector2 delta_movement = (moving_direction * possible_impulse * rvi.Time.deltaTime);
         transform.position += (Vector3)delta_movement;
     }
     
     public void rotate_to_direction(Quaternion face_direction) {
-        transform.rotate_to(
+        /*transform.rotate_to(
             face_direction, 
             get_possible_rotation() * rvi.Time.deltaTime
-        );
-        /*transform.rotation = Quaternion.RotateTowards(
-            transform.rotation, 
-            face_direction, 
-            get_possible_rotation() * rvi.Time.deltaTime);*/
+        );*/
+        turning_element.rotation_acceleration = possible_rotation;
+        turning_element.target_quaternion = face_direction;
+        turning_element.rotate_to_desired_direction();
     }
     
     
@@ -128,7 +126,21 @@ public partial class Creeping_leg_group:
     
     /* Creeping_leg_group itself */
     
-    public strategy.Moving_strategy moving_strategy;
+    /* legs that are enough to be stable if they are on the ground */
+    public IList<Stable_leg_group> stable_leg_groups = new List<Stable_leg_group>();
+
+    public strategy.Moving_strategy moving_strategy {
+        get { return _moving_strategy; }
+        set {
+            _moving_strategy = value;
+            init_possible_impulse();
+        }
+    }
+    private strategy.Moving_strategy _moving_strategy;
+    
+    
+
+    private Turning_element turning_element;
     
     public List<Leg> legs {
         set {
@@ -163,9 +175,12 @@ public partial class Creeping_leg_group:
     private Rigidbody2D rigid_body { get; set; }
     
 
-    public Creeping_leg_group(IChildren_groups_host in_host):base(in_host) {
-        
-        
+    public Creeping_leg_group(
+        IChildren_groups_host in_host,
+        Turning_element in_turning_element
+    ):base(in_host) {
+        this.turning_element = in_turning_element;
+
     }
 
     /* i need this function only for a generic adder (constructors can't have parameters there)*/
@@ -176,10 +191,13 @@ public partial class Creeping_leg_group:
     
     
     public void guess_moving_strategy() {
-        if (legs.Count >=2 ) {
-            moving_strategy = new strategy.Grovelling(legs);
+        if (this.stable_leg_groups.Count > 1) {
+            moving_strategy = new strategy.Stable(legs, this);
+        } else
+        if (legs.Count > 1 ) {
+            moving_strategy = new strategy.Grovelling(legs, this);
         } else if (legs.Count == 1) {
-            moving_strategy = new strategy.Faltering(legs);
+            moving_strategy = new strategy.Faltering(legs, this);
         }
     }
 
@@ -197,6 +215,7 @@ public partial class Creeping_leg_group:
 
     private void move_legs() {
         foreach (Leg leg in legs) {
+            determine_optimal_position_for(leg);
             if (leg.is_up) {
                 move_in_the_air(leg);
             } else {
@@ -205,21 +224,33 @@ public partial class Creeping_leg_group:
         }
     }
     
-    void move_in_the_air(Leg leg) {
-        determine_optimal_directions_for(leg);
+    private void move_in_the_air(Leg leg) {
+        leg.set_desired_directions_by_position();
         if (leg.has_reached_aim()) {
-            leg.put_down();
+            put_down(leg);
         } else {
             leg.move_segments_towards_desired_direction();
         }
     }
 
-    private void determine_optimal_directions_for(Leg leg) {
+    private void put_down(Leg leg) {
+        Contract.Requires(leg.is_up);
+        leg.put_down();
+        possible_impulse += leg.provided_impulse;
+    }
+
+    private void determine_optimal_position_and_direction_for(Leg leg) {
+        determine_optimal_position_for(leg);
+
+        leg.set_desired_directions_by_position();
+    }
+    
+    private void determine_optimal_position_for(Leg leg) {
         Vector2 shift_to_moving_direction =
             command_batch.moving_direction_vector *
             moving_offset_distance;
 
-        leg.set_optimal_position(
+        leg.set_desired_position(
             (Vector2)leg.parent.TransformPoint(leg.optimal_relative_position_standing) + 
             shift_to_moving_direction
         );
@@ -237,8 +268,9 @@ public partial class Creeping_leg_group:
         return false;
     }
 
+    
 
-    public void on_draw_gizmos() {
+    public override void on_draw_gizmos() {
         foreach (Leg leg in legs) {
             leg.debug.draw_positions();
             leg.debug.draw_desired_directions(0.1f);
@@ -256,5 +288,6 @@ public partial class Creeping_leg_group:
         );
     }*/
 }
+
 }
 

@@ -5,8 +5,8 @@ namespace rvinowise.units.parts.transport {
     
 /* provides information about possible speed and rotation for a moving Unit */
 public interface ITransporter: IExecute_commands {
-    float get_possible_rotation();
-    float get_possible_impulse();
+    float possible_rotation { get; set; }
+    float possible_impulse { get; set; }
     
     Quaternion direction_quaternion { get; }
     

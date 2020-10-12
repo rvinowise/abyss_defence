@@ -27,8 +27,9 @@ public class Arm_reach_transform: rvinowise.units.parts.actions.Action {
         return action;
     }
     public override void update() {
+        base.update();
         if (complete(desired_transform)) {
-            reached_goal();
+            mark_as_reached_goal();
         } else {
             arm.rotate_to_orientation(Orientation.from_transform(desired_transform));
         }
@@ -36,7 +37,7 @@ public class Arm_reach_transform: rvinowise.units.parts.actions.Action {
 
     protected virtual void set_desired_directions(Arm arm, Orientation needed_orientation) {
         arm.set_desired_directions_by_position(needed_orientation.position);
-        arm.hand.desired_direction = needed_orientation.rotation;
+        arm.hand.target_quaternion = needed_orientation.rotation;
     }
 
     protected virtual float touching_distance{ 

@@ -6,12 +6,12 @@ using rvinowise;
 using rvinowise.units.parts.limbs;
 
 
-namespace rvinowise.units.human.init {
+namespace rvinowise.units.humanoid.init {
 
 public class Head {
 
     public static parts.head.Head init(
-        Human parent,
+        Humanoid parent,
         parts.head.Head head) 
     {
         head.possible_span = new Span(90,-90);

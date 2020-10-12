@@ -8,6 +8,7 @@
         "input",
         "Divisible_body",
         "settings",
-        "third_party"
+        "third_party",
+        "effects"
     ]
 }
