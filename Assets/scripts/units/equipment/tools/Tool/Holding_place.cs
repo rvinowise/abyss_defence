@@ -2,14 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.limbs.arms;
+using rvinowise.unity.units.parts.limbs.arms;
+using UnityEngine.Serialization;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 
-namespace rvinowise.units.parts.tools {
+namespace rvinowise.unity.units.parts.tools {
 
 public class Holding_place: MonoBehaviour
 {
@@ -39,17 +42,16 @@ public class Holding_place: MonoBehaviour
 
     public Tool tool { get; set; }
     
-    public Arm holding_arm {
-        get { return _holding_arm; }
+    public Hand holding_hand {
+        get { return _holding_hand; }
         private set {
-            _holding_arm = value;
-            
+            _holding_hand = value;
         }
     }
-    public Arm _holding_arm;
+    public Hand _holding_hand;
 
     public IHave_velocity holder {
-        get { return holding_arm.hand; }
+        get { return holding_hand; }
     }
 
     public Vector2 position {
@@ -121,10 +123,10 @@ public class Holding_place: MonoBehaviour
         }
     }
     
-    public void hold_by(Arm in_arm) {
-        holding_arm = in_arm;
+    public void hold_by(Hand in_hand) {
+        holding_hand = in_hand;
         if (is_main) {
-            tool.transform.parent = in_arm?.hand.valuable_point.transform;
+            tool.transform.parent = in_hand?.valuable_point.transform;
 
             Vector2 inversed_position = -this.transform.localPosition;
             Quaternion inversed_rotation = this.transform.localRotation.inverse();

@@ -1,19 +1,25 @@
 
 
 using System.Collections.Generic;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using rvinowise.rvi.contracts;
 using UnityEngine;
+using rvinowise.unity.extensions;
 
-namespace effects.persistent_residue {
+using UnityEngine.Serialization;
+
+namespace rvinowise.unity.effects.persistent_residue {
 
 public class Persistent_residue_router: MonoBehaviour {
 
-    public Persistent_residue_holder holder_prefab;
+    public Persistent_residue_sprite_holder sprite_holder_prefab;
+    public Persistent_residue_mask_holder material_holder_prefab;
 
-    [HideInInspector]
-    public Dictionary<Texture2D, Persistent_residue_holder> texture_to_holder = 
-        new Dictionary<Texture2D, Persistent_residue_holder>();
+    public Dictionary<Sprite, Persistent_residue_sprite_holder> sprite_to_holder = 
+        new Dictionary<Sprite, Persistent_residue_sprite_holder>();
+    
+    public Dictionary<Material, Persistent_residue_mask_holder> material_to_holder = 
+        new Dictionary<Material, Persistent_residue_mask_holder>();
 
     public static Persistent_residue_router instance;
 
@@ -22,41 +28,72 @@ public class Persistent_residue_router: MonoBehaviour {
         instance = this;
     }
 
-
-    public Persistent_residue_holder get_holder_for_texture(
-        Texture2D texture,
-        Dimension in_left_texture_dimension,
-        int in_max_images,
-        int in_n_frames
+    private const int max_images_default = 1500;
+    public Persistent_residue_mask_holder get_holder_for_material(
+        Material in_material,
+        int in_max_images = max_images_default
     ) {
-        Persistent_residue_holder holder;
-        if (!texture_to_holder.TryGetValue(texture, out holder)) {
-            holder = create_holder_for_texture(
-                texture,
-                in_left_texture_dimension,
-                in_max_images,
-                in_n_frames
+        Persistent_residue_mask_holder holder;
+        if (!material_to_holder.TryGetValue(in_material, out holder)) {
+            holder = create_holder_for_material(
+                in_material,
+                in_max_images
             );
-            texture_to_holder.Add(texture,holder);
+            material_to_holder.Add(in_material, holder);
         }
         return holder;
     }
 
-    private Persistent_residue_holder create_holder_for_texture(
-        Texture2D texture,
-        Dimension in_left_texture_dimension,
+    private Persistent_residue_mask_holder create_holder_for_material(
+        Material in_material,
+        int in_max_images
+    ) {
+        Persistent_residue_mask_holder new_holder = GameObject.Instantiate(material_holder_prefab);
+        new_holder.transform.SetParent(this.transform, false);
+        new_holder.max_residue = in_max_images;
+        MeshRenderer mesh_renderer = new_holder.GetComponent<MeshRenderer>();
+        mesh_renderer.material = in_material;
+
+        return new_holder;
+    }
+
+    public Persistent_residue_sprite_holder get_holder_for_texture(
+        Sprite sprite,
         int in_max_images,
         int in_n_frames
     ) {
-        Persistent_residue_holder new_holder = GameObject.Instantiate(holder_prefab);
-        new_holder.transform.parent = this.transform;
+        Persistent_residue_sprite_holder holder;
+        if (!sprite_to_holder.TryGetValue(sprite, out holder)) {
+            holder = create_holder_for_texture(
+                sprite,
+                in_max_images,
+                in_n_frames
+            );
+            sprite_to_holder.Add(sprite,holder);
+        }
+        return holder;
+    }
+
+    private Persistent_residue_sprite_holder create_holder_for_texture(
+        Sprite sprite,
+        int in_max_images,
+        int in_n_frames
+    ) {
+        Persistent_residue_sprite_holder new_holder = GameObject.Instantiate(sprite_holder_prefab);
+        new_holder.transform.SetParent(this.transform, false);
         new_holder.max_residue = in_max_images;
-        new_holder.n_frames_x = in_n_frames;
-        MeshRenderer mesh_renderer = new_holder.GetComponent<MeshRenderer>();
-        mesh_renderer.material.mainTexture = texture;
-        new_holder.left_texture_dimension = in_left_texture_dimension;
+        
+        
+        new_holder.init_for_sprite(sprite, in_n_frames);
+        
         return new_holder;
     }
+
+    /* private add_layer_of_residue(GameObject prefab, int max_images) {
+        Persistent_residue_sprite_holder new_holder = GameObject.Instantiate(sprite_holder_prefab);
+        new_holder.transform.SetParent(this.transform, false);
+        new_holder.max_residue = in_max_images;
+    } */
 }
 
 }

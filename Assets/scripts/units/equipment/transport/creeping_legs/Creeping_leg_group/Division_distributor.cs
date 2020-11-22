@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.limbs.creeping_legs.strategy;
+using rvinowise.unity.units.parts.limbs.creeping_legs.strategy;
 
 
-namespace rvinowise.units.parts.limbs.creeping_legs {
+namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 
 public partial class Creeping_leg_group {
 

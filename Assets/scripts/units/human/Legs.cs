@@ -2,21 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.limbs.creeping_legs;
-using rvinowise.units.parts.transport;
-using rvinowise.units.parts.limbs;
-using geometry2d;
+using rvinowise.unity.units.parts.limbs.creeping_legs;
+using rvinowise.unity.units.parts.transport;
+using rvinowise.unity.units.parts.limbs;
+using rvinowise.unity.geometry2d;
 
-namespace rvinowise.units.parts.humanoid {
+namespace rvinowise.unity.units.parts.humanoid {
 
 public class Legs: 
+    MonoBehaviour,
     ITransporter
 {
     
     /* ITransporter interface */
 
+    //[HideInInspector]
     public transport.Command_batch command_batch { get; } = new transport.Command_batch();
     Command_batch IExecute_commands.command_batch => command_batch;
     
@@ -31,8 +35,18 @@ public class Legs:
         
     }
 
-    public float possible_rotation {get;set;} = 400f;
-    public float possible_impulse { get; set; } =1f;
+    [SerializeField]
+    private float _possible_rotation  = 400f;
+    public float possible_rotation {
+        get { return _possible_rotation; }
+        set { _possible_rotation = value;}
+    }
+    [SerializeField]
+    private float _possible_impulse  = 1f;
+    public float possible_impulse {
+        get { return _possible_impulse; }
+        set { _possible_impulse = value;}
+    }
 
     public Quaternion direction_quaternion {
         get { return turning_element.rotation; }
@@ -40,20 +54,13 @@ public class Legs:
 
 
     /* legs itself */
-    
-    private GameObject user;
-    
     private Rigidbody2D rigidbody;
     private Turning_element turning_element;
 
     private float acceleration = 0.339f * rvinowise.Settings.scale;
+    public GameObject user;
 
-    public Legs(GameObject in_user) {
-        user = in_user;
-        init_components();
-    }
-    
-    public Legs() {
+    private void Awake() {
         init_components();
     }
     

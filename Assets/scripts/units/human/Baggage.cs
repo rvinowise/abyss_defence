@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using rvinowise;
-using rvinowise.units.parts.tools;
-using rvinowise.units.parts.weapons.guns;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.parts.humanoid {
+using rvinowise;
+using rvinowise.unity.units.parts.tools;
+using rvinowise.unity.units.parts.weapons.guns;
+
+namespace rvinowise.unity.units.parts.humanoid {
 
 /* keeps track of unit's posessions */
 public class Baggage: units.parts.Baggage {
@@ -29,10 +31,6 @@ public class Baggage: units.parts.Baggage {
         right_item += right_switch_direction;
     }*/
 
-    public static Baggage create() {
-        GameObject game_object = new GameObject("baggage");
-        var new_component = game_object.add_component<Baggage>();
-        return new_component;
-    }
+    
 }
 }

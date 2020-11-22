@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using rvinowise.units.parts.actions;
-using rvinowise.units.parts.limbs.arms.actions;
+using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.limbs.arms.actions;
 
-using static geometry2d.Directions;
+using static rvinowise.unity.geometry2d.Directions;
 
-namespace rvinowise.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.units.parts.limbs.arms.actions {
 
 public class Move_hand_into_loose_bag: Action_of_arm {
 

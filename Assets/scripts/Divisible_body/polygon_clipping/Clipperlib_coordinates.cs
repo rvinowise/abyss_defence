@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using geometry2d;
+using rvinowise.unity.extensions;
+
+using rvinowise.unity.geometry2d;
 using ClipperLib;
 
 /* ClipperLib uses another coordinate system, 
  this class translates it from game coordinates */
-namespace geometry2d
+namespace rvinowise.unity.geometry2d
 {
 using Path = List<IntPoint>;
 using Pathes = List<List<IntPoint>>;

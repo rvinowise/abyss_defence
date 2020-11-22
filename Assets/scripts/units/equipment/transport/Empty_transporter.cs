@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using rvinowise.units.parts.transport;
+using rvinowise.unity.units.parts.transport;
 using UnityEngine;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.parts {
+
+namespace rvinowise.unity.units.parts {
     
 /* provides information about possible speed and rotation for a moving Unit */
 public class Empty_transporter: ITransporter {

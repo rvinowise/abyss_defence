@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace rvinowise.units.parts
+namespace rvinowise.unity.units.parts
 {
 
 /* represents a coherent system of several objects, 
@@ -11,12 +11,14 @@ public interface IChildren_group
     IEnumerable<ICompound_object> children {
         get;
     }
+    IEnumerable<ICompound_object> children_stashed_from_copying {
+        get;
+    }
+
+     void hide_children_from_copying();
     
     void add_child(ICompound_object compound_object);
     
-    /* i need this function only for a generic adder (constructors can't have parameters there)*/
-    void add_to_user(IChildren_groups_host in_user);
-
     
     void init();
 }

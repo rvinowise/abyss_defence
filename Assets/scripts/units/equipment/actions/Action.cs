@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using rvinowise.debug;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.limbs.arms.actions;
+using rvinowise.unity.units.parts.limbs.arms.actions;
 using UnityEngine.Animations;
 using Debug = UnityEngine.Debug;
 
-namespace rvinowise.units.parts.actions {
+namespace rvinowise.unity.units.parts.actions {
 
 public abstract partial class Action {
     #region debug
@@ -122,13 +122,16 @@ public abstract partial class Action {
     }
     
     private void prepare_actor_for_execution() {
-        if (
-                (actor.current_action != null)&&
-                (actor.current_action != root_action)
-           )
+        if (actor_is_used_in_another_action())
         {
             actor.current_action.discard_whole_tree();
             actor.current_action = null;
+        }
+
+        bool actor_is_used_in_another_action() {
+            return 
+                (actor.current_action != null)&&
+                (actor.current_action != root_action);
         }
     }
 
@@ -158,11 +161,14 @@ public abstract partial class Action {
 
 
     public void discard_whole_tree() {
-        if (this.parent_action != null) {
+        if (this_is_root_action()) {
+            discard_during_execution();
+        } else {
             parent_action.discard_whole_tree();
         }
-        else {
-            discard_during_execution();
+
+        bool this_is_root_action() {
+            return this.parent_action == null;
         }
     }
 

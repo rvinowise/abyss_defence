@@ -2,15 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using geometry2d;
-using rvinowise.units.parts.actions;
-using rvinowise.units.parts.limbs.arms.actions.using_guns.reloading;
-using rvinowise.units.parts.tools;
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.limbs.arms.actions.using_guns.reloading;
+using rvinowise.unity.units.parts.tools;
 using units.equipment.parts.actions.Action;
 
 
-namespace rvinowise.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.units.parts.limbs.arms.actions {
 
 public class Insert_object_into_slot: Action_sequential_parent {
 

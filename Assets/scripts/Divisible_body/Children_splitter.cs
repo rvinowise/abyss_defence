@@ -3,35 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using rvinowise.unity.extensions;
 using UnityEditor;
-using geometry2d;
-using rvinowise.units;
-using rvinowise.units.parts;
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.units;
+using rvinowise.unity.units.parts;
 using rvinowise.rvi.contracts;
 
-namespace rvinowise.units.parts {
+namespace rvinowise.unity.units.parts {
 public static class Children_splitter {
     internal static void split_children_groups(
-        GameObject src_object,
+        IChildren_groups_host src_host_of_children,
         IEnumerable<GameObject> piece_objects) 
     {
-
-        IChildren_groups_host user_of_equipment = src_object.GetComponent<IChildren_groups_host>();
-        if (user_of_equipment == null) {
-            return;
-        }
-
         IList<IChildren_groups_host> piece_users = get_users_of_tools_from(piece_objects);
-
         
-        distribute_children_to_pieces(user_of_equipment, piece_objects);
+        distribute_children_to_pieces(src_host_of_children, piece_objects);
 
-        Children_groups_host.Data_distributor.distribute_data_across(user_of_equipment, piece_users);
-
-        foreach (var piece_object in piece_objects) {
-            remove_unnecessary_tool_controllers(piece_object);
-            //init_tool_controllers(piece_object);
-        }
+        Children_groups_host.Data_distributor.distribute_data_across(src_host_of_children, piece_users);
 
     }
 
@@ -54,9 +43,9 @@ public static class Children_splitter {
             i_children_group < children_groups_host.children_groups.Count;
             i_children_group++) 
         {
-            Children_group distributed_children_controller =
+            IChildren_group distributed_children_group =
                 children_groups_host.children_groups[i_children_group];
-            foreach (ICompound_object tool in distributed_children_controller.children) {
+            foreach (ICompound_object tool in distributed_children_group.children_stashed_from_copying) {
                 foreach (GameObject piece_object in piece_objects) {
                     if (tool_is_inside_object(tool, piece_object)) {
                         attach_tool_to_object(piece_object, i_children_group, tool);
@@ -69,10 +58,6 @@ public static class Children_splitter {
 
     
 
-    private static void remove_unnecessary_tool_controllers(GameObject game_object) {
-        /*Children_groups_host user_of_equipment = game_object.GetComponent<Children_groups_host>();
-        user_of_equipment.remove_empty_controllers();*/
-    }
 
     private static bool tool_is_inside_object(ICompound_object compound_object, GameObject game_object) {
         PolygonCollider2D collider = game_object.GetComponent<PolygonCollider2D>();

@@ -2,15 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using geometry2d;
-using rvinowise.units.humanoid;
-using rvinowise.units.parts.actions;
-using rvinowise.units.parts.tools;
-using rvinowise.units.parts.weapons.guns;
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.humanoid;
+using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.tools;
+using rvinowise.unity.units.parts.weapons.guns;
 using units.human.actions;
 
-namespace rvinowise.units.parts.limbs.arms.actions.using_guns.reloading {
+namespace rvinowise.unity.units.parts.limbs.arms.actions.using_guns.reloading {
 
 public class Reload_shotgun: Action_sequential_parent {
     
@@ -75,7 +77,7 @@ public class Reload_shotgun: Action_sequential_parent {
     public void init_child_actions() {
         
         this.add_child(
-            rvinowise.units.parts.actions.Action_parallel_parent.create(
+            rvinowise.unity.units.parts.actions.Action_parallel_parent.create(
                 actions.Arm_reach_relative_directions.create_assuming_left_arm(
                     gun_arm,
                     -45f,

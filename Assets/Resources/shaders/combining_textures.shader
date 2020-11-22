@@ -33,7 +33,7 @@
 				vec4 color1 = texture(_Texture1, gl_TexCoord[0].xy);
 				vec4 color2 = texture(_Texture2, gl_TexCoord[0].xy);
 
-				//alpha value can be in any channel ,depends on texture format.
+				//alpha value can be in any channel, depends on texture format.
 				if (color2.a > 0.1) {
 					colorOut = vec4(
 						color2.rgba
@@ -51,47 +51,4 @@
 	}
 }
 
-/*Shader "MaskedTexture"
-{
-   Properties
-   {
-      _MainTex ("_MainTex", 2D) = "white" {}
-      _Mask ("_Mask", 2D) = "white" {}
-      _Cutoff ("_Cutoff", Range (0,1)) = 0.1
-   }
-   SubShader
-   {
-      Tags {"Queue"="Transparent"}
-      Lighting Off
-      ZWrite Off
-      Blend SrcAlpha OneMinusSrcAlpha
-	  //Blend One One
-	  //Blend SrcColor DstColor
-      AlphaTest GEqual [_Cutoff]
-      Pass
-      {
-         SetTexture [_Mask] {combine texture, texture}
-         SetTexture [_MainTex] {combine texture, previous}
-      }
-   }
-}*/
-
-/*Shader "MaskedTexture"
- {
-    Properties {
-		_Blend ("Blend", Range (0, 1) ) = 0.5
-		_MainTex ("_MainTex", 2D) = "" 
-		_Mask ("_Mask", 2D) = ""
-	}
-
-	SubShader { 
-		Pass {
-			SetTexture[_MainTex]
-			SetTexture[_Mask] { 
-				ConstantColor (0,0,0, [_Blend]) 
-				Combine texture Lerp(constant) previous
-			}       
-		}
-	} 
- }*/
  

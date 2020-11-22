@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using rvinowise.units.parts.limbs.creeping_legs;
-using rvinowise.units.parts.transport;
+using rvinowise.unity.units.parts.limbs.creeping_legs;
+using rvinowise.unity.units.parts.transport;
 using Contract = rvinowise.rvi.contracts.Contract;
 
-namespace rvinowise.units.parts.limbs.creeping_legs.strategy {
+namespace rvinowise.unity.units.parts.limbs.creeping_legs.strategy {
 public abstract class Moving_strategy {
 
     protected readonly IList<Leg> legs;

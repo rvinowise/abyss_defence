@@ -1,21 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.actions;
-using rvinowise.units.parts.limbs.arms.actions;
-using rvinowise.units.parts.tools;
+using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.limbs.arms.actions;
+using rvinowise.unity.units.parts.tools;
 
 
-namespace rvinowise.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.units.parts.limbs.arms.actions {
 
 public class Grab_tool: Action_of_arm {
 
+    private Hand hand;
     private Baggage bag;
     private Tool tool;
+    
 
     
     public static Grab_tool create(
@@ -25,7 +29,7 @@ public class Grab_tool: Action_of_arm {
         var action = (Grab_tool)pool.get(typeof(Grab_tool));
         action.actor = in_arm;
         
-        action.arm = in_arm;
+        action.hand = in_arm.hand;
         action.bag = in_bag;
         action.tool = in_tool;
         return action;
@@ -37,7 +41,7 @@ public class Grab_tool: Action_of_arm {
 
     public override void init_state() {
         base.init_state();
-        if (arm.held_part != null) {
+        if (hand.held_part != null) {
             stash_old_tool();
         }
         if (tool != null) {
@@ -47,14 +51,13 @@ public class Grab_tool: Action_of_arm {
     }
 
     private void stash_old_tool() {
-        Contract.Requires(arm.held_part != null);
-        bag.add_tool(arm.held_part.tool);
+        Contract.Requires(hand.held_part != null);
+        bag.add_tool(hand.held_part.tool);
     }
 
     private void take_new_tool() {
-        ///bag.remove_tool(tool);
         tool.activate();
-        arm.attach_tool_to_hand_for_holding(tool.main_holding);
+        hand.attach_tool_to_hand_for_holding(tool.main_holding);
     }
 
    

@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using geometry2d;
-using rvinowise.units.parts.limbs;
-using rvinowise.units.parts.limbs.init;
-using rvinowise.units.parts.limbs.creeping_legs;
-using rvinowise.units.parts;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.hexapod_spider.init {
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.parts.limbs;
+using rvinowise.unity.units.parts.limbs.init;
+using rvinowise.unity.units.parts.limbs.creeping_legs;
+using rvinowise.unity.units.parts;
+
+namespace rvinowise.unity.units.hexapod_spider.init {
 
 
 static class Legs {
@@ -73,7 +75,7 @@ static class Legs {
 
     private static List<Leg> create_legs(Creeping_leg_group @group) {
         for (int i = 0; i < 6; i++) {
-            @group.add_child(new Leg(@group.game_object.transform));
+            //@group.add_child(new Leg(@group.game_object.transform));
         }
         @group.left_front_leg.debug.name = "left_front_leg";
         @group.right_front_leg.debug.name = "right_front_leg";

@@ -5,7 +5,6 @@
         "debug",
         "settings",
         "third_party",
-        "input",
         "Unity.2D.Animation.Runtime"
     ]
     

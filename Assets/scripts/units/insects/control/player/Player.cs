@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 
-using Input = rvinowise.ui.input.Input;
+using Input = rvinowise.unity.ui.input.Input;
 
 
-namespace rvinowise.units.control.spider {
+namespace rvinowise.unity.units.control.spider {
 
 public class Player: Spider {
 

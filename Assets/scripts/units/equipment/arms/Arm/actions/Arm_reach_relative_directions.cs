@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using rvinowise;
-using geometry2d;
-using rvinowise.units.parts.actions;
-using rvinowise.units.parts.limbs.arms;
-using Action = rvinowise.units.parts.actions.Action;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.parts.limbs.arms.actions {
+using rvinowise;
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.limbs.arms;
+using Action = rvinowise.unity.units.parts.actions.Action;
+
+namespace rvinowise.unity.units.parts.limbs.arms.actions {
 
 public class Arm_reach_relative_directions: Action {
     private Arm arm;
@@ -23,7 +25,6 @@ public class Arm_reach_relative_directions: Action {
         action.actor = in_arm;
         
         action.arm = in_arm;
-        //clean_actor_from_prev_action(in_arm);
 
         in_arm.upper_arm.target_direction = new Relative_direction(
             upper_arm_rotation, in_arm.parent.transform
@@ -51,7 +52,7 @@ public class Arm_reach_relative_directions: Action {
 
         in_arm.shoulder.set_target_direction_relative_to_parent(
             in_arm.shoulder.desired_idle_direction
-        );//.adjust_to_side_for_left(in_arm.folding_direction);
+        );
         in_arm.upper_arm.target_direction = new Relative_direction(
             Directions.degrees_to_quaternion(upper_arm_rotation), in_arm.parent.transform
         ).adjust_to_side_for_left(in_arm.folding_direction);

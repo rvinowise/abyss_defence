@@ -29,10 +29,10 @@ Shader "masked_texture"
 			out vec4 colorOut;
 			void main(){ 
 
-				 vec4 color = texture(_MainTex,gl_TexCoord[0].xy);
-				 vec4 mask = texture(_Mask,gl_TexCoord[0].xy);
+				vec4 color = texture(_MainTex,gl_TexCoord[0].xy);
+				vec4 mask = texture(_Mask,gl_TexCoord[0].xy);
 
-				 colorOut = vec4(color.rgb,color.a * mask.r);
+				colorOut = vec4(color.rgb,color.a * mask.r);
 			}
 #endif
            

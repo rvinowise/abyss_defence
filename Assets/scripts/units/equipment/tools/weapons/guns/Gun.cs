@@ -2,13 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.tools;
+using rvinowise.unity.units.parts.tools;
+using rvinowise.unity.units.parts.weapons.guns.common;
+
 using UnityEngine.Serialization;
 
 
-namespace rvinowise.units.parts.weapons.guns {
+namespace rvinowise.unity.units.parts.weapons.guns {
 
 /* a tool consisting of one element which can shoot */
 public abstract class Gun: 
@@ -23,16 +27,18 @@ public abstract class Gun:
     [SerializeField]
     public Transform muzzle;
     [SerializeField]
-    public UnityEngine.GameObject spark;
+    public Transform spark_prefab;
     
     [SerializeField]
-    public GameObject bullet_shell_prefab;
-    [SerializeField] public GameObject magazine_prefab;
+    public Bullet_shell bullet_shell_prefab;
+    [SerializeField] public Magazine magazine_prefab;
+    public guns.Magazine magazine;
+
+    public virtual float stock_length { get; }
+
         
-    /* components */
     public Animator animator { get; set; }
 
-    /* inner characteristics */
     public Vector2 tip {
         get { return muzzle.localPosition; }
         set { muzzle.localPosition = value; }
@@ -43,7 +49,7 @@ public abstract class Gun:
             return stock_length > 0f;
         }
     }
-    public virtual float stock_length { get; }
+    
     public float butt_to_second_grip_distance {
         get { return stock_length + second_holding.place_on_tool.magnitude; }
     }
@@ -52,10 +58,7 @@ public abstract class Gun:
         get { return main_holding.holder; }
     }
     
-    /* current values */
     private float last_shot_time = 0f;
-
-    public guns.Magazine magazine;
 
 
 
@@ -78,11 +81,9 @@ public abstract class Gun:
         Contract.Requires(can_fire(), "function Fire must be invoked after making sure it's possible");
         last_shot_time = Time.time;
         Projectile new_projectile = magazine.retrieve_round(muzzle);
-        GameObject new_spark = Instantiate(
-            spark,
-            muzzle.position,
-            transform.rotation
-        );    
+        Transform new_spark = spark_prefab.get_from_pool<Transform>();
+        new_spark.copy_physics_from(muzzle);
+            
         return new_projectile;
     }
 

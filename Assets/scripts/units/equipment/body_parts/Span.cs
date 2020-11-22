@@ -1,13 +1,16 @@
 ﻿using System;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using UnityEngine;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.parts.limbs {
 
+namespace rvinowise.unity.units.parts.limbs {
+
+[Serializable]
 public struct Span {
     /* possible rotation of a segment relative to it's local_position  */
-    public readonly float min; //maximum rotation to the left (counter-clockwise)
-    public readonly float max; //maximum rotation to the right (clockwise)
+    public float min; //maximum rotation to the left (counter-clockwise)
+    public float max; //maximum rotation to the right (clockwise)
 
     public Span(float val1, float val2) {
         min = Math.Min(val1, val2);
@@ -28,11 +31,11 @@ public struct Span {
         return Math.Sign(max);
     }
     
-    public geometry2d.Side side_of_bigger_rotation() {
+    public unity.geometry2d.Side side_of_bigger_rotation() {
         if (Math.Abs(min) > Math.Abs(max)) {
-            return geometry2d.Side.from_degrees(min);
+            return unity.geometry2d.Side.from_degrees(min);
         }
-        return geometry2d.Side.from_degrees(max);
+        return unity.geometry2d.Side.from_degrees(max);
     }
     
     public Span scaled(float scale) {

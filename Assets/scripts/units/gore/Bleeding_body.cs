@@ -1,19 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Principal;
-using extensions.pooling;
 using UnityEngine;
-using rvinowise;
-using geometry2d;
-using rvinowise.effects.liquids;
-using rvinowise.effects.physics;
+using rvinowise.unity.extensions;
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.effects.liquids;
+using rvinowise.unity.effects.physics;
 using rvinowise.rvi.contracts;
-using UnityEngine.SocialPlatforms;
+using rvinowise.unity.units.parts.weapons.guns.common;
+
 using Random = UnityEngine.Random;
 
 
-namespace rvinowise.units.gore {
+namespace rvinowise.unity.units.gore {
 
 public class Bleeding_body: MonoBehaviour {
 
@@ -61,7 +58,7 @@ public class Bleeding_body: MonoBehaviour {
         Vector2 in_impulse
     ) {
         Droplet droplet = droplet_prefab.get_from_pool<Droplet>();
-        droplet.transform.position = in_position;
+        droplet.transform.move_preserving_z(in_position);
         Trajectory_flyer trajectory_flyer = droplet.GetComponent<Trajectory_flyer>();
         trajectory_flyer.height = 0.2f;
         trajectory_flyer.vertical_velocity = 1f + Random.value*3;
@@ -75,7 +72,7 @@ public class Bleeding_body: MonoBehaviour {
                               Random.Range(rotation_to_speed_ratio.x, rotation_to_speed_ratio.y)
                           );
             
-        droplet.rigidbody.AddForce(impulse*Time.deltaTime,ForceMode2D.Impulse);
+        droplet.rigidbody.AddForce(impulse*Time.deltaTime/10f,ForceMode2D.Impulse);
         droplet.transform.rotation = impulse.to_quaternion();
             
         

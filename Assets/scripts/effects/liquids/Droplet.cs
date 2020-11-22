@@ -1,15 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using rvinowise.effects.physics;
-using extensions.pooling;
+using rvinowise.unity.effects.physics;
+using rvinowise.unity.extensions.pooling;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using rvinowise.rvi.contracts;
+
 using UnityEngine.Serialization;
 
-namespace rvinowise.effects.liquids {
+namespace rvinowise.unity.effects.liquids {
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Trajectory_flyer))]
@@ -40,14 +43,17 @@ public class Droplet:
         
         rigidbody = GetComponent<Rigidbody2D>();
         pooled_object = GetComponent<Pooled_object>();
-        if (puddle_prefab != null) {
-            trajectory_flyer = GetComponent<Trajectory_flyer>();
+        trajectory_flyer = GetComponent<Trajectory_flyer>();
+        /* if (puddle_prefab != null) {
             trajectory_flyer.on_fell_on_the_ground.AddListener(stain_the_ground);
-        }
+        } */
     }
 
+    void OnEnable() {
+        trajectory_flyer.enabled = true;
+    }
     public void stain_the_ground() {
-        Puddle puddle = puddle_prefab.GetComponent<Pooled_object>().instantiate<Puddle>();
+        Puddle puddle = puddle_prefab.get_from_pool<Puddle>();
         puddle.copy_physics_from(this);
         pooled_object.destroy();
     }

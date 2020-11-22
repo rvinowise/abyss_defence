@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 using rvinowise.rvi.contracts;
 
 
-namespace rvinowise.ui.input.mouse {
+namespace rvinowise.unity.ui.input.mouse {
 
 public class Cursor {
 

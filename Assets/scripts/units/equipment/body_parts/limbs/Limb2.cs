@@ -2,38 +2,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 using rvinowise.rvi.contracts;
 using UnityEngine.Assertions;
-using static geometry2d.Directions;
+using static rvinowise.unity.geometry2d.Directions;
 
 
-namespace rvinowise.units.parts.limbs {
+namespace rvinowise.unity.units.parts.limbs {
 
-public partial class Limb2: ICompound_object {
-    public Segment segment1 { get; set; } //beginning (root)
-    public Segment segment2 { get; set; } //ending (leaf)
+[Serializable]
+public partial class Limb2:
+    MonoBehaviour, 
+    ICompound_object 
+{
+    public Segment segment1; //beginning (root)
+    public Segment segment2; //ending (leaf)
 
-    public geometry2d.Side folding_direction { get; set; } //1 of -1
+    [HideInInspector]
+    public unity.geometry2d.Side folding_direction; //1 of -1
+    [SerializeField]
+    private int _folding_direction = 0; //only for Inspector: it can't show Headspring.Enumeration
     
     public Transform parent {
-        get { return segment1.parent;}
-        set { segment1.parent = value; }
+        get { return this.transform.parent;}
+        set { this.transform.parent = value; }
     }
     public Vector2 local_position {
-        get { return segment1.local_position; }
-        set { segment1.local_position = value; }
+        get { return this.transform.localPosition; }
+        set { this.transform.localPosition = value; }
     }
     
     public GameObject main_object {
-        get { return segment1.gameObject; }
+        get { return gameObject; }
     }
     
     protected virtual Limb2.Debug debug_limb { get; set; }
 
-    
+
+     protected virtual void Awake() {
+        if (_folding_direction != 0) {
+            folding_direction = Side.FromValue(_folding_direction);
+        }
+        
+    }
     
     public virtual void rotate_to_desired_directions() {
         segment1.rotate_to_desired_direction();
@@ -58,7 +73,7 @@ public partial class Limb2: ICompound_object {
         float distance_to_aim = 
             ((Vector2)segment1.position).distance_to(desired_position);
         float segment1_angle_offset = 
-            geometry2d.Triangles.get_angle_by_lengths(
+            unity.geometry2d.Triangles.get_angle_by_lengths(
                 segment1.length,
                 distance_to_aim,
                 segment2.length
@@ -97,7 +112,7 @@ public partial class Limb2: ICompound_object {
         
         float distance_to_aim = segment1.transform.distance_to(holding_point);
         float segment1_angle_offset = 
-            geometry2d.Triangles.get_angle_by_lengths(
+            unity.geometry2d.Triangles.get_angle_by_lengths(
                 segment1.length,
                 distance_to_aim,
                 segment2.length

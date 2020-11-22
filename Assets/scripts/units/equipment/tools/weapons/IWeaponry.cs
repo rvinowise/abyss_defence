@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.parts {
+
+namespace rvinowise.unity.units.parts {
 public interface IWeaponry: IExecute_commands {
     void fire();
 

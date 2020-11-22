@@ -2,13 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.limbs.creeping_legs;
-using rvinowise.units.parts.transport;
+using rvinowise.unity.units.parts.limbs.creeping_legs;
+using rvinowise.unity.units.parts.transport;
 
 
-namespace rvinowise.units.parts.limbs.creeping_legs.strategy {
+namespace rvinowise.unity.units.parts.limbs.creeping_legs.strategy {
 
 /* don't try to raise the belly above the ground,
    but keep one leg on the ground to move constantly:

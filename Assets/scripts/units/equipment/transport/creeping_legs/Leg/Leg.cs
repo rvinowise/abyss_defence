@@ -1,12 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using geometry2d;
-using static geometry2d.Directions;
-using rvinowise.units;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.parts.limbs.creeping_legs {
+using rvinowise.unity.geometry2d;
+using static rvinowise.unity.geometry2d.Directions;
+using rvinowise.unity.units;
 
+namespace rvinowise.unity.units.parts.limbs.creeping_legs {
+
+[Serializable]
 public partial class Leg: Limb2 
 {
     /* constant characteristics */
@@ -39,19 +43,15 @@ public partial class Leg: Limb2
     
     /* current characteristics */
     //
+    [HideInInspector]
     public Vector2 holding_point;
     //whether leg is moving towards the aim or holding onto the ground
+    [HideInInspector]
     public bool is_up = true;
 
     
 
-    public Leg(Transform inHost) {
-        femur = Segment.create("femur");
-        tibia = Segment.create("tibia");
-        femur.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "legs";
-        tibia.game_object.GetComponent<SpriteRenderer>().sortingLayerName = "legs";
-        tibia.parent = femur.transform;
-        parent = inHost;
+    public void Awake() {
         debug = new Debug(this);
     }
 

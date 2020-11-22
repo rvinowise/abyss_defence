@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using geometry2d;
-using rvinowise.units.parts.weapons.guns.common;
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.parts.weapons.guns.common;
 
 
 namespace units.equipment.tools.weapons.guns.Pistol {

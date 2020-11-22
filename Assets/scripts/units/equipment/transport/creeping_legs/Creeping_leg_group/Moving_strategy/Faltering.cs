@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using rvinowise.units.parts.limbs.creeping_legs;
-using rvinowise.units.parts.transport;
+using rvinowise.unity.units.parts.limbs.creeping_legs;
+using rvinowise.unity.units.parts.transport;
 
 
-namespace rvinowise.units.parts.limbs.creeping_legs.strategy {
+namespace rvinowise.unity.units.parts.limbs.creeping_legs.strategy {
 
 
 /* don't try to move constantly - all legs can be raised up:

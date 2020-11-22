@@ -68,7 +68,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 400
+    spritePixelsToUnits: 800
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -134,8 +134,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 104
       y: 78
-      width: 86
-      height: 46
+      width: 83
+      height: 43
     spriteID: 8a08d40060c038e42a31be0c44c9c940
     internalID: 0
     spriteBone: []
@@ -146,7 +146,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 88, y: 42}
+    uvTransform: {x: 87, y: 41}
   - name: 1
     originalName: 
     pivot: {x: 0.5, y: 0.5}

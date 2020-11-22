@@ -1,9 +1,11 @@
 using System;
 using rvinowise.rvi.contracts;
 using UnityEngine;
+using rvinowise.unity.extensions;
 
 
-namespace rvinowise.ui.input {
+
+namespace rvinowise.unity.ui.input {
 public class Input: MonoBehaviour {
     
     static public Input instance;

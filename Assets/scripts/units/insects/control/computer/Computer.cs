@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 
 //using static UnityEngine.Input;
-using geometry2d;
-using rvinowise.units.parts;
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.parts;
 
-using Input = rvinowise.ui.input.Input;
+using Input = rvinowise.unity.ui.input.Input;
 
-namespace rvinowise.units.control.spider {
+namespace rvinowise.unity.units.control.spider {
 
 public class Computer: Spider  {
     
@@ -58,7 +60,7 @@ public class Computer: Spider  {
     }
     
     public void read_face_direction(out float degrees) {
-        Vector2 mousePos = rvinowise.ui.input.Input.instance.mouse_world_position;
+        Vector2 mousePos = rvinowise.unity.ui.input.Input.instance.mouse_world_position;
         degrees = transform.degrees_to(mousePos);
     }
 

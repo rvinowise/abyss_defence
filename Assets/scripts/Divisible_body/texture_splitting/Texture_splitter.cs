@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using UnityEditor;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 
 
-namespace geometry2d {
+namespace rvinowise.unity.geometry2d {
 
 static class Texture_splitter {
     

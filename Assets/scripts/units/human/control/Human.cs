@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using rvinowise.units.parts;
-using rvinowise.units.parts.limbs.arms;
+using rvinowise.unity.units.parts;
+using rvinowise.unity.units.parts.limbs.arms;
 
 
-namespace rvinowise.units.control.human {
+namespace rvinowise.unity.units.control.human {
 
 public class Human:Intelligence {
     

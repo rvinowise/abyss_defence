@@ -3,30 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreLinq.Extensions;
 using UnityEngine;
-using rvinowise.rvi.contracts;
-using rvinowise.units.parts;
-using rvinowise.units.parts.transport;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.parts.limbs.arms {
+using rvinowise.rvi.contracts;
+using rvinowise.unity.units.parts;
+using rvinowise.unity.units.parts.transport;
+
+namespace rvinowise.unity.units.parts.limbs.arms {
 
 public class Arm_controller: /*MonoBehaviour,*/
-    IChildren_group
+    Children_group
     ,IWeaponry
 {
     
     /* IChildren_group interface */
     protected IChildren_groups_host host;
     
-    public IEnumerable<ICompound_object> children {
+    public override IEnumerable<ICompound_object> children {
         get { return arms; }
     }
 
 
-    public GameObject game_object;
     public Transform transform {
-        get { return game_object.transform; }
+        get { return gameObject.transform; }
     }
-    
+
+
+    protected virtual void Awake() {
+        base.Awake();
+        foreach (var arm in arms) {
+            arm.controller = this;
+        }
+        transporter = GetComponent<ITransporter>();
+    }
 
     public void update() {
         foreach (Arm arm in arms) {
@@ -35,9 +44,14 @@ public class Arm_controller: /*MonoBehaviour,*/
     }
 
 
-    public void add_child(ICompound_object compound_object) {
+    public override void add_child(ICompound_object compound_object) {
         Contract.Requires(compound_object is Arm);
         arms.Add(compound_object as Arm);
+    }
+
+    public override void hide_children_from_copying() {
+        children_stashed_from_copying = arms as ICollection<ICompound_object> ;
+        arms = new List<Arm>();
     }
 
     public void add_to_user(IChildren_groups_host in_host) {
@@ -72,29 +86,16 @@ public class Arm_controller: /*MonoBehaviour,*/
 
     /* Arm_controller itself */
     
-    public IList<Arm> arms = new List<Arm>();
+    public List<Arm> arms = new List<Arm>();
     
-    public IList<Held_tool> held_tools = new List<Held_tool>();
+    public List<Held_tool> held_tools = new List<Held_tool>();
 
     public ITransporter transporter;
 
 
-    public Arm_controller(IChildren_groups_host in_user, ITransporter in_transporter) {
-        host = in_user;
-        game_object = in_user.game_object;
-        transporter = in_transporter;
-    }
 
-    public Arm_controller(GameObject in_user, ITransporter in_transporter) {
-        game_object = in_user;
-        transporter = in_transporter;
-    }
-    
-    
 
-    public Arm_controller() : base() { }
-    
-    
+
     
 
 }

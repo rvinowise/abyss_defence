@@ -2,15 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.actions;
-using rvinowise.units.parts.weapons.guns;
+using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.weapons.guns;
 using Vector2 = System.Numerics.Vector2;
 
 
-namespace rvinowise.units.parts.limbs.arms.actions.using_guns.reloading {
+namespace rvinowise.unity.units.parts.limbs.arms.actions.using_guns.reloading {
 
 public class Expose_gun_for_reloading_COMPLEX: parts.actions.Action {
 

@@ -2,21 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using static UnityEngine.Input;
-using geometry2d;
-using rvinowise.debug;
-using rvinowise.units.control;
-using rvinowise.units.parts;
-using rvinowise.units.parts.limbs.arms;
-using rvinowise.units.parts.limbs.arms.actions;
-using rvinowise.units.parts.limbs.arms.actions.idle_vigilant;
-using rvinowise.units.parts.limbs.arms.actions.idle_vigilant.main_arm;
-using rvinowise.units.parts.weapons.guns;
-using static geometry2d.Directions;
-using Input = rvinowise.ui.input.Input;
-using Arm_controller = rvinowise.units.parts.limbs.arms.humanoid.Arm_controller;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.control.human {
+//using static UnityEngine.Input;
+using rvinowise.unity.geometry2d;
+using rvinowise.debug;
+using rvinowise.unity.units.control;
+using rvinowise.unity.units.parts;
+using rvinowise.unity.units.parts.limbs.arms;
+using rvinowise.unity.units.parts.limbs.arms.actions;
+using rvinowise.unity.units.parts.limbs.arms.actions.idle_vigilant;
+using rvinowise.unity.units.parts.limbs.arms.actions.idle_vigilant.main_arm;
+using rvinowise.unity.units.parts.weapons.guns;
+using static rvinowise.unity.geometry2d.Directions;
+using Input = rvinowise.unity.ui.input.Input;
+using Arm_controller = rvinowise.unity.units.parts.limbs.arms.humanoid.Arm_controller;
+
+namespace rvinowise.unity.units.control.human {
 
 public class Player : Human {
 
@@ -131,7 +133,7 @@ public class Player : Human {
     }
 
     public Arm get_selected_arm() {
-        if (Side.from_degrees(last_rotation) == geometry2d.Side.LEFT) {
+        if (Side.from_degrees(last_rotation) == unity.geometry2d.Side.LEFT) {
             return arm_controller.left_arm;
         }
         return arm_controller.right_arm;
@@ -202,7 +204,7 @@ public class Player : Human {
     private Quaternion get_additional_rotation_for_2hands_gun(Gun gun) {
         
         float body_rotation = 
-            geometry2d.Triangles.get_angle_by_lengths(
+            unity.geometry2d.Triangles.get_angle_by_lengths(
                 arm_controller.shoulder_span,
                 gun.butt_to_second_grip_distance,
                 arm_controller.left_arm.length-arm_controller.left_arm.hand.length

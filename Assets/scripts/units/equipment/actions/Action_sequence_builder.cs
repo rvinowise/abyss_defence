@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace rvinowise.units.parts.actions {
+namespace rvinowise.unity.units.parts.actions {
 public interface Action_sequence_builder {
 
     Action current_child_action_setter {

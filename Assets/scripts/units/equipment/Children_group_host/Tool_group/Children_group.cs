@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using rvinowise.units.debug;
+using rvinowise.unity.debug;
 using UnityEngine;
+using rvinowise.unity.extensions;
 using rvinowise.rvi.contracts;
 
-namespace rvinowise.units.parts
+namespace rvinowise.unity.units.parts
 {
 
 /*
@@ -13,12 +14,23 @@ which work together under control of this object:
 creeping_legs, Weapons etc. 
 */
 public abstract class Children_group:
+    MonoBehaviour,
     IChildren_group 
     
 {
     public IChildren_groups_host host;
+
+    public abstract IEnumerable<ICompound_object> children {
+        get;
+    }
+
+    public IEnumerable<ICompound_object> children_stashed_from_copying {
+        get;
+        protected set;
+    }
+
     public GameObject game_object {
-        get { return host.game_object; }
+        get { return this.gameObject; }
     }
 
     public Transform transform {
@@ -26,43 +38,30 @@ public abstract class Children_group:
             return game_object.transform;
         }
     }
-    
-    public abstract IEnumerable<ICompound_object> children {
-        get;
-    }
 
     public bool has_child(ICompound_object in_compound_object) {
         return children.Any(tool => tool == in_compound_object);
     }
+      
+    public abstract void hide_children_from_copying();
     
-    
-    protected Children_group(GameObject in_game_object, IChildren_groups_host in_host) {
+    protected virtual void Awake() {
+        host = GetComponent<IChildren_groups_host>();
+        if (host != null) {
+            host.children_groups.Add(this);
+        }
+
         debug = new Debug(this);
         debug.increase_counter();
 
-        host = in_host;
-        host.children_groups.Add(this);
-        
-        init_components();
-    }
-    
-    protected Children_group(IChildren_groups_host in_host) {
-        debug = new Debug(this);
-        debug.increase_counter();
-        
-        //game_object = in_game_object;
-        host = in_host;
-        host.children_groups.Add(this);
-        
         init_components();
     }
 
-    protected Children_group() {
-        debug = new Debug(this);
-        debug.increase_counter();
+    protected virtual void Start() {
         
-        init_components();
     }
+    
+
     
     protected virtual void init_components() { }
     
@@ -70,14 +69,12 @@ public abstract class Children_group:
     ~Children_group() {
         debug.decrease_counter();
     }
-    
-    public void add_to_user(IChildren_groups_host in_user) {
-        host = in_user;
-    }
+
 
 
     public abstract void add_child(ICompound_object compound_object);
 
+    
     public virtual void init() { }
 
 

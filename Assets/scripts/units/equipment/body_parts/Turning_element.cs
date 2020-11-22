@@ -1,19 +1,14 @@
-﻿using System.Diagnostics.Contracts;
-using System.Runtime.CompilerServices;
-using extensions;
-using rvinowise.units;
-using UnityEngine;
-using geometry2d;
-using Headspring;
-using UnityEditor;
-using static geometry2d.Directions;
-using rvinowise.units.parts.limbs.arms;
+﻿using UnityEngine;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.parts.limbs{
+using rvinowise.unity.geometry2d;
+using static rvinowise.unity.geometry2d.Directions;
+
+
+
+namespace rvinowise.unity.units.parts.limbs{
 
 public class Turning_element: Component_creator {
-    
-    /* parameters from the editor */
     
     [SerializeField]
     public Transform rotated_bone;
@@ -25,10 +20,8 @@ public class Turning_element: Component_creator {
 
     
    
-    /*  */
     public Degree current_rotation_inertia;
     public Saved_physics last_physics = new Saved_physics();
-    //public Turning_element parent_turning;
     
     public Quaternion target_quaternion {
         get { return target_direction.rotation;}
@@ -45,14 +38,12 @@ public class Turning_element: Component_creator {
         }
     }
 
-    /* functions of Turning_element */
 
-    protected void Awake() {
+    protected virtual void Awake() {
         //base.Awake();
         if (rotated_bone == null) { // if not specified in the Editor - by-default rotate itself
             rotated_bone = this.transform;
         }
-        //parent_turning = rotated_bone.parent.GetComponent<Turning_element>();
     }
 
 
@@ -81,8 +72,8 @@ public class Turning_element: Component_creator {
         //rotated_bone.rotate_to(target_direction, rotation_speed);
         //}
     }
+
     public virtual void rotate_to_desired_direction() {
-        
 
         float angle_to_pass = rotated_bone.rotation.degrees_to(target_direction.rotation).degrees;
         rvinowise.rvi.contracts.Contract.Assume(Mathf.Abs(angle_to_pass) < 180f, "angle too big");
@@ -152,22 +143,8 @@ public class Turning_element: Component_creator {
                 this.current_rotation_inertia.degrees + 
                 (rotation_acceleration * Mathf.Sign(angle_to_target) * Time.deltaTime) 
             );
-        
-            /*return this.current_rotation_inertia * (
-                    Quaternion.RotateTowards(
-                        rotated_bone.rotation, target_direction.rotation, rotation_acceleration.degrees * Time.deltaTime
-                    ) * Quaternion.Inverse(rotated_bone.rotation)
-                );*/
         }
     }
-
-    /*float time_to_reaching_target_direction() {
-        float angle_to_pass = rotated_bone.rotation.degrees_to(target_direction.rotation).degrees;
-        float needed_time = Mathf.Abs(angle_to_pass / current_rotation_inertia.degrees);
-
-        float parent_time_to_target = parent_turning.time_to_reaching_target_direction();
-    }*/
-
 
 
     public virtual void jump_to_desired_direction() {

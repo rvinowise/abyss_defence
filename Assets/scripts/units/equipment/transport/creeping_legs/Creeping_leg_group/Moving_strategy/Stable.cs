@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.limbs.creeping_legs;
-using rvinowise.units.parts.transport;
+using rvinowise.unity.units.parts.limbs.creeping_legs;
+using rvinowise.unity.units.parts.transport;
 
-namespace rvinowise.units.parts.limbs.creeping_legs.strategy {
+namespace rvinowise.unity.units.parts.limbs.creeping_legs.strategy {
 
 /* always keep the belly above the ground:
  best speed and control

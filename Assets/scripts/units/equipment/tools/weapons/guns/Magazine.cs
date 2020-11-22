@@ -2,23 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.limbs.arms;
-using rvinowise.units.parts.tools;
+using rvinowise.unity.units.parts.limbs.arms;
+using rvinowise.unity.units.parts.tools;
+using rvinowise.unity.units.parts.weapons.guns.common;
 
-
-namespace rvinowise.units.parts.weapons.guns {
+namespace rvinowise.unity.units.parts.weapons.guns {
 
 public class Magazine : Ammunition {
 
-    public virtual int max_rounds_qty { get; set; }
+    public int max_rounds_qty;// { get; set; }
     [SerializeField] public int rounds_qty;
 
     [SerializeField] public Projectile projectile_prefab;
 
-    public Magazine() { }
 
     protected override void Awake() {
         base.Awake();
@@ -43,7 +44,10 @@ public class Magazine : Ammunition {
     }
 
     protected Projectile get_bullet_object(Transform in_muzzle) {
-        return Instantiate(projectile_prefab, in_muzzle.position, in_muzzle.rotation);
+        Projectile projectile = projectile_prefab.get_from_pool<Projectile>(
+            in_muzzle.position, in_muzzle.rotation
+        );
+        return projectile;
     }
 }
 

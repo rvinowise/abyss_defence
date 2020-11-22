@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using rvinowise.units.parts.limbs;
-using rvinowise.units.parts.limbs.creeping_legs;
+using rvinowise.unity.units.parts.limbs;
+using rvinowise.unity.units.parts.limbs.creeping_legs;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using static UnityEngine.Object; //Destroy()
 
 namespace rvinowise {

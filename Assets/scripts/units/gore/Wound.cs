@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 
 
-namespace rvinowise.units.gore {
+namespace rvinowise.unity.units.gore {
 
 public class Wound: MonoBehaviour {
 

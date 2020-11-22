@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using rvinowise;
 
 
-namespace rvinowise.rvi {
+namespace rvinowise.unity.debug {
 
 public  static class Debug {
 

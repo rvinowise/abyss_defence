@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 
 
-namespace rvinowise.units.parts.limbs {
+namespace rvinowise.unity.units.parts.limbs {
 
 public class Limb3: Limb2 {
 
@@ -15,12 +17,7 @@ public class Limb3: Limb2 {
     public Limb3() {
         
     }
-    public Limb3(Segment in_segment1, Segment in_segment2, Segment in_segment3) {
-        segment1 = in_segment1;
-        segment2 = in_segment2;
-        segment3 = in_segment3;
-
-    }
+    
     
     public virtual void rotate_to_desired_directions() {
         base.rotate_to_desired_directions();

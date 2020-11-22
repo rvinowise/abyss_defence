@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace rvinowise.ui.input
+namespace rvinowise.unity.ui.input
 {
     public class @Unity_input : IInputActionCollection, IDisposable
     {

@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 using rvinowise.rvi.contracts;
 
 
-namespace rvinowise.units.parts.weapons.guns {
+namespace rvinowise.unity.units.parts.weapons.guns {
 
 
 public class Guns_controller:
@@ -17,10 +19,6 @@ public class Guns_controller:
 
 
     public override IEnumerable<ICompound_object> children { get; }
-
-    public Guns_controller(IChildren_groups_host dst_host) : base(dst_host) {
-        
-    }
     
 
     public Command_batch command_batch { get; }
@@ -35,6 +33,10 @@ public class Guns_controller:
             rifles.Add(rifle);
         }*/
         
+    }
+
+    public override void hide_children_from_copying() {
+        //children_stashed_from_copying = children
     }
 
 

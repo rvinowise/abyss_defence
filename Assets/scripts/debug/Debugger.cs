@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace rvinowise.units.debug {
+namespace rvinowise.unity.debug {
 
 public abstract class Debugger {
     public static bool is_off = false; //MANU

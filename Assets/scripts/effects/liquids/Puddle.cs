@@ -1,14 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using effects.persistent_residue;
-using extensions.pooling;
+using rvinowise.unity.effects.persistent_residue;
+using rvinowise.unity.extensions.pooling;
+
 using UnityEngine;
+using rvinowise.unity.extensions;
+using rvinowise.unity.extensions.attributes;
 using rvinowise;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 
 
-namespace rvinowise.effects.liquids {
+namespace rvinowise.unity.effects.liquids {
 
 public class Puddle: MonoBehaviour {
 
@@ -20,15 +23,15 @@ public class Puddle: MonoBehaviour {
         transform.scale(size);
     }
 
-    /* invoked from the animation clip */
+    [called_in_animation]
     public void on_animation_ends() {
-        turn_into_static_stain();
+        GetComponent<Pooled_object>().destroy();
     }
 
-    private void turn_into_static_stain() {
-        GetComponent<Leaving_persistent_residue>().leave_persistent_image();
+    [called_in_animation]
+    public void create_static_stain() {
+        GetComponent<Leaving_persistent_mask_residue>().leave_persistent_image();
         
-        GetComponent<Pooled_object>().destroy();
     }
 
 }

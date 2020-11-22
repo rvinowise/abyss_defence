@@ -2,14 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using UnityEditor;
-using geometry2d;
-using rvinowise.units;
-using rvinowise.units.parts;
-using rvinowise.units.parts.transport;
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.units;
+using rvinowise.unity.units.parts;
+using rvinowise.unity.units.parts.transport;
+using rvinowise.unity.debug;
+using rvinowise.unity.units.parts.weapons.guns.common;
 
+using Debug = UnityEngine.Debug;
+using System.Threading.Tasks;
 
-namespace rvinowise.units.parts {
+namespace rvinowise.unity.units.parts {
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -31,8 +37,9 @@ public class Divisible_body : MonoBehaviour
     public IList<Children_group> children_groups { get; } = new List<Children_group>();
 
 
+
     /* Divisible_body itself */
-    public IEnumerable<GameObject> split_by_ray(Ray2D ray_of_split) {
+    public List<GameObject> split_by_ray(Ray2D ray_of_split) {
 
         return remove_polygon(
             Polygon_splitter.get_wedge_from_ray(ray_of_split)  
@@ -40,7 +47,7 @@ public class Divisible_body : MonoBehaviour
         
     }
 
-    public IEnumerable<GameObject> remove_polygon(Polygon polygon_of_split) {
+    public async Task<List<GameObject>> remove_polygon_async(Polygon polygon_of_split) {
         List<Polygon> collider_pieces = Polygon_splitter.remove_polygon_from_polygon(
             new Polygon(gameObject.GetComponent<PolygonCollider2D>().GetPath(0)),
             transform.InverseTransformPolygon(polygon_of_split)
@@ -52,13 +59,36 @@ public class Divisible_body : MonoBehaviour
             collider_pieces, body, inside
         );
 
-        Children_splitter.split_children_groups(gameObject, piece_objects);
+        Children_splitter.split_children_groups(this, piece_objects);
 
         adjust_center_of_colliders_and_children(piece_objects, collider_pieces);
 
         preserve_impulse_in_pieces(piece_objects);
         
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        
+        return piece_objects;
+    }
+
+    public List<GameObject> remove_polygon(Polygon polygon_of_split) {
+        List<Polygon> collider_pieces = Polygon_splitter.remove_polygon_from_polygon(
+            new Polygon(gameObject.GetComponent<PolygonCollider2D>().GetPath(0)),
+            transform.InverseTransformPolygon(polygon_of_split)
+        );
+
+        Sprite body = gameObject.GetComponent<SpriteRenderer>().sprite;
+
+        List<GameObject> piece_objects = create_objects_for_colliders(
+            collider_pieces, body, inside
+        );
+
+        Children_splitter.split_children_groups(this, piece_objects);
+
+        adjust_center_of_colliders_and_children(piece_objects, collider_pieces);
+
+        preserve_impulse_in_pieces(piece_objects);
+        
+        //Destroy(gameObject);
         
         return piece_objects;
     }
@@ -70,7 +100,7 @@ public class Divisible_body : MonoBehaviour
         Sprite body,
         Sprite inside
     ) {
-        detach_children(gameObject);
+        detach_children();
         List<GameObject> object_pieces = new List<GameObject>();
         foreach (Polygon collider_piece in collider_pieces)
         {
@@ -112,10 +142,13 @@ public class Divisible_body : MonoBehaviour
     }
     
     /* to avoid duplication of the Children when duplicating the Body */
-    private void detach_children(GameObject game_object) {
+    private void detach_children() {
          //Transform[] children = GetComponentsInChildren<Transform>();
          foreach (Transform child_transform in gameObject.direct_children()) {
              child_transform.SetParent(null, false);
+         }
+         foreach (Children_group children_group in children_groups) {
+             children_group.hide_children_from_copying();
          }
     }
 
@@ -168,25 +201,27 @@ public class Divisible_body : MonoBehaviour
         }
     }
     
-    
+    private float damaging_velocity = 5f;
     public void OnCollisionEnter2D(Collision2D other) {
         Debug.Log("OnCollisionEnter2D in "+this.gameObject.name);
-        Projectile collided_projectile = other.gameObject.GetComponent<Projectile>();
-        if (collided_projectile != null) {
+        
+        if (other.get_damaging_projectile() is Projectile damaging_projectile ) {
 
             Vector2 contact_point = other.GetContact(0).point;
             Ray2D ray_of_impact = new Ray2D(
                 contact_point, other.GetContact(0).relativeVelocity
             );
            
-            Polygon removed_polygon = collided_projectile.get_damaged_area(
+            Polygon removed_polygon = damaging_projectile.get_damaged_area(
                 ray_of_impact
             );
-            Destroy(collided_projectile.gameObject);
+            damaging_projectile.remove_but_leave_trail();
             
             Debug_drawer.instance.draw_polygon_debug(removed_polygon, 5f);
 
-            var pieces = remove_polygon(removed_polygon);
+            for (int i=0;i<10;i++){
+                IEnumerable<GameObject> pieces = remove_polygon(removed_polygon);
+            }
             //push_pieces_away(pieces, contact_point, collided_projectile.last_physics.velocity.magnitude);
         }
     }

@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using geometry2d;
-using rvinowise.units.parts.tools;
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.parts.tools;
+using rvinowise.rvi.contracts;
 
-
-namespace rvinowise.units.parts.limbs.arms {
+namespace rvinowise.unity.units.parts.limbs.arms {
 
 [RequireComponent(typeof(Animator))]
 public class Hand:Segment,
@@ -16,8 +18,8 @@ IHave_velocity
 
     
     public Side side = Side.LEFT;
-    
-    private Animator animator;
+    public Transform valuable_point;
+    public Holding_place held_part;
     
     public Hand_gesture gesture {
         get { return _gesture;}
@@ -25,40 +27,43 @@ IHave_velocity
             _gesture = value;
             animator.SetInteger("gesture", value.Value);
             tip = value.valuable_point;
-            
-            // since the tool is a child of the hand - its side-transformations are applied automatically 
-            /*if (side == Side.RIGHT) {
-                _tip.y = -_tip.y;
-            }*/
         } 
     }
-    private Hand_gesture _gesture;
     
     public Vector2 velocity { get; set; }
     public float linear_drag { get; set; } = 0.02f;
 
-    
-    public int bottom_sorting_order {
+    public float held_object_local_z {
         get {
-            return bottom_sprite.sortingOrder;
+            return 
+                (bottom_part.transform.localPosition.z +
+                top_part.transform.localPosition.z)
+                /2f;
         }
     }
-    private SpriteRenderer bottom_sprite;
 
-    public Transform valuable_point;
-    protected void Awake() {
-        base.Awake();
-        animator = GetComponent<Animator>();
-        bottom_sprite = transform.Find("bottom")?.GetComponent<SpriteRenderer>();
-        valuable_point = transform.Find("valuable_point")?.transform;
+    public Tool held_tool {
+        get { return held_part?.tool; }
     }
-    
-    
-    public static Hand create(string in_name, GameObject in_prefab) {
-        GameObject game_object = GameObject.Instantiate(in_prefab);
-        game_object.AddComponent<SpriteRenderer>();
-        var new_component = game_object.add_component<Hand>();
-        return new_component;
+
+    private Animator animator;
+    private Hand_gesture _gesture;
+    private Transform bottom_part;
+    private Transform top_part;
+
+    protected override void Awake() {
+        base.Awake();
+        init_parts();
+        if (held_part != null) {
+            attach_tool_to_hand_for_holding(held_part);
+        }
+    }
+
+    private void init_parts() {
+        animator = GetComponent<Animator>();
+        bottom_part = transform.Find("bottom")?.transform;
+        top_part = transform.Find("top")?.transform;
+        valuable_point = transform.Find("valuable_point")?.transform;
     }
     
     public override void mirror_from(limbs.Segment src) {
@@ -67,5 +72,32 @@ IHave_velocity
             side = src_hand.side.mirror();
         }
     }
+
+
+    public void attach_tool_to_hand_for_holding(Holding_place new_held_part) {
+        if (held_part != null) {
+            deattach_tool_from_hand(held_part);
+        }
+        this.held_part = new_held_part;
+        if (new_held_part != null) {
+            attach_tool_to_hand(new_held_part);
+        }
+        Contract.Ensures(this.held_tool != null);
+
+        void deattach_tool_from_hand(Holding_place held_part) {
+            held_part.hold_by(null);
+            gesture = Hand_gesture.Relaxed;
+        }
+        void attach_tool_to_hand(Holding_place held_part) {
+            gesture = held_part.grip_gesture;
+
+            Tool tool = held_part.tool;
+            tool.transform.set_z(held_object_local_z);
+            held_part.hold_by(this);
+        }
+    }
+
+    
+
 }
 }

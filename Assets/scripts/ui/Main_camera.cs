@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using rvinowise.rvi.contracts;
-using rvinowise.ui.input;
+using rvinowise.unity.ui.input;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using Input = UnityEngine.Input;
 
 public class Main_camera : MonoBehaviour {
@@ -38,9 +40,9 @@ public class Main_camera : MonoBehaviour {
 
     private void input_change_zoom() {
         //float wheel_movement = context.ReadValue<float>();
-        float wheel_movement = rvinowise.ui.input.Input.instance.scroll_value;
+        float wheel_movement = rvinowise.unity.ui.input.Input.instance.scroll_value;
         
-        if (rvinowise.ui.input.Input.instance.zoom_held 
+        if (rvinowise.unity.ui.input.Input.instance.zoom_held 
             &&
             wheel_movement != 0) 
         {

@@ -1,10 +1,12 @@
-﻿using geometry2d;
-using rvinowise.units;
-using rvinowise.units.parts.limbs.arms;
-using rvinowise.units.parts.tools;
+﻿using rvinowise.unity.geometry2d;
+using rvinowise.unity.units;
+using rvinowise.unity.units.parts.limbs.arms;
+using rvinowise.unity.units.parts.tools;
 using UnityEngine;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.parts.weapons.guns {
+
+namespace rvinowise.unity.units.parts.weapons.guns {
 
 public class Pistol: 
     Gun {

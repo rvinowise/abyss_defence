@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using static geometry2d.Directions;
+using static rvinowise.unity.geometry2d.Directions;
 
 
-namespace rvinowise.units.parts.limbs {
+namespace rvinowise.unity.units.parts.limbs {
 
 public partial class Limb2 : ICompound_object { 
     public class Debug {
@@ -17,7 +19,7 @@ public partial class Limb2 : ICompound_object {
         protected const float sphere_size = 0.05f;
         public string name;
         protected bool debug_off {
-            get { return rvinowise.units.debug.Debugger.is_off; }
+            get { return rvinowise.unity.debug.Debugger.is_off; }
         }
 
         public Debug(Limb2 _parent_limb2) {

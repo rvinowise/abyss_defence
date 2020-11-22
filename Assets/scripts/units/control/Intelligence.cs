@@ -2,14 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using rvinowise.units.parts;
-using rvinowise.units.parts.sensors;
-using rvinowise.units.parts.transport;
-using Baggage = rvinowise.units.parts.Baggage;
+using rvinowise.unity.units.parts;
+using rvinowise.unity.units.parts.sensors;
+using rvinowise.unity.units.parts.transport;
+using Baggage = rvinowise.unity.units.parts.Baggage;
 
 
-namespace rvinowise.units.control {
+namespace rvinowise.unity.units.control {
 
 /* asks tool controllers what they can do,
  orders some actions from them based on this information,

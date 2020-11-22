@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 
-using Debug = rvinowise.rvi.Debug;
+using Debug = rvinowise.unity.debug.Debug;
 
-namespace rvinowise.units.parts.actions {
+namespace rvinowise.unity.units.parts.actions {
 
 public abstract partial class Action {
     

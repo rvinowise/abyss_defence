@@ -17,14 +17,14 @@ GameObject:
   - component: {fileID: 3724668389505664677}
   - component: {fileID: 6436470299927022936}
   - component: {fileID: -8394938672125873362}
-  - component: {fileID: 684193726546242474}
+  - component: {fileID: 4983913429063402640}
   m_Layer: 0
   m_Name: bullet_shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6505273017436822662
 Transform:
   m_ObjectHideFlags: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9ca16988ce62f434791a258640f414a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,9 +97,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 315254047
-  m_SortingLayer: 5
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -6168252426928492084, guid: 1476778298a2213488c729dc274fe181,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27fbe1afda6f495da9ca3eca8e97aff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 0.1
+  weight: 20
   size: 1
   height: 1
   vertical_velocity: 0
@@ -199,13 +199,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7102603128024256053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c74c3074df8428e4497efff5a8368907, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ff0136e303b33843b761bfbda5b39ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   max_images: 1500
-  left_texture: {fileID: -2569820314509668848, guid: 8ffc2db33ec9a1f44986ab8fb1916a19,
+  left_sprite: {fileID: 3676137275394550588, guid: 8ffc2db33ec9a1f44986ab8fb1916a19,
     type: 3}
---- !u!114 &684193726546242474
+--- !u!114 &4983913429063402640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,6 +214,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7102603128024256053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d965d2efaeb472b90aa7303a16aa181, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e0239f47f754fa48a4440fd3ad0417b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
+  reset_components: []

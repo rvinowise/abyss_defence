@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEditor;
-using geometry2d;
+using rvinowise.unity.extensions;
 
-namespace geometry2d {
+using UnityEditor;
+using rvinowise.unity.geometry2d;
+
+namespace rvinowise.unity.geometry2d {
 
     static class Convex_polygon_splitter {
         public static List<Polygon> split_polygon_by_ray(

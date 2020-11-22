@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using geometry2d;
+using rvinowise.unity.extensions;
+
+using rvinowise.unity.geometry2d;
 
 static class Texture_drawer {
 

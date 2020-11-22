@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Headspring;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 
 
-namespace rvinowise.units.parts.limbs.arms {
+namespace rvinowise.unity.units.parts.limbs.arms {
 
 public class Hand_gesture : Headspring.Enumeration<Hand_gesture, int> {
     public static readonly Hand_gesture Relaxed = new Hand_gesture(

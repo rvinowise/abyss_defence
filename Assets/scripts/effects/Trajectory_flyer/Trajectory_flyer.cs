@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using UnityEngine.Events;
 
 
-namespace rvinowise.effects.physics {
+namespace rvinowise.unity.effects.physics {
 
 public class Trajectory_flyer: MonoBehaviour {
 
@@ -22,22 +24,31 @@ public class Trajectory_flyer: MonoBehaviour {
 
     public UnityEngine.Events.UnityEvent on_fell_on_the_ground;
     
+    public bool is_on_the_ground() {
+        return height <= 0f;
+    }
+
     private void Update() {
 
         height += vertical_velocity * Time.deltaTime;
         vertical_velocity -= weight * Time.deltaTime;
         
-        float local_scale = size * (height + 1);
-        transform.localScale = new Vector2(local_scale, local_scale);
         
-        if (height <= 0f) {
+        
+        if (is_on_the_ground()) {
+            this.enabled = false;
             if (on_fell_on_the_ground != null) {
+                transform.localScale = new Vector2(size, size);
                 on_fell_on_the_ground.Invoke();
             }
         }
+        
+        float local_scale = size * (height + 1);
+        transform.localScale = new Vector2(local_scale, local_scale);
 
         
     }
+    
 
 }
 }

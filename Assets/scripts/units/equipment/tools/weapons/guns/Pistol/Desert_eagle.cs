@@ -1,16 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using extensions;
-using extensions.pooling;
+
+using rvinowise.unity.extensions.pooling;
+using rvinowise.unity.geometry2d;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using rvinowise.effects.physics;
-using rvinowise.units.parts.weapons.guns.common;
+using rvinowise.unity.effects.physics;
+using rvinowise.unity.units.parts.weapons.guns.common;
 using Random = UnityEngine.Random;
 
 
-namespace rvinowise.units.parts.weapons.guns {
+namespace rvinowise.unity.units.parts.weapons.guns {
 
 public class Desert_eagle: Pistol {
 
@@ -22,16 +25,14 @@ public class Desert_eagle: Pistol {
 
     void Awake() {
         base.Awake();
-        GameObject magazine_prefab = Resources.Load<GameObject>(
-            "objects/guns/desert_eagle/magazine"    
-        );
+        
         insert_magazine(
             Component_creator.instantiate(magazine_prefab).GetComponent<Magazine>()    
         );
     }
     
     
-    void FixedUpdate()
+    void LateUpdate()
     {
         last_physics.position = transform.position;
     }
@@ -58,7 +59,7 @@ public class Desert_eagle: Pistol {
         return new_projectile;
     }
 
-    private float projectile_force = 100f;
+    public float projectile_force = 100f;//100f;
 
     private void propell_projectile(Projectile projectile) {
         Rigidbody2D rigid_body = projectile.GetComponent<Rigidbody2D>();
@@ -70,21 +71,25 @@ public class Desert_eagle: Pistol {
     /* invoked from an animation */
     private void eject_bullet_shell() {
         float ejection_force = 5f;
-        Bullet_shell new_shell = bullet_shell_prefab.GetComponent<Pooled_object>().instantiate<Bullet_shell>(
+        Bullet_shell new_shell = bullet_shell_prefab.get_from_pool<Bullet_shell>(
             shell_ejector.position,
             transform.rotation
         );
+        new_shell.enabled = true;
             
-        Vector2 ejection_vector = shell_ejector.right * ejection_force;
+        Vector2 ejection_vector = Directions.degrees_to_quaternion(-15+Random.value*30) *
+                                  shell_ejector.right *
+                                  ejection_force;
+        
         Vector2 gun_vector = (Vector2)this.transform.position - last_physics.position;
         
         var rigidbody = new_shell.GetComponent<Rigidbody2D>();
-        rigidbody.AddForce(ejection_vector + gun_vector);
-        rigidbody.AddTorque(-460f + Random.value*100f);
+        rigidbody.AddForce(ejection_vector + gun_vector*50);
+        rigidbody.AddTorque(-360f + Random.value*300f);
         
         Trajectory_flyer flyer = new_shell.GetComponent<Trajectory_flyer>();
         flyer.height = 1;
-        flyer.vertical_velocity = 0.3f + Random.value * 1f;
+        flyer.vertical_velocity = 1f + Random.value * 3f;
     }
 }
 }

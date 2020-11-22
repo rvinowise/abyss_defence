@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
-using geometry2d;
-using rvinowise.units.parts.actions;
-using rvinowise.units.parts.limbs.arms.actions;
-using rvinowise.units.parts.weapons.guns;
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.limbs.arms.actions;
+using rvinowise.unity.units.parts.weapons.guns;
 
 
-namespace rvinowise.units.parts.limbs.arms.actions.idle_vigilant.main_arm {
+namespace rvinowise.unity.units.parts.limbs.arms.actions.idle_vigilant.main_arm {
 
 public class Gun_without_stock: actions.Action_of_arm
 {
@@ -55,7 +57,7 @@ public class Gun_without_stock: actions.Action_of_arm
             }
             upper_arm_offset_turn =
                 arm.folding_direction.turn_quaternion(
-                    geometry2d.Triangles.get_quaternion_by_lengths(
+                    unity.geometry2d.Triangles.get_quaternion_by_lengths(
                         arm.upper_arm.length,
                         distance_shoulder_to_wrist,
                         arm.forearm.length

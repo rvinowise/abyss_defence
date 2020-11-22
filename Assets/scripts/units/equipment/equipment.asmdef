@@ -5,6 +5,7 @@
 		"debug",
 		"extensions",
 		"input",
+		"maps",
 		"third_party",
 		"Unity.2D.Animation.Runtime"
 	]

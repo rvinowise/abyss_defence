@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 
 using UnityEngine;
-using rvinowise.rvi.contracts;
-using geometry2d;
-using rvinowise.units.parts.transport;
-using UnityEngine.Assertions;
-using static geometry2d.Directions;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.parts.limbs.creeping_legs {
+using rvinowise.rvi.contracts;
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.parts.transport;
+using UnityEngine.Assertions;
+using static rvinowise.unity.geometry2d.Directions;
+
+namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 public partial class Creeping_leg_group: 
     Children_group
     ,ITransporter
@@ -19,6 +21,20 @@ public partial class Creeping_leg_group:
     /* Children_group interface */
     public override IEnumerable<ICompound_object> children  {
         get { return legs; }
+    }
+
+    protected virtual void Awake() {
+        base.Awake();
+        
+    }
+
+    protected virtual void Start() {
+        base.Start();
+
+        var test = GetComponents<Turning_element>();
+        Contract.Requires(GetComponents<Turning_element>().Length <= 1,
+            "only one component with Turning_element is enough");
+        turning_element = GetComponent<Turning_element>();
     }
 
     protected override void init_components() {
@@ -35,8 +51,13 @@ public partial class Creeping_leg_group:
         Contract.Requires(compound_object is Leg);
         Leg leg = compound_object as Leg;
         legs.Add(leg);
-        leg.parent = transform;
+        leg.transform.SetParent(transform, false);
     }
+    public override void hide_children_from_copying() {
+        children_stashed_from_copying = legs as IEnumerable<ICompound_object> ;
+        legs = new List<Leg>();
+    }
+    
 
     public override void shift_center(Vector2 in_shift) {
         foreach (Leg leg in legs) {
@@ -50,7 +71,7 @@ public partial class Creeping_leg_group:
 
     /* ITransporter interface */
     
-    private static float belly_friction_multiplier = 0.9f;
+    public static float belly_friction_multiplier = 0.9f;
     
     public float possible_impulse { get; set; }
 
@@ -152,22 +173,23 @@ public partial class Creeping_leg_group:
         }
     }
     public Leg left_front_leg {
-        get { return legs[0];}
-        private set { legs[0] = value; }
+        get { return legs[1];}
+         set { legs[1] = value; }
     }
     public Leg right_front_leg {
-        get { return legs[1];}
-        private set { legs[1] = value; }
+        get { return legs[3];}
+         set { legs[3] = value; }
     }
     public Leg left_hind_leg {
-        get { return legs[2];}
-        private set { legs[2] = value; }
+        get { return legs[0];}
+         set { legs[0] = value; }
     }
     public Leg right_hind_leg {
-        get { return legs[3];}
-        private set { legs[3] = value; }
+        get { return legs[2];}
+         set { legs[2] = value; }
     }
-    private List<Leg> _legs = new List<Leg>();
+    [SerializeField]
+    public List<Leg> _legs = new List<Leg>();
     
     /* the distance that the optimal_position is moved in during walking */
     public float moving_offset_distance = 0.3f;
@@ -175,18 +197,7 @@ public partial class Creeping_leg_group:
     private Rigidbody2D rigid_body { get; set; }
     
 
-    public Creeping_leg_group(
-        IChildren_groups_host in_host,
-        Turning_element in_turning_element
-    ):base(in_host) {
-        this.turning_element = in_turning_element;
-
-    }
-
-    /* i need this function only for a generic adder (constructors can't have parameters there)*/
-    public Creeping_leg_group():base() {
-        
-    }
+    
 
     
     

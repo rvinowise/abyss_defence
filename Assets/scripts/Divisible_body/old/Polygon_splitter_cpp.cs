@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using UnityEditor;
-using geometry2d.for_unmanaged;
+using rvinowise.unity.geometry2d.for_unmanaged;
 
 namespace geometry_cpp {
 

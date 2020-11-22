@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using extensions;
+
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.limbs;
-using rvinowise.units.parts.tools;
-using rvinowise.units.parts.weapons.guns;
+using rvinowise.unity.units.parts.limbs;
+using rvinowise.unity.units.parts.tools;
+using rvinowise.unity.units.parts.weapons.guns;
 
 
-namespace rvinowise.units.parts {
+namespace rvinowise.unity.units.parts {
 
 public class Baggage: Turning_element {
 
-    public List<Tool> items { get; set; } = new List<Tool>();
-    public Dictionary_of_containers<Gun, Ammunition> ammos = new Dictionary_of_containers<Gun, Ammunition>();
+    public List<Tool> items = new List<Tool>();
+    public Dictionary_of_queues<System.Type, Ammunition> ammos = new Dictionary_of_queues<System.Type, Ammunition>();
 
     public float entering_span = 30f;
 
@@ -42,13 +44,13 @@ public class Baggage: Turning_element {
     public void insert_ammo_for_gun(Gun gun, Ammunition in_ammo) {
         Contract.Assert(gun != null);
         Contract.Assert(in_ammo != null);
-        ammos.insert(gun.GetType(), in_ammo);
+        ammos.add(gun.GetType(), in_ammo);
     }
 
 
     public Ammunition retrieve_ammo_for_gun(Gun in_gun) {
         
-        return ammos.get(in_gun.GetType());
+        return ammos.retrieve_one(in_gun.GetType());
     }
     
     /*public Ammunition retrieve_ammo_for_gun(

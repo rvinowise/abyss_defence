@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 
 
-namespace rvinowise.units.parts.sensors {
+namespace rvinowise.unity.units.parts.sensors {
 
 public interface ISensory_organ {
 

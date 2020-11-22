@@ -1,30 +1,32 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.control;
-using rvinowise.units.control.human;
-using rvinowise.units.parts.actions;
-using rvinowise.units.parts.head;
-using rvinowise.units.parts.humanoid;
-using rvinowise.units.parts.limbs.arms;
-using rvinowise.units.parts.limbs.arms.actions;
-using rvinowise.units.parts.tools;
-using rvinowise.units.parts.transport;
-using rvinowise.units.parts.weapons;
-using rvinowise.units.parts.weapons.guns;
+using rvinowise.unity.units.control;
+using rvinowise.unity.units.control.human;
+using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.head;
+using rvinowise.unity.units.parts.humanoid;
+using rvinowise.unity.units.parts.limbs.arms;
+using rvinowise.unity.units.parts.limbs.arms.actions;
+using rvinowise.unity.units.parts.tools;
+using rvinowise.unity.units.parts.transport;
+using rvinowise.unity.units.parts.weapons;
+using rvinowise.unity.units.parts.weapons.guns;
 using units.human.actions;
 using UnityEngine.UIElements;
-using Action = rvinowise.units.parts.actions.Action;
-using Arm_controller = rvinowise.units.parts.limbs.arms.humanoid.Arm_controller;
+using Action = rvinowise.unity.units.parts.actions.Action;
+using Arm_controller = rvinowise.unity.units.parts.limbs.arms.humanoid.Arm_controller;
 
-namespace rvinowise.units.humanoid {
+namespace rvinowise.unity.units.humanoid {
 
 using parts;
-using rvinowise.units.parts.limbs;
+using rvinowise.unity.units.parts.limbs;
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -34,14 +36,14 @@ public class Humanoid:
 {
     
     /* parameters from the editor */
-    public Sprite head_sprite;
     public init.Arms_initializer arms_initializer;
     
     
 
     /* parts of the human*/
     private Arm_controller arm_controller;
-    private Head head;
+    public Head head;
+    [SerializeField]
     private units.parts.humanoid.Legs legs;
     public parts.humanoid.Baggage baggage;
     
@@ -81,12 +83,17 @@ public class Humanoid:
         //animator.SetBool("open_hand", true);
     }
 
+    protected virtual void Start() {
+        start_default_activity();        
+    }
+
     private void init_components() {
         animator = GetComponent<Animator>();
         if (animator){
             //animator.SetTrigger("reload_pistol");
             animator.enabled = false;
         }
+        arm_controller = GetComponent<Arm_controller>();
     }
 
     private void init_parts() {
@@ -97,17 +104,7 @@ public class Humanoid:
     }
 
     private void init_baggage() {
-        baggage = parts.humanoid.Baggage.create();
-        put_tools_into_baggage(baggage);
-        
-        baggage.transform.parent = transform;
-        //baggage.transform.localPosition = new Vector2(0.10f, -0.23f);
-        baggage.transform.localRotation = Directions.degrees_to_quaternion(0f);
-        baggage.transform.localPosition = new Vector2(0f, 0f);
-        
-
-        var sprite_renderer = baggage.game_object.add_component<SpriteRenderer>();
-        sprite_renderer.sprite = Resources.Load<Sprite>("guns/pistol/pistol");
+        //put_tools_into_baggage(baggage);
     }
 
     private void put_tools_into_baggage(Baggage baggage) {
@@ -155,17 +152,9 @@ public class Humanoid:
 
     private void init_body_parts() {
         
-        head = init.Head.init(this, Head.create());
-
-        legs = new Legs(this.gameObject);
+        init.Head.init(head);
         
-        arm_controller = arms_initializer.init(
-            new Arm_controller(this, legs),
-            baggage,
-            ui.input.Input.instance.cursor.center.transform
-            //this.transform
-        );
-        start_default_activity();
+        
     }
 
     private void start_default_activity() {
@@ -211,24 +200,7 @@ public class Humanoid:
         //Debug.Log("deltaTime="+Time.deltaTime);
     }
 
-    /* invoked from the animation (in keyframes).
-    main_tool means the one in the right hand in the animation clip (can be flipped in the game) */
-    /*void change_main_tool_animation(string in_animation) {
-        Arm arm = arm_controller.right_arm;
-        Contract.Requires(
-            arm.held_tool != null,
-            "must hold a tool to change its animation"
-        );
-        switch (in_animation) {
-            case "sideview":
-                arm.held_tool.animator.SetBool(in_animation, true);
-                break;
-            case "slide":
-                arm.held_tool.animator.SetTrigger(in_animation);
-                break;
-        }
-        
-    }*/
+  
 
     void change_main_tool_animation(AnimationEvent in_event) {
         Arm arm = arm_controller.right_arm;

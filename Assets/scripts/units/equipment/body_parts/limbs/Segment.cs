@@ -1,9 +1,11 @@
 using System.Runtime.CompilerServices;
-using geometry2d;
-using rvinowise.units.parts.weapons.guns.desert_eagle;
+using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.parts.weapons.guns.desert_eagle;
 using UnityEngine;
+using rvinowise.unity.extensions;
 
-namespace rvinowise.units.parts.limbs {
+
+namespace rvinowise.unity.units.parts.limbs {
 
 public class Segment: Turning_element {
     /* constant characteristics. they are written during construction */
@@ -60,7 +62,6 @@ public class Segment: Turning_element {
             -src.tip.y
         );
         
-        //this.folding_direction = src.folding_direction * -1;
 
         if (spriteRenderer != null) {
             this.spriteRenderer.sprite = src.spriteRenderer.sprite;

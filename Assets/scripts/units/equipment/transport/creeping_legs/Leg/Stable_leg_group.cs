@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-namespace rvinowise.units.parts.limbs.creeping_legs {
-
+using rvinowise.unity.extensions;
 
 
+namespace rvinowise.unity.units.parts.limbs.creeping_legs {
+
+
+[Serializable]
 public class Stable_leg_group {
     public List<Leg> legs;
     

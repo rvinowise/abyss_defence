@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using geometry2d;
+using rvinowise.unity.geometry2d;
 using UnityEngine;
+using rvinowise.unity.extensions;
+
 using rvinowise;
 using rvinowise.rvi.contracts;
-using rvinowise.units.parts.weapons;
-using rvinowise.units.parts.weapons.guns;
+using rvinowise.unity.units.parts.weapons;
+using rvinowise.unity.units.parts.weapons.guns;
 
 
-namespace rvinowise.units.parts.limbs.arms {
+namespace rvinowise.unity.units.parts.limbs.arms {
 
 public class Held_tool: IWeapon {
     

@@ -1,7 +1,8 @@
 using UnityEngine;
+
 using System.Collections.Generic;
  
-namespace geometry2d {
+namespace rvinowise.unity.geometry2d {
 public class Triangulator
 {
     private List<Vector2> m_points = new List<Vector2>();

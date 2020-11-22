@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Linq;
 using UnityEngine;
-using UnityEditor;
-using geometry2d;
-using ClipperLib;
-using static geometry2d.Clipperlib_coordinates;
+using rvinowise.unity.extensions;
 
-namespace geometry2d {
+using UnityEditor;
+using rvinowise.unity.geometry2d;
+using ClipperLib;
+using static rvinowise.unity.geometry2d.Clipperlib_coordinates;
+
+namespace rvinowise.unity.geometry2d {
 
     using Path = List<IntPoint>;
     using Pathes = List<List<IntPoint>>;

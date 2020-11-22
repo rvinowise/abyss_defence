@@ -1,0 +1,8 @@
+{
+    "name": "maps",
+    "references": [
+		"debug",
+		"extensions",
+		"third_party"
+	]
+}
