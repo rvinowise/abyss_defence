@@ -140,7 +140,7 @@ static class Legs {
 
 
     private static void init_optimal_relative_position(Leg leg) {
-        leg.optimal_relative_position_standing =
+        leg.optimal_position_standing =
             leg.local_position +
             (Vector2) (leg.femur.desired_relative_direction_standing * leg.femur.tip) +
             (Vector2) (

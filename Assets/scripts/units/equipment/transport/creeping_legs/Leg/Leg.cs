@@ -29,9 +29,15 @@ public partial class Leg: Limb2
     public Stable_leg_group stable_group;
     
     /* where the end of the Leg should be for the maximum comfort, if the body is standing steel */
-    public Vector2 optimal_relative_position_standing;
+    public Vector2 optimal_position_standing {
+        get {return optimal_relative_position_standing_transform.position;}
+        set {optimal_relative_position_standing_transform.position = value;}
+    }
+    [SerializeField]
+    public Transform optimal_relative_position_standing_transform;
     
     /* where the tip of it should reach, according to moving plans */
+    [HideInInspector]
     public Vector2 optimal_position;
     
     // maximum distance from the optimal point after which the leg should be repositionned
@@ -105,19 +111,10 @@ public partial class Leg: Limb2
 
     /* it's time to reposition */
     public bool is_twisted_uncomfortably() {
-        /*Vector2 diff_with_optimal_point = 
-            (Vector2)parent.transform.TransformPoint(optimal_relative_position_standing) - 
-            (Vector2)tibia.transform.TransformPoint(tibia.tip);*/
         Vector2 diff_with_optimal_point = 
             optimal_position - 
             (Vector2)tibia.transform.TransformPoint(tibia.tip);
 
-        /*if (debug.name == "left_front_leg") {
-            UnityEngine.Debug.Log(
-                "diff_with_optimal_point= "+diff_with_optimal_point+
-                "comfortable_distance= "+comfortable_distance
-            );
-        }*/
         
         if (diff_with_optimal_point.magnitude > comfortable_distance) {
             return true;
@@ -193,7 +190,6 @@ public partial class Leg: Limb2
         ) 
     {
         Vector2 position =
-            local_position +
             (Vector2) (femur_rotation * femur.tip) +
             (Vector2) (
                 tibia_rotation *

@@ -5,7 +5,7 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 using rvinowise;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 
 
 namespace rvinowise.unity.ui.input.mouse {

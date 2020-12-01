@@ -7,7 +7,7 @@ using rvinowise.unity.extensions;
 
 
 using rvinowise.unity.geometry2d;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using Point = UnityEngine.Vector2;
 using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
@@ -57,15 +57,19 @@ MonoBehaviour
     }}
     private List<Vector3> vertices = new List<Vector3>();
     private List<int> triangles = new List<int>(/*(segments_n-1) * 6*/);
-    private List<Vector2> uvs = new List<Vector2>();
+    private List<Vector2> main_uvs = new List<Vector2>();
+    private List<Vector2> noise_uvs = new List<Vector2>();
     private Mesh mesh;
     private float alpha;
-
+    private float texture_length = 2;
+    
     protected void Awake() {
         init_components();
         mesh_object.transform.SetParent(null, false);
         mesh_object.transform.position = Vector3.zero;
         mesh_object.transform.rotation = Quaternion.identity;
+
+        
     }
     protected void init_components() {
         mesh_filter = mesh_object.GetComponent<MeshFilter>();
@@ -84,7 +88,8 @@ MonoBehaviour
             "starting points shound be given by the creater of the trail before its Enabling"
         );
 
-        set_alpha(1);
+        alpha = 1;
+        apply_alpha(alpha);
         mesh_renderer.material.SetFloat("_Start_time", Time.time);
         mesh_object.SetActive(true);
         mesh.Clear();
@@ -137,6 +142,15 @@ MonoBehaviour
         }
     }
 
+    public void visit_final_point(Vector2 position) {
+        bool trail_grew = build_trail_necessarily_reaching_point(position);
+        if (trail_grew) {
+            add_new_segments_to_mesh();
+        } else {
+            mesh.vertices = get_vertices_from_segments();
+        }
+    }
+
     protected void Update() {
         bool trail_grew = built_trail_compensating_flight_of_emitter();
         bool end_changed = move_end_of_trail_to_emitter();
@@ -155,14 +169,11 @@ MonoBehaviour
     }
 
     
-    
-    const float sqr_neglect_distance = 0.2f;
     private bool build_trail_necessarily_reaching_point(
         Point to_point
     ) {
         if (
-            last_segment.position.sqr_distance_to(to_point) < 
-            sqr_neglect_distance
+            last_segment.close_enough_to(to_point)
         ) {
             return false;
         }
@@ -178,13 +189,17 @@ MonoBehaviour
             direction_to_goal
         );
 
-        segments.Add(
-            Segment.new_continuation(
-                to_point,
-                direction_to_goal,
-                width*2
-            )
-        );
+        if (segments_needed == 0) {
+            unsettled_segment.move_and_rotate(to_point, direction_to_goal);
+        } else {
+            segments.Add(
+                Segment.new_continuation(
+                    to_point,
+                    direction_to_goal,
+                    width
+                )
+            );
+        }
 
         return true;
     }
@@ -199,7 +214,7 @@ MonoBehaviour
         }
         
         add_segments_in_direction(
-            segments_needed-1,
+            segments_needed,
             direction_to_goal
         );
 
@@ -210,24 +225,33 @@ MonoBehaviour
 
     private void detach_last_point_from_emitter() {
         last_segment_settled = true;
-        /* Point last_settled_moving_vector = madeup_segment_moving_vector(
-            moving_vectors
-        );
-        segments[segments.Count-1].moving_vector = last_settled_moving_vector; */
     }
 
     private void add_segments_in_direction(
         int segments_n,
         Point direction_vector
     ) {
-        Point step_to_next_segment = direction_vector * distance_between_segments;
+        if (segments_n == 0) {
+            return;
+        }
+        Point step_to_next_segment = direction_vector * 
+                                     distance_between_segments;
 
-        for (int i=0; i<segments_n; i++) {
-            Point next_position = last_settled_segment.position + step_to_next_segment;
+        unsettled_segment.move_and_rotate(
+            next_position(),
+            direction_vector
+        );
+        for (int i=1; i<segments_n; i++) {
             add_segment(
-                next_position,
+                next_position(),
                 direction_vector
             );
+        }
+
+        Vector2 next_position() {
+            return 
+                last_settled_segment.position + 
+                step_to_next_segment;
         }
     }
 
@@ -238,6 +262,18 @@ MonoBehaviour
             direction
         );
         last_segment_settled = false;
+    }
+
+
+    private bool move_end_of_trail_to_emitter() {
+        Point direction_to_goal = (
+            (Vector2)emitter.position - 
+            last_settled_segment.position
+        ).normalized;
+        
+        return unsettled_segment.move_and_rotate(
+            emitter.position, direction_to_goal
+        );
     }
 
     private void add_segment(
@@ -295,10 +331,13 @@ MonoBehaviour
         }
     }
     private void decorative_update() {
-        fade_gradually();
-        if (!has_visible_parts()) {
+        alpha = get_faded_alpha();
+        if (alpha < 0) {
             disappear();
-        } else if (segment_speed_difference > 0) {
+            return;
+        }
+        apply_alpha(alpha);
+        if (segment_speed_difference > 0) {
             apply_brownian_motion();
             mesh.vertices = get_vertices_from_segments();
         }
@@ -315,9 +354,25 @@ MonoBehaviour
     
     private void add_new_segments_to_mesh() {
         mesh.vertices = get_vertices_from_segments();
-        mesh.uv = get_uvs_from_segments();
+        mesh.uv = get_main_uvs_from_segments();
         mesh.triangles = get_triangls_from_segments();
     }
+
+    public void adjust_texture_at_end() {
+        float distance_to_last_segment =  
+        (
+            segments.Last().position - 
+            segments[segments.Count-2].position
+        ).magnitude / 
+        texture_length;
+
+        float last_texture_x = main_uvs[main_uvs.Count-3].y + distance_to_last_segment;
+        main_uvs[main_uvs.Count-2] = new Point(last_texture_x, 1);
+        main_uvs[main_uvs.Count-1] = new Point(last_texture_x, 0);
+        mesh.uv = main_uvs.ToArray();
+    }
+
+
     
     private Vector3[] get_vertices_from_segments() {
         vertices.Clear();
@@ -328,22 +383,48 @@ MonoBehaviour
         return vertices.ToArray();
     }
 
-    private Vector2[] get_uvs_from_segments() {
-        uvs.Clear();
-        for (int i_segment = 0; i_segment < segments.Count; i_segment += 1) {
-            uvs.Add(new Point(i_segment,1));
-            uvs.Add(new Point(i_segment,0));
+
+    
+    private Vector2[] get_main_uvs_from_segments(float ending_stretch = 4) {
+        main_uvs.Clear();
+        main_uvs.Add(new Point(0, 1));
+        main_uvs.Add(new Point(0, 0));
+        
+        float texture_stretch=0;
+        for (int i_segment = 1; i_segment < segments.Count-1; i_segment += 1) {
+            texture_stretch = 
+                (
+                    segments[i_segment-1].position - 
+                    segments[i_segment].position
+                ).magnitude / 
+                texture_length;
+            
+            main_uvs.Add(new Point(texture_stretch, 1));
+            main_uvs.Add(new Point(texture_stretch, 0));
         }
-        Debug.Log("get_uvs_from_segments()");
-        return uvs.ToArray();
+        main_uvs.Add(new Point(texture_stretch+ending_stretch/texture_length, 1));
+        main_uvs.Add(new Point(texture_stretch+ending_stretch/texture_length, 0));
+        return main_uvs.ToArray();
+    }
+    private Vector2[] get_noise_uvs_from_segments(float ending_stretch = 4) {
+        noise_uvs.Clear();
+        noise_uvs.Add(new Point(0, 1));
+        noise_uvs.Add(new Point(0, 0));
+        float texture_step = 1f / (segments.Count-1);
+        float texture_stretch = texture_step;
+        for (int i_segment = 1; i_segment < segments.Count; i_segment += 1) {
+            noise_uvs.Add(new Point(texture_stretch, 1));
+            noise_uvs.Add(new Point(texture_stretch, 0));
+
+            texture_stretch += texture_step;
+        }
+        return noise_uvs.ToArray();
     }
 
     private int[] get_triangls_from_segments() {
-        //Contract.Requires(segments_n >= 2, "need minimum 2 segments to draw a line between");
+        Contract.Requires(segments.Count >= 2, "need minimum 2 segments to draw a line between");
         triangles.Clear();
-        if (segments.Count == 4) {
-            bool test = true;
-        }
+     
         for (int i_segment = 0; i_segment < segments.Count-1; i_segment+=1) {
             if (segments[i_segment].is_abruption) {
                 continue;
@@ -362,24 +443,15 @@ MonoBehaviour
     }
     
 
-    private bool move_end_of_trail_to_emitter() {
-        if (
-            unsettled_segment.position != (Vector2)emitter.position
-        ) {
-            Point direction_to_goal = ((Vector2)emitter.position - last_settled_segment.position).normalized;
-            unsettled_segment.move_and_rotate(emitter.position, direction_to_goal);
-            return true;
-        }
-        return false;
-    }
+    
 
     public float fade_speed = 1f;
-    private void fade_gradually() {
-        set_alpha(alpha - fade_speed * decorative_delta_time);
+    private float get_faded_alpha() {
+        return (alpha - fade_speed * decorative_delta_time);
     }
 
-    private void set_alpha(float in_alpha) {
-        alpha = in_alpha;
+    private void apply_alpha(float alpha) {
+        Contract.Requires(alpha>0);
         Color old_color = mesh_renderer.material.color;
         var color = new Color(
             old_color.r,
@@ -388,6 +460,7 @@ MonoBehaviour
             alpha
         );
         mesh_renderer.material.SetColor("_Color", color);
+        mesh_renderer.material.SetFloat("_Alpha", alpha);
     }
 
   

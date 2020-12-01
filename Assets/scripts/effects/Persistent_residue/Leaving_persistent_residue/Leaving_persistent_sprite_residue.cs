@@ -25,7 +25,6 @@ public class Leaving_persistent_sprite_residue : MonoBehaviour {
     private SpriteLibrary sprite_library;
 
     private void Awake() {
-        Debug.Log("Leaving_persistent_residue::Awake for " + this);
         sprite_renderer = GetComponent<SpriteRenderer>();
         if (left_sprite == null) {
             left_sprite = sprite_renderer.sprite;

@@ -6,7 +6,7 @@ using rvinowise.unity.extensions;
 
 using rvinowise;
 using rvinowise.unity.geometry2d;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.units.parts.limbs.arms;
 using rvinowise.unity.units.parts.tools;
 

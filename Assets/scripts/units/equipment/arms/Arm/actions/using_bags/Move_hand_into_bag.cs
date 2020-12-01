@@ -57,12 +57,10 @@ public class Move_hand_into_bag: Action_of_arm {
         old_shoulder_rotation_speed = arm.shoulder.rotation_speed;
         arm.shoulder.rotation_speed /= 2f;
         
-        Debug.Log("slow_movements: "+arm.upper_arm.rotation_speed);
     }
     private void restore_movements(Arm arm) {
         arm.upper_arm.rotation_speed = old_upper_arm_rotation_speed;
         arm.shoulder.rotation_speed = old_shoulder_rotation_speed;
-        Debug.Log("restore_movements: "+arm.upper_arm.rotation_speed);
     }
 
 

@@ -71,7 +71,6 @@ public class Player : Human {
 
             bool wants_to_reload = Input.instance.button_presed("reload");
             if (wants_to_reload) {
-                Debug.Log("arm_controller.reload(arm);");
                 arm_controller.reload(arm);
             }
         }
@@ -118,9 +117,7 @@ public class Player : Human {
         int tool_index = get_desired_weapon_index();
         
         int wheel_steps = Input.instance.mouse_wheel_steps;
-        if (wheel_steps != 0) {
-            Debug.Log("wheel_steps=" + wheel_steps);
-        }
+
         if (Math.Abs(wheel_steps) > 0) {
 
             Arm selected_arm = get_selected_arm();
@@ -133,9 +130,11 @@ public class Player : Human {
     }
 
     public Arm get_selected_arm() {
-        if (Side.from_degrees(last_rotation) == unity.geometry2d.Side.LEFT) {
+        /* if (Side.from_degrees(last_rotation) == unity.geometry2d.Side.LEFT) {
             return arm_controller.left_arm;
         }
+        return arm_controller.right_arm; */
+
         return arm_controller.right_arm;
     }
 
@@ -207,7 +206,7 @@ public class Player : Human {
             unity.geometry2d.Triangles.get_angle_by_lengths(
                 arm_controller.shoulder_span,
                 gun.butt_to_second_grip_distance,
-                arm_controller.left_arm.length-arm_controller.left_arm.hand.length
+                arm_controller.left_arm.length-arm_controller.left_arm.hand.absolute_length
             ) -90f;
         
         

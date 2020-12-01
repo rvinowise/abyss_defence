@@ -5,7 +5,7 @@ using MoreLinq.Extensions;
 using UnityEngine;
 using rvinowise.unity.extensions;
 
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.units.parts;
 using rvinowise.unity.units.parts.transport;
 

@@ -49,11 +49,9 @@ public class Push_object_into_slot: Arm_reach_orientation {
     private void slow_movements(Arm arm) {
         old_rotation_speed = arm.upper_arm.rotation_speed;
         arm.upper_arm.rotation_speed /= 2f;
-        Debug.Log("slow_movements: "+arm.upper_arm.rotation_speed);
     }
     private void restore_movements(Arm arm) {
         arm.upper_arm.rotation_speed = old_rotation_speed;
-        Debug.Log("restore_movements: "+arm.upper_arm.rotation_speed);
     }
     
     public override void update() {

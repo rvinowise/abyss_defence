@@ -39,9 +39,11 @@ public abstract class Creature: Turning_element
     protected virtual void Awake()
     {
         base.Awake();
-        
         init_components();
+    }
 
+    protected virtual void Start() {
+        //base.Start();
         create_equipment();
         init_intelligence();
         if (divisible_body.needs_initialisation) {
@@ -80,7 +82,7 @@ public abstract class Creature: Turning_element
 
    public void OnMouseDown() {
        
-       Vector2 mousePos = rvinowise.unity.ui.input.Input.instance.mouse_world_position;
+      /*  Vector2 mousePos = rvinowise.unity.ui.input.Input.instance.mouse_world_position;
        Polygon wedge = Polygon_splitter.get_wedge_from_ray(
            new Ray2D(
                mousePos,
@@ -88,7 +90,7 @@ public abstract class Creature: Turning_element
            )
        );
        
-       //divisible_body.split_by_polygon(wedge);
+       divisible_body.remove_polygon(wedge); */
    }
 
    /*public void OnCollisionEnter2D(Collision2D other) {

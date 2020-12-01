@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using rvinowise.unity.extensions;
 
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.geometry2d;
 using rvinowise.unity.units.parts.transport;
 using UnityEngine.Assertions;
@@ -62,7 +62,7 @@ public partial class Creeping_leg_group:
     public override void shift_center(Vector2 in_shift) {
         foreach (Leg leg in legs) {
             leg.main_object.transform.localPosition += (Vector3)in_shift;
-            leg.optimal_relative_position_standing = (leg.optimal_relative_position_standing + in_shift);
+            //leg.optimal_position_standing = (leg.optimal_position_standing + in_shift);
         }
     }
     
@@ -250,19 +250,14 @@ public partial class Creeping_leg_group:
         possible_impulse += leg.provided_impulse;
     }
 
-    private void determine_optimal_position_and_direction_for(Leg leg) {
-        determine_optimal_position_for(leg);
-
-        leg.set_desired_directions_by_position();
-    }
     
     private void determine_optimal_position_for(Leg leg) {
         Vector2 shift_to_moving_direction =
             command_batch.moving_direction_vector *
-            moving_offset_distance;
+            moving_offset_distance * leg.transform.lossyScale.x;
 
         leg.set_desired_position(
-            (Vector2)leg.parent.TransformPoint(leg.optimal_relative_position_standing) + 
+           leg.optimal_position_standing + 
             shift_to_moving_direction
         );
     }

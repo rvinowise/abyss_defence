@@ -6,7 +6,7 @@ using rvinowise.unity.extensions.pooling;
 
 using Point = UnityEngine.Vector3;
 using rvinowise.unity.extensions;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 
 namespace rvinowise.unity.effects.trails.line_renderer_impl {
 

@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 using rvinowise.unity.geometry2d;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using UnityEngine;
 using rvinowise.unity.extensions;
 
@@ -13,13 +13,13 @@ namespace rvinowise.unity.effects.persistent_residue {
 public class Persistent_residue_router: MonoBehaviour {
 
     public Persistent_residue_sprite_holder sprite_holder_prefab;
-    public Persistent_residue_mask_holder material_holder_prefab;
+    public Persistent_residue_mesh_holder material_holder_prefab;
 
     public Dictionary<Sprite, Persistent_residue_sprite_holder> sprite_to_holder = 
         new Dictionary<Sprite, Persistent_residue_sprite_holder>();
     
-    public Dictionary<Material, Persistent_residue_mask_holder> material_to_holder = 
-        new Dictionary<Material, Persistent_residue_mask_holder>();
+    public Dictionary<Material, Persistent_residue_mesh_holder> material_to_holder = 
+        new Dictionary<Material, Persistent_residue_mesh_holder>();
 
     public static Persistent_residue_router instance;
 
@@ -29,11 +29,11 @@ public class Persistent_residue_router: MonoBehaviour {
     }
 
     private const int max_images_default = 1500;
-    public Persistent_residue_mask_holder get_holder_for_material(
+    public Persistent_residue_mesh_holder get_holder_for_material(
         Material in_material,
         int in_max_images = max_images_default
     ) {
-        Persistent_residue_mask_holder holder;
+        Persistent_residue_mesh_holder holder;
         if (!material_to_holder.TryGetValue(in_material, out holder)) {
             holder = create_holder_for_material(
                 in_material,
@@ -44,11 +44,11 @@ public class Persistent_residue_router: MonoBehaviour {
         return holder;
     }
 
-    private Persistent_residue_mask_holder create_holder_for_material(
+    private Persistent_residue_mesh_holder create_holder_for_material(
         Material in_material,
         int in_max_images
     ) {
-        Persistent_residue_mask_holder new_holder = GameObject.Instantiate(material_holder_prefab);
+        Persistent_residue_mesh_holder new_holder = GameObject.Instantiate(material_holder_prefab);
         new_holder.transform.SetParent(this.transform, false);
         new_holder.max_residue = in_max_images;
         MeshRenderer mesh_renderer = new_holder.GetComponent<MeshRenderer>();

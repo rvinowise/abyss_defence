@@ -7,7 +7,7 @@ using rvinowise.unity.extensions;
 
 using rvinowise;
 using rvinowise.unity.geometry2d;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 
 
 namespace rvinowise.unity.units.parts.actions {

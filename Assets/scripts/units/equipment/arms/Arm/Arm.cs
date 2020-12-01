@@ -1,7 +1,7 @@
 ﻿using rvinowise.unity.geometry2d;
 using UnityEngine;
 
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.tools;
@@ -47,7 +47,7 @@ public partial class Arm:
     }
 
     public float length {
-        get { return upper_arm.length + forearm.length + hand.length; }
+        get { return upper_arm.absolute_length + forearm.absolute_length + hand.absolute_length; }
     }
     
     /* IPerform_actions interface */

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using rvinowise.debug;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using UnityEngine.Animations;
 using Debug = UnityEngine.Debug;
@@ -30,15 +30,6 @@ public abstract partial class Action {
         new Pool<Action>();
 
    
-    /*protected Action(Action_sequence_builder in_parent_sequence) {
-        parent_sequence = in_parent_sequence;
-        debug_count++;
-        Debug.Log("Action qty= "+debug_count);
-        Log.info(string.Format("Action is created. type= {1}, qty= {0}", 
-            debug_count,
-            this.GetType()
-        ));
-    }*/
 
     public static Action new_root_action(
         System.Type action_type,
@@ -50,7 +41,6 @@ public abstract partial class Action {
     
     public Action() {
         debug_count++;
-        //Debug.Log("Action qty= " + debug_count);
         Log.info(string.Format("Action is created. type= {1}, qty= {0}",
             debug_count,
             this.GetType()

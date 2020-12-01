@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.ui.input;
 using UnityEngine;
 using rvinowise.unity.extensions;
@@ -49,7 +49,6 @@ public class Main_camera : MonoBehaviour {
             zoom -= adjust_to_current_zoom(wheel_movement);
             zoom = preserve_possible_zoom(zoom);
             main_camera.orthographicSize = zoom;
-            //Debug.Log("orthographicSize:" + main_camera.orthographicSize);
         }
     }
 

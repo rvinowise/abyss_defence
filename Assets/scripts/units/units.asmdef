@@ -1,14 +1,14 @@
 ﻿{
     "name": "units",
     "references": [
-        "equipment",
-        "creeping_legs",
         "debug",
         "extensions",
         "input",
         "Divisible_body",
         "settings",
         "third_party",
-        "effects"
+        "effects",
+        "maps",
+        "Unity.2D.Animation.Runtime"
     ]
 }

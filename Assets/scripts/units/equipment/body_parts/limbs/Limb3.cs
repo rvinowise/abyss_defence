@@ -19,12 +19,12 @@ public class Limb3: Limb2 {
     }
     
     
-    public virtual void rotate_to_desired_directions() {
+    public override void rotate_to_desired_directions() {
         base.rotate_to_desired_directions();
         segment3.rotate_to_desired_direction();
     }
     
-    public virtual void jump_to_desired_directions() {
+    public override void jump_to_desired_directions() {
         base.jump_to_desired_directions();
         segment3.jump_to_desired_direction();
     }

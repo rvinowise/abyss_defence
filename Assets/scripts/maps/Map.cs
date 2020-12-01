@@ -3,7 +3,7 @@
 
 using UnityEngine;
 using System;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 
 namespace rvinowise.unity.maps {
 

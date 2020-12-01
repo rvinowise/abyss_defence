@@ -5,7 +5,7 @@ using System;
 using System.Diagnostics;
 
 
-namespace rvinowise.rvi.contracts {
+namespace rvinowise.contracts {
 public class Contract {
     
     public static void Requires( bool condition, string message="")

@@ -6,7 +6,7 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 using rvinowise;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.units.control;
 using rvinowise.unity.units.control.human;
 using rvinowise.unity.units.parts.actions;
@@ -186,18 +186,12 @@ public class Humanoid:
         head.update();
         legs.update();
         
-
-        if (current_action != last_action_test) {
-            bool test = true;
-        }
         last_action_test = current_action ;
 
         if (!animator.enabled) {
             current_action?.update();
             arm_controller.update();
         }
-        
-        //Debug.Log("deltaTime="+Time.deltaTime);
     }
 
   

@@ -74,14 +74,20 @@ public abstract class Projectile : MonoBehaviour {
             (!is_on_the_ground())&&
             (has_left_map())
         ) {
-            remove_but_leave_trail();
+            stop_on_the_ground();
         }
     }
 
-    public void remove_but_leave_trail() {
+    private void stop_on_the_ground() {
         trajectory_flyer.height = 0f;
         trajectory_flyer.enabled = false;
         on_fall_on_ground();
+        trail.visit_final_point(transform.position);
+        trail.adjust_texture_at_end();
+    }
+    public void stop_at_position(Vector2 in_point) {
+        transform.position = in_point;
+        stop_on_the_ground();
     }
 
     private bool is_on_the_ground() {
@@ -129,11 +135,11 @@ public abstract class Projectile : MonoBehaviour {
 
     /* called by Trajectory_flyer.on_fell_on_the_ground() */
     public void on_fall_on_ground() {
+        rigid_body.velocity = Vector3.zero;
+        rigid_body.angularVelocity = 0;
         if(can_be_deleted()) {
             end_active_life();
         }
-        rigid_body.velocity = Vector3.zero;
-        rigid_body.angularVelocity = 0;
     }
 
     /* called by Trail.disappear() */

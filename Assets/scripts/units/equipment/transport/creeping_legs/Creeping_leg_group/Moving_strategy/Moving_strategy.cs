@@ -8,7 +8,7 @@ using rvinowise.unity.extensions;
 using rvinowise;
 using rvinowise.unity.units.parts.limbs.creeping_legs;
 using rvinowise.unity.units.parts.transport;
-using Contract = rvinowise.rvi.contracts.Contract;
+using Contract = rvinowise.contracts.Contract;
 
 namespace rvinowise.unity.units.parts.limbs.creeping_legs.strategy {
 public abstract class Moving_strategy {

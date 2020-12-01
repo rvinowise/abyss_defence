@@ -3,7 +3,7 @@ using System.Linq;
 using rvinowise.unity.debug;
 using UnityEngine;
 using rvinowise.unity.extensions;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 
 namespace rvinowise.unity.units.parts
 {

@@ -76,7 +76,7 @@ public class Turning_element: Component_creator {
     public virtual void rotate_to_desired_direction() {
 
         float angle_to_pass = rotated_bone.rotation.degrees_to(target_direction.rotation).degrees;
-        rvinowise.rvi.contracts.Contract.Assume(Mathf.Abs(angle_to_pass) < 180f, "angle too big");
+        rvinowise.contracts.Contract.Assume(Mathf.Abs(angle_to_pass) < 180f, "angle too big");
         
         if (!has_reached_target()) 
         {

@@ -7,7 +7,7 @@ using rvinowise.unity.extensions;
 
 
 using rvinowise.unity.geometry2d;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using Point = UnityEngine.Vector2;
 using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;

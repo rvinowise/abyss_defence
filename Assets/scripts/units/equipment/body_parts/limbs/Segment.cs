@@ -15,21 +15,26 @@ public class Segment: Turning_element {
         }
         set {
             _tip = value;
-            _length = tip.magnitude;
-            sqr_length = Mathf.Pow(length,2);
+            _absolute_length = tip.magnitude * this.transform.lossyScale.x;
+            sqr_length = Mathf.Pow(_absolute_length,2);
+        }
+    }
+    public Vector2 global_tip {
+        get {
+            return _tip * this.transform.lossyScale.x;
         }
     }
     protected Vector2 _tip;
     
-    public float length {
-        get { return _length; }
+    public float absolute_length {
+        get { return _absolute_length; }
         set {
-            _length = value;
-            _tip = new Vector2(_length, 0);
-            sqr_length = Mathf.Pow(length,2);
+            _absolute_length = value;
+            _tip = new Vector2(_absolute_length / this.transform.lossyScale.x, 0);
+            sqr_length = Mathf.Pow(_absolute_length,2);
         }
     }
-    private float _length;
+    private float _absolute_length;
     public float sqr_length {
         get;
         private set;
@@ -70,7 +75,7 @@ public class Segment: Turning_element {
     }
 
     public void init_length_to(Segment next_segment) {
-        length = (transform.position - next_segment.transform.position).magnitude;
+        absolute_length = (transform.position - next_segment.transform.position).magnitude;
     }
     public Vector2 desired_tip() {
         return this.position + tip.rotate(target_quaternion);

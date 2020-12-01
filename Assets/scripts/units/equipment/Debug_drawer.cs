@@ -5,7 +5,7 @@ using rvinowise.unity.extensions;
 
 using rvinowise.unity.geometry2d;
 using rvinowise;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.units.parts;
 using Input = rvinowise.unity.ui.input.Input;
 using Debug = UnityEngine.Debug;
@@ -45,20 +45,20 @@ public class Debug_drawer : MonoBehaviour
 
     
 
-    /* void Update()
+    void Update()
     {
         Vector2 mousePos = Input.instance.mouse_world_position;
 
-        wedge = Polygon_splitter.get_wedge_from_ray(
+        /* wedge = Polygon_splitter.get_wedge_from_ray(
             new Ray2D(
                 mousePos,
                 new Vector2(0.5f, 1f)
             )
         );
         
-        //draw_polygon(wedge);
+        draw_polygon(wedge); */
         
-    } */
+    }
  
     /* void mouse_control() {
         if (

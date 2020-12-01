@@ -5,7 +5,7 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 using rvinowise;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.limbs.arms;
 

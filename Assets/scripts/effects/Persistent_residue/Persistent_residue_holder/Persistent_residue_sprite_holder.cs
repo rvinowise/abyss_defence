@@ -27,7 +27,7 @@ IPersistent_residue_holder
     private int[] triangles;
 
     private static float last_depth = 0;
-    private const float depth_increment = 0.01f;
+    private const float depth_increment = 0.001f;
     
     private float uv_frame_step_x;
 

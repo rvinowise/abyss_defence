@@ -8,7 +8,7 @@ using rvinowise.unity.extensions;
 using rvinowise;
 using rvinowise.unity.units;
 using rvinowise.unity.units.parts;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.debug;
 using rvinowise.unity.units.parts.transport;
 

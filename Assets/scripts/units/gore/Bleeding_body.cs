@@ -4,7 +4,7 @@ using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
 using rvinowise.unity.effects.liquids;
 using rvinowise.unity.effects.physics;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.units.parts.weapons.guns.common;
 
 using Random = UnityEngine.Random;
@@ -82,7 +82,6 @@ public class Bleeding_body: MonoBehaviour {
 
     
     public void OnCollisionEnter2D(Collision2D other) {
-        Debug.Log("OnCollisionEnter2D in "+this.gameObject.name);
         Projectile collided_projectile = other.gameObject.GetComponent<Projectile>();
         if (collided_projectile != null) {
 
@@ -93,7 +92,7 @@ public class Bleeding_body: MonoBehaviour {
 
             create_splash(
                 contact_point,
-                other.GetContact(0).relativeVelocity/10000,
+                other.GetContact(0).relativeVelocity/300,
                 10
             );
             

@@ -1,5 +1,5 @@
 ﻿/*using System;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.ui.input;
 using UnityEngine;
 using rvinowise.unity.extensions;

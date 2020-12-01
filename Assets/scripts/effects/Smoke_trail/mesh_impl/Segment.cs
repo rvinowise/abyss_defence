@@ -99,10 +99,14 @@ public class Segment {
                       *Time.deltaTime;
     }
 
-    public void move_and_rotate(
+    public bool move_and_rotate(
         Point position,
         Point direction
     ) {
+        if (close_enough_to(position, direction)) {
+            return false;
+        }
+
         this.position = position;
         Point left_point_offset = (Vector2)(Directions.degrees_to_quaternion(90f) * direction) *
             width/2;
@@ -112,6 +116,34 @@ public class Segment {
         right_point = 
             (Vector2)position - left_point_offset;
         
+        return true;
+    }
+
+    const float scr_neglect_distance = 0.2f;
+    const float neglect_degrees = 10f;
+    public bool close_enough_to(
+        Vector2 in_position,
+        Vector2 in_direction
+    ) {
+        if (
+            !close_enough_to(in_position)
+        ) {
+            return false;
+        }
+        
+        return true;
+    }
+    public bool close_enough_to(
+        Vector2 in_position
+    ) {
+        if (
+            this.position.sqr_distance_to(in_position) >
+            scr_neglect_distance
+        ) {
+            return false;
+        }
+        
+        return true;
     }
 }
 }

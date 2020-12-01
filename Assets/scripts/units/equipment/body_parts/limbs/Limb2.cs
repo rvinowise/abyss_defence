@@ -7,7 +7,7 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 using rvinowise;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using UnityEngine.Assertions;
 using static rvinowise.unity.geometry2d.Directions;
 
@@ -21,6 +21,7 @@ public partial class Limb2:
 {
     public Segment segment1; //beginning (root)
     public Segment segment2; //ending (leaf)
+    public Transform tip;
 
     [HideInInspector]
     public unity.geometry2d.Side folding_direction; //1 of -1
@@ -66,7 +67,7 @@ public partial class Limb2:
     
     public void set_desired_directions_by_position(Vector2 desired_position) {
         Contract.Requires((folding_direction != Side.NONE) && (folding_direction != null),
-            "folding_direction is needed for bending the arm"
+            "folding_direction is needed for bending the limb"
         );
         
         //all positions are in global coordinates
@@ -74,9 +75,9 @@ public partial class Limb2:
             ((Vector2)segment1.position).distance_to(desired_position);
         float segment1_angle_offset = 
             unity.geometry2d.Triangles.get_angle_by_lengths(
-                segment1.length,
+                segment1.absolute_length,
                 distance_to_aim,
-                segment2.length
+                segment2.absolute_length
             );
         if (float.IsNaN(segment1_angle_offset)) {
             // limb can't reach the desired position physically
@@ -92,7 +93,7 @@ public partial class Limb2:
 
         Vector2 segment2_position =
             segment1.position +
-            (Vector2) (segment1.target_quaternion * segment1.tip);
+            (Vector2) (segment1.target_quaternion * segment1.global_tip);
 
         segment2.target_quaternion = degrees_to_quaternion(
             segment2_position.degrees_to(desired_position)
@@ -113,9 +114,9 @@ public partial class Limb2:
         float distance_to_aim = segment1.transform.distance_to(holding_point);
         float segment1_angle_offset = 
             unity.geometry2d.Triangles.get_angle_by_lengths(
-                segment1.length,
+                segment1.absolute_length,
                 distance_to_aim,
-                segment2.length
+                segment2.absolute_length
             );
         if (float.IsNaN(segment1_angle_offset)) {
             UnityEngine.Debug.Assert(true, "can't hold onto the point");

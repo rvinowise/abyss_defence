@@ -18,17 +18,17 @@ MonoBehaviour:
   m_GUID: f03ca6cfa51174f4999bd0c6488fdf39
   m_SerializeEntries:
   - m_GUID: 50778e712579d1343b8f87c6644257cd
-    m_Address: Assets/shaders/computations/combining_textures.mat
+    m_Address: computations/combining_textures.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 2100000, guid: 50778e712579d1343b8f87c6644257cd, type: 2}
+    m_TargetAsset: {fileID: 2100000, guid: 50778e712579d1343b8f87c6644257cd, type: 2}
   - m_GUID: 5a9287de25e67d14dbd58d826c0c6173
     m_Address: computations/masked_texture.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 2100000, guid: 5a9287de25e67d14dbd58d826c0c6173, type: 2}
+    m_TargetAsset: {fileID: 2100000, guid: 5a9287de25e67d14dbd58d826c0c6173, type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 059f0afeaf71a7445855a2d91b915369, type: 2}
   m_SchemaSet:

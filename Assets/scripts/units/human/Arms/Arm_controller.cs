@@ -7,7 +7,7 @@ using rvinowise.unity.extensions;
 
 using rvinowise;
 using rvinowise.debug;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.units.control.human;
 using rvinowise.unity.units.parts.limbs;
 using rvinowise.unity.units.parts.limbs.arms.actions;
@@ -47,7 +47,6 @@ public class Arm_controller: limbs.arms.Arm_controller {
         if (is_reloading_now(gun_arm)) {
             //return;
         }
-        UnityEngine.Debug.Log("started reloading");
         
         Arm ammo_arm = other_arm(gun_arm);
 

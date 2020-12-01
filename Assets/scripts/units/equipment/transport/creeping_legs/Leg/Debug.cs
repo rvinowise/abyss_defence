@@ -51,7 +51,7 @@ public partial class Leg : Limb2 {
             
             Gizmos.color = Color.white;
             Gizmos.DrawSphere(
-                leg.parent.TransformPoint(leg.optimal_relative_position_standing), sphere_size);
+                leg.optimal_position_standing, sphere_size);
             
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(

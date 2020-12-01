@@ -18,14 +18,12 @@ public abstract class Debugger {
             return;
         }
         Interlocked.Increment(ref count);
-        UnityEngine.Debug.Log(obj.GetType()+" added ("+count +")");
     }
     public void decrease_counter() {
         if (is_off) {
             return;
         }
         Interlocked.Decrement(ref count);
-        UnityEngine.Debug.Log(obj.GetType()+" destroyed ("+count +")");
     }
 }
 }

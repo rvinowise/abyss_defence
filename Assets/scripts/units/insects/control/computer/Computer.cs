@@ -64,7 +64,7 @@ public class Computer: Spider  {
         degrees = transform.degrees_to(mousePos);
     }
 
-    public Computer( ) : base() { }
+    public Computer( Transform in_transform) : base() { }
 }
 
 }

@@ -7,7 +7,7 @@ using rvinowise.unity.extensions;
 using rvinowise;
 using rvinowise.unity.geometry2d;
 using rvinowise.unity.units.parts.tools;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 
 namespace rvinowise.unity.units.parts.limbs.arms {
 
@@ -54,6 +54,9 @@ IHave_velocity
     protected override void Awake() {
         base.Awake();
         init_parts();
+    }
+
+    void Start() {
         if (held_part != null) {
             attach_tool_to_hand_for_holding(held_part);
         }

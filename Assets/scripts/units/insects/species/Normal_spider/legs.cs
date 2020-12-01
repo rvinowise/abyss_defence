@@ -44,53 +44,65 @@ static class Legs {
     }
 
     private static List<Leg> create_legs(Creeping_leg_group leg_group) {
-        leg_group.right_front_leg = GameObject.Instantiate(leg_group.left_front_leg).GetComponent<Leg>();
-        leg_group.right_hind_leg = GameObject.Instantiate(leg_group.left_hind_leg).GetComponent<Leg>();
-        leg_group.right_front_leg.transform.parent = leg_group.transform;
-        leg_group.right_hind_leg.transform.parent = leg_group.transform;
         
-        leg_group.left_front_leg.debug.name = "left_front_leg";
-        leg_group.right_front_leg.debug.name = "right_front_leg";
-        leg_group.left_hind_leg.debug.name = "left_hind_leg";
-        leg_group.right_hind_leg.debug.name = "right_hind_leg";
+        leg_group.right_front_leg = copy_mirrored_leg(leg_group, leg_group.left_front_leg);
+        leg_group.right_hind_leg = copy_mirrored_leg(leg_group, leg_group.left_hind_leg);
+    
+        leg_group.left_front_leg.name = "left_front_leg";
+        leg_group.right_front_leg.name = "right_front_leg";
+        leg_group.left_hind_leg.name = "left_hind_leg";
+        leg_group.right_hind_leg.name = "right_hind_leg";
 
         return leg_group.legs;
+
+
+        
+    }
+
+    private static Leg copy_mirrored_leg(
+        Creeping_leg_group leg_group,
+        Leg src_leg
+    ) {
+        Leg dst_leg = GameObject.Instantiate(src_leg).GetComponent<Leg>();
+        dst_leg.transform.localScale = leg_group.transform.localScale;
+        dst_leg.transform.parent = leg_group.transform;
+
+        return dst_leg;
     }
 
     
 
     private static void init_left_front_leg(Leg leg) {
-        //leg.local_position = new Vector2(0.195f, 0.2925f) * scale;
-        //leg.femur.tip = new Vector2(0.4225f, 0f) * scale;
         leg.femur.tip = leg.tibia.transform.localPosition;
         
-        leg.tibia.tip = new Vector2(0.5525f, 0f) * scale;
-        //leg.tibia.local_position = leg.femur.tip;
+        //leg.tibia.tip = new Vector2(0.5525f, 0f) * leg.transform.lossyScale.x * scale;
+        leg.tibia.tip = leg.tip.localPosition;
 
         leg.femur.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
         leg.tibia.desired_relative_direction_standing = Directions.degrees_to_quaternion(-100f);
     }
 
     private static void init_left_hind_leg(Leg leg) {
-        //leg.femur.tip = new Vector2(0.4225f, 0f) * scale;
         leg.femur.tip = leg.tibia.transform.localPosition;
-        leg.tibia.tip = new Vector2(0.5525f, 0f) * scale;
+        //leg.tibia.tip = new Vector2(0.5525f, 0f) * leg.transform.lossyScale.x * scale;
+        leg.tibia.tip = leg.tip.localPosition;
+        
         leg.femur.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
         leg.tibia.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
     }
 
     private static void init_parameters_that_can_be_inferred(Leg leg) {
-        init_optimal_relative_position(leg);
+        //init_optimal_relative_position(leg);
         init_femur_folding_direction(leg);
     }
 
     
     private static void init_common_parameters(Leg leg) {
-        leg.comfortable_distance = 0.5f * scale;
+        leg.comfortable_distance = 0.5f * leg.transform.lossyScale.x * scale;
     }
 
     private static void init_optimal_relative_position(Leg leg) {
-        leg.optimal_relative_position_standing =
+        leg.optimal_relative_position_standing_transform.localPosition =
             leg.get_end_position_from_angles(
                 leg.femur.desired_relative_direction_standing,
                 leg.tibia.desired_relative_direction_standing
@@ -108,14 +120,12 @@ static class Legs {
             -src.local_position.y
         );
         dst.femur.possible_span = mirror_span(src.femur.possible_span);
-        //dst.femur.comfortable_span = mirror_span(src.femur.comfortable_span);
         dst.femur.tip = new Vector2(
             src.femur.tip.x,
             -src.femur.tip.y
         );
 
         dst.tibia.possible_span = mirror_span(src.tibia.possible_span);
-        //dst.tibia.comfortable_span = mirror_span(src.tibia.comfortable_span);
         dst.tibia.tip = new Vector2(
             src.tibia.tip.x,
             -src.tibia.tip.y
@@ -124,17 +134,26 @@ static class Legs {
             Quaternion.Inverse(src.femur.desired_relative_direction_standing);
         dst.tibia.desired_relative_direction_standing =
             Quaternion.Inverse(src.tibia.desired_relative_direction_standing);
-        //dst.folding_direction = -src.folding_direction; //inferred at the end
 
-        dst.femur.spriteRenderer.sprite = src.femur.spriteRenderer.sprite;
-        dst.tibia.spriteRenderer.sprite = src.tibia.spriteRenderer.sprite;
         dst.femur.spriteRenderer.flipY = !src.femur.spriteRenderer.flipY;
         dst.tibia.spriteRenderer.flipY = !src.tibia.spriteRenderer.flipY;
+
+        dst.optimal_relative_position_standing_transform.localPosition =
+            mirror_point(src.optimal_relative_position_standing_transform.localPosition);
+
 
         Span mirror_span(Span span) {
             return new Span(
                 -span.max,
                 -span.min
+            );
+        }
+
+        Vector3 mirror_point(Vector3 in_point) {
+            return new Vector3(
+                in_point.x,
+                -in_point.y,
+                in_point.z
             );
         }
 

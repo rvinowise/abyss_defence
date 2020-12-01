@@ -5,7 +5,7 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 using rvinowise;
-using rvinowise.rvi.contracts;
+using rvinowise.contracts;
 using rvinowise.unity.units.parts.limbs.creeping_legs;
 using rvinowise.unity.units.parts.transport;
 
@@ -36,12 +36,6 @@ internal class Grovelling: Moving_strategy
         else if (leg.is_twisted_uncomfortably()) {
             if (can_move_without(leg)) {
                 raise_up(leg);
-                
-            }
-            else {
-                if (leg.debug.name == "left_hind_leg") {
-                    Debug.Log("left_hind_leg is_twisted_uncomfortably but !can_move_without");
-                }
             }
         }
     }
