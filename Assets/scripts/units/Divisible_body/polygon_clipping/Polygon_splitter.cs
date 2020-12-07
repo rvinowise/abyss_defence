@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using rvinowise.unity.extensions;
 
@@ -31,6 +32,7 @@ namespace rvinowise.unity.geometry2d {
             Polygon base_polygon,
             Polygon removed_polygon) 
         {
+            //Thread.Sleep(3000);
             Path int_base_polygon = float_coord_to_int(base_polygon);
             Path int_removed_polygon = float_coord_to_int(removed_polygon);
 

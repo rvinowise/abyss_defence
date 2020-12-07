@@ -88,14 +88,12 @@ static class Texture_splitter {
             positioned_mask
         );
 
-        positioned_mask.save_to_file("positioned_mask_texture");
         positioned_mask.Release();
 
+        
         //masked_texture.save_to_file("masked_texture");
         return masked_texture;
-        /*return new Texture2D(
-            texture.width, texture.height, TextureFormat.ARGB32, false
-        ); */
+  
     }
 
     

@@ -146,7 +146,7 @@ ITrail
         Vector2 direction
     )
     {
-        Contract.Requires(direction.magnitude == 1, "direction should be a normalized vector");
+        Contract.Requires(direction.is_normalized(), "direction should be a normalized vector");
         build_trail_necessarily_reaching_point(position);
         
         Segment segment = new Segment(

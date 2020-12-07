@@ -26,7 +26,8 @@ public partial class Children_groups_host {
 
                 foreach (var other_user in other_users) {
                     Contract.Requires(
-                        base_user.children_groups.Count == other_user.children_groups.Count
+                        base_user.children_groups.Count == other_user.children_groups.Count,
+                        "amount of children_groups should be the same across splitted object and the original"
                     );
                     controllers_of_type[i_base_controller].Add(
                         other_user.children_groups[i_base_controller]

@@ -23,13 +23,34 @@ public class Texture_drawer: MonoBehaviour {
 
     public static Texture_drawer instance {get; private set;}
 
+
+    public Texture2D test_texture;
+    private List<Texture2D> pooled_textures = new List<Texture2D>(100);
+    private int i_current_texture = 0;
+
     void Awake() {
         Contract.Requires(instance == null, "it's a singleton");
         instance = this;
     }
+    void Start() {
+        prepare_pool_of_textures();
+    }
+
+    
+    private void prepare_pool_of_textures() {
+        for (int i=0;i<pooled_textures.Capacity; i++) {
+            pooled_textures.Add(
+                new Texture2D(
+                    test_texture.width, test_texture.height, TextureFormat.ARGB32, false
+                )
+            );
+        }
+    }
     
     public  Texture2D apply_mask_to_texture(Texture2D basis, RenderTexture mask) {
         
+        /* basis.save_to_file("basis");
+        mask.save_to_file("mask"); */
         RenderTexture combining_texture = new RenderTexture(
              basis.width, basis.height, 0, RenderTextureFormat.Default
         );
@@ -37,8 +58,9 @@ public class Texture_drawer: MonoBehaviour {
         masked_material.SetTexture("_MainTex", basis);
         masked_material.SetTexture("_Mask", mask);
         Graphics.Blit(basis, combining_texture, masked_material);
-    
-        Texture2D final_texture = combining_texture.move_to_texture();
+        //combining_texture.save_to_file("combining_texture");
+
+        Texture2D final_texture = move_to_texture(combining_texture);
 
         return final_texture;
     }
@@ -93,8 +115,24 @@ public class Texture_drawer: MonoBehaviour {
         combining_material.SetTexture("_Texture2", texture2);
         Graphics.Blit(texture1, combining_texture, combining_material);
         
-        return combining_texture.move_to_texture();
+        return move_to_texture(combining_texture);
     }
     
-    
+    private Texture2D move_to_texture(RenderTexture render_texture)
+    {
+        Texture2D final_texture = pooled_textures[i_current_texture++];
+        /* RenderTexture.active = render_texture;
+        final_texture.ReadPixels( 
+            new Rect(0, 0, final_texture.width, final_texture.height), 0, 0
+        );
+        RenderTexture.active = null;
+        final_texture.Apply(); */
+
+        Graphics.CopyTexture(render_texture, final_texture);
+
+        RenderTexture.active = null;
+        render_texture.Release();
+        return final_texture;
+    }
+
 }

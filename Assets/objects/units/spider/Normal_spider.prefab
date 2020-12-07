@@ -605,13 +605,14 @@ GameObject:
   - component: {fileID: 4270002292459037742}
   - component: {fileID: 2725518907785925933}
   - component: {fileID: 3762518339937625418}
+  - component: {fileID: 8908099032306129881}
   m_Layer: 0
   m_Name: Normal_spider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7640007136119959220
 Transform:
   m_ObjectHideFlags: 0
@@ -644,8 +645,8 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.619509, y: 0.5000001}
-    oldSize: {x: 1, y: 0.6666667}
+    pivot: {x: 0.5822512, y: 0.5}
+    oldSize: {x: 1.0089285, y: 0.67261904}
     newSize: {x: 1, y: 0.6666667}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -757,6 +758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inside: {fileID: 21300000, guid: 2af9daa1e7099b94dbf0b2f190b08b3f, type: 3}
   needs_initialisation: 1
+  pooled_prefab: {fileID: 8908099032306129881}
 --- !u!114 &4270002292459037742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -811,6 +813,20 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   moving_offset_distance: 0.3
+--- !u!114 &8908099032306129881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7640007136119959215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e0239f47f754fa48a4440fd3ad0417b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
+  reset_components: []
 --- !u!1 &7853912742276141655
 GameObject:
   m_ObjectHideFlags: 0

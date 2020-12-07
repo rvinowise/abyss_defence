@@ -10,43 +10,33 @@
 		Tags {"Queue"="Transparent"}
 		Pass
 		{
-            GLSLPROGRAM
-           
-#ifdef VERTEX
-           
-            void main()
-            {
-				gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-				gl_TexCoord[0].xy = gl_MultiTexCoord0.xy;
-            }
-#endif
-           
-#ifdef FRAGMENT
-            
-			uniform sampler2D _Texture1;      
-            uniform sampler2D _Texture2;
+        CGPROGRAM
+			#include "simple_shaders.cginc"
+            #pragma vertex simple_vert
+            #pragma fragment frag
 
-			out vec4 colorOut;
-			//in smooth vec2 texCoords;
-			void main(){ 
+           
+            sampler2D _Texture1;
+			sampler2D _Texture2;
 
-				vec4 color1 = texture(_Texture1, gl_TexCoord[0].xy);
-				vec4 color2 = texture(_Texture2, gl_TexCoord[0].xy);
 
-				//alpha value can be in any channel, depends on texture format.
-				if (color2.a > 0.1) {
-					colorOut = vec4(
-						color2.rgba
-					);
-				} else {
-					colorOut = vec4(
-						color1.rgba
-					);
+
+			fixed4 frag(v2f IN) : SV_Target
+			{
+				half4 color_bottom = (
+					tex2D(_Texture1, IN.texcoord)
+				);
+				half4 color_top = (
+					tex2D(_Texture2, IN.texcoord)
+				);
+				if (color_top.a > 0.1) {
+					return color_top;
 				}
-			}
-#endif
+				return color_bottom * (1-color_top.a) + color_top;
+			} 
+			
            
-            ENDGLSL
+        ENDCG
 		}
 	}
 }

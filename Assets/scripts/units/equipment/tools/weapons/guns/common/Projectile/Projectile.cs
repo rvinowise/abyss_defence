@@ -27,6 +27,7 @@ public abstract class Projectile : MonoBehaviour {
     public Smoke_trail trail;
     
     private Trajectory_flyer trajectory_flyer;
+    private Collider2D collider;
     
 
     void Awake() {
@@ -43,12 +44,13 @@ public abstract class Projectile : MonoBehaviour {
         rigid_body = GetComponent<Rigidbody2D>();
         trajectory_flyer = GetComponent<Trajectory_flyer>();
         trajectory_flyer.enabled = false;
+        collider = GetComponent<Collider2D>();
         //trail = GetComponent<Smoke_trail>();
         
     }
 
     private void init_instance() {
-        
+        collider.enabled = true;
     }
     private void init_trail() {
         if (trail != null) {
@@ -81,6 +83,7 @@ public abstract class Projectile : MonoBehaviour {
     private void stop_on_the_ground() {
         trajectory_flyer.height = 0f;
         trajectory_flyer.enabled = false;
+        collider.enabled = false;
         on_fall_on_ground();
         trail.visit_final_point(transform.position);
         trail.adjust_texture_at_end();
@@ -108,22 +111,33 @@ public abstract class Projectile : MonoBehaviour {
     }
     
     private void OnCollisionEnter2D(Collision2D collision) {
+        if (!collider.enabled) {
+            return;
+        }
         Rigidbody2D other_creature = collision.gameObject.GetComponent<Rigidbody2D>();
         
         //debug_draw_collision(collision);
         Vector2 contact_point = collision.GetContact(0).point;
+        Vector2 new_direction = collision.otherRigidbody.velocity.normalized;
         trail.add_bend_at(
             contact_point,
-            collision.otherRigidbody.velocity.normalized
+            new_direction
+            //Vector2.one
         );
         
         
-        UnityEngine.Debug.DrawLine(
+        /* UnityEngine.Debug.DrawLine(
             contact_point, contact_point+collision.otherRigidbody.velocity.normalized, 
-            Color.magenta, 5);
-        UnityEngine.Debug.DrawLine(
-            contact_point, contact_point+collision.GetContact(0).relativeVelocity.normalized, 
-            Color.yellow, 5);
+            Color.magenta, 5); */
+        if (new_direction.is_normalized()) {
+            UnityEngine.Debug.DrawLine(
+                contact_point, contact_point+collision.GetContact(0).relativeVelocity.normalized, 
+                Color.yellow, 5);
+        } else {
+            UnityEngine.Debug.DrawLine(
+                contact_point, contact_point+Vector2.up/2, 
+                Color.red, 5);
+        }
 
         //after_bouncing_off_surfice(); #test
     }

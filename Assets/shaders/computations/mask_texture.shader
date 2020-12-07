@@ -37,27 +37,19 @@ Shader "computations/mask"
         {
             Name "Default"
         CGPROGRAM
+            //#include "simple_shaders.cginc"
             #pragma vertex vert
             #pragma fragment frag
-            #pragma target 2.0
 
-            #include "UnityCG.cginc"
-            #include "UnityUI.cginc"
-
-            #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
-            #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
 
             struct appdata_t
             {
                 float4 vertex   : POSITION;
-                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct v2f
             {
                 float4 vertex   : SV_POSITION;
-                float4 worldPosition : TEXCOORD1;
-                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             fixed4 _Color;
@@ -66,7 +58,6 @@ Shader "computations/mask"
             {
                 v2f OUT;
                 float4 vPosition = UnityObjectToClipPos(v.vertex);
-                OUT.worldPosition = v.vertex;
                 OUT.vertex = vPosition;
 
                 return OUT;

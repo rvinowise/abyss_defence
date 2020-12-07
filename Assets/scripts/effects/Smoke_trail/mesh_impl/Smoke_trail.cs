@@ -122,7 +122,7 @@ MonoBehaviour
         Vector2 new_direction
     )
     {
-        Contract.Requires(new_direction.magnitude == 1, "direction should be a normalized vector");
+        Contract.Requires(new_direction.is_normalized(), "direction should be a normalized vector");
         build_trail_necessarily_reaching_point(position);
         segments.Last().is_abruption = true;
         
@@ -159,7 +159,7 @@ MonoBehaviour
         } else if (end_changed) {
             mesh.vertices = get_vertices_from_segments();
         }
-        debug_draw_segmnents();
+        //debug_draw_segmnents();
     }
 
 

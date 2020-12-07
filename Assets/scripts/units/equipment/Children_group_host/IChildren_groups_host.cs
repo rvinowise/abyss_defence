@@ -14,8 +14,6 @@ namespace rvinowise.unity.units.parts {
 public interface IChildren_groups_host {
 
     
-    GameObject game_object { get; }
-    
     IList<Children_group> children_groups { get; }
 
 }

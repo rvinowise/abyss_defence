@@ -2,7 +2,7 @@ Shader "masked_texture"
 {
 	Properties
 	{
-		_MainTex ("_MainTex", 2D) = "white" {}
+		[MainTexture] _MainTex ("_MainTex", 2D) = "white" {}
 		_Mask ("_Mask", 2D) = "white" {}
 	}
 	SubShader
@@ -10,33 +10,30 @@ Shader "masked_texture"
 		Tags {"Queue"="Transparent"}
 		Pass
 		{
-            GLSLPROGRAM
-           
-#ifdef VERTEX
-           
-            void main()
-            {
-				gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-				gl_TexCoord[0].xy = gl_MultiTexCoord0.xy;
-            }
-#endif
-           
-#ifdef FRAGMENT
-            
-			uniform sampler2D _MainTex;      
-            uniform sampler2D _Mask;
+            CGPROGRAM
+                #include "simple_shaders.cginc"
+                #pragma vertex simple_vert
+                #pragma fragment frag
 
-			out vec4 colorOut;
-			void main(){ 
 
-				vec4 color = texture(_MainTex,gl_TexCoord[0].xy);
-				vec4 mask = texture(_Mask,gl_TexCoord[0].xy);
+                sampler2D _MainTex;
+                sampler2D _Mask;
 
-				colorOut = vec4(color.rgb,color.a * mask.r);
-			}
-#endif
-           
-            ENDGLSL
+
+
+				fixed4 frag(v2f IN) : SV_Target
+                {
+                    half4 alpha = (
+                        tex2D(_Mask, IN.texcoord)
+                    );
+                    half4 color = (
+                        tex2D(_MainTex, IN.texcoord)
+                    );
+					color.a *= alpha.a;
+                    return color;
+                }
+				
+			ENDCG
 		}
 	}
 }
