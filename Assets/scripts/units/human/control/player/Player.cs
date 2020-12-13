@@ -168,9 +168,9 @@ public class Player : Human {
 
         Vector2 read_moving_direction() {
             Vector2 direction_vector = Input.instance.moving_vector;
-            
-            
-            
+            if (direction_vector.magnitude > 0) {
+                var test = true;
+            }
             return direction_vector.normalized;
         }
 

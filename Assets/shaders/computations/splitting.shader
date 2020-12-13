@@ -1,9 +1,9 @@
-Shader "masked_texture"
+Shader "computations/splitting"
 {
 	Properties
 	{
-		[MainTexture] _BodyTex ("_MainTex", 2D) = "white" {}
-		_InnardsTex ("_Innards", 2D) = "white" {}
+		[MainTexture] _BodyTex ("_BodyTex", 2D) = "white" {}
+		_InnardsTex ("_InnardsTex", 2D) = "white" {}
 		_BodyMask ("_BodyMask", 2D) = "white" {}
 		_InnardsMask ("_InnardsMask", 2D) = "white" {}
 	}
@@ -27,14 +27,23 @@ Shader "masked_texture"
 
 				fixed4 frag(v2f IN) : SV_Target
                 {
-                    half4 alpha = (
+                    half4 body_alpha = (
                         tex2D(_BodyMask, IN.texcoord)
                     );
-                    half4 color = (
+                    half4 body_color = (
                         tex2D(_BodyTex, IN.texcoord)
                     );
-					color.a *= alpha.a;
-                    return color;
+                    half4 innards_alpha = (
+                        tex2D(_InnardsMask, IN.texcoord)
+                    );
+                    half4 innards_color = (
+                        tex2D(_InnardsTex, IN.texcoord)
+                    );
+					innards_color.a *= innards_alpha.a;
+                    body_color.a *= body_alpha.a;
+                    
+                    half4 final_color = innards_color * (1-body_color.a) +  body_color;
+                    return final_color;
                 }
 				
 			ENDCG

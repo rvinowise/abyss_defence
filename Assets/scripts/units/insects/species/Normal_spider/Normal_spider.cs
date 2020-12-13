@@ -24,7 +24,7 @@ public class Normal_spider: Creature {
         protected set { sprider_transporter = value as Creeping_leg_group; }
     }
 
-    protected virtual void Awake() {
+    protected override void Awake() {
         sprider_transporter = GetComponent<Creeping_leg_group>();
         base.Awake();
     }

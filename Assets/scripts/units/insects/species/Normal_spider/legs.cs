@@ -64,8 +64,8 @@ static class Legs {
         Leg src_leg
     ) {
         Leg dst_leg = GameObject.Instantiate(src_leg).GetComponent<Leg>();
-        dst_leg.transform.localScale = leg_group.transform.localScale;
-        dst_leg.transform.parent = leg_group.transform;
+        //dst_leg.transform.localScale = leg_group.transform.localScale;
+        dst_leg.transform.SetParent(leg_group.transform, false);
 
         return dst_leg;
     }
@@ -74,21 +74,12 @@ static class Legs {
 
     private static void init_left_front_leg(Leg leg) {
         leg.femur.tip = leg.tibia.transform.localPosition;
-        
-        //leg.tibia.tip = new Vector2(0.5525f, 0f) * leg.transform.lossyScale.x * scale;
         leg.tibia.tip = leg.tip.localPosition;
-
-        leg.femur.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
-        leg.tibia.desired_relative_direction_standing = Directions.degrees_to_quaternion(-100f);
     }
 
     private static void init_left_hind_leg(Leg leg) {
         leg.femur.tip = leg.tibia.transform.localPosition;
-        //leg.tibia.tip = new Vector2(0.5525f, 0f) * leg.transform.lossyScale.x * scale;
         leg.tibia.tip = leg.tip.localPosition;
-        
-        leg.femur.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
-        leg.tibia.desired_relative_direction_standing = Directions.degrees_to_quaternion(100f);
     }
 
     private static void init_parameters_that_can_be_inferred(Leg leg) {

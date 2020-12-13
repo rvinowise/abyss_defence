@@ -5,6 +5,8 @@ using rvinowise.unity.extensions;
 using rvinowise.contracts;
 using rvinowise.unity.extensions.attributes;
 using rvinowise.unity.geometry2d;
+using System;
+using Random = UnityEngine.Random;
 
 [singleton]
 public class Texture_drawer: MonoBehaviour {
@@ -21,6 +23,10 @@ public class Texture_drawer: MonoBehaviour {
     private Material mask_material;
     //    Resources.Load<Material>("shaders/default");
 
+    [SerializeField]
+    private Shader splitting_shader;
+    private Material splitting_material;
+
     public static Texture_drawer instance {get; private set;}
 
 
@@ -31,6 +37,7 @@ public class Texture_drawer: MonoBehaviour {
     void Awake() {
         Contract.Requires(instance == null, "it's a singleton");
         instance = this;
+        splitting_material = new Material(splitting_shader);
     }
     void Start() {
         prepare_pool_of_textures();
@@ -47,7 +54,7 @@ public class Texture_drawer: MonoBehaviour {
         }
     }
     
-    public  Texture2D apply_mask_to_texture(Texture2D basis, RenderTexture mask) {
+    public RenderTexture apply_mask_to_texture(Texture2D basis, RenderTexture mask) {
         
         /* basis.save_to_file("basis");
         mask.save_to_file("mask"); */
@@ -60,9 +67,9 @@ public class Texture_drawer: MonoBehaviour {
         Graphics.Blit(basis, combining_texture, masked_material);
         //combining_texture.save_to_file("combining_texture");
 
-        Texture2D final_texture = move_to_texture(combining_texture);
+        //Texture2D final_texture = move_to_texture(combining_texture);
 
-        return final_texture;
+        return combining_texture;
     }
 
     public  void draw_polygon_on_texture(
@@ -93,6 +100,8 @@ public class Texture_drawer: MonoBehaviour {
 
         for (int i=0; i< indices.Length; i++) {
             Vector2 point = polygon.points[indices[i]];
+            Color color = new Color(Random.value,Random.value,Random.value,1);
+            GL.Color(color);
             GL.Vertex3(point.x, point.y, 0);
         }
         
@@ -103,9 +112,9 @@ public class Texture_drawer: MonoBehaviour {
         //texture.save_to_file("polygon");
     }
 
-    public  Texture2D overlay_textures(
-        Texture2D texture1,
-        Texture2D texture2
+    public Texture2D overlay_textures(
+        RenderTexture texture1,
+        RenderTexture texture2
     ) {
         RenderTexture combining_texture = new RenderTexture(
              texture1.width, texture1.height, 0, RenderTextureFormat.ARGB32
@@ -118,9 +127,40 @@ public class Texture_drawer: MonoBehaviour {
         return move_to_texture(combining_texture);
     }
     
+
+    public Texture2D draw_split_piece(
+        Texture2D body_texture, 
+        Texture2D innards_texture,
+        RenderTexture body_mask,
+        RenderTexture innards_mask
+    ) {
+        
+        RenderTexture final_texture = new RenderTexture(
+             body_texture.width, body_texture.height, 0, RenderTextureFormat.ARGB32
+        );
+
+        splitting_material.SetTexture("_BodyTex", body_texture);
+        splitting_material.SetTexture("_InnardsTex", innards_texture);
+        splitting_material.SetTexture("_BodyMask", body_mask);
+        splitting_material.SetTexture("_InnardsMask", innards_mask);
+        Graphics.Blit(body_texture, final_texture, splitting_material);
+        
+        return move_to_texture(final_texture);
+    }
+
     private Texture2D move_to_texture(RenderTexture render_texture)
     {
-        Texture2D final_texture = pooled_textures[i_current_texture++];
+        try {
+            Texture2D final_texture = pooled_textures[i_current_texture++];
+            Graphics.CopyTexture(render_texture, final_texture);
+
+            RenderTexture.active = null;
+            render_texture.Release();
+            return final_texture;
+        } catch(Exception e) {
+            Debug.Log(e.ToString());
+        }
+        return null;
         /* RenderTexture.active = render_texture;
         final_texture.ReadPixels( 
             new Rect(0, 0, final_texture.width, final_texture.height), 0, 0
@@ -128,11 +168,7 @@ public class Texture_drawer: MonoBehaviour {
         RenderTexture.active = null;
         final_texture.Apply(); */
 
-        Graphics.CopyTexture(render_texture, final_texture);
-
-        RenderTexture.active = null;
-        render_texture.Release();
-        return final_texture;
+        
     }
 
 }

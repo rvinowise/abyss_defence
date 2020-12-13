@@ -52,45 +52,57 @@ Shader "Effects/Smoke_trail"
 
         
     }
+    
+    /* HLSLINCLUDE
+    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+    ENDHLSL */
 
     Category
     {
         SubShader
         {
-            Tags {
-                "Queue"="Transparent+1"}
+            Tags {"Queue" = "Transparent+30" "RenderType" = "Transparent" "RenderPipeline" = "UniversalPipeline" }
 
             BlendOp [_BlendOp]
             Blend [_SrcBlend] [_DstBlend] 
             ZWrite On
-            Cull [_Cull]
+            Cull Off
             ColorMask RGB
-
-            GrabPass
-            {
-                Tags { "LightMode" = "Always" }
-                "_GrabTexture"
-            }
 
             Pass
             {
-                Tags { "LightMode"="ForwardBase" }
+                Tags { "LightMode" = "Universal2D" }
 
-                CGPROGRAM
+                HLSLPROGRAM
                 #pragma vertex vert
                 #pragma fragment frag
+                #pragma multi_compile USE_SHAPE_LIGHT_TYPE_0 __
+                #pragma multi_compile USE_SHAPE_LIGHT_TYPE_1 __
+                #pragma multi_compile USE_SHAPE_LIGHT_TYPE_2 __
+                #pragma multi_compile USE_SHAPE_LIGHT_TYPE_3 __
 
-                /* #include "../UnityStandardParticles_copy.cginc"
-                #pragma vertex vertParticleUnlit
-                #pragma fragment fragParticleUnlit */
+                #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+                #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/LightingUtility.hlsl"
 
-                #pragma target 2.0
+                #if USE_SHAPE_LIGHT_TYPE_0
+                SHAPE_LIGHT(0)
+                #endif
 
-                
+                #if USE_SHAPE_LIGHT_TYPE_1
+                SHAPE_LIGHT(1)
+                #endif
+
+                #if USE_SHAPE_LIGHT_TYPE_2
+                SHAPE_LIGHT(2)
+                #endif
+
+                #if USE_SHAPE_LIGHT_TYPE_3
+                SHAPE_LIGHT(3)
+                #endif
 
                 struct appdata_t
                 {
-                    float4 vertex   : POSITION;
+                    float3 vertex   : POSITION;
                     float2 texcoord : TEXCOORD0;
                 };
 
@@ -98,18 +110,24 @@ Shader "Effects/Smoke_trail"
                 {
                     float4 vertex   : SV_POSITION;
                     float2 texcoord  : TEXCOORD0;
+                    float2 lightingUV  : TEXCOORD1;
                 };
 
                 sampler2D _MainTex;
                 float4 _Color;
                 float _Alpha;
 
+
+                //#include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/LightingUtility.hlsl"
+                //#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/SpaceTransforms.hlsl"
+
                 v2f vert(appdata_t v)
                 {
                     v2f OUT;
-                    float4 vPosition = UnityObjectToClipPos(v.vertex);
+                    float4 vPosition = TransformObjectToHClip(v.vertex);
                     OUT.vertex = vPosition;
                     OUT.texcoord = v.texcoord;
+                    OUT.lightingUV = ComputeScreenPos(vPosition / vPosition.w).xy;
 
                     return OUT;
                 }
@@ -123,7 +141,10 @@ Shader "Effects/Smoke_trail"
                     return _Time[1] - _Start_time;
                 }
 
-                fixed4 frag(v2f IN) : SV_Target
+
+                #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/CombinedShapeLightShared.hlsl"
+
+                half4 frag(v2f IN) : SV_Target
                 {
                     float parabolic_progress = pow (time(), 0.5) *2;
                     float randomization = (_Start_time);
@@ -154,10 +175,13 @@ Shader "Effects/Smoke_trail"
                         tex2D(_MainTex, IN.texcoord  + snakelike_offset * _DistortionDamper )
                     );
                     color.a *= _Alpha;
+                    
+                    color =  CombinedShapeLightShared(color, float4(1,1,1,1), IN.lightingUV);
+
                     return color;
                 }
                 
-                ENDCG
+                ENDHLSL
             }
         }
     }

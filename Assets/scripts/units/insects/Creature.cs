@@ -36,7 +36,7 @@ public abstract class Creature: Turning_element
     Intelligence intelligence;
 
     
-    protected virtual void Awake()
+    protected override void Awake()
     {
         base.Awake();
         init_components();

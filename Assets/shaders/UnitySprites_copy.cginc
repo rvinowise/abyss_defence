@@ -89,8 +89,8 @@ half _Cutoff;
 
 fixed4 SpriteFrag(v2f IN) : SV_Target
 {
-    fixed4 c = SampleSpriteTexture (IN.texcoord)/* * IN.color*/;
-    //c.rgb *= c.a;
+    fixed4 c = SampleSpriteTexture (IN.texcoord) * IN.color;
+    c.rgb *= c.a;
     clip (c.a - _Cutoff + 0.0001);
     return c;
 }

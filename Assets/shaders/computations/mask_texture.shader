@@ -4,7 +4,7 @@ Shader "computations/mask"
 {
     Properties
     {
-        _Color ("Tint", Color) = (0,0,0,1)
+        _Color ("_Color", Color) = (0,0,0,1)
 
     }
 
@@ -45,11 +45,13 @@ Shader "computations/mask"
             struct appdata_t
             {
                 float4 vertex   : POSITION;
+                float4 color    : COLOR;
             };
 
             struct v2f
             {
                 float4 vertex   : SV_POSITION;
+                float4 color    : COLOR;
             };
 
             fixed4 _Color;
@@ -59,13 +61,14 @@ Shader "computations/mask"
                 v2f OUT;
                 float4 vPosition = UnityObjectToClipPos(v.vertex);
                 OUT.vertex = vPosition;
+                OUT.color = v.color * _Color;
 
                 return OUT;
             }
 
             fixed4 frag(v2f IN) : SV_Target
             {
-                return _Color;
+                return IN.color;
             }
         ENDCG
         }

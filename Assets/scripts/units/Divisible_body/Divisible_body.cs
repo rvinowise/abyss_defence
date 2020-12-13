@@ -153,7 +153,7 @@ public class Divisible_body : MonoBehaviour
         } else { */
             created_part = Instantiate(
                 gameObject,
-                transform.position-transform.rotation*(polygon_shift*1.1f), 
+                transform.position-transform.rotation*(polygon_shift*1.1f*transform.lossyScale.x), 
                 transform.rotation
             );
         /* } */
@@ -250,7 +250,7 @@ public class Divisible_body : MonoBehaviour
         push_pieces_away(
             pieces, 
             damage.contact_point, 
-            damage.impulse_magnitude
+            0//damage.impulse_magnitude
         );
     } 
 
