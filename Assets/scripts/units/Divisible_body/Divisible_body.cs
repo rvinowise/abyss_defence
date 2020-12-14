@@ -35,18 +35,18 @@ public class Divisible_body : MonoBehaviour
 
 
     public Pooled_object pooled_prefab;
+
+    private Rigidbody2D rigidbody;
+
     void Awake() {
+        rigidbody = GetComponent<Rigidbody2D>();
+        var test1 = rigidbody.angularVelocity;
     }
 
 
     public List<GameObject> split_for_collider_pieces(
         List<Polygon> collider_pieces
     ) {
-        /* List<Polygon> collider_pieces = Polygon_splitter.remove_polygon_from_polygon(
-            new Polygon(gameObject.GetComponent<PolygonCollider2D>().GetPath(0)),
-            transform.InverseTransformPolygon(polygon_of_split)
-        ); */
-
         Sprite body = gameObject.GetComponent<SpriteRenderer>().sprite;
 
         List<GameObject> piece_objects = create_objects_for_colliders(
@@ -57,11 +57,15 @@ public class Divisible_body : MonoBehaviour
 
         adjust_center_of_colliders_and_children(piece_objects, collider_pieces);
 
-        preserve_impulse_in_pieces(piece_objects);
+        //preserve_impulse_in_pieces(piece_objects);
         
         Destroy(gameObject);
 
-        
+        foreach (GameObject test_piece in piece_objects) {
+           Rigidbody2D piece_rigid_body = test_piece.GetComponent<Rigidbody2D>();
+           var test0 = piece_rigid_body.angularVelocity;
+           var test1 = piece_rigid_body.velocity;
+        }
         return piece_objects;
     }
 
@@ -194,18 +198,23 @@ public class Divisible_body : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) {
         
         if (collision.get_damaging_projectile() is Projectile damaging_projectile ) {
+            var test1 = rigidbody.angularVelocity;
             damage_by_projectile(damaging_projectile, collision);
+            var test2 = rigidbody.angularVelocity;
         }
     }
 
     Task<List<Polygon>> splitting_polygon;
     private struct Received_damage {
-        public Vector2 contact_point;
-        public float impulse_magnitude;
+        public Vector3 contact_point;
+        public Vector3 impulse;
 
-        public Received_damage(Vector2 _contact_point, float _impulse_magnitude) {
+        public Received_damage(
+            Vector2 _contact_point,
+            Vector2 _impulse
+        ) {
             contact_point = _contact_point;
-            impulse_magnitude = _impulse_magnitude;
+            impulse = _impulse;
         }
     } 
     private Received_damage last_received_damage;
@@ -236,7 +245,7 @@ public class Divisible_body : MonoBehaviour
         
         last_received_damage = new Received_damage(
             contact_point,
-            projectile.last_physics.velocity.magnitude
+            projectile.last_physics.velocity
         );        
         
     }
@@ -244,30 +253,71 @@ public class Divisible_body : MonoBehaviour
     private void on_polygon_colliders_calculated(
         Received_damage damage
     ) {
+        var test1 = rigidbody.angularVelocity;
         List<GameObject> pieces = 
             split_for_collider_pieces(splitting_polygon.Result);
-        
+        var test2 = rigidbody.angularVelocity;
         push_pieces_away(
             pieces, 
             damage.contact_point, 
-            0//damage.impulse_magnitude
+            damage.impulse
         );
     } 
 
     private void push_pieces_away(
         IEnumerable<GameObject> pieces,
         Vector2 contact_point,
-        float force
+        Vector3 force
     ) {
         foreach (var piece in pieces) {
-            Vector2 push_vector = 
-                ((Vector2)piece.transform.position - contact_point).normalized *
-                force;
+            
             var rigidbody = piece.GetComponent<Rigidbody2D>();
-            rigidbody.AddForce(push_vector, ForceMode2D.Impulse);
-            //rigidbody.AddTorque(50f);
+            var test1 = rigidbody.angularVelocity;
+            rigidbody.AddForce(
+                calculate_push_vector(
+                    piece.transform.position,
+                    contact_point,
+                    force.magnitude
+                ),
+                ForceMode2D.Impulse
+            );
+            var test0 = rigidbody.angularVelocity;
+            var test_torque =  calculate_torque(
+                rigidbody,
+                contact_point,
+                force
+            );
+            rigidbody.AddTorque(
+                test_torque,
+                ForceMode2D.Impulse
+            );
+            var test = rigidbody.angularVelocity;
+        }
+
+        Vector2 calculate_push_vector(
+            Vector3 _piece_position,
+            Vector3 _contact_point,
+            float _force
+        ) {
+            return 
+                (_piece_position - _contact_point).normalized *
+                _force;
+        }
+
+        float calculate_torque(
+            Rigidbody2D _piece,
+            Vector3 _contact_point,
+            Vector3 _force_vector
+        ) {
+            float degrees_to_piece = _contact_point.degrees_to(_piece.transform.position);
+            float force_degrees = _force_vector.to_dergees();
+            var rotation_to_piece = new Degree(force_degrees).angle_to(degrees_to_piece);
+            //var result = rotation_to_piece.degrees * (_force_vector.magnitude / 10 / (_piece.mass*100));
+            var result = Math.Sign(rotation_to_piece.degrees)*5;
+            return result;
         }
     }
+    
 
     bool polygons_calculated = false;
     void Update() {

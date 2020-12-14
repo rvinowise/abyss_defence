@@ -46,6 +46,7 @@ public static class Children_splitter {
             IChildren_group distributed_children_group =
                 children_groups_host.children_groups[i_children_group];
             foreach (ICompound_object tool in distributed_children_group.children_stashed_from_copying) {
+                Contract.Requires(tool!= null, "children prepared to distribution should be valid");
                 foreach (GameObject piece_object in piece_objects) {
                     if (tool_is_inside_object(tool, piece_object)) {
                         attach_tool_to_object(piece_object, i_children_group, tool);

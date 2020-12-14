@@ -93,7 +93,7 @@ public partial class Limb2:
 
         Vector2 segment2_position =
             segment1.position +
-            (Vector2) (segment1.target_quaternion * segment1.global_tip);
+            (segment1.target_quaternion * segment1.global_tip);
 
         segment2.target_quaternion = degrees_to_quaternion(
             segment2_position.degrees_to(desired_position)

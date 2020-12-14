@@ -122,12 +122,12 @@ static class Legs {
     private static void init_common_characteristic(Leg leg) {
         leg.comfortable_distance = 0.6f * scale;
         leg.femur.tip = new Vector2(0.4225f, 0f) * scale;
-        leg.femur.spriteRenderer.sprite = sprite_femur;
+        leg.femur.sprite_renderer.sprite = sprite_femur;
         leg.femur.rotation_speed = rotation_speed;
 //        leg.tibia.tip = new Vector2(0.5525f, 0f);
         leg.tibia.tip = new Vector2(0.56f, 0f) * scale;
-        leg.tibia.spriteRenderer.sprite = sprite_tibia;
-        leg.tibia.local_position = leg.femur.tip;
+        leg.tibia.sprite_renderer.sprite = sprite_tibia;
+        leg.tibia.localPosition = leg.femur.tip;
         leg.tibia.rotation_speed = rotation_speed;
     }
 
@@ -174,7 +174,7 @@ static class Legs {
     }
 
     private static void copy_not_mirrored_leg_parameters(Leg dst, Leg src) {
-        dst.tibia.local_position = src.femur.tip;
+        dst.tibia.localPosition = src.femur.tip;
         dst.femur.rotation_speed = src.femur.rotation_speed;
         dst.tibia.rotation_speed = src.tibia.rotation_speed;
     }

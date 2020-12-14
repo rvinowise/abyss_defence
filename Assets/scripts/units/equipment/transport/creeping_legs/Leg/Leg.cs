@@ -175,10 +175,10 @@ public partial class Leg: Limb2
 
     public bool is_valid() {
         // this way it can be deleted from the editor when debugging
-        if (!femur.game_object) {
+        if (!femur.gameObject) {
             return false;
         }
-        if (!tibia.game_object) {
+        if (!tibia.gameObject) {
             return false;
         }
         return true;

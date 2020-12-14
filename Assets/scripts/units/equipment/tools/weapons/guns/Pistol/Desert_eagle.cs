@@ -27,7 +27,7 @@ public class Desert_eagle: Pistol {
         base.Awake();
         
         insert_magazine(
-            Component_creator.instantiate(magazine_prefab).GetComponent<Magazine>()    
+            GameObject.Instantiate(magazine_prefab).GetComponent<Magazine>()    
         );
     }
     

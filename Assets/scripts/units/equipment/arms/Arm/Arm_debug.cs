@@ -37,7 +37,7 @@ public partial class Arm /*, IDo_actions*/ {
             UnityEngine.Debug.DrawLine(
                 limb2.segment1.position, 
                 limb2.segment1.position +
-                (Vector2)(
+                (
                     limb2.segment1.target_quaternion *
                     limb2.segment1.tip
                 ),
@@ -46,7 +46,7 @@ public partial class Arm /*, IDo_actions*/ {
             );
             Vector2 segment2_position =
                 limb2.segment1.position +
-                (Vector2) (limb2.segment1.target_quaternion * limb2.segment1.tip);
+                (limb2.segment1.target_quaternion * limb2.segment1.tip);
             UnityEngine.Debug.DrawLine(
                 segment2_position, 
                 segment2_position + 

@@ -59,7 +59,7 @@ public class Put_hand_before_bag: Action_of_arm {
     private static Vector2 bag_offset = new Vector2(0.3f,0f);
     private Orientation get_desired_orientation() {
         return new Orientation(
-            bag.position + (Vector2)(bag.rotation * bag_offset),
+            bag.position + (bag.rotation * bag_offset),
             bag.rotation * Directions.degrees_to_quaternion(180f),
             null
         );

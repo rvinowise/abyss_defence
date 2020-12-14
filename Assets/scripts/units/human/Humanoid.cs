@@ -74,7 +74,7 @@ public class Humanoid:
     
     
     /* Humanoid itself */
-    protected virtual void Awake()
+    protected override void Awake()
     {
         base.Awake();
         init_components();
@@ -105,49 +105,6 @@ public class Humanoid:
 
     private void init_baggage() {
         //put_tools_into_baggage(baggage);
-    }
-
-    private void put_tools_into_baggage(Baggage baggage) {
-        Tool pistol1 = Component_creator.instantiate_stashed(
-            "objects/guns/desert_eagle/desert_eagle" 
-        ).GetComponent<Tool>(); 
-        
-        Tool pistol2 = Component_creator.instantiate_stashed(
-            pistol1
-        ).GetComponent<Tool>();
-        
-        Tool break_sawedoff1 = Component_creator.instantiate_stashed(
-            "objects/guns/break_sawedoff/break_sawedoff" 
-        ).GetComponent<Tool>();
-        
-        Tool break_sawedoff2 = Component_creator.instantiate_stashed(
-            break_sawedoff1
-        ).GetComponent<Tool>();
-        
-        Tool pump_shotgun = Component_creator.instantiate_stashed(
-            "objects/guns/pump_shotgun/pump_shotgun" 
-        ).GetComponent<Tool>();
-
-        Tool ak47 = Component_creator.instantiate_stashed(
-            "objects/guns/ak47/ak47" 
-        ).GetComponent<Tool>();
-        
-        
-        baggage.items = new List<Tool> {
-            pistol1,
-            pistol2,
-            break_sawedoff1,
-            break_sawedoff2,
-            pump_shotgun,
-            ak47
-        };
-
-        Ammunition desert_eagle_magazine = Component_creator.instantiate(
-            "objects/guns/desert_eagle/magazine" 
-        ).GetComponent<Magazine>();
-        baggage.insert_ammo_for_gun(pistol1.GetComponent<Desert_eagle>(), desert_eagle_magazine);
-        
-        //baggage.insert_ammo_for_gun(pump_shotgun.GetComponent<Pump_shotgun>(), desert_eagle_magazine);
     }
 
     private void init_body_parts() {
@@ -183,7 +140,7 @@ public class Humanoid:
     void FixedUpdate() {
         intelligence.update();
         
-        head.update();
+        head.rotate_to_desired_direction();
         legs.update();
         
         last_action_test = current_action ;

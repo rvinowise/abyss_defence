@@ -103,6 +103,7 @@ MonoBehaviour:
   rotation_speed: 9000
   rotation_acceleration: 9000
   rotation_friction: 0
+  sprite_renderer: {fileID: 0}
 --- !u!1 &823981573291502551
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +384,7 @@ MonoBehaviour:
   rotation_speed: 9000
   rotation_acceleration: 9000
   rotation_friction: 0
+  sprite_renderer: {fileID: 0}
 --- !u!1 &4742470635658798701
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,6 +488,7 @@ MonoBehaviour:
   rotation_speed: 9000
   rotation_acceleration: 9000
   rotation_friction: 0
+  sprite_renderer: {fileID: 0}
 --- !u!1 &5254885592099050827
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +592,7 @@ MonoBehaviour:
   rotation_speed: 9000
   rotation_acceleration: 9000
   rotation_friction: 0
+  sprite_renderer: {fileID: 0}
 --- !u!1 &7640007136119959215
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,8 +815,6 @@ MonoBehaviour:
   _legs:
   - {fileID: 3828825854232858375}
   - {fileID: 2507457358065374302}
-  - {fileID: 0}
-  - {fileID: 0}
   moving_offset_distance: 0.3
 --- !u!114 &8908099032306129881
 MonoBehaviour:

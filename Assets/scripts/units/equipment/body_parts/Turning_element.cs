@@ -8,7 +8,7 @@ using static rvinowise.unity.geometry2d.Directions;
 
 namespace rvinowise.unity.units.parts.limbs{
 
-public class Turning_element: Component_creator {
+public class Turning_element: MonoBehaviour {
     
     [SerializeField]
     public Transform rotated_bone;
@@ -38,6 +38,13 @@ public class Turning_element: Component_creator {
         }
     }
 
+    public Vector3 position => transform.position;
+    public Vector3 localPosition {
+        get=>transform.localPosition;
+        set=>transform.localPosition = value;
+    }
+    public void direct_to(Vector2 aim) => transform.direct_to(aim);
+    public void set_direction(float direction) => transform.set_direction(direction);
 
     protected virtual void Awake() {
         //base.Awake();

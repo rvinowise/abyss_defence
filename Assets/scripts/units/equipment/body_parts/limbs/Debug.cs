@@ -50,7 +50,7 @@ public partial class Limb2 : ICompound_object {
             UnityEngine.Debug.DrawLine(
                 limb2.segment1.position, 
                 limb2.segment1.position +
-                    (Vector2)(
+                    (
                         limb2.segment1.target_quaternion *
                         limb2.segment1.global_tip
                     ),
@@ -59,7 +59,7 @@ public partial class Limb2 : ICompound_object {
             );
             Vector2 segment2_position =
                 limb2.segment1.position +
-                (Vector2) (limb2.segment1.target_quaternion * limb2.segment1.global_tip);
+                (limb2.segment1.target_quaternion * limb2.segment1.global_tip);
             UnityEngine.Debug.DrawLine(
                 segment2_position, 
                 segment2_position + 

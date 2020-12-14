@@ -10,7 +10,8 @@ using rvinowise.unity.units.parts.limbs.creeping_legs.strategy;
 
 
 namespace rvinowise.unity.units.normal_spider.init {
-using parts.limbs;
+    using System.Linq;
+    using parts.limbs;
 
 static class Legs {
     private static readonly float scale = 1f * Settings.scale;
@@ -44,7 +45,8 @@ static class Legs {
     }
 
     private static List<Leg> create_legs(Creeping_leg_group leg_group) {
-        
+        ensure_space_for_legs();
+
         leg_group.right_front_leg = copy_mirrored_leg(leg_group, leg_group.left_front_leg);
         leg_group.right_hind_leg = copy_mirrored_leg(leg_group, leg_group.left_hind_leg);
     
@@ -55,7 +57,13 @@ static class Legs {
 
         return leg_group.legs;
 
-
+        void ensure_space_for_legs() {
+            int needed_legs_qty = 4;
+            int initial_legs_qty = leg_group.legs.Count;
+            foreach(int i in Enumerable.Range(0, needed_legs_qty-initial_legs_qty)) {
+                leg_group.legs.Add(null);
+            }
+        }
         
     }
 
@@ -126,8 +134,8 @@ static class Legs {
         dst.tibia.desired_relative_direction_standing =
             Quaternion.Inverse(src.tibia.desired_relative_direction_standing);
 
-        dst.femur.spriteRenderer.flipY = !src.femur.spriteRenderer.flipY;
-        dst.tibia.spriteRenderer.flipY = !src.tibia.spriteRenderer.flipY;
+        dst.femur.sprite_renderer.flipY = !src.femur.sprite_renderer.flipY;
+        dst.tibia.sprite_renderer.flipY = !src.tibia.sprite_renderer.flipY;
 
         dst.optimal_relative_position_standing_transform.localPosition =
             mirror_point(src.optimal_relative_position_standing_transform.localPosition);
@@ -152,7 +160,7 @@ static class Legs {
     }
 
     private static void copy_not_mirrored_leg_parameters(Leg dst, Leg src) {
-        dst.tibia.local_position = src.femur.tip;
+        dst.tibia.localPosition = src.femur.tip;
         dst.femur.rotation_speed = src.femur.rotation_speed;
         dst.tibia.rotation_speed = src.tibia.rotation_speed;
         dst.transform.parent = src.transform.parent;

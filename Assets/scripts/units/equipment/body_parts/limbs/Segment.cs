@@ -7,8 +7,13 @@ using rvinowise.unity.extensions;
 
 namespace rvinowise.unity.units.parts.limbs {
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class Segment: Turning_element {
     /* constant characteristics. they are written during construction */
+    public SpriteRenderer sprite_renderer;
+
+    public Transform parent => transform.parent;
+
     public Vector2 tip {
         get {
             return _tip;
@@ -43,7 +48,10 @@ public class Segment: Turning_element {
 
     /* current characteristics */
 
-  
+    protected override void Awake() {
+        base.Awake();
+        sprite_renderer = GetComponent<SpriteRenderer>();
+    }
 
     public static Segment create(string in_name) {
         GameObject game_object = new GameObject(in_name);
@@ -52,13 +60,13 @@ public class Segment: Turning_element {
     }
     
     public virtual void mirror_from(limbs.Segment src) {
-        this.local_position = new Vector2(
-            src.local_position.x,
-            -src.local_position.y
+        this.transform.localPosition = new Vector2(
+            src.transform.localPosition.x,
+            -src.transform.localPosition.y
         );
-        this.local_position = new Vector2(
-            src.local_position.x,
-            -src.local_position.y
+        this.transform.localPosition = new Vector2(
+            src.transform.localPosition.x,
+            -src.transform.localPosition.y
         );
         
         this.possible_span = src.possible_span.mirror();
@@ -68,17 +76,17 @@ public class Segment: Turning_element {
         );
         
 
-        if (spriteRenderer != null) {
-            this.spriteRenderer.sprite = src.spriteRenderer.sprite;
-            this.spriteRenderer.flipY = !src.spriteRenderer.flipY;
+        if (sprite_renderer != null) {
+            this.sprite_renderer.sprite = src.sprite_renderer.sprite;
+            this.sprite_renderer.flipY = !src.sprite_renderer.flipY;
         }
     }
 
     public void init_length_to(Segment next_segment) {
         absolute_length = (transform.position - next_segment.transform.position).magnitude;
     }
-    public Vector2 desired_tip() {
-        return this.position + tip.rotate(target_quaternion);
+    public Vector3 desired_tip() {
+        return this.transform.position + tip.rotate(target_quaternion);
     }
 
     

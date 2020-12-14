@@ -49,7 +49,7 @@ public class Arm_reach_transform: rvinowise.unity.units.parts.actions.Action {
     }
     protected virtual bool complete(Transform desired_orientation) {
         if (
-            (arm.hand.position - (Vector2)desired_orientation.position).magnitude <= touching_distance  &&
+            (arm.hand.position - desired_orientation.position).magnitude <= touching_distance  &&
             arm.hand.rotation.abs_degrees_to(desired_orientation.rotation) <= Mathf.Epsilon
         ) 
         {

@@ -14,8 +14,8 @@ namespace rvinowise {
 
 public static partial class Deleter {
     public static void Destroy(Leg leg) {
-        UnityEngine.Object.Destroy(leg.femur.game_object);
-        UnityEngine.Object.Destroy(leg.tibia.game_object);
+        UnityEngine.Object.Destroy(leg.femur.gameObject);
+        UnityEngine.Object.Destroy(leg.tibia.gameObject);
     }
 }
 

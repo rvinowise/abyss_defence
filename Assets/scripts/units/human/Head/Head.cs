@@ -34,7 +34,7 @@ public class Head: Turning_element, ISensory_organ {
         collide_with_rotation_borders();
     }
 
-    public void pay_attention_to(Vector2 point) {
+    public void pay_attention_to(Vector3 point) {
         target_quaternion = (point - position).to_quaternion();
     }
 }

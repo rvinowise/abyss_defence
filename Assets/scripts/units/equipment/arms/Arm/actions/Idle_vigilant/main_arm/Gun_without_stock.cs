@@ -115,7 +115,7 @@ public class Gun_without_stock: actions.Action_of_arm
     ) {
         position_of_wrist = 
             arm.upper_arm.position + 
-            (Vector2)(
+            (
                 direction_to_target *
                 (Vector2.right * distance_shoulder_to_wrist)
             );

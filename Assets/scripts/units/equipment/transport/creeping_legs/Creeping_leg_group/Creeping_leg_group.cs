@@ -54,7 +54,7 @@ public partial class Creeping_leg_group:
         leg.transform.SetParent(transform, false);
     }
     public override void hide_children_from_copying() {
-        children_stashed_from_copying = legs as IEnumerable<ICompound_object> ;
+        children_stashed_from_copying = legs.Where(leg => leg != null) as IEnumerable<ICompound_object> ;
         legs = new List<Leg>();
     }
     
@@ -174,19 +174,19 @@ public partial class Creeping_leg_group:
     }
     public Leg left_front_leg {
         get { return legs[1];}
-         set { legs[1] = value; }
+        set { legs[1] = value; }
     }
     public Leg right_front_leg {
         get { return legs[3];}
-         set { legs[3] = value; }
+        set { legs[3] = value; }
     }
     public Leg left_hind_leg {
         get { return legs[0];}
-         set { legs[0] = value; }
+        set { legs[0] = value; }
     }
     public Leg right_hind_leg {
         get { return legs[2];}
-         set { legs[2] = value; }
+        set { legs[2] = value; }
     }
     [SerializeField]
     public List<Leg> _legs = new List<Leg>();
