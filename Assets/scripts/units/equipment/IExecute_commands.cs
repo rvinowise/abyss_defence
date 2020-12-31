@@ -12,10 +12,6 @@ namespace rvinowise.unity.units.parts {
 
 public interface IExecute_commands {
 
-    Command_batch command_batch { get; }
-
-    void update();
-    //void execute_commands();
 
 }
 }

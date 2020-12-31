@@ -63,7 +63,7 @@ public class Bleeding_body: MonoBehaviour {
         trajectory_flyer.height = 0.2f;
         trajectory_flyer.vertical_velocity = 1f + Random.value*3;
         droplet.size = Random.Range(0.5f, 1.5f);
-        trajectory_flyer.weight = droplet.size * 10;
+        trajectory_flyer.weight = droplet.size * 20;
 
         Degree rotation_aside = new Degree(Random.Range(-spread_degrees, spread_degrees));
         Vector2 rotated_impulse = in_impulse.rotate(rotation_aside.degrees);
@@ -92,7 +92,7 @@ public class Bleeding_body: MonoBehaviour {
 
             create_splash(
                 contact_point,
-                other.GetContact(0).relativeVelocity/300,
+                other.GetContact(0).relativeVelocity/800,
                 10
             );
             

@@ -18,27 +18,44 @@ public partial class Creeping_leg_group:
     ,ITransporter
 {
     
-    /* Children_group interface */
-    public override IEnumerable<ICompound_object> children  {
+    #region Children_group
+    public override IEnumerable<IChild_of_group> children  {
         get { return legs; }
     }
 
-    protected virtual void Awake() {
+    protected override void Awake() {
         base.Awake();
-        
+        init_components();
     }
 
-    protected virtual void Start() {
+    protected override void Start() {
         base.Start();
+        foreach(var leg in legs) {
+            leg.init_folding_direction();
+        }
+        create_moving_strategy();
 
-        var test = GetComponents<Turning_element>();
         Contract.Requires(GetComponents<Turning_element>().Length <= 1,
             "only one component with Turning_element is enough");
         turning_element = GetComponent<Turning_element>();
     }
 
-    protected override void init_components() {
-        rigid_body = game_object.GetComponent<Rigidbody2D>();
+    private void create_moving_strategy() {
+        if (legs.Count == 4) {
+            stable_leg_groups = new List<Stable_leg_group>() {
+                new Stable_leg_group(
+                    new List<Leg>() {left_front_leg, right_hind_leg}
+                ),
+                new Stable_leg_group(
+                    new List<Leg>() {right_front_leg, left_hind_leg}
+                )
+            };
+        } 
+        guess_moving_strategy();
+    }
+
+    protected void init_components() {
+        rigid_body = gameObject.GetComponent<Rigidbody2D>();
         if (rigid_body != null) {
             move_in_direction = move_in_direction_as_rigidbody;
         }
@@ -47,16 +64,21 @@ public partial class Creeping_leg_group:
         }
     }
 
-    public override void add_child(ICompound_object compound_object) {
+    public override void add_child(IChild_of_group compound_object) {
         Contract.Requires(compound_object is Leg);
         Leg leg = compound_object as Leg;
         legs.Add(leg);
         leg.transform.SetParent(transform, false);
     }
-    public override void hide_children_from_copying() {
-        children_stashed_from_copying = legs.Where(leg => leg != null) as IEnumerable<ICompound_object> ;
+
+    public Type child_type() {
+        return typeof(Leg);
+    }
+
+    protected override void init_child_list() {
         legs = new List<Leg>();
     }
+  
     
 
     public override void shift_center(Vector2 in_shift) {
@@ -65,11 +87,11 @@ public partial class Creeping_leg_group:
             //leg.optimal_position_standing = (leg.optimal_position_standing + in_shift);
         }
     }
-    
+    #endregion
 
     
 
-    /* ITransporter interface */
+    #region ITransporter
     
     public static float belly_friction_multiplier = 0.9f;
     
@@ -104,7 +126,6 @@ public partial class Creeping_leg_group:
         get { return transform.rotation; }
     }
 
-    parts.Command_batch IExecute_commands.command_batch => command_batch;
     public transport.Command_batch command_batch { get; } = new transport.Command_batch();
 
 
@@ -132,23 +153,24 @@ public partial class Creeping_leg_group:
     }
     
     
-    public void update() {
-        destroy_invalid_legs(); //debug_limb
+    void FixedUpdate() {
         execute_commands();
         move_legs();
     }
     
     protected void execute_commands() {
         move_in_direction(command_batch.moving_direction_vector);
-        rotate_to_direction(command_batch.face_direction_quaternion);
+        if (turning_element != null) {
+            rotate_to_direction(command_batch.face_direction_quaternion);
+        }
     }
+    #endregion
     
     
-    
-    /* Creeping_leg_group itself */
+    #region Creeping_leg_group itself
     
     /* legs that are enough to be stable if they are on the ground */
-    public IList<Stable_leg_group> stable_leg_groups = new List<Stable_leg_group>();
+    public List<Stable_leg_group> stable_leg_groups = new List<Stable_leg_group>();
 
     public strategy.Moving_strategy moving_strategy {
         get { return _moving_strategy; }
@@ -172,21 +194,21 @@ public partial class Creeping_leg_group:
             return _legs;
         }
     }
-    public Leg left_front_leg {
-        get { return legs[1];}
-        set { legs[1] = value; }
-    }
-    public Leg right_front_leg {
-        get { return legs[3];}
-        set { legs[3] = value; }
-    }
     public Leg left_hind_leg {
         get { return legs[0];}
         set { legs[0] = value; }
     }
+    public Leg left_front_leg {
+        get { return legs[1];}
+        set { legs[1] = value; }
+    }
     public Leg right_hind_leg {
         get { return legs[2];}
         set { legs[2] = value; }
+    }
+    public Leg right_front_leg {
+        get { return legs[3];}
+        set { legs[3] = value; }
     }
     [SerializeField]
     public List<Leg> _legs = new List<Leg>();
@@ -276,10 +298,13 @@ public partial class Creeping_leg_group:
 
     
 
-    public override void on_draw_gizmos() {
+    public void OnDrawGizmos() {
         foreach (Leg leg in legs) {
-            leg.debug.draw_positions();
-            leg.debug.draw_desired_directions(0.1f);
+            if (leg.debug != null) {
+                leg.debug.draw_positions();
+                leg.debug.draw_desired_directions(0.1f);
+                leg.debug.draw_directions(0.1f);
+            }
         }
         //draw_moving_direction();
     }
@@ -293,7 +318,10 @@ public partial class Creeping_leg_group:
             1f
         );
     }*/
-}
+
+    #endregion
+
+    }
 
 }
 

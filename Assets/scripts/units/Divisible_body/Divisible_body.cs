@@ -36,11 +36,8 @@ public class Divisible_body : MonoBehaviour
 
     public Pooled_object pooled_prefab;
 
-    private Rigidbody2D rigidbody;
 
     void Awake() {
-        rigidbody = GetComponent<Rigidbody2D>();
-        var test1 = rigidbody.angularVelocity;
     }
 
 
@@ -61,11 +58,6 @@ public class Divisible_body : MonoBehaviour
         
         Destroy(gameObject);
 
-        foreach (GameObject test_piece in piece_objects) {
-           Rigidbody2D piece_rigid_body = test_piece.GetComponent<Rigidbody2D>();
-           var test0 = piece_rigid_body.angularVelocity;
-           var test1 = piece_rigid_body.velocity;
-        }
         return piece_objects;
     }
 
@@ -198,9 +190,7 @@ public class Divisible_body : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) {
         
         if (collision.get_damaging_projectile() is Projectile damaging_projectile ) {
-            var test1 = rigidbody.angularVelocity;
             damage_by_projectile(damaging_projectile, collision);
-            var test2 = rigidbody.angularVelocity;
         }
     }
 
@@ -253,10 +243,8 @@ public class Divisible_body : MonoBehaviour
     private void on_polygon_colliders_calculated(
         Received_damage damage
     ) {
-        var test1 = rigidbody.angularVelocity;
         List<GameObject> pieces = 
             split_for_collider_pieces(splitting_polygon.Result);
-        var test2 = rigidbody.angularVelocity;
         push_pieces_away(
             pieces, 
             damage.contact_point, 
@@ -272,7 +260,6 @@ public class Divisible_body : MonoBehaviour
         foreach (var piece in pieces) {
             
             var rigidbody = piece.GetComponent<Rigidbody2D>();
-            var test1 = rigidbody.angularVelocity;
             rigidbody.AddForce(
                 calculate_push_vector(
                     piece.transform.position,
@@ -281,17 +268,14 @@ public class Divisible_body : MonoBehaviour
                 ),
                 ForceMode2D.Impulse
             );
-            var test0 = rigidbody.angularVelocity;
-            var test_torque =  calculate_torque(
-                rigidbody,
-                contact_point,
-                force
-            );
             rigidbody.AddTorque(
-                test_torque,
+                calculate_torque(
+                    rigidbody,
+                    contact_point,
+                    force
+                ),
                 ForceMode2D.Impulse
             );
-            var test = rigidbody.angularVelocity;
         }
 
         Vector2 calculate_push_vector(

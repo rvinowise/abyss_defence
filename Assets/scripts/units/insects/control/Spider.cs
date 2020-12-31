@@ -13,7 +13,5 @@ namespace rvinowise.unity.units.control.spider {
 public class Spider:Intelligence {
     
     
-    
-    public Spider( ) : base() { }
 }
 }

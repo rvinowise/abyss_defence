@@ -22,7 +22,6 @@ public class Legs:
 
     //[HideInInspector]
     public transport.Command_batch command_batch { get; } = new transport.Command_batch();
-    Command_batch IExecute_commands.command_batch => command_batch;
     
     
     public void update() {

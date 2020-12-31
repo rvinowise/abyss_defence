@@ -33,7 +33,7 @@ public class Normal_spider: Creature {
     }
     
     protected override void fill_equipment_with_children() {
-        init.Legs.init(sprider_transporter);
+        //init.Legs.init(sprider_transporter);
     }
 
   

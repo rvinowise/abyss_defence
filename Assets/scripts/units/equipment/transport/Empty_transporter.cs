@@ -18,7 +18,6 @@ public class Empty_transporter: ITransporter {
     public Quaternion direction_quaternion { get; }
 
     public transport.Command_batch command_batch { get; }
-    Command_batch IExecute_commands.command_batch => command_batch;
 
 
     public void rotate_to_direction(float direction) {
@@ -37,8 +36,8 @@ public class Empty_transporter: ITransporter {
         return new Empty_transporter();
     }
 
-    public IEnumerable<ICompound_object> tools { get; }
-    public void add_tool(ICompound_object compound_object) {
+    public IEnumerable<IChild_of_group> tools { get; }
+    public void add_tool(IChild_of_group compound_object) {
         throw new NotImplementedException();
     }
 

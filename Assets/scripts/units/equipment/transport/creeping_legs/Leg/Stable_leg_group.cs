@@ -8,7 +8,7 @@ using rvinowise.unity.extensions;
 namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 
 
-[Serializable]
+[System.Serializable]
 public class Stable_leg_group {
     public List<Leg> legs;
     

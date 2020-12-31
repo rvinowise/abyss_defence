@@ -30,20 +30,26 @@ public class Droplet:
     public Pooled_object pooled_object;
     [HideInInspector]
     public Trajectory_flyer trajectory_flyer;
+    [HideInInspector] SpriteRenderer sprite_renderer;
 
-    [HideInInspector]
-    public float size = 1f;
-    //public float height = 1f;
     [HideInInspector]
     public float vertical_velocity = 0f;
 
     public Puddle puddle_prefab;
     
+    public float size {
+        get {return transform.localScale.x;}
+        set {
+            transform.localScale = new Vector3(value,value,1);
+        }
+    }
+
     public void Awake() {
         
         rigidbody = GetComponent<Rigidbody2D>();
         pooled_object = GetComponent<Pooled_object>();
         trajectory_flyer = GetComponent<Trajectory_flyer>();
+        sprite_renderer = GetComponent<SpriteRenderer>();
         /* if (puddle_prefab != null) {
             trajectory_flyer.on_fell_on_the_ground.AddListener(stain_the_ground);
         } */

@@ -74,7 +74,7 @@ public partial class Creeping_leg_group {
     
         private static Children_group get_controller_with_all_tools_from( //#generalize
             IEnumerable<Children_group> all_controllers,
-            IEnumerable<ICompound_object> in_legs
+            IEnumerable<IChild_of_group> in_legs
             ) 
         {
             foreach (var controller in all_controllers) {
@@ -87,7 +87,7 @@ public partial class Creeping_leg_group {
     
         //#generalize
         private static bool all_tools_are_within_controller(
-            IEnumerable<ICompound_object> in_tools, 
+            IEnumerable<IChild_of_group> in_tools, 
             Children_group controller) 
         {
             foreach (var tool in in_tools) {

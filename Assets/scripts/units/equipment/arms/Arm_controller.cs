@@ -17,19 +17,14 @@ public class Arm_controller: /*MonoBehaviour,*/
 {
     
     /* IChildren_group interface */
-    protected IChildren_groups_host host;
     
-    public override IEnumerable<ICompound_object> children {
+    public override IEnumerable<IChild_of_group> children {
         get { return arms; }
     }
 
 
-    public Transform transform {
-        get { return gameObject.transform; }
-    }
 
-
-    protected virtual void Awake() {
+    protected override void Awake() {
         base.Awake();
         foreach (var arm in arms) {
             arm.controller = this;
@@ -44,13 +39,12 @@ public class Arm_controller: /*MonoBehaviour,*/
     }
 
 
-    public override void add_child(ICompound_object compound_object) {
-        Contract.Requires(compound_object is Arm);
-        arms.Add(compound_object as Arm);
+    public override void add_child(IChild_of_group child) {
+        Contract.Requires(child is Arm);
+        arms.Add(child as Arm);
     }
 
-    public override void hide_children_from_copying() {
-        children_stashed_from_copying = arms as ICollection<ICompound_object> ;
+    protected override void init_child_list() {
         arms = new List<Arm>();
     }
 
@@ -58,9 +52,6 @@ public class Arm_controller: /*MonoBehaviour,*/
         host = in_host;
     }
 
-    public void init() {
-        
-    }
     
     
     /* IExecute_commands interface */

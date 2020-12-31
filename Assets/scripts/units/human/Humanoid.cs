@@ -120,25 +120,11 @@ public class Humanoid:
     }
 
     private void init_intelligence() {
-        intelligence = new control.human.Player(transform);
-        intelligence.transporter = this.legs;
         intelligence.arm_controller = arm_controller;
-        intelligence.baggage = baggage;
-        intelligence.sensory_organ = head;
-        
-        /*action_tree = Idle_vigilant_body.create(
-            arm_controller.left_arm,
-            arm_controller.right_arm,
-            ui.input.Input.instance.cursor.center.transform,
-            legs
-        );*/
-        
-        
     }
 
     private Action last_action_test;
     void FixedUpdate() {
-        intelligence.update();
         
         head.rotate_to_desired_direction();
         legs.update();

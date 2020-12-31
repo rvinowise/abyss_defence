@@ -1,3 +1,34 @@
 {
-	"bookmarks": []
+	"bookmarks": [
+		{
+			"fsPath": "$ROOTPATH$\\Assets\\scripts\\units\\equipment\\body_parts\\Turning_element.cs",
+			"bookmarks": [
+				-1,
+				101,
+				-1,
+				-1,
+				-1,
+				-1,
+				-1,
+				-1,
+				-1,
+				-1
+			]
+		},
+		{
+			"fsPath": "$ROOTPATH$\\Assets\\scripts\\units\\equipment\\body_parts\\limbs\\Segment.cs",
+			"bookmarks": [
+				-1,
+				-1,
+				62,
+				-1,
+				-1,
+				-1,
+				-1,
+				-1,
+				-1,
+				-1
+			]
+		}
+	]
 }

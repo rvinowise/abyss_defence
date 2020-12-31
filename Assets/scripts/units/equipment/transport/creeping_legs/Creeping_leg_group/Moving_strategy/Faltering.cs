@@ -29,7 +29,7 @@ internal class Faltering: Moving_strategy
             (!can_hold)
         ) 
         {
-            leg.debug.draw_lines(Color.red);
+            //leg.debug.draw_lines(Color.red);
             raise_up(leg);
         }
     }

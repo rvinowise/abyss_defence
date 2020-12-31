@@ -16,7 +16,5 @@ public class Human:Intelligence {
     
     public parts.limbs.arms.humanoid.Arm_controller arm_controller;
     
-    
-    public Human() : base() { }
 }
 }

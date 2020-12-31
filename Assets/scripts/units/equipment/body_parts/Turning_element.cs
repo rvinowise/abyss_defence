@@ -11,7 +11,17 @@ namespace rvinowise.unity.units.parts.limbs{
 public class Turning_element: MonoBehaviour {
     
     [SerializeField]
-    public Transform rotated_bone;
+    public Turning_element rotated_bone;
+    
+    /* [HideInInspector]
+    private Transform rotated_bone {
+        get {
+            if (rotated_bone == null) {
+                return this.transform;
+            }
+            return rotated_bone.tramsform;
+        }
+    } */
 
     public Span possible_span;
     public float rotation_speed;
@@ -23,18 +33,24 @@ public class Turning_element: MonoBehaviour {
     public Degree current_rotation_inertia;
     public Saved_physics last_physics = new Saved_physics();
     
-    public Quaternion target_quaternion {
+    public virtual Quaternion target_quaternion {
         get { return target_direction.rotation;}
         set { target_direction.rotation = value; }
     }
     public Relative_direction target_direction;
     
-    public Quaternion rotation {
+    public virtual Quaternion rotation {
         get {
-            return rotated_bone.rotation;
+            return transform.rotation;
         }
         set {
-            rotated_bone.rotation = value;    
+            transform.rotation = value;    
+        }
+    }
+
+    public Degree local_degrees {
+        get {
+            return rotated_bone.transform.local_rotation();
         }
     }
 
@@ -49,10 +65,10 @@ public class Turning_element: MonoBehaviour {
     protected virtual void Awake() {
         //base.Awake();
         if (rotated_bone == null) { // if not specified in the Editor - by-default rotate itself
-            rotated_bone = this.transform;
+            rotated_bone = this;
         }
+        possible_span.init_for_direction(this.local_degrees);
     }
-
 
     public Relative_direction set_target_direction_relative_to_parent(Quaternion in_rotation) {
         target_direction = new Relative_direction(
@@ -81,6 +97,7 @@ public class Turning_element: MonoBehaviour {
     }
 
     public virtual void rotate_to_desired_direction() {
+        
 
         float angle_to_pass = rotated_bone.rotation.degrees_to(target_direction.rotation).degrees;
         rvinowise.contracts.Contract.Assume(Mathf.Abs(angle_to_pass) < 180f, "angle too big");
@@ -93,7 +110,10 @@ public class Turning_element: MonoBehaviour {
                     Mathf.Abs(current_rotation_inertia.degrees) /
                     rotation_acceleration;
                 if (is_ready_to_reach_target()) {
-                    fix_at_target_direction();
+                    /* if (this.transform.parent?.parent?.name == "leg_l_f") {
+                        var test = true;
+                    }
+                    fix_at_target_direction(); */
                 }
                 else {
                     if (moving_towards_target_too_fast(time_to_stopping, needed_time)) {
@@ -165,20 +185,29 @@ public class Turning_element: MonoBehaviour {
 
 
     public void collide_with_rotation_borders() {
-        float delta_degrees = rotated_bone.parent.delta_degrees(rotated_bone);
-        if (delta_degrees > possible_span.max) {
-            rotated_bone.rotation = rotated_bone.parent.rotation * degrees_to_quaternion(possible_span.max);
-            if (current_rotation_inertia.use_minus().degrees > 0) {
+        if (!is_within_span()) {
+            collide_with_closest_border();
+        }
+    }
+
+    private void collide_with_closest_border() {
+        var parent = rotated_bone.transform.parent;
+        Degree abs_min_border = parent.rotation * possible_span.min;
+        Degree abs_max_border = parent.rotation * possible_span.max;
+        if (
+            Mathf.Abs(abs_min_border.angle_to(this.rotation)) >
+            Mathf.Abs(abs_max_border.angle_to(this.rotation))
+        ) {
+            rotated_bone.rotation = parent.rotation * degrees_to_quaternion(possible_span.max);
+            if (current_rotation_inertia.use_minus() > 0) {
+                current_rotation_inertia = Degree.zero;
+            }
+        } else {
+            rotated_bone.rotation = parent.rotation * degrees_to_quaternion(possible_span.min);
+            if (current_rotation_inertia.use_minus() > 0) {
                 current_rotation_inertia = Degree.zero;
             }
         }
-        else if (delta_degrees < possible_span.min) {
-            rotated_bone.rotation = rotated_bone.parent.rotation * degrees_to_quaternion(possible_span.min);
-            if (current_rotation_inertia.use_minus().degrees < 0) {
-                current_rotation_inertia = Degree.zero;
-            }
-        }
-        
     }
 
     public void rotate_to(Quaternion direction) {
@@ -193,10 +222,44 @@ public class Turning_element: MonoBehaviour {
         );
     }
 
+    public bool is_within_span() {
+        float delta_degrees = transform.parent.delta_degrees(transform);
+        bool is_within_smaller_span = false;
+        if (
+            (delta_degrees > possible_span.min)&&
+            (delta_degrees < possible_span.max)
+        ) 
+        {
+            if ((this.name == "femur")&&(this.transform.parent.name == "leg_l_b")) {
+                bool test = true;
+            }
+            is_within_smaller_span = true;
+        }
+        if (possible_span.goes_through_switching_degrees) {
+            return !is_within_smaller_span;
+        }
+        return is_within_smaller_span;
+    }
+
     public class Strategy : Headspring.Enumeration<Strategy, int> {
         public static readonly Strategy Reach_desired_direction = new Strategy(0, "Reach_desired_direction");
         public static readonly Strategy Controlled_from_outside = new Strategy(1, "Controlled_from_outside");
         private Strategy(int value, string displayName) : base(value, displayName) { }
+    }
+
+    void OnDrawGizmos() {
+        float line_length = 0.1f;
+        Gizmos.color = Color.green;
+        Transform rotated_bone = transform.parent;
+        
+        var parent_rotation = Quaternion.identity;
+        if (rotated_bone != null){
+            parent_rotation = transform.parent.transform.rotation;
+        }
+        var min_rotation = parent_rotation * Directions.degrees_to_quaternion(possible_span.min);
+        var max_rotation = parent_rotation * Directions.degrees_to_quaternion(possible_span.max);
+        Gizmos.DrawLine(transform.position, transform.position+min_rotation * Vector2.right * line_length);
+        Gizmos.DrawLine(transform.position, transform.position+max_rotation * Vector2.right * line_length);
     }
 }
 }

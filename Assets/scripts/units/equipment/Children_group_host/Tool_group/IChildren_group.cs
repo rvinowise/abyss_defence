@@ -8,16 +8,16 @@ which work together under control of this object:
 creeping_legs, Weapons etc. */
 public interface IChildren_group
 {
-    IEnumerable<ICompound_object> children {
+    IEnumerable<IChild_of_group> children {
         get;
     }
-    IEnumerable<ICompound_object> children_stashed_from_copying {
+    IEnumerable<IChild_of_group> children_stashed_from_copying {
         get;
     }
 
      void hide_children_from_copying();
     
-    void add_child(ICompound_object compound_object);
+    void add_child(IChild_of_group compound_object);
     
     
     void init();

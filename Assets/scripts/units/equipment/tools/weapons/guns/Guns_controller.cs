@@ -18,7 +18,7 @@ public class Guns_controller:
     private IList<Ak47> rifles;
 
 
-    public override IEnumerable<ICompound_object> children { get; }
+    public override IEnumerable<IChild_of_group> children { get; }
     
 
     public Command_batch command_batch { get; }
@@ -27,7 +27,7 @@ public class Guns_controller:
     }
 
 
-    public override void add_child(ICompound_object compound_object) {
+    public override void add_child(IChild_of_group compound_object) {
         /*if (child is Ak47 rifle) {
             rifle.parent = transform;
             rifles.Add(rifle);
@@ -35,9 +35,9 @@ public class Guns_controller:
         
     }
 
-    public override void hide_children_from_copying() {
-        //children_stashed_from_copying = children
-    }
+   protected override void init_child_list() {
+
+   }
 
 
     /* IWeaponry interface */

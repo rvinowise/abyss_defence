@@ -45,7 +45,7 @@ public static class Children_splitter {
         {
             IChildren_group distributed_children_group =
                 children_groups_host.children_groups[i_children_group];
-            foreach (ICompound_object tool in distributed_children_group.children_stashed_from_copying) {
+            foreach (IChild_of_group tool in distributed_children_group.children_stashed_from_copying) {
                 Contract.Requires(tool!= null, "children prepared to distribution should be valid");
                 foreach (GameObject piece_object in piece_objects) {
                     if (tool_is_inside_object(tool, piece_object)) {
@@ -60,13 +60,13 @@ public static class Children_splitter {
     
 
 
-    private static bool tool_is_inside_object(ICompound_object compound_object, GameObject game_object) {
+    private static bool tool_is_inside_object(IChild_of_group child, GameObject game_object) {
         PolygonCollider2D collider = game_object.GetComponent<PolygonCollider2D>();
         Contract.Requires(collider.pathCount == 1, "only simple polygons");
         if (
             System.Convert.ToBoolean(
                 ClipperLib.Clipper.PointInPolygon(
-                    Clipperlib_coordinates.float_coord_to_int(compound_object.main_object.transform.localPosition),
+                    Clipperlib_coordinates.float_coord_to_int(child.transform.localPosition),
                     Clipperlib_coordinates.float_coord_to_int(new Polygon(collider.GetPath(0)))
                 )
             )
@@ -79,13 +79,13 @@ public static class Children_splitter {
     private static void attach_tool_to_object(
         GameObject piece_object,
         int i_children_group,
-        ICompound_object compound_object) 
+        IChild_of_group child) 
     {
         IChildren_groups_host piece_children_groups_host =
             piece_object.GetComponent<IChildren_groups_host>();
         Children_group piece_children_group =
             piece_children_groups_host.children_groups[i_children_group];
-        piece_children_group.add_child(compound_object);
+        piece_children_group.add_child(child);
     }
 }
 

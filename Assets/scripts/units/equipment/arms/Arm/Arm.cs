@@ -6,11 +6,12 @@ using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.tools;
 using Action = rvinowise.unity.units.parts.actions.Action;
+using System;
 
 namespace rvinowise.unity.units.parts.limbs.arms  {
 
 public partial class Arm: 
-    Limb3, IPerform_actions 
+    Limb3, IPerform_actions, IChild_of_group
 
 {
 
@@ -50,7 +51,7 @@ public partial class Arm:
         get { return upper_arm.absolute_length + forearm.absolute_length + hand.absolute_length; }
     }
     
-    /* IPerform_actions interface */
+    #region IPerform_actions
 
     public Action current_action {
         get { return _current_action;}
@@ -65,6 +66,9 @@ public partial class Arm:
         current_action = in_action;
         current_action.start_as_root();
     }
+    #endregion
+
+    
     
     /* Arm itself */
 

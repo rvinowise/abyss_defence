@@ -10,6 +10,8 @@ namespace rvinowise.unity.units.parts.limbs {
 [RequireComponent(typeof(SpriteRenderer))]
 public class Segment: Turning_element {
     /* constant characteristics. they are written during construction */
+
+    [HideInInspector]
     public SpriteRenderer sprite_renderer;
 
     public Transform parent => transform.parent;
@@ -24,9 +26,14 @@ public class Segment: Turning_element {
             sqr_length = Mathf.Pow(_absolute_length,2);
         }
     }
-    public Vector2 global_tip {
+    public Vector2 sized_tip {
         get {
             return _tip * this.transform.lossyScale.x;
+        }
+    }
+    public Vector2 global_tip {
+        get {
+            return transform.position + sized_tip.rotate(base.rotation);
         }
     }
     protected Vector2 _tip;
@@ -44,13 +51,46 @@ public class Segment: Turning_element {
         get;
         private set;
     }
-    
+
+    private float degrees2tip;
+    private Quaternion quaternion2tip;
+
+    private Segment parent_segment;
+    /* public float direction_practic2unity(float in_degrees) {
+
+    } */
+
+    public override Quaternion target_quaternion {
+        get { 
+            return base.target_quaternion * quaternion2tip;
+        }
+        set { 
+            base.target_quaternion = value * quaternion2tip.inverse();
+        }
+    }
+
+    public override Quaternion rotation {
+        get {
+            return base.rotation * quaternion2tip;
+        }
+        set {
+            base.rotation = value * quaternion2tip.inverse();
+        }
+    }
 
     /* current characteristics */
 
     protected override void Awake() {
         base.Awake();
         sprite_renderer = GetComponent<SpriteRenderer>();
+        
+    }
+
+    protected void Start() {
+        degrees2tip = tip.to_dergees();
+        quaternion2tip = tip.to_quaternion();
+
+        parent_segment = transform.parent?.GetComponent<Segment>();
     }
 
     public static Segment create(string in_name) {
@@ -85,12 +125,24 @@ public class Segment: Turning_element {
     public void init_length_to(Segment next_segment) {
         absolute_length = (transform.position - next_segment.transform.position).magnitude;
     }
-    public Vector3 desired_tip() {
-        return this.transform.position + tip.rotate(target_quaternion);
+    public Vector3 get_desired_tip() {
+        if (parent_segment == null) {
+            return this.transform.position + tip.rotate(target_quaternion);
+        }
+        return parent_segment.get_desired_tip() + 
+                        target_quaternion * (Vector2.right * this.absolute_length);/*  * global_tip */;
     }
 
     
-
+    public void debug_draw_line(Color color, float time = 0.1f) {
+        rvinowise.unity.debug.Debug.DrawLine(
+            transform.position, 
+            transform.TransformPoint(tip), 
+            color,
+            3f,
+            time
+        );
+    }
 
     
     

@@ -121,7 +121,7 @@ public class Gun_with_stock: actions.Action_of_arm
             );
 
         Quaternion direction_to_wrist =
-            arm.upper_arm.desired_tip().quaternion_to(position_of_wrist);
+            arm.upper_arm.get_desired_tip().quaternion_to(position_of_wrist);
 
         Quaternion desired_direction = direction_to_wrist;
         if (body_wants_to_turn.side() == Side.LEFT) {
