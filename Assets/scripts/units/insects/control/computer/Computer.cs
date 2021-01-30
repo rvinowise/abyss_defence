@@ -36,8 +36,6 @@ public class Computer: Spider  {
     }
     private float _face_direction_degrees;
 
-    private Transform transform;
-
 
     public void read_input() {
         read_moving_direction(

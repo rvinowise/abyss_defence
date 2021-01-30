@@ -14,10 +14,6 @@ public class Limb3: Limb2 {
 
     public virtual Segment segment3 { get; set; } //an appendage at the end, to direct the children
 
-    public Limb3() {
-        
-    }
-    
     
     public override void rotate_to_desired_directions() {
         base.rotate_to_desired_directions();
@@ -31,16 +27,16 @@ public class Limb3: Limb2 {
 
     public virtual void rotate_to_orientation(Orientation needed_orientation) {
         set_desired_directions_by_position(needed_orientation.position);
-        segment3.target_quaternion = needed_orientation.rotation;
+        segment3.target_rotation = needed_orientation.rotation;
         rotate_to_desired_directions();
     }
     
     public override void preserve_possible_rotations() {
         base.preserve_possible_rotations();
-        segment3.collide_with_rotation_borders();
+        segment3.preserve_possible_rotations();
     }
     
-    public bool at_desired_rotation() {
+    public override bool at_desired_rotation() {
         return (
             base.at_desired_rotation() &&
             this.segment3.at_desired_rotation()

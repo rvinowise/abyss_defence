@@ -50,7 +50,7 @@ public class Gun_without_stock: actions.Action_of_arm
             held_gun = gun;
 
             if (gun.has_stock) {
-                distance_shoulder_to_wrist = held_gun.stock_length - arm.hand.absolute_length + shoulder_thickness;
+                distance_shoulder_to_wrist = held_gun.stock_length - arm.hand.length + shoulder_thickness;
             }
             else {
                 distance_shoulder_to_wrist = arm.length/2f;
@@ -58,9 +58,9 @@ public class Gun_without_stock: actions.Action_of_arm
             upper_arm_offset_turn =
                 arm.folding_direction.turn_quaternion(
                     unity.geometry2d.Triangles.get_quaternion_by_lengths(
-                        arm.upper_arm.absolute_length,
+                        arm.upper_arm.length,
                         distance_shoulder_to_wrist,
-                        arm.forearm.absolute_length
+                        arm.forearm.length
                     )
                 );
         }
@@ -77,16 +77,16 @@ public class Gun_without_stock: actions.Action_of_arm
             transporter.direction_quaternion.to_float_degrees()
         ).use_minus();
         
-        arm.upper_arm.target_quaternion = 
+        arm.upper_arm.target_rotation = 
             determine_desired_direction_of_upper_arm(direction_to_target, body_wants_to_turn);
 
 
         
-        arm.forearm.target_quaternion = 
+        arm.forearm.target_rotation = 
             determine_desired_direction_of_forearm(direction_to_target, body_wants_to_turn);
 
 
-        arm.hand.target_quaternion =
+        arm.hand.target_rotation =
             direction_to_target;
         
         arm.rotate_to_desired_directions();
@@ -121,7 +121,7 @@ public class Gun_without_stock: actions.Action_of_arm
             );
 
         Quaternion direction_to_wrist =
-            arm.upper_arm.get_desired_tip().quaternion_to(position_of_wrist);
+            arm.upper_arm.desired_tip.quaternion_to(position_of_wrist);
 
         Quaternion desired_direction = direction_to_wrist;
         if (body_wants_to_turn.side() == Side.LEFT) {

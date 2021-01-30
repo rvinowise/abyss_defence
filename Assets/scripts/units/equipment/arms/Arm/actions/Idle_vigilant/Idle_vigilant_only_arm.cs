@@ -37,12 +37,12 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
     
     public override void init_state() {
         base.init_state();
-        arm.shoulder.target_direction = new Relative_direction(
-            arm.shoulder.desired_idle_direction,arm.shoulder.parent    
+        arm.shoulder.set_target_direction_relative_to_parent(
+            arm.shoulder.desired_idle_rotation
         );
-        arm.upper_arm.target_direction.relative_to = null;
-        arm.forearm.target_direction.relative_to = null;
-        arm.hand.target_direction.relative_to = null;
+        arm.upper_arm.target_direction_relative = false;
+        arm.forearm.target_direction_relative = false;
+        arm.hand.target_direction_relative = false;
     }
     
     
@@ -62,17 +62,17 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
         arm.forearm.target_quaternion = 
             determine_desired_direction_of_forearm(direction_to_target, body_wants_to_turn);*/
         
-        /*arm.shoulder.target_quaternion = 
-            arm.shoulder.desired_idle_direction * transporter.direction_quaternion;*/
+        arm.shoulder.target_rotation = 
+            arm.shoulder.desired_idle_rotation * transporter.direction_quaternion;
         
-        arm.upper_arm.target_quaternion =
-            arm.upper_arm.desired_idle_direction * direction_to_target;
+        arm.upper_arm.target_rotation =
+            arm.upper_arm.desired_idle_rotation * direction_to_target;
         
-        arm.forearm.target_quaternion =
-            arm.forearm.desired_idle_direction * direction_to_target;
+        arm.forearm.target_rotation =
+            arm.forearm.desired_idle_rotation * direction_to_target;
         
-        arm.hand.target_quaternion =
-            arm.hand.desired_idle_direction * direction_to_target;
+        arm.hand.target_rotation =
+            arm.hand.desired_idle_rotation * direction_to_target;
 
         
         /* smooth movement with velocity for recoil */
@@ -104,7 +104,7 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
     ) {
         
         Quaternion desired_direction =
-            direction_to_target * arm.upper_arm.desired_idle_direction;
+            direction_to_target * arm.upper_arm.desired_idle_rotation;
 
         if (body_wants_to_turn.side() == Side.LEFT) {
             desired_direction *= body_wants_to_turn.to_quaternion().multiplied(1.1f).inverse();
@@ -119,7 +119,7 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
         Degree body_wants_to_turn
     ) {
 
-        Quaternion desired_direction = direction_to_target * arm.forearm.desired_idle_direction;;
+        Quaternion desired_direction = direction_to_target * arm.forearm.desired_idle_rotation;
         
         if (body_wants_to_turn.side() == Side.LEFT) {
             desired_direction = 

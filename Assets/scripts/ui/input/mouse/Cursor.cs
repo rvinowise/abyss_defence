@@ -10,31 +10,21 @@ using rvinowise.contracts;
 
 namespace rvinowise.unity.ui.input.mouse {
 
-public class Cursor {
-
-
-    public GameObject center;
-
+public class Cursor: MonoBehaviour {
     private SpriteRenderer sprite_renderer;
-    
-    
+    private Input input;
 
-    public Cursor() {
-        init_cursor();
+    void Awake() {
+        input = Input.instance;
+        init_components();
     }
 
-    private void init_cursor() {
-        center = new GameObject("mouse center");
-        center.AddComponent<SpriteRenderer>();
-        sprite_renderer = center.GetComponent<SpriteRenderer>();
-        sprite_renderer.sprite = Resources.Load<Sprite>("ui/mouse/cursor");
+    private void init_components() {
+        sprite_renderer = GetComponent<SpriteRenderer>();
     }
 
-    public void update() {
-        center.transform.position = Input.instance.mouse_world_position;
-        //var test = Input.instance.mouse_world_position;
-        //center.transform.position = test;
-        //center.transform.position = new Vector2(1f,1f);
+    void Update() {
+        transform.position = input.mouse_world_position;
     }
 
 }

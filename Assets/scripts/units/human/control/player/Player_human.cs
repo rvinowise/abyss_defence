@@ -4,19 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise.unity.extensions;
 
-//using static UnityEngine.Input;
-using rvinowise.unity.geometry2d;
-using rvinowise.debug;
-using rvinowise.unity.units.control;
-using rvinowise.unity.units.parts;
 using rvinowise.unity.units.parts.limbs.arms;
-using rvinowise.unity.units.parts.limbs.arms.actions;
-using rvinowise.unity.units.parts.limbs.arms.actions.idle_vigilant;
 using rvinowise.unity.units.parts.limbs.arms.actions.idle_vigilant.main_arm;
 using rvinowise.unity.units.parts.weapons.guns;
 using static rvinowise.unity.geometry2d.Directions;
 using Input = rvinowise.unity.ui.input.Input;
-using Arm_controller = rvinowise.unity.units.parts.limbs.arms.humanoid.Arm_controller;
 
 namespace rvinowise.unity.units.control.human {
 
@@ -77,13 +69,13 @@ public class Player_human : Human {
 
     private void idle(Arm arm) {
         var direction_to_mouse = transform.quaternion_to(Input.instance.mouse_world_position);
-        arm.upper_arm.target_quaternion =
-            arm.upper_arm.desired_idle_direction * direction_to_mouse;
+        arm.upper_arm.target_rotation =
+            arm.upper_arm.desired_idle_rotation * direction_to_mouse;
         
-        arm.forearm.target_quaternion =
-            arm.forearm.desired_idle_direction * direction_to_mouse;
-        arm.hand.target_quaternion =
-            arm.hand.desired_idle_direction * direction_to_mouse;
+        arm.forearm.target_rotation =
+            arm.forearm.desired_idle_rotation * direction_to_mouse;
+        arm.hand.target_rotation =
+            arm.hand.desired_idle_rotation * direction_to_mouse;
     }
 
     private void read_sensory_organs_input() {
@@ -148,14 +140,11 @@ public class Player_human : Human {
 
         Vector2 read_moving_direction() {
             Vector2 direction_vector = Input.instance.moving_vector;
-            if (direction_vector.magnitude > 0) {
-                var test = true;
-            }
             return direction_vector.normalized;
         }
 
         Quaternion read_face_direction() {
-            Vector2 mousePos = Input.instance.cursor.center.transform.position;
+            Vector2 mousePos = Input.instance.cursor.transform.position;
             Quaternion needed_direction = (mousePos - (Vector2) transform.position).to_quaternion();
             if (has_gun_in_2hands(out var gun))
             {
@@ -186,7 +175,7 @@ public class Player_human : Human {
             unity.geometry2d.Triangles.get_angle_by_lengths(
                 arm_controller.shoulder_span,
                 gun.butt_to_second_grip_distance,
-                arm_controller.left_arm.length-arm_controller.left_arm.hand.absolute_length
+                arm_controller.left_arm.length-arm_controller.left_arm.hand.length
             ) -90f;
         
         

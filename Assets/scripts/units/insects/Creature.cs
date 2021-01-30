@@ -19,7 +19,7 @@ using rvinowise.unity;
 namespace rvinowise.unity.units {
 
 [RequireComponent(typeof(PolygonCollider2D))]
-public abstract class Creature: Turning_element
+public abstract class Creature: rvinowise.unity.units.Unit
 {
     /* IChildren_groups_host interface */
     public virtual ITransporter transporter { get; protected set; }

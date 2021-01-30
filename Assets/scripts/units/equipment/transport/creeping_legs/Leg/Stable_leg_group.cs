@@ -10,22 +10,22 @@ namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 
 [System.Serializable]
 public class Stable_leg_group {
-    public List<Leg> legs;
+    public List<ILeg> legs;
     
-    public Stable_leg_group(List<Leg> in_legs) {
+    public Stable_leg_group(List<ILeg> in_legs) {
         legs = in_legs;
-        foreach(Leg leg in legs) {
+        foreach(ILeg leg in legs) {
             leg.stable_group = this;
         }
     }
     
-    internal bool contains(Leg leg)
+    internal bool contains(ILeg leg)
     {
         return leg.stable_group == this;
     }
     
     public bool all_down() {
-        foreach(Leg leg in legs) {
+        foreach(ILeg leg in legs) {
             if (leg.is_up) {
                 return false;
             }

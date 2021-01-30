@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using rvinowise;
-
+using UnityEditor;
 
 namespace rvinowise.unity.debug {
 
@@ -20,8 +20,16 @@ public static class Debug {
         Vector3 p1,
         Vector3 p2,
         Color color,
+        float width = 1
+    ) {
+        Handles.DrawBezier(p1,p2,p1,p2, color, null,width);
+    }
+    public static void DrawLine_simple(
+        Vector3 p1,
+        Vector3 p2,
+        Color color,
         float width = 1,
-        float time = 1
+        float time = 0
     )
     {
 

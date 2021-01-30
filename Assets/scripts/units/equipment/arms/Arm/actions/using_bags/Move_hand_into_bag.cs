@@ -38,10 +38,9 @@ public class Move_hand_into_bag: Action_of_arm {
 
     public override void init_state() {
         base.init_state();
-        arm.shoulder.target_direction = new Relative_direction(
-            45f, arm.shoulder.parent
-        ).adjust_to_side_for_left(arm.folding_direction);
         
+        arm.shoulder_mirrored_target_direction = 45f;
+
         slow_movements(arm);
     }
 

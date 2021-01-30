@@ -59,7 +59,7 @@ public class Held_tool: IWeapon {
 
     private void set_desired_directions(Orientation tool_orientation) {
         trigger_arm.set_desired_directions_by_position(tool_orientation.position);
-        trigger_arm.hand.target_quaternion = tool_orientation.rotation;
+        trigger_arm.hand.target_rotation = tool_orientation.rotation;
     }
 
     private Orientation get_orientation_touching_baggage() {
@@ -75,11 +75,6 @@ public class Held_tool: IWeapon {
         );
     }
 
-    public void update() {
-        trigger_arm.update();
-        stock_arm?.update();
-    }
-    
 
     public void shoot(Transform target) {
         

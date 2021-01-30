@@ -18,11 +18,11 @@ namespace rvinowise.unity.units.parts.limbs.creeping_legs.strategy {
  */
 internal class Faltering: Moving_strategy
 {
-    internal Faltering(IList<Leg> in_legs, Creeping_leg_group in_creeping_legs_group):
+    internal Faltering(IReadOnlyList<ILeg> in_legs, Creeping_leg_group in_creeping_legs_group):
         base(in_legs, in_creeping_legs_group) { }
 
 
-    internal override void move_on_the_ground(Leg leg) {
+    internal override void move_on_the_ground(ILeg leg) {
         bool can_hold = leg.hold_onto_ground();
         if (
             (leg.is_twisted_badly())||

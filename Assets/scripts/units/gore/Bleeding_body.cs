@@ -20,7 +20,6 @@ public class Bleeding_body: MonoBehaviour {
     [SerializeField] public Droplet droplet_prefab;
 
     public void Awake() {
-        bool test = true;
     }
 
 

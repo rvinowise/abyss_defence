@@ -26,14 +26,14 @@ public class Arm_reach_relative_directions: Action {
         
         action.arm = in_arm;
 
-        in_arm.upper_arm.target_direction = new Relative_direction(
-            upper_arm_rotation, in_arm.parent.transform
+        in_arm.upper_arm.set_target_direction_relative_to_parent(
+            upper_arm_rotation
         );
-        in_arm.forearm.target_direction = new Relative_direction(
-            forearm_rotation, in_arm.upper_arm.transform
+        in_arm.forearm.set_target_direction_relative_to_parent(
+            forearm_rotation
         );
-        in_arm.hand.target_direction = new Relative_direction(
-            hand_rotation, in_arm.forearm.transform
+        in_arm.hand.set_target_direction_relative_to_parent(
+            hand_rotation
         );
         
         return action;
@@ -51,17 +51,17 @@ public class Arm_reach_relative_directions: Action {
         action.arm = in_arm;
 
         in_arm.shoulder.set_target_direction_relative_to_parent(
-            in_arm.shoulder.desired_idle_direction
+            in_arm.shoulder.desired_idle_rotation
         );
-        in_arm.upper_arm.target_direction = new Relative_direction(
-            Directions.degrees_to_quaternion(upper_arm_rotation), in_arm.parent.transform
-        ).adjust_to_side_for_left(in_arm.folding_direction);
-        in_arm.forearm.target_direction = new Relative_direction(
-            Directions.degrees_to_quaternion(forearm_rotation), in_arm.upper_arm.transform
-        ).adjust_to_side_for_left(in_arm.folding_direction);
-        in_arm.hand.target_direction = new Relative_direction(
-            Directions.degrees_to_quaternion(hand_rotation), in_arm.forearm.transform
-        ).adjust_to_side_for_left(in_arm.folding_direction);
+        in_arm.upper_arm.set_target_direction_relative_to_parent(
+            upper_arm_rotation
+        );
+        in_arm.forearm.set_target_direction_relative_to_parent(
+            forearm_rotation
+        );
+        in_arm.hand.set_target_direction_relative_to_parent(
+            hand_rotation
+        );
         
         return action;
     }

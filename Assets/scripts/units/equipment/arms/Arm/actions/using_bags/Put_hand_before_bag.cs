@@ -38,9 +38,9 @@ public class Put_hand_before_bag: Action_of_arm {
 
     public override void init_state() {
         base.init_state();
-        arm.shoulder.target_direction = new Relative_direction(
-            60f, arm.shoulder.parent
-        ).adjust_to_side_for_left(arm.folding_direction);
+
+        arm.shoulder_mirrored_target_direction = 60f;
+
         if (arm.held_tool == null) {
             arm.hand.gesture = Hand_gesture.Open_sideview;
         }

@@ -15,5 +15,12 @@ public class Creeping_leg_segment: limbs.Segment {
      determined during construction*/
     public Quaternion desired_relative_direction_standing { get; set; } //relative to local_position
     
+    public void mirror_from(Creeping_leg_segment src) {
+        base.mirror_from(src);
+
+        desired_relative_direction_standing =
+            Quaternion.Inverse(src.desired_relative_direction_standing);
+        
+    }
 }
 }

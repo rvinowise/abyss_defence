@@ -4,7 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/_preload.unity
+    guid: c6971b59aa1324a4ab2e6e3647496304
+  - enabled: 1
+    path: Assets/Scenes/factory/entrance.unity
+    guid: c26001ac93c67024e812ee1e4fe2f7b3
+  - enabled: 1
+    path: Assets/Scenes/factory/hallway.unity
+    guid: aa163d37342e6404dad006808910847e
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: d595cc08eeb08df48af4515a77b800f3,
       type: 2}

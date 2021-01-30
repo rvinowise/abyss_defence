@@ -37,10 +37,33 @@ public class Arm_controller: limbs.arms.Arm_controller {
     public float shoulder_span { get; set; }
 
     
-    protected virtual void Awake() {
+    protected override void Awake() {
         base.Awake();
     }
     
+    protected override void Start() {
+        base.Start();
+        init_directions();
+        start_default_activity();
+    }
+
+    private void init_directions() {
+        left_arm.shoulder.desired_idle_rotation = Directions.degrees_to_quaternion(90f);
+        left_arm.upper_arm.desired_idle_rotation = Directions.degrees_to_quaternion(20f);
+        left_arm.forearm.desired_idle_rotation = Directions.degrees_to_quaternion(-20f);
+        left_arm.hand.desired_idle_rotation = Directions.degrees_to_quaternion(0f);
+
+        right_arm.shoulder.desired_idle_rotation = Directions.degrees_to_quaternion(-90f);
+        right_arm.upper_arm.desired_idle_rotation = Directions.degrees_to_quaternion(-20f);
+        right_arm.forearm.desired_idle_rotation = Directions.degrees_to_quaternion(20f);
+        right_arm.hand.desired_idle_rotation = Directions.degrees_to_quaternion(0f);
+    }
+
+    private void start_default_activity() {
+        left_arm.start_idle_action();
+        right_arm.start_idle_action();
+    }
+
     public void reload(Arm gun_arm) {
         Contract.Requires(gun_arm.held_tool is Gun, "reloaded arm must hold a gun");
 

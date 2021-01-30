@@ -3,94 +3,96 @@ using rvinowise.unity.geometry2d;
 using rvinowise.unity.units.parts.weapons.guns.desert_eagle;
 using UnityEngine;
 using rvinowise.unity.extensions;
-
+using rvinowise.contracts;
+using rvinowise.unity.helpers.graphics;
+using System.Linq;
 
 namespace rvinowise.unity.units.parts.limbs {
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class Segment: Turning_element {
     /* constant characteristics. they are written during construction */
 
     [HideInInspector]
     public SpriteRenderer sprite_renderer;
-
-    public Transform parent => transform.parent;
+    public Direction_adjustor direction_adjustor;
 
     public Vector2 tip {
         get {
-            return _tip;
+            return transform.position + transform.rotation * localTip;
+        }
+    }
+
+    public Vector2 localTip {
+        get {
+            return Vector2.right * length;
         }
         set {
-            _tip = value;
-            _absolute_length = tip.magnitude * this.transform.lossyScale.x;
-            sqr_length = Mathf.Pow(_absolute_length,2);
+            Contract.Requires(
+                value.y == 0,
+                "tip of a Segment should lay on the straight line"
+            );
+            length = value.magnitude;
         }
     }
-    public Vector2 sized_tip {
-        get {
-            return _tip * this.transform.lossyScale.x;
-        }
-    }
-    public Vector2 global_tip {
-        get {
-            return transform.position + sized_tip.rotate(base.rotation);
-        }
-    }
-    protected Vector2 _tip;
     
-    public float absolute_length {
-        get { return _absolute_length; }
-        set {
-            _absolute_length = value;
-            _tip = new Vector2(_absolute_length / this.transform.lossyScale.x, 0);
-            sqr_length = Mathf.Pow(_absolute_length,2);
-        }
-    }
-    private float _absolute_length;
-    public float sqr_length {
-        get;
-        private set;
-    }
+    public float length; 
 
-    private float degrees2tip;
-    private Quaternion quaternion2tip;
+    
+    protected Segment parent_segment;
 
-    private Segment parent_segment;
-    /* public float direction_practic2unity(float in_degrees) {
-
-    } */
-
-    public override Quaternion target_quaternion {
-        get { 
-            return base.target_quaternion * quaternion2tip;
-        }
-        set { 
-            base.target_quaternion = value * quaternion2tip.inverse();
-        }
-    }
-
-    public override Quaternion rotation {
+    public virtual Vector3 desired_tip {
         get {
-            return base.rotation * quaternion2tip;
-        }
-        set {
-            base.rotation = value * quaternion2tip.inverse();
+            if (parent_segment == null) {
+                return this.transform.position + localTip.rotate(target_rotation);
+            }
+            return parent_segment.desired_tip + 
+                localTip.rotate(target_rotation);
         }
     }
 
-    /* current characteristics */
 
     protected override void Awake() {
         base.Awake();
-        sprite_renderer = GetComponent<SpriteRenderer>();
+        if (direction_adjustor == null) {
+            direction_adjustor = this.GetComponentInDirectChildren<Direction_adjustor>();
+        }
+        if (sprite_renderer == null) {
+            if (direction_adjustor != null) {
+                sprite_renderer = direction_adjustor.sprite_renderer;
+            } else {
+                sprite_renderer = GetComponent<SpriteRenderer>();
+            }
+        }
+
+        
         
     }
 
-    protected void Start() {
-        degrees2tip = tip.to_dergees();
-        quaternion2tip = tip.to_quaternion();
+    
 
+    protected virtual void Start() {
+        //base.Start();
         parent_segment = transform.parent?.GetComponent<Segment>();
+        init_lengths();
+    }
+
+    /* private void init_lengths() {
+        if (parent_segment != null) {
+            parent_segment.localTip = this.transform.localPosition;
+        }
+    } */
+    private void init_lengths() {
+        Segment next_segment = this.GetComponentInDirectChildren<Segment>();
+        Transform tip_tramsform = transform.Find("tip");
+        Contract.Assert(
+            (next_segment==null)!=(tip_tramsform==null),
+            "tip of a segment should be assigned either by next segment of by the tip-transform"
+        );
+        if (next_segment!=null) {
+            localTip = next_segment.transform.localPosition;
+        } else if (tip_tramsform != null) {
+            localTip = tip_tramsform.localPosition;
+        }
     }
 
     public static Segment create(string in_name) {
@@ -100,51 +102,55 @@ public class Segment: Turning_element {
     }
     
     public virtual void mirror_from(limbs.Segment src) {
-        this.transform.localPosition = new Vector2(
-            src.transform.localPosition.x,
-            -src.transform.localPosition.y
-        );
-        this.transform.localPosition = new Vector2(
+        transform.localPosition = new Vector2(
             src.transform.localPosition.x,
             -src.transform.localPosition.y
         );
         
-        this.possible_span = src.possible_span.mirror();
-        this.tip = new Vector2(
-            src.tip.x,
-            -src.tip.y
-        );
+        possible_span = src.possible_span.mirror().init_for_direction(-src.local_degrees);
         
-
         if (sprite_renderer != null) {
-            this.sprite_renderer.sprite = src.sprite_renderer.sprite;
-            this.sprite_renderer.flipY = !src.sprite_renderer.flipY;
+            sprite_renderer.sprite = src.sprite_renderer.sprite;
+            sprite_renderer.flipY = !src.sprite_renderer.flipY;
+        }
+        if (direction_adjustor != null) {
+            direction_adjustor.transform.localRotation = 
+                direction_adjustor.transform.localRotation.inverse();
         }
     }
 
     public void init_length_to(Segment next_segment) {
-        absolute_length = (transform.position - next_segment.transform.position).magnitude;
+        length = (transform.position - next_segment.transform.position).magnitude;
     }
-    public Vector3 get_desired_tip() {
-        if (parent_segment == null) {
-            return this.transform.position + tip.rotate(target_quaternion);
-        }
-        return parent_segment.get_desired_tip() + 
-                        target_quaternion * (Vector2.right * this.absolute_length);/*  * global_tip */;
-    }
+
+
+    
 
     
     public void debug_draw_line(Color color, float time = 0.1f) {
-        rvinowise.unity.debug.Debug.DrawLine(
+        rvinowise.unity.debug.Debug.DrawLine_simple(
             transform.position, 
-            transform.TransformPoint(tip), 
+            tip, 
             color,
-            3f,
-            time
+            3f
         );
     }
 
-    
+    protected override void OnDrawGizmos() {
+        base.OnDrawGizmos();
+       /*  if (is_leaf_segment()) {
+            Gizmos.color = Color.white;
+            Gizmos.DrawSphere(this.tip, 0.04f);
+        } */
+        Gizmos.color = Color.white;
+        Gizmos.DrawSphere(this.tip, 0.04f);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawSphere(this.desired_tip, 0.04f);
+    }
+
+    private bool is_leaf_segment() {
+        return GetComponentsInChildren<Segment>().Count() ==1;
+    }
     
 }
 

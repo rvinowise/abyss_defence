@@ -28,25 +28,6 @@ public class Reload_pistol: Action_sequential_parent {
     private Pistol gun;
     private Ammunition magazine;
     
-
-    public static Reload_pistol create(
-        Arm in_gun_arm,
-        Arm in_magazine_arm,
-        Baggage in_bag, 
-        Pistol in_tool,
-        Ammunition in_magazine
-    ) {
-        var action = (Reload_pistol)pool.get(typeof(Reload_pistol));
-        action.gun_arm = in_gun_arm;
-        action.magazine_arm = in_magazine_arm;
-        action.bag = in_bag;
-        action.gun = in_tool;
-        action.magazine = in_magazine;
-        action.init_child_actions();
-        
-        return action;
-    }
-    
     public static Reload_pistol create(
         Humanoid in_body,
         Arm in_gun_arm,
@@ -81,7 +62,7 @@ public class Reload_pistol: Action_sequential_parent {
             rvinowise.unity.units.parts.actions.Action_parallel_parent.create(
                 actions.Arm_reach_relative_directions.create_assuming_left_arm(
                     gun_arm,
-                    -45f,
+                    -135f,
                     -90f,
                     0f
                 ),

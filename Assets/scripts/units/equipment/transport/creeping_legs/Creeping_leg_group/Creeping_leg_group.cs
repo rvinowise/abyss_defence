@@ -20,7 +20,7 @@ public partial class Creeping_leg_group:
     
     #region Children_group
     public override IEnumerable<IChild_of_group> children  {
-        get { return legs; }
+        get { return legs as IEnumerable<IChild_of_group>; }
     }
 
     protected override void Awake() {
@@ -44,10 +44,10 @@ public partial class Creeping_leg_group:
         if (legs.Count == 4) {
             stable_leg_groups = new List<Stable_leg_group>() {
                 new Stable_leg_group(
-                    new List<Leg>() {left_front_leg, right_hind_leg}
+                    new List<ILeg>() {left_front_leg, right_hind_leg}
                 ),
                 new Stable_leg_group(
-                    new List<Leg>() {right_front_leg, left_hind_leg}
+                    new List<ILeg>() {right_front_leg, left_hind_leg}
                 )
             };
         } 
@@ -65,25 +65,25 @@ public partial class Creeping_leg_group:
     }
 
     public override void add_child(IChild_of_group compound_object) {
-        Contract.Requires(compound_object is Leg);
-        Leg leg = compound_object as Leg;
-        legs.Add(leg);
+        Contract.Requires(compound_object is ALeg);
+        ALeg leg = compound_object as ALeg;
+        _legs.Add(leg);
         leg.transform.SetParent(transform, false);
     }
 
     public Type child_type() {
-        return typeof(Leg);
+        return typeof(ILeg);
     }
 
     protected override void init_child_list() {
-        legs = new List<Leg>();
+        legs = new List<ILeg>();
     }
   
     
 
     public override void shift_center(Vector2 in_shift) {
-        foreach (Leg leg in legs) {
-            leg.main_object.transform.localPosition += (Vector3)in_shift;
+        foreach (ILeg leg in legs) {
+            leg.transform.localPosition += (Vector3)in_shift;
             //leg.optimal_position_standing = (leg.optimal_position_standing + in_shift);
         }
     }
@@ -102,7 +102,7 @@ public partial class Creeping_leg_group:
             possible_impulse = 0f;
         }
         float impulse = 0;
-        foreach (Leg leg in legs) {
+        foreach (ILeg leg in legs) {
             if (!leg.is_up) {
                 impulse += leg.provided_impulse;
             }
@@ -115,10 +115,13 @@ public partial class Creeping_leg_group:
 
 
 
-    private const float rotate_faster_than_move = 200f;
+    private const float rotate_faster_than_move = 100f;
 
     public float possible_rotation {
-        get { return possible_impulse * rotate_faster_than_move; }
+        get { 
+            return this.GetComponent<Turning_element>().rotation_acceleration;
+            //return possible_impulse * rotate_faster_than_move; 
+        }
         set{ Contract.Assert(false, "set possible_impulse instead");}
     }
 
@@ -143,12 +146,9 @@ public partial class Creeping_leg_group:
     }
     
     public void rotate_to_direction(Quaternion face_direction) {
-        /*transform.rotate_to(
-            face_direction, 
-            get_possible_rotation() * rvi.Time.deltaTime
-        );*/
+
         turning_element.rotation_acceleration = possible_rotation;
-        turning_element.target_quaternion = face_direction;
+        turning_element.target_rotation = face_direction;
         turning_element.rotate_to_desired_direction();
     }
     
@@ -185,43 +185,35 @@ public partial class Creeping_leg_group:
 
     private Turning_element turning_element;
     
-    public List<Leg> legs {
+    public IReadOnlyList<ILeg> legs {
         set {
-            _legs = value;
+            _legs = value as List<ALeg>;
             guess_moving_strategy();
         }
         get {
-            return _legs;
+            return _legs as IReadOnlyList<ILeg>;
         }
     }
-    public Leg left_hind_leg {
+    public ILeg left_hind_leg {
         get { return legs[0];}
-        set { legs[0] = value; }
+        set { _legs[0] = value as ALeg; }
     }
-    public Leg left_front_leg {
+    public ILeg left_front_leg {
         get { return legs[1];}
-        set { legs[1] = value; }
+        set { _legs[1] = value as ALeg; }
     }
-    public Leg right_hind_leg {
+    public ILeg right_hind_leg {
         get { return legs[2];}
-        set { legs[2] = value; }
+        set { _legs[2] = value as ALeg; }
     }
-    public Leg right_front_leg {
+    public ILeg right_front_leg {
         get { return legs[3];}
-        set { legs[3] = value; }
+        set { _legs[3] = value as ALeg; }
     }
     [SerializeField]
-    public List<Leg> _legs = new List<Leg>();
-    
-    /* the distance that the optimal_position is moved in during walking */
-    public float moving_offset_distance = 0.3f;
+    public List<ALeg> _legs = new List<ALeg>();
 
     private Rigidbody2D rigid_body { get; set; }
-    
-
-    
-
-    
     
     public void guess_moving_strategy() {
         if (this.stable_leg_groups.Count > 1) {
@@ -235,30 +227,24 @@ public partial class Creeping_leg_group:
     }
 
 
-
-    private void destroy_invalid_legs() {
-        for(int i_leg = 0; i_leg < legs.Count; i_leg++) {
-            Leg leg = legs[i_leg];
-            if (!leg.is_valid()) {
-                legs.RemoveAt(i_leg);
-                Deleter.Destroy(leg);
-            }
-        }
-    }
-
     private void move_legs() {
-        foreach (Leg leg in legs) {
-            determine_optimal_position_for(leg);
+        foreach (ILeg leg in legs) {
+            leg.set_desired_position(get_optimal_position_for(leg)); 
             if (leg.is_up) {
+                if ((leg as MonoBehaviour).name == "leg_l_f") {
+                    bool test = true;
+                }
                 move_in_the_air(leg);
             } else {
+                if ((leg as MonoBehaviour).name == "leg_l_f") {
+                    bool test = true;
+                }
                 moving_strategy.move_on_the_ground(leg);
             }
         }
     }
     
-    private void move_in_the_air(Leg leg) {
-        leg.set_desired_directions_by_position();
+    private void move_in_the_air(ILeg leg) {
         if (leg.has_reached_aim()) {
             put_down(leg);
         } else {
@@ -266,29 +252,32 @@ public partial class Creeping_leg_group:
         }
     }
 
-    private void put_down(Leg leg) {
+    private void put_down(ILeg leg) {
         Contract.Requires(leg.is_up);
         leg.put_down();
         possible_impulse += leg.provided_impulse;
     }
 
     
-    private void determine_optimal_position_for(Leg leg) {
+    private Vector2 get_optimal_position_for(ILeg leg) {
         Vector2 shift_to_moving_direction =
             command_batch.moving_direction_vector *
-            moving_offset_distance * leg.transform.lossyScale.x;
+            leg.moving_offset_distance * leg.transform.lossyScale.x;
 
-        leg.set_desired_position(
+        /* leg.set_desired_position(
            leg.optimal_position_standing + 
             shift_to_moving_direction
-        );
+        ); */
+
+        return leg.optimal_position_standing + 
+                shift_to_moving_direction;
     }
 
     
 
 
     bool can_move() {
-        foreach (Leg leg in legs) {
+        foreach (ILeg leg in legs) {
             if (!leg.is_up) {
                 return true;
             }
@@ -299,11 +288,13 @@ public partial class Creeping_leg_group:
     
 
     public void OnDrawGizmos() {
-        foreach (Leg leg in legs) {
-            if (leg.debug != null) {
-                leg.debug.draw_positions();
-                leg.debug.draw_desired_directions(0.1f);
-                leg.debug.draw_directions(0.1f);
+        foreach (ILeg leg in legs) {
+            if (leg != null) {
+                if (Application.isPlaying) {
+                    leg.draw_positions();
+                    leg.draw_desired_directions();
+                }
+                leg.draw_directions(Color.white);
             }
         }
         //draw_moving_direction();

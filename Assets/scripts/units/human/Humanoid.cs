@@ -31,14 +31,9 @@ using rvinowise.unity.units.parts.limbs;
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Humanoid: 
-    Turning_element,
+    rvinowise.unity.units.Unit,
     IPerform_actions
 {
-    
-    /* parameters from the editor */
-    public init.Arms_initializer arms_initializer;
-    
-    
 
     /* parts of the human*/
     private Arm_controller arm_controller;
@@ -49,7 +44,6 @@ public class Humanoid:
     
     
     private IChildren_groups_host user_of_equipment;
-    private units.control.human.Human intelligence;
     
     
     /* components */
@@ -78,62 +72,28 @@ public class Humanoid:
     {
         base.Awake();
         init_components();
-        init_parts();
-
-        //animator.SetBool("open_hand", true);
-    }
-
-    protected virtual void Start() {
-        start_default_activity();        
     }
 
     private void init_components() {
         animator = GetComponent<Animator>();
         if (animator){
-            //animator.SetTrigger("reload_pistol");
             animator.enabled = false;
         }
         arm_controller = GetComponent<Arm_controller>();
     }
 
-    private void init_parts() {
-        init_baggage();
-        
-        init_body_parts();
-        init_intelligence();
-    }
+    
 
-    private void init_baggage() {
-        //put_tools_into_baggage(baggage);
-    }
-
-    private void init_body_parts() {
-        
-        init.Head.init(head);
-        
-        
-    }
-
-    private void start_default_activity() {
-        arm_controller.left_arm.start_idle_action();
-        arm_controller.right_arm.start_idle_action();
-    }
-
-    private void init_intelligence() {
-        intelligence.arm_controller = arm_controller;
-    }
 
     private Action last_action_test;
     void FixedUpdate() {
         
         head.rotate_to_desired_direction();
-        legs.update();
         
         last_action_test = current_action ;
 
         if (!animator.enabled) {
             current_action?.update();
-            arm_controller.update();
         }
     }
 

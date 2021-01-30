@@ -5,6 +5,7 @@ using rvinowise.contracts;
 using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.tools;
+using rvinowise.unity.debug;
 using Action = rvinowise.unity.units.parts.actions.Action;
 using System;
 
@@ -15,7 +16,6 @@ public partial class Arm:
 
 {
 
-    /* constant characteristics */
     [HideInInspector]
     public Arm_controller controller;
     
@@ -48,7 +48,7 @@ public partial class Arm:
     }
 
     public float length {
-        get { return upper_arm.absolute_length + forearm.absolute_length + hand.absolute_length; }
+        get { return upper_arm.length + forearm.length + hand.length; }
     }
     
     #region IPerform_actions
@@ -70,17 +70,22 @@ public partial class Arm:
 
     
     
-    /* Arm itself */
 
-    /* parameters assigned by creators */
     public Baggage baggage; 
     public Transform attention_target;
 
     
 
-    protected void Awake() 
+    protected override void Awake() 
     {
-        debug = new Arm.Debug(this);
+        base.Awake();
+        attention_target = ui.input.Input.instance.cursor.transform;
+    }
+
+    
+
+    private void mirror_from() {
+
     }
     
    
@@ -93,20 +98,18 @@ public partial class Arm:
             )
         );
     }
-    public void update() {
+    public void FixedUpdate() {
         current_action?.update();
 
         base.preserve_possible_rotations();
-
-        TEST_draw_debug_lines();
     }
     public override void rotate_to_orientation(Orientation needed_orientation) {
         set_desired_directions_by_position(needed_orientation.position);
-        hand.target_quaternion = needed_orientation.rotation;
+        hand.target_rotation = needed_orientation.rotation;
         rotate_to_desired_directions();
     }
     public override void rotate_to_desired_directions() {
-        shoulder.rotate_to_desired_direction();
+        //shoulder.rotate_to_desired_direction();
         base.rotate_to_desired_directions();
     }
 
@@ -143,8 +146,51 @@ public partial class Arm:
     }
 
     
-
+    public float shoulder_mirrored_target_direction {
+        set {
+            set_relative_mirrored_target_direction(shoulder, value);
+        }
+    }
+    public float segment2_mirrored_target_direction {
+        set {
+            set_relative_mirrored_target_direction(segment2, value);
+        }
+    }
 
     
+    public void draw_desired_directions(float time=0.1f) {
+        rvinowise.unity.debug.Debug.DrawLine_simple(
+            shoulder.position, 
+            shoulder.desired_tip,
+            Color.red,
+            3
+        );
+        rvinowise.unity.debug.Debug.DrawLine_simple(
+            shoulder.desired_tip, 
+            upper_arm.desired_tip,
+            Color.blue,
+            3
+        );
+        rvinowise.unity.debug.Debug.DrawLine_simple(
+            upper_arm.desired_tip, 
+            forearm.desired_tip,
+            Color.white,
+            3
+        );
+        rvinowise.unity.debug.Debug.DrawLine_simple(
+            forearm.desired_tip,
+            hand.desired_tip,
+            Color.yellow,
+            3
+        );
+    }
+    
+
+    void OnDrawGizmos() {
+        if (Application.isPlaying) {
+            draw_desired_directions();
+        }
+    }
+
 }
 }

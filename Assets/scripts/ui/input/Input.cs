@@ -8,8 +8,7 @@ using rvinowise.unity.extensions;
 namespace rvinowise.unity.ui.input {
 public class Input: MonoBehaviour {
     
-    static public Input instance;
-
+    public mouse.Cursor cursor;
     public UnityEngine.Input unity;
     
     public Vector2 mouse_world_position { get; private set; }
@@ -22,20 +21,12 @@ public class Input: MonoBehaviour {
     }
     public bool zoom_held { get; set; }
 
-    public mouse.Cursor cursor;
-
-    
-    public void Awake() {
-        init_singleton();
-        cursor = new mouse.Cursor();
+    public static Input instance {
+        get {
+            return GameObject.FindGameObjectWithTag("Input").GetComponent<Input>();
+        }
     }
 
-    private void init_singleton() {
-        Contract.Requires(instance == null, "singleton should be initialised once");
-        instance = this;
-    }
-    
-    
     public Vector2 read_mouse_world_position()
     {
         return Camera.main.ScreenToWorldPoint(
@@ -72,7 +63,6 @@ public class Input: MonoBehaviour {
         moving_vector = read_moving_vector();
         scroll_value = read_scroll();
         zoom_held = UnityEngine.Input.GetButton("Zoom");
-        cursor.update();
     }
 
 

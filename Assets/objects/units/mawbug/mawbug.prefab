@@ -389,9 +389,8 @@ MonoBehaviour:
   divisible_body: {fileID: 0}
   stable_leg_groups: []
   _legs:
-  - {fileID: 3891042331200098231}
   - {fileID: 3021596881880177268}
-  moving_offset_distance: 0.3
+  - {fileID: 3891042331200098231}
 --- !u!114 &7093521082409555344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,12 +423,13 @@ MonoBehaviour:
       degrees: 0
     max:
       degrees: 0
-    goes_through_zero: 0
+    goes_through_switching_degrees: 0
   rotation_speed: 0
   rotation_acceleration: 550
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
+  target_direction_relative: 0
 --- !u!1 &8736548348087172546
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,7 +745,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17751720f4478e84c851bbd5434e5d5c, type: 3}
+  m_Script: {fileID: 11500000, guid: be30d98a00c1b894b9a0b76c4ee5c520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8982372922280921300
@@ -962,6 +962,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17751720f4478e84c851bbd5434e5d5c, type: 3}
+  m_Script: {fileID: 11500000, guid: be30d98a00c1b894b9a0b76c4ee5c520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

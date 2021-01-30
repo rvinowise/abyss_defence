@@ -18,20 +18,19 @@ namespace rvinowise.unity.units.parts.limbs.creeping_legs.strategy {
 */
 internal class Grovelling: Moving_strategy
 {
-    internal Grovelling(IList<Leg> in_legs, Creeping_leg_group in_creeping_legs_group):
+    internal Grovelling(IReadOnlyList<ILeg> in_legs, Creeping_leg_group in_creeping_legs_group):
         base(in_legs, in_creeping_legs_group) { }
 
    
-    internal override void move_on_the_ground(Leg leg) {
+    internal override void move_on_the_ground(ILeg leg) {
         bool can_hold = leg.hold_onto_ground();
         if (
             (leg.is_twisted_badly())||
             (!can_hold)
         ) 
         {
-            leg.debug.draw_lines(Color.red);
+            leg.draw_directions(Color.red);
             raise_up(leg);
-
         } 
         else if (leg.is_twisted_uncomfortably()) {
             if (can_move_without(leg)) {
@@ -41,9 +40,9 @@ internal class Grovelling: Moving_strategy
     }
 
     /* at least one leg will be on he ground if the parameter leg is raised up  */
-    private bool can_move_without(Leg in_leg) {
+    private bool can_move_without(ILeg in_leg) {
         Contract.Requires(!in_leg.is_up);
-        foreach (Leg leg in legs) {
+        foreach (ILeg leg in legs) {
             if (leg == in_leg) {
                 continue; 
             }

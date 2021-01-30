@@ -22,14 +22,9 @@ public struct Span {
         //this = use_minus();
         this.min = min.use_minus();
         this.max = max.use_minus();
-        
-        goes_through_switching_degrees = 
-            within_small_angle(
-                in_direction
-            ) ==
-            within_small_angle(
-                180f
-            );
+
+        goes_through_switching_degrees = directions_within_same_sector(in_direction,180f);
+            
             
         var _min = min;
         var _max = max;
@@ -37,6 +32,23 @@ public struct Span {
         max = Math.Max(_min,_max);
         return this;
     }
+
+    private bool directions_within_same_sector(Degree dir1, Degree dir2) {
+        if (there_no_small_angle()) {
+            return 
+                Math.Sign(dir1.angle_to(max)) ==
+                Math.Sign(dir2.angle_to(max));
+        }
+        return 
+            within_small_angle(dir1) ==
+            within_small_angle(dir2);
+
+        
+    }
+    private bool there_no_small_angle() {
+        return Mathf.Abs(min.angle_to(max)) == 180f;
+    }
+
     private bool within_small_angle(float in_direction) {
         if (
             Math.Sign(min.angle_to(max)) != 

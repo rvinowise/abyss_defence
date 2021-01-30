@@ -3,26 +3,14 @@ using rvinowise.unity.extensions;
 
 using rvinowise.unity.geometry2d;
 using static rvinowise.unity.geometry2d.Directions;
+using rvinowise.unity.units.parts.limbs;
+using UnityEditor;
 
-
-
-namespace rvinowise.unity.units.parts.limbs{
+namespace rvinowise.unity.units.parts{
 
 public class Turning_element: MonoBehaviour {
     
-    [SerializeField]
-    public Turning_element rotated_bone;
     
-    /* [HideInInspector]
-    private Transform rotated_bone {
-        get {
-            if (rotated_bone == null) {
-                return this.transform;
-            }
-            return rotated_bone.tramsform;
-        }
-    } */
-
     public Span possible_span;
     public float rotation_speed;
     public float rotation_acceleration = 550f;
@@ -33,24 +21,28 @@ public class Turning_element: MonoBehaviour {
     public Degree current_rotation_inertia;
     public Saved_physics last_physics = new Saved_physics();
     
-    public virtual Quaternion target_quaternion {
-        get { return target_direction.rotation;}
-        set { target_direction.rotation = value; }
-    }
-    public Relative_direction target_direction;
-    
-    public virtual Quaternion rotation {
+    public Quaternion rotation {
         get {
             return transform.rotation;
         }
         set {
-            transform.rotation = value;    
+            transform.rotation = value;
         }
     }
-
+    public virtual Quaternion target_rotation{get;set;}
+    public virtual Degree target_degree{
+        get{
+            return target_rotation.to_degree();
+        }
+        set{
+            target_rotation = value.to_quaternion();
+        }
+    }
+    public bool target_direction_relative = false;
+    
     public Degree local_degrees {
         get {
-            return rotated_bone.transform.local_rotation();
+            return transform.local_degrees();
         }
     }
 
@@ -63,163 +55,182 @@ public class Turning_element: MonoBehaviour {
     public void set_direction(float direction) => transform.set_direction(direction);
 
     protected virtual void Awake() {
-        //base.Awake();
-        if (rotated_bone == null) { // if not specified in the Editor - by-default rotate itself
-            rotated_bone = this;
-        }
         possible_span.init_for_direction(this.local_degrees);
     }
 
-    public Relative_direction set_target_direction_relative_to_parent(Quaternion in_rotation) {
-        target_direction = new Relative_direction(
-            in_rotation, transform.parent
-        );
-        return target_direction;
+    public Quaternion set_target_direction_relative_to_parent(Quaternion in_rotation) {
+        target_rotation = in_rotation;
+        target_direction_relative = true;
+        return target_rotation;
     }
-    public Relative_direction set_target_direction_relative_to_parent(float in_degrees) {
-        target_direction = new Relative_direction(
-            in_degrees, transform.parent
+    public Quaternion set_target_direction_relative_to_parent(float in_degrees) {
+        target_rotation = Directions.degrees_to_quaternion(
+            in_degrees
         );
-        return target_direction;
+        target_direction_relative = true;
+        return target_rotation;
     }
 
+
     public virtual void rotate_to_desired_direction_FAST() {
-        /*var parent = rotated_bone.parent.gameObject.GetComponent<Turning_element>();
+        /*var parent = parent.gameObject.GetComponent<Turning_element>();
         if (parent) {
-            Quaternion rotation_from_parent = Quaternion.Inverse(parent.rotation) * rotated_bone.rotation;
+            Quaternion rotation_from_parent = Quaternion.Inverse(parent.rotation) * rotation;
             Quaternion final_default_rotation = parent.desired_direction * rotation_from_parent;
             Quaternion rotation_to_destination = Quaternion.Inverse(final_default_rotation) * target_direction.rotation;
-            Quaternion current_needed_rotation = rotated_bone.rotation * rotation_to_destination;
-            rotated_bone.rotate_to(current_needed_rotation, rotation_speed);
+            Quaternion current_needed_rotation = rotation * rotation_to_destination;
+            rotate_to(current_needed_rotation, rotation_speed);
         } else {*/
-        //rotated_bone.rotate_to(target_direction, rotation_speed);
+        //rotate_to(target_direction, rotation_speed);
         //}
     }
 
+    
     public virtual void rotate_to_desired_direction() {
         
 
-        float angle_to_pass = rotated_bone.rotation.degrees_to(target_direction.rotation).degrees;
+        float angle_to_pass = rotation.degrees_to(target_rotation);
         rvinowise.contracts.Contract.Assume(Mathf.Abs(angle_to_pass) < 180f, "angle too big");
         
-        if (!has_reached_target()) 
+        if (!has_reached_target())
         {
-            if (is_moving_towards_target()) {
-                float needed_time = Mathf.Abs(angle_to_pass / current_rotation_inertia.degrees);
-                float time_to_stopping =
-                    Mathf.Abs(current_rotation_inertia.degrees) /
-                    rotation_acceleration;
-                if (is_ready_to_reach_target()) {
-                    /* if (this.transform.parent?.parent?.name == "leg_l_f") {
-                        var test = true;
-                    }
-                    fix_at_target_direction(); */
-                }
-                else {
-                    if (moving_towards_target_too_fast(time_to_stopping, needed_time)) {
-                        slow_down_approaching_the_target();
-                    }
-                    else {
-                        this.current_rotation_inertia = get_incresed_speed_towards_target(angle_to_pass);
-                    }
-                }
-            }
-            else {
-                this.current_rotation_inertia = get_incresed_speed_towards_target(angle_to_pass);
+            if (is_ready_to_reach_target()) {
+                fix_at_target_direction();
+            } else {
+                
+                
+                
+                float optimal_speed = get_optimal_speed_towards_target(
+                    Mathf.Abs(angle_to_pass),
+                    rotation_acceleration
+                );
+                var rotation_side = Side.from_degrees(angle_to_pass);
+                change_rotation_speed(
+                    rotation_side,
+                    optimal_speed
+                );
+                
             }
         }
         
+        
         this.update_rotation();
 
-        
+        #region inner functions
         bool has_reached_target() {
             return Mathf.Abs(angle_to_pass) < 0.01f;
         }
         
-        bool moving_towards_target_too_fast(float time_to_stopping, float needed_time) {
-            return time_to_stopping >= needed_time;
-        }
-
         bool is_ready_to_reach_target() {
-            return (
+            bool result = (
                 (
-                    Mathf.Abs(angle_to_pass) < Mathf.Abs(current_rotation_inertia.degrees)  * Time.deltaTime
-                ) &&
-                rotation_acceleration >= Mathf.Abs(current_rotation_inertia.degrees)
+                    Mathf.Abs(angle_to_pass) < Mathf.Abs(current_rotation_inertia)  * Time.deltaTime
+                ) 
+                &&
+                (
+                    rotation_acceleration* Time.deltaTime/4 >= Mathf.Abs(current_rotation_inertia)* Time.deltaTime
+                )
             );
+            if ((result)&&(gameObject.name == "human")) {
+                var test = Time.deltaTime;
+                rvinowise.unity.debug.Debug.DrawLine_simple(
+                    transform.position, 
+                    transform.position + transform.rotation*Vector2.right,
+                    Color.green,
+                    3f,
+                    1f
+                );
+            }
+            return result;
         }
-        void fix_at_target_direction() {
-            rotated_bone.rotation = target_direction.rotation;
 
+        void fix_at_target_direction() {
+            rotation = target_rotation;
             current_rotation_inertia = Degree.zero;
         }
         
-        bool is_moving_towards_target() {
-            return (int)Mathf.Sign(current_rotation_inertia.degrees) == (int)Mathf.Sign(angle_to_pass);
-        }
-        
-        void slow_down_approaching_the_target() {
-            current_rotation_inertia = current_rotation_inertia.change_magnitude_by_degrees(
-                -rotation_acceleration * Time.deltaTime
-            );
-        }
+        #endregion
+    }
 
-        Degree get_incresed_speed_towards_target(float angle_to_target) 
-        {
-            return new Degree(
-                this.current_rotation_inertia.degrees + 
-                (rotation_acceleration * Mathf.Sign(angle_to_target) * Time.deltaTime) 
-            );
+    private float get_optimal_speed_towards_target(
+        float angle_to_pass,
+        float rotation_acceleration
+    ) {
+        /* if (angle_to_pass < rotation_acceleration) {
+            return rotation_acceleration;
+        } */
+        return Mathf.Sqrt(angle_to_pass * rotation_acceleration);
+    }
+
+    private void change_rotation_speed(
+        Side rotation_direction,
+        float optimal_speed
+    ) {
+        optimal_speed = optimal_speed * rotation_direction.Value;
+        float difference = optimal_speed - current_rotation_inertia.degrees;
+        
+
+        var speed_change = rotation_acceleration * Mathf.Sign(difference) * Time.deltaTime;
+
+        if (Mathf.Abs(difference) <= Mathf.Abs(speed_change) ) {
+            current_rotation_inertia = optimal_speed;
+        } else {
+            
+            current_rotation_inertia += speed_change;
         }
     }
 
-
     public virtual void jump_to_desired_direction() {
-        rotated_bone.rotation = target_direction.rotation;
+        rotation = target_rotation;
     }
 
 
     public bool at_desired_rotation() {
-        return this.rotation.close_enough_to(this.target_quaternion);
+        return this.rotation.close_enough_to(this.target_rotation);
     }
 
 
-    public void collide_with_rotation_borders() {
+    public void preserve_possible_rotations() {
         if (!is_within_span()) {
+            if (this is Segment segment) {
+                segment.debug_draw_line(Color.red,1);
+            }
             collide_with_closest_border();
         }
     }
 
     private void collide_with_closest_border() {
-        var parent = rotated_bone.transform.parent;
+        var parent = transform.parent;
         Degree abs_min_border = parent.rotation * possible_span.min;
         Degree abs_max_border = parent.rotation * possible_span.max;
-        if (
+        bool touches_min_border = 
             Mathf.Abs(abs_min_border.angle_to(this.rotation)) >
-            Mathf.Abs(abs_max_border.angle_to(this.rotation))
-        ) {
-            rotated_bone.rotation = parent.rotation * degrees_to_quaternion(possible_span.max);
-            if (current_rotation_inertia.use_minus() > 0) {
-                current_rotation_inertia = Degree.zero;
-            }
+            Mathf.Abs(abs_max_border.angle_to(this.rotation));
+        if (touches_min_border) {
+            rotation = parent.rotation * degrees_to_quaternion(possible_span.max);
         } else {
-            rotated_bone.rotation = parent.rotation * degrees_to_quaternion(possible_span.min);
-            if (current_rotation_inertia.use_minus() > 0) {
-                current_rotation_inertia = Degree.zero;
+            rotation = parent.rotation * degrees_to_quaternion(possible_span.min);
+        }
+        if (moves_into_border()) {
+            current_rotation_inertia = Degree.zero;
+        }
+
+        bool moves_into_border() {
+            bool direct_result = false;
+            if ((touches_min_border)&&(current_rotation_inertia.use_minus() > 0)) {
+                direct_result = true;
+            } else if ((!touches_min_border)&&(current_rotation_inertia.use_minus() < 0)) {
+                direct_result = true;
             }
+            return direct_result && !possible_span.goes_through_switching_degrees;
         }
     }
 
-    public void rotate_to(Quaternion direction) {
-        transform.rotate_to(direction, rotation_speed );
-    }
 
     protected virtual void update_rotation() {
-        Degree partial_rotation = current_rotation_inertia * Time.deltaTime;
-        rotated_bone.rotation = (Degree.from_quaternion(rotated_bone.rotation) + partial_rotation).to_quaternion();
-        current_rotation_inertia = current_rotation_inertia.change_magnitude_by_degrees(
-            -rotation_friction * Time.deltaTime
-        );
+        Degree rotation_change = current_rotation_inertia * Time.deltaTime;
+        rotation = (Degree.from_quaternion(rotation) + rotation_change).to_quaternion();
+  
     }
 
     public bool is_within_span() {
@@ -230,9 +241,6 @@ public class Turning_element: MonoBehaviour {
             (delta_degrees < possible_span.max)
         ) 
         {
-            if ((this.name == "femur")&&(this.transform.parent.name == "leg_l_b")) {
-                bool test = true;
-            }
             is_within_smaller_span = true;
         }
         if (possible_span.goes_through_switching_degrees) {
@@ -247,13 +255,12 @@ public class Turning_element: MonoBehaviour {
         private Strategy(int value, string displayName) : base(value, displayName) { }
     }
 
-    void OnDrawGizmos() {
+    protected virtual void OnDrawGizmos() {
         float line_length = 0.1f;
         Gizmos.color = Color.green;
-        Transform rotated_bone = transform.parent;
         
         var parent_rotation = Quaternion.identity;
-        if (rotated_bone != null){
+        if (transform.parent != null){
             parent_rotation = transform.parent.transform.rotation;
         }
         var min_rotation = parent_rotation * Directions.degrees_to_quaternion(possible_span.min);

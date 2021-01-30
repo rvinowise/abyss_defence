@@ -32,12 +32,12 @@ public class Arm_controller: /*MonoBehaviour,*/
         transporter = GetComponent<ITransporter>();
     }
 
-    public void update() {
-        foreach (Arm arm in arms) {
-            arm.update();
-        }
+    protected override void Start() {
+        base.Start();
+        
     }
 
+    
 
     public override void add_child(IChild_of_group child) {
         Contract.Requires(child is Arm);

@@ -1,10 +1,9 @@
 {
 	"bookmarks": [
 		{
-			"fsPath": "$ROOTPATH$\\Assets\\scripts\\units\\equipment\\body_parts\\Turning_element.cs",
+			"fsPath": "$ROOTPATH$\\Assets\\scripts\\units\\equipment\\body_parts\\limbs\\ILimb.cs",
 			"bookmarks": [
 				-1,
-				101,
 				-1,
 				-1,
 				-1,
@@ -12,15 +11,17 @@
 				-1,
 				-1,
 				-1,
-				-1
+				-1,
+				-1,
+				8
 			]
 		},
 		{
-			"fsPath": "$ROOTPATH$\\Assets\\scripts\\units\\equipment\\body_parts\\limbs\\Segment.cs",
+			"fsPath": "$ROOTPATH$\\Assets\\scripts\\units\\equipment\\body_parts\\Turning_element.cs",
 			"bookmarks": [
 				-1,
 				-1,
-				62,
+				201,
 				-1,
 				-1,
 				-1,

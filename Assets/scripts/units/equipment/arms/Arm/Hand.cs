@@ -26,7 +26,7 @@ IHave_velocity
         set {
             _gesture = value;
             animator.SetInteger("gesture", value.Value);
-            tip = value.valuable_point;
+            localTip = value.valuable_point;
         } 
     }
     
@@ -56,7 +56,8 @@ IHave_velocity
         init_parts();
     }
 
-    void Start() {
+    protected override void Start() {
+        base.Start();
         if (held_part != null) {
             attach_tool_to_hand_for_holding(held_part);
         }

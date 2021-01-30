@@ -33,7 +33,7 @@ public class Arms_initializer: MonoBehaviour
     
     public void Awake(
     ) {
-        idle_target = rvinowise.unity.ui.input.Input.instance.cursor.center.transform;
+        idle_target = rvinowise.unity.ui.input.Input.instance.cursor.transform;
         
         init_common_parameters(arm_controller);
         
@@ -90,18 +90,18 @@ public class Arms_initializer: MonoBehaviour
         
         arm.shoulder.possible_span = new Span(120f, 45f);
         arm.shoulder.init_length_to(arm.upper_arm);
-        arm.shoulder.desired_idle_direction = Directions.degrees_to_quaternion(90f);
+        arm.shoulder.desired_idle_rotation = Directions.degrees_to_quaternion(90f);
 
         arm.upper_arm.possible_span = new Span(10f, -140f);
         arm.upper_arm.init_length_to(arm.forearm);
-        arm.upper_arm.desired_idle_direction = Directions.degrees_to_quaternion(20f);
+        arm.upper_arm.desired_idle_rotation = Directions.degrees_to_quaternion(20f);
         
         arm.forearm.possible_span = new Span(0f, -150f);
         arm.forearm.init_length_to(arm.hand);
-        arm.forearm.desired_idle_direction = Directions.degrees_to_quaternion(-20f);
+        arm.forearm.desired_idle_rotation = Directions.degrees_to_quaternion(-20f);
         
         arm.hand.possible_span = new Span(20f, -80f);
-        arm.hand.desired_idle_direction = Directions.degrees_to_quaternion(0f);
+        arm.hand.desired_idle_rotation = Directions.degrees_to_quaternion(0f);
     }
 
     private void mirror(Arm arm_dst , Arm arm_src) {

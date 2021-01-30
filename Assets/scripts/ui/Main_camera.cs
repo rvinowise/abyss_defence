@@ -5,8 +5,7 @@ using rvinowise.contracts;
 using rvinowise.unity.ui.input;
 using UnityEngine;
 using rvinowise.unity.extensions;
-
-using Input = UnityEngine.Input;
+using Input = rvinowise.unity.ui.input.Input;
 
 public class Main_camera : MonoBehaviour {
     
@@ -16,33 +15,23 @@ public class Main_camera : MonoBehaviour {
     private float zoom;
     private Camera main_camera;
 
+    private rvinowise.unity.ui.input.Input input;
+
     
     void Awake() {
         main_camera = GetComponent<Camera>();
         Contract.Requires(main_camera != null, "Main_camera component should be attached only to Cameras");
         Contract.Requires(main_camera.orthographic, "the 2D game should use orthographic cameras only");
         zoom = main_camera.orthographicSize;
-
-        init_input();
-
+        input = Input.instance;
     }
 
-    private void init_input() {
-        /*input = new Unity_input();
-        input.Player.Scroll.performed += input_change_zoom;
-        input.Player.Scroll.Enable();*/
-    }
-
-    private void OnDisable() {
-        /*input.Player.Scroll.performed -= input_change_zoom;
-        input.Player.Scroll.Disable();*/
-    }
 
     private void input_change_zoom() {
         //float wheel_movement = context.ReadValue<float>();
-        float wheel_movement = rvinowise.unity.ui.input.Input.instance.scroll_value;
+        float wheel_movement = input.scroll_value;
         
-        if (rvinowise.unity.ui.input.Input.instance.zoom_held 
+        if (input.zoom_held 
             &&
             wheel_movement != 0) 
         {

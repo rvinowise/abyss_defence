@@ -24,7 +24,7 @@ public class Legs:
     public transport.Command_batch command_batch { get; } = new transport.Command_batch();
     
     
-    public void update() {
+    public void FixedUpdate() {
         execute_commands();
     }
 
@@ -53,7 +53,7 @@ public class Legs:
 
 
     /* legs itself */
-    private Rigidbody2D rigidbody;
+    private new Rigidbody2D rigidbody;
     private Turning_element turning_element;
 
     private float acceleration = 0.339f * rvinowise.Settings.scale;
@@ -66,7 +66,7 @@ public class Legs:
     protected void init_components() {
         rigidbody = user.GetComponent<Rigidbody2D>();
         turning_element = user.GetComponent<Turning_element>();
-        turning_element.rotation_acceleration = possible_rotation;
+        
         
         Contract.Requires(rigidbody != null);
         Contract.Requires(turning_element != null);
@@ -79,7 +79,8 @@ public class Legs:
     }
     
     public void rotate_to_direction(float face_direction) {
-        turning_element.target_quaternion = Directions.degrees_to_quaternion(face_direction);
+        turning_element.target_rotation = Directions.degrees_to_quaternion(face_direction);
+        turning_element.rotation_acceleration = possible_rotation;
         turning_element.rotate_to_desired_direction();
     }
 }
