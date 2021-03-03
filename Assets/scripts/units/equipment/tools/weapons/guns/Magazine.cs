@@ -16,7 +16,6 @@ namespace rvinowise.unity.units.parts.weapons.guns {
 public class Magazine : Ammunition {
 
     public int max_rounds_qty;// { get; set; }
-    [SerializeField] public int rounds_qty;
 
     [SerializeField] public Projectile projectile_prefab;
 
@@ -26,9 +25,7 @@ public class Magazine : Ammunition {
     }
     
     /* Tool interface */
-    protected override void init_holding_places() {
-        main_holding = transform.Find("main_holding_place")?.GetComponent<Holding_place>();
-    }
+    
 
     public Projectile retrieve_round(Transform in_muzzle) {
         if (rounds_qty > 0) {

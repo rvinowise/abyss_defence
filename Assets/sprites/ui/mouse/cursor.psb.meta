@@ -27,7 +27,7 @@ ScriptedImporter:
     vTOnly: 0
     nPOTScale: 1
     sRGBTexture: 1
-    spriteMode: 2
+    spriteMode: 1
     spriteExtrude: 1
     spriteMeshType: 1
     alignment: 0
@@ -65,18 +65,18 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   spriteImportData:
-  - name: 
+  - name: cursor_1
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 0
-      height: 0
-    spriteID: 
+      width: 45
+      height: 45
+    spriteID: 755e195224b8f014d9afdee88daa93ba
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -123,8 +123,8 @@ ScriptedImporter:
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
-  textureActualWidth: 64
-  textureActualHeight: 64
+  textureActualWidth: 45
+  textureActualHeight: 45
   spritePackingTag: 
   resliceFromLayer: 0
   characterMode: 1

@@ -7,7 +7,7 @@ using rvinowise.unity.geometry2d;
 using rvinowise;
 using rvinowise.contracts;
 using rvinowise.unity.units.parts;
-using Input = rvinowise.unity.ui.input.Input;
+using Player_input = rvinowise.unity.ui.input.Player_input;
 using Debug = UnityEngine.Debug;
 
 namespace rvinowise.unity.debug {
@@ -47,7 +47,7 @@ public class Debug_drawer : MonoBehaviour
 
     void Update()
     {
-        Vector2 mousePos = Input.instance.mouse_world_position;
+        Vector2 mousePos = Player_input.instance.mouse_world_position;
 
         /* wedge = Polygon_splitter.get_wedge_from_ray(
             new Ray2D(

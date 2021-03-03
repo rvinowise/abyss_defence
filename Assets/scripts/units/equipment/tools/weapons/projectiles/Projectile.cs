@@ -25,7 +25,7 @@ public abstract class Projectile : MonoBehaviour {
     public Smoke_trail trail;
     
     private Trajectory_flyer trajectory_flyer;
-    private Collider2D collider;
+    private new Collider2D collider;
     
 
     void Awake() {
@@ -78,8 +78,10 @@ public abstract class Projectile : MonoBehaviour {
         trajectory_flyer.enabled = false;
         collider.enabled = false;
         on_fall_on_ground();
-        trail.visit_final_point(transform.position);
-        trail.adjust_texture_at_end();
+        if (trail.is_active()) {
+            trail.visit_final_point(transform.position);
+            trail.adjust_texture_at_end();
+        }
     }
     public void stop_at_position(Vector2 in_point) {
         transform.position = in_point;
@@ -112,15 +114,13 @@ public abstract class Projectile : MonoBehaviour {
         //debug_draw_collision(collision);
         Vector2 contact_point = collision.GetContact(0).point;
         Vector2 new_direction = collision.otherRigidbody.velocity.normalized;
-        trail.add_bend_at(
-            contact_point,
-            new_direction
-        );
+        if (trail.is_active()) {
+            trail.add_bend_at(
+                contact_point,
+                new_direction
+            );
+        }
         
-        
-        /* UnityEngine.Debug.DrawLine(
-            contact_point, contact_point+collision.otherRigidbody.velocity.normalized, 
-            Color.magenta, 5); */
         if (new_direction.is_normalized()) {
             UnityEngine.Debug.DrawLine(
                 contact_point, contact_point+collision.GetContact(0).relativeVelocity.normalized, 
@@ -164,7 +164,7 @@ public abstract class Projectile : MonoBehaviour {
     }
 
     private void end_active_life() {
-        GetComponent<Leaving_persistent_sprite_residue>().leave_persistent_image();
+        GetComponent<Leaving_persistent_sprite_residue>().leave_persistent_residue();
         destroy();
     }
 

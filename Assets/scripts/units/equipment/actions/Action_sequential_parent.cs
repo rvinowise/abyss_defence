@@ -102,11 +102,10 @@ public class Action_sequential_parent:
     
     //private Queue<Action> child_actions = new Queue<Action>();
 
-
-    public override void init_state() {
-        current_child_action.init_state();
+    public override void start_execution() {
+        init_state();
+        current_child_action.start_execution();
     }
-
 
     public override void update() {
         base.update();
@@ -142,7 +141,7 @@ public class Action_sequential_parent:
     
     public void start_next_child_action(Action next_action) {
         current_child_action = next_action;
-        current_child_action.init_state();
+        current_child_action.start_execution();
 
     }
 

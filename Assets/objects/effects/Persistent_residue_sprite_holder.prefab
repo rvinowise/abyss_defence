@@ -46,10 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_residue: 1500
-  quad_dimension:
-    width: 0
-    height: 0
   n_frames_x: 1
+  sprite: {fileID: 0}
 --- !u!33 &1590013417714289308
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -77,7 +75,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 88981eb653996ba47b6205e4a8ae6de1, type: 2}
+  - {fileID: 2100000, guid: 7f214d9ef8a705b4097486fa5f72c446, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -21,7 +21,7 @@ public class Legs:
     /* ITransporter interface */
 
     //[HideInInspector]
-    public transport.Command_batch command_batch { get; } = new transport.Command_batch();
+    public transport.Transporter_commands command_batch { get; } = new transport.Transporter_commands();
     
     
     public void FixedUpdate() {
@@ -80,7 +80,7 @@ public class Legs:
     
     public void rotate_to_direction(float face_direction) {
         turning_element.target_rotation = Directions.degrees_to_quaternion(face_direction);
-        turning_element.rotation_acceleration = possible_rotation;
+        //turning_element.rotation_acceleration = possible_rotation;
         turning_element.rotate_to_desired_direction();
     }
 }

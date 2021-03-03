@@ -1,7 +1,0 @@
-﻿{
-  "name": "input",
-  "references": [
-    "extensions",
-    "debug"
-  ]
-}

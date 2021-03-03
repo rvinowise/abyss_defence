@@ -44,11 +44,14 @@ public class Pistol:
     protected override bool can_fire() {
         return ready_to_fire()&&
                (magazine!=null) &&
-               !magazine.empty();
+               (magazine.rounds_qty > 0);
     }
 
     public void insert_magazine(Magazine in_magazine) {
         magazine = in_magazine;
+        magazine.transform.parent = this.transform;
+        magazine.gameObject.SetActive(false);
+
     }
 
     public override void apply_ammunition(Ammunition in_ammunition) {

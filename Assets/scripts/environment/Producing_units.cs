@@ -9,20 +9,23 @@ using rvinowise.unity.geometry2d;
 using rvinowise.unity.extensions.attributes;
 using rvinowise.contracts;
 using rvinowise.unity.extensions.pooling;
+using rvinowise.unity.units;
+using rvinowise.unity.units.control;
 
 namespace rvinowise.unity.infrastructure {
 public class Producing_units : MonoBehaviour
 {
 
-    public GameObject created_unit_prefab;
+    public Transform created_unit_prefab;
     
     public float producing_time;
     public string emitting_animation;
     public Transform spawn;
+    public Team team;
 
     private float last_producing_time = 0;
     private Animator animator;
-    private GameObject unit_being_created;
+    private Transform unit_being_created;
 
     void Awake() {
         animator = GetComponent<Animator>();
@@ -47,29 +50,21 @@ public class Producing_units : MonoBehaviour
 
     [called_in_animation]
     void instantiate_unit() {
+        unit_being_created = created_unit_prefab.instantiate<Transform>();
+        unit_being_created.position = spawn.position;
+        unit_being_created.rotation = spawn.rotation;
 
-        /* unit_being_created = GameObject.Instantiate(
-            created_unit_prefab, 
-            transform.position + spawn_position,
-            transform.rotation * Directions.degrees_to_quaternion(90f)
-        ); */
-
-        unit_being_created = created_unit_prefab.GetComponent<Pooled_object>().get_from_pool<Transform>(
-        ).gameObject;
-        unit_being_created.transform.position = spawn.position;
-        unit_being_created.transform.rotation = spawn.rotation;
-
-        unit_being_created.SetActive(true);
+        if (unit_being_created.GetComponent<Intelligence>() is Intelligence intelligence) {
+            intelligence.team = team;
+        }
+        unit_being_created.gameObject.SetActive(true);
     }
 
    [called_in_animation]
    void make_unit_ready(AnimationEvent in_event) {
-       Contract.Requires(
-            unit_being_created != null, 
-            "another function must create the unit before this frame changes it"
-        );
-
-        unit_being_created.transform.set_z(created_unit_prefab.transform.position.z);
+        if (unit_being_created != null) {
+            unit_being_created.transform.set_z(created_unit_prefab.transform.position.z);
+        }
    }
 }
 

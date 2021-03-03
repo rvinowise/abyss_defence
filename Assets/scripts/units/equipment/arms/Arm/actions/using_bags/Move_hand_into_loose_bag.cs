@@ -43,15 +43,15 @@ public class Move_hand_into_loose_bag: Action_of_arm {
     private void set_desired_directions(Arm arm) {
         arm.upper_arm.target_rotation =
             arm.upper_arm.transform.parent.rotation *
-            degrees_to_quaternion(arm.upper_arm.possible_span.degrees_in_direction(-arm.folding_direction));
+            degrees_to_quaternion(arm.upper_arm.possible_span.degrees_in_direction(-arm.folding_side));
         
         arm.forearm.target_rotation =
             arm.upper_arm.target_rotation *
-            degrees_to_quaternion(arm.forearm.possible_span.degrees_in_direction(-arm.folding_direction));
+            degrees_to_quaternion(arm.forearm.possible_span.degrees_in_direction(-arm.folding_side));
         
         arm.hand.target_rotation =
             arm.forearm.target_rotation *
-            degrees_to_quaternion(arm.hand.possible_span.degrees_in_direction(-arm.folding_direction));
+            degrees_to_quaternion(arm.hand.possible_span.degrees_in_direction(-arm.folding_side));
         
         /*arm.hand.desired_direction = Directions.degrees_to_quaternion(
                                          arm.folding_direction * (-90f)

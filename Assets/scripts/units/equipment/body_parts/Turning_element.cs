@@ -14,6 +14,7 @@ public class Turning_element: MonoBehaviour {
     public Span possible_span;
     public float rotation_speed;
     public float rotation_acceleration = 550f;
+    public float rotation_slowing = 1100f;
     public float rotation_friction = 0f;
 
     
@@ -29,7 +30,22 @@ public class Turning_element: MonoBehaviour {
             transform.rotation = value;
         }
     }
-    public virtual Quaternion target_rotation{get;set;}
+    public virtual Quaternion target_rotation{
+        get{
+            if (relative_to == null) {
+                return _target_rotation;
+            } 
+            return relative_to.rotation * _target_rotation;
+        }
+        set{
+            _target_rotation = value;
+            if (this.gameObject.name == "b_shoulder_r") {
+                var test = true;
+            }
+        }
+    }
+    private Quaternion _target_rotation;
+ 
     public virtual Degree target_degree{
         get{
             return target_rotation.to_degree();
@@ -38,7 +54,27 @@ public class Turning_element: MonoBehaviour {
             target_rotation = value.to_quaternion();
         }
     }
-    public bool target_direction_relative = false;
+    public bool target_direction_relative {
+        set{
+            _target_direction_relative = value;
+            /* if (this.gameObject.name == "b_shoulder_l") {
+                bool test = true;
+            } */
+        }
+        get{return _target_direction_relative;}
+    }
+    private bool _target_direction_relative = false;
+    private Transform relative_to {
+        get {
+            if (target_direction_relative) {
+                return transform.parent;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public Turning_element turning_parent;
     
     public Degree local_degrees {
         get {
@@ -51,11 +87,20 @@ public class Turning_element: MonoBehaviour {
         get=>transform.localPosition;
         set=>transform.localPosition = value;
     }
+
+    public bool ignore_parent;
     public void direct_to(Vector2 aim) => transform.direct_to(aim);
     public void set_direction(float direction) => transform.set_direction(direction);
 
     protected virtual void Awake() {
         possible_span.init_for_direction(this.local_degrees);
+        if (
+            (turning_parent == null) &&
+            (transform.parent != null) && 
+            (transform.parent.GetComponent<Turning_element>() is Turning_element turning_element)
+         ) {
+            turning_parent = turning_element;
+        }
     }
 
     public Quaternion set_target_direction_relative_to_parent(Quaternion in_rotation) {
@@ -71,25 +116,15 @@ public class Turning_element: MonoBehaviour {
         return target_rotation;
     }
 
-
-    public virtual void rotate_to_desired_direction_FAST() {
-        /*var parent = parent.gameObject.GetComponent<Turning_element>();
-        if (parent) {
-            Quaternion rotation_from_parent = Quaternion.Inverse(parent.rotation) * rotation;
-            Quaternion final_default_rotation = parent.desired_direction * rotation_from_parent;
-            Quaternion rotation_to_destination = Quaternion.Inverse(final_default_rotation) * target_direction.rotation;
-            Quaternion current_needed_rotation = rotation * rotation_to_destination;
-            rotate_to(current_needed_rotation, rotation_speed);
-        } else {*/
-        //rotate_to(target_direction, rotation_speed);
-        //}
-    }
-
     
     public virtual void rotate_to_desired_direction() {
-        
-
-        float angle_to_pass = rotation.degrees_to(target_rotation);
+        if (this.gameObject.name == "b_shoulder_r") {
+            bool test = true;
+        }
+        if (this.gameObject.name == "b_upper_arm_r") {
+            bool test = true;
+        }
+        float angle_to_pass = get_angle_to_pass();
         rvinowise.contracts.Contract.Assume(Mathf.Abs(angle_to_pass) < 180f, "angle too big");
         
         if (!has_reached_target())
@@ -97,19 +132,15 @@ public class Turning_element: MonoBehaviour {
             if (is_ready_to_reach_target()) {
                 fix_at_target_direction();
             } else {
-                
-                
-                
                 float optimal_speed = get_optimal_speed_towards_target(
                     Mathf.Abs(angle_to_pass),
-                    rotation_acceleration
+                    rotation_slowing
                 );
-                var rotation_side = Side.from_degrees(angle_to_pass);
+                var side_to_target = Side.from_degrees(angle_to_pass);
                 change_rotation_speed(
-                    rotation_side,
+                    side_to_target,
                     optimal_speed
                 );
-                
             }
         }
         
@@ -131,46 +162,68 @@ public class Turning_element: MonoBehaviour {
                     rotation_acceleration* Time.deltaTime/4 >= Mathf.Abs(current_rotation_inertia)* Time.deltaTime
                 )
             );
-            if ((result)&&(gameObject.name == "human")) {
-                var test = Time.deltaTime;
-                rvinowise.unity.debug.Debug.DrawLine_simple(
-                    transform.position, 
-                    transform.position + transform.rotation*Vector2.right,
-                    Color.green,
-                    3f,
-                    1f
-                );
-            }
+            
             return result;
         }
 
         void fix_at_target_direction() {
-            rotation = target_rotation;
+            if (relative_to_parent()) {
+                transform.localRotation = 
+                    new Degree(
+                        turning_parent.target_degree.angle_to(target_degree)
+                    ).to_quaternion();
+            } else {
+                rotation = target_rotation;
+            }
             current_rotation_inertia = Degree.zero;
         }
         
         #endregion
     }
 
+    private Quaternion rotation_when_parent_reaches_its() {
+        if (relative_to_parent()) {
+            return turning_parent.target_rotation * this.transform.localRotation;
+        }
+        return this.transform.rotation;
+    }
+
+    private bool relative_to_parent() {
+        return (!ignore_parent && turning_parent!=null);
+    }
+    private float get_angle_to_pass() {
+        return rotation_when_parent_reaches_its().degrees_to(target_rotation);
+    }
+
     private float get_optimal_speed_towards_target(
         float angle_to_pass,
-        float rotation_acceleration
+        float rotation_slowing
     ) {
         /* if (angle_to_pass < rotation_acceleration) {
             return rotation_acceleration;
         } */
-        return Mathf.Sqrt(angle_to_pass * rotation_acceleration);
+        return Mathf.Sqrt(angle_to_pass * rotation_slowing);
     }
 
     private void change_rotation_speed(
-        Side rotation_direction,
+        Side side_to_target,
         float optimal_speed
     ) {
-        optimal_speed = optimal_speed * rotation_direction.Value;
+        optimal_speed = optimal_speed * side_to_target.Value;
         float difference = optimal_speed - current_rotation_inertia.degrees;
-        
+        bool needs_to_accelerate = 
+            (current_rotation_inertia.side() == Side.NONE)
+            ||
+            (side_to_target == current_rotation_inertia.side())
+            &&
+            (Mathf.Abs(current_rotation_inertia) < Mathf.Abs(optimal_speed));
 
-        var speed_change = rotation_acceleration * Mathf.Sign(difference) * Time.deltaTime;
+        float speed_change;
+        if (needs_to_accelerate) {
+            speed_change = rotation_acceleration * Mathf.Sign(difference) * Time.deltaTime;
+        } else {
+            speed_change = rotation_slowing * Mathf.Sign(difference) * Time.deltaTime;
+        }
 
         if (Mathf.Abs(difference) <= Mathf.Abs(speed_change) ) {
             current_rotation_inertia = optimal_speed;
@@ -179,6 +232,7 @@ public class Turning_element: MonoBehaviour {
             current_rotation_inertia += speed_change;
         }
     }
+
 
     public virtual void jump_to_desired_direction() {
         rotation = target_rotation;
@@ -194,6 +248,7 @@ public class Turning_element: MonoBehaviour {
         if (!is_within_span()) {
             if (this is Segment segment) {
                 segment.debug_draw_line(Color.red,1);
+                bool test = is_within_span();
             }
             collide_with_closest_border();
         }
@@ -237,8 +292,8 @@ public class Turning_element: MonoBehaviour {
         float delta_degrees = transform.parent.delta_degrees(transform);
         bool is_within_smaller_span = false;
         if (
-            (delta_degrees > possible_span.min)&&
-            (delta_degrees < possible_span.max)
+            (delta_degrees >= possible_span.min)&&
+            (delta_degrees <= possible_span.max)
         ) 
         {
             is_within_smaller_span = true;

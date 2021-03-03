@@ -1,5 +1,0 @@
-trace_source Information: 1 : #########################################################
-trace_source Information: 1 : Action is created. type= rvinowise.unity.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 1
-trace_source Information: 1 : rvinowise.unity.units.parts.limbs.arms.actions.Idle_vigilant_only_arm Action is started.
-trace_source Information: 1 : Action is created. type= rvinowise.unity.units.parts.limbs.arms.actions.Idle_vigilant_only_arm, qty= 2
-trace_source Information: 1 : rvinowise.unity.units.parts.limbs.arms.actions.Idle_vigilant_only_arm Action is started.

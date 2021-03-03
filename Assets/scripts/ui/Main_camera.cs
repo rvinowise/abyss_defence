@@ -5,7 +5,7 @@ using rvinowise.contracts;
 using rvinowise.unity.ui.input;
 using UnityEngine;
 using rvinowise.unity.extensions;
-using Input = rvinowise.unity.ui.input.Input;
+using Player_input = rvinowise.unity.ui.input.Player_input;
 
 public class Main_camera : MonoBehaviour {
     
@@ -15,7 +15,7 @@ public class Main_camera : MonoBehaviour {
     private float zoom;
     private Camera main_camera;
 
-    private rvinowise.unity.ui.input.Input input;
+    private rvinowise.unity.ui.input.Player_input input;
 
     
     void Awake() {
@@ -23,7 +23,11 @@ public class Main_camera : MonoBehaviour {
         Contract.Requires(main_camera != null, "Main_camera component should be attached only to Cameras");
         Contract.Requires(main_camera.orthographic, "the 2D game should use orthographic cameras only");
         zoom = main_camera.orthographicSize;
-        input = Input.instance;
+        
+    }
+
+    void Start() {
+        input = Player_input.instance;
     }
 
 

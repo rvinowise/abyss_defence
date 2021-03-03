@@ -14,7 +14,6 @@ using units.equipment.parts.actions.Action;
 namespace rvinowise.unity.units.parts.limbs.arms.actions {
 
 public class Push_object_into_slot: Arm_reach_orientation {
-    public Arm arm;
     public Tool insertee;
     public Slot slot;
     private float old_rotation_speed;

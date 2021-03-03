@@ -7,7 +7,8 @@ using rvinowise.unity.geometry2d;
 namespace rvinowise.unity.units.parts.weapons.guns.common {
 public static partial class Unity_extension {
 
-    private const float damaging_velocity = 5f;
+    //private const float damaging_velocity = 5f;
+    private const float damaging_velocity = 0f;
     public static Projectile get_damaging_projectile(
         this Collision2D collision
     ) {

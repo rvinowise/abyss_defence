@@ -48,11 +48,8 @@ public class Holding_place: MonoBehaviour
             _holding_hand = value;
         }
     }
-    public Hand _holding_hand;
+    private Hand _holding_hand;
 
-    public IHave_velocity holder {
-        get { return holding_hand; }
-    }
 
     public Vector2 position {
         get{
@@ -136,6 +133,8 @@ public class Holding_place: MonoBehaviour
 
             tool.transform.localRotation =
                 inversed_rotation;
+
+            tool.hold_by(in_hand);
         }
     }
     

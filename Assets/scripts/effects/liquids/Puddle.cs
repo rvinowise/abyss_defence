@@ -30,7 +30,7 @@ public class Puddle: MonoBehaviour {
 
     [called_in_animation]
     public void create_static_stain() {
-        GetComponent<Leaving_persistent_mesh_residue>().leave_persistent_image();
+        GetComponent<Leaving_persistent_mesh_residue>().leave_persistent_residue();
         
     }
 

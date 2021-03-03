@@ -37,9 +37,10 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
     
     public override void init_state() {
         base.init_state();
-        arm.shoulder.set_target_direction_relative_to_parent(
+       /*  arm.shoulder.set_target_direction_relative_to_parent(
             arm.shoulder.desired_idle_rotation
-        );
+        ); */
+        arm.shoulder.target_direction_relative = false;
         arm.upper_arm.target_direction_relative = false;
         arm.forearm.target_direction_relative = false;
         arm.hand.target_direction_relative = false;
@@ -56,14 +57,8 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
             transporter.direction_quaternion.to_float_degrees()
         ).use_minus();
         
-        /*arm.upper_arm.target_quaternion = 
-            determine_desired_direction_of_upper_arm(direction_to_target, body_wants_to_turn);
-        
-        arm.forearm.target_quaternion = 
-            determine_desired_direction_of_forearm(direction_to_target, body_wants_to_turn);*/
-        
         arm.shoulder.target_rotation = 
-            arm.shoulder.desired_idle_rotation * transporter.direction_quaternion;
+            arm.shoulder.desired_idle_rotation * direction_to_target;//transporter.direction_quaternion;
         
         arm.upper_arm.target_rotation =
             arm.upper_arm.desired_idle_rotation * direction_to_target;
@@ -80,22 +75,7 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
         Vector2 last_hand_position = arm.hand.transform.position;
 
         arm.rotate_to_desired_directions();
-        /*Vector2 desired_hand_position = (Vector2) arm.hand.transform.position;
-        Vector2 desired_hand_movement = desired_hand_position - last_hand_position;
-        arm.hand.velocity += desired_hand_movement;
-        Vector2 final_hand_position = last_hand_position + arm.hand.velocity;
-        
-        if (arm.hand.velocity.magnitude < controllable_velocity) {
-            arm.hand.velocity = Vector2.zero;
-        } else {
-            float slowing_drag = (Desert_eagle.recoil_force - controllable_velocity) / 0.2f;
-            arm.hand.velocity = arm.hand.velocity.shortened(slowing_drag * Time.deltaTime);
-        }
-        Debug.DrawLine(arm.hand.position,arm.hand.position+arm.hand.velocity*10f,Color.cyan);
-        Debug.DrawLine(arm.hand.position,final_hand_position, Color.red);
-
-
-        arm.hold_onto_point(final_hand_position);*/
+       
     }
     
     private Quaternion determine_desired_direction_of_upper_arm(

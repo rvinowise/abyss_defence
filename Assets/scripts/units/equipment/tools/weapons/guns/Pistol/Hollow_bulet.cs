@@ -34,12 +34,6 @@ public class Hollow_bulet: Bullet {
         }
     }
     public override Polygon get_damaged_area(Ray2D in_ray) {
-        
-        /*Ray2D ray_of_impact = new Ray2D(
-            last_physics.position,
-            last_physics.velocity
-        );*/
-
         Polygon damaged_area = circle.get_moved(in_ray.origin);
         return damaged_area;    
     }

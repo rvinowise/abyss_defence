@@ -21,7 +21,6 @@ public class Guns_controller:
     public override IEnumerable<IChild_of_group> children { get; }
     
 
-    public Command_batch command_batch { get; }
 
     public void update() {
     }

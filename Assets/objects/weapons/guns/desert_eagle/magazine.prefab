@@ -69,10 +69,11 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7f214d9ef8a705b4097486fa5f72c446, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -117,11 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1041150f7043fdabc82a1e16bdd285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  main_holding: {fileID: 0}
+  main_holding: {fileID: 385445055950741470}
   second_holding: {fileID: 0}
   animator: {fileID: 0}
-  rounds_qty: 100
-  projectile_prefab: {fileID: 4991994977472840630, guid: 7fc502688ebc5874eae4f4ed36822dec,
+  rounds_qty: 0
+  max_rounds_qty: 9
+  projectile_prefab: {fileID: 8142270241855328083, guid: d36d5d3f5c3a4d54295b82350e27338d,
     type: 3}
 --- !u!1 &6224762526246276494
 GameObject:
@@ -187,6 +189,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8754225974737805875, guid: 6cfdaf50b6d90954bad11434f7393ea0,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754225974737805875, guid: 6cfdaf50b6d90954bad11434f7393ea0,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.26
       objectReference: {fileID: 0}
@@ -202,6 +209,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8754225974737805875, guid: 6cfdaf50b6d90954bad11434f7393ea0,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.96923095
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754225974737805875, guid: 6cfdaf50b6d90954bad11434f7393ea0,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -214,16 +226,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.2461532
-      objectReference: {fileID: 0}
-    - target: {fileID: 8754225974737805875, guid: 6cfdaf50b6d90954bad11434f7393ea0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.96923095
-      objectReference: {fileID: 0}
-    - target: {fileID: 8754225974737805875, guid: 6cfdaf50b6d90954bad11434f7393ea0,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8754225974737805875, guid: 6cfdaf50b6d90954bad11434f7393ea0,
         type: 3}

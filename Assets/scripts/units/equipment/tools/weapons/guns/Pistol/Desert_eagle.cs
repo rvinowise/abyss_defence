@@ -23,7 +23,7 @@ public class Desert_eagle: Pistol {
     private Saved_physics last_physics = new Saved_physics();
 
 
-    void Awake() {
+    protected override void Awake() {
         base.Awake();
         
         insert_magazine(
@@ -44,7 +44,7 @@ public class Desert_eagle: Pistol {
     private float frames_to_shell_ejection = 15f;
 
 
-    public static float recoil_force = 0.15f;
+    
     protected override Projectile fire() {
         var new_projectile = base.fire();
         if (new_projectile == null) {
@@ -53,8 +53,6 @@ public class Desert_eagle: Pistol {
         
         animator.SetTrigger("slide");
         propell_projectile(new_projectile);
-        
-        this.recoil_receiver.velocity += -transform.rotation.to_vector() * recoil_force;
         
         return new_projectile;
     }

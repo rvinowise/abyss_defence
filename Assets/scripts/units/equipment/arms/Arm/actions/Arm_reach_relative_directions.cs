@@ -14,63 +14,79 @@ namespace rvinowise.unity.units.parts.limbs.arms.actions {
 
 public class Arm_reach_relative_directions: Action {
     private Arm arm;
-    
-    public static parts.actions.Action create(
-        Arm in_arm, 
-        Quaternion upper_arm_rotation,
-        Quaternion forearm_rotation,
-        Quaternion hand_rotation
-    ) {
-        var action = (Arm_reach_relative_directions)pool.get(typeof(Arm_reach_relative_directions));
-        action.actor = in_arm;
-        
-        action.arm = in_arm;
 
-        in_arm.upper_arm.set_target_direction_relative_to_parent(
-            upper_arm_rotation
-        );
-        in_arm.forearm.set_target_direction_relative_to_parent(
-            forearm_rotation
-        );
-        in_arm.hand.set_target_direction_relative_to_parent(
-            hand_rotation
-        );
-        
-        return action;
-    }
+    Degree shoulder_rotation;
+    Degree upper_arm_rotation;
+    Degree forearm_rotation;
+    Degree hand_rotation;
     
     public static parts.actions.Action create_assuming_left_arm(
         Arm in_arm, 
-        float upper_arm_rotation,
-        float forearm_rotation,
-        float hand_rotation
+        Degree in_shoulder_rotation,
+        Degree in_upper_arm_rotation,
+        Degree in_forearm_rotation,
+        Degree in_hand_rotation
     ) {
-        var action = (Arm_reach_relative_directions)pool.get(typeof(Arm_reach_relative_directions));
-        action.actor = in_arm;
         
+        var action = (Arm_reach_relative_directions)pool.get(typeof(Arm_reach_relative_directions));
+        
+        action.actor = in_arm;
         action.arm = in_arm;
-
-        in_arm.shoulder.set_target_direction_relative_to_parent(
-            in_arm.shoulder.desired_idle_rotation
-        );
-        in_arm.upper_arm.set_target_direction_relative_to_parent(
-            upper_arm_rotation
-        );
-        in_arm.forearm.set_target_direction_relative_to_parent(
-            forearm_rotation
-        );
-        in_arm.hand.set_target_direction_relative_to_parent(
-            hand_rotation
-        );
+        if (in_arm.side == Side.RIGHT) {
+            action.shoulder_rotation = -in_shoulder_rotation;
+            action.upper_arm_rotation = -in_upper_arm_rotation;
+            action.forearm_rotation = -in_forearm_rotation;
+            action.hand_rotation = -in_hand_rotation;
+        }
         
         return action;
     }
+
+    public override void init_state() {
+        arm.shoulder.set_target_direction_relative_to_parent(
+            shoulder_rotation
+        );
+        arm.upper_arm.set_target_direction_relative_to_parent(
+            upper_arm_rotation
+        );
+        arm.forearm.set_target_direction_relative_to_parent(
+            forearm_rotation
+        );
+        arm.hand.set_target_direction_relative_to_parent(
+            hand_rotation
+        );
+    }
+
+    public override void restore_state() {
+        base.restore_state();
+        arm.shoulder.target_direction_relative = false;
+        arm.upper_arm.target_direction_relative = false;
+        arm.forearm.target_direction_relative = false;
+        arm.hand.target_direction_relative = false;
+    }
+
     public override void update() {
         if (complete()) {
             mark_as_reached_goal();
         } else {
+            set_relative_target_directions();
             arm.rotate_to_desired_directions();
         }
+    }
+    
+    private void set_relative_target_directions() {
+        /* arm.shoulder.target_rotation =
+            shoulder_rotation;
+        
+        arm.upper_arm.set_target_direction_relative_to_parent(
+            upper_arm_rotation
+        );
+        arm.forearm.set_target_direction_relative_to_parent(
+            forearm_rotation
+        );
+        arm.hand.set_target_direction_relative_to_parent(
+            hand_rotation
+        ); */
     }
 
     protected bool complete() {

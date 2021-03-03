@@ -26,8 +26,6 @@ IPersistent_residue_holder
     private Vector2[] uv;
     private int[] triangles;
 
-    private static float last_depth = 0;
-    private const float depth_increment = 0.001f;
     
     private float uv_frame_step_x;
 
@@ -77,27 +75,32 @@ IPersistent_residue_holder
         Vector2 in_position,
         Quaternion in_rotation,
         float in_size =1,
-        int in_current_frame=0
+        int in_current_frame=0,
+        bool flip_x = false,
+        bool flip_y = false
     ) {
         Vector3 relative_position = (Vector3)in_position - transform.position;
         add_quad_at_depth(
             new Vector3(
                 relative_position.x,
                 relative_position.y,
-                last_depth
+                Persistent_residue_router.instance.get_next_depth()
             ),
             in_rotation,
             in_size,
-            in_current_frame
+            in_current_frame,
+            flip_x,
+            flip_y
         );
-        last_depth-=depth_increment;
     }
 
     public void add_quad_at_depth(
         Vector3 in_position,
         Quaternion in_rotation,
         float in_size = 1,
-        int in_frame = 1
+        int in_frame = 1,
+        bool flip_x = false,
+        bool flip_y = false
     ) {
         if (last_quad_index >= max_residue) {
             return;
@@ -111,6 +114,16 @@ IPersistent_residue_holder
         Vector2 bottom_right = new Vector2(quad_dimension.width/2, -quad_dimension.height/2);
         Vector2 bottom_left = new Vector2(-quad_dimension.width/2, -quad_dimension.height/2);
         
+        if (flip_y) {
+            (top_left, bottom_left) = (bottom_left, top_left);
+            (top_right, bottom_right) = (bottom_right, top_right);
+        }
+        if (flip_x) {
+            (top_left, top_right) = (top_right, top_left);
+            (bottom_left, bottom_right) = (bottom_right, bottom_left);
+        }
+        
+
         vertices[v_index] = in_position + (in_rotation*top_left * in_size);
         vertices[v_index + 1] = in_position + (in_rotation*top_right * in_size);
         vertices[v_index + 2] = in_position + (in_rotation*bottom_right * in_size);
@@ -119,10 +132,10 @@ IPersistent_residue_holder
 
 
         // UV
-        uv[v_index] = new Vector2(in_frame*uv_frame_step_x, 0);
-        uv[v_index + 1] = new Vector2((in_frame+1)*uv_frame_step_x, 0);
-        uv[v_index + 2] = new Vector2((in_frame+1)*uv_frame_step_x, 1);
-        uv[v_index + 3] = new Vector2(in_frame*uv_frame_step_x, 1);
+        uv[v_index] = new Vector2(in_frame*uv_frame_step_x, 1);
+        uv[v_index + 1] = new Vector2((in_frame+1)*uv_frame_step_x, 1);
+        uv[v_index + 2] = new Vector2((in_frame+1)*uv_frame_step_x, 0);
+        uv[v_index + 3] = new Vector2(in_frame*uv_frame_step_x, 0);
 
         //create triangles
         int t_index = last_quad_index * 6;

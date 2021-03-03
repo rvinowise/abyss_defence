@@ -48,9 +48,9 @@ public abstract partial class Action {
         root_action = this;
     }
 
-    public void start_as_root() {
+    public void start_as_root(IPerform_actions in_actor) {
         set_root_action(this);
-        init_state();
+        start_execution();
     }
 
     public virtual void set_root_action(Action in_root_action) {
@@ -107,11 +107,16 @@ public abstract partial class Action {
     }
     
     public virtual void init_state() {
-        Log.info(($"{GetType()} Action is started."));
+        
+    }
+
+    public virtual void start_execution() {
         prepare_actor_for_execution();
+        init_state();
     }
     
-    private void prepare_actor_for_execution() {
+    public virtual void prepare_actor_for_execution() {
+        Log.info(($"{GetType()} Action is started."));
         if (actor_is_used_in_another_action())
         {
             actor.current_action.discard_whole_tree();

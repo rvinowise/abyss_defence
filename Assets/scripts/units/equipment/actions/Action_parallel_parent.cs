@@ -73,11 +73,14 @@ public class Action_parallel_parent:
         child_actions.Clear();
     }
 
-    public override void init_state() {
+
+    public override void start_execution() {
+        init_state();
         foreach (Action child in current_active_children) {
-            child.init_state();
+            child.start_execution();
         }
     }
+   
 
     public override void update() {
         base.update();

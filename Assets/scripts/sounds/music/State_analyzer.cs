@@ -20,7 +20,7 @@ namespace rvinowise.unity.music {
         }
 
         public Intelligence player_intelligence;
-        public Unit player;
+        public Intelligence player;
         public Transform target;
         
         public bool player_advanses() {

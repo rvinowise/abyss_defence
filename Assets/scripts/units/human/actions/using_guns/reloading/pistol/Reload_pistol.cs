@@ -62,8 +62,9 @@ public class Reload_pistol: Action_sequential_parent {
             rvinowise.unity.units.parts.actions.Action_parallel_parent.create(
                 actions.Arm_reach_relative_directions.create_assuming_left_arm(
                     gun_arm,
-                    -135f,
-                    -90f,
+                    90f,
+                    -50f,
+                    -50f,
                     0f
                 ),
                 actions.Take_tool_from_bag.create(
@@ -79,7 +80,6 @@ public class Reload_pistol: Action_sequential_parent {
                 animation_reload_pistol
             )
         );
-        
 
     }
 

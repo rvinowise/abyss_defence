@@ -11,6 +11,7 @@ namespace rvinowise.unity.units.parts.limbs.arms {
 
 public class Segment: limbs.Segment {
 
+    [HideInInspector]
     public Quaternion desired_idle_rotation;
     
 

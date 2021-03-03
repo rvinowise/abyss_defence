@@ -21,12 +21,13 @@ using rvinowise.unity.units.parts.weapons.guns;
 using units.human.actions;
 using UnityEngine.UIElements;
 using Action = rvinowise.unity.units.parts.actions.Action;
-using Arm_controller = rvinowise.unity.units.parts.limbs.arms.humanoid.Arm_controller;
+using Arm_pair = rvinowise.unity.units.parts.limbs.arms.humanoid.Arm_pair;
 
 namespace rvinowise.unity.units.humanoid {
 
 using parts;
-using rvinowise.unity.units.parts.limbs;
+    using rvinowise.unity.extensions.attributes;
+    using rvinowise.unity.units.parts.limbs;
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -36,14 +37,14 @@ public class Humanoid:
 {
 
     /* parts of the human*/
-    private Arm_controller arm_controller;
+    private Arm_pair arm_controller;
     public Head head;
     [SerializeField]
     private units.parts.humanoid.Legs legs;
     public parts.humanoid.Baggage baggage;
     
     
-    private IChildren_groups_host user_of_equipment;
+    //private IChildren_groups_host user_of_equipment;
     
     
     /* components */
@@ -63,11 +64,21 @@ public class Humanoid:
     
     public void set_root_action(Action in_action) {
         current_action = in_action;
-        current_action.start_as_root();
+        current_action.start_as_root(this);
     }
     
     
     /* Humanoid itself */
+
+    public void pick_up(Tool in_tool) {
+        if (in_tool is Ammunition ammo) {
+            baggage.add_rounds(ammo.rounds_qty);
+        }
+    }
+
+    public void pick_up(Ammunition in_ammo) {
+        baggage.add_rounds(in_ammo.rounds_qty);
+    }
     protected override void Awake()
     {
         base.Awake();
@@ -79,7 +90,7 @@ public class Humanoid:
         if (animator){
             animator.enabled = false;
         }
-        arm_controller = GetComponent<Arm_controller>();
+        arm_controller = GetComponent<Arm_pair>();
     }
 
     
@@ -98,7 +109,7 @@ public class Humanoid:
     }
 
   
-
+    [called_in_animation]
     void change_main_tool_animation(AnimationEvent in_event) {
         Arm arm = arm_controller.right_arm;
         Contract.Requires(
@@ -119,6 +130,7 @@ public class Humanoid:
     }
     
     /* invoked from the animation (in keyframes).*/
+    [called_in_animation]
     void apply_ammunition_to_gun(AnimationEvent in_event) {
         Arm gun_arm = arm_controller.right_arm;
         Arm ammo_arm = arm_controller.other_arm(gun_arm);

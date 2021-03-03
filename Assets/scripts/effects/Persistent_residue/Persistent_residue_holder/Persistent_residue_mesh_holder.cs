@@ -20,8 +20,6 @@ IPersistent_residue_holder
     private Vector3[] vertices;
     private int[] triangles;
 
-    private static float last_depth = 10;
-    private const float depth_increment = 0.001f;
 
     public void Awake() {
         mesh_filter = GetComponent<MeshFilter>();
@@ -58,11 +56,17 @@ IPersistent_residue_holder
         combine[0].transform = Matrix4x4.identity;
 
         combine[1].transform = 
-            in_transform.localToWorldMatrix * 
+            /* in_transform.localToWorldMatrix * 
             Matrix4x4.Translate(
-                new Vector3(0,0,last_depth)
+                new Vector3(0,0,Persistent_residue_router.instance.get_next_depth())
+            ); */
+            Matrix4x4.Translate(
+                new Vector3(
+                    in_transform.position.x,
+                    in_transform.position.y,
+                    Persistent_residue_router.instance.get_next_depth()
+                )
             );
-        last_depth-=depth_increment;
 
         Mesh combined_mesh = new Mesh();
         combined_mesh.CombineMeshes(combine, true, true);

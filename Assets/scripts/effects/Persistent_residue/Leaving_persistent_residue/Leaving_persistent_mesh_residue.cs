@@ -10,7 +10,10 @@ using UnityEngine.Serialization;
 
 namespace rvinowise.unity.effects.persistent_residue {
 
-public class Leaving_persistent_mesh_residue : MonoBehaviour {
+public class Leaving_persistent_mesh_residue: 
+MonoBehaviour
+,ILeaving_persistent_residue
+{
 
     public List<Mesh> left_meshes; 
     public Material left_material;
@@ -28,7 +31,7 @@ public class Leaving_persistent_mesh_residue : MonoBehaviour {
         );
     }
 
-    public void leave_persistent_image() {
+    public void leave_persistent_residue() {
 
         holder.add_piece(
             left_meshes.get_random_item(),

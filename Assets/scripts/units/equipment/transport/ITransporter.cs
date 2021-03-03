@@ -16,7 +16,7 @@ public interface ITransporter: IExecute_commands {
     
 
 //    void command(transport.Command_batch command_batch);
-    transport.Command_batch command_batch { get; }
+    transport.Transporter_commands command_batch { get; }
     
 }
 

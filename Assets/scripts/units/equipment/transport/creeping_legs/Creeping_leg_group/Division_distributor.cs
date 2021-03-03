@@ -24,10 +24,14 @@ public partial class Creeping_leg_group {
 
     }
 
+    private void clear_data_related_to_children() {
+        stable_leg_groups.Clear();        
+    }
+
     public static class Division_distributor {
         
         public static void distribute_data_across(
-            Creeping_leg_group base_group,
+            Creeping_leg_group src_group,
             IEnumerable<Children_group> new_controllers
         ) {
             
@@ -38,7 +42,7 @@ public partial class Creeping_leg_group {
                 Contract.Requires(leg_controller != null);    
             }
 
-            distribute_stable_legs_groups(base_group, new_leg_controllers);
+            distribute_stable_legs_groups(src_group, new_leg_controllers);
             init_moving_strategies(new_leg_controllers);
         }
 
@@ -54,6 +58,9 @@ public partial class Creeping_leg_group {
             Creeping_leg_group divided_leg_group,
             IEnumerable<Creeping_leg_group> all_leg_controllers) 
         {
+            foreach (var leg_group in all_leg_controllers) {
+                leg_group.clear_data_related_to_children();
+            }
             foreach (var stable_leg_group in divided_leg_group.stable_leg_groups) {
                 if (
                     get_controller_with_all_tools_from(
@@ -71,6 +78,8 @@ public partial class Creeping_leg_group {
                 }
             }
         }
+
+        
     
         private static Children_group get_controller_with_all_tools_from( //#generalize
             IEnumerable<Children_group> all_controllers,

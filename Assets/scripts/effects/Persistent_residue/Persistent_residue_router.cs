@@ -23,9 +23,16 @@ public class Persistent_residue_router: MonoBehaviour {
 
     public static Persistent_residue_router instance;
 
+    public float last_depth;
+    private const float depth_increment = 0.0001f;
     private void Awake() {
         Contract.Requires(instance == null, "Persistent_residue_router is a singleton");
         instance = this;
+    }
+
+    public float get_next_depth() {
+        last_depth-=depth_increment;
+        return last_depth;
     }
 
     private const int max_images_default = 1500;

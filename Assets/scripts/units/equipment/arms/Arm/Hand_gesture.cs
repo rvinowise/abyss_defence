@@ -40,7 +40,7 @@ public class Hand_gesture : Headspring.Enumeration<Hand_gesture, int> {
     );
     
     private Hand_gesture(int value, string displayName) : base(value, displayName) {
-        this.valuable_point = new Vector2(0.11f, -0.02f);
+        this.valuable_point = new Vector2(0.11f, 0f);
     }
 
     private Hand_gesture(int value, string displayName, Vector2 valuable_point) :

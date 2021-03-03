@@ -44,27 +44,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7270454dbea0f174fb3a333bebfc869a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  track_advance:
+    name: 
+    phrases: []
+    i_current_phrase: 0
+  track_retreat:
+    name: 
+    phrases: []
+    i_current_phrase: 0
+  track_tension:
+    name: 
+    phrases: []
+    i_current_phrase: 0
   current_track:
     name: 
-    phrases:
-    - clip: {fileID: 8300000, guid: b21b9190de41ac141a26f3caed80cea2, type: 3}
-      n_beats: 16
-      variations: []
-    - clip: {fileID: 8300000, guid: 58e94540b3df33a47bf142199f2e2b84, type: 3}
-      n_beats: 16
-      variations: []
-    - clip: {fileID: 8300000, guid: 5768db91230f02a41a3d71114013c35e, type: 3}
-      n_beats: 16
-      variations: []
-    - clip: {fileID: 8300000, guid: 4d288b262fada7b42bc5212d401a24bb, type: 3}
-      n_beats: 16
-      variations: []
+    phrases: []
     i_current_phrase: 0
   bpm: 100
   beats_per_phrase: 16
-  clips:
-  - {fileID: 0}
-  - {fileID: 0}
+  state:
+    turning_player: {fileID: 0}
+    player_intelligence: {fileID: 0}
+    player: {fileID: 0}
+    target: {fileID: 0}
 --- !u!82 &739768842482338727
 AudioSource:
   m_ObjectHideFlags: 0

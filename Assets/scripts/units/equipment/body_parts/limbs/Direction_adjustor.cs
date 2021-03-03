@@ -10,7 +10,7 @@ namespace rvinowise.unity.helpers.graphics {
     [RequireComponent(typeof(SpriteRenderer))]
     public class Direction_adjustor: MonoBehaviour {
 
-        [HideInInspector]
+        //[HideInInspector]
         public SpriteRenderer sprite_renderer;
         void Awake() {
             sprite_renderer = GetComponent<SpriteRenderer>();
@@ -21,6 +21,10 @@ namespace rvinowise.unity.helpers.graphics {
             Contract.Assume(
                 transform.localRotation != Quaternion.identity,
                 "This component should rotate its sprite to be useful"
+            );
+            Contract.Assume(
+                sprite_renderer != null,
+                "sprite renderer is needed on the direction adjustor"
             );
         }
     }

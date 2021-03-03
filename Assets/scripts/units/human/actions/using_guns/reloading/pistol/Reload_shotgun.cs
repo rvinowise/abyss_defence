@@ -80,6 +80,7 @@ public class Reload_shotgun: Action_sequential_parent {
             rvinowise.unity.units.parts.actions.Action_parallel_parent.create(
                 actions.Arm_reach_relative_directions.create_assuming_left_arm(
                     gun_arm,
+                    -90f,
                     -135f,
                     -90f,
                     0f

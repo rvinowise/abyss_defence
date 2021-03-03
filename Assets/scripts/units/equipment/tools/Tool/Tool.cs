@@ -6,7 +6,7 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 using rvinowise.unity.units.parts.limbs.arms;
-
+using rvinowise.contracts;
 
 namespace rvinowise.unity.units.parts.tools {
 public abstract class Tool: MonoBehaviour
@@ -22,6 +22,7 @@ public abstract class Tool: MonoBehaviour
     
     protected virtual void Awake() {
         init_components();
+        init_holding_places();
     }
 
     protected virtual void init_components() {
@@ -30,12 +31,21 @@ public abstract class Tool: MonoBehaviour
         
     }
 
-
     protected virtual void init_holding_places() {
-        main_holding = Holding_place.main(this);
+        var holding_places = GetComponentsInChildren<Holding_place>();
         
+        foreach(Holding_place holding_place in holding_places) {
+            if (holding_place.is_main) {
+                main_holding = holding_place;
+            } else {
+                second_holding = holding_place;
+            }
+        }
+        Contract.Assert(main_holding != null);
     }
     
+    public virtual void hold_by(Hand in_hand) {
+    }
 
     public void deactivate() {
         gameObject.SetActive(false);
@@ -45,9 +55,6 @@ public abstract class Tool: MonoBehaviour
     }
 }
 
-public interface IHave_velocity {
-    Vector2 velocity { get; set; }
-}
 
 
 

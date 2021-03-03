@@ -6,16 +6,15 @@ using rvinowise.unity.extensions;
 
 using rvinowise;
 using rvinowise.contracts;
-
+using rvinowise.unity.units.control;
+using rvinowise.unity.units.parts.weapons.guns.common;
 
 namespace rvinowise.unity.ui.input.mouse {
 
 public class Cursor: MonoBehaviour {
     private SpriteRenderer sprite_renderer;
-    private Input input;
 
     void Awake() {
-        input = Input.instance;
         init_components();
     }
 
@@ -24,8 +23,9 @@ public class Cursor: MonoBehaviour {
     }
 
     void Update() {
-        transform.position = input.mouse_world_position;
     }
+
+    
 
 }
 }

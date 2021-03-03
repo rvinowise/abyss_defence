@@ -56,7 +56,7 @@ public class Gun_without_stock: actions.Action_of_arm
                 distance_shoulder_to_wrist = arm.length/2f;
             }
             upper_arm_offset_turn =
-                arm.folding_direction.turn_quaternion(
+                arm.folding_side.turn_quaternion(
                     unity.geometry2d.Triangles.get_quaternion_by_lengths(
                         arm.upper_arm.length,
                         distance_shoulder_to_wrist,

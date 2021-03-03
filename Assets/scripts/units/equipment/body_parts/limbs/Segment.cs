@@ -35,6 +35,7 @@ public class Segment: Turning_element {
         }
     }
     
+    [HideInInspector]
     public float length; 
 
     
@@ -58,7 +59,7 @@ public class Segment: Turning_element {
         }
         if (sprite_renderer == null) {
             if (direction_adjustor != null) {
-                sprite_renderer = direction_adjustor.sprite_renderer;
+                sprite_renderer = direction_adjustor.GetComponent<SpriteRenderer>();
             } else {
                 sprite_renderer = GetComponent<SpriteRenderer>();
             }

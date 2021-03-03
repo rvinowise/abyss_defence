@@ -1,11 +1,11 @@
-Shader "Universal Render Pipeline/Lit_MY"
+Shader "Universal Render Pipeline/Lit-MY"
 {
     Properties
     {
         // Specular vs Metallic workflow
         [HideInInspector] _WorkflowMode("WorkflowMode", Float) = 1.0
 
-        //[MainTexture] _MainTex("Diffuse", 2D) = "white" {}
+        [MainTexture] _BaseMap("Albedo", 2D) = "white" {}
         [MainColor] _BaseColor("Color", Color) = (1,1,1,1)
 
         _Cutoff("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
@@ -58,12 +58,7 @@ Shader "Universal Render Pipeline/Lit_MY"
         // Universal Pipeline tag is required. If Universal render pipeline is not set in the graphics settings
         // this Subshader will fail. One can add a subshader below or fallback to Standard built-in to make this
         // material work with both Universal Render Pipeline and Builtin Unity Pipeline
-        Tags{
-            "Queue" = "Transparent+30"
-            "RenderType" = "Transparent" 
-            "RenderPipeline" = "UniversalPipeline" 
-            "IgnoreProjector" = "True"
-        }
+        Tags{"Queue" = "Transparent+30" "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "IgnoreProjector" = "True"}
         LOD 300
 
         // ------------------------------------------------------------------
@@ -73,7 +68,7 @@ Shader "Universal Render Pipeline/Lit_MY"
             // Lightmode matches the ShaderPassName set in UniversalRenderPipeline.cs. SRPDefaultUnlit and passes with
             // no LightMode tag are also rendered by Universal Render Pipeline
             Name "ForwardLit"
-            Tags{"LightMode" = "UniversalForward" }
+            Tags{"Queue" = "Transparent+30" "RenderType" = "Transparent" "LightMode" = "UniversalForward"}
 
             Blend[_SrcBlend][_DstBlend]
             ZWrite[_ZWrite]
@@ -131,7 +126,7 @@ Shader "Universal Render Pipeline/Lit_MY"
         Pass
         {
             Name "ShadowCaster"
-            Tags{"LightMode" = "ShadowCaster"}
+            Tags{"Queue" = "Transparent+30" "LightMode" = "ShadowCaster"}
 
             ZWrite On
             ZTest LEqual
@@ -163,7 +158,7 @@ Shader "Universal Render Pipeline/Lit_MY"
         Pass
         {
             Name "DepthOnly"
-            Tags{"LightMode" = "DepthOnly"}
+            Tags{"Queue" = "Transparent+30" "LightMode" = "DepthOnly"}
 
             ZWrite On
             ColorMask 0
@@ -196,7 +191,7 @@ Shader "Universal Render Pipeline/Lit_MY"
         Pass
         {
             Name "Meta"
-            Tags{"LightMode" = "Meta"}
+            Tags{"Queue" = "Transparent+30" "LightMode" = "Meta"}
 
             Cull Off
 
@@ -224,7 +219,7 @@ Shader "Universal Render Pipeline/Lit_MY"
         Pass
         {
             Name "Universal2D"
-            Tags{ "LightMode" = "Universal2D" }
+            Tags{"Queue" = "Transparent+30"  "LightMode" = "Universal2D" }
 
             Blend[_SrcBlend][_DstBlend]
             ZWrite[_ZWrite]

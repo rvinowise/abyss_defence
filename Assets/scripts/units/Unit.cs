@@ -4,16 +4,14 @@ using System;
 using UnityEngine;
 using rvinowise.unity.units.parts.limbs;
 using rvinowise.unity.units.parts;
+using rvinowise.unity.management;
+using rvinowise.unity.units.control;
 
 namespace rvinowise.unity.units {
 
 public class Unit: Turning_element
 {
-    public Team team;
-    /* public virtual IReadOnlyList<Unit> get_enemies() {
-        return new List<Unit>();
-    } */
-
+    
   
 
 }

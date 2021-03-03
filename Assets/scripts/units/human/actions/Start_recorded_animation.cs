@@ -11,6 +11,7 @@ using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.limbs.arms;
 using Action = rvinowise.unity.units.parts.actions.Action;
 using rvinowise.animation;
+using rvinowise.unity.units.humanoid;
 
 namespace units.human.actions {
 
@@ -38,6 +39,7 @@ public class Start_recorded_animation: Action {
         Start_recorded_animation action = (Start_recorded_animation) pool.get(typeof(Start_recorded_animation));
         action.animator = in_animator;
         action.animation_id = in_animation_id;
+        action.actor = in_animator.gameObject.GetComponent<Humanoid>();
 
         return action;
     }

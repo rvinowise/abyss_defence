@@ -36,17 +36,19 @@ public class Divisible_body : MonoBehaviour
 
     public Pooled_object pooled_prefab;
 
+    public delegate void EventHandler();
+    public event EventHandler on_polygon_changed;
 
     void Awake() {
     }
 
 
-    public List<GameObject> split_for_collider_pieces(
+    public List<Divisible_body> split_for_collider_pieces(
         List<Polygon> collider_pieces
     ) {
         Sprite body = gameObject.GetComponent<SpriteRenderer>().sprite;
 
-        List<GameObject> piece_objects = create_objects_for_colliders(
+        List<Divisible_body> piece_objects = create_objects_for_colliders(
             collider_pieces, body, inside
         );
 
@@ -56,6 +58,9 @@ public class Divisible_body : MonoBehaviour
 
         //preserve_impulse_in_pieces(piece_objects);
         
+        if (gameObject.GetComponent<Damage_receiver>() is Damage_receiver damage_receiver) {
+            damage_receiver.notify_about_destruction();
+        }
         Destroy(gameObject);
 
         return piece_objects;
@@ -64,13 +69,13 @@ public class Divisible_body : MonoBehaviour
    
 
 
-    private List<GameObject> create_objects_for_colliders(
+    private List<Divisible_body> create_objects_for_colliders(
         IEnumerable<Polygon> collider_pieces,
         Sprite body,
         Sprite inside
     ) {
         detach_children();
-        List<GameObject> object_pieces = new List<GameObject>();
+        List<Divisible_body> object_pieces = new List<Divisible_body>();
         foreach (Polygon collider_piece in collider_pieces)
         {
             Texture2D texture_piece =
@@ -89,12 +94,12 @@ public class Divisible_body : MonoBehaviour
     }
 
     private void adjust_center_of_colliders_and_children(
-        List<GameObject> piece_objects,
+        List<Divisible_body> piece_objects,
         List<Polygon> collider_pieces
     ) {
         for (int i_piece = 0; i_piece < piece_objects.Count; i_piece ++) {
             
-            GameObject created_part = piece_objects[i_piece];
+            Divisible_body created_part = piece_objects[i_piece];
             IChildren_groups_host children_group_host = created_part.GetComponent<IChildren_groups_host>();
             
             Polygon collider_polygon = collider_pieces[i_piece];
@@ -121,7 +126,7 @@ public class Divisible_body : MonoBehaviour
     }
 
     private static int piece_counter = 0;
-    private GameObject create_gameobject_from_polygon_and_texture(
+    private Divisible_body create_gameobject_from_polygon_and_texture(
         Polygon polygon, Texture2D texture
     ) 
     {
@@ -154,9 +159,11 @@ public class Divisible_body : MonoBehaviour
             );
         /* } */
         created_part.name = String.Format("{0} {1}", "Spider_", piece_counter++);
+        var test = created_part.GetComponent<Divisible_body>();
         
-        created_part.GetComponent<Divisible_body>().init_object_for_piece(polygon, sprite);
-        return created_part;
+        Divisible_body new_body = created_part.GetComponent<Divisible_body>();
+        new_body.init_object_for_piece(polygon, sprite);
+        return new_body;
     }
 
     private void init_object_for_piece(
@@ -169,23 +176,6 @@ public class Divisible_body : MonoBehaviour
     }
 
 
-    private void preserve_impulse_in_pieces(List<GameObject> piece_objects) {
-        Rigidbody2D rigid_body = gameObject.GetComponent<Rigidbody2D>();
-        if (rigid_body) {
-            foreach (GameObject piece in piece_objects) {
-                Rigidbody2D piece_rigid_body = piece.GetComponent<Rigidbody2D>();
-                
-                //piece_rigid_body.velocity = rigid_body.velocity;// / Time.deltaTime;
-                //piece_rigid_body.angularVelocity= rigid_body.angularVelocity;// / Time.deltaTime;
-                
-                piece_rigid_body.AddForce(rigid_body.velocity / Time.deltaTime, ForceMode2D.Impulse);
-                piece_rigid_body.AddTorque(rigid_body.angularVelocity / Time.deltaTime, ForceMode2D.Impulse);
-
-            }
-        }
-    }
-
-    
     private float damaging_velocity = 5f;
     void OnCollisionEnter2D(Collision2D collision) {
         
@@ -221,7 +211,7 @@ public class Divisible_body : MonoBehaviour
         );
         projectile.stop_at_position(contact_point);
         
-        //Debug_drawer.instance.draw_polygon_debug(removed_polygon, 5f);
+        Debug_drawer.instance.draw_polygon_debug(removed_polygon, 5f);
 
         Polygon initial_polygon = new Polygon(gameObject.GetComponent<PolygonCollider2D>().GetPath(0));
         removed_polygon = transform.InverseTransformPolygon(removed_polygon);
@@ -240,20 +230,25 @@ public class Divisible_body : MonoBehaviour
         
     }
 
-    private void on_polygon_colliders_calculated(
+    private void make_use_of_new_polygons(
         Received_damage damage
     ) {
-        List<GameObject> pieces = 
+        List<Divisible_body> pieces = 
             split_for_collider_pieces(splitting_polygon.Result);
         push_pieces_away(
             pieces, 
             damage.contact_point, 
             damage.impulse
         );
+        foreach(var piece in pieces) {
+            if (piece.on_polygon_changed != null) {
+                piece.on_polygon_changed();
+            }
+        }
     } 
 
     private void push_pieces_away(
-        IEnumerable<GameObject> pieces,
+        IEnumerable<Divisible_body> pieces,
         Vector2 contact_point,
         Vector3 force
     ) {
@@ -305,14 +300,15 @@ public class Divisible_body : MonoBehaviour
 
     bool polygons_calculated = false;
     void Update() {
-        if (ready_to_split()) {
-            on_polygon_colliders_calculated(
+        if (split_polygons_calculated()) {
+            make_use_of_new_polygons(
                 last_received_damage
             );
+            
         }
     }
 
-    private bool ready_to_split() {
+    private bool split_polygons_calculated() {
         return (
             splitting_polygon!=null 
             &&

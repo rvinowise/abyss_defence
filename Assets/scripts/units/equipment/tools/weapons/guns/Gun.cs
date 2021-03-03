@@ -10,7 +10,7 @@ using rvinowise.unity.units.parts.tools;
 using rvinowise.unity.units.parts.weapons.guns.common;
 
 using UnityEngine.Serialization;
-
+using rvinowise.unity.units.parts.limbs.arms;
 
 namespace rvinowise.unity.units.parts.weapons.guns {
 
@@ -37,8 +37,6 @@ public abstract class Gun:
     public virtual float stock_length { get; }
 
         
-    public Animator animator { get; set; }
-
     public Vector2 tip {
         get { return muzzle.localPosition; }
         set { muzzle.localPosition = value; }
@@ -54,13 +52,10 @@ public abstract class Gun:
         get { return stock_length + second_holding.place_on_tool.magnitude; }
     }
 
-    public IHave_velocity recoil_receiver {
-        get { return main_holding.holder; }
-    }
     
     private float last_shot_time = 0f;
 
-
+    protected IReceive_recoil recoil_receiver;
 
     protected override void Awake() {
         base.Awake();
@@ -71,23 +66,32 @@ public abstract class Gun:
         animator = GetComponent<Animator>();
     }
 
+    public override void hold_by(Hand in_hand) {
+        recoil_receiver = in_hand?.arm;
+    }
     
 
     public virtual void apply_ammunition(Ammunition in_ammunition) {
         in_ammunition.deactivate();
     }
     
+    public float recoil_force = 150f;
     protected virtual Projectile fire() {
         Contract.Requires(can_fire(), "function Fire must be invoked after making sure it's possible");
         last_shot_time = Time.time;
         Projectile new_projectile = magazine.retrieve_round(muzzle);
         Transform new_spark = spark_prefab.get_from_pool<Transform>();
         new_spark.copy_physics_from(muzzle);
-            
+        
+        this.recoil_receiver?.push_with_recoil(recoil_force);
+
         return new_projectile;
     }
 
-    
+
+    public virtual int get_loaded_ammo() {
+        return magazine.rounds_qty;
+    }
 
     public virtual float time_to_readiness() {
         return 0;

@@ -12,8 +12,7 @@ using rvinowise.contracts;
 namespace rvinowise.unity.units.parts.limbs.arms {
 
 [RequireComponent(typeof(Animator))]
-public class Hand:Segment,
-IHave_velocity 
+public class Hand:Segment
 {
 
     
@@ -30,9 +29,6 @@ IHave_velocity
         } 
     }
     
-    public Vector2 velocity { get; set; }
-    public float linear_drag { get; set; } = 0.02f;
-
     public float held_object_local_z {
         get {
             return 
@@ -51,15 +47,20 @@ IHave_velocity
     private Transform bottom_part;
     private Transform top_part;
 
+    [SerializeField]
+    public Arm arm;
+
     protected override void Awake() {
         base.Awake();
         init_parts();
     }
 
     protected override void Start() {
-        base.Start();
+        //base.Start();
+        parent_segment = transform.parent?.GetComponent<Segment>();
+
         if (held_part != null) {
-            attach_tool_to_hand_for_holding(held_part);
+            attach_tool_to_hand(held_part);
         }
     }
 
@@ -67,7 +68,6 @@ IHave_velocity
         animator = GetComponent<Animator>();
         bottom_part = transform.Find("bottom")?.transform;
         top_part = transform.Find("top")?.transform;
-        valuable_point = transform.Find("valuable_point")?.transform;
     }
     
     public override void mirror_from(limbs.Segment src) {
@@ -78,7 +78,7 @@ IHave_velocity
     }
 
 
-    public void attach_tool_to_hand_for_holding(Holding_place new_held_part) {
+    public void switch_held_tools(Holding_place new_held_part) {
         if (held_part != null) {
             deattach_tool_from_hand(held_part);
         }
@@ -92,13 +92,14 @@ IHave_velocity
             held_part.hold_by(null);
             gesture = Hand_gesture.Relaxed;
         }
-        void attach_tool_to_hand(Holding_place held_part) {
-            gesture = held_part.grip_gesture;
+        
+    }
+    private void attach_tool_to_hand(Holding_place held_part) {
+        gesture = held_part.grip_gesture;
 
-            Tool tool = held_part.tool;
-            tool.transform.set_z(held_object_local_z);
-            held_part.hold_by(this);
-        }
+        Tool tool = held_part.tool;
+        tool.transform.set_z(held_object_local_z);
+        held_part.hold_by(this);
     }
 
     

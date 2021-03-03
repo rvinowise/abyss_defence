@@ -46,8 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segment1: {fileID: 1587871507682900850}
   segment2: {fileID: 626494313595823512}
-  tip: {fileID: 0}
-  controller: {fileID: 0}
+  pair: {fileID: 0}
   shoulder: {fileID: 5659737628635655281}
   _hand: {fileID: 372621866041995711}
   baggage: {fileID: 0}
@@ -233,7 +232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d417e1c944c427e9917c4d45d48641b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotated_bone: {fileID: 0}
   possible_span:
     min:
       degrees: -8.44
@@ -242,6 +240,7 @@ MonoBehaviour:
     goes_through_switching_degrees: 0
   rotation_speed: 0
   rotation_acceleration: 900
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
@@ -295,7 +294,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d417e1c944c427e9917c4d45d48641b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotated_bone: {fileID: 0}
   possible_span:
     min:
       degrees: 0
@@ -304,6 +302,7 @@ MonoBehaviour:
     goes_through_switching_degrees: 0
   rotation_speed: 0
   rotation_acceleration: 900
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
@@ -357,7 +356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d417e1c944c427e9917c4d45d48641b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotated_bone: {fileID: 0}
   possible_span:
     min:
       degrees: 0
@@ -366,6 +364,7 @@ MonoBehaviour:
     goes_through_switching_degrees: 0
   rotation_speed: 0
   rotation_acceleration: 900
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
@@ -522,7 +521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d417e1c944c427e9917c4d45d48641b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotated_bone: {fileID: 0}
   possible_span:
     min:
       degrees: 8.44
@@ -531,6 +529,7 @@ MonoBehaviour:
     goes_through_switching_degrees: 0
   rotation_speed: 0
   rotation_acceleration: 900
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
@@ -585,8 +584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segment1: {fileID: 5727462800067818418}
   segment2: {fileID: 1231690326551020152}
-  tip: {fileID: 0}
-  controller: {fileID: 0}
+  pair: {fileID: 0}
   shoulder: {fileID: 6875855175541999246}
   _hand: {fileID: 7025312683631955186}
   baggage: {fileID: 0}
@@ -736,7 +734,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea9f9b2c80433a4eaec96a7978039d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotated_bone: {fileID: 0}
   possible_span:
     min:
       degrees: 0
@@ -745,12 +742,11 @@ MonoBehaviour:
     goes_through_switching_degrees: 0
   rotation_speed: 0
   rotation_acceleration: 550
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   target_direction_relative: 0
-  arms_initializer: {fileID: 9148836409303791780, guid: 13a615d364544df4c9e3b8dc566aab62,
-    type: 3}
   head: {fileID: 479597505814581101}
   legs: {fileID: 8527819504853134968}
   baggage: {fileID: 1621615018708045352}
@@ -764,14 +760,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6029904662193437827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc7ed0760b754278a5b903d9d66fb369, type: 3}
+  m_Script: {fileID: 11500000, guid: 70d2acade5111cf43bc512681b843a04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  children_need_mirroring: 0
-  divisible_body: {fileID: 0}
-  arms:
-  - {fileID: 7668768375071070052}
-  - {fileID: 6911195405302035350}
+  left_arm: {fileID: 7668768375071070052}
+  right_arm: {fileID: 6911195405302035350}
 --- !u!114 &8527819504853134968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,6 +794,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baggage: {fileID: 1621615018708045352}
   last_rotation: 0
+  team: {fileID: 469645112851934796, guid: 8e01f29fc7ba39a49b812930c102f85e, type: 3}
   arm_controller: {fileID: 2817183903052466124}
 --- !u!1 &6280379820188002194
 GameObject:
@@ -950,7 +944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d417e1c944c427e9917c4d45d48641b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotated_bone: {fileID: 0}
   possible_span:
     min:
       degrees: -119.08
@@ -959,6 +952,7 @@ MonoBehaviour:
     goes_through_switching_degrees: 0
   rotation_speed: 0
   rotation_acceleration: 400
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
@@ -1011,7 +1005,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d417e1c944c427e9917c4d45d48641b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotated_bone: {fileID: 0}
   possible_span:
     min:
       degrees: 119.08
@@ -1020,6 +1013,7 @@ MonoBehaviour:
     goes_through_switching_degrees: 0
   rotation_speed: 0
   rotation_acceleration: 400
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
@@ -1175,7 +1169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85728fdd23697ad4d90b1ac4435a49da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotated_bone: {fileID: 0}
   possible_span:
     min:
       degrees: 0
@@ -1184,6 +1177,7 @@ MonoBehaviour:
     goes_through_switching_degrees: 0
   rotation_speed: 0
   rotation_acceleration: 550
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0

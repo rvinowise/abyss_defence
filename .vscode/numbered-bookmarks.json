@@ -1,34 +1,142 @@
 {
-	"bookmarks": [
+	"files": [
 		{
-			"fsPath": "$ROOTPATH$\\Assets\\scripts\\units\\equipment\\body_parts\\limbs\\ILimb.cs",
+			"path": "Assets/scripts/units/equipment/body_parts/limbs/ILimb.cs",
 			"bookmarks": [
-				-1,
-				-1,
-				-1,
-				-1,
-				-1,
-				-1,
-				-1,
-				-1,
-				-1,
-				-1,
-				8
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": 8,
+					"column": 0
+				}
 			]
 		},
 		{
-			"fsPath": "$ROOTPATH$\\Assets\\scripts\\units\\equipment\\body_parts\\Turning_element.cs",
+			"path": "Assets/scripts/units/human/Arms/Arm_pair.cs",
 			"bookmarks": [
-				-1,
-				-1,
-				201,
-				-1,
-				-1,
-				-1,
-				-1,
-				-1,
-				-1,
-				-1
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": 159,
+					"column": 16
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				}
+			]
+		},
+		{
+			"path": "Assets/scripts/units/equipment/body_parts/Turning_element.cs",
+			"bookmarks": [
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": 194,
+					"column": 69
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				},
+				{
+					"line": -1,
+					"column": 0
+				}
 			]
 		}
 	]

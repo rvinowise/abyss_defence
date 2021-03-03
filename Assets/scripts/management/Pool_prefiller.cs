@@ -14,7 +14,6 @@ public struct Prefilled_prefab{
 }
 public class Pool_prefiller : MonoBehaviour
 {
-    public GameObject test_prefab;
     public List<Prefilled_prefab> prefabs;
     void Start()
     {

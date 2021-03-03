@@ -472,6 +472,9 @@ MonoBehaviour
         mesh_object.SetActive(false);
         this.enabled = false;
     }
+    public bool is_active() {
+        return segments.Count > 0;
+    }
 
 
     private void debug_draw_segmnents() {

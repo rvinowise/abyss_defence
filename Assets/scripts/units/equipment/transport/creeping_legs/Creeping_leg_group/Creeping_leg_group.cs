@@ -76,7 +76,7 @@ public partial class Creeping_leg_group:
     }
 
     protected override void init_child_list() {
-        legs = new List<ILeg>();
+        _legs = new List<ALeg>();
     }
   
     
@@ -129,7 +129,7 @@ public partial class Creeping_leg_group:
         get { return transform.rotation; }
     }
 
-    public transport.Command_batch command_batch { get; } = new transport.Command_batch();
+    public transport.Transporter_commands command_batch { get; } = new transport.Transporter_commands();
 
 
     private delegate void Move_in_direction(Vector2 moving_direction);

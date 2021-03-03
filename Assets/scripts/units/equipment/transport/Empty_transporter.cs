@@ -17,7 +17,7 @@ public class Empty_transporter: ITransporter {
 
     public Quaternion direction_quaternion { get; }
 
-    public transport.Command_batch command_batch { get; }
+    public transport.Transporter_commands command_batch { get; }
 
 
     public void rotate_to_direction(float direction) {

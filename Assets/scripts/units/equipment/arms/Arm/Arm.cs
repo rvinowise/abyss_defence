@@ -8,16 +8,18 @@ using rvinowise.unity.units.parts.tools;
 using rvinowise.unity.debug;
 using Action = rvinowise.unity.units.parts.actions.Action;
 using System;
+using rvinowise.unity.units.parts.limbs.arms.humanoid;
+using rvinowise.unity.extensions;
 
 namespace rvinowise.unity.units.parts.limbs.arms  {
 
 public partial class Arm: 
-    Limb3, IPerform_actions, IChild_of_group
+    Limb3, IPerform_actions, IChild_of_group, IReceive_recoil
 
 {
 
     [HideInInspector]
-    public Arm_controller controller;
+    public Arm_pair pair;
     
     public Segment shoulder;
 
@@ -63,12 +65,21 @@ public partial class Arm:
     private Action _current_action;
 
     public void set_root_action(Action in_action) {
+        current_action?.discard_whole_tree();
         current_action = in_action;
         current_action.start_as_root();
     }
     #endregion
 
-    
+    #region IReceive_recoil
+    public void push_with_recoil(float in_impulse) {
+        Side side = folding_side;
+        shoulder.current_rotation_inertia += side * in_impulse;
+        upper_arm.current_rotation_inertia += side * in_impulse;
+        forearm.current_rotation_inertia += side.flipped() * in_impulse * 1.2f;
+        hand.current_rotation_inertia += side * in_impulse * 1.2f;
+    }
+    #endregion
     
 
     public Baggage baggage; 
@@ -79,7 +90,7 @@ public partial class Arm:
     protected override void Awake() 
     {
         base.Awake();
-        attention_target = ui.input.Input.instance.cursor.transform;
+        attention_target = ui.input.Player_input.instance.cursor.transform;
     }
 
     
@@ -94,13 +105,22 @@ public partial class Arm:
             Idle_vigilant_only_arm.create(
                 this,
                 attention_target,
-                controller.transporter
+                pair.transporter
+            )
+        );
+    }
+    public void aim_at(Transform in_target) {
+        set_root_action(
+            Aim_at_target.create(
+                this,
+                in_target,
+                pair.user
             )
         );
     }
     public void FixedUpdate() {
         current_action?.update();
-
+        shoulder.preserve_possible_rotations();
         base.preserve_possible_rotations();
     }
     public override void rotate_to_orientation(Orientation needed_orientation) {
@@ -109,7 +129,7 @@ public partial class Arm:
         rotate_to_desired_directions();
     }
     public override void rotate_to_desired_directions() {
-        //shoulder.rotate_to_desired_direction();
+        shoulder.rotate_to_desired_direction();
         base.rotate_to_desired_directions();
     }
 
@@ -124,7 +144,7 @@ public partial class Arm:
                 actions.Idle_vigilant_only_arm.create(
                     this,
                     attention_target,
-                    controller.transporter
+                    pair.transporter
                 )
             )
         );
@@ -151,37 +171,36 @@ public partial class Arm:
             set_relative_mirrored_target_direction(shoulder, value);
         }
     }
-    public float segment2_mirrored_target_direction {
-        set {
-            set_relative_mirrored_target_direction(segment2, value);
-        }
-    }
 
+    public float get_aiming_distance_to(Transform in_target) {
+        Quaternion needed_direction = transform.position.quaternion_to(in_target.position);
+        return Math.Abs(hand.transform.rotation.degrees_to(needed_direction));
+    }
     
     public void draw_desired_directions(float time=0.1f) {
         rvinowise.unity.debug.Debug.DrawLine_simple(
             shoulder.position, 
             shoulder.desired_tip,
-            Color.red,
-            3
+            Color.white,
+            2
         );
         rvinowise.unity.debug.Debug.DrawLine_simple(
             shoulder.desired_tip, 
             upper_arm.desired_tip,
-            Color.blue,
-            3
+            Color.white,
+            2
         );
         rvinowise.unity.debug.Debug.DrawLine_simple(
             upper_arm.desired_tip, 
             forearm.desired_tip,
             Color.white,
-            3
+            2
         );
         rvinowise.unity.debug.Debug.DrawLine_simple(
             forearm.desired_tip,
             hand.desired_tip,
-            Color.yellow,
-            3
+            Color.white,
+            2
         );
     }
     

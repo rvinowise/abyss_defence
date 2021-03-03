@@ -84,6 +84,7 @@ MonoBehaviour:
   magazine_prefab: {fileID: 1034737149163476093, guid: 2c9e402c9f578e642b9950a5fd72f3d9,
     type: 3}
   magazine: {fileID: 0}
+  recoil_force: 250
   shell_ejector: {fileID: 407324513766382050}
   projectile_force: 100
 --- !u!1 &2486645662213847114
@@ -193,7 +194,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   is_main: 1
   grip_gesture_from_editor: Grip_of_vertical
-  _holding_hand: {fileID: 0}
 --- !u!1 &4316797251384314046
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,8 +263,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -992546357
-  m_SortingLayer: 4
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -1604808960616924164, guid: 218c4e61419e95c41914dab2a196fcc6,
     type: 3}
@@ -397,8 +397,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -992546357
-  m_SortingLayer: 4
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7990538195955252711, guid: 218c4e61419e95c41914dab2a196fcc6,
     type: 3}
@@ -531,8 +531,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -992546357
-  m_SortingLayer: 4
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 8254601344943402192, guid: 218c4e61419e95c41914dab2a196fcc6,
     type: 3}
@@ -655,6 +655,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6505273017436822662, guid: a0651299a17882944898fedc396ac4b9,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505273017436822662, guid: a0651299a17882944898fedc396ac4b9,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.018959701
       objectReference: {fileID: 0}
@@ -670,6 +675,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6505273017436822662, guid: a0651299a17882944898fedc396ac4b9,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6505273017436822662, guid: a0651299a17882944898fedc396ac4b9,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -682,16 +692,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6505273017436822662, guid: a0651299a17882944898fedc396ac4b9,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6505273017436822662, guid: a0651299a17882944898fedc396ac4b9,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6505273017436822662, guid: a0651299a17882944898fedc396ac4b9,
         type: 3}

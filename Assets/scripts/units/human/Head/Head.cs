@@ -16,7 +16,7 @@ public class Head: Turning_element, ISensory_organ {
     public Transform attention_target;
 
     protected void Start() {
-        attention_target = rvinowise.unity.ui.input.Input.instance.cursor.transform;
+        attention_target = rvinowise.unity.ui.input.Player_input.instance.cursor.transform;
     }
     public static Head create() {
         GameObject game_object = new GameObject();
@@ -25,18 +25,15 @@ public class Head: Turning_element, ISensory_organ {
         return new_component;
     }
     
-    
-    protected override void update_rotation() {
-        base.update_rotation();
-        preserve_possible_rotations();
-    }
 
     public void pay_attention_to(Vector3 point) {
-        target_rotation = (point - position).to_quaternion();
+        target_rotation = ((Vector2)point - (Vector2)position).to_quaternion();
     }
 
-    protected void Update() {
+    protected void FixedUpdate() {
         pay_attention_to(attention_target.position);
+        base.rotate_to_desired_direction();
+        preserve_possible_rotations();
     } 
 
     protected override void OnDrawGizmos() {

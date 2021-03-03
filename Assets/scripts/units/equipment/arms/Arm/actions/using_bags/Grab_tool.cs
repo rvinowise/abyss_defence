@@ -57,7 +57,7 @@ public class Grab_tool: Action_of_arm {
 
     private void take_new_tool() {
         tool.activate();
-        hand.attach_tool_to_hand_for_holding(tool.main_holding);
+        hand.switch_held_tools(tool.main_holding);
     }
 
    
