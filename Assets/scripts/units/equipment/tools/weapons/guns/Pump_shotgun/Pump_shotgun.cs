@@ -41,7 +41,7 @@ public class Pump_shotgun: Gun {
         reloading_slot = GetComponentInChildren<Slot>();
     }
 
-    public override void apply_ammunition(Ammunition in_ammunition) {
+    public override void insert_ammunition(Ammunition in_ammunition) {
         if (rounds_n < max_rounds) {
             rounds_n++;
         }
@@ -49,6 +49,10 @@ public class Pump_shotgun: Gun {
 
     public bool can_apply_ammunition(Ammunition in_ammunition) {
         return rounds_n < max_rounds;
+    }
+
+    protected override void fire() {
+
     }
 }
 }

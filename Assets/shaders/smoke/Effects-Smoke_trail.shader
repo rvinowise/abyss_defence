@@ -111,12 +111,16 @@ Shader "Effects/Smoke_trail"
                     float4 vertex   : SV_POSITION;
                     float2 texcoord  : TEXCOORD0;
                     float2 lightingUV  : TEXCOORD1;
+                    float parabolic_progress : BLENDWEIGHT0;
                 };
 
                 sampler2D _MainTex;
                 float4 _Color;
                 float _Alpha;
-
+                float _Start_time;
+                float time() {
+                    return _Time[1] - _Start_time;
+                }
 
                 //#include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/LightingUtility.hlsl"
                 //#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/SpaceTransforms.hlsl"
@@ -128,6 +132,7 @@ Shader "Effects/Smoke_trail"
                     OUT.vertex = vPosition;
                     OUT.texcoord = v.texcoord;
                     OUT.lightingUV = ComputeScreenPos(vPosition / vPosition.w).xy;
+                    OUT.parabolic_progress = pow (time(), 0.5) *2;
 
                     return OUT;
                 }
@@ -135,19 +140,14 @@ Shader "Effects/Smoke_trail"
                 sampler2D _Noise_tex;
                 sampler2D _Snake_offset_tex;
                 float _DistortionDamper;
-                float _Start_time;
-
-                float time() {
-                    return _Time[1] - _Start_time;
-                }
+                
 
 
                 #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/CombinedShapeLightShared.hlsl"
 
                 half4 frag(v2f IN) : SV_Target
                 {
-                    float parabolic_progress = pow (time(), 0.5) *2;
-                    float randomization = (_Start_time);
+                    float randomization = _Start_time;
 
                     float2 snakelike_offset = float2(
                         0.0,
@@ -169,7 +169,7 @@ Shader "Effects/Smoke_trail"
                     snakelike_offset_noise *= 4;
                     
                     snakelike_offset = snakelike_offset + snakelike_offset_noise;
-                    snakelike_offset *= parabolic_progress;
+                    snakelike_offset *= IN.parabolic_progress;
 
                     half4 color = (
                         tex2D(_MainTex, IN.texcoord  + snakelike_offset * _DistortionDamper )

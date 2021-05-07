@@ -16,11 +16,10 @@ public class Arm_reach_orientation: arms.actions.Action_of_arm {
     public Orientation desired_orientation;
     
     public static parts.actions.Action create(
-        Action_sequential_parent in_sequential_parent, 
         Arm in_arm, 
         Orientation in_desired_orientation
     ) {
-        var action = (Arm_reach_orientation)pool.get(typeof(Arm_reach_orientation), in_sequential_parent);
+        var action = (Arm_reach_orientation)pool.get(typeof(Arm_reach_orientation));
         action.arm = in_arm;
         action.desired_orientation = in_desired_orientation;
         

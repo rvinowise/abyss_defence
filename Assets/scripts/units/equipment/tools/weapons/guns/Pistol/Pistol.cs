@@ -8,7 +8,7 @@ using rvinowise.unity.extensions;
 
 namespace rvinowise.unity.units.parts.weapons.guns {
 
-public class Pistol: 
+public abstract class Pistol: 
     Gun {
 
     [SerializeField]
@@ -19,17 +19,6 @@ public class Pistol:
     protected override void init_components() {
         base.init_components();
         magazine_slot = GetComponentInChildren<Slot>();
-    }
-    
-    protected override void init_holding_places() {
-        main_holding = Holding_place.create(transform);
-        main_holding.is_main = true;
-        main_holding.grip_gesture = Hand_gesture.Grip_of_vertical;
-        
-        second_holding = Holding_place.create(transform);
-        second_holding.is_main = false;
-        second_holding.grip_gesture = Hand_gesture.Support_of_horizontal;
-        second_holding.grip_direction = new Degree(-45f);
     }
     
     
@@ -43,19 +32,12 @@ public class Pistol:
 
     protected override bool can_fire() {
         return ready_to_fire()&&
-               (magazine!=null) &&
-               (magazine.rounds_qty > 0);
+               (ammo_qty > 0);
     }
 
-    public void insert_magazine(Magazine in_magazine) {
-        magazine = in_magazine;
-        magazine.transform.parent = this.transform;
-        magazine.gameObject.SetActive(false);
 
-    }
 
-    public override void apply_ammunition(Ammunition in_ammunition) {
-        base.apply_ammunition(in_ammunition);
-    }
+
+    
 }
 }

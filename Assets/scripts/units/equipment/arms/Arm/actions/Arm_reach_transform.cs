@@ -18,11 +18,10 @@ public class Arm_reach_transform: rvinowise.unity.units.parts.actions.Action {
     public Transform desired_transform;
     
     public static rvinowise.unity.units.parts.actions.Action create(
-        Action_sequential_parent in_sequential_parent, 
         Arm in_arm, 
         Transform in_desired_orientation
     ) {
-        var action = (Arm_reach_transform)pool.get(typeof(Arm_reach_transform), in_sequential_parent);
+        var action = (Arm_reach_transform)pool.get(typeof(Arm_reach_transform));
         action.arm = in_arm;
         action.desired_transform = in_desired_orientation;
         

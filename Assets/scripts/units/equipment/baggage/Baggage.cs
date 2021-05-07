@@ -11,6 +11,7 @@ using rvinowise.unity.units.parts.limbs;
 using rvinowise.unity.units.parts.tools;
 using rvinowise.unity.units.parts.weapons.guns;
 using rvinowise.unity.ui;
+using UnityEngine.Serialization;
 
 namespace rvinowise.unity.units.parts {
 
@@ -18,52 +19,70 @@ public class Baggage:
 Turning_element
 {
 
-    public List<Tool> items = new List<Tool>();
-    public Dictionary_of_queues<System.Type, Ammunition> ammos = new Dictionary_of_queues<System.Type, Ammunition>();
-    public int rounds;
+    public List<Tool_set> tool_sets = new List<Tool_set>();
+    public List<Tool> tools = new List<Tool>();
     public float entering_span = 30f;
+    public Dictionary<Ammo_compatibility, int> tool_to_ammo = 
+        new Dictionary<Ammo_compatibility, int>();
 
     public int ensure_borders(int index) {
-        if (Math.Abs(index) > items.Count) {
-            index = items.Count % index;
+        if (Math.Abs(index) > tool_sets.Count) {
+            index = tool_sets.Count % index;
         }
         if (index < 0) {
-            index = items.Count - index;
+            index = tool_sets.Count - index;
         }
         return index;
     }
 
     public void add_tool(Tool tool) {
+        tool.transform.SetParent(transform, false);
+        tool.transform.localRotation = Quaternion.identity;
+        tool.transform.localPosition = Vector2.zero;
         tool.deactivate();
-        items.Add(tool);
+        tools.Add(tool);
     }
 
     public void remove_tool(Tool tool) {
-        items.Remove(tool);
+        tools.Remove(tool);
         tool.activate();
     }
 
-    public void insert_ammo_for_gun(Gun gun, Ammunition in_ammo) {
-        Contract.Assert(gun != null);
-        Contract.Assert(in_ammo != null);
-        ammos.add(gun.GetType(), in_ammo);
-    }
-    public void add_rounds(int in_qty) {
-        rounds += in_qty;
+    
+
+    public void change_ammo_qty(Ammo_compatibility in_compatibility, int in_qty) {
+        Contract.Assert(in_compatibility != null);
+        tool_to_ammo.TryGetValue(in_compatibility, out var old_qty);
+        int new_qty = old_qty + in_qty;
+        Contract.Assert(new_qty >=0);
+        tool_to_ammo[in_compatibility] = new_qty;
+        
         if (on_ammo_changed != null) {
             on_ammo_changed();
         }
     }
-
-    public Ammunition get_magazine_for_gun(Gun in_gun) {
-        Magazine magazine_prefab = in_gun.magazine_prefab;
-        rounds -= magazine_prefab.max_rounds_qty;
-        Magazine magazine = magazine_prefab.instantiate<Magazine>();
-        magazine.rounds_qty = magazine_prefab.max_rounds_qty + Math.Min(0, rounds);
-        
-        
-        return magazine as Ammunition;
+    
+    public int fetch_ammo_qty(Ammo_compatibility in_compatibility, int needed_qty) {
+        tool_to_ammo.TryGetValue(in_compatibility, out var available_qty);
+        int retrieved_qty = Math.Max(available_qty, needed_qty);
+        change_ammo_qty(in_compatibility, retrieved_qty);
+        return retrieved_qty;
     }
+    public int check_ammo_qty(Ammo_compatibility in_compatibility) {
+        return fetch_ammo_qty(in_compatibility, 0);
+    }
+
+
+    public Ammunition get_ammo_object_for_tool(Tool in_tool) {
+        Ammunition ammo_prefab = in_tool.ammo_prefab;
+        Ammunition ammo = ammo_prefab.instantiate<Ammunition>();
+        ammo.rounds_qty = fetch_ammo_qty(in_tool.ammo_compatibility, ammo_prefab.max_rounds_qty);
+        Contract.Ensures(ammo.rounds_qty > 0);
+        
+        return ammo;
+    }
+    
+    
     
     void OnCollisionEnter2D(Collision2D collision) {
         

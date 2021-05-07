@@ -27,6 +27,8 @@ public class Map: MonoBehaviour {
         return false;
     }
 
+    public float ground_z = 0;
+
 }
 
 }

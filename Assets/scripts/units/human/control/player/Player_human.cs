@@ -14,15 +14,15 @@ using rvinowise.unity.management;
 using rvinowise.contracts;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using System.Linq;
+using rvinowise.unity.geometry2d;
 
 namespace rvinowise.unity.units.control.human {
 
-public class Player_human : Human_intelligence {
+public abstract class Player_human : Human_intelligence {
 
     private int[] held_tool_index;
     private Unit unit;
     private Transform cursor_transform;
-    public Arm_pair arm_pair;
 
     public List<Transform> enemies = new List<Transform>();
 
@@ -49,9 +49,9 @@ public class Player_human : Human_intelligence {
 
     
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
-        base.FixedUpdate();
+        base.Update();
     }
 
     
@@ -64,41 +64,17 @@ public class Player_human : Human_intelligence {
     }
 
 
-    private void read_using_tools_input() {
-        Arm selected_arm = get_selected_arm();
-        if (selected_arm.held_tool is Gun gun) {
-            use_gun(selected_arm, gun);
-        }
+    protected abstract void read_using_tools_input();
+
     
-        
 
-    }
+    
 
-    private void use_gun(Arm arm, Gun gun) {
-        bool wants_to_shoot = UnityEngine.Input.GetMouseButtonDown(0); //Input.instance.mouse_down();
-        if (wants_to_shoot) {
-            shoot();
-        }
-        else {
-
-            bool wants_to_reload = Player_input.instance.button_presed("reload");
-            if (wants_to_reload) {
-                arm_controller.reload(arm);
-            }
-        }
-
-    }
-
-    private void shoot() {
-        if (get_selected_target() is Transform target) {
-            arm_pair.attack(target);
-        }
-        
-    }
+    
 
     private Arm get_arm_targeting_selected_target() {
         Distance_to_component closest = Distance_to_component.empty();
-        foreach(Arm arm in arm_pair.get_all_arms()) {
+        foreach(Arm arm in arm_pair.get_all_armed_autoaimed_arms()) {
             if (arm_pair.get_target_of(arm) is Transform target) {
                 float this_distance = target.sqr_distance_to(Player_input.instance.cursor.transform.position);
                 if (this_distance < closest.distance) {
@@ -109,7 +85,7 @@ public class Player_human : Human_intelligence {
         return closest.component as Arm;
     }
 
-    private Transform get_selected_target() {
+    protected Transform get_selected_target() {
         Distance_to_component closest = Distance_to_component.empty();
         foreach(Transform target in arm_pair.get_all_targets()) {
             float this_distance = target.sqr_distance_to(Player_input.instance.cursor.transform.position);
@@ -135,48 +111,21 @@ public class Player_human : Human_intelligence {
         sensory_organ?.pay_attention_to(Player_input.instance.mouse_world_position);
     }
 
-    private bool read_switching_items_input() {
-        if (!switching_items_is_possible()) {
-            return false;
-        }
-        int tool_index = get_desired_weapon_index();
-        
-        int wheel_steps = Player_input.instance.mouse_wheel_steps;
-
-        if (Math.Abs(wheel_steps) > 0) {
-
-            Arm selected_arm = get_selected_arm();
-            selected_arm.take_tool_from_baggage(
-                baggage.items[0]    
-            );
-            return true;
-        }
-        return false;
-    }
+    protected abstract void read_switching_items_input();
 
     public Arm get_selected_arm() {
-        /* if (Side.from_degrees(last_rotation) == unity.geometry2d.Side.LEFT) {
-            return arm_controller.left_arm;
-        }
-        return arm_controller.right_arm; */
-
-        return arm_controller.right_arm;
+        return arm_pair.get_arm_on_side(get_selected_side());
+    }
+    
+    public Side get_selected_side() {
+        return Side.from_degrees(last_rotation);
     }
 
-
-
-    private int get_desired_weapon_index() {
-        int wheel_steps = Player_input.instance.mouse_wheel_steps;
-        if (Math.Abs(wheel_steps) > 0) {
-            
-        }
-        return 0;
-    }
 
     /*private bool wants_to_switch_tool() {
         return (switching_items_is_possible() && )
     }*/
-    private bool switching_items_is_possible() {
+    protected bool switching_items_is_possible() {
         if (baggage == null) {
             return false;
         }
@@ -214,8 +163,8 @@ public class Player_human : Human_intelligence {
 
     private bool has_gun_in_2hands(out Gun out_gun) {
         if (
-            (arm_controller?.right_arm.current_action is Idle_vigilant_main_arm) &&
-            (arm_controller?.right_arm.held_tool is Gun gun)
+            (base.arm_pair?.right_arm.current_action is Idle_vigilant_main_arm) &&
+            (base.arm_pair?.right_arm.held_tool is Gun gun)
         ) {
             out_gun = gun;
             return true;
@@ -226,11 +175,11 @@ public class Player_human : Human_intelligence {
 
     private Quaternion get_additional_rotation_for_2hands_gun(Gun gun) {
         
-        float body_rotation = 
+        float body_rotation =
             unity.geometry2d.Triangles.get_angle_by_lengths(
-                arm_controller.shoulder_span,
+                base.arm_pair.shoulder_span,
                 gun.butt_to_second_grip_distance,
-                arm_controller.left_arm.length-arm_controller.left_arm.hand.length
+                base.arm_pair.left_arm.length- base.arm_pair.left_arm.hand.length
             ) -90f;
         
         
@@ -246,7 +195,7 @@ public class Player_human : Human_intelligence {
         Contract.Requires(enemies.IndexOf(in_enemy.transform) == -1, "adding enemy the second time");
         enemies.Add(in_enemy.transform);
         subscribe_to_disappearance_of(in_enemy.transform);
-        if (arm_pair.get_iddling_arms().Any()) {
+        if (arm_pair.get_iddling_armed_autoaimed_arms().Any()) {
             arm_pair.aim_at(in_enemy.transform);
         }
     }

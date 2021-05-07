@@ -10,6 +10,7 @@ using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 
 using rvinowise.unity.units.parts.weapons.guns;
+using Action = rvinowise.unity.units.parts.actions.Action;
 
 
 namespace rvinowise.unity.units.parts.limbs.arms.actions {
@@ -33,8 +34,8 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
         action.transporter = in_transporter;
         return action;
     }
-    
-    
+
+
     public override void init_state() {
         base.init_state();
        /*  arm.shoulder.set_target_direction_relative_to_parent(

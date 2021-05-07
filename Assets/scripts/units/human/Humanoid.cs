@@ -24,8 +24,8 @@ using Action = rvinowise.unity.units.parts.actions.Action;
 using Arm_pair = rvinowise.unity.units.parts.limbs.arms.humanoid.Arm_pair;
 
 namespace rvinowise.unity.units.humanoid {
-
-using parts;
+    using global::units;
+    using parts;
     using rvinowise.unity.extensions.attributes;
     using rvinowise.unity.units.parts.limbs;
 
@@ -33,11 +33,12 @@ using parts;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Humanoid: 
     rvinowise.unity.units.Unit,
-    IPerform_actions
+    IPerform_actions,
+    IFlippable_actor
 {
 
     /* parts of the human*/
-    private Arm_pair arm_controller;
+    public Arm_pair arm_pair;
     public Head head;
     [SerializeField]
     private units.parts.humanoid.Legs legs;
@@ -55,29 +56,36 @@ public class Humanoid:
     /* IPerformActions interface */
     public Action current_action {
         set {
-            _current_action?.discard_whole_tree();
             _current_action = value;
         }
         get { return _current_action; }
     }
     private Action _current_action;
-    
+    public Action default_action { get; set; } = null;
+
     public void set_root_action(Action in_action) {
-        current_action = in_action;
-        current_action.start_as_root(this);
+        //current_action = in_action;
+        in_action.start_as_root();
+        //Contract.Ensures(in_action.actor == this, "a root action should have an actor");
     }
-    
+
+    public void start_default_action() {
+        //current_action?.discard_whole_tree();
+    }
     
     /* Humanoid itself */
 
     public void pick_up(Tool in_tool) {
         if (in_tool is Ammunition ammo) {
-            baggage.add_rounds(ammo.rounds_qty);
+            baggage.change_ammo_qty(ammo.compatibility, ammo.rounds_qty);
         }
     }
 
     public void pick_up(Ammunition in_ammo) {
-        baggage.add_rounds(in_ammo.rounds_qty);
+        baggage.change_ammo_qty(
+            in_ammo.compatibility,
+            in_ammo.rounds_qty
+            );
     }
     protected override void Awake()
     {
@@ -90,72 +98,69 @@ public class Humanoid:
         if (animator){
             animator.enabled = false;
         }
-        arm_controller = GetComponent<Arm_pair>();
+        arm_pair = GetComponent<Arm_pair>();
     }
 
     
 
 
-    private Action last_action_test;
     void FixedUpdate() {
         
         head.rotate_to_desired_direction();
         
-        last_action_test = current_action ;
-
         if (!animator.enabled) {
             current_action?.update();
         }
     }
 
   
-    [called_in_animation]
+    
+    /* [called_in_animation]
     void change_main_tool_animation(AnimationEvent in_event) {
-        Arm arm = arm_controller.right_arm;
-        Contract.Requires(
-            arm.held_tool != null,
-            "must hold a tool to change its animation"
-        );
-        Tool held_tool = arm.held_tool;
+        
         switch (in_event.stringParameter) {
             case "sideview":
-                held_tool.animator.SetBool(in_event.stringParameter, Convert.ToBoolean(in_event.intParameter));
-                held_tool.transform.localScale = new Vector3(1,1,1);
+               
                 break;
             case "slide":
-                held_tool.animator.SetTrigger(in_event.stringParameter);
+                
+                break;
+            
+            case "opened":
                 break;
         }
         
-    }
-    
-    /* invoked from the animation (in keyframes).*/
-    [called_in_animation]
-    void apply_ammunition_to_gun(AnimationEvent in_event) {
-        Arm gun_arm = arm_controller.right_arm;
-        Arm ammo_arm = arm_controller.other_arm(gun_arm);
-        Contract.Requires(
-            gun_arm.held_tool is Gun,
-            "must hold a tool to reload it"
-        );
-        Contract.Requires(
-            ammo_arm.held_tool is Ammunition,
-            "must hold a tool to reload it"
-        );
+    } */
 
-        if (
-            (gun_arm.held_tool is Pistol pistol)&&
-            (ammo_arm.held_tool is Magazine magazine)
-        )
-        {
-            pistol.insert_magazine(magazine);
-        } else {
-            Gun gun = gun_arm.held_tool as Gun;
-            Ammunition ammo = ammo_arm.held_tool as Ammunition;
-            gun.apply_ammunition(ammo);
+    /* IFlippable_actor interface */
+    public void flip_for_animation(bool in_flipped) {
+        if (in_flipped != is_flipped()) {
+            float scale = Mathf.Abs(transform.localScale.x);
+            if (in_flipped) {
+                transform.localScale = new Vector3(scale, -scale, 1);
+            } else {
+                transform.localScale = new Vector3(scale, scale, 1);
+            }
+            
+            switch_tools();
         }
     }
+    public bool is_flipped() {
+        return transform.localScale.y < 0;
+    }
 
+    public void restore_after_flipping() {
+        Contract.Requires(is_flipped(), "restoring after flipping is only makes sense if flipped");
+        arm_pair.switch_arms_angles();
+        flip_for_animation(false);
+        //Debug.Break();
+    }
     
+    private void switch_tools() {
+        arm_pair.switch_tools();
+        
+    }
+
+   
 }
 }

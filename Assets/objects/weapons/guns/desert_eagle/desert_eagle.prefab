@@ -75,15 +75,19 @@ MonoBehaviour:
   main_holding: {fileID: 8362259214313910014}
   second_holding: {fileID: 0}
   animator: {fileID: 1201677594883345000}
+  ammo_prefab: {fileID: 1034737149163476093, guid: 2c9e402c9f578e642b9950a5fd72f3d9,
+    type: 3}
+  ammo_compatibility: 0
   fire_rate_delay: 0.2
   muzzle: {fileID: 8454711743962537359}
   spark_prefab: {fileID: 7198755227066756123, guid: 8f766c7240d912a42b811144d99ae39e,
     type: 3}
+  projectile_prefab: {fileID: 4991994977472840630, guid: 7fc502688ebc5874eae4f4ed36822dec,
+    type: 3}
   bullet_shell_prefab: {fileID: 3724668389505664677, guid: a0651299a17882944898fedc396ac4b9,
     type: 3}
-  magazine_prefab: {fileID: 1034737149163476093, guid: 2c9e402c9f578e642b9950a5fd72f3d9,
-    type: 3}
-  magazine: {fileID: 0}
+  rounds_qty: 0
+  aiming_automatically: 0
   recoil_force: 250
   shell_ejector: {fileID: 407324513766382050}
   projectile_force: 100

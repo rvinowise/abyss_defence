@@ -37,7 +37,7 @@ public class Play_body_animation : Action_sequential_parent {
 
     private void init_child_actions() {
 
-        Action_parallel_parent preparing_arms = Action_parallel_parent.create(this);
+        Action_parallel_parent preparing_arms = Action_parallel_parent.create(this.actor);
         //preparing_arms.add_child();
             
         add_child(preparing_arms);

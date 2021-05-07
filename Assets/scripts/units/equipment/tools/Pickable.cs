@@ -25,7 +25,7 @@ public class Pickable : MonoBehaviour
             if (content is Ammunition ammo) {
                 user.pick_up(content);
             }
-            GameObject.Destroy(this);
+            Destroy(gameObject);
         }
     }
 }

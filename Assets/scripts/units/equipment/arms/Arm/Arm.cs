@@ -10,6 +10,7 @@ using Action = rvinowise.unity.units.parts.actions.Action;
 using System;
 using rvinowise.unity.units.parts.limbs.arms.humanoid;
 using rvinowise.unity.extensions;
+using rvinowise.unity.units.parts.weapons.guns;
 
 namespace rvinowise.unity.units.parts.limbs.arms  {
 
@@ -48,6 +49,13 @@ public partial class Arm:
     public Tool held_tool {
         get {return hand.held_tool;}
     }
+    public Holding_place held_part {
+        get {return hand.held_part;}
+    }
+
+    public bool is_holding_tool() {
+        return held_tool != null;
+    }
 
     public float length {
         get { return upper_arm.length + forearm.length + hand.length; }
@@ -63,11 +71,26 @@ public partial class Arm:
         }
     }
     private Action _current_action;
-
+    
     public void set_root_action(Action in_action) {
-        current_action?.discard_whole_tree();
-        current_action = in_action;
-        current_action.start_as_root();
+        in_action.start_as_root();
+    }
+    
+    public void start_default_action() {
+        UnityEngine.Debug.Log(this.name + " start_default_action");
+        current_action = Idle_vigilant_only_arm.create(
+            this,
+            attention_target,
+            pair.transporter
+        );
+    }
+    
+    public Action get_default_action() {
+        return Idle_vigilant_only_arm.create(
+            this,
+            attention_target,
+            pair.transporter
+        );
     }
     #endregion
 
@@ -93,7 +116,14 @@ public partial class Arm:
         attention_target = ui.input.Player_input.instance.cursor.transform;
     }
 
+    protected override void Start() {
+        base.Start();
+
+        
+    }
+
     
+
 
     private void mirror_from() {
 
@@ -120,9 +150,16 @@ public partial class Arm:
     }
     public void FixedUpdate() {
         current_action?.update();
-        shoulder.preserve_possible_rotations();
-        base.preserve_possible_rotations();
+        if (!controlled_by_animation()) {
+            shoulder.preserve_possible_rotations();
+            base.preserve_possible_rotations();
+        }
     }
+
+    private bool controlled_by_animation() {
+        return pair.user.animator.isActiveAndEnabled;
+    }
+    
     public override void rotate_to_orientation(Orientation needed_orientation) {
         set_desired_directions_by_position(needed_orientation.position);
         hand.target_rotation = needed_orientation.rotation;
@@ -134,10 +171,10 @@ public partial class Arm:
     }
 
     public void take_tool_from_baggage(Tool tool) {
-        Contract.Requires(hand.held_tool == null, "must be free in order to grab a tool");
 
         set_root_action(
             Action_sequential_parent.create(
+                null,
                 actions.Take_tool_from_bag.create(
                     this, baggage, tool
                 ),
@@ -155,6 +192,7 @@ public partial class Arm:
         Contract.Requires(hand.held_tool == null, "must be free in order to grab a tool");
 
         current_action = Action_sequential_parent.create(
+            this,
             actions.Arm_reach_holding_part_of_tool.create(
                 tool.second_holding
             ),
@@ -177,6 +215,12 @@ public partial class Arm:
         return Math.Abs(hand.transform.rotation.degrees_to(needed_direction));
     }
     
+    public bool aiming_automatically() {
+        return 
+        (held_tool is Gun gun)&&
+        (gun.aiming_automatically);
+    }
+
     public void draw_desired_directions(float time=0.1f) {
         rvinowise.unity.debug.Debug.DrawLine_simple(
             shoulder.position, 
@@ -203,7 +247,14 @@ public partial class Arm:
             2
         );
     }
-    
+
+    public void drop_tool() {
+        hand.detach_tool();
+    }
+
+    public void grab_tool(Holding_place in_place) {
+        hand.attach_holding_part(in_place);
+    }
 
     void OnDrawGizmos() {
         if (Application.isPlaying) {

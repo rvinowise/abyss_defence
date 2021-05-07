@@ -60,7 +60,7 @@ public class Hand:Segment
         parent_segment = transform.parent?.GetComponent<Segment>();
 
         if (held_part != null) {
-            attach_tool_to_hand(held_part);
+            attach_holding_part(held_part);
         }
     }
 
@@ -79,27 +79,33 @@ public class Hand:Segment
 
 
     public void switch_held_tools(Holding_place new_held_part) {
+        if (new_held_part.holding_hand != null) {
+            new_held_part.drop_from_hand();
+        }
         if (held_part != null) {
-            deattach_tool_from_hand(held_part);
-        }
-        this.held_part = new_held_part;
-        if (new_held_part != null) {
-            attach_tool_to_hand(new_held_part);
-        }
-        Contract.Ensures(this.held_tool != null);
-
-        void deattach_tool_from_hand(Holding_place held_part) {
-            held_part.hold_by(null);
-            gesture = Hand_gesture.Relaxed;
+            detach_tool();
         }
         
+        if (new_held_part != null) {
+            attach_holding_part(new_held_part);
+        }
+        Contract.Ensures(this.held_tool != null);
+        
     }
-    private void attach_tool_to_hand(Holding_place held_part) {
-        gesture = held_part.grip_gesture;
+    
+    public Tool detach_tool() {
+        Tool dropped_tool = held_tool;
+        held_part.drop_from_hand();
+        held_part = null;
+        gesture = Hand_gesture.Relaxed;
+        return dropped_tool;
+    }
 
-        Tool tool = held_part.tool;
-        tool.transform.set_z(held_object_local_z);
-        held_part.hold_by(this);
+    public void attach_holding_part(Holding_place held_part) {
+        gesture = held_part.grip_gesture;
+        this.held_part = held_part;
+        held_part.set_parenting_for_holding(this);
+        held_part.tool.hold_by(this);
     }
 
     

@@ -11,7 +11,7 @@ using rvinowise;
 using rvinowise.unity.effects.physics;
 using rvinowise.unity.units.parts.weapons.guns.common;
 using Random = UnityEngine.Random;
-
+using rvinowise.unity.extensions.attributes;
 
 namespace rvinowise.unity.units.parts.weapons.guns {
 
@@ -20,23 +20,9 @@ public class Desert_eagle: Pistol {
     //public override float weight { set; get; } = 1f;
     public override float stock_length { get; } = 0f;
 
-    private Saved_physics last_physics = new Saved_physics();
-
-
     protected override void Awake() {
         base.Awake();
-        
-        insert_magazine(
-            GameObject.Instantiate(magazine_prefab).GetComponent<Magazine>()    
-        );
     }
-    
-    
-    void LateUpdate()
-    {
-        last_physics.position = transform.position;
-    }
-
 
 
     private static readonly int animation_fire = Animator.StringToHash("fire");
@@ -45,16 +31,14 @@ public class Desert_eagle: Pistol {
 
 
     
-    protected override Projectile fire() {
-        var new_projectile = base.fire();
+    protected override void fire() {
+        var new_projectile = base.get_projectile();
         if (new_projectile == null) {
-            return null;
+            return;
         }
         
         animator.SetTrigger("slide");
         propell_projectile(new_projectile);
-        
-        return new_projectile;
     }
 
     public float projectile_force = 100f;//100f;
@@ -67,14 +51,16 @@ public class Desert_eagle: Pistol {
 
 
     /* invoked from an animation */
+    [called_in_animation]
     private void eject_bullet_shell() {
-        float ejection_force = 5f;
-        Bullet_shell new_shell = bullet_shell_prefab.get_from_pool<Bullet_shell>(
+        
+        Gun_shell new_shell = bullet_shell_prefab.get_from_pool<Gun_shell>(
             shell_ejector.position,
             transform.rotation
         );
         new_shell.enabled = true;
             
+        float ejection_force = 5f;
         Vector2 ejection_vector = Directions.degrees_to_quaternion(-15+Random.value*30) *
                                   shell_ejector.right *
                                   ejection_force;

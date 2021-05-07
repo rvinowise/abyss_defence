@@ -61,8 +61,8 @@
 					"column": 0
 				},
 				{
-					"line": 159,
-					"column": 16
+					"line": 216,
+					"column": 46
 				},
 				{
 					"line": -1,
@@ -95,15 +95,15 @@
 			]
 		},
 		{
-			"path": "Assets/scripts/units/equipment/body_parts/Turning_element.cs",
+			"path": "Assets/scripts/units/human/actions/using_guns/reloading/pistol/Reload_pistol.cs",
 			"bookmarks": [
 				{
 					"line": -1,
 					"column": 0
 				},
 				{
-					"line": 194,
-					"column": 69
+					"line": 20,
+					"column": 81
 				},
 				{
 					"line": -1,

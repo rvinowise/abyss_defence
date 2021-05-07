@@ -6,38 +6,50 @@ using rvinowise.contracts;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using UnityEngine.Animations;
 using Debug = UnityEngine.Debug;
+using rvinowise.unity.units.humanoid;
 
 namespace rvinowise.unity.units.parts.actions {
 
-public abstract partial class Action {
+public abstract partial class Action:
+    IAction
+{
     #region debug
     static int debug_count = 0;
     #endregion
 
-    protected Action_parent parent_action { get; set; }
-    protected Action root_action;
-    protected IPerform_actions actor;
-
-    protected void set_actor(IPerform_actions in_actor) {
-        actor = in_actor;
+    protected Action parent_action { 
+        get{return _parent_action;} 
+        set{
+            _parent_action = value;
+            if (_parent_action == null) {
+                var test = true;
+            }
+        } 
     }
+    Action _parent_action;
+
+    protected Action root_action;
+    protected internal IPerform_actions actor;
+
+    
     
     
     public bool reached_goal { private set; get; }
     private bool is_free_in_pool = false;
 
+    public virtual void on_child_reached_goal(Action in_sender_child) {
+        Contract.Assert(false, "should be overridden in Parental actions");
+    }
+
     protected static units.parts.actions.Action.Pool<units.parts.actions.Action> pool { get; } = 
         new Pool<Action>();
 
-   
+    public string marker = "";
 
-    public static Action new_root_action(
-        System.Type action_type,
-        params Object[] param    
-    ) {
-        var action = (Take_tool_from_bag)pool.get(typeof(Take_tool_from_bag));
-        return action;
+    public string get_marker() {
+        return marker;
     }
+
     
     public Action() {
         debug_count++;
@@ -48,17 +60,42 @@ public abstract partial class Action {
         root_action = this;
     }
 
-    public void start_as_root(IPerform_actions in_actor) {
+    public Action add_marker(string in_marker) {
+        marker = in_marker;
+        return this;
+    }
+
+    protected void set_actor(IPerform_actions in_actor) {
+        actor = in_actor;
+        
+    }
+    public void start_as_root() {
         set_root_action(this);
         start_execution();
+    }
+
+    public void add_to_parent(IAction_parent in_parent) {
+        in_parent.add_child(this);
+        set_root_action(in_parent.get_root_action());
+    }
+
+    public virtual void init_state() {
+        
+    }
+
+    public virtual void start_execution() {
+        if (actor != null) {
+            change_action_of_actor();
+        }
+        init_state();
     }
 
     public virtual void set_root_action(Action in_root_action) {
         root_action = in_root_action;
     }
-    public virtual void attach_to_parent(Action_parent in_parent) {
+    public void attach_to_parent(Action in_parent) {
         parent_action = in_parent;
-        //root_action = in_parent.root_action;
+        root_action = in_parent.root_action;
     }
 
     
@@ -82,6 +119,12 @@ public abstract partial class Action {
 
  
     protected void mark_as_reached_goal() {
+        if (this.marker.StartsWith("second tier")) {
+            var test = true;
+        }
+        if (this is Pull_tool_out_of_bag) {
+            var test = true;
+        }
         if (reached_goal) {
             return;
         }
@@ -89,10 +132,24 @@ public abstract partial class Action {
         Log.info($"{GetType()} finish");
         #endregion
         
+        if (parent_action!=null) {
+            notify_parent_about_finishing();
+        }
+        else {
+            start_default_action();
+
+        }
+    }
+
+    private void notify_parent_about_finishing() {
         Contract.Requires(parent_action != null, "root parent action can never end");
-        
-        reached_goal = true;
+        reached_goal = true;    
         parent_action.on_child_reached_goal(this);
+    }
+
+    public virtual void start_default_action() {
+        actor.start_default_action();
+        actor.current_action = actor.get_default_action();
     }
 
     protected void mark_as_has_not_reached_goal() {
@@ -106,29 +163,23 @@ public abstract partial class Action {
         reached_goal = false;
     }
     
-    public virtual void init_state() {
-        
-    }
-
-    public virtual void start_execution() {
-        prepare_actor_for_execution();
-        init_state();
-    }
     
-    public virtual void prepare_actor_for_execution() {
+    
+    public void change_action_of_actor() {
         Log.info(($"{GetType()} Action is started."));
-        if (actor_is_used_in_another_action())
+        //if (actor_is_used_in_another_action())
+        if (actor.current_action != null)
         {
+            Contract.Requires(
+                actor.get_root_action() != this.root_action,
+                "child actions within one root action shouldn't clash for one actor"
+            );
             actor.current_action.discard_whole_tree();
-            actor.current_action = null;
         }
-
-        bool actor_is_used_in_another_action() {
-            return 
-                (actor.current_action != null)&&
-                (actor.current_action != root_action);
-        }
+        actor.current_action = this;
     }
+
+   
 
     public virtual void restore_state() {
         Log.info($"{GetType()} Action is ended. ");
@@ -140,38 +191,59 @@ public abstract partial class Action {
             parent_action != null,
             "the root parent action cannot finish"
         );
-        discard_during_execution();
+        restore_state_and_delete();
     }
 
-    public virtual void discard_during_execution() {
+    public virtual void restore_state_and_delete() {
         restore_state();
+        if (actor != null) {
+            actor.current_action = null;
+        }
         
-        discard_from_queue();
+        delete();
+    }
+    
+    public 
+
+    public void detach_from_parent() {
+        this.parent_action = null;
+        this.set_root_action(this);
     }
 
-    public virtual void discard_from_queue() {
+    public virtual void delete() {
         reset();
         pool.return_to_pool(this);
     }
 
 
     public void discard_whole_tree() {
-        if (this_is_root_action()) {
-            discard_during_execution();
-        } else {
-            parent_action.discard_whole_tree();
-        }
+        Action root_action = mark_actions_for_deletion();
+        root_action.restore_state_and_delete();
+    }
 
-        bool this_is_root_action() {
-            return this.parent_action == null;
+    private Action mark_actions_for_deletion() {
+        if (this.parent_action != null) {
+            marked_for_deletion = true;
+            return this.parent_action.mark_actions_for_deletion();
         }
+        return this;
+    }
+
+    public bool marked_for_deletion { get; set; } = false;
+
+    public Action get_root_action() {
+        if (this.parent_action != null) {
+            return this.parent_action.get_root_action();
+        }
+        return this;
     }
 
 
-    protected virtual void reset() {
+    protected void reset() {
         parent_action = null;
         root_action = this;
         reached_goal = false;
+        marked_for_deletion = false;
     }
 
     public bool is_deleted {

@@ -29,14 +29,20 @@ public abstract class Gun:
     [SerializeField]
     public Transform spark_prefab;
     
+
     [SerializeField]
-    public Bullet_shell bullet_shell_prefab;
-    [SerializeField] public Magazine magazine_prefab;
-    public guns.Magazine magazine;
+    public Projectile projectile_prefab;
+    [SerializeField]
+    public Gun_shell bullet_shell_prefab;
+    
+    
+
+    [SerializeField]
+    public bool aiming_automatically;
 
     public virtual float stock_length { get; }
 
-        
+    
     public Vector2 tip {
         get { return muzzle.localPosition; }
         set { muzzle.localPosition = value; }
@@ -53,7 +59,7 @@ public abstract class Gun:
     }
 
     
-    private float last_shot_time = 0f;
+    protected float last_shot_time = 0f;
 
     protected IReceive_recoil recoil_receiver;
 
@@ -67,30 +73,44 @@ public abstract class Gun:
     }
 
     public override void hold_by(Hand in_hand) {
-        recoil_receiver = in_hand?.arm;
+        base.hold_by(in_hand);
+        recoil_receiver = in_hand.arm;
+    }
+    
+    public override void drop_from_hand() {
+        recoil_receiver = null;
     }
     
 
-    public virtual void apply_ammunition(Ammunition in_ammunition) {
+    public virtual void insert_ammunition(Ammunition in_ammunition) {
         in_ammunition.deactivate();
+        ammo_qty += in_ammunition.rounds_qty;
+        on_ammo_changed();
     }
     
+ 
+
     public float recoil_force = 150f;
-    protected virtual Projectile fire() {
+    protected Projectile get_projectile() {
         Contract.Requires(can_fire(), "function Fire must be invoked after making sure it's possible");
         last_shot_time = Time.time;
-        Projectile new_projectile = magazine.retrieve_round(muzzle);
+        Projectile new_projectile = projectile_prefab.get_from_pool<Projectile>(
+            muzzle.position, muzzle.rotation
+        );
+        ammo_qty -=1;
         Transform new_spark = spark_prefab.get_from_pool<Transform>();
         new_spark.copy_physics_from(muzzle);
         
         this.recoil_receiver?.push_with_recoil(recoil_force);
-
+        on_ammo_changed();
         return new_projectile;
     }
 
+    
+
 
     public virtual int get_loaded_ammo() {
-        return magazine.rounds_qty;
+        return ammo_qty;
     }
 
     public virtual float time_to_readiness() {
@@ -106,12 +126,25 @@ public abstract class Gun:
         }
     }
 
+    protected abstract void fire();
+
     public virtual bool ready_to_fire() {
         return (Time.time - last_shot_time) > fire_rate_delay;
     }
 
     protected virtual bool can_fire() {
-        return ready_to_fire();
+        return (
+            (ammo_qty >0) &&
+            ready_to_fire()
+        );
+    }
+
+    public delegate void EventHandler();
+    public event EventHandler on_ammo_changed = delegate{};
+    public void notify_that_ammo_changed() {
+        if (on_ammo_changed != null) {
+            on_ammo_changed();
+        }
     }
 }
 }

@@ -32,12 +32,17 @@ public class Arm_reach_relative_directions: Action {
         
         action.actor = in_arm;
         action.arm = in_arm;
-        if (in_arm.side == Side.RIGHT) {
+        if (in_arm.side == Side.LEFT) {
+            action.shoulder_rotation = in_shoulder_rotation;
+            action.upper_arm_rotation = in_upper_arm_rotation;
+            action.forearm_rotation = in_forearm_rotation;
+            action.hand_rotation = in_hand_rotation;
+        } else {
             action.shoulder_rotation = -in_shoulder_rotation;
             action.upper_arm_rotation = -in_upper_arm_rotation;
             action.forearm_rotation = -in_forearm_rotation;
             action.hand_rotation = -in_hand_rotation;
-        }
+        } 
         
         return action;
     }

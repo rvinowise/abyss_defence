@@ -37,7 +37,7 @@ public class Holding_place: MonoBehaviour
     }
     public Degree grip_direction {
         set { transform.localRotation = value.to_quaternion(); }
-        get { return transform.localRotation.to_degrees(); }
+        get { return transform.localRotation.to_degree(); }
     }
 
     public Tool tool { get; set; }
@@ -111,8 +111,8 @@ public class Holding_place: MonoBehaviour
 
     protected void Awake() {
         //base.Awake();
-        Tool parent_tool =  transform?.parent.GetComponent<Tool>();
-        Contract.Requires(parent_tool  != null, "the parent of a Holding_place must be a Tool");
+        Tool parent_tool = transform.GetComponentInParent<Tool>(); //transform?.parent.GetComponent<Tool>();
+        Contract.Requires(parent_tool  != null, "a Holding_place must have a Tool in its parent, or be a Tool");
 
         tool = parent_tool;
         if (grip_gesture_from_editor != "") {
@@ -120,21 +120,46 @@ public class Holding_place: MonoBehaviour
         }
     }
     
-    public void hold_by(Hand in_hand) {
+    public void set_parenting_for_holding(Hand in_hand) {
         holding_hand = in_hand;
         if (is_main) {
-            tool.transform.parent = in_hand?.valuable_point.transform;
-
-            Vector2 inversed_position = -this.transform.localPosition;
-            Quaternion inversed_rotation = this.transform.localRotation.inverse();
+            if (tool.transform == transform) {
+                simply_attach_to_parent(in_hand);
+            }
+            else {
+                calculate_parenting_based_on_holding_place(in_hand);
+            }
             
-            tool.transform.localPosition =
-                inversed_position.rotate(inversed_rotation);
+            
+        }
+    }
 
-            tool.transform.localRotation =
-                inversed_rotation;
+    private void calculate_parenting_based_on_holding_place(Hand in_hand) {
+        tool.transform.SetParent(in_hand.valuable_point.transform, false);
 
-            tool.hold_by(in_hand);
+        Vector2 inversed_position = -transform.localPosition;
+        Quaternion inversed_rotation = 
+            new Degree(-transform.localRotation.to_degree()).to_quaternion();
+            
+        tool.transform.localPosition =
+            inversed_position.rotate(inversed_rotation);
+
+        tool.transform.localRotation =
+            inversed_rotation;
+    }
+
+    private void simply_attach_to_parent(Hand in_hand) {
+        transform.SetParent(in_hand.valuable_point.transform, false);
+        transform.localRotation = Quaternion.identity;
+        transform.localPosition = Vector2.zero;
+    }
+
+    public void drop_from_hand() {
+        holding_hand = null;
+        if (is_main) {
+            tool.transform.SetParent(null, true);
+
+            tool.drop_from_hand();
         }
     }
     

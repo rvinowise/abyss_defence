@@ -240,6 +240,7 @@ MonoBehaviour:
         m_CallState: 2
   emitter: {fileID: 6994008367860111093}
   mesh_object: {fileID: 3053044783035480703}
+  decorative_update_frequency: 1
   fade_speed: 0.2
 --- !u!33 &7318170254621828348
 MeshFilter:

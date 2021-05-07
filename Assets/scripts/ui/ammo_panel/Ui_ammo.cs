@@ -35,7 +35,7 @@ MonoBehaviour
 
     public void update_ammo()
     {
-        ammo_label.text = String.Format("{0}",baggage.rounds);
+        //ammo_label.text = String.Format("{0}",baggage.rounds);
     }
 
     public void update_available_tools(Tool in_tool, int change)

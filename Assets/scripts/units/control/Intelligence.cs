@@ -68,7 +68,7 @@ MonoBehaviour
 
     }
 
-    protected virtual void FixedUpdate() {
+    protected virtual void Update() {
         read_input();
     }
 
@@ -78,9 +78,9 @@ MonoBehaviour
     
     protected void save_last_rotation(Quaternion needed_direction) {
         float angle_difference = transform.rotation.degrees_to(needed_direction).degrees;
-        if (Mathf.Abs(angle_difference) > (float) Mathf.Epsilon) {
+        //if (Mathf.Abs(angle_difference) > (float) Mathf.Epsilon) {
             last_rotation = angle_difference;
-        }
+        //}
     }
 
 

@@ -3231,16 +3231,9 @@ AnimationClip:
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
-  - time: 1.4833333
+  - time: 1.5
     functionName: apply_ammunition_to_gun
     data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1.5
-    functionName: change_main_tool_animation
-    data: sideview
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
@@ -3250,5 +3243,5 @@ AnimationClip:
     data: slide
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 1
+    intParameter: 0
     messageOptions: 0

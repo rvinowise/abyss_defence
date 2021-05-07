@@ -35,10 +35,8 @@ public class Take_tool_from_bag: Action_sequential_parent {
 
     private void init_child_actions() {
         add_children(
-            Put_hand_before_bag.create(arm, bag),
-            Move_hand_into_bag.create(arm, bag),
-            Grab_tool.create(arm, bag, tool),
-            Put_hand_before_bag.create(arm, bag)
+            Put_tool_into_bag.create(arm, bag),
+            Pull_tool_out_of_bag.create(arm, bag, tool)
         );
     
         

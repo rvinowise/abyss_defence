@@ -17,16 +17,7 @@ public abstract partial class Action {
         private Dictionary<System.Type, Queue<TBase>> types_to_objects = 
             new Dictionary<Type, Queue<TBase>>();
 
-        public TBase get(
-            System.Type type, 
-            Action_parent in_action_parent
-        ) {
-            TBase restored_action = get(type);
-            restored_action.attach_to_parent(in_action_parent);
-            
-            return restored_action;
-        }
-        
+
         public TBase get(System.Type type) {
             Queue<TBase> bases = get_or_create_place_for_type(type);
 

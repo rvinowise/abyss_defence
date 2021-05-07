@@ -20,18 +20,16 @@ public class Push_object_into_slot: Arm_reach_orientation {
 
     
     public static Push_object_into_slot create(
-        Action_sequential_parent in_action_sequential_parent, 
         Arm in_arm,
         Tool in_insertee,
         Slot in_slot
     ) {
-        var action = (Push_object_into_slot)pool.get(typeof(Push_object_into_slot), in_action_sequential_parent);
+        var action = (Push_object_into_slot)pool.get(typeof(Push_object_into_slot));
         action.arm = in_arm;
         action.insertee = in_insertee;
         action.slot = in_slot;
         return action;
     }
-    public Push_object_into_slot() {}
     
 
     public override void init_state() {

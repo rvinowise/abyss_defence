@@ -26,7 +26,9 @@ public class Ak47: Gun {
         second_holding.grip_direction = new Degree(-80f);
     }
     
+    protected override void fire() {
 
+    }
 
 }
 }

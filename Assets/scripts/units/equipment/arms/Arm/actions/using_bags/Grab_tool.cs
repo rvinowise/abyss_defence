@@ -52,12 +52,13 @@ public class Grab_tool: Action_of_arm {
 
     private void stash_old_tool() {
         Contract.Requires(hand.held_part != null);
-        bag.add_tool(hand.held_part.tool);
+        Tool tool = hand.detach_tool();
+        bag.add_tool(tool);
     }
 
     private void take_new_tool() {
         tool.activate();
-        hand.switch_held_tools(tool.main_holding);
+        hand.attach_holding_part(tool.main_holding);
     }
 
    

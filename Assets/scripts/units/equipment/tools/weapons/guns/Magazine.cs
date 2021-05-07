@@ -15,8 +15,6 @@ namespace rvinowise.unity.units.parts.weapons.guns {
 
 public class Magazine : Ammunition {
 
-    public int max_rounds_qty;// { get; set; }
-
     [SerializeField] public Projectile projectile_prefab;
 
 

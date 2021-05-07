@@ -28,11 +28,10 @@ public class Gun_with_stock: actions.Action_of_arm
     
     
     public static Gun_with_stock create(
-        Action_sequential_parent in_action_sequential_parent,
         Transform in_target,
         transport.ITransporter in_transporter
     ) {
-        Gun_with_stock action = (Gun_with_stock)pool.get(typeof(Gun_with_stock), in_action_sequential_parent);
+        Gun_with_stock action = (Gun_with_stock)pool.get(typeof(Gun_with_stock));
         action.target = in_target;
         action.transporter = in_transporter;
         return action;
