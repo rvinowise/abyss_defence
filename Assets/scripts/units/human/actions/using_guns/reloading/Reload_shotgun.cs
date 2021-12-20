@@ -52,7 +52,6 @@ public class Reload_shotgun: Reload_gun {
         Ammunition in_ammo
     ) {
         var action = (Reload_shotgun)pool.get(typeof(Reload_shotgun));
-        action.set_actor(in_body);
         
         action.animator = in_body.animator;
         action.body = in_body;
@@ -66,16 +65,12 @@ public class Reload_shotgun: Reload_gun {
         return action;
     }
 
-    public override void init_state() {
-        base.init_state();
-        
-    }
+
 
     public void init_child_actions() {
         
         this.add_child(
             rvinowise.unity.units.parts.actions.Action_parallel_parent.create(
-                this.actor,
                 actions.Arm_reach_relative_directions.create_assuming_left_arm(
                     gun_arm,
                     -90f,

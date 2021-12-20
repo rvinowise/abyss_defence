@@ -33,8 +33,7 @@ namespace rvinowise.unity.units.humanoid {
 [RequireComponent(typeof(Rigidbody2D))]
 public class Humanoid: 
     rvinowise.unity.units.Unit,
-    IPerform_actions,
-    IFlippable_actor
+    IFlippable_actor, IActor
 {
 
     /* parts of the human*/
@@ -54,25 +53,15 @@ public class Humanoid:
     
     
     /* IPerformActions interface */
-    public Action current_action {
-        set {
-            _current_action = value;
-        }
-        get { return _current_action; }
-    }
-    private Action _current_action;
-    public Action default_action { get; set; } = null;
+    public Action current_action { set; get; }
 
-    public void set_root_action(Action in_action) {
-        //current_action = in_action;
-        in_action.start_as_root();
-        //Contract.Ensures(in_action.actor == this, "a root action should have an actor");
+    public void on_lacking_action() {
+        
     }
 
-    public void start_default_action() {
-        //current_action?.discard_whole_tree();
-    }
-    
+
+
+
     /* Humanoid itself */
 
     public void pick_up(Tool in_tool) {

@@ -23,7 +23,7 @@ public abstract class Moving_strategy {
         creeping_legs_group = in_creeping_legs_group;
     }
 
-    protected void raise_up(ILeg leg) {
+    public void raise_up(ILeg leg) {
         Contract.Requires(!leg.is_up);
         
         leg.raise_up();

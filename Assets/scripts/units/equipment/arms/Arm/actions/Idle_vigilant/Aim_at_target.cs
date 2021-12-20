@@ -39,8 +39,8 @@ public class Aim_at_target: limbs.arms.actions.Action_of_arm {
         return target;
     }
     
-    public override void init_state() {
-        base.init_state();
+    public override void init_actors() {
+        base.init_actors();
         arm.shoulder.set_target_direction_relative_to_parent(
             arm.shoulder.desired_idle_rotation
         );

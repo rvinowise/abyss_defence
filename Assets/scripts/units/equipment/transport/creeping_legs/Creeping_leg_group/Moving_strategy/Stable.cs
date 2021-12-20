@@ -29,17 +29,11 @@ public class Stable: Moving_strategy
             (!can_hold)
         ) 
         {
-            if ((leg as MonoBehaviour).name == "leg_l_f") {
-                bool test = true;
-            }
             leg.draw_directions(Color.red);
             raise_up(leg);
         } 
         else if (leg.is_twisted_uncomfortably()) {
             if (is_standing_stable_without(leg)) {
-                if ((leg as MonoBehaviour).name == "leg_l_f") {
-                    bool test = leg.is_twisted_uncomfortably();
-                }
                 raise_up(leg);
             }
         }

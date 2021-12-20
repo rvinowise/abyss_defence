@@ -4,8 +4,8 @@ using rvinowise.unity.effects.persistent_residue;
 using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
-
 using UnityEngine.Experimental.U2D.Animation;
+
 using UnityEngine.Serialization;
 using System.Linq;
 
@@ -35,8 +35,8 @@ MonoBehaviour
         if (left_sprite == null) {
             left_sprite = sprite_renderer.sprite;
         }
-        sprite_resolver = GetComponent<SpriteResolver>();
-        sprite_library = GetComponent<SpriteLibrary>();
+        sprite_resolver = GetComponent<UnityEngine.Experimental.U2D.Animation.SpriteResolver>();
+        sprite_library = GetComponent<UnityEngine.Experimental.U2D.Animation.SpriteLibrary>();
     }
 
 

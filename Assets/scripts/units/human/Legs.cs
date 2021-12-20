@@ -10,6 +10,7 @@ using rvinowise.unity.units.parts.limbs.creeping_legs;
 using rvinowise.unity.units.parts.transport;
 using rvinowise.unity.units.parts.limbs;
 using rvinowise.unity.geometry2d;
+using Action = rvinowise.unity.units.parts.actions.Action;
 
 namespace rvinowise.unity.units.parts.humanoid {
 
@@ -83,5 +84,11 @@ public class Legs:
         //turning_element.rotation_acceleration = possible_rotation;
         turning_element.rotate_to_desired_direction();
     }
+
+    #region IActor
+    public Action current_action { get; set; }
+    public void on_lacking_action() {
+    }
+    #endregion
 }
 }

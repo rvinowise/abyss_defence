@@ -88,7 +88,6 @@ public abstract class Gun:
         on_ammo_changed();
     }
     
- 
 
     public float recoil_force = 150f;
     protected Projectile get_projectile() {
@@ -132,7 +131,7 @@ public abstract class Gun:
         return (Time.time - last_shot_time) > fire_rate_delay;
     }
 
-    protected virtual bool can_fire() {
+    public virtual bool can_fire() {
         return (
             (ammo_qty >0) &&
             ready_to_fire()

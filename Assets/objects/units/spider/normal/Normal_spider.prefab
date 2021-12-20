@@ -105,10 +105,12 @@ MonoBehaviour:
     goes_through_switching_degrees: 0
   rotation_speed: 5000
   rotation_acceleration: 2000
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
-  target_direction_relative: 0
+  turning_parent: {fileID: 0}
+  ignore_parent: 0
   sprite_renderer: {fileID: 0}
   direction_adjustor: {fileID: 0}
   length: 0
@@ -206,15 +208,16 @@ GameObject:
   - component: {fileID: 931523350657465790}
   - component: {fileID: 6827056556871469078}
   - component: {fileID: 190789622412298561}
-  - component: {fileID: 3088679199685062583}
   - component: {fileID: 3088679199685062582}
+  - component: {fileID: 3088679199685062583}
+  - component: {fileID: 8046874946596248553}
   m_Layer: 0
   m_Name: Normal_spider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7673221442900899451
 Transform:
   m_ObjectHideFlags: 0
@@ -353,7 +356,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3088679199685062584}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3a48746b0fc63246ab9f8af1b9d20ab, type: 3}
   m_Name: 
@@ -426,20 +429,6 @@ MonoBehaviour:
   _legs:
   - {fileID: 7869419028802016662}
   - {fileID: 1274625990874360518}
---- !u!114 &3088679199685062583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3088679199685062584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7e1c57f7b90f9f4fbe79790c46b0c77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baggage: {fileID: 0}
-  last_rotation: 0
 --- !u!114 &3088679199685062582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,10 +449,43 @@ MonoBehaviour:
     goes_through_switching_degrees: 0
   rotation_speed: 0
   rotation_acceleration: 100
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
-  target_direction_relative: 0
+  turning_parent: {fileID: 0}
+  ignore_parent: 0
+--- !u!114 &3088679199685062583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3088679199685062584}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e1c57f7b90f9f4fbe79790c46b0c77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baggage: {fileID: 0}
+  last_rotation: 0
+  team: {fileID: 0}
+--- !u!114 &8046874946596248553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3088679199685062584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18a69c1cdb485a489f33f01f5dbd4ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baggage: {fileID: 0}
+  last_rotation: 0
+  team: {fileID: 0}
+  commander: {fileID: 0}
 --- !u!1 &3326016340938591336
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,10 +591,12 @@ MonoBehaviour:
     goes_through_switching_degrees: 0
   rotation_speed: 5000
   rotation_acceleration: 2000
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
-  target_direction_relative: 0
+  turning_parent: {fileID: 0}
+  ignore_parent: 0
   sprite_renderer: {fileID: 0}
   direction_adjustor: {fileID: 0}
   length: 0
@@ -758,10 +782,12 @@ MonoBehaviour:
     goes_through_switching_degrees: 1
   rotation_speed: 5000
   rotation_acceleration: 2000
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
-  target_direction_relative: 0
+  turning_parent: {fileID: 0}
+  ignore_parent: 0
   sprite_renderer: {fileID: 0}
   direction_adjustor: {fileID: 0}
   length: 0
@@ -896,10 +922,12 @@ MonoBehaviour:
     goes_through_switching_degrees: 0
   rotation_speed: 5000
   rotation_acceleration: 2000
+  rotation_slowing: 1100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
-  target_direction_relative: 0
+  turning_parent: {fileID: 0}
+  ignore_parent: 0
   sprite_renderer: {fileID: 0}
   direction_adjustor: {fileID: 0}
   length: 0

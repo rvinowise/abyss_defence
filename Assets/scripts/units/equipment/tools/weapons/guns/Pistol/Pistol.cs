@@ -30,7 +30,7 @@ public abstract class Pistol:
         return 0;
     }
 
-    protected override bool can_fire() {
+    public override bool can_fire() {
         return ready_to_fire()&&
                (ammo_qty > 0);
     }

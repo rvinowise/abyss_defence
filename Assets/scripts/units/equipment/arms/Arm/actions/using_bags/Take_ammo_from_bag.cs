@@ -21,7 +21,6 @@ public class Take_ammo_from_bag: Action_sequential_parent {
         Tool in_for_tool
     ) {
         var action = (Take_ammo_from_bag)pool.get(typeof(Take_ammo_from_bag));
-        action.actor = in_arm;
         
         action.arm = in_arm;
         action.bag = in_bag;

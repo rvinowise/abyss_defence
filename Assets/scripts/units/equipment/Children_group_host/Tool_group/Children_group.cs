@@ -59,17 +59,16 @@ public abstract class Children_group:
         debug = new Debug(this);
         debug.increase_counter();
 
-        
+        if(
+            (children_need_mirroring) &&
+            (divisible_body.needs_initialisation)
+        ) {
+            duplicate_mirrored_children();
+        }
     }
 
     protected virtual void Start() {
-        if(
-            (children_need_mirroring) &&
-            (divisible_body?.needs_initialisation == true)
-        )
-        {
-            duplicate_mirrored_children();
-        }
+        
     }
 
     private void duplicate_mirrored_children() {

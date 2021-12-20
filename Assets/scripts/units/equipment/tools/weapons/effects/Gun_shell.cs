@@ -9,7 +9,7 @@ using rvinowise.unity.extensions;
 using rvinowise;
 using rvinowise.unity.geometry2d;
 using rvinowise.unity.effects.physics;
-using UnityEngine.Experimental.U2D.Animation;
+
 using Random = UnityEngine.Random;
 
 
@@ -20,7 +20,7 @@ public class Gun_shell : MonoBehaviour {
     private Leaving_persistent_sprite_residue residue_leaver;
     private Trajectory_flyer trajectory_flyer;
     private Pooled_object pooled_object;
-    private SpriteResolver sprite_resolver; 
+    private UnityEngine.Experimental.U2D.Animation.SpriteResolver sprite_resolver; 
 
     void Awake() {
         residue_leaver = GetComponent<Leaving_persistent_sprite_residue>();
@@ -30,7 +30,7 @@ public class Gun_shell : MonoBehaviour {
 
         pooled_object = GetComponent<Pooled_object>();
 
-        sprite_resolver = GetComponent<SpriteResolver>();
+        sprite_resolver = GetComponent<UnityEngine.Experimental.U2D.Animation.SpriteResolver>();
     }
 
     void OnEnable() {

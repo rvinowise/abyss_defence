@@ -66,12 +66,6 @@ public abstract class Player_human : Human_intelligence {
 
     protected abstract void read_using_tools_input();
 
-    
-
-    
-
-    
-
     private Arm get_arm_targeting_selected_target() {
         Distance_to_component closest = Distance_to_component.empty();
         foreach(Arm arm in arm_pair.get_all_armed_autoaimed_arms()) {

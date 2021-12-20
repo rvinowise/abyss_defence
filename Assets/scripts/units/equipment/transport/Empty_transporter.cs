@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using rvinowise.unity.units.parts.transport;
 using UnityEngine;
 using rvinowise.unity.extensions;
+using Action = rvinowise.unity.units.parts.actions.Action;
 
 
 namespace rvinowise.unity.units.parts {
     
 /* provides information about possible speed and rotation for a moving Unit */
-public class Empty_transporter: ITransporter {
+public class Empty_transporter: MonoBehaviour, ITransporter {
     private ITransporter _transporter_implementation;
 
     public float possible_rotation { get; set; } = 0f;
@@ -57,6 +58,12 @@ public class Empty_transporter: ITransporter {
 
     public void update() {
         throw new NotImplementedException();
+    }
+
+
+    public Action current_action { get; set; }
+    public void on_lacking_action() {
+        
     }
 }
 

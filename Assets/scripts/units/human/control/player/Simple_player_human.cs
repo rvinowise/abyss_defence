@@ -4,12 +4,15 @@ using rvinowise.unity.ui.input;
 using rvinowise.unity.units.parts.limbs.arms;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.tools;
+using units.human.actions;
 using UnityEngine;
+using Action = rvinowise.unity.units.parts.actions.Action;
 
 namespace rvinowise.unity.units.control.human {
 public class Simple_player_human: Player_human {
 
-    public int current_equipped_set;
+    
+    
     protected override void read_switching_items_input() {
         if (!switching_items_is_possible()) {
             return;
@@ -21,7 +24,6 @@ public class Simple_player_human: Player_human {
         int desired_tool_set = determine_current_selected_set(wheel_steps);
         if (desired_tool_set != current_equipped_set) {
             equip_tool_set(desired_tool_set);
-            
         }
     }
 
@@ -46,21 +48,21 @@ public class Simple_player_human: Player_human {
     private void equip_tool_set(int set_index) {
         current_equipped_set = set_index;
         Equip_toolset.create(
-            user,
+            this,
             baggage.tool_sets[set_index]
-        ).start_as_root();
+        ).add_marker("changing tool").start_as_root();
     }
     
     protected override void read_using_tools_input() {
-        bool wants_to_shoot = UnityEngine.Input.GetMouseButtonDown(0);
+        bool wants_to_attack = UnityEngine.Input.GetMouseButton(0);
 
-        if (wants_to_shoot) {
-            shoot();
+        if (wants_to_attack) {
+            attack();
         }
 
         bool wants_to_reload = Player_input.instance.button_presed("reload");
         if (wants_to_reload) {
-            Reload_all.create(arm_pair.user).start_as_root();
+            Reload_all.create(user, this).start_as_root();
         }
 
     }
@@ -84,13 +86,28 @@ public class Simple_player_human: Player_human {
         
     }
     
-    protected virtual void shoot() {
+    protected virtual void attack() {
         if (get_selected_target() is Transform target) {
             arm_pair.attack(target);
+            //Debug.Log("attack!!!");
         } else {
             arm_pair.attack();
         }
         
+    }
+
+    public override void on_action_finished(Action action) {
+        Idle_vigilant_only_arm.create(
+            arm_pair.left_arm,
+            Player_input.instance.cursor.transform,
+            transporter
+        ).start_as_root();
+        
+        Idle_vigilant_only_arm.create(
+            arm_pair.right_arm,
+            Player_input.instance.cursor.transform,
+            transporter
+        ).start_as_root();
     }
     
 }

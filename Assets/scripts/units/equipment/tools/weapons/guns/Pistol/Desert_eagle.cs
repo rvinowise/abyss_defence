@@ -41,7 +41,7 @@ public class Desert_eagle: Pistol {
         propell_projectile(new_projectile);
     }
 
-    public float projectile_force = 100f;//100f;
+    public float projectile_force = 1000f;//100f;
 
     private void propell_projectile(Projectile projectile) {
         Rigidbody2D rigid_body = projectile.GetComponent<Rigidbody2D>();

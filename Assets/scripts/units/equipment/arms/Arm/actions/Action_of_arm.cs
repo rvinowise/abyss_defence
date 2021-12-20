@@ -13,14 +13,10 @@ using rvinowise.unity.units.parts.limbs.arms;
 
 namespace rvinowise.unity.units.parts.limbs.arms.actions {
 
-public class Action_of_arm: parts.actions.Action {
+public class Action_of_arm: parts.actions.Action_leaf {
 
     protected Arm arm { get; set; }
-
-
-    public Action_of_arm() {
-        
-    }
+    
 
 }
 }

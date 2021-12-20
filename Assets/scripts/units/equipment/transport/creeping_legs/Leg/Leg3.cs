@@ -86,10 +86,7 @@ IMirrored
         }
         return false;
     }
-
-    public override void raise_up() {
-        is_up = true;
-    }
+    
     public override void put_down() {
         is_up = false;
         holding_point = tibia.tip;

@@ -8,14 +8,19 @@ using rvinowise.unity.extensions;
 
 using rvinowise.contracts;
 using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.transport;
 using UnityEngine.Assertions;
 using static rvinowise.unity.geometry2d.Directions;
+using Action = rvinowise.unity.units.parts.actions.Action;
 
 namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 public partial class Creeping_leg_group: 
     Children_group
     ,ITransporter
+    ,IWeaponry
+    ,IActor
 {
     
     #region Children_group
@@ -136,12 +141,11 @@ public partial class Creeping_leg_group:
     private Move_in_direction move_in_direction;
         
     public void move_in_direction_as_rigidbody(Vector2 moving_direction) {
-        Vector2 delta_movement = (moving_direction * possible_impulse * rvi.Time.deltaTime);
-        //rigid_body.MovePosition((Vector2)transform.position + delta_movement);
+        Vector2 delta_movement = (rvi.Time.deltaTime * possible_impulse * moving_direction );
         rigid_body.AddForce(delta_movement*10000f);
     }
     public void move_in_direction_as_transform(Vector2 moving_direction) {
-        Vector2 delta_movement = (moving_direction * possible_impulse * rvi.Time.deltaTime);
+        Vector2 delta_movement = (rvi.Time.deltaTime * possible_impulse * moving_direction );
         transform.position += (Vector3)delta_movement;
     }
     
@@ -154,6 +158,7 @@ public partial class Creeping_leg_group:
     
     
     void FixedUpdate() {
+        current_action?.update();
         execute_commands();
         move_legs();
     }
@@ -229,16 +234,13 @@ public partial class Creeping_leg_group:
 
     private void move_legs() {
         foreach (ILeg leg in legs) {
+            if (!(leg.current_action is Creeping_leg_partakes_in_moving)) {
+                continue;
+            }
             leg.set_desired_position(get_optimal_position_for(leg)); 
             if (leg.is_up) {
-                if ((leg as MonoBehaviour).name == "leg_l_f") {
-                    bool test = true;
-                }
                 move_in_the_air(leg);
             } else {
-                if ((leg as MonoBehaviour).name == "leg_l_f") {
-                    bool test = true;
-                }
                 moving_strategy.move_on_the_ground(leg);
             }
         }
@@ -261,16 +263,10 @@ public partial class Creeping_leg_group:
     
     private Vector2 get_optimal_position_for(ILeg leg) {
         Vector2 shift_to_moving_direction =
-            command_batch.moving_direction_vector *
-            leg.moving_offset_distance * leg.transform.lossyScale.x;
-
-        /* leg.set_desired_position(
-           leg.optimal_position_standing + 
-            shift_to_moving_direction
-        ); */
+            command_batch.moving_direction_vector * (leg.moving_offset_distance * leg.transform.lossyScale.x);
 
         return leg.optimal_position_standing + 
-                shift_to_moving_direction;
+               shift_to_moving_direction;
     }
 
     
@@ -297,22 +293,51 @@ public partial class Creeping_leg_group:
                 leg.draw_directions(Color.white);
             }
         }
-        //draw_moving_direction();
     }
-
-    /*private void draw_moving_direction() {
-        UnityEngine.Debug.DrawLine(
-            this.user_of_equipment.transform.position, 
-            (Vector2)this.user_of_equipment.transform.position +
-            control.moving_direction_vector,
-            Color.green,
-            1f
-        );
-    }*/
+    
 
     #endregion
 
+    #region IWeaponry
+    public bool can_reach(Transform target) {
+        return transform.distance_to(target.position) < reaching_distance();
     }
+
+    public float reaching_distance() {
+        return right_front_leg.get_reaching_distance();
+    }
+
+    public void attack(Transform target) {
+        ILeg best_leg = get_best_leg_for_hitting(target);
+        if (best_leg is Limb2 best_limb2) {
+            ensure_leg_raised(best_leg);
+            Hitting_with_limb2.create(
+                best_limb2,
+                this,
+                target
+            ).start_as_root();
+        }
+    }
+
+    public void ensure_leg_raised(ILeg leg) {
+        if (leg.is_up) {
+            return;
+        }
+        moving_strategy.raise_up(leg);
+    }
+
+    public ILeg get_best_leg_for_hitting(Transform target) {
+        return right_front_leg;
+    }
+    #endregion
+
+    #region IActor
+    public Action current_action { get; set; }
+    public void on_lacking_action() {
+        
+    }
+    #endregion
+}
 
 }
 

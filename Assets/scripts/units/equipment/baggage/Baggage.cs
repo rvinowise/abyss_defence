@@ -19,7 +19,7 @@ public class Baggage:
 Turning_element
 {
 
-    public List<Tool_set> tool_sets = new List<Tool_set>();
+    public List<Toolset> tool_sets = new List<Toolset>();
     public List<Tool> tools = new List<Tool>();
     public float entering_span = 30f;
     public Dictionary<Ammo_compatibility, int> tool_to_ammo = 
@@ -54,7 +54,7 @@ Turning_element
         Contract.Assert(in_compatibility != null);
         tool_to_ammo.TryGetValue(in_compatibility, out var old_qty);
         int new_qty = old_qty + in_qty;
-        Contract.Assert(new_qty >=0);
+        //Contract.Assert(new_qty >=0);
         tool_to_ammo[in_compatibility] = new_qty;
         
         if (on_ammo_changed != null) {

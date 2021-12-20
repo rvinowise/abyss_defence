@@ -16,7 +16,7 @@ using rvinowise.contracts;
 
 namespace units {
 
-public class Start_recorded_animation: Action {
+public class Start_recorded_animation: Action_leaf {
 
     private Animator animator;
     private int animation_name_hash;
@@ -36,14 +36,14 @@ public class Start_recorded_animation: Action {
         Start_recorded_animation action = (Start_recorded_animation) pool.get(typeof(Start_recorded_animation));
         action.animator = in_animator;
         action.animation_name_hash = in_animation_name_hash;
-        action.actor = in_animator.GetComponent<IPerform_actions>();
+        action.actor = in_animator.GetComponent<IActor>();
         action.flipped = in_flipped;
         action.object_actor = in_animator.gameObject;
         action.flippable_actor = in_animator.GetComponent<IFlippable_actor>();
         return action;
     }
 
-    public override void init_state() {
+    public override void init_actors() {
         flippable_actor.flip_for_animation(flipped);
 
         animator.enabled = true;

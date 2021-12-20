@@ -36,9 +36,9 @@ public class Grab_ammo: Action_of_arm {
     }
    
 
-
-    public override void init_state() {
-        base.init_state();
+    
+    public override void update() {
+        base.update();
         if (hand.held_part != null) {
             stash_old_tool();
         }

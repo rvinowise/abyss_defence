@@ -29,30 +29,38 @@ public class Arm_pair:
     ,IWeaponry
 {
 
-
-
     #region IWeaponry interface
-    public void fire() {
+
+    public bool can_reach(Transform target) {
+        return true;
+    }
+     public void attack(Transform in_target) {
+        if (get_arm_targeting(in_target) is Arm arm) {
+            if (arm.held_tool is Gun gun) {
+                if (
+                    (gun.can_fire())&&
+                    (aimed_at_target(gun, in_target))
+                ) {
+                    gun.pull_trigger();
+                    on_ammo_changed(arm, gun.get_loaded_ammo());
+                }
+            }
+        }
     }
 
-    public void shoot(Transform target) {
-        var fastest_weapon = get_weapon_reaching_faster(target);
-        fastest_weapon.shoot(target);
-    }
-
-    private Held_tool get_weapon_reaching_faster(Transform target) {
-        Held_tool fastest_tool = held_tools.MinBy(
-            held_weapon => held_weapon.time_to_shooting(target)
-        ).First();
-        return fastest_tool;
-    }
+    // private Held_tool get_weapon_reaching_faster(Transform target) {
+    //     Held_tool fastest_tool = held_tools.MinBy(
+    //         held_weapon => held_weapon.time_to_shooting(target)
+    //     ).First();
+    //     return fastest_tool;
+    // }
     #endregion
 
 
     #region Arm_controller itself
     
     public List<Held_tool> held_tools = new List<Held_tool>();
-    private Tool_set toolset_being_equipped;
+    private Toolset toolset_being_equipped;
 
     public ITransporter transporter;
 
@@ -178,10 +186,8 @@ public class Arm_pair:
         }
         
         Action_sequential_parent.create(
-            null,
             reloading_action,
             Action_parallel_parent.create(
-                null,
                 Idle_vigilant_only_arm.create(gun_arm,gun_arm.attention_target, transporter),
                 Idle_vigilant_only_arm.create(ammo_arm,gun_arm.attention_target, transporter)
             )
@@ -252,21 +258,22 @@ public class Arm_pair:
         }
     }
 
-    public void attack(Transform in_target) {
-        if (get_arm_targeting(in_target) is Arm arm) {
-            if (arm.held_tool is Gun gun) {
-                gun.pull_trigger();
-                on_ammo_changed(arm, gun.get_loaded_ammo());
-            }
+    
+
+    private bool aimed_at_target(Gun gun, Transform in_target) {
+        RaycastHit2D hit = Physics2D.Raycast(
+            gun.transform.position, 
+            gun.muzzle.right
+        );
+
+        if (hit.transform == in_target) {
+            return true;
         }
+
+        return false;
     }
 
-    public void attack() {
-        if (left_arm.held_tool is Gun gun) {
-            gun.pull_trigger();
-            on_ammo_changed(left_arm, gun.get_loaded_ammo());
-        }
-    }
+    
 
     public void attack_with_arm(Side in_side) {
         Arm arm = get_arm_on_side(in_side);
@@ -344,7 +351,7 @@ public class Arm_pair:
     public List<Arm> get_iddling_armed_autoaimed_arms() {
         List<Arm> free_armed_arms = new List<Arm>();
         if (
-            (right_arm.current_action?.GetType() == typeof(Idle_vigilant_only_arm)) 
+            (right_arm.current_action is Idle_vigilant_only_arm)
             &&
             (arm_is_autoaimed(right_arm))
         )
@@ -352,7 +359,7 @@ public class Arm_pair:
             free_armed_arms.Add(right_arm);
         }
         if (
-            (left_arm.current_action?.GetType() == typeof(Idle_vigilant_only_arm)) 
+            (left_arm.current_action is Idle_vigilant_only_arm) 
             &&
             (arm_is_autoaimed(left_arm))
         )
@@ -549,6 +556,13 @@ public class Arm_pair:
         right_arm.drop_tool();
         left_arm.grab_tool(right_holding);
         right_arm.grab_tool(left_holding);
+    }
+    
+    public void attack() {
+        if (left_arm.held_tool is Gun gun) {
+            gun.pull_trigger();
+            on_ammo_changed(left_arm, gun.get_loaded_ammo());
+        }
     }
 
        

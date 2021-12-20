@@ -87,6 +87,7 @@
               </e>
             </e>
             <e p="List.cs" t="Include" />
+            <e p="MonoBehaviour.cs" t="Include" />
             <e p="multivalue_dictionary" t="Include">
               <e p="Dictionary_of_containers_for_types.cs" t="Include" />
               <e p="DIctionary_of_lists.cs" t="Include" />
@@ -188,6 +189,7 @@
             <e p="control" t="Include">
               <e p="Commander.cs" t="Include" />
               <e p="Intelligence.cs" t="Include" />
+              <e p="Targetable.cs" t="Include" />
               <e p="Unit_commands.cs" t="Include" />
             </e>
             <e p="Divisible_body" t="Include">
@@ -211,12 +213,13 @@
             <e p="equipment" t="Include">
               <e p="actions" t="Include">
                 <e p="Action.cs" t="Include" />
+                <e p="Action_leaf.cs" t="Include" />
                 <e p="Action_parallel_parent.cs" t="Include" />
                 <e p="Action_sequential_parent.cs" t="Include" />
                 <e p="Free_actor.cs" t="Include" />
                 <e p="IAction.cs" t="Include" />
                 <e p="IAction_parent.cs" t="Include" />
-                <e p="IPerform_actions.cs" t="Include" />
+                <e p="IActor.cs" t="Include" />
                 <e p="IPerform_actions_extensions.cs" t="Include" />
                 <e p="Pool.cs" t="Include" />
               </e>
@@ -270,6 +273,11 @@
               </e>
               <e p="body_parts" t="Include">
                 <e p="limbs" t="Include">
+                  <e p="actions" t="Include">
+                    <e p="Hitting_with_limb2.cs" t="Include" />
+                    <e p="Hitting_with_limb2_impact.cs" t="Include" />
+                    <e p="Hitting_with_limb2_swing_back.cs" t="Include" />
+                  </e>
                   <e p="Debug.cs" t="Include" />
                   <e p="Direction_adjustor.cs" t="Include" />
                   <e p="ILimb.cs" t="Include" />
@@ -310,7 +318,7 @@
                   <e p="Ammunition.cs" t="Include" />
                   <e p="Holding_place.cs" t="Include" />
                   <e p="Tool.cs" t="Include" />
-                  <e p="Tool_set.cs" t="Include" />
+                  <e p="Toolset.cs" t="Include" />
                 </e>
                 <e p="weapons" t="Include">
                   <e p="effects" t="Include">
@@ -360,8 +368,16 @@
                 </e>
               </e>
               <e p="transport" t="Include">
+                <e p="actions" t="Include">
+                  <e p="Creeping_leg_partakes_in_moving.cs" t="Include" />
+                  <e p="Keep_distance_from_target.cs" t="Include" />
+                  <e p="Move_towards_target.cs" t="Include" />
+                </e>
                 <e p="creeping_legs" t="Include">
                   <e p="Creeping_leg_group" t="Include">
+                    <e p="actions" t="Include">
+                      <e p="Attacking_with_creeping_legs.cs" t="Include" />
+                    </e>
                     <e p="Creeping_leg_group.cs" t="Include" />
                     <e p="Division_distributor.cs" t="Include" />
                     <e p="Moving_strategy" t="Include">

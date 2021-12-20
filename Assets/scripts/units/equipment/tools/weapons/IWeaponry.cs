@@ -6,8 +6,7 @@ using rvinowise.unity.extensions;
 
 namespace rvinowise.unity.units.parts {
 public interface IWeaponry: IExecute_commands {
-    void fire();
-
-    void shoot(Transform target);
+    bool can_reach(Transform target);
+    void attack(Transform target);
 }
 }

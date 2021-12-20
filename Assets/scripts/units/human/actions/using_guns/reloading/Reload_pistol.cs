@@ -43,31 +43,30 @@ public class Reload_pistol: Reload_gun {
         return action;
     }
 
-    public override void init_state() {
-        base.init_state();
+    public override void init_actors() {
+        base.init_actors();
         
     }
 
     public void init_child_actions() {
         
-        this.add_child(
-            rvinowise.unity.units.parts.actions.Action_parallel_parent.create(
-                null,//this.actor,
-                actions.Arm_reach_relative_directions.create_assuming_left_arm(
+        add_child(
+            Action_parallel_parent.create(
+                Arm_reach_relative_directions.create_assuming_left_arm(
                     gun_arm,
                     90f,
                     -50f,
                     -50f,
                     0f
                 ),
-                actions.Take_ammo_from_bag.create(
+                Take_ammo_from_bag.create(
                     ammo_arm,
                     bag,
-                    gun_arm.held_tool
+                    gun
                 )
             )
         );
-        this.add_child(
+        add_child(
             Start_recorded_animation.create(
                 animator,
                 animation_reload_pistol,

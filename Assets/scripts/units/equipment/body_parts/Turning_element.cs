@@ -32,16 +32,14 @@ public class Turning_element: MonoBehaviour {
     }
     public virtual Quaternion target_rotation{
         get{
-            if (relative_to == null) {
-                return _target_rotation;
+            if (target_direction_relative) {
+                return transform.parent.rotation * _target_rotation;
             } 
-            return relative_to.rotation * _target_rotation;
+            return _target_rotation;
+            
         }
         set{
             _target_rotation = value;
-            if (this.gameObject.name == "b_shoulder_r") {
-                var test = true;
-            }
         }
     }
     private Quaternion _target_rotation;
@@ -64,15 +62,7 @@ public class Turning_element: MonoBehaviour {
         get{return _target_direction_relative;}
     }
     private bool _target_direction_relative = false;
-    private Transform relative_to {
-        get {
-            if (target_direction_relative) {
-                return transform.parent;
-            } else {
-                return null;
-            }
-        }
-    }
+
 
     public Turning_element turning_parent;
     
@@ -118,12 +108,7 @@ public class Turning_element: MonoBehaviour {
 
     
     public virtual void rotate_to_desired_direction() {
-        if (this.gameObject.name == "b_shoulder_r") {
-            bool test = true;
-        }
-        if (this.gameObject.name == "b_upper_arm_r") {
-            bool test = true;
-        }
+
         float angle_to_pass = get_angle_to_pass();
         rvinowise.contracts.Contract.Assume(Mathf.Abs(angle_to_pass) < 180f, "angle too big");
         
@@ -205,7 +190,7 @@ public class Turning_element: MonoBehaviour {
         return Mathf.Sqrt(angle_to_pass * rotation_slowing);
     }
 
-    private void change_rotation_speed(
+    public void change_rotation_speed(
         Side side_to_target,
         float optimal_speed
     ) {
@@ -282,7 +267,7 @@ public class Turning_element: MonoBehaviour {
     }
 
 
-    protected virtual void update_rotation() {
+    public virtual void update_rotation() {
         Degree rotation_change = current_rotation_inertia * Time.deltaTime;
         rotation = (Degree.from_quaternion(rotation) + rotation_change).to_quaternion();
   

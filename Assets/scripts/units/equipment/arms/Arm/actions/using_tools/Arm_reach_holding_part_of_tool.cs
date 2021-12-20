@@ -28,8 +28,8 @@ public class Arm_reach_holding_part_of_tool:Arm_reach_somewhere {
         return action;
     }
 
-    public override void init_state() {
-        base.init_state();
+    public override void init_actors() {
+        base.init_actors();
         arm.hand.gesture = Hand_gesture.Support_of_horizontal;
     }
 

@@ -43,8 +43,8 @@ public class Gun_with_stock: actions.Action_of_arm
     
     const float shoulder_thickness = 0.15f;
     private float distance_shoulder_to_wrist;
-    public override void init_state() {
-        base.init_state();
+    public override void init_actors() {
+        base.init_actors();
         if (arm.held_tool is Gun gun) {
             held_gun = gun;
 

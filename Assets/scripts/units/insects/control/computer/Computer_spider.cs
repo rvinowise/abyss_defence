@@ -8,35 +8,76 @@ using rvinowise.unity.units.control;
 //using static UnityEngine.Input;
 using rvinowise.unity.geometry2d;
 using rvinowise.unity.units.parts;
-
+using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.limbs.arms.actions;
+using rvinowise.unity.units.parts.limbs.creeping_legs;
+using rvinowise.unity.units.parts.transport;
+using rvinowise.unity.units.parts.weapons.guns.common;
+using Action = rvinowise.unity.units.parts.actions.Action;
 using Input = rvinowise.unity.ui.input.Player_input;
 
 namespace rvinowise.unity.units.control.spider {
 
-public class Computer_spider: Strategic_intelligence  {
-    
-    
-    private Transform target;
+public class Computer_spider: 
+    Strategic_intelligence
+{
 
-    protected override void read_input() {
-        transporter.command_batch.moving_direction_vector = read_moving_direction();
-        transporter.command_batch.face_direction_quaternion = read_face_direction();
+    private Creeping_leg_group leg_group;
+    private bool is_dying = false;
+
+    void Start() {
+        base.Start();
+        init_components();
+        on_action_finished(null);
     }
 
-    private Vector2 read_moving_direction() {
-        if (unit_commands.attack_target != null) {
-            return (unit_commands.attack_target.position - transform.position).normalized;
+    private void init_components() {
+        leg_group = transporter as Creeping_leg_group;
+    }
+    protected override void Update() {
+        base.Update();
+        
+    }
+    
+    void FixedUpdate() {
+        current_action?.update();
+    }
+
+
+
+    private bool is_attacking() {
+        return ((Creeping_leg_group) weaponry).right_front_leg.current_action?.get_root_action() is Hitting_with_limb2;
+    }
+
+
+    public override void start_dying(Projectile damaging_projectile) {
+        is_dying = true;
+        transporter.command_batch.moving_direction_vector = damaging_projectile.last_physics.velocity.normalized;
+        transporter.command_batch.face_direction_quaternion = damaging_projectile.last_physics.velocity.to_quaternion();
+
+    }
+
+    public override void on_action_finished(Action action) {
+        if (weaponry.can_reach(unit_commands.attack_target)) {
+            Attacking_with_creeping_legs.create(
+                this,
+                leg_group,
+                unit_commands.attack_target
+            ).start_as_root();
         }
-        return Vector2.zero;
-    }
-    
-    private Quaternion read_face_direction() {
-        if (unit_commands.attack_target != null) {
-            return transform.quaternion_to(unit_commands.attack_target.position);
+        else {
+            Move_towards_target.create(
+                this,
+                leg_group,
+                leg_group.reaching_distance(),
+                unit_commands.attack_target
+            ).start_as_root();
         }
-       return Quaternion.identity;
     }
 
+    public override void on_lacking_action() {
+        
+    }
 }
 
 }

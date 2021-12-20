@@ -22,8 +22,8 @@ public class Move_hand_into_loose_bag: Action_of_arm {
         
     }
 
-    public override void init_state() {
-        base.init_state();
+    public override void init_actors() {
+        base.init_actors();
         set_desired_directions(arm);
     }
 

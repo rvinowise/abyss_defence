@@ -47,18 +47,13 @@ public class Reload_break_shotgun: Reload_gun {
         
         return action;
     }
-
-    public override void init_state() {
-        base.init_state();
-        
-    }
+    
 
     public void init_child_actions() {
         
 
         this.add_child(
             rvinowise.unity.units.parts.actions.Action_parallel_parent.create(
-                this.actor,
                 actions.Arm_reach_relative_directions.create_assuming_left_arm(
                     gun_arm,
                     90f,

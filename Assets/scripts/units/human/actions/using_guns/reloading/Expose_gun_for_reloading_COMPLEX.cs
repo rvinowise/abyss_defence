@@ -14,7 +14,7 @@ using Vector2 = System.Numerics.Vector2;
 
 namespace rvinowise.unity.units.parts.limbs.arms.actions.using_guns.reloading {
 
-public class Expose_gun_for_reloading_COMPLEX: parts.actions.Action {
+public class Expose_gun_for_reloading_COMPLEX: parts.actions.Action_leaf {
 
     public Arm arm;
 
@@ -39,8 +39,8 @@ public class Expose_gun_for_reloading_COMPLEX: parts.actions.Action {
         return action;
     }
     
-    public override void init_state() {
-        base.init_state();
+    public override void init_actors() {
+        base.init_actors();
         arm.hand.gesture = Hand_gesture.Support_of_horizontal;
         arm.held_tool.transform.flipY(arm.folding_side == Side.RIGHT);
         arm.held_tool.animator.SetBool("sideview", true);

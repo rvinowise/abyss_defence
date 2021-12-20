@@ -36,9 +36,10 @@ public class Drop_tool_into_bag: Action_of_arm {
         
     }
 
+    
 
-    public override void init_state() {
-        base.init_state();
+    public override void update() {
+        base.update();
         if (hand.held_tool != null) {
             drop_tool_into_bag();
         }

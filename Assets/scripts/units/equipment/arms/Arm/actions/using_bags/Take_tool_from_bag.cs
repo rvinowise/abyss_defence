@@ -21,7 +21,6 @@ public class Take_tool_from_bag: Action_sequential_parent {
         Tool in_tool
     ) {
         var action = (Take_tool_from_bag)pool.get(typeof(Take_tool_from_bag));
-        action.actor = in_arm;
         
         action.arm = in_arm;
         action.bag = in_bag;
@@ -44,7 +43,9 @@ public class Take_tool_from_bag: Action_sequential_parent {
     public override void restore_state() {
         Log.info($"{GetType()} Action is ended. ");
     }
-    
-  
+
+    public override void reset() {
+        base.reset();
+    }
 }
 }

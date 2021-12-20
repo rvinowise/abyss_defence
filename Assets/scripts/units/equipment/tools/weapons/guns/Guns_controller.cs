@@ -40,15 +40,13 @@ public class Guns_controller:
 
 
     /* IWeaponry interface */
-    public void fire() {
-        
-    }
 
-    public void shoot(Transform target) {
+    public bool can_reach(Transform target) {
         throw new NotImplementedException();
     }
 
-    public void shoot(GameObject target) {
+    public void attack(Transform target) {
+        throw new NotImplementedException();
     }
 }
 }

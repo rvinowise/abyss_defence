@@ -8,6 +8,7 @@ using rvinowise.unity.extensions;
 using rvinowise;
 using rvinowise.unity.geometry2d;
 using rvinowise.contracts;
+using rvinowise.debug;
 
 
 namespace rvinowise.unity.units.parts.actions {
@@ -18,15 +19,12 @@ public class Action_parallel_parent:
 {
 
     public static Action_parallel_parent create(
-        IPerform_actions in_actor,
         params Action[] children
     ) {
         var action = (Action_parallel_parent)pool.get(
             typeof(Action_parallel_parent)
         );
 
-        action.set_actor(in_actor);
-        
         foreach (Action child in children) {
             action.add_child(child);
             
@@ -34,6 +32,7 @@ public class Action_parallel_parent:
         
         return action;
     }
+    
     
     public void add_child(Action in_child) {
         child_actions.Add(in_child);
@@ -47,12 +46,6 @@ public class Action_parallel_parent:
         }
     }
     
-    
-    public Action start_new_child(Action in_action) {
-        discard_child_actions();
-
-        return in_action;
-    }
    
     public List<Action> child_actions = new List<Action>();
 
@@ -63,22 +56,12 @@ public class Action_parallel_parent:
             child.set_root_action(in_root_action);
         }
     }
-    
-    private void discard_child_actions() {
-        foreach (Action child_action in child_actions) {
-            child_action.delete();
-        }
-        child_actions.Clear();
-    }
 
-
-    public override void start_execution() {
-        init_state();
+    public override void stop_actions_which_use_same_actors_recursive() {
         foreach (Action child in child_actions) {
-            child.start_execution();
+            child.stop_actions_which_use_same_actors_recursive();
         }
     }
-   
 
     public override void update() {
         base.update();
@@ -94,52 +77,19 @@ public class Action_parallel_parent:
         }
     }
     
-    public override void start_default_action() {
-        base.start_default_action();
-        foreach(var child in child_actions) {
-            child.start_default_action();
-        }
-    }
-
-    public void discard_while_executing() {
-        foreach (Action active_child in child_actions) {
-            active_child.detach_from_parent();
-        }
-    }
-    public override void finish_at_completion() {
-        foreach (Action child in child_actions) {
-            Contract.Requires(
-                child.reached_goal == true,
-                "all child actions should be finished when the parent is finished"
-                );
-        }
-        
+    
+    public override void finish() {
         foreach (Action child_action in child_actions) {
-            child_action.finish_at_completion();
+            child_action.finish();
         }
         child_actions.Clear();
-        base.finish_at_completion();
+        base.finish();
     }
 
-    public override void restore_state_and_delete() {
-        foreach (Action active_child in child_actions) {
-            if (active_child.marked_for_deletion) {
-                active_child.restore_state_and_delete();
-            }
-            else {
-                active_child.detach_from_parent();
-            }
-        }
-        child_actions.Clear();
-        base.restore_state_and_delete();
-    }
 
-    public override void delete() {
-        foreach (Action active_child in child_actions) {
-            active_child.delete();
-        }
+    public override void reset() {
         child_actions.Clear();
-        base.delete();
+        base.reset();
     }
 
     private bool all_children_are_finished() {
@@ -151,6 +101,54 @@ public class Action_parallel_parent:
         return true;
     }
 
+    public override void free_actors_recursive() {
+        foreach (Action child in child_actions) {
+            child.free_actors_recursive();
+        }
+    }
     
+    public override void seize_needed_actors_recursive() {
+        foreach (Action child in child_actions) {
+            child.seize_needed_actors_recursive();
+        }
+    }
+
+    public override void ensure_actors_have_next_action() {
+        foreach (Action child in child_actions) {
+            child.ensure_actors_have_next_action();
+        }
+    }
+    
+
+    public override void init_state_recursive() {
+        init_actors();
+        foreach (Action child in child_actions) {
+            child.init_state_recursive();
+        }
+    }
+    public override void init_children_recursive() {
+        init_children();
+        foreach (Action child in child_actions) {
+            child.init_children_recursive();
+        }
+    }
+    public override void restore_state_recursive() {
+        foreach (Action child in child_actions) {
+            child.restore_state_recursive();
+        }
+        restore_state();
+    }
+    public override void reset_recursive() {
+        foreach (Action child in child_actions) {
+            child.reset_recursive();
+        }
+        reset();
+    }
+
+    public override void notify_actors_about_finishing() {
+        foreach (Action child in child_actions) {
+            child.notify_actors_about_finishing();
+        }
+    }
 }
 }

@@ -87,7 +87,8 @@ MonoBehaviour:
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
-  target_direction_relative: 0
+  turning_parent: {fileID: 0}
+  ignore_parent: 0
   sprite_renderer: {fileID: 8469499902860020563}
   direction_adjustor: {fileID: 0}
   length: 0
@@ -289,7 +290,8 @@ MonoBehaviour:
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
-  target_direction_relative: 0
+  turning_parent: {fileID: 0}
+  ignore_parent: 0
   sprite_renderer: {fileID: 5729159227430736116}
   direction_adjustor: {fileID: 0}
   length: 0
@@ -310,8 +312,9 @@ GameObject:
   - component: {fileID: 5289760542592414621}
   - component: {fileID: 8250892630290664248}
   - component: {fileID: 7456789759797287093}
-  - component: {fileID: 5663381577530663938}
   - component: {fileID: 2749966809911182648}
+  - component: {fileID: 6869663159488216432}
+  - component: {fileID: 5457782185794267139}
   m_Layer: 0
   m_Name: bedbug
   m_TagString: Untagged
@@ -431,7 +434,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4086627672631011292}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3a48746b0fc63246ab9f8af1b9d20ab, type: 3}
   m_Name: 
@@ -469,7 +472,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 60
+  m_Mass: 5
   m_LinearDrag: 4
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -497,12 +500,13 @@ MonoBehaviour:
       degrees: 0
     goes_through_switching_degrees: 0
   rotation_speed: 0
-  rotation_acceleration: 550
-  rotation_slowing: 1100
+  rotation_acceleration: 50
+  rotation_slowing: 100
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
-  target_direction_relative: 0
+  turning_parent: {fileID: 0}
+  ignore_parent: 0
 --- !u!114 &8250892630290664248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,21 +535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c10a959143527740a26de809a02b7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5663381577530663938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4086627672631011292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0522d007c8f2e4446a256d3a0e1e316a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  max_images: 1500
-  residue_prefab: {fileID: 7051764785056329883, guid: 60b983e84c675e2468379e32a18858b8,
-    type: 3}
 --- !u!114 &2749966809911182648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +549,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   droplet_prefab: {fileID: 3642358614934767650, guid: 1f48d507629a89f4182bdb68c91044b4,
     type: 3}
+--- !u!114 &6869663159488216432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4086627672631011292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 600fe5cde1854d28b0b315a3a52f3330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5457782185794267139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4086627672631011292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ff0136e303b33843b761bfbda5b39ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max_images: 1500
+  left_sprite: {fileID: 0}
 --- !u!1 &4688365132801310041
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,7 +884,8 @@ MonoBehaviour:
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
-  target_direction_relative: 0
+  turning_parent: {fileID: 0}
+  ignore_parent: 0
   sprite_renderer: {fileID: 0}
   direction_adjustor: {fileID: 0}
   length: 0
@@ -920,7 +936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segment1: {fileID: 6680826238214042624}
   segment2: {fileID: 8235071944740412968}
-  _provided_impulse: 0.2
+  _provided_impulse: 0.016
   _optimal_relative_position_standing_transform: {fileID: 244838614479971403}
   _comfortable_distance: 0.7
   _moving_offset_distance: 0.3
@@ -1012,7 +1028,8 @@ MonoBehaviour:
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
-  target_direction_relative: 0
+  turning_parent: {fileID: 0}
+  ignore_parent: 0
   sprite_renderer: {fileID: 718386432467596392}
   direction_adjustor: {fileID: 0}
   length: 0
@@ -1073,7 +1090,8 @@ MonoBehaviour:
   rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
-  target_direction_relative: 0
+  turning_parent: {fileID: 0}
+  ignore_parent: 0
   sprite_renderer: {fileID: 2730341698366821773}
   direction_adjustor: {fileID: 0}
   length: 0
@@ -1346,7 +1364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segment1: {fileID: 3247042218850436858}
   segment2: {fileID: 59933427946805637}
-  _provided_impulse: 0.2
+  _provided_impulse: 0.016
   _optimal_relative_position_standing_transform: {fileID: 2125901373884445382}
   _comfortable_distance: 0.15
   _moving_offset_distance: 0.1

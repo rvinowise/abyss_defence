@@ -12,7 +12,7 @@ using rvinowise.unity.units.parts.limbs.arms;
 namespace units.equipment.parts.actions.Action {
 
 
-public class Arm_reach_transform: rvinowise.unity.units.parts.actions.Action {
+public class Arm_reach_transform: rvinowise.unity.units.parts.actions.Action_leaf {
 
     public Arm arm;
     public Transform desired_transform;

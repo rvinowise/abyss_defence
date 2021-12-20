@@ -10,6 +10,7 @@ using rvinowise;
 using rvinowise.contracts;
 using UnityEngine.Assertions;
 using static rvinowise.unity.geometry2d.Directions;
+using Action = rvinowise.unity.units.parts.actions.Action;
 
 
 namespace rvinowise.unity.units.parts.limbs {
@@ -43,10 +44,11 @@ public partial class Limb2:
     }
 
     protected virtual void Start() {
-        
+        on_lacking_action();
     }
 
     void FixedUpdate() {
+        current_action?.update();
         preserve_possible_rotations();
     }
 
@@ -130,9 +132,6 @@ public partial class Limb2:
 
     
     public void set_desired_directions_by_position(Vector2 target) {
-        if (this.name == "leg_l_f") {
-            bool test = true;
-        }
         Directions directions = determine_directions_reaching_point(target);
         segment1.target_rotation = directions.segment1;
         segment2.target_rotation = directions.segment2;
@@ -219,6 +218,10 @@ public partial class Limb2:
         return false;
     }
 
+    public float get_reaching_distance() {
+        return (segment1.length + segment2.length) * 2;
+    }
+
     #region debug
     
     public virtual void draw_directions(
@@ -257,6 +260,13 @@ public partial class Limb2:
         );
         
     }
+    #endregion
+
+    #region IActor
+    public Action current_action { get; set; }
+    public virtual void on_lacking_action() {
+    }
+
     #endregion
 }
 }

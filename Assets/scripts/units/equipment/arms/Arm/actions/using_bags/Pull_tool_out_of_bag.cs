@@ -22,7 +22,6 @@ public class Pull_tool_out_of_bag: Action_sequential_parent {
         Tool in_tool
     ) {
         var action = (Pull_tool_out_of_bag)pool.get(typeof(Pull_tool_out_of_bag));
-        action.actor = in_arm;
         
         action.arm = in_arm;
         action.bag = in_bag;

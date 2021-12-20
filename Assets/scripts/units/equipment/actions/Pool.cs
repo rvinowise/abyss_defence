@@ -6,7 +6,7 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 using rvinowise;
-
+using rvinowise.unity.units.parts.limbs.arms.actions;
 using Debug = rvinowise.unity.debug.Debug;
 
 namespace rvinowise.unity.units.parts.actions {
@@ -44,6 +44,9 @@ public abstract partial class Action {
         }
 
         public void return_to_pool(TBase obj) {
+            if (obj is Drop_tool_into_bag) {
+                bool test = true;
+            }
             check_if_correctly_cleaned(obj);
             
             Queue<TBase> bases = get_or_create_place_for_type(obj.GetType());

@@ -2,13 +2,18 @@
 using rvinowise.unity.units.parts;
 using UnityEngine;
 using rvinowise.unity.extensions;
+using rvinowise.unity.units.parts.actions;
 
 
 namespace rvinowise.unity.units.parts.transport {
     
 /* provides information about possible speed and rotation for a moving Unit */
 
-public interface ITransporter: IExecute_commands {
+public interface ITransporter:
+    IExecute_commands,
+    IActor
+
+{
     float possible_rotation { get; set; }
     float possible_impulse { get; set; }
     

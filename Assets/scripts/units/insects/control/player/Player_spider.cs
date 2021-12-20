@@ -17,7 +17,9 @@ public class Player_spider: Intelligence {
     protected override void read_input() {
         read_transporter_input();
     }
+
     
+
     private void read_transporter_input() {
         if (transporter == null) {
             return;
@@ -39,5 +41,11 @@ public class Player_spider: Intelligence {
             return needed_direction;
         }
     }
+    
+    #region IActor
+    public override void on_lacking_action() {
+        
+    }
+    #endregion
 }
 }

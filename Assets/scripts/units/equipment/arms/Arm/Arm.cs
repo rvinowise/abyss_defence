@@ -10,12 +10,13 @@ using Action = rvinowise.unity.units.parts.actions.Action;
 using System;
 using rvinowise.unity.units.parts.limbs.arms.humanoid;
 using rvinowise.unity.extensions;
+using rvinowise.unity.ui.input;
 using rvinowise.unity.units.parts.weapons.guns;
 
 namespace rvinowise.unity.units.parts.limbs.arms  {
 
 public partial class Arm: 
-    Limb3, IPerform_actions, IChild_of_group, IReceive_recoil
+    Limb3, IChild_of_group, IReceive_recoil
 
 {
 
@@ -61,38 +62,7 @@ public partial class Arm:
         get { return upper_arm.length + forearm.length + hand.length; }
     }
     
-    #region IPerform_actions
-
-    public Action current_action {
-        get { return _current_action;}
-        set {
-            _current_action = value;
-            
-        }
-    }
-    private Action _current_action;
     
-    public void set_root_action(Action in_action) {
-        in_action.start_as_root();
-    }
-    
-    public void start_default_action() {
-        UnityEngine.Debug.Log(this.name + " start_default_action");
-        current_action = Idle_vigilant_only_arm.create(
-            this,
-            attention_target,
-            pair.transporter
-        );
-    }
-    
-    public Action get_default_action() {
-        return Idle_vigilant_only_arm.create(
-            this,
-            attention_target,
-            pair.transporter
-        );
-    }
-    #endregion
 
     #region IReceive_recoil
     public void push_with_recoil(float in_impulse) {
@@ -131,22 +101,18 @@ public partial class Arm:
     
    
     public void start_idle_action() {
-        set_root_action(
-            Idle_vigilant_only_arm.create(
-                this,
-                attention_target,
-                pair.transporter
-            )
-        );
+        Idle_vigilant_only_arm.create(
+            this,
+            attention_target,
+            pair.transporter
+        ).start_as_root();
     }
     public void aim_at(Transform in_target) {
-        set_root_action(
-            Aim_at_target.create(
-                this,
-                in_target,
-                pair.user
-            )
-        );
+        Aim_at_target.create(
+            this,
+            in_target,
+            pair.user
+        ).start_as_root();
     }
     public void FixedUpdate() {
         current_action?.update();
@@ -172,19 +138,16 @@ public partial class Arm:
 
     public void take_tool_from_baggage(Tool tool) {
 
-        set_root_action(
-            Action_sequential_parent.create(
-                null,
-                actions.Take_tool_from_bag.create(
-                    this, baggage, tool
-                ),
-                actions.Idle_vigilant_only_arm.create(
-                    this,
-                    attention_target,
-                    pair.transporter
-                )
+        Action_sequential_parent.create(
+            actions.Take_tool_from_bag.create(
+                this, baggage, tool
+            ),
+            actions.Idle_vigilant_only_arm.create(
+                this,
+                attention_target,
+                pair.transporter
             )
-        );
+        ).start_as_root();
 
     }
 
@@ -192,7 +155,6 @@ public partial class Arm:
         Contract.Requires(hand.held_tool == null, "must be free in order to grab a tool");
 
         current_action = Action_sequential_parent.create(
-            this,
             actions.Arm_reach_holding_part_of_tool.create(
                 tool.second_holding
             ),
@@ -260,6 +222,14 @@ public partial class Arm:
         if (Application.isPlaying) {
             draw_desired_directions();
         }
+    }
+    
+    public override void on_lacking_action() {
+        Idle_vigilant_only_arm.create(
+            this,
+            Player_input.instance.cursor.transform,
+            pair.transporter
+        ).start_as_root();
     }
 
 }

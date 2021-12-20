@@ -10,12 +10,17 @@ using rvinowise.contracts;
 using rvinowise.unity.maps;
 
 namespace rvinowise.unity.units.parts.tools {
-public class Tool_set: MonoBehaviour {
+public class Toolset: MonoBehaviour {
 
     public Tool right_tool;
     public Tool left_tool;
 
-
+    public Tool get_tool_on_side(Side in_side) {
+        if (in_side == Side.RIGHT) {
+            return right_tool;
+        }
+        return left_tool;
+    }
 }
 
 

@@ -12,7 +12,7 @@ using Action = rvinowise.unity.units.parts.actions.Action;
 
 namespace rvinowise.unity.units.parts.limbs.arms.actions {
 
-public class Arm_reach_relative_directions: Action {
+public class Arm_reach_relative_directions: Action_leaf {
     private Arm arm;
 
     Degree shoulder_rotation;
@@ -47,7 +47,7 @@ public class Arm_reach_relative_directions: Action {
         return action;
     }
 
-    public override void init_state() {
+    public override void init_actors() {
         arm.shoulder.set_target_direction_relative_to_parent(
             shoulder_rotation
         );
