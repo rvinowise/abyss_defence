@@ -215,12 +215,14 @@
                 <e p="Action.cs" t="Include" />
                 <e p="Action_leaf.cs" t="Include" />
                 <e p="Action_parallel_parent.cs" t="Include" />
+                <e p="Action_runner.cs" t="Include" />
                 <e p="Action_sequential_parent.cs" t="Include" />
                 <e p="Free_actor.cs" t="Include" />
                 <e p="IAction.cs" t="Include" />
                 <e p="IAction_parent.cs" t="Include" />
                 <e p="IActor.cs" t="Include" />
                 <e p="IPerform_actions_extensions.cs" t="Include" />
+                <e p="IRun_actions.cs" t="Include" />
                 <e p="Pool.cs" t="Include" />
               </e>
               <e p="arms" t="Include">
@@ -412,7 +414,7 @@
                 <e p="Idle_vigilant_body.cs" t="Include" />
                 <e p="IFlippable_actor.cs" t="Include" />
                 <e p="Play_body_animation.cs" t="Include" />
-                <e p="Start_recorded_animation.cs" t="Include" />
+                <e p="Play_recorded_animation.cs" t="Include" />
                 <e p="using_guns" t="Include">
                   <e p="reloading" t="Include">
                     <e p="Expose_gun_for_reloading_COMPLEX.cs" t="Include" />

@@ -10,6 +10,7 @@ using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.limbs.arms;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.transport;
+using Action = rvinowise.unity.units.parts.actions.Action;
 
 
 namespace units.human.actions {
@@ -43,8 +44,25 @@ public class Play_body_animation : Action_sequential_parent {
         add_child(preparing_arms);
         
         add_child(
-            Start_recorded_animation.create(animator,0)
+            Play_recorded_animation.create(animator,0)
         );
+    }
+
+    public override void on_child_completed(Action in_sender_child) {
+        base.on_child_completed(in_sender_child);
+    }
+
+    public override void restore_state() {
+        base.restore_state();
+        adjust_desired_positions();
+    }
+
+    private void adjust_desired_positions() {
+        left_arm.segment1.target_rotation = left_arm.segment1.rotation;
+        left_arm.segment2.target_rotation = left_arm.segment2.rotation;
+        
+        right_arm.segment1.target_rotation = right_arm.segment1.rotation;
+        right_arm.segment2.target_rotation = right_arm.segment2.rotation;
     }
 }
 }

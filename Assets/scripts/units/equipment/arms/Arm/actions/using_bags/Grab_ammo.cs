@@ -44,7 +44,7 @@ public class Grab_ammo: Action_of_arm {
         }
         take_ammo_object();
         
-        mark_as_reached_goal();
+        mark_as_completed();
     }
 
     private void stash_old_tool() {

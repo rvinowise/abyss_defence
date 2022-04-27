@@ -61,7 +61,7 @@ public class Keep_distance_from_target: Action_leaf {
         // } else {
         //     mark_as_has_not_reached_goal();
         // }
-        mark_as_reached_goal();
+        mark_as_completed();
     }
 
     private bool has_reached_target() {

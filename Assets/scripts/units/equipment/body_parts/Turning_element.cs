@@ -144,7 +144,7 @@ public class Turning_element: MonoBehaviour {
                 ) 
                 &&
                 (
-                    rotation_acceleration* Time.deltaTime/4 >= Mathf.Abs(current_rotation_inertia)* Time.deltaTime
+                    rotation_acceleration* Time.deltaTime >= Mathf.Abs(current_rotation_inertia)* Time.deltaTime
                 )
             );
             
@@ -275,14 +275,8 @@ public class Turning_element: MonoBehaviour {
 
     public bool is_within_span() {
         float delta_degrees = transform.parent.delta_degrees(transform);
-        bool is_within_smaller_span = false;
-        if (
-            (delta_degrees >= possible_span.min)&&
-            (delta_degrees <= possible_span.max)
-        ) 
-        {
-            is_within_smaller_span = true;
-        }
+        bool is_within_smaller_span = (delta_degrees >= possible_span.min)&&
+                                      (delta_degrees <= possible_span.max);
         if (possible_span.goes_through_switching_degrees) {
             return !is_within_smaller_span;
         }

@@ -53,9 +53,9 @@ public class Hitting_with_limb2_impact: Action_leaf {
         transporter.command_batch.face_direction_degrees = limb.transform.degrees_to(target.position);
         keep_optimal_distance_from_target();
         if (is_directed_towards_target()) {
-            mark_as_reached_goal();
+            mark_as_completed();
         } else {
-            mark_as_has_not_reached_goal();
+            mark_as_not_completed();
         }
     }
     

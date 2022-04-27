@@ -78,7 +78,7 @@ public class Reload_all: Action_sequential_parent {
 
     private bool wanted_to_stop;
     
-    public override void on_child_reached_goal(Action in_sender_child) {
+    public override void on_child_completed(Action in_sender_child) {
         
         if (in_sender_child.marker.StartsWith("first reloading")) {
             
@@ -103,7 +103,7 @@ public class Reload_all: Action_sequential_parent {
             //if (wanted_to_stop) { }
         }
 
-        base.on_child_reached_goal(in_sender_child);
+        base.on_child_completed(in_sender_child);
     }
 
     private Action get_reloading_action_for(Side in_side) {

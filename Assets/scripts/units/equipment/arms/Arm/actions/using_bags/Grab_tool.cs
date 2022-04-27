@@ -47,7 +47,7 @@ public class Grab_tool: Action_of_arm {
         if (tool != null) {
             take_new_tool();
         }
-        mark_as_reached_goal();
+        mark_as_completed();
     }
 
     private void stash_old_tool() {

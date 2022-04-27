@@ -73,7 +73,13 @@ public class Segment: Turning_element {
 
     protected virtual void Start() {
         //base.Start();
-        parent_segment = transform.parent?.GetComponent<Segment>();
+        
+    }
+
+    public void init() {
+        if (transform.parent) {
+            parent_segment = transform.parent.GetComponent<Segment>();
+        }
         init_lengths();
     }
 

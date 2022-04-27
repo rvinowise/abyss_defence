@@ -25,10 +25,10 @@ public class Computer_spider:
     private Creeping_leg_group leg_group;
     private bool is_dying = false;
 
-    void Start() {
+    protected override void Start() {
         base.Start();
         init_components();
-        on_action_finished(null);
+        start_walking(null);
     }
 
     private void init_components() {
@@ -39,9 +39,7 @@ public class Computer_spider:
         
     }
     
-    void FixedUpdate() {
-        current_action?.update();
-    }
+
 
 
 
@@ -57,27 +55,27 @@ public class Computer_spider:
 
     }
 
-    public override void on_action_finished(Action action) {
-        if (weaponry.can_reach(unit_commands.attack_target)) {
-            Attacking_with_creeping_legs.create(
-                this,
-                leg_group,
-                unit_commands.attack_target
-            ).start_as_root();
-        }
-        else {
-            Move_towards_target.create(
-                this,
-                leg_group,
-                leg_group.reaching_distance(),
-                unit_commands.attack_target
-            ).start_as_root();
-        }
+    public void on_reached_target(Action moving) {
+        Attacking_with_creeping_legs.create(
+            this,
+            leg_group,
+            unit_commands.attack_target
+        ).start_as_root(action_runner);
     }
 
-    public override void on_lacking_action() {
-        
+    public override void start_walking(Action action) {
+        Move_towards_target.create(
+            this,
+            leg_group,
+            leg_group.reaching_distance(),
+            unit_commands.attack_target
+        ).add_finish_notifyer(on_reached_target)
+        .start_as_root(action_runner);
     }
+
+    /*public override void on_lacking_action() {
+        
+    }*/
 }
 
 }

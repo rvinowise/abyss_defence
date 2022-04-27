@@ -39,9 +39,6 @@ public class Put_tool_into_bag: Action_sequential_parent {
         
     }
 
-    public override void on_child_reached_goal(Action in_sender_child) {
-        base.on_child_reached_goal(in_sender_child);
-    }
 
 
 }

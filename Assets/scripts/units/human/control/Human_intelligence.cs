@@ -26,10 +26,10 @@ public class Human_intelligence:Intelligence {
         user = GetComponent<Humanoid>();
     }
 
-    #region IAction 
+    /*#region IAction 
     public override void on_lacking_action() {
         
     }
-    #endregion
+    #endregion*/
 }
 }

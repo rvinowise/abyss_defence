@@ -52,14 +52,18 @@ public class Humanoid:
     public Animator animator;
     
     
-    /* IPerformActions interface */
+    #region IActor
     public Action current_action { set; get; }
 
     public void on_lacking_action() {
         
     }
 
-
+    private Action_runner action_runner;
+    public void init_for_runner(Action_runner action_runner) {
+        this.action_runner = action_runner;
+    }
+    #endregion
 
 
     /* Humanoid itself */
@@ -94,12 +98,7 @@ public class Humanoid:
 
 
     void FixedUpdate() {
-        
         head.rotate_to_desired_direction();
-        
-        if (!animator.enabled) {
-            current_action?.update();
-        }
     }
 
   
@@ -141,8 +140,20 @@ public class Humanoid:
     public void restore_after_flipping() {
         Contract.Requires(is_flipped(), "restoring after flipping is only makes sense if flipped");
         arm_pair.switch_arms_angles();
+        stop_arms();
         flip_for_animation(false);
         //Debug.Break();
+    }
+    
+    private void stop_arms() {
+        arm_pair.left_arm.shoulder.current_rotation_inertia = 0;
+        arm_pair.left_arm.segment1.current_rotation_inertia = 0;
+        arm_pair.left_arm.segment2.current_rotation_inertia = 0;
+        arm_pair.left_arm.segment3.current_rotation_inertia = 0;
+        arm_pair.right_arm.shoulder.current_rotation_inertia = 0;
+        arm_pair.right_arm.segment1.current_rotation_inertia = 0;
+        arm_pair.right_arm.segment2.current_rotation_inertia = 0;
+        arm_pair.right_arm.segment3.current_rotation_inertia = 0;
     }
     
     private void switch_tools() {

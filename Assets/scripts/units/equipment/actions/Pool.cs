@@ -39,7 +39,7 @@ public abstract partial class Action {
                 Debug.Assert(parallel_parent.child_actions.Count == 0);
             }
             Debug.Assert(in_action.parent_action == null);
-            Debug.Assert(!in_action.reached_goal);
+            Debug.Assert(!in_action.completed);
             return true;
         }
 

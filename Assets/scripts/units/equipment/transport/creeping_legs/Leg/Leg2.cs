@@ -30,8 +30,7 @@ IMirrored
     }
 
 
-    protected override void Awake() {
-        base.Awake();
+    protected void Awake() {
 
         check_components();
     }
@@ -40,10 +39,7 @@ IMirrored
         Contract.Ensures(optimal_relative_position_standing_transform != null);
     }
 
-    protected override void Start() {
-        base.Start();
-        
-    }
+
 
     #region ILeg
     

@@ -10,6 +10,7 @@ using rvinowise.unity.units.parts.limbs.creeping_legs;
 using rvinowise.unity.units.parts.transport;
 using rvinowise.unity.units.parts.limbs;
 using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.parts.actions;
 using Action = rvinowise.unity.units.parts.actions.Action;
 
 namespace rvinowise.unity.units.parts.humanoid {
@@ -25,7 +26,7 @@ public class Legs:
     public transport.Transporter_commands command_batch { get; } = new transport.Transporter_commands();
     
     
-    public void FixedUpdate() {
+    public void Update() {
         execute_commands();
     }
 
@@ -89,6 +90,13 @@ public class Legs:
     public Action current_action { get; set; }
     public void on_lacking_action() {
     }
+
+    private Action_runner action_runner;
+    
+    public void init_for_runner(Action_runner action_runner) {
+        this.action_runner = action_runner;
+    }
+
     #endregion
 }
 }

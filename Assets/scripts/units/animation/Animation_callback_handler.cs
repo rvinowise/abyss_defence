@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using rvinowise.unity.extensions;
+using units;
 
 
 namespace rvinowise.animation {
 public class Animation_callback_handler : StateMachineBehaviour {
     internal Action on_state_exit;
     internal int awaited_animation_name_hash;
-
+    internal IFlippable_actor flippable_actor;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -31,6 +32,10 @@ public class Animation_callback_handler : StateMachineBehaviour {
         var test2 = animator.GetNextAnimatorClipInfo(0);
         
         if (stateInfo.fullPathHash == awaited_animation_name_hash) {
+            animator.enabled = false;
+            if (flippable_actor.is_flipped()) {
+                flippable_actor.restore_after_flipping();
+            }
             on_state_exit();
         
             Debug.Log("OnStateExit");

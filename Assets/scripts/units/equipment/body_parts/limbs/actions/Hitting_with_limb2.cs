@@ -67,9 +67,7 @@ public class Hitting_with_limb2: Action_sequential_parent {
         return limb.transform.degrees_to(target.position);
     }
 
-    
 
     
-  
 }
 }

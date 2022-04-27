@@ -16,7 +16,7 @@ public abstract class Arm_reach_somewhere: arms.actions.Action_of_arm {
         base.update();
         Orientation desired_orientation = get_desired_orientation();
         if (complete(desired_orientation)) {
-            mark_as_reached_goal();
+            mark_as_completed();
         } else {
             arm.rotate_to_orientation(desired_orientation);
         }

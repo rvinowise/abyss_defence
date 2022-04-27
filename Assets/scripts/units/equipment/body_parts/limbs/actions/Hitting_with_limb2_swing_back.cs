@@ -73,9 +73,9 @@ public class Hitting_with_limb2_swing_back: Action_leaf {
         transporter.command_batch.face_direction_degrees = get_direction_to_target() + swing_side.turn_degrees(45);
         keep_optimal_distance_from_target();
         if (complete()) {
-            mark_as_reached_goal();
+            mark_as_completed();
         } else {
-            mark_as_has_not_reached_goal();
+            mark_as_not_completed();
         }
     }
 

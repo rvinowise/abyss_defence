@@ -47,13 +47,7 @@ public class Arm_pair:
             }
         }
     }
-
-    // private Held_tool get_weapon_reaching_faster(Transform target) {
-    //     Held_tool fastest_tool = held_tools.MinBy(
-    //         held_weapon => held_weapon.time_to_shooting(target)
-    //     ).First();
-    //     return fastest_tool;
-    // }
+     
     #endregion
 
 
@@ -65,6 +59,8 @@ public class Arm_pair:
     public ITransporter transporter;
 
     public units.humanoid.Humanoid user;
+    public Intelligence intelligence;
+    public Action_runner action_runner => intelligence.action_runner;
     private Baggage baggage;
     public Arm left_arm;
     
@@ -79,14 +75,21 @@ public class Arm_pair:
     void Awake() {
         unit = GetComponent<Unit>();
         user = GetComponent<Humanoid>();
+        intelligence = GetComponent<Intelligence>();
         baggage = user.baggage;
         transporter = GetComponent<ITransporter>();
+        
+        init_arms();
+    }
+
+    private void init_arms() {
+        left_arm.init();
+        right_arm.init();
         left_arm.pair = right_arm.pair = this;
     }
 
     protected void Start() {
         init_directions();
-        start_default_activity();
     }
 
     private void init_directions() {
@@ -100,22 +103,7 @@ public class Arm_pair:
         right_arm.forearm.desired_idle_rotation = Directions.degrees_to_quaternion(20f);
         right_arm.hand.desired_idle_rotation = Directions.degrees_to_quaternion(0f);
     }
-
-    private void start_default_activity() {
-        /* left_arm.start_idle_action();
-        right_arm.start_idle_action(); */
-        Turning_element turning_element = GetComponent<Turning_element>();
-        Idle_vigilant_only_arm.create(
-            right_arm,
-            rvinowise.unity.ui.input.Player_input.instance.cursor.transform,
-            transporter
-        ).start_as_root();
-        Idle_vigilant_only_arm.create(
-            left_arm,
-            rvinowise.unity.ui.input.Player_input.instance.cursor.transform,
-            transporter
-        ).start_as_root();
-    }
+    
 
     public List<Arm> get_all_armed_autoaimed_arms() {
         List<Arm> arms = new List<Arm>();
@@ -131,14 +119,6 @@ public class Arm_pair:
         return arms;
     }
 
-    void FixedUpdate() {
-        
-    }
-
-
-   
-
-    
 
     public void wants_to_reload(Side in_side) {
 
@@ -191,7 +171,7 @@ public class Arm_pair:
                 Idle_vigilant_only_arm.create(gun_arm,gun_arm.attention_target, transporter),
                 Idle_vigilant_only_arm.create(ammo_arm,gun_arm.attention_target, transporter)
             )
-        ).start_as_root();
+        ).start_as_root(action_runner);
 
     }
 
@@ -244,7 +224,11 @@ public class Arm_pair:
         if (get_free_arm_closest_to(in_target, typeof(Gun)) is Arm free_arm) {
             best_arm = free_arm;
         } else {
-            best_arm = get_arm_closest_to(get_all_armed_autoaimed_arms(), in_target, typeof(Gun));
+            best_arm = get_arm_closest_to(
+                get_all_armed_autoaimed_arms(), 
+                in_target, 
+                typeof(Gun)
+            );
             if (best_arm == null) {
                 return;
             }
@@ -457,18 +441,18 @@ public class Arm_pair:
         }
 
         public Arm_angles flipped()  {
-            /* return new Arm_angles {
-                shoulder = Quaternion.Inverse(shoulder),
-                upper_arm = Quaternion.Inverse(upper_arm),
-                forearm = Quaternion.Inverse(forearm),
-                hand = Quaternion.Inverse(hand)
-            }; */
             return new Arm_angles {
-                shoulder = -shoulder,
-                upper_arm = -upper_arm,
-                forearm = -forearm,
-                hand = -hand
+                shoulder = Quaternion.Inverse(shoulder.to_quaternion()),
+                upper_arm = Quaternion.Inverse(upper_arm.to_quaternion()),
+                forearm = Quaternion.Inverse(forearm.to_quaternion()),
+                hand = Quaternion.Inverse(hand.to_quaternion())
             };
+            // return new Arm_angles {
+            //     shoulder = -shoulder,
+            //     upper_arm = -upper_arm,
+            //     forearm = -forearm,
+            //     hand = -hand
+            // };
         }
     }
     public void switch_arms_angles() {

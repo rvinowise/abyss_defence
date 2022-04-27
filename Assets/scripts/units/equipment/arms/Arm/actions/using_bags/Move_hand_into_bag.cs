@@ -68,9 +68,9 @@ public class Move_hand_into_bag: Action_of_arm {
         Orientation desired_orientation = get_orientation_touching_baggage();
         arm.rotate_to_orientation(desired_orientation);
         if (complete(desired_orientation)) {
-            mark_as_reached_goal();
+            mark_as_completed();
         } else {
-            mark_as_has_not_reached_goal();
+            mark_as_not_completed();
         }
     }
     

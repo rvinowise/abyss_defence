@@ -36,7 +36,7 @@ public class Action_sequential_parent :
 
     public override void set_root_action(Action in_root_action) {
         base.set_root_action(in_root_action);
-        current_child_action.set_root_action(in_root_action);
+        current_child_action?.set_root_action(in_root_action);
         foreach (Action child in queued_child_actions) {
             child.set_root_action(in_root_action);
         }
@@ -68,49 +68,31 @@ public class Action_sequential_parent :
 
     public override void update() {
         base.update();
-        if (current_child_action == null) {
-            bool test = true;
-        }
         Contract.Requires(
             current_child_action != null,
             "Action parent must have a child to execute"
         );
+        current_child_action.update();
     }
 
-    public override void on_child_reached_goal(Action in_sender_child) {
+    public override void on_child_completed(Action in_sender_child) {
         Contract.Requires(
             in_sender_child == current_child_action,
             "only one child of a sequential parent can be executed at a time"
         );
 
         if (queued_child_actions.Any()) {
-            proceed_to_next_child_action(
-                current_child_action, 
-                queued_child_actions.Dequeue()
-            );
+            Action next_child = queued_child_actions.Dequeue();
+            Contract.Assert(current_child_action != null);
+            Contract.Assert(runner != null);
+            runner.mark_action_as_finishing(current_child_action);
+            runner.mark_action_as_starting(next_child);
+            current_child_action = next_child;
         }
         else {
-            mark_as_reached_goal();
+            mark_as_completed();
         }
     }
-
-    private void proceed_to_next_child_action(Action ended_child, Action next_child) {
-        current_child_action = next_child;
-        
-        ended_child.restore_state_recursive();
-        ended_child.free_actors_recursive();
-        next_child.init_children_recursive();
-        next_child.init_state_recursive();
-        next_child.seize_needed_actors_recursive();
-        next_child.stop_actions_which_use_same_actors_recursive();
-        ended_child.ensure_actors_have_next_action();
-
-        
-        ended_child.reset_recursive();
-        
-    }
-    
-    
 
     private void replace_this_by(Action in_action) {
         //parent_action.
@@ -142,17 +124,11 @@ public class Action_sequential_parent :
         current_child_action.free_actors_recursive();
     }
     
-    public override void ensure_actors_have_next_action() {
-        current_child_action.ensure_actors_have_next_action();
-    }
 
     public override void seize_needed_actors_recursive() {
         current_child_action.seize_needed_actors_recursive();
     }
-    
-    public override void stop_actions_which_use_same_actors_recursive() {
-        current_child_action.stop_actions_which_use_same_actors_recursive();
-    }
+
     
     public override void restore_state_recursive() {
         current_child_action.restore_state_recursive();

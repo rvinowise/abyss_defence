@@ -50,7 +50,7 @@ public class Simple_player_human: Player_human {
         Equip_toolset.create(
             this,
             baggage.tool_sets[set_index]
-        ).add_marker("changing tool").start_as_root();
+        ).add_marker("changing tool").start_as_root(action_runner);
     }
     
     protected override void read_using_tools_input() {
@@ -62,7 +62,7 @@ public class Simple_player_human: Player_human {
 
         bool wants_to_reload = Player_input.instance.button_presed("reload");
         if (wants_to_reload) {
-            Reload_all.create(user, this).start_as_root();
+            Reload_all.create(user, this).start_as_root(action_runner);
         }
 
     }
@@ -96,18 +96,18 @@ public class Simple_player_human: Player_human {
         
     }
 
-    public override void on_action_finished(Action action) {
+    public override void start_walking(Action action) {
         Idle_vigilant_only_arm.create(
             arm_pair.left_arm,
             Player_input.instance.cursor.transform,
             transporter
-        ).start_as_root();
+        ).start_as_root(action_runner);
         
         Idle_vigilant_only_arm.create(
             arm_pair.right_arm,
             Player_input.instance.cursor.transform,
             transporter
-        ).start_as_root();
+        ).start_as_root(action_runner);
     }
     
 }

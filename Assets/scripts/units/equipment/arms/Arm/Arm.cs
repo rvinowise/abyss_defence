@@ -80,23 +80,9 @@ public partial class Arm:
 
     
 
-    protected override void Awake() 
+    protected void Awake() 
     {
-        base.Awake();
         attention_target = ui.input.Player_input.instance.cursor.transform;
-    }
-
-    protected override void Start() {
-        base.Start();
-
-        
-    }
-
-    
-
-
-    private void mirror_from() {
-
     }
     
    
@@ -105,17 +91,16 @@ public partial class Arm:
             this,
             attention_target,
             pair.transporter
-        ).start_as_root();
+        ).start_as_root(action_runner);
     }
     public void aim_at(Transform in_target) {
         Aim_at_target.create(
             this,
             in_target,
             pair.user
-        ).start_as_root();
+        ).start_as_root(action_runner);
     }
-    public void FixedUpdate() {
-        current_action?.update();
+    public void Update() {
         if (!controlled_by_animation()) {
             shoulder.preserve_possible_rotations();
             base.preserve_possible_rotations();
@@ -147,7 +132,7 @@ public partial class Arm:
                 attention_target,
                 pair.transporter
             )
-        ).start_as_root();
+        ).start_as_root(action_runner);
 
     }
 
@@ -229,7 +214,7 @@ public partial class Arm:
             this,
             Player_input.instance.cursor.transform,
             pair.transporter
-        ).start_as_root();
+        ).start_as_root(action_runner);
     }
 
 }

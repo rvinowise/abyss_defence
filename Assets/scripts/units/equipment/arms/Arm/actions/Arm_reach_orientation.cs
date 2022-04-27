@@ -28,7 +28,7 @@ public class Arm_reach_orientation: arms.actions.Action_of_arm {
     public override void update() {
         base.update();
         if (complete(desired_orientation)) {
-            mark_as_reached_goal();
+            mark_as_completed();
         } else {
             arm.rotate_to_orientation(desired_orientation);
         }

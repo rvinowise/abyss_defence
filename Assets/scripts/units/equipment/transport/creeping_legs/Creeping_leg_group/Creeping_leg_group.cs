@@ -8,6 +8,7 @@ using rvinowise.unity.extensions;
 
 using rvinowise.contracts;
 using rvinowise.unity.geometry2d;
+using rvinowise.unity.units.control;
 using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.transport;
@@ -31,18 +32,24 @@ public partial class Creeping_leg_group:
     protected override void Awake() {
         base.Awake();
         init_components();
+        init_legs();
     }
 
     protected override void Start() {
         base.Start();
-        foreach(var leg in legs) {
-            leg.init_folding_direction();
-        }
+        
+        
         create_moving_strategy();
 
         Contract.Requires(GetComponents<Turning_element>().Length <= 1,
             "only one component with Turning_element is enough");
         turning_element = GetComponent<Turning_element>();
+    }
+
+    private void init_legs() {
+        foreach(var leg in legs) {
+            leg.init();
+        }
     }
 
     private void create_moving_strategy() {
@@ -158,7 +165,10 @@ public partial class Creeping_leg_group:
     
     
     void FixedUpdate() {
-        current_action?.update();
+        
+    }
+
+    void Update() {
         execute_commands();
         move_legs();
     }
@@ -315,7 +325,7 @@ public partial class Creeping_leg_group:
                 best_limb2,
                 this,
                 target
-            ).start_as_root();
+            ).start_as_root(runner);
         }
     }
 
@@ -333,8 +343,12 @@ public partial class Creeping_leg_group:
 
     #region IActor
     public Action current_action { get; set; }
+    public Action_runner runner { get; private set; }
     public void on_lacking_action() {
         
+    }
+    public void init_for_runner(Action_runner action_runner) {
+        this.runner = action_runner;
     }
     #endregion
 }

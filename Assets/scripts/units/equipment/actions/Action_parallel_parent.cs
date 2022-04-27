@@ -57,11 +57,7 @@ public class Action_parallel_parent:
         }
     }
 
-    public override void stop_actions_which_use_same_actors_recursive() {
-        foreach (Action child in child_actions) {
-            child.stop_actions_which_use_same_actors_recursive();
-        }
-    }
+
 
     public override void update() {
         base.update();
@@ -69,14 +65,17 @@ public class Action_parallel_parent:
             child_actions.Count > 0,
             "Action parent must have a child to execute"
         );
+        foreach (Action child in child_actions) {
+            child.update();
+        }
+        
     }
 
-    public override void on_child_reached_goal(Action in_sender_child) {
-        if (all_children_are_finished()) {
-            mark_as_reached_goal();
+    public override void on_child_completed(Action child) {
+        if (all_children_are_completed()) {
+            mark_as_completed();
         }
     }
-    
     
     public override void finish() {
         foreach (Action child_action in child_actions) {
@@ -92,9 +91,9 @@ public class Action_parallel_parent:
         base.reset();
     }
 
-    private bool all_children_are_finished() {
+    private bool all_children_are_completed() {
         foreach (Action child_action in child_actions) {
-            if (!child_action.reached_goal) {
+            if (!child_action.completed) {
                 return false;
             }
         }
@@ -112,13 +111,6 @@ public class Action_parallel_parent:
             child.seize_needed_actors_recursive();
         }
     }
-
-    public override void ensure_actors_have_next_action() {
-        foreach (Action child in child_actions) {
-            child.ensure_actors_have_next_action();
-        }
-    }
-    
 
     public override void init_state_recursive() {
         init_actors();

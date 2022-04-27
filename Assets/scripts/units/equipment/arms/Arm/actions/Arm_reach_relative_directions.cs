@@ -72,7 +72,7 @@ public class Arm_reach_relative_directions: Action_leaf {
 
     public override void update() {
         if (complete()) {
-            mark_as_reached_goal();
+            mark_as_completed();
         } else {
             set_relative_target_directions();
             arm.rotate_to_desired_directions();

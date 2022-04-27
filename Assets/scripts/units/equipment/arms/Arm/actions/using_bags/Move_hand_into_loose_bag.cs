@@ -33,7 +33,7 @@ public class Move_hand_into_loose_bag: Action_of_arm {
     public override void update() {
         base.update();
         if (complete()) {
-            mark_as_reached_goal();
+            mark_as_completed();
         } else {
             set_desired_directions(arm);
             arm.rotate_to_desired_directions();

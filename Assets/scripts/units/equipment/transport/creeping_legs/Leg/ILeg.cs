@@ -15,7 +15,7 @@ IChild_of_group
     Vector2 optimal_position_standing{get;}
     Stable_leg_group stable_group{get;set;}
 
-    void init_folding_direction();
+    void init();
     void set_desired_position(Vector2 position);
     bool hold_onto_ground();
 

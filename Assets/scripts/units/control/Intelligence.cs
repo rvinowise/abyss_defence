@@ -23,20 +23,22 @@ namespace rvinowise.unity.units.control {
  orders them some actions based on this information,
  they do these actions later in the same step */
 public abstract class Intelligence :
-    MonoBehaviour
+    MonoBehaviour,
+    IRun_actions
 {
 
     public Baggage baggage;
     public ISensory_organ sensory_organ;
-    public virtual ITransporter transporter { get; set; }
+    public ITransporter transporter { get; set; }
     public IWeaponry weaponry { get; set; }
     public float last_rotation;
 
     public Team team;
 
-    protected virtual void Awake() { }
+    public Action_runner action_runner { get; set; } = new Action_runner();
 
-    protected virtual void Start() {
+
+    protected virtual void Awake() {
         sensory_organ = GetComponent<ISensory_organ>();
         transporter = GetComponent<ITransporter>();
         weaponry = GetComponent<IWeaponry>();
@@ -44,18 +46,27 @@ public abstract class Intelligence :
             GetComponentsInChildren<Baggage>().Length <= 1, "which baggage should the Intelligence use?"
         );
         baggage = GetComponentInChildren<Baggage>();
+        
+    }
+
+    protected virtual void Start() {
         if (team != null) {
             notify_other_units();
+        }
+        add_actors_to_action_runner();
+        action_runner.start_fallback_actions();
+    }
+
+    private void add_actors_to_action_runner() {
+        var actors = GetComponentsInChildren<IActor>();
+        foreach (IActor actor in actors) {
+            actor.init_for_runner(action_runner);
+            action_runner.add_actor(actor);
         }
     }
 
     private void notify_other_units() {
         team.units.Add(this);
-        /* Object_finder.instance.team_to_units.add(team, this);
-        Object_finder.instance.register_unit(
-            this, 
-            this.GetComponent<Damage_receiver>()
-        ); */
 
         foreach (Team enemy_team in team.enemies) {
             foreach (var enemy_unit in enemy_team.units) {
@@ -70,7 +81,14 @@ public abstract class Intelligence :
 
     protected virtual void Update() {
         read_input();
+        action_runner.update();
     }
+
+    protected virtual void FixedUpdate() {
+        
+    }
+
+    
 
     protected virtual void read_input() { }
 
@@ -87,14 +105,19 @@ public abstract class Intelligence :
         
     }
 
-    public virtual void on_action_finished(Action in_action) {
-        
+    public virtual void start_walking(Action in_action) {
+        action_runner.mark_action_as_finishing(in_action);
     }
 
-    #region IActor
+    /*#region IActor
     public Action current_action { get; set; }
     public abstract void on_lacking_action();
 
-    #endregion
+    #endregion*/
+
+
+    public void add_action(Action action) {
+        action_runner.add_action(action);
+    }
 }
 }

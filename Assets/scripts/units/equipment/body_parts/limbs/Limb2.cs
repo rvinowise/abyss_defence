@@ -8,6 +8,7 @@ using rvinowise.unity.extensions;
 
 using rvinowise;
 using rvinowise.contracts;
+using rvinowise.unity.units.parts.actions;
 using UnityEngine.Assertions;
 using static rvinowise.unity.geometry2d.Directions;
 using Action = rvinowise.unity.units.parts.actions.Action;
@@ -39,19 +40,15 @@ public partial class Limb2:
     protected virtual Limb2.Debug debug_limb { get; set; }
 
 
-    protected virtual void Awake() {
+    public void init() {
+        init_segments();        
         init_folding_direction();
     }
 
-    protected virtual void Start() {
-        on_lacking_action();
+    private void init_segments() {
+        segment1.init();
+        segment2.init();
     }
-
-    void FixedUpdate() {
-        current_action?.update();
-        preserve_possible_rotations();
-    }
-
     public void init_folding_direction() {
         folding_side = segment2.possible_span.side_of_bigger_rotation().mirror();
         Contract.Ensures(
@@ -264,9 +261,16 @@ public partial class Limb2:
 
     #region IActor
     public Action current_action { get; set; }
+    public Action_runner action_runner { get; private set; }
+
     public virtual void on_lacking_action() {
     }
 
+    public void init_for_runner(Action_runner action_runner) {
+        this.action_runner = action_runner;
+    }
+
     #endregion
+
 }
 }

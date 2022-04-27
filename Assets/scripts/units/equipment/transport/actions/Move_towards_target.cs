@@ -56,9 +56,9 @@ public class Move_towards_target: Action_leaf {
             transform.quaternion_to(target.position);
         
         if (has_reached_target()) {
-            mark_as_reached_goal();
+            mark_as_completed();
         } else {
-            mark_as_has_not_reached_goal();
+            mark_as_not_completed();
         }
     }
 

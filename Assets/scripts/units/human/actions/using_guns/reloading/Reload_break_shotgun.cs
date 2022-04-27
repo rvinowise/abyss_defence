@@ -69,7 +69,7 @@ public class Reload_break_shotgun: Reload_gun {
             )
         );
         this.add_child(
-            Start_recorded_animation.create(
+            Play_recorded_animation.create(
                 animator,
                 animation_reloading,
                 should_be_flipped()

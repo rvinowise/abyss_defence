@@ -42,10 +42,10 @@ public class Player_spider: Intelligence {
         }
     }
     
-    #region IActor
+    /*#region IActor
     public override void on_lacking_action() {
         
     }
-    #endregion
+    #endregion*/
 }
 }

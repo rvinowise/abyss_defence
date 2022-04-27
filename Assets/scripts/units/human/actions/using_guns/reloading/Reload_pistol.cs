@@ -67,13 +67,26 @@ public class Reload_pistol: Reload_gun {
             )
         );
         add_child(
-            Start_recorded_animation.create(
+            Play_recorded_animation.create(
                 animator,
                 animation_reload_pistol,
                 should_be_flipped()
             )
         );
 
+    }
+    
+    public override void restore_state() {
+        base.restore_state();
+        adjust_desired_positions();
+    }
+
+    private void adjust_desired_positions() {
+        ammo_arm.segment1.target_rotation = ammo_arm.segment1.rotation;
+        ammo_arm.segment2.target_rotation = ammo_arm.segment2.rotation;
+        
+        gun_arm.segment1.target_rotation = gun_arm.segment1.rotation;
+        gun_arm.segment2.target_rotation = gun_arm.segment2.rotation;
     }
 
 

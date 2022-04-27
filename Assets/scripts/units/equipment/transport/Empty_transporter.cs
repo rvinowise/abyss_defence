@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using rvinowise.unity.units.parts.transport;
 using UnityEngine;
 using rvinowise.unity.extensions;
+using rvinowise.unity.units.parts.actions;
 using Action = rvinowise.unity.units.parts.actions.Action;
 
 
@@ -64,6 +65,10 @@ public class Empty_transporter: MonoBehaviour, ITransporter {
     public Action current_action { get; set; }
     public void on_lacking_action() {
         
+    }
+
+    public void init_for_runner(Action_runner action_runner) {
+        throw new NotImplementedException();
     }
 }
 

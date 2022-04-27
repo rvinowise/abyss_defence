@@ -16,7 +16,7 @@ using rvinowise.contracts;
 
 namespace units {
 
-public class Start_recorded_animation: Action_leaf {
+public class Play_recorded_animation: Action_leaf {
 
     private Animator animator;
     private int animation_name_hash;
@@ -24,7 +24,7 @@ public class Start_recorded_animation: Action_leaf {
     private GameObject object_actor; 
     private IFlippable_actor flippable_actor;
 
-    public static Start_recorded_animation create(
+    public static Play_recorded_animation create(
         Animator in_animator,
         int in_animation_name_hash,
         bool in_flipped = false
@@ -33,7 +33,7 @@ public class Start_recorded_animation: Action_leaf {
             in_animator.HasState(0, in_animation_name_hash),
             "animation clip with this ID should exists in the animator"
         );
-        Start_recorded_animation action = (Start_recorded_animation) pool.get(typeof(Start_recorded_animation));
+        Play_recorded_animation action = (Play_recorded_animation) pool.get(typeof(Play_recorded_animation));
         action.animator = in_animator;
         action.animation_name_hash = in_animation_name_hash;
         action.actor = in_animator.GetComponent<IActor>();
@@ -51,22 +51,22 @@ public class Start_recorded_animation: Action_leaf {
         animator.Play(animation_name_hash, 0, 0f);
         
         Animation_callback_handler end_notifyer = animator.GetBehaviours<Animation_callback_handler>()[0];
-        end_notifyer.on_state_exit = this.mark_as_reached_goal;
+        end_notifyer.on_state_exit = this.mark_as_completed;
         end_notifyer.awaited_animation_name_hash = animation_name_hash;
+        end_notifyer.flippable_actor = flippable_actor;
 
         /* MonoBehaviour animation_performer = animator.GetComponent<Humanoid>();
         animation_performer.StartCoroutine(wait_for_animation_end()); */
-        
+
     }
 
  
 
     public override void restore_state() {
-        animator.enabled = false;
-        if (flipped) {
-            flippable_actor.restore_after_flipping();
-            
-        }
+        //animator.enabled = false;
+        // if (flipped) {
+        //     flippable_actor.restore_after_flipping();
+        // }
     }
     
 }

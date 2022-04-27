@@ -38,24 +38,15 @@ public abstract class Action_leaf:
     
     public override void seize_needed_actors_recursive() {
         Contract.Assert(actors.Any());
-        foreach(IActor actor in actors) {
-            superceded_actions.Add(actor.current_action);
-            actor.current_action = this;
+        foreach(IActor seized_actor in actors) {
+            if (seized_actor.current_action != null) {
+                runner.mark_action_as_finishing(seized_actor.current_action.get_root_action());
+            }
+            seized_actor.current_action = this;
         }
     }
 
-    public override void ensure_actors_have_next_action() {
-        foreach (IActor actor in actors) {
-            Contract.Assert(actor.current_action != this, 
-                "this function is called after the action has freed its actors");
-            if (actor.current_action == null) {
-                actor.on_lacking_action();
-            }
-        }
-    }
-    
     public override void free_actors_recursive() {
-        // if !actor_is_seased_by_another_action(actor)
         foreach (IActor actor in actors) {
             if (actor.current_action == this) {
                 actor.current_action = null;
@@ -68,6 +59,7 @@ public abstract class Action_leaf:
             actor.on_lacking_action();
         }
     }
+    
     
     public override void reset() {
         actors.Clear();

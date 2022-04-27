@@ -43,7 +43,7 @@ public class Drop_tool_into_bag: Action_of_arm {
         if (hand.held_tool != null) {
             drop_tool_into_bag();
         }
-        mark_as_reached_goal();
+        mark_as_completed();
     }
 
     private void drop_tool_into_bag() {

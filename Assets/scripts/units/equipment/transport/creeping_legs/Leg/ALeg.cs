@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using rvinowise.contracts;
+using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using UnityEngine;
 
@@ -7,7 +10,8 @@ namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 It uses composition instead of inheritance */
 public abstract class ALeg : 
 Limb2,
-ILeg
+ILeg,
+IRun_actions
 {
     public float provided_impulse => _provided_impulse;
     public float _provided_impulse = 0.2f;
@@ -63,8 +67,10 @@ ILeg
     
 
     public override void on_lacking_action() {
-        Creeping_leg_partakes_in_moving.create(this).start_as_root();
+        Creeping_leg_partakes_in_moving.create(this).start_as_root(action_runner);
     }
+
+
 }
 
 }

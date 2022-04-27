@@ -12,5 +12,6 @@ public interface IActor {
     void on_lacking_action();
     
     GameObject gameObject { get; }
+    void init_for_runner(Action_runner action_runner);
 }
 }

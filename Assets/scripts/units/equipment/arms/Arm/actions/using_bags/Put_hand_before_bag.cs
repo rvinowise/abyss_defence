@@ -50,9 +50,9 @@ public class Put_hand_before_bag: Action_of_arm {
         Orientation desired_orientation = get_desired_orientation();
         arm.rotate_to_orientation(desired_orientation);
         if (is_reached_goal(desired_orientation)) {
-            mark_as_reached_goal();
+            mark_as_completed();
         } else {
-            mark_as_has_not_reached_goal();
+            mark_as_not_completed();
         }
     }
     

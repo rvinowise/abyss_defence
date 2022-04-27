@@ -30,7 +30,7 @@ public class Head: Turning_element, ISensory_organ {
         target_rotation = ((Vector2)point - (Vector2)position).to_quaternion();
     }
 
-    protected void FixedUpdate() {
+    protected void Update() {
         pay_attention_to(attention_target.position);
         base.rotate_to_desired_direction();
         preserve_possible_rotations();

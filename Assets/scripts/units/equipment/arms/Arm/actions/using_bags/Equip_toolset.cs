@@ -123,7 +123,7 @@ public class Equip_toolset: Action_parallel_parent {
         }
 
         if (!child_actions.Any()) {
-            mark_as_reached_goal();
+            mark_as_completed();
         }
     }
     
@@ -132,7 +132,6 @@ public class Equip_toolset: Action_parallel_parent {
         if (left_arm.current_action?.get_root_action().marker.StartsWith("changing tool") ?? false) {
             left_arm.current_action.discard_whole_tree();
         }
-        
         if (right_arm.current_action?.get_root_action().marker.StartsWith("changing tool") ?? false) {
             right_arm.current_action.discard_whole_tree();
         }
