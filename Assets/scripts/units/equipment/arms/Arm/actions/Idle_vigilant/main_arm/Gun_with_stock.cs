@@ -65,7 +65,7 @@ public class Gun_with_stock: actions.Action_of_arm
         }
     }
 
-    private Vector2 position_of_wrist;
+    private Vector3 position_of_wrist;
     public override void update() {
         base.update();
         
