@@ -44,10 +44,10 @@ public class Segment: Turning_element {
     public virtual Vector3 desired_tip {
         get {
             if (parent_segment == null) {
-                return this.transform.position + localTip.rotate(target_rotation);
+                return (Vector2)this.transform.position + localTip.rotate(target_rotation);
             }
-            return parent_segment.desired_tip + 
-                localTip.rotate(target_rotation);
+            return (Vector2)parent_segment.desired_tip + 
+                   localTip.rotate(target_rotation);
         }
     }
 

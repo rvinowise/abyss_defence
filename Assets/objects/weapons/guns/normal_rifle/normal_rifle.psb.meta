@@ -3051,14 +3051,14 @@ ScriptedImporter:
   documentAlignment: 9
   importHiddenLayers: 0
   importedTextureWidth: 256
-  importedTextureHeight: 256
+  importedTextureHeight: 128
   documentSize: {x: 215, y: 114}
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   spriteCategoryList:
     categories: []
   textureActualWidth: 256
-  textureActualHeight: 256
+  textureActualHeight: 128
   spritePackingTag: 
   resliceFromLayer: 0
   characterMode: 1
