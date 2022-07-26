@@ -18,7 +18,7 @@ public class Pool_prefiller : MonoBehaviour
     void Start()
     {
         foreach(var pooled in prefabs) {
-            pooled.prefab.prefill_pool(pooled.qty);
+            //pooled.prefab.prefill_pool(pooled.qty);
         }
     }
 
