@@ -46,7 +46,7 @@ public class Arm_reach_orientation: arms.actions.Action_of_arm {
     }
     protected virtual bool complete(Orientation desired_orientation) {
         if (
-            ((Vector2)arm.hand.position - desired_orientation.position).magnitude <= touching_distance  &&
+            (arm.hand.position - desired_orientation.position).magnitude <= touching_distance  &&
             arm.hand.rotation.abs_degrees_to(desired_orientation.rotation) <= Mathf.Epsilon
         ) 
         {
