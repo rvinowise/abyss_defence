@@ -38,7 +38,8 @@ namespace rvinowise.unity.music {
 
         public bool enemy_is_close() {
             const float close_distance = 2f;
-            return Object_finder.instance.get_closest_enemy(player).distance < close_distance;
+            var closest_enemy = Object_finder.instance.get_closest_enemy(player);
+            return closest_enemy.exists && closest_enemy.distance < close_distance;
         }
     }
         

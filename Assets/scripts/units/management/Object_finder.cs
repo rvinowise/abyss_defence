@@ -82,35 +82,28 @@ public class Object_finder : MonoBehaviour
 public struct Distance_to_component {
     public Component component;
     public float distance;
+    public bool exists { get; private set;}
 
     public Transform get_transform() {
-        if (component != null) {
+        if (exists) {
             return component.transform;
         }
         return null;
     }
 
     public static Distance_to_component empty() {
-        return new Distance_to_component(null, float.MaxValue);
+        var distance = new Distance_to_component(null, float.MaxValue) {
+            exists = false
+        };
+        return distance;
     }
     public Distance_to_component(Component component, float distance) {
         this.component = component;
         this.distance = distance;
+        this.exists = true;
     }
 }
 
-public struct Distance_to_transform {
-    public Transform transform;
-    public float distance;
-
-    public static Distance_to_transform empty() {
-        return new Distance_to_transform(null, float.MaxValue);
-    }
-    public Distance_to_transform(Transform transform, float distance) {
-        this.transform = transform;
-        this.distance = distance;
-    }
-}
 
     
 }

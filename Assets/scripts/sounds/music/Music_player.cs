@@ -24,7 +24,6 @@ namespace rvinowise.unity.music {
         private AudioSource[] audio_sources = new AudioSource[2];
 
         private double next_phrase_time;
-        private AudioSource[] audioSources = new AudioSource[2];
         private bool running = false;
         private int i_audio = 0;
 
@@ -42,7 +41,7 @@ namespace rvinowise.unity.music {
             {
                 GameObject child = new GameObject("Audio_source");
                 child.transform.parent = gameObject.transform;
-                audioSources[i] = child.AddComponent<AudioSource>();
+                audio_sources[i] = child.AddComponent<AudioSource>();
             }
         }
 
@@ -81,11 +80,11 @@ namespace rvinowise.unity.music {
             if ((next_track != null)&&(next_track != current_track)) {
                 current_track = next_track;
                 next_track = null;
-                audioSources[i_audio].clip = current_track.start_from_first_phrase().clip;
+                audio_sources[i_audio].clip = current_track.start_from_first_phrase().clip;
             } else {
-                audioSources[i_audio].clip = current_track.goto_next_phrase().clip;
+                audio_sources[i_audio].clip = current_track.goto_next_phrase().clip;
             }
-            audioSources[i_audio].PlayScheduled(next_phrase_time);
+            audio_sources[i_audio].PlayScheduled(next_phrase_time);
             i_audio = 1 - i_audio;
             Debug.Log("i_audio=" + i_audio + " next_phrase_time=" + next_phrase_time + "i_phrase="+current_track.i_current_phrase);
             
@@ -94,7 +93,6 @@ namespace rvinowise.unity.music {
         public void set_next_track(Music_track track) {
             next_track = track;
             
-            //current_track.
         }
     }
 }
