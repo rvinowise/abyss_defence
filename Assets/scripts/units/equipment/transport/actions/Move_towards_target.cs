@@ -23,18 +23,16 @@ public class Move_towards_target: Action_leaf {
     private float needed_distance;
     
     public static Move_towards_target create(
-        Intelligence intelligence,
         ITransporter in_transporter,
         float needed_distance,
         Transform in_target
     ) {
         var action = (Move_towards_target)pool.get(typeof(Move_towards_target));
-        action.notification_receiver = intelligence;
         
         action.target = in_target;
         action.transporter = in_transporter;
         action.needed_distance = needed_distance;
-        action.actor = in_transporter;
+        //action.actor = in_transporter;
         return action;
     }
     public Move_towards_target() {
@@ -43,7 +41,7 @@ public class Move_towards_target: Action_leaf {
 
     public override void init_actors() {
         base.init_actors();
-        transform = actor.gameObject.transform;
+        transform = transporter.gameObject.transform;
     }
 
     public override void update() {

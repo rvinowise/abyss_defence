@@ -22,6 +22,7 @@ public class Action_sequential_parent :
 
 
     public static Action_sequential_parent create(
+        IActor in_actor,
         params Action[] children
     ) {
         Action_sequential_parent action =
@@ -31,7 +32,13 @@ public class Action_sequential_parent :
         foreach (Action child in children) {
             action.add_child(child);
         }
+        action.add_actor(in_actor);
         return action;
+    }
+    public static Action_sequential_parent create(
+        params Action[] children
+    ) {
+        return create(null, children);
     }
 
     public override void set_root_action(Action in_root_action) {
@@ -121,12 +128,14 @@ public class Action_sequential_parent :
     }
     
     public override void free_actors_recursive() {
+        base.free_actors_recursive();
         current_child_action.free_actors_recursive();
     }
     
 
     public override void seize_needed_actors_recursive() {
         current_child_action.seize_needed_actors_recursive();
+        base.seize_needed_actors_recursive();
     }
 
     

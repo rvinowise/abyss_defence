@@ -96,7 +96,7 @@ public class Simple_player_human: Player_human {
         
     }
 
-    public override void start_walking(Action action) {
+    public override void start_actions(Action action) {
         Idle_vigilant_only_arm.create(
             arm_pair.left_arm,
             Player_input.instance.cursor.transform,

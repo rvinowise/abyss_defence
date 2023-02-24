@@ -32,7 +32,6 @@ public class Equip_toolset: Action_parallel_parent {
         Toolset in_toolset
     ) {
         var action = (Equip_toolset)pool.get(typeof(Equip_toolset));
-        action.notification_receiver = intelligence;
         action.user = intelligence.user;
         
         Arm_pair arm_pair = action.user.arm_pair;

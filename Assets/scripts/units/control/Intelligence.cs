@@ -23,8 +23,7 @@ namespace rvinowise.unity.units.control {
  orders them some actions based on this information,
  they do these actions later in the same step */
 public abstract class Intelligence :
-    MonoBehaviour,
-    IRun_actions
+    MonoBehaviour
 {
 
     public Baggage baggage;
@@ -35,7 +34,7 @@ public abstract class Intelligence :
 
     public Team team;
 
-    public Action_runner action_runner { get; set; } = new Action_runner();
+    public Action_runner action_runner { get; } = new Action_runner();
 
 
     protected virtual void Awake() {
@@ -83,11 +82,6 @@ public abstract class Intelligence :
         read_input();
         action_runner.update();
     }
-
-    protected virtual void FixedUpdate() {
-        
-    }
-
     
 
     protected virtual void read_input() { }
@@ -105,7 +99,7 @@ public abstract class Intelligence :
         
     }
 
-    public virtual void start_walking(Action in_action) {
+    public virtual void start_actions(Action in_action) {
         action_runner.mark_action_as_finishing(in_action);
     }
 

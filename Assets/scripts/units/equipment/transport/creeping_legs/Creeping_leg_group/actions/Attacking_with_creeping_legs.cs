@@ -8,6 +8,7 @@ using rvinowise.unity.extensions;
 using rvinowise;
 using rvinowise.unity.units.control;
 using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.limbs.actions;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.limbs.creeping_legs;
 using rvinowise.unity.units.parts.transport;
@@ -22,12 +23,10 @@ public class Attacking_with_creeping_legs: Action_parallel_parent {
     private Transform target;
     private ILeg attacking_leg;
     public static Attacking_with_creeping_legs create(
-        Intelligence intelligence,
         Creeping_leg_group leg_group,
         Transform in_target
     ) {
         var action = (Attacking_with_creeping_legs)pool.get(typeof(Attacking_with_creeping_legs));
-        action.notification_receiver = intelligence;
         action.leg_group = leg_group;
         
         action.target = in_target;

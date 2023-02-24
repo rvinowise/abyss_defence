@@ -43,12 +43,8 @@ public class Reload_pistol: Reload_gun {
         return action;
     }
 
-    public override void init_actors() {
-        base.init_actors();
-        
-    }
 
-    public void init_child_actions() {
+    private void init_child_actions() {
         
         add_child(
             Action_parallel_parent.create(

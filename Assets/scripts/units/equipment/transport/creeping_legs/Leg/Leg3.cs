@@ -14,8 +14,6 @@ namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 [Serializable]
 public partial class Leg3: 
 ALeg,
-ILeg,
-IChild_of_group,
 IMirrored
 {
 

@@ -29,11 +29,6 @@ MonoBehaviour
         instance = this;
     }
 
-    protected void FixedUpdate() {
-        /* foreach(var unit in units) {
-            unit.
-        } */
-    }
 
     public void on_unit_iddling(Strategic_intelligence in_intelligence) {
         in_intelligence.unit_commands.attack_target = enemy;

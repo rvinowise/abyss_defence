@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using rvinowise.debug;
 using rvinowise.contracts;
 using rvinowise.unity.units.control;
@@ -20,10 +21,27 @@ public abstract partial class Action
 
     public bool completed { protected set; get; }
     private bool is_free_in_pool;
-    public Intelligence notification_receiver;
     private System.Action<Action> on_finished;
     public Action_runner runner;
 
+    protected List<Action> superceded_actions = new List<Action>();
+    protected List<IActor> actors = new List<IActor>();
+
+    public IActor add_actor(IActor actor) {
+        actors.Add(actor);
+        return actor;
+    }
+
+    public IActor actor {
+        get {
+            Contract.Assume(actors.Count == 1);
+            return actors.First();
+        }
+        set {
+            add_actor(value);
+        }
+    }
+    
 
     protected static units.parts.actions.Action.Pool<units.parts.actions.Action> pool { get; } = 
         new Pool<Action>();
@@ -46,8 +64,14 @@ public abstract partial class Action
     }
     
 
-    public abstract void seize_needed_actors_recursive();
-
+    public virtual void seize_needed_actors_recursive() {
+        foreach(IActor seized_actor in actors) {
+            if (seized_actor.current_action != null) {
+                runner.mark_action_as_finishing(seized_actor.current_action.get_root_action());
+            }
+            seized_actor.current_action = this;
+        }
+    }
 
 
 
@@ -110,7 +134,7 @@ public abstract partial class Action
         }
         else {
             runner.on_root_action_completed(this);
-            on_finished(this);
+            on_finished?.Invoke(this);
         }
     }
     
@@ -129,14 +153,13 @@ public abstract partial class Action
         
     }
     
+    
 
-
-    public void notify_intelligence_about_finishing() {
-        Contract.Assert(notification_receiver != null);
-        notification_receiver.start_walking(this);
+    public virtual void notify_actors_about_finishing() {
+        foreach (IActor actor in actors) {
+            actor.on_lacking_action();
+        }
     }
-
-    public abstract void notify_actors_about_finishing();
 
 
 
@@ -175,7 +198,13 @@ public abstract partial class Action
     }
 
 
-    public abstract void free_actors_recursive();
+    public virtual void free_actors_recursive() {
+        foreach (IActor actor in actors) {
+            if (actor.current_action == this) {
+                actor.current_action = null;
+            }
+        }
+    }
 
 
     public Action get_root_action() {
@@ -188,11 +217,12 @@ public abstract partial class Action
 
     public virtual void reset() {
         Contract.Assert(!is_reset, "an action should be reset only once");
+        actors.Clear();
+        superceded_actions.Clear();
         parent_action = null;
         root_action = this;
         completed = false;
         marker = "";
-        notification_receiver = null;
         superceded_as_root = false;
         
         pool.return_to_pool(this);

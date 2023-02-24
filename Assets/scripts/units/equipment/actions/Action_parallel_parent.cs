@@ -101,6 +101,7 @@ public class Action_parallel_parent:
     }
 
     public override void free_actors_recursive() {
+        base.free_actors_recursive();
         foreach (Action child in child_actions) {
             child.free_actors_recursive();
         }
@@ -110,6 +111,7 @@ public class Action_parallel_parent:
         foreach (Action child in child_actions) {
             child.seize_needed_actors_recursive();
         }
+        base.seize_needed_actors_recursive();
     }
 
     public override void init_state_recursive() {

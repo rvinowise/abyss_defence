@@ -78,8 +78,8 @@ MonoBehaviour:
   ammo_prefab: {fileID: 1034737149163476093, guid: 2c9e402c9f578e642b9950a5fd72f3d9,
     type: 3}
   ammo_compatibility: 0
-  ammo_qty: 0
-  max_ammo_qty: 0
+  ammo_qty: 9
+  max_ammo_qty: 9
   ammo_value: 1
   fire_rate_delay: 0.2
   muzzle: {fileID: 8454711743962537359}
@@ -92,7 +92,7 @@ MonoBehaviour:
   aiming_automatically: 1
   recoil_force: 250
   shell_ejector: {fileID: 407324513766382050}
-  projectile_force: 100
+  projectile_force: 1000
 --- !u!1 &2486645662213847114
 GameObject:
   m_ObjectHideFlags: 0

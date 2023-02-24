@@ -35,11 +35,10 @@ public class Reload_all: Action_sequential_parent {
     public static Reload_all create(
         Humanoid in_user, 
         Human_intelligence in_intelligence
-        ) {
+    ) {
         var action = (Reload_all)pool.get(typeof(Reload_all));
         action.user = in_user;
         action.intelligence = in_intelligence;
-        action.notification_receiver = in_intelligence;
         
         Arm_pair arm_pair = in_user.arm_pair;
         action.arm_pair = arm_pair;
@@ -63,7 +62,8 @@ public class Reload_all: Action_sequential_parent {
 
     private Side first_side;
     private Toolset reloaded_toolset;
-    public void reload_all() {
+
+    private void reload_all() {
         first_side = get_side_with_less_ammo();
         Arm gun_arm = arm_pair.get_arm_on_side(first_side);
         Arm ammo_arm = arm_pair.other_arm(gun_arm);
@@ -100,7 +100,6 @@ public class Reload_all: Action_sequential_parent {
                 )
             );
             
-            //if (wanted_to_stop) { }
         }
 
         base.on_child_completed(in_sender_child);
@@ -122,7 +121,8 @@ public class Reload_all: Action_sequential_parent {
                 user.baggage,
                 pistol
             );
-        } else if (reloaded_tool is Pump_shotgun shotgun) {
+        }
+        if (reloaded_tool is Pump_shotgun shotgun) {
             return Reload_shotgun.create(
                 user.animator,
                 gun_arm,
@@ -131,7 +131,8 @@ public class Reload_all: Action_sequential_parent {
                 shotgun,
                 user.baggage.get_ammo_object_for_tool(shotgun)
             );
-        } else if (reloaded_tool is Break_shotgun break_shotgun) {
+        }
+        if (reloaded_tool is Break_shotgun break_shotgun) {
             return Reload_break_shotgun.create(
                 user.animator,
                 gun_arm,

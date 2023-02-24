@@ -36,7 +36,7 @@ public class Play_recorded_animation: Action_leaf {
         Play_recorded_animation action = (Play_recorded_animation) pool.get(typeof(Play_recorded_animation));
         action.animator = in_animator;
         action.animation_name_hash = in_animation_name_hash;
-        action.actor = in_animator.GetComponent<IActor>();
+        //action.actor = in_animator.GetComponent<IActor>();
         action.flipped = in_flipped;
         action.object_actor = in_animator.gameObject;
         action.flippable_actor = in_animator.GetComponent<IFlippable_actor>();
@@ -44,7 +44,7 @@ public class Play_recorded_animation: Action_leaf {
     }
 
     public override void init_actors() {
-        flippable_actor.flip_for_animation(flipped);
+        flippable_actor?.flip_for_animation(flipped);
 
         animator.enabled = true;
 
@@ -54,9 +54,6 @@ public class Play_recorded_animation: Action_leaf {
         end_notifyer.on_state_exit = this.mark_as_completed;
         end_notifyer.awaited_animation_name_hash = animation_name_hash;
         end_notifyer.flippable_actor = flippable_actor;
-
-        /* MonoBehaviour animation_performer = animator.GetComponent<Humanoid>();
-        animation_performer.StartCoroutine(wait_for_animation_end()); */
 
     }
 

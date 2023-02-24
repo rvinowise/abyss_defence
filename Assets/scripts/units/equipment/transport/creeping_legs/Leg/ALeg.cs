@@ -10,8 +10,7 @@ namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 It uses composition instead of inheritance */
 public abstract class ALeg : 
 Limb2,
-ILeg,
-IRun_actions
+ILeg
 {
     public float provided_impulse => _provided_impulse;
     public float _provided_impulse = 0.2f;

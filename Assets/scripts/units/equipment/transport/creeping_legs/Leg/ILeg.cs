@@ -5,7 +5,7 @@ using rvinowise.unity.units.parts.limbs;
 namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 
 public interface ILeg:
-ILimb ,
+ILimb,
 IChild_of_group
 {
     float provided_impulse{get;}

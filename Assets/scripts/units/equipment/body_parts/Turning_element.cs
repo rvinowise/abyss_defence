@@ -241,8 +241,8 @@ public class Turning_element: MonoBehaviour {
 
     private void collide_with_closest_border() {
         var parent = transform.parent;
-        Degree abs_min_border = parent.rotation * possible_span.min;
-        Degree abs_max_border = parent.rotation * possible_span.max;
+        Degree abs_min_border = parent.rotation * new Degree(possible_span.min);
+        Degree abs_max_border = parent.rotation * new Degree(possible_span.max);
         bool touches_min_border = 
             Mathf.Abs(abs_min_border.angle_to(this.rotation)) >
             Mathf.Abs(abs_max_border.angle_to(this.rotation));

@@ -57,7 +57,7 @@ public struct Degree {
     public Degree normalized() {
         float new_degrees = degrees % 360f;
         if (new_degrees < 0) {
-            new_degrees = new_degrees + 360f;
+            new_degrees += 360f;
         }
         return new Degree(new_degrees);
     }

@@ -9,6 +9,7 @@ using rvinowise.unity.units.control;
 using rvinowise.unity.geometry2d;
 using rvinowise.unity.units.parts;
 using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.limbs.actions;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.limbs.creeping_legs;
 using rvinowise.unity.units.parts.transport;
@@ -28,25 +29,13 @@ public class Computer_spider:
     protected override void Start() {
         base.Start();
         init_components();
-        start_walking(null);
     }
 
     private void init_components() {
         leg_group = transporter as Creeping_leg_group;
     }
-    protected override void Update() {
-        base.Update();
-        
-    }
+ 
     
-
-
-
-
-    private bool is_attacking() {
-        return ((Creeping_leg_group) weaponry).right_front_leg.current_action?.get_root_action() is Hitting_with_limb2;
-    }
-
 
     public override void start_dying(Projectile damaging_projectile) {
         is_dying = true;
@@ -55,27 +44,9 @@ public class Computer_spider:
 
     }
 
-    public void on_reached_target(Action moving) {
-        Attacking_with_creeping_legs.create(
-            this,
-            leg_group,
-            unit_commands.attack_target
-        ).start_as_root(action_runner);
-    }
+    
 
-    public override void start_walking(Action action) {
-        Move_towards_target.create(
-            this,
-            leg_group,
-            leg_group.reaching_distance(),
-            unit_commands.attack_target
-        ).add_finish_notifyer(on_reached_target)
-        .start_as_root(action_runner);
-    }
 
-    /*public override void on_lacking_action() {
-        
-    }*/
 }
 
 }

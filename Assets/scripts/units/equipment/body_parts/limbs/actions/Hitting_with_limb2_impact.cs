@@ -12,7 +12,7 @@ using rvinowise.unity.units.parts.transport;
 using Action = rvinowise.unity.units.parts.actions.Action;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.units.parts.limbs.actions {
 
 public class Hitting_with_limb2_impact: Action_leaf {
 

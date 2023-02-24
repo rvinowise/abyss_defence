@@ -10,6 +10,7 @@ using rvinowise.contracts;
 using rvinowise.unity.geometry2d;
 using rvinowise.unity.units.control;
 using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.units.parts.limbs.actions;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.transport;
 using UnityEngine.Assertions;
@@ -21,7 +22,6 @@ public partial class Creeping_leg_group:
     Children_group
     ,ITransporter
     ,IWeaponry
-    ,IActor
 {
     
     #region Children_group
@@ -325,7 +325,7 @@ public partial class Creeping_leg_group:
                 best_limb2,
                 this,
                 target
-            ).start_as_root(runner);
+            ).start_as_root(action_runner);
         }
     }
 
@@ -343,12 +343,24 @@ public partial class Creeping_leg_group:
 
     #region IActor
     public Action current_action { get; set; }
-    public Action_runner runner { get; private set; }
+    private Action_runner action_runner { get; set; }
     public void on_lacking_action() {
-        
+        Action_sequential_parent.create(
+            this,
+            Move_towards_target.create(
+                this,
+                reaching_distance(),
+                GameObject.FindWithTag("player")?.transform
+            ),
+            Haymaker_with_creeping_leg.create(
+                GetComponent<Animator>(),
+                this,
+                GameObject.FindWithTag("player")?.transform
+            )
+        ).start_as_root(action_runner);
     }
     public void init_for_runner(Action_runner action_runner) {
-        this.runner = action_runner;
+        this.action_runner = action_runner;
     }
     #endregion
 }

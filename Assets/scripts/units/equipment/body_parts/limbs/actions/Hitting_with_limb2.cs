@@ -8,12 +8,12 @@ using rvinowise.unity.geometry2d;
 using rvinowise.unity.units.parts.transport;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.units.parts.limbs.actions {
 
 public class Hitting_with_limb2: Action_sequential_parent {
 
     private IActor actor;
-    public Limb2 limb;
+    private Limb2 limb;
     private ITransporter transporter;
     private Transform target;
     

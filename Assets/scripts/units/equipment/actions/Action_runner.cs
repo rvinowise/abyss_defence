@@ -10,12 +10,11 @@ using UnityEngine.Assertions;
 namespace rvinowise.unity.units.parts.actions {
 
 public class Action_runner {
-    
-    public List<IActor> actors = new List<IActor>();
-    
-    public List<Action> current_actions = new List<Action>();
-    public ISet<Action> finishing_actions = new HashSet<Action>();
-    public List<Action> starting_actions = new List<Action>();
+    private readonly List<IActor> actors = new List<IActor>();
+
+    private readonly List<Action> current_actions = new List<Action>();
+    private readonly ISet<Action> finishing_actions = new HashSet<Action>();
+    private readonly List<Action> starting_actions = new List<Action>();
     //public List<Action> discarded_actions = new List<Action>();
     public void add_action(Action action) {
         current_actions.Add(action);

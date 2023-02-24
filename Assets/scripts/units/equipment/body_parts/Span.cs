@@ -20,8 +20,8 @@ public struct Span {
    
     public Span init_for_direction(Degree in_direction) {
         //this = use_minus();
-        this.min = min.use_minus();
-        this.max = max.use_minus();
+        this.min = new Degree(min).use_minus();
+        this.max = new Degree(max).use_minus();
 
         goes_through_switching_degrees = directions_within_same_sector(in_direction,180f);
             
@@ -46,19 +46,19 @@ public struct Span {
         
     }
     private bool there_no_small_angle() {
-        return Mathf.Abs(min.angle_to(max)) == 180f;
+        return Mathf.Abs(new Degree(min).angle_to(max)) == 180f;
     }
 
     private bool within_small_angle(float in_direction) {
         if (
-            Math.Sign(min.angle_to(max)) != 
-            Math.Sign(min.angle_to(in_direction))
+            Math.Sign(new Degree(min).angle_to(max)) != 
+                      Math.Sign(new Degree(min).angle_to(in_direction))
 
         ) {
             return false;
         } else if (
-            Math.Sign(max.angle_to(min)) != 
-            Math.Sign(max.angle_to(in_direction))
+            Math.Sign(new Degree(max).angle_to(min)) != 
+                      Math.Sign(new Degree(max).angle_to(in_direction))
         ) {
             return false;
         }
@@ -74,15 +74,15 @@ public struct Span {
 
     public Span no_minus() {
         Span new_span = new Span();
-        new_span.min = min.no_minus();
-        new_span.max = max.no_minus();
+        new_span.min = new Degree(min).no_minus();
+        new_span.max = new Degree(max).no_minus();
         new_span.goes_through_switching_degrees = goes_through_switching_degrees;
         return new_span;
     }
     public Span use_minus() {
         Span new_span = new Span();
-        new_span.min = min.use_minus();
-        new_span.max = max.use_minus();
+        new_span.min = new Degree(min).use_minus();
+        new_span.max = new Degree(max).use_minus();
         new_span.goes_through_switching_degrees = goes_through_switching_degrees;
         return new_span;
     }
