@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using rvinowise.unity.effects.persistent_residue;
+﻿using rvinowise.unity.effects.persistent_residue;
 using UnityEngine;
 
 using Point = UnityEngine.Vector2;

@@ -4,7 +4,7 @@ using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
 using static rvinowise.unity.geometry2d.Directions;
 using rvinowise.unity.units.parts.limbs;
-using UnityEditor;
+
 
 namespace rvinowise.unity.units.parts{
 

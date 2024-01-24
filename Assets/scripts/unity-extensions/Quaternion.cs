@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using rvinowise.unity.geometry2d;
-using rvinowise.rvi;
 using UnityEngine;
-using rvinowise.unity.extensions;
 
 
 namespace rvinowise.unity.extensions {

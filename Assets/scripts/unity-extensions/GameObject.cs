@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using rvinowise.unity.extensions.pooling;
 using UnityEngine;
-using rvinowise.unity.extensions;
-
 using rvinowise.contracts;
 using rvinowise.unity.extensions.attributes;
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,11 +33,7 @@ public class Transition_to_first_scene : MonoBehaviour
             yield return null;
         }
     }
-
-    void Update()
-    {
-        
-    }
+    
 
 
 }

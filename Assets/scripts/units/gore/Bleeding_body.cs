@@ -4,7 +4,6 @@ using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
 using rvinowise.unity.effects.liquids;
 using rvinowise.unity.effects.physics;
-using rvinowise.contracts;
 using rvinowise.unity.units.parts.weapons.guns.common;
 
 using Random = UnityEngine.Random;

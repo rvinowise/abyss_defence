@@ -1,10 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using MoreLinq;
-using UnityEngine;
-using rvinowise.unity.extensions;
-
 namespace units {
 
 public interface IFlippable_actor {

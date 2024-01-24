@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using rvinowise.contracts;
-using rvinowise.unity.ui.input;
+﻿using rvinowise.contracts;
 using UnityEngine;
-using rvinowise.unity.extensions;
 using Player_input = rvinowise.unity.ui.input.Player_input;
 
 public class Main_camera : MonoBehaviour {

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using rvinowise.unity.units.parts.limbs;
-using rvinowise.unity.units.parts.limbs.creeping_legs;
-using UnityEngine;
-using rvinowise.unity.extensions;
+﻿using rvinowise.unity.units.parts.limbs.creeping_legs;
 
-using static UnityEngine.Object; //Destroy()
+
+//Destroy()
 
 namespace rvinowise {
 

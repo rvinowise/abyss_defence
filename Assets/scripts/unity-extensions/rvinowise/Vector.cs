@@ -1,6 +1,4 @@
 using UnityEngine;
-using rvinowise.unity.extensions;
-
 using Vector2 = System.Numerics.Vector2;
 
 namespace rvinowise {

@@ -1,9 +1,4 @@
-﻿
-using rvinowise.debug;
-using rvinowise.contracts;
-
-
-namespace rvinowise.unity.units.parts.actions {
+﻿namespace rvinowise.unity.units.parts.actions {
 
 public interface IAction {
 

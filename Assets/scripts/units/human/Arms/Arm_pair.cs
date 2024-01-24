@@ -12,19 +12,14 @@ using rvinowise.unity.units.parts.tools;
 using rvinowise.unity.units.parts.transport;
 using rvinowise.unity.units.parts.weapons.guns;
 using Action = rvinowise.unity.units.parts.actions.Action;
-using MoreLinq;
-using rvinowise.unity.management;
-using rvinowise.unity.extensions;
 using rvinowise.unity.units.humanoid;
 using rvinowise.unity.units.control;
-using rvinowise.unity.ui.input;
 using rvinowise.unity.extensions.attributes;
 using System;
 
 namespace rvinowise.unity.units.parts.limbs.arms.humanoid {
 
 public class Arm_pair:
-    //Children_group
     MonoBehaviour
     ,IWeaponry
 {
@@ -35,16 +30,13 @@ public class Arm_pair:
         return true;
     }
      public void attack(Transform in_target) {
-        if (get_arm_targeting(in_target) is Arm arm) {
-            if (arm.held_tool is Gun gun) {
-                if (
-                    (gun.can_fire())&&
-                    (aimed_at_target(gun, in_target))
-                ) {
-                    gun.pull_trigger();
-                    on_ammo_changed(arm, gun.get_loaded_ammo());
-                }
-            }
+        if (
+            get_arm_targeting(in_target) is {held_tool: Gun gun} arm &&
+            gun.can_fire() &&
+            aimed_at_target(gun, in_target)) 
+        {
+            gun.pull_trigger();
+            on_ammo_changed(arm, gun.get_loaded_ammo());
         }
     }
      
@@ -188,17 +180,17 @@ public class Arm_pair:
 
     private bool can_reload(Arm weapon_holder) {
         return 
-            (!is_reloading_now(weapon_holder))
+            !is_reloading_now(weapon_holder)
             &&
-            (baggage.check_ammo_qty(weapon_holder.held_tool.ammo_compatibility) > 0);
+            baggage.check_ammo_qty(weapon_holder.held_tool.ammo_compatibility) > 0;
     }
 
     private bool is_reloading_now(Arm weapon_holder) {
         //Arm ammo_taker = other_arm(weapon_holder); 
         if (
-            (user.current_action is Action_sequential_parent sequential_parent)&&
-            (sequential_parent.current_child_action is Reload_pistol action_reload_pistol)&&
-            (action_reload_pistol.gun_arm == weapon_holder)
+            user.current_action is Action_sequential_parent sequential_parent&&
+            sequential_parent.current_child_action is Reload_pistol action_reload_pistol&&
+            action_reload_pistol.gun_arm == weapon_holder
         )
         {
             return true;
@@ -335,17 +327,17 @@ public class Arm_pair:
     public List<Arm> get_iddling_armed_autoaimed_arms() {
         List<Arm> free_armed_arms = new List<Arm>();
         if (
-            (right_arm.current_action is Idle_vigilant_only_arm)
+            right_arm.current_action is Idle_vigilant_only_arm
             &&
-            (arm_is_autoaimed(right_arm))
+            arm_is_autoaimed(right_arm)
         )
         {
             free_armed_arms.Add(right_arm);
         }
         if (
-            (left_arm.current_action is Idle_vigilant_only_arm) 
+            left_arm.current_action is Idle_vigilant_only_arm 
             &&
-            (arm_is_autoaimed(left_arm))
+            arm_is_autoaimed(left_arm)
         )
         {
             free_armed_arms.Add(left_arm);
@@ -355,9 +347,9 @@ public class Arm_pair:
 
     private bool arm_is_autoaimed(Arm in_arm) {
         if (
-            (in_arm.held_tool is Gun r_gun)
+            in_arm.held_tool is Gun r_gun
             &&
-            (r_gun.aiming_automatically)
+            r_gun.aiming_automatically
         ) {
             return true;
         }
@@ -378,13 +370,13 @@ public class Arm_pair:
     }
     public Arm get_arm_targeting(Transform in_target) {
         if (
-            (left_arm.current_action is Aim_at_target left_aiming)&&
-            (left_aiming.get_target() == in_target)
+            left_arm.current_action is Aim_at_target left_aiming&&
+            left_aiming.get_target() == in_target
         ) {
             return left_arm;
         } else if (
-            (right_arm.current_action is Aim_at_target right_aiming)&&
-            (right_aiming.get_target() == in_target) 
+            right_arm.current_action is Aim_at_target right_aiming&&
+            right_aiming.get_target() == in_target 
         ) {
             return right_arm;
         }

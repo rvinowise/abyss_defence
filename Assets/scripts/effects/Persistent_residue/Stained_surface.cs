@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using rvinowise.unity.effects.liquids;
+﻿using rvinowise.unity.effects.liquids;
 using UnityEngine;
-using rvinowise.unity.extensions;
 
 
 public class Stained_surface : MonoBehaviour {

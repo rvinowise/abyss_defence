@@ -1,7 +1,4 @@
-﻿using System;
-using rvinowise.unity.units.parts;
-using UnityEngine;
-using rvinowise.unity.extensions;
+﻿using UnityEngine;
 using rvinowise.unity.units.parts.actions;
 
 
@@ -18,9 +15,7 @@ public interface ITransporter:
     float possible_impulse { get; set; }
     
     Quaternion direction_quaternion { get; }
-    
 
-//    void command(transport.Command_batch command_batch);
     transport.Transporter_commands command_batch { get; }
     
 }

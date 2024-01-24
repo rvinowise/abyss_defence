@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using rvinowise.unity.extensions;
+﻿using UnityEngine;
 
 
 public class Destroy_on_exit : StateMachineBehaviour

@@ -1,35 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using rvinowise.unity.geometry2d;
-using UnityEngine;
-using rvinowise.unity.extensions;
-
-using rvinowise;
+﻿using UnityEngine;
 using rvinowise.contracts;
-using rvinowise.unity.units.control;
-using rvinowise.unity.units.control.human;
 using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.head;
-using rvinowise.unity.units.parts.humanoid;
-using rvinowise.unity.units.parts.limbs.arms;
-using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.tools;
-using rvinowise.unity.units.parts.transport;
-using rvinowise.unity.units.parts.weapons;
-using rvinowise.unity.units.parts.weapons.guns;
-using units.human.actions;
-using UnityEngine.UIElements;
 using Action = rvinowise.unity.units.parts.actions.Action;
 using Arm_pair = rvinowise.unity.units.parts.limbs.arms.humanoid.Arm_pair;
 
 namespace rvinowise.unity.units.humanoid {
     using global::units;
-    using parts;
-    using rvinowise.unity.extensions.attributes;
-    using rvinowise.unity.units.parts.limbs;
 
-[RequireComponent(typeof(PolygonCollider2D))]
+
+    [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Humanoid: 
     rvinowise.unity.units.Unit,

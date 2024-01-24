@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using rvinowise.contracts;
 using rvinowise.unity.units.control.human;
-using rvinowise.unity.units.parts;
 using rvinowise.unity.units.parts.limbs.arms;
 using rvinowise.unity.units.parts.limbs.arms.humanoid;
 using rvinowise.unity.units.parts.tools;

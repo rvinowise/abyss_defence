@@ -1,14 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-using rvinowise.unity.geometry2d;
-using rvinowise.unity.units;
-using UnityEngine;
+﻿using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.maps;
 using rvinowise.unity.debug;
-using rvinowise.unity.effects.physics;
-using rvinowise.unity.effects.persistent_residue;
 using rvinowise.unity.effects.trails.mesh_impl;
 
 namespace rvinowise.unity.units.parts.weapons.guns.common {

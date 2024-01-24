@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using rvinowise.unity.extensions;
-
-using rvinowise.unity.geometry2d.for_unmanaged;
 using rvinowise.contracts;
 
 namespace rvinowise.unity.extensions {

@@ -1,12 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using UnityEngine;
-using rvinowise.unity.extensions;
-
-using rvinowise;
-using rvinowise.unity.geometry2d;
 
 
 namespace rvinowise.unity.extensions {

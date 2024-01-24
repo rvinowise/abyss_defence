@@ -1,13 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
-using rvinowise.unity.extensions.pooling;
 using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
-
-using rvinowise;
 using rvinowise.unity.effects.physics;
 using rvinowise.unity.units.parts.weapons.guns.common;
 using Random = UnityEngine.Random;
@@ -45,7 +38,7 @@ public class Desert_eagle: Pistol {
 
     private void propell_projectile(Projectile projectile) {
         Rigidbody2D rigid_body = projectile.GetComponent<Rigidbody2D>();
-        rigid_body.AddForce(transform.rotation.to_vector() * projectile_force * Time.deltaTime, ForceMode2D.Impulse);
+        rigid_body.AddForce(transform.rotation.to_vector() * (projectile_force * Time.deltaTime), ForceMode2D.Impulse);
         projectile.store_last_physics();
     }
 
@@ -60,16 +53,16 @@ public class Desert_eagle: Pistol {
         );
         new_shell.enabled = true;
             
-        float ejection_force = 5f;
+        const float ejection_force = 5f;
         Vector2 ejection_vector = Directions.degrees_to_quaternion(-15+Random.value*30) *
                                   shell_ejector.right *
                                   ejection_force;
         
         Vector2 gun_vector = (Vector2)this.transform.position - last_physics.position;
         
-        var rigidbody = new_shell.GetComponent<Rigidbody2D>();
-        rigidbody.AddForce(ejection_vector + gun_vector*50);
-        rigidbody.AddTorque(-360f + Random.value*300f);
+        var shell_rigidbody = new_shell.GetComponent<Rigidbody2D>();
+        shell_rigidbody.AddForce(ejection_vector + gun_vector*50);
+        shell_rigidbody.AddTorque(-360f + Random.value*300f);
         
         Trajectory_flyer flyer = new_shell.GetComponent<Trajectory_flyer>();
         flyer.height = 1;

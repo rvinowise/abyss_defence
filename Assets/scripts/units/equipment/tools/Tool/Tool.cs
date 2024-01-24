@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
 
@@ -25,9 +21,8 @@ public abstract class Tool: MonoBehaviour
     public int ammo_qty;
     public int max_ammo_qty;
     public int ammo_value = 1;
-    
-    [HideInInspector]
-    public Saved_physics last_physics = new Saved_physics();
+
+    protected readonly Saved_physics last_physics = new Saved_physics();
     protected virtual void Awake() {
         init_components();
         init_holding_places();

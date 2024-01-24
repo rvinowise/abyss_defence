@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using rvinowise.unity.units.parts.weapons.guns.common;
 using rvinowise.unity.effects.persistent_residue;

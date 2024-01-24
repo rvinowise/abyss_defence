@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using rvinowise.unity.extensions;
 
 
 namespace rvinowise.unity.extensions {

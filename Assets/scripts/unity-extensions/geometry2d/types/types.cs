@@ -1,13 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using rvinowise.unity.extensions;
 
 
 namespace rvinowise.unity.geometry2d {
-
-using Point = Vector2;
 
 public class Line {
     public Vector2 p1;

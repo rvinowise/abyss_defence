@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   children_need_mirroring: 1
-  divisible_body: {fileID: 0}
+  divisible_body: {fileID: 9130186382300236195}
   stable_leg_groups: []
   _legs:
   - {fileID: 7914823512948942470}

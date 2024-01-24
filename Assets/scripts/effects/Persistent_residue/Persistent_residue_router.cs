@@ -1,12 +1,9 @@
 
 
 using System.Collections.Generic;
-using rvinowise.unity.geometry2d;
 using rvinowise.contracts;
 using UnityEngine;
-using rvinowise.unity.extensions;
 
-using UnityEngine.Serialization;
 
 namespace rvinowise.unity.effects.persistent_residue {
 

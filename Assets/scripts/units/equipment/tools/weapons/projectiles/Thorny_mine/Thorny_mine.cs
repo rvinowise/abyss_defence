@@ -2,7 +2,6 @@ using UnityEngine;
 using rvinowise.unity.extensions.pooling;
 using System.Collections.Generic;
 using System.Linq;
-using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
 
 namespace rvinowise.unity.units.parts.weapons.thorny_mine {

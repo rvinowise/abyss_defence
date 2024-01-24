@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using rvinowise.unity.units.humanoid;
-using rvinowise.unity.units.parts.tools;
+﻿using rvinowise.unity.units.humanoid;
 using UnityEngine;
 
 

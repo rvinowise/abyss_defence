@@ -1,20 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using rvinowise.unity.extensions;
-
-using UnityEditor;
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.units;
-using rvinowise.unity.units.parts;
-using rvinowise.unity.units.parts.transport;
 using rvinowise.unity.debug;
 using rvinowise.unity.units.parts.weapons.guns.common;
-
-using Debug = UnityEngine.Debug;
 using System.Threading.Tasks;
-using System.Threading;
 using rvinowise.unity.extensions.pooling;
 
 namespace rvinowise.unity.units.parts {

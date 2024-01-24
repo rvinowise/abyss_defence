@@ -1,13 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using rvinowise.unity.extensions;
-
-using rvinowise;
 using rvinowise.unity.geometry2d;
 using Point = UnityEngine.Vector2;
-using Random = UnityEngine.Random;
+
 
 namespace rvinowise.unity.effects.trails.mesh_impl {
 

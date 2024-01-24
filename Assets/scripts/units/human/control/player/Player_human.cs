@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using rvinowise.unity.extensions;
@@ -12,7 +10,6 @@ using Player_input = rvinowise.unity.ui.input.Player_input;
 using rvinowise.unity.units.parts.limbs.arms.humanoid;
 using rvinowise.unity.management;
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.limbs.arms.actions;
 using System.Linq;
 using rvinowise.unity.geometry2d;
 
@@ -34,7 +31,7 @@ public abstract class Player_human : Human_intelligence {
 
     protected override void Start() {
         base.Start();
-        cursor_transform = ui.input.Player_input.instance.cursor.transform;
+        cursor_transform = Player_input.instance.cursor.transform;
         arm_pair.on_target_disappeared += find_new_target;
         consider_all_enemies();
     }
@@ -42,7 +39,7 @@ public abstract class Player_human : Human_intelligence {
     private void consider_all_enemies() {
         foreach(Team enemy_team in team.enemies) {
             foreach(var enemy_unit in enemy_team.units) {
-                this.consider_enemy(enemy_unit);
+                consider_enemy(enemy_unit);
             }
         }
     }
@@ -157,8 +154,8 @@ public abstract class Player_human : Human_intelligence {
 
     private bool has_gun_in_2hands(out Gun out_gun) {
         if (
-            (base.arm_pair?.right_arm.current_action is Idle_vigilant_main_arm) &&
-            (base.arm_pair?.right_arm.held_tool is Gun gun)
+            (arm_pair?.right_arm.current_action is Idle_vigilant_main_arm) &&
+            (arm_pair?.right_arm.held_tool is Gun gun)
         ) {
             out_gun = gun;
             return true;
@@ -170,10 +167,10 @@ public abstract class Player_human : Human_intelligence {
     private Quaternion get_additional_rotation_for_2hands_gun(Gun gun) {
         
         float body_rotation =
-            unity.geometry2d.Triangles.get_angle_by_lengths(
-                base.arm_pair.shoulder_span,
+            Triangles.get_angle_by_lengths(
+                arm_pair.shoulder_span,
                 gun.butt_to_second_grip_distance,
-                base.arm_pair.left_arm.length- base.arm_pair.left_arm.hand.length
+                arm_pair.left_arm.length- arm_pair.left_arm.hand.length
             ) -90f;
         
         

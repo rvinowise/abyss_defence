@@ -1,11 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using rvinowise.unity.extensions;
-
-
-
-namespace rvinowise.rvi {
+﻿namespace rvinowise.rvi {
 
 public class Math
 {

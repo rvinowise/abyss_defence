@@ -1,7 +1,5 @@
-using System;
 using rvinowise.contracts;
 using UnityEngine;
-using rvinowise.unity.extensions;
 using rvinowise.unity.units.control.human;
 using UnityEngine.SceneManagement;
 

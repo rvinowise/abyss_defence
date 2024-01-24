@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using rvinowise.contracts;
-using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using UnityEngine;
 
@@ -9,8 +6,8 @@ namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 /* ILeg could substitute this class, but ALeg is needed for the inspector's serialization.
 It uses composition instead of inheritance */
 public abstract class ALeg : 
-Limb2,
-ILeg
+    Limb2
+    ,ILeg
 {
     public float provided_impulse => _provided_impulse;
     public float _provided_impulse = 0.2f;

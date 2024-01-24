@@ -5,8 +5,6 @@ using rvinowise.contracts;
 using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.tools;
-using rvinowise.unity.debug;
-using Action = rvinowise.unity.units.parts.actions.Action;
 using System;
 using rvinowise.unity.units.parts.limbs.arms.humanoid;
 using rvinowise.unity.extensions;

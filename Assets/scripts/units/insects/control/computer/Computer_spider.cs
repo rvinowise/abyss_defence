@@ -1,21 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using rvinowise.unity.extensions;
-using rvinowise.unity.units.control;
 
 //using static UnityEngine.Input;
-using rvinowise.unity.geometry2d;
-using rvinowise.unity.units.parts;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.limbs.actions;
-using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.limbs.creeping_legs;
-using rvinowise.unity.units.parts.transport;
 using rvinowise.unity.units.parts.weapons.guns.common;
-using Action = rvinowise.unity.units.parts.actions.Action;
-using Input = rvinowise.unity.ui.input.Player_input;
+
 
 namespace rvinowise.unity.units.control.spider {
 

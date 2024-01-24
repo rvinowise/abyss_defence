@@ -1,7 +1,5 @@
-using System;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Audio;
+
 
 namespace rvinowise.unity.music {
     public class Music_player: MonoBehaviour {

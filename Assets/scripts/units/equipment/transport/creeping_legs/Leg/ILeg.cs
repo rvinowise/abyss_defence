@@ -1,6 +1,5 @@
 using UnityEngine;
 
-using rvinowise.unity.units.parts.limbs;
 
 namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 

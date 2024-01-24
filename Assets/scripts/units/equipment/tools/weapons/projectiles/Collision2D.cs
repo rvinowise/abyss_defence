@@ -1,7 +1,4 @@
 using UnityEngine;
-using rvinowise.unity.extensions;
-using rvinowise.unity.geometry2d;
-
 
 
 namespace rvinowise.unity.units.parts.weapons.guns.common {

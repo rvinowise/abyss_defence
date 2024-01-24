@@ -1,12 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using rvinowise.unity.extensions;
-
-using rvinowise.unity.geometry2d;
-using static rvinowise.unity.geometry2d.Directions;
-using rvinowise.unity.units;
 using rvinowise.contracts;
 
 namespace rvinowise.unity.units.parts.limbs.creeping_legs {

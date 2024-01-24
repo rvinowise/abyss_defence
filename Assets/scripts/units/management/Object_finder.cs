@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using rvinowise.unity.units;
 using UnityEngine;
 using rvinowise.unity.extensions;
-using System;
 using rvinowise.unity.units.control;
 
 namespace rvinowise.unity.management {

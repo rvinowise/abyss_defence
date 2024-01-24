@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using rvinowise.unity.extensions;
 using System.Linq;
 
 namespace rvinowise.unity.extensions.pooling {

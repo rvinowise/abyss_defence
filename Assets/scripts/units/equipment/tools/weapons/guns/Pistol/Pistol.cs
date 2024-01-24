@@ -1,9 +1,4 @@
-﻿using rvinowise.unity.geometry2d;
-using rvinowise.unity.units;
-using rvinowise.unity.units.parts.limbs.arms;
-using rvinowise.unity.units.parts.tools;
-using UnityEngine;
-using rvinowise.unity.extensions;
+﻿using UnityEngine;
 
 
 namespace rvinowise.unity.units.parts.weapons.guns {
@@ -31,8 +26,9 @@ public abstract class Pistol:
     }
 
     public override bool can_fire() {
-        return ready_to_fire()&&
-               (ammo_qty > 0);
+        return 
+            !is_on_cooldown()&&
+            ammo_qty > 0;
     }
 
 

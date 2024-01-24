@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.Audio;
+
 
 namespace rvinowise.unity.music {
     /* progressing melody when doing one thing for a long time,

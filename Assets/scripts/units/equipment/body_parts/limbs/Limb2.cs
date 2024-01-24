@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
-
-using rvinowise;
 using rvinowise.contracts;
 using rvinowise.unity.units.parts.actions;
-using UnityEngine.Assertions;
 using static rvinowise.unity.geometry2d.Directions;
 using Action = rvinowise.unity.units.parts.actions.Action;
 

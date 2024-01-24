@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using rvinowise.unity.extensions;
-
-using rvinowise;
-using rvinowise.unity.units;
-using rvinowise.unity.units.parts;
-using rvinowise.contracts;
-using rvinowise.unity.debug;
-using rvinowise.unity.units.parts.transport;
+﻿using rvinowise.unity.units.parts.transport;
 
 namespace rvinowise.unity.units.parts
 {

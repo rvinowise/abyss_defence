@@ -1,16 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using rvinowise.unity.effects.persistent_residue;
 using rvinowise.unity.extensions.pooling;
 using UnityEngine;
-using rvinowise.unity.extensions;
-
-using rvinowise;
-using rvinowise.unity.geometry2d;
 using rvinowise.unity.effects.physics;
-
-using Random = UnityEngine.Random;
 
 
 namespace rvinowise.unity.units.parts.weapons.guns.common {

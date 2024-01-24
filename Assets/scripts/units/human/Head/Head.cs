@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using rvinowise.unity.extensions;
-
-using rvinowise;
-using rvinowise.unity.units.parts.limbs;
 using rvinowise.unity.units.parts.sensors;
 
 

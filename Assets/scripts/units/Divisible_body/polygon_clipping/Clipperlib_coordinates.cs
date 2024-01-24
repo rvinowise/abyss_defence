@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using rvinowise.unity.extensions;
-
-using rvinowise.unity.geometry2d;
 using ClipperLib;
 
 /* ClipperLib uses another coordinate system, 
@@ -16,15 +10,15 @@ using Path = List<IntPoint>;
 using Pathes = List<List<IntPoint>>;
 public static class Clipperlib_coordinates
 {
-    static private float float_int_multiplier = 10000;
+    private static float float_int_multiplier = 10000;
 
-    static public ClipperLib.IntPoint float_coord_to_int(Vector2 vector) {
+    public static ClipperLib.IntPoint float_coord_to_int(Vector2 vector) {
         return new ClipperLib.IntPoint(
             vector.x * float_int_multiplier,
             vector.y * float_int_multiplier
         );
     }
-    static public Path float_coord_to_int(Polygon float_polygon) {
+    public static Path float_coord_to_int(Polygon float_polygon) {
         Path int_polygon = new Path(float_polygon.points.Count);
         foreach (Vector2 vector in float_polygon.points) {
             int_polygon.Add(float_coord_to_int(vector));
@@ -32,7 +26,7 @@ public static class Clipperlib_coordinates
         return int_polygon;
     }
 
-    static public List<Polygon> int_coord_to_float(Pathes int_solution) {
+    public static List<Polygon> int_coord_to_float(Pathes int_solution) {
         List<Polygon> float_polygons = new List<Polygon>(int_solution.Count);
         foreach (Path int_polygon in int_solution) {
             float_polygons.Add(new Polygon(int_polygon.Count));

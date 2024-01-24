@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Audio;
-
 namespace rvinowise.unity.music {
     [System.Serializable]
     public class Music_phrase: Sound {

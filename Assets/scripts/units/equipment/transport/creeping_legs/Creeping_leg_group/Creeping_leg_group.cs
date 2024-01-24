@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-
 using UnityEngine;
 using rvinowise.unity.extensions;
 
 using rvinowise.contracts;
-using rvinowise.unity.geometry2d;
-using rvinowise.unity.units.control;
 using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.limbs.actions;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using rvinowise.unity.units.parts.transport;
-using UnityEngine.Assertions;
-using static rvinowise.unity.geometry2d.Directions;
 using Action = rvinowise.unity.units.parts.actions.Action;
 
 namespace rvinowise.unity.units.parts.limbs.creeping_legs {
@@ -38,7 +31,6 @@ public partial class Creeping_leg_group:
     protected override void Start() {
         base.Start();
         
-        
         create_moving_strategy();
 
         Contract.Requires(GetComponents<Turning_element>().Length <= 1,
@@ -54,19 +46,19 @@ public partial class Creeping_leg_group:
 
     private void create_moving_strategy() {
         if (legs.Count == 4) {
-            stable_leg_groups = new List<Stable_leg_group>() {
+            stable_leg_groups = new List<Stable_leg_group> {
                 new Stable_leg_group(
-                    new List<ILeg>() {left_front_leg, right_hind_leg}
+                    new List<ILeg> {left_front_leg, right_hind_leg}
                 ),
                 new Stable_leg_group(
-                    new List<ILeg>() {right_front_leg, left_hind_leg}
+                    new List<ILeg> {right_front_leg, left_hind_leg}
                 )
             };
         } 
         guess_moving_strategy();
     }
 
-    protected void init_components() {
+    private void init_components() {
         rigid_body = gameObject.GetComponent<Rigidbody2D>();
         if (rigid_body != null) {
             move_in_direction = move_in_direction_as_rigidbody;
@@ -109,9 +101,9 @@ public partial class Creeping_leg_group:
     
     public float possible_impulse { get; set; }
 
-    private void init_possible_impulse() {
+    private float calculate_possible_impulse() {
         if (moving_strategy is null) {
-            possible_impulse = 0f;
+            return 0f;
         }
         float impulse = 0;
         foreach (ILeg leg in legs) {
@@ -122,7 +114,7 @@ public partial class Creeping_leg_group:
         if (moving_strategy.belly_touches_ground()) {
             impulse *= belly_friction_multiplier;
         }
-        possible_impulse = impulse;
+        return impulse;
     }
 
 
@@ -131,7 +123,7 @@ public partial class Creeping_leg_group:
 
     public float possible_rotation {
         get { 
-            return this.GetComponent<Turning_element>().rotation_acceleration;
+            return GetComponent<Turning_element>().rotation_acceleration;
             //return possible_impulse * rotate_faster_than_move; 
         }
         set{ Contract.Assert(false, "set possible_impulse instead");}
@@ -163,10 +155,6 @@ public partial class Creeping_leg_group:
         turning_element.rotate_to_desired_direction();
     }
     
-    
-    void FixedUpdate() {
-        
-    }
 
     void Update() {
         execute_commands();
@@ -191,7 +179,7 @@ public partial class Creeping_leg_group:
         get { return _moving_strategy; }
         set {
             _moving_strategy = value;
-            init_possible_impulse();
+            possible_impulse = calculate_possible_impulse();
         }
     }
     private strategy.Moving_strategy _moving_strategy;
@@ -229,9 +217,9 @@ public partial class Creeping_leg_group:
     public List<ALeg> _legs = new List<ALeg>();
 
     private Rigidbody2D rigid_body { get; set; }
-    
-    public void guess_moving_strategy() {
-        if (this.stable_leg_groups.Count > 1) {
+
+    private void guess_moving_strategy() {
+        if (stable_leg_groups.Count > 1) {
             moving_strategy = new strategy.Stable(legs, this);
         } else
         if (legs.Count > 1 ) {

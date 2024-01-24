@@ -1,12 +1,7 @@
 #define TRACE
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
-using UnityEngine;
-
-using rvinowise;
 
 
 namespace rvinowise.debug {

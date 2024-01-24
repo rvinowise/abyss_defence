@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using rvinowise.unity.extensions;
-
-using rvinowise;
 using rvinowise.contracts;
 using rvinowise.unity.units.parts.tools;
 using rvinowise.unity.units.parts.weapons.guns.common;
-
-using UnityEngine.Serialization;
 using rvinowise.unity.units.parts.limbs.arms;
 
 namespace rvinowise.unity.units.parts.weapons.guns {
@@ -120,30 +113,25 @@ public abstract class Gun:
         if (can_fire()) {
             fire();
         }
-        else {
-            
-        }
     }
 
     protected abstract void fire();
 
-    public virtual bool ready_to_fire() {
-        return (Time.time - last_shot_time) > fire_rate_delay;
+    protected virtual bool is_on_cooldown() {
+        return Time.time - last_shot_time <= fire_rate_delay;
     }
 
     public virtual bool can_fire() {
-        return (
-            (ammo_qty >0) &&
-            ready_to_fire()
-        );
+        return 
+            ammo_qty >0 &&
+            !is_on_cooldown();
     }
 
     public delegate void EventHandler();
     public event EventHandler on_ammo_changed = delegate{};
-    public void notify_that_ammo_changed() {
-        if (on_ammo_changed != null) {
-            on_ammo_changed();
-        }
+
+    protected void notify_that_ammo_changed() {
+        on_ammo_changed?.Invoke();
     }
 }
 }

@@ -1,6 +1,4 @@
 using UnityEngine;
-using rvinowise.unity.extensions;
-using rvinowise.unity.geometry2d;
 using rvinowise.unity.units.humanoid;
 
 namespace rvinowise.unity.units.parts.tools {

@@ -1,11 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using rvinowise.unity.extensions;
-
-using UnityEditor;
 using rvinowise.unity.geometry2d.for_unmanaged;
 
 namespace geometry_cpp {

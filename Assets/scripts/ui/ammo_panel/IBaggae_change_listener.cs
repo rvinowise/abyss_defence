@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using rvinowise.unity.units.parts;
-using rvinowise.unity.units.parts.tools;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using rvinowise.unity.units.parts.tools;
 
 
 namespace rvinowise.unity.ui {

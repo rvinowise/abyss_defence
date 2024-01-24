@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using UnityEngine;
-using rvinowise.unity.extensions;
-
-using rvinowise;
-using rvinowise.unity.units.parts.limbs.creeping_legs;
-using rvinowise.unity.units.parts.transport;
+﻿using System.Collections.Generic;
 using Contract = rvinowise.contracts.Contract;
 
 namespace rvinowise.unity.units.parts.limbs.creeping_legs.strategy {

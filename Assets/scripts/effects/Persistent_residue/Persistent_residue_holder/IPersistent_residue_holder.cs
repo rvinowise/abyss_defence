@@ -1,11 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using rvinowise.unity.geometry2d;
-using UnityEngine;
-using rvinowise.unity.extensions;
-
-using UnityEngine.Serialization;
-
 namespace rvinowise.unity.effects.persistent_residue {
 public interface IPersistent_residue_holder {
 

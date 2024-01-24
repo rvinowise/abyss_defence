@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using rvinowise.unity.extensions;
-
-using rvinowise;
 using rvinowise.unity.units.parts;
 using rvinowise.unity.units.parts.sensors;
 using rvinowise.unity.units.parts.transport;
 using Baggage = rvinowise.unity.units.parts.Baggage;
 using rvinowise.contracts;
-using System.Linq;
-using rvinowise.unity.management;
-using rvinowise.unity.ui.input;
 using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.weapons.guns.common;
 using Action = rvinowise.unity.units.parts.actions.Action;

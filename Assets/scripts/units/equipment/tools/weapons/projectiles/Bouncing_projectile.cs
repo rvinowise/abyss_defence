@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-using rvinowise.unity.geometry2d;
-using rvinowise.unity.units;
-using UnityEngine;
+﻿using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.maps;
 using rvinowise.unity.debug;

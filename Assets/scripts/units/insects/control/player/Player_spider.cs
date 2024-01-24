@@ -1,12 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using rvinowise.unity.extensions;
-
-using rvinowise;
-using rvinowise.unity.geometry2d;
-
 using Player_input = rvinowise.unity.ui.input.Player_input;
 
 

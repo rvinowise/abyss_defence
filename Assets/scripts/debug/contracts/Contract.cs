@@ -1,10 +1,6 @@
 ﻿//#define DEBUG
 //#define UNITY_ASSERTIONS
 
-using System;
-using System.Diagnostics;
-
-
 namespace rvinowise.contracts {
 public class Contract {
     

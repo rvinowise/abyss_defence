@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using rvinowise.contracts;
+﻿using rvinowise.contracts;
 using rvinowise.unity.extensions.attributes;
 using UnityEngine;
 
