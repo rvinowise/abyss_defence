@@ -13,15 +13,15 @@ namespace rvinowise.unity.units.humanoid {
     [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Humanoid: 
-    rvinowise.unity.units.Unit,
-    IFlippable_actor, IActor
+    rvinowise.unity.units.Unit
+    ,IFlippable_actor
+    ,IActor
 {
 
     /* parts of the human*/
     public Arm_pair arm_pair;
     public Head head;
-    [SerializeField]
-    private units.parts.humanoid.Legs legs;
+    public units.parts.humanoid.Legs legs;
     public parts.humanoid.Baggage baggage;
     
     

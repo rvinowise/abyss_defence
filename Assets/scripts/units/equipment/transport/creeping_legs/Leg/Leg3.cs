@@ -7,8 +7,7 @@ namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 
 [Serializable]
 public partial class Leg3: 
-ALeg,
-IMirrored
+    ALeg
 {
 
     public Creeping_leg_segment coxa;
@@ -159,22 +158,7 @@ IMirrored
         base.set_desired_directions_by_position(optimal_position);
     }
 
-    public IMirrored create_mirrored()
-    {
-        Leg3 dst = GameObject.Instantiate(this).GetComponent<Leg3>();
-        dst.local_position = new Vector2(
-            local_position.x,
-            -local_position.y
-        );
-        dst.coxa.mirror_from(coxa);
-        dst.femur.mirror_from(femur);
-        dst.tibia.mirror_from(tibia);
-
-        dst.optimal_relative_position_standing_transform.localPosition =
-            optimal_relative_position_standing_transform.localPosition.mirror();
-
-        return dst;
-    }
+    
 
         
 

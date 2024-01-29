@@ -18,9 +18,9 @@ public class Limb2_reach_relative_directions: Action_leaf {
         
         var action = (Limb2_reach_relative_directions)pool.get(typeof(Limb2_reach_relative_directions));
         
-        action.actor = in_limb;
+        action.add_actor(in_limb);
         action.limb = in_limb;
-        if (in_limb.side == Side.LEFT) {
+        if (in_limb.side == Side_type.LEFT) {
             action.femur_rotation = in_femur_rotation;
             action.tibia_rotation = in_tibia_rotation;
         } else {

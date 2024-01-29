@@ -46,12 +46,6 @@ public abstract class Player_human : Human_intelligence {
 
     
 
-    protected override void Update()
-    {
-        base.Update();
-    }
-
-    
 
     protected override void read_input() {
         read_transporter_input();
@@ -108,7 +102,7 @@ public abstract class Player_human : Human_intelligence {
         return arm_pair.get_arm_on_side(get_selected_side());
     }
     
-    public Side get_selected_side() {
+    public Side_type get_selected_side() {
         return Side.from_degrees(last_rotation);
     }
 

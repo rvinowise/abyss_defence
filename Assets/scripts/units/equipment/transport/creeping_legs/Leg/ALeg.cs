@@ -53,7 +53,6 @@ public abstract class ALeg :
     }
     public abstract void put_down();
 
-    //public abstract void set_desired_directions_by_position(Vector2 target);
 
     public virtual void set_desired_position(Vector2 in_optimal_position) {
         optimal_position = in_optimal_position;

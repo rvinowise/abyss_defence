@@ -10,7 +10,7 @@ public class Hand:Segment
 {
 
     
-    public Side side = Side.LEFT;
+    public Side_type side = Side_type.LEFT;
     public Transform valuable_point;
     public Holding_place held_part;
     
@@ -49,7 +49,7 @@ public class Hand:Segment
         init_parts();
     }
 
-    protected override void Start() {
+    protected void Start() {
         //base.Start();
         parent_segment = transform.parent?.GetComponent<Segment>();
 
@@ -64,12 +64,7 @@ public class Hand:Segment
         top_part = transform.Find("top")?.transform;
     }
     
-    public override void mirror_from(limbs.Segment src) {
-        base.mirror_from(src);
-        if (src is arms.Hand src_hand) {
-            side = src_hand.side.mirror();
-        }
-    }
+    
 
 
     public void switch_held_tools(Holding_place new_held_part) {

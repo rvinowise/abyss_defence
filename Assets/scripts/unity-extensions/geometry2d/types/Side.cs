@@ -11,73 +11,62 @@ using Contract = rvinowise.contracts.Contract;
 namespace rvinowise.unity.geometry2d {
 
 [Serializable]
-public class Side : Headspring.Enumeration<Side, int> {
-    public static readonly Side LEFT = new Side(1, "LEFT");
-    public static readonly Side RIGHT = new Side(-1, "RIGHT");
-    public static readonly Side NONE = new Side(0, "NONE");
-        
-    private Side(int value, string displayName) : base(value, displayName) { }
-        
-    
-    public static implicit operator Side(float in_float)
-    {
-        return Side.from_degrees(in_float);
-    }
-    public static implicit operator float(Side in_side)
-    {
-        return in_side.Value;
-    }
+public enum Side_type: int {
+    LEFT=1,
+    RIGHT=-1,
+    NONE=0
+}
 
-    public static Side operator - (Side in_side) {
-        return in_side.mirror();
-    } 
-    public Side mirror() {
-        return Side.FromValue(this.Value * -1);
+
+public static class Side  {
+        
+   
+
+    public static Side_type mirror(Side_type side) {
+        return (Side_type)((int)side * -1);
     }
 
     private static float epsilon = 0.1f;
-    public static Side from_degrees(float degrees) {
+    public static Side_type from_degrees(float degrees) {
         if (degrees > epsilon) {
-            return Side.LEFT;
-        } else if (degrees < -epsilon) {
-            return Side.RIGHT;
+            return Side_type.LEFT;
         }
-        return Side.NONE;
+        if (degrees < -epsilon) {
+            return Side_type.RIGHT;
+        }
+        return Side_type.NONE;
     }
 
-    public static Side from_quaternion(Quaternion quaternion) {
+    public static Side_type from_quaternion(Quaternion quaternion) {
         return Side.from_degrees(
             quaternion.to_degree().use_minus().degrees
         );
     }
 
-    public float turn_degrees(float degrees) {
+    public static float turn_degrees(Side_type side, float degrees) {
         Contract.Assume(degrees >= 0, "not sure how to handle turning negative to_float_degrees into a direction");
-        Contract.Assume(this != NONE, "not sure how to handle turning into Side.NONE");
-        return degrees * this.Value;
+        Contract.Assume(side != Side_type.NONE, "not sure how to handle turning into Side.NONE");
+        return degrees * (int)side;
     }
 
-    public Degree turn_degree(float degrees) {
+    public static Degree turn_degree(Side_type side, float degrees) {
+        Contract.Assume(side != Side_type.NONE, "not sure how to handle turning into Side.NONE");
+        return new Degree(degrees * (int)side);
+    }
+
+    public static Quaternion turn_quaternion(Side_type side, Quaternion rotation) {
         //Contract.Assume(to_float_degrees >= 0, "not sure how to handle turning negative to_float_degrees into a direction");
-        Contract.Assume(this != NONE, "not sure how to handle turning into Side.NONE");
-        return new Degree(degrees * this.Value);
+        Contract.Assume(side != Side_type.NONE, "not sure how to handle turning into Side.NONE");
+        return new Degree(rotation.eulerAngles.z * (int)side).to_quaternion();
     }
 
-    public Quaternion turn_quaternion(Quaternion rotation) {
-        //Contract.Assume(to_float_degrees >= 0, "not sure how to handle turning negative to_float_degrees into a direction");
-        Contract.Assume(this != NONE, "not sure how to handle turning into Side.NONE");
-        return new Degree(rotation.eulerAngles.z * this.Value).to_quaternion();
-    }
+ 
 
-    public static float operator * (Side side, float degrees) {
-        return side.turn_degrees(degrees);
-    }
-
-    public Side flipped() {
-        if (this==Side.NONE) {
-            return Side.NONE;
+    public static Side_type flipped(Side_type side) {
+        if (side==Side_type.NONE) {
+            return Side_type.NONE;
         }
-        return (this == Side.LEFT) ? Side.RIGHT : Side.LEFT;
+        return (side == Side_type.LEFT) ? Side_type.RIGHT : Side_type.LEFT;
     }
 }
 }

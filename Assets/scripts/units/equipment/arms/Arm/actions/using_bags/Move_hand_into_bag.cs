@@ -16,7 +16,7 @@ public class Move_hand_into_bag: Action_of_arm {
         Baggage in_bag
     ) {
         var action = (Move_hand_into_bag)pool.get(typeof(Move_hand_into_bag));
-        action.actor = in_arm;
+        action.add_actor(in_arm);
         
         action.arm = in_arm;
         action.bag = in_bag;

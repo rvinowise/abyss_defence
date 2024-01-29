@@ -18,8 +18,6 @@ public abstract class Children_group:
 {
     public IChildren_groups_host host;
 
-    public bool children_need_mirroring;
-
     public Divisible_body divisible_body;
 
     public abstract IEnumerable<IChild_of_group> children {
@@ -56,28 +54,13 @@ public abstract class Children_group:
 
         debug = new Debug(this);
         debug.increase_counter();
-
-        if(
-            (children_need_mirroring) &&
-            (divisible_body.needs_initialisation)
-        ) {
-            duplicate_mirrored_children();
-        }
     }
 
     protected virtual void Start() {
         
     }
 
-    private void duplicate_mirrored_children() {
-        IList<IChild_of_group> initial_children = new List<IChild_of_group>(children);
-        foreach(var src_child in initial_children) {
-            if (src_child is IMirrored src_mirrored_child) {
-                IMirrored dst_child = src_mirrored_child.create_mirrored();
-                add_child((IChild_of_group)dst_child);
-            }
-        }
-    }
+    
     
 
     ~Children_group() {

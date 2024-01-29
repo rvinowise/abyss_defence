@@ -7,8 +7,7 @@ namespace rvinowise.unity.units.parts.limbs.creeping_legs {
 
 [Serializable]
 public partial class Leg2: 
-ALeg,
-IMirrored
+    ALeg
 {
     /* constant characteristics */
     public Creeping_leg_segment femur {
@@ -67,21 +66,7 @@ IMirrored
 
     #endregion //ILeg
 
-    public IMirrored create_mirrored()
-    {
-        Leg2 dst = GameObject.Instantiate(this).GetComponent<Leg2>();
-        dst.local_position = new Vector2(
-            local_position.x,
-            -local_position.y
-        );
-        dst.femur.mirror_from(femur);
-        dst.tibia.mirror_from(tibia);
-
-        dst.optimal_relative_position_standing_transform.localPosition =
-            optimal_relative_position_standing_transform.localPosition.mirror();
-
-        return dst;
-    }
+    
 
     #region debug
     public override void draw_positions() {

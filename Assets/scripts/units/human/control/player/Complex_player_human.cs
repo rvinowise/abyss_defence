@@ -27,17 +27,17 @@ public class Complex_player_human: Player_human {
     
     protected override void read_using_tools_input() {
         
-        Side click_side = Side.NONE;
+        Side_type click_side = Side_type.NONE;
         if (UnityEngine.Input.GetMouseButtonDown(1)) {
-            click_side = Side.RIGHT;
+            click_side = Side_type.RIGHT;
         } else if (UnityEngine.Input.GetMouseButtonDown(0)) {
-            click_side = Side.LEFT;
+            click_side = Side_type.LEFT;
         }
-        if (click_side != Side.NONE) {
+        if (click_side != Side_type.NONE) {
             attack(click_side);
         }
 
-        Side rotation_side = get_selected_side();
+        Side_type rotation_side = get_selected_side();
     
         bool wants_to_reload = Player_input.instance.button_presed("reload");
         if (wants_to_reload) {
@@ -47,7 +47,7 @@ public class Complex_player_human: Player_human {
     }
 
 
-    private void attack(Side in_side) {
+    private void attack(Side_type in_side) {
         bool wants_to_shoot_right = UnityEngine.Input.GetMouseButtonDown(1);
         bool wants_to_shoot_left = UnityEngine.Input.GetMouseButtonDown(0);
         if (one_button_for_both_arms()) {

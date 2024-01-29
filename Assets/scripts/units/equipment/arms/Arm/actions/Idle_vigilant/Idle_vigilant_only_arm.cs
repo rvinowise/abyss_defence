@@ -17,7 +17,7 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
     ) {
         Idle_vigilant_only_arm action = 
             (Idle_vigilant_only_arm)pool.get(typeof(Idle_vigilant_only_arm));
-        action.actor = in_arm;
+        action.add_actor(in_arm);
         
         action.arm = in_arm;
         action.target = in_target;
@@ -77,7 +77,7 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
         Quaternion desired_direction =
             direction_to_target * arm.upper_arm.desired_idle_rotation;
 
-        if (body_wants_to_turn.side() == Side.LEFT) {
+        if (body_wants_to_turn.side() == Side_type.LEFT) {
             desired_direction *= body_wants_to_turn.to_quaternion().multiplied(1.1f).inverse();
         }
 
@@ -92,7 +92,7 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
 
         Quaternion desired_direction = direction_to_target * arm.forearm.desired_idle_rotation;
         
-        if (body_wants_to_turn.side() == Side.LEFT) {
+        if (body_wants_to_turn.side() == Side_type.LEFT) {
             desired_direction = 
                 desired_direction *
                 body_wants_to_turn.to_quaternion().multiplied(1.1f).inverse();

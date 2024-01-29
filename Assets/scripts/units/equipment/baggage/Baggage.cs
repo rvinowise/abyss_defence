@@ -45,7 +45,6 @@ Turning_element
     
 
     public void change_ammo_qty(Ammo_compatibility in_compatibility, int in_qty) {
-        Contract.Assert(in_compatibility != null);
         tool_to_ammo.TryGetValue(in_compatibility, out var old_qty);
         int new_qty = old_qty + in_qty;
         //Contract.Assert(new_qty >=0);

@@ -21,7 +21,7 @@ public class Aim_at_target: limbs.arms.actions.Action_of_arm {
 
         var action = 
             (Aim_at_target)pool.get(typeof(Aim_at_target));
-        action.actor = in_arm;
+        action.add_actor(in_arm);
         
         action.arm = in_arm;
         action.set_target(in_target);
@@ -50,37 +50,37 @@ public class Aim_at_target: limbs.arms.actions.Action_of_arm {
         arm.forearm.target_degree = 0f;
         arm.hand.target_degree = 0f;
     }
-    
-    
+
+
     public override void update() {
-        
-        Degree direction_to_target = arm.upper_arm.transform.degrees_to(target.position);
-        //Degree final_body_direction = body.target_degree;
-        Degree body_direction = body.transform.rotation.to_degree();
-        Degree offset_from_body = body_direction.angle_to(direction_to_target);
-        
-        arm.shoulder.target_degree = get_shoulder_direction(
-            offset_from_body,
-            body_direction
-        );
+        if (target == null) {
+            this.finish();
+        }
+        else { 
+            Degree direction_to_target = arm.upper_arm.transform.degrees_to(target.position);
+            Degree body_direction = body.transform.rotation.to_degree();
+            Degree offset_from_body = body_direction.angle_to(direction_to_target);
 
-        arm.upper_arm.target_degree = get_upperarm_direction(
-            offset_from_body,
-            body_direction,
-            direction_to_target
-        );
+            arm.shoulder.target_degree = get_shoulder_direction(
+                offset_from_body,
+                body_direction
+            );
 
-        arm.forearm.target_degree = get_forearm_direction(
-            offset_from_body,
-            body_direction,
-            direction_to_target
-        );
+            arm.upper_arm.target_degree = get_upperarm_direction(
+                offset_from_body,
+                direction_to_target
+            );
 
-        arm.hand.target_degree = direction_to_target;
-        
+            arm.forearm.target_degree = get_forearm_direction(
+                offset_from_body,
+                direction_to_target
+            );
 
-        arm.rotate_to_desired_directions();
-       
+            arm.hand.target_degree = direction_to_target;
+
+
+            arm.rotate_to_desired_directions();
+        }
     }
 
     private Degree get_shoulder_direction(
@@ -91,7 +91,7 @@ public class Aim_at_target: limbs.arms.actions.Action_of_arm {
             return offset_from_body;
         }
 
-        Degree start_span = final_body_direction + arm.side.turn_degrees(90f);
+        Degree start_span = final_body_direction + Side.turn_degrees(arm.side, 90f);
         float span_width = 180f;
         Degree target_ratio = Math.Abs(
             new Degree(90).adjust_to_side(arm.side).angle_to(offset_from_body)
@@ -106,7 +106,7 @@ public class Aim_at_target: limbs.arms.actions.Action_of_arm {
         bool target_is_behind_my_straightened_shoulder() {
             return (
                 (Mathf.Abs(offset_from_body) > 90f) &&
-                (Math.Sign(offset_from_body) == arm.side)
+                (Math.Sign(offset_from_body) == (int)arm.side)
             );
         }
 
@@ -115,7 +115,6 @@ public class Aim_at_target: limbs.arms.actions.Action_of_arm {
     
     private Degree get_upperarm_direction(
         Degree offset_from_body,
-        Degree final_body_direction,
         Degree direction_to_target
     ) {
         if (target_is_on_my_side()) {
@@ -134,7 +133,6 @@ public class Aim_at_target: limbs.arms.actions.Action_of_arm {
 
     private Degree get_forearm_direction(
         Degree offset_from_body,
-        Degree final_body_direction,
         Degree direction_to_target
     ) {
         if (target_is_on_my_side()) {

@@ -12,7 +12,7 @@ public class Hitting_with_limb2_impact: Action_leaf {
     public Limb2 limb{ set; get; }
     private ITransporter transporter;
     private Transform target;
-    public Side impact_side { set; get; } = Side.NONE;
+    public Side_type impact_side { set; get; } = Side_type.NONE;
 
     
     public static Hitting_with_limb2_impact create(
@@ -21,7 +21,7 @@ public class Hitting_with_limb2_impact: Action_leaf {
         Transform in_target
     ) {
         var action = (Hitting_with_limb2_impact)pool.get(typeof(Hitting_with_limb2_impact));
-        action.actor = in_limb;
+        action.add_actor(in_limb);
         
         action.limb = in_limb;
         action.target = in_target;

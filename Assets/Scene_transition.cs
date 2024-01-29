@@ -21,12 +21,6 @@ public class Scene_transition : MonoBehaviour
             effect = GetComponentInChildren<Scene_transition_effect>(true);
         }
     }
-
-    void Start()
-    {
-        bool test = true;
-    }
-
  
 
     void OnTriggerEnter2D(Collider2D collider) {

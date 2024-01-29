@@ -19,9 +19,8 @@ public partial class Limb2:
     public Segment segment1; //beginning (root)
     public Segment segment2; //ending (leaf)
     
-    [HideInInspector]
-    public unity.geometry2d.Side folding_side; //1 of -1
-    public unity.geometry2d.Side side => folding_side; // left or right arm?
+    public Side_type folding_side; //1 of -1
+    public unity.geometry2d.Side_type side => folding_side; // left or right arm?
 
     [SerializeField]
     
@@ -32,24 +31,9 @@ public partial class Limb2:
     
     
     protected virtual Limb2.Debug debug_limb { get; set; }
+    
 
-
-    public void init() {
-        init_segments();        
-        init_folding_direction();
-    }
-
-    private void init_segments() {
-        segment1.init();
-        segment2.init();
-    }
-    public void init_folding_direction() {
-        folding_side = segment2.possible_span.side_of_bigger_rotation().mirror();
-        Contract.Ensures(
-            folding_side != Side.NONE,
-            "rotation span of Segment #2 should define folding direction of the limb"
-        );
-    }
+    
     
     public virtual void rotate_to_desired_directions() {
         segment1.rotate_to_desired_direction();
@@ -90,7 +74,7 @@ public partial class Limb2:
     }
 
     private Directions determine_directions_reaching_point(Vector2 target) {
-        Contract.Requires((folding_side != Side.NONE) && (folding_side != null),
+        Contract.Requires((folding_side != Side_type.NONE) && (folding_side != null),
             "folding_direction is needed for bending the limb"
         );
         float distance_to_aim = segment1.position.distance_to(target);
@@ -109,7 +93,7 @@ public partial class Limb2:
 
         Quaternion segment1_rotation = degrees_to_quaternion(
             segment1.position.degrees_to(target) +
-            (folding_side *  segment1_angle_offset )
+            Side.turn_degrees(folding_side, segment1_angle_offset )
         );
         Vector3 elbow_position = segment1.position + (segment1_rotation * segment1.localTip);
         return new Directions(
@@ -140,7 +124,7 @@ public partial class Limb2:
         Segment in_segment,
         float in_degrees
     ) {
-        if (folding_side == Side.RIGHT) {
+        if (folding_side == Side_type.RIGHT) {
             in_degrees = -in_degrees;
         }
         in_segment.target_rotation = geometry2d.Directions.degrees_to_quaternion(in_degrees);

@@ -25,7 +25,6 @@ public partial class Creeping_leg_group:
     protected override void Awake() {
         base.Awake();
         init_components();
-        init_legs();
     }
 
     protected override void Start() {
@@ -38,20 +37,14 @@ public partial class Creeping_leg_group:
         turning_element = GetComponent<Turning_element>();
     }
 
-    private void init_legs() {
-        foreach(var leg in legs) {
-            leg.init();
-        }
-    }
-
     private void create_moving_strategy() {
         if (legs.Count == 4) {
             stable_leg_groups = new List<Stable_leg_group> {
                 new Stable_leg_group(
-                    new List<ILeg> {left_front_leg, right_hind_leg}
+                    new List<ALeg> {left_front_leg, right_hind_leg}
                 ),
                 new Stable_leg_group(
-                    new List<ILeg> {right_front_leg, left_hind_leg}
+                    new List<ALeg> {right_front_leg, left_hind_leg}
                 )
             };
         } 
@@ -188,30 +181,30 @@ public partial class Creeping_leg_group:
 
     private Turning_element turning_element;
     
-    public IReadOnlyList<ILeg> legs {
+    public IReadOnlyList<ALeg> legs {
         set {
             _legs = value as List<ALeg>;
             guess_moving_strategy();
         }
         get {
-            return _legs as IReadOnlyList<ILeg>;
+            return _legs as IReadOnlyList<ALeg>;
         }
     }
-    public ILeg left_hind_leg {
+    public ALeg left_hind_leg {
         get { return legs[0];}
-        set { _legs[0] = value as ALeg; }
+        set { _legs[0] = value; }
     }
-    public ILeg left_front_leg {
+    public ALeg left_front_leg {
         get { return legs[1];}
-        set { _legs[1] = value as ALeg; }
+        set { _legs[1] = value; }
     }
-    public ILeg right_hind_leg {
+    public ALeg right_hind_leg {
         get { return legs[2];}
-        set { _legs[2] = value as ALeg; }
+        set { _legs[2] = value; }
     }
-    public ILeg right_front_leg {
+    public ALeg right_front_leg {
         get { return legs[3];}
-        set { _legs[3] = value as ALeg; }
+        set { _legs[3] = value; }
     }
     [SerializeField]
     public List<ALeg> _legs = new List<ALeg>();
@@ -333,18 +326,33 @@ public partial class Creeping_leg_group:
     public Action current_action { get; set; }
     private Action_runner action_runner { get; set; }
     public void on_lacking_action() {
+        var animator = GetComponent<Animator>();
+        Action meeting_action = null;
+        if (animator != null) {
+            meeting_action =
+                Haymaker_with_creeping_leg.create(
+                    GetComponent<Animator>(),
+                    this,
+                    GameObject.FindWithTag("player")?.transform
+                );
+        }
+        else {
+            meeting_action =
+                Keep_distance_from_target.create(
+                    this,
+                    10,
+                    GameObject.FindWithTag("player")?.transform
+                );
+        }
+        
         Action_sequential_parent.create(
-            this,
             Move_towards_target.create(
                 this,
                 reaching_distance(),
                 GameObject.FindWithTag("player")?.transform
             ),
-            Haymaker_with_creeping_leg.create(
-                GetComponent<Animator>(),
-                this,
-                GameObject.FindWithTag("player")?.transform
-            )
+            meeting_action
+            
         ).start_as_root(action_runner);
     }
     public void init_for_runner(Action_runner action_runner) {

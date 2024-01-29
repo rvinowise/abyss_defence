@@ -53,7 +53,6 @@ public abstract class Tool: MonoBehaviour
         transform.set_z(in_hand.held_object_local_z);
     }
 
-    private static float ground_z = 0;
     public virtual void drop_from_hand() {
         transform.set_z(Map.instance.ground_z);
     }

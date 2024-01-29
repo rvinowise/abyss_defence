@@ -11,7 +11,7 @@ public class Creeping_leg_partakes_in_moving: Action_leaf {
         ILeg actor
     ) {
         var action = (Creeping_leg_partakes_in_moving)pool.get(typeof(Creeping_leg_partakes_in_moving));
-        action.actor = actor;
+        action.add_actor(actor);
         
         return action;
     }

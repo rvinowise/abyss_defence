@@ -19,7 +19,7 @@ public class Keep_distance_from_target: Action_leaf {
         Transform in_target
     ) {
         var action = (Keep_distance_from_target)pool.get(typeof(Keep_distance_from_target));
-        action.actor = in_transporter;
+        action.add_actor(in_transporter);
         
         action.target = in_target;
         action.transporter = in_transporter;
@@ -32,7 +32,7 @@ public class Keep_distance_from_target: Action_leaf {
 
     public override void init_actors() {
         base.init_actors();
-        transform = actor.gameObject.transform;
+        transform = transporter.gameObject.transform;
     }
 
     public override void update() {

@@ -14,9 +14,9 @@ public class Orientation {
     public Vector3 local_direction;
 
     public Transform parent;
-    
-    
-    public Orientation() {}
+
+
+    private Orientation() {}
 
     public Orientation(
         Transform in_parent
@@ -28,7 +28,7 @@ public class Orientation {
     }
 
     public static Orientation from_transform(Transform in_transform) {
-        return new Orientation() {
+        return new Orientation {
             position = in_transform.position,
             rotation = in_transform.rotation
         };
@@ -61,7 +61,7 @@ public class Orientation {
     }
 
     public override bool Equals(object o) {
-        return this == o;
+        return this == (Orientation)o;
     }
     public override int GetHashCode() {
         return (position, rotation).GetHashCode();

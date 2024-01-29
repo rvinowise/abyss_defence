@@ -38,8 +38,8 @@ public struct Relative_direction {
         local_rotation = Directions.degrees_to_quaternion(in_degrees);
     }
 
-    public Relative_direction adjust_to_side_for_left(Side in_side) {
-        if (in_side == Side.RIGHT) {
+    public Relative_direction adjust_to_side_for_left(Side_type in_side) {
+        if (in_side == Side_type.RIGHT) {
             local_rotation = Quaternion.Inverse(local_rotation);
         }
         return this;

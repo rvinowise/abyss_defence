@@ -14,7 +14,7 @@ public class Hitting_with_limb2_swing_back: Action_leaf {
     private Transform target;
 
     private float swing_direction = 180f;
-    public Side swing_side { set; get; } = Side.NONE;
+    public Side_type swing_side { set; get; } = Side_type.NONE;
 
     public static Hitting_with_limb2_swing_back create(
         Limb2 in_limb,
@@ -22,7 +22,7 @@ public class Hitting_with_limb2_swing_back: Action_leaf {
         Transform in_target
     ) {
         var action = (Hitting_with_limb2_swing_back)pool.get(typeof(Hitting_with_limb2_swing_back));
-        action.actor = in_limb;
+        action.add_actor(in_limb);
         
         action.limb = in_limb;
         action.target = in_target;
@@ -63,7 +63,7 @@ public class Hitting_with_limb2_swing_back: Action_leaf {
         limb.segment2.change_rotation_speed(swing_side, float.MaxValue);
         limb.segment1.update_rotation();
         limb.segment2.update_rotation();
-        transporter.command_batch.face_direction_degrees = get_direction_to_target() + swing_side.turn_degrees(45);
+        transporter.command_batch.face_direction_degrees = get_direction_to_target() + Side.turn_degrees(swing_side,45);
         keep_optimal_distance_from_target();
         if (complete()) {
             mark_as_completed();
@@ -85,7 +85,7 @@ public class Hitting_with_limb2_swing_back: Action_leaf {
         }
     }
 
-    private Side find_swing_direction() {
+    private Side_type find_swing_direction() {
         var dir_to_target = get_direction_to_target();
         var segment1_current_swing = Mathf.DeltaAngle(
             dir_to_target,

@@ -93,7 +93,7 @@ public struct Span {
         return Math.Sign(max);
     }
     
-    public unity.geometry2d.Side side_of_bigger_rotation() {
+    public unity.geometry2d.Side_type side_of_bigger_rotation() {
         Span span = this.use_minus();
         if (Math.Abs(span.min) > Math.Abs(span.max)) {
             return unity.geometry2d.Side.from_degrees(span.min);
@@ -128,9 +128,9 @@ public struct Span {
         return max;
     }
     
-    public float degrees_in_direction(Side side) {
+    public float degrees_in_direction(Side_type side) {
         
-        if (side == Side.RIGHT)
+        if (side == Side_type.RIGHT)
         {
             return min;
         }

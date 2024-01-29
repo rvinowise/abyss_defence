@@ -37,16 +37,16 @@ public class Hitting_with_limb2: Action_sequential_parent {
             = Hitting_with_limb2_impact.create(limb, transporter, target);
         swinging_subaction.limb = limb;
         impacting_subaction.limb = limb;
-        Side swing_direction = find_swing_direction();
+        Side_type swing_direction = find_swing_direction();
         swinging_subaction.swing_side = swing_direction;
-        impacting_subaction.impact_side = -swing_direction;
+        impacting_subaction.impact_side = Side.mirror(swing_direction);
         
         add_children(
             swinging_subaction,
             impacting_subaction
         );
     }
-    private Side find_swing_direction() {
+    private Side_type find_swing_direction() {
         var dir_to_target = get_direction_to_target();
         var segment1_current_swing = Mathf.DeltaAngle(
             dir_to_target,

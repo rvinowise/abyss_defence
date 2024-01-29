@@ -37,7 +37,7 @@ public class Stable: Moving_strategy
     private bool is_standing_stable_without(ILeg leg) {
         Contract.Requires(!leg.is_up);
         foreach (Stable_leg_group stable_leg_group in creeping_legs_group.stable_leg_groups) {
-            if (stable_leg_group.contains(leg)) {
+            if (leg.stable_group == stable_leg_group) {
                 continue; 
             }
             if (stable_leg_group.all_down()) {

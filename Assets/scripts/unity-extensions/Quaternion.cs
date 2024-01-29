@@ -43,7 +43,7 @@ public static partial class Unity_extension {
     }
 
     
-    public static Side side(this Quaternion quaternion) {
+    public static Side_type side(this Quaternion quaternion) {
         return Side.from_quaternion(quaternion);
     }
 

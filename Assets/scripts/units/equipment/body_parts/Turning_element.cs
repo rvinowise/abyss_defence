@@ -191,13 +191,13 @@ public class Turning_element: MonoBehaviour {
     }
 
     public void change_rotation_speed(
-        Side side_to_target,
+        Side_type side_to_target,
         float optimal_speed
     ) {
-        optimal_speed = optimal_speed * side_to_target.Value;
+        optimal_speed = optimal_speed * (float) side_to_target;
         float difference = optimal_speed - current_rotation_inertia.degrees;
         bool needs_to_accelerate = 
-            (current_rotation_inertia.side() == Side.NONE)
+            (current_rotation_inertia.side() == Side_type.NONE)
             ||
             (side_to_target == current_rotation_inertia.side())
             &&

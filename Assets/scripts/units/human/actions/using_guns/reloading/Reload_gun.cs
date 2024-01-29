@@ -17,7 +17,7 @@ public class Reload_gun: Action_sequential_parent {
     
     protected bool should_be_flipped() {
         if (
-            gun_arm.side == Side.LEFT
+            gun_arm.side == Side_type.LEFT
         ) {
             return true;
         } 

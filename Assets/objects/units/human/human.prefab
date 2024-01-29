@@ -46,10 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segment1: {fileID: 1587871507682900850}
   segment2: {fileID: 626494313595823512}
-  pair: {fileID: 0}
+  folding_side: 1
+  pair: {fileID: 2817183903052466124}
   shoulder: {fileID: 5659737628635655281}
   _hand: {fileID: 372621866041995711}
-  baggage: {fileID: 0}
+  baggage: {fileID: 1621615018708045352}
   attention_target: {fileID: 0}
 --- !u!1 &1549464138353566146
 GameObject:
@@ -183,8 +184,8 @@ MonoBehaviour:
   - {fileID: 195495332085181066}
   - {fileID: 1479235099447554831}
   m_Bounds:
-    m_Center: {x: -0.00086164474, y: -0.0008428693, z: 0}
-    m_Extent: {x: 0.13166669, y: 0.37885502, z: 0}
+    m_Center: {x: -0.0010469556, y: -0.0002578199, z: 0}
+    m_Extent: {x: 0.13171104, y: 0.3650267, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &1910865361933189089
@@ -280,8 +281,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 1
   sprite_renderer: {fileID: 0}
-  direction_adjustor: {fileID: 0}
-  length: 0
+  length: 0.2596849
+  parent_segment: {fileID: 6875855175541999246}
   desired_idle_rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2299105438416449074
 GameObject:
@@ -343,8 +344,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 1
   sprite_renderer: {fileID: 0}
-  direction_adjustor: {fileID: 0}
-  length: 0
+  length: 0.23872048
+  parent_segment: {fileID: 1587871507682900850}
   desired_idle_rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2458449371238379324
 GameObject:
@@ -451,8 +452,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 1
   sprite_renderer: {fileID: 0}
-  direction_adjustor: {fileID: 0}
-  length: 0
+  length: 0.23872046
+  parent_segment: {fileID: 5727462800067818418}
   desired_idle_rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3389097327627700620
 GameObject:
@@ -553,8 +554,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 1077999285500026986}
   m_Bounds:
-    m_Center: {x: -1.9571321, y: -0.82848984, z: 0.00999999}
-    m_Extent: {x: 0.18049836, y: 0.09785169, z: 0}
+    m_Center: {x: -1.9571321, y: -0.8284899, z: 0.01}
+    m_Extent: {x: 0.18049842, y: 0.097851664, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &4981709908241552782
@@ -617,8 +618,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 1
   sprite_renderer: {fileID: 0}
-  direction_adjustor: {fileID: 0}
-  length: 0
+  length: 0.27760273
+  parent_segment: {fileID: 5659737628635655281}
   desired_idle_rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5853503294366786509
 GameObject:
@@ -666,10 +667,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segment1: {fileID: 5727462800067818418}
   segment2: {fileID: 1231690326551020152}
-  pair: {fileID: 0}
+  folding_side: -1
+  pair: {fileID: 2817183903052466124}
   shoulder: {fileID: 6875855175541999246}
   _hand: {fileID: 7025312683631955186}
-  baggage: {fileID: 0}
+  baggage: {fileID: 1621615018708045352}
   attention_target: {fileID: 0}
 --- !u!1 &6029904662193437827
 GameObject:
@@ -787,7 +789,7 @@ PolygonCollider2D:
       - {x: 0.09833334, y: -0.3}
 --- !u!95 &7123843412197359656
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -800,10 +802,12 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4219268731796079786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,11 +834,12 @@ MonoBehaviour:
     degrees: 0
   turning_parent: {fileID: 0}
   ignore_parent: 0
-  arm_pair: {fileID: 0}
+  intelligence: {fileID: 1092230787447800550}
+  arm_pair: {fileID: 2817183903052466124}
   head: {fileID: 479597505814581101}
   legs: {fileID: 8527819504853134968}
   baggage: {fileID: 1621615018708045352}
-  animator: {fileID: 0}
+  animator: {fileID: 7123843412197359656}
 --- !u!114 &2817183903052466124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -851,6 +856,8 @@ MonoBehaviour:
   intelligence: {fileID: 1092230787447800550}
   left_arm: {fileID: 7668768375071070052}
   right_arm: {fileID: 6911195405302035350}
+  baggage: {fileID: 1621615018708045352}
+  transporter_object: {fileID: 6029904662193437827}
 --- !u!114 &8527819504853134968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,6 +872,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _possible_rotation: 400
   _possible_impulse: 1
+  rigid_body: {fileID: 8410119626936004833}
+  turning_element: {fileID: 4219268731796079786}
   user: {fileID: 6029904662193437827}
 --- !u!114 &1092230787447800550
 MonoBehaviour:
@@ -985,8 +994,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 1546792823449280996}
   m_Bounds:
-    m_Center: {x: -1.9562783, y: -0.8270748, z: 0.00999999}
-    m_Extent: {x: 0.18209505, y: 0.09583002, z: 0}
+    m_Center: {x: -1.9562783, y: -0.8270745, z: 0.01}
+    m_Extent: {x: 0.18209499, y: 0.09583002, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &6285418931264465992
@@ -1048,8 +1057,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 1
   sprite_renderer: {fileID: 0}
-  direction_adjustor: {fileID: 0}
-  length: 0
+  length: 0.29041532
+  parent_segment: {fileID: 0}
   desired_idle_rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6584454134048021118
 GameObject:
@@ -1155,8 +1164,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 1
   sprite_renderer: {fileID: 0}
-  direction_adjustor: {fileID: 0}
-  length: 0
+  length: 0.30260143
+  parent_segment: {fileID: 0}
   desired_idle_rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8510226068922529354
 GameObject:
@@ -1258,8 +1267,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 7191131228544273968}
   m_Bounds:
-    m_Center: {x: -1.9567026, y: -0.8270967, z: 0.02000001}
-    m_Extent: {x: 0.17430341, y: 0.06935838, z: 0}
+    m_Center: {x: -1.9669924, y: -0.02933541, z: 0.02}
+    m_Extent: {x: 0.17430335, y: 0.06935836, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &8805824347242247989
@@ -1479,8 +1488,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2589469658143589156}
   m_Bounds:
-    m_Center: {x: -1.9559968, y: -0.82942617, z: 0.02000001}
-    m_Extent: {x: 0.1753819, y: 0.069734156, z: 0}
+    m_Center: {x: -1.9559965, y: -0.8294258, z: 0.02}
+    m_Extent: {x: 0.17538184, y: 0.06973413, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1001 &468054895120887536
@@ -1556,6 +1565,11 @@ PrefabInstance:
       propertyPath: ignore_parent
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7421987004738298370, guid: 6cfdaf50b6d90954bad11434f7393ea0,
+        type: 3}
+      propertyPath: parent_segment
+      value: 
+      objectReference: {fileID: 1231690326551020152}
     - target: {fileID: 7421987004738298370, guid: 6cfdaf50b6d90954bad11434f7393ea0,
         type: 3}
       propertyPath: rotation_slowing
@@ -2095,6 +2109,11 @@ PrefabInstance:
       propertyPath: ignore_parent
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7421987004738298370, guid: 6cfdaf50b6d90954bad11434f7393ea0,
+        type: 3}
+      propertyPath: parent_segment
+      value: 
+      objectReference: {fileID: 626494313595823512}
     - target: {fileID: 7421987004738298370, guid: 6cfdaf50b6d90954bad11434f7393ea0,
         type: 3}
       propertyPath: rotation_slowing

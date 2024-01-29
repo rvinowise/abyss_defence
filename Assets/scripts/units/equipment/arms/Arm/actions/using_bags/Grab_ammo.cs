@@ -17,7 +17,7 @@ public class Grab_ammo: Action_of_arm {
         Baggage in_bag, Tool in_tool
     ) {
         var action = (Grab_ammo)pool.get(typeof(Grab_ammo));
-        action.actor = in_arm;
+        action.add_actor(in_arm);
         
         action.hand = in_arm.hand;
         action.bag = in_bag;

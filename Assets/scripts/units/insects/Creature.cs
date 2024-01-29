@@ -16,47 +16,18 @@ public abstract class Creature: rvinowise.unity.units.Unit
     
     
     /* Creature itself */
-    [HideInInspector]
     public Divisible_body divisible_body;
-    [HideInInspector]
     public Bleeding_body bleeding_body;
 
     
-    Intelligence intelligence;
-
-    
-    protected override void Awake()
-    {
-        base.Awake();
-        init_components();
-    }
 
     protected virtual void Start() {
         create_equipment();
         
     }
 
-    private void init_components() {
-        divisible_body = gameObject.GetComponent<Divisible_body>();
-    }
-
     protected virtual void create_equipment() {}
-
-
-    protected virtual void fill_equipment_with_children() {}
-
-
-   void FixedUpdate() {
-       //intelligence.update();
-       
-       //transporter?.update();
-       //weaponry?.update();
-   }
-   
-   void Update() {
-       
-   }
-
+    
   
 
 }

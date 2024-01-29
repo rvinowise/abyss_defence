@@ -48,7 +48,8 @@ public class Gun_with_stock: actions.Action_of_arm
                 distance_shoulder_to_wrist = arm.length/2f;
             }
             upper_arm_offset_turn =
-                arm.folding_side.turn_quaternion(
+                Side.turn_quaternion(
+                    arm.folding_side,
                     unity.geometry2d.Triangles.get_quaternion_by_lengths(
                         arm.upper_arm.length,
                         distance_shoulder_to_wrist,
@@ -93,7 +94,7 @@ public class Gun_with_stock: actions.Action_of_arm
          Quaternion desired_direction =
             direction_to_target * upper_arm_offset_turn;
 
-        if (body_wants_to_turn.side() == Side.LEFT) {
+        if (body_wants_to_turn.side() == Side_type.LEFT) {
             desired_direction *= body_wants_to_turn.to_quaternion().multiplied(1.1f).inverse();
         }
 
@@ -116,7 +117,7 @@ public class Gun_with_stock: actions.Action_of_arm
             arm.upper_arm.desired_tip.quaternion_to(position_of_wrist);
 
         Quaternion desired_direction = direction_to_wrist;
-        if (body_wants_to_turn.side() == Side.LEFT) {
+        if (body_wants_to_turn.side() == Side_type.LEFT) {
             desired_direction = 
                 direction_to_wrist * 
                 body_wants_to_turn.to_quaternion().multiplied(1.1f).inverse();

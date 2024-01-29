@@ -10,7 +10,7 @@ public class Contract {
             #region debug
             if (!condition)
             {
-                bool test = true;
+                //bool test = true;
             }
             #endregion
             UnityEngine.Debug.Assert(condition, message);
@@ -26,7 +26,7 @@ public class Contract {
         #region debug
         if (!condition)
         {
-            bool test = true;
+            //bool test = true;
         }
         #endregion
         UnityEngine.Debug.Assert(condition, message);
@@ -42,7 +42,7 @@ public class Contract {
         #region debug
         if (!condition)
         {
-            bool test = true;
+            //bool test = true;
         }
         #endregion
         UnityEngine.Debug.Assert(condition, message);
@@ -57,7 +57,7 @@ public class Contract {
         #region debug
         if (!condition)
         {
-            bool test = true;
+            //bool test = true;
         }
         #endregion
         UnityEngine.Debug.Assert(condition, message);

@@ -18,9 +18,7 @@ public partial class Arm:
 
 {
 
-    [HideInInspector]
     public Arm_pair pair;
-    
     public Segment shoulder;
 
     public Segment upper_arm {
@@ -64,11 +62,11 @@ public partial class Arm:
 
     #region IReceive_recoil
     public void push_with_recoil(float in_impulse) {
-        Side side = folding_side;
-        shoulder.current_rotation_inertia += side * in_impulse;
-        upper_arm.current_rotation_inertia += side * in_impulse;
-        forearm.current_rotation_inertia += side.flipped() * in_impulse * 1.2f;
-        hand.current_rotation_inertia += side * in_impulse * 1.2f;
+        Side_type side = (Side_type) folding_side;
+        shoulder.current_rotation_inertia += (float)side * in_impulse;
+        upper_arm.current_rotation_inertia += (float)side * in_impulse;
+        forearm.current_rotation_inertia += (float)Side.flipped(side) * in_impulse * 1.2f;
+        hand.current_rotation_inertia += (float)side * in_impulse * 1.2f;
     }
     #endregion
     

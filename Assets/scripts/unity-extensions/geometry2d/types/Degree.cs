@@ -105,12 +105,12 @@ public struct Degree {
         return this;
     }
     
-    public Side side() {
+    public Side_type side() {
         return Side.from_degrees(this.use_minus());
     }
 
-    public Degree adjust_to_side(Side side) {
-        if (side == Side.RIGHT) {
+    public Degree adjust_to_side(Side_type side) {
+        if (side == Side_type.RIGHT) {
             return new Degree(-this.degrees);
         }
         return this;

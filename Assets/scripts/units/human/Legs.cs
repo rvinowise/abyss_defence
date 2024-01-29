@@ -47,29 +47,16 @@ public class Legs:
 
 
     /* legs itself */
-    private new Rigidbody2D rigidbody;
-    private Turning_element turning_element;
-
-    private float acceleration = 0.339f * rvinowise.Settings.scale;
+    public Rigidbody2D rigid_body;
+    public Turning_element turning_element;
     public GameObject user;
 
-    private void Awake() {
-        init_components();
-    }
-    
-    protected void init_components() {
-        rigidbody = user.GetComponent<Rigidbody2D>();
-        turning_element = user.GetComponent<Turning_element>();
-        
-        
-        Contract.Requires(rigidbody != null);
-        Contract.Requires(turning_element != null);
-    }
+    private float acceleration = 0.339f * rvinowise.Settings.scale;
 
 
     public void move_in_direction(Vector2 direction) {
-        Vector2 force = direction * possible_impulse * Time.deltaTime;
-        rigidbody.MovePosition(rigidbody.position + force);
+        Vector2 force = direction * (possible_impulse * Time.deltaTime);
+        rigid_body.MovePosition(rigid_body.position + force);
     }
     
     public void rotate_to_direction(float face_direction) {

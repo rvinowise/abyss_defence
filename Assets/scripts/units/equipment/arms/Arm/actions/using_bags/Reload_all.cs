@@ -56,7 +56,7 @@ public class Reload_all: Action_sequential_parent {
         Log.info($"{GetType()} Action is ended. ");
     }
 
-    private Side first_side;
+    private Side_type first_side;
     private Toolset reloaded_toolset;
 
     private void reload_all() {
@@ -84,7 +84,7 @@ public class Reload_all: Action_sequential_parent {
                     reloaded_toolset
                 )
             );
-            Action second_reloading_action = get_reloading_action_for(first_side.flipped());
+            Action second_reloading_action = get_reloading_action_for(Side.flipped(first_side));
             add_child(
                 second_reloading_action
             );
@@ -101,7 +101,7 @@ public class Reload_all: Action_sequential_parent {
         base.on_child_completed(in_sender_child);
     }
 
-    private Action get_reloading_action_for(Side in_side) {
+    private Action get_reloading_action_for(Side_type in_side) {
         Arm gun_arm = arm_pair.get_arm_on_side(in_side);
         Arm ammo_arm = arm_pair.other_arm(gun_arm);
         Tool reloaded_tool = reloaded_toolset.get_tool_on_side(in_side);
@@ -141,9 +141,9 @@ public class Reload_all: Action_sequential_parent {
         return null;
     }
     
-    private Side get_side_with_less_ammo() {
+    private Side_type get_side_with_less_ammo() {
         if (left_tool == null && right_tool == null) {
-            return Side.NONE;
+            return Side_type.NONE;
         }
         int left_lacking_ammo = (left_tool?.max_ammo_qty - left_tool?.ammo_qty) ?? 0;
         int right_lacking_ammo = (right_tool?.max_ammo_qty - right_tool?.ammo_qty) ?? 0;
@@ -152,9 +152,9 @@ public class Reload_all: Action_sequential_parent {
         int right_lacking_value = right_lacking_ammo * right_tool.ammo_value;
 
         if (left_lacking_value > right_lacking_value) {
-            return Side.LEFT;
+            return Side_type.LEFT;
         }
-        return Side.RIGHT;
+        return Side_type.RIGHT;
     }
 
 

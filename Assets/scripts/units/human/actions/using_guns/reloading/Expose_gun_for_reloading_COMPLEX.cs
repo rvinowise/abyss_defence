@@ -35,7 +35,7 @@ public class Expose_gun_for_reloading_COMPLEX: parts.actions.Action_leaf {
     public override void init_actors() {
         base.init_actors();
         arm.hand.gesture = Hand_gesture.Support_of_horizontal;
-        arm.held_tool.transform.flipY(arm.folding_side == Side.RIGHT);
+        arm.held_tool.transform.flipY(arm.folding_side == Side_type.RIGHT);
         arm.held_tool.animator.SetBool("sideview", true);
     }
 

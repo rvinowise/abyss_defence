@@ -91,19 +91,7 @@ public class Action_parallel_parent:
         return true;
     }
 
-    public override void free_actors_recursive() {
-        base.free_actors_recursive();
-        foreach (Action child in child_actions) {
-            child.free_actors_recursive();
-        }
-    }
     
-    public override void seize_needed_actors_recursive() {
-        foreach (Action child in child_actions) {
-            child.seize_needed_actors_recursive();
-        }
-        base.seize_needed_actors_recursive();
-    }
 
     public override void init_state_recursive() {
         init_actors();
@@ -130,6 +118,18 @@ public class Action_parallel_parent:
         reset();
     }
 
+    
+    public override void free_actors_recursive() {
+        foreach (Action child in child_actions) {
+            child.free_actors_recursive();
+        }
+    }
+    
+    public override void seize_needed_actors_recursive() {
+        foreach (Action child in child_actions) {
+            child.seize_needed_actors_recursive();
+        }
+    }
     public override void notify_actors_about_finishing() {
         foreach (Action child in child_actions) {
             child.notify_actors_about_finishing();

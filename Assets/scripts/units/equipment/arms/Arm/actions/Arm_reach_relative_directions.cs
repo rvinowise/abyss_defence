@@ -22,9 +22,9 @@ public class Arm_reach_relative_directions: Action_leaf {
         
         var action = (Arm_reach_relative_directions)pool.get(typeof(Arm_reach_relative_directions));
         
-        action.actor = in_arm;
+        action.add_actor(in_arm);
         action.arm = in_arm;
-        if (in_arm.side == Side.LEFT) {
+        if (in_arm.side == Side_type.LEFT) {
             action.shoulder_rotation = in_shoulder_rotation;
             action.upper_arm_rotation = in_upper_arm_rotation;
             action.forearm_rotation = in_forearm_rotation;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using rvinowise.debug;
 using rvinowise.contracts;
+using UnityEngine;
 
 
 namespace rvinowise.unity.units.parts.actions {
@@ -19,22 +20,8 @@ public abstract partial class Action
     public Action_runner runner;
 
     protected List<Action> superceded_actions = new List<Action>();
-    protected List<IActor> actors = new List<IActor>();
+    
 
-    public IActor add_actor(IActor actor) {
-        actors.Add(actor);
-        return actor;
-    }
-
-    public IActor actor {
-        get {
-            Contract.Assume(actors.Count == 1);
-            return actors.First();
-        }
-        set {
-            add_actor(value);
-        }
-    }
     
 
     protected static units.parts.actions.Action.Pool<units.parts.actions.Action> pool { get; } = 
@@ -58,14 +45,7 @@ public abstract partial class Action
     }
     
 
-    public virtual void seize_needed_actors_recursive() {
-        foreach(IActor seized_actor in actors) {
-            if (seized_actor.current_action != null) {
-                runner.mark_action_as_finishing(seized_actor.current_action.get_root_action());
-            }
-            seized_actor.current_action = this;
-        }
-    }
+    
 
 
 
@@ -149,11 +129,7 @@ public abstract partial class Action
     
     
 
-    public virtual void notify_actors_about_finishing() {
-        foreach (IActor actor in actors) {
-            actor.on_lacking_action();
-        }
-    }
+    
 
 
 
@@ -192,13 +168,7 @@ public abstract partial class Action
     }
 
 
-    public virtual void free_actors_recursive() {
-        foreach (IActor actor in actors) {
-            if (actor.current_action == this) {
-                actor.current_action = null;
-            }
-        }
-    }
+    
 
 
     public Action get_root_action() {
@@ -210,8 +180,9 @@ public abstract partial class Action
 
 
     public virtual void reset() {
-        Contract.Assert(!is_reset, "an action should be reset only once");
-        actors.Clear();
+        Contract.Assert(!is_reset, $"an action {this.marker} was reset, but is being reset again");
+        if (is_reset)
+            Debug.LogError("error");
         superceded_actions.Clear();
         parent_action = null;
         root_action = this;
@@ -232,7 +203,13 @@ public abstract partial class Action
         }
     }
 
-    
+    public abstract void free_actors_recursive();
+
+    public abstract void seize_needed_actors_recursive();
+
+    public abstract void notify_actors_about_finishing();
+
+
 }
 
 

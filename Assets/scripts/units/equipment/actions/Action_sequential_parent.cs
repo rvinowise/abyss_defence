@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using rvinowise.contracts;
+using rvinowise.debug;
+using UnityEngine;
 
 
 namespace rvinowise.unity.units.parts.actions {
@@ -14,7 +16,6 @@ public class Action_sequential_parent :
 
 
     public static Action_sequential_parent create(
-        IActor in_actor,
         params Action[] children
     ) {
         Action_sequential_parent action =
@@ -24,13 +25,7 @@ public class Action_sequential_parent :
         foreach (Action child in children) {
             action.add_child(child);
         }
-        action.add_actor(in_actor);
         return action;
-    }
-    public static Action_sequential_parent create(
-        params Action[] children
-    ) {
-        return create(null, children);
     }
 
     public override void set_root_action(Action in_root_action) {
@@ -119,16 +114,7 @@ public class Action_sequential_parent :
         queued_child_actions.Clear();
     }
     
-    public override void free_actors_recursive() {
-        base.free_actors_recursive();
-        current_child_action.free_actors_recursive();
-    }
     
-
-    public override void seize_needed_actors_recursive() {
-        current_child_action.seize_needed_actors_recursive();
-        base.seize_needed_actors_recursive();
-    }
 
     
     public override void restore_state_recursive() {
@@ -141,12 +127,24 @@ public class Action_sequential_parent :
     }
     public override void init_children_recursive() {
         init_children();
+        if (current_child_action == null) 
+            Debug.LogError($"current child of action [{this.marker}] is null");
         current_child_action.init_children_recursive();
     }
 
     public override void reset_recursive() {
         current_child_action.reset_recursive();
         reset();
+    }
+    
+    
+    public override void free_actors_recursive() {
+        current_child_action.free_actors_recursive();
+    }
+    
+
+    public override void seize_needed_actors_recursive() {
+        current_child_action.seize_needed_actors_recursive();
     }
     
     public override void notify_actors_about_finishing() {

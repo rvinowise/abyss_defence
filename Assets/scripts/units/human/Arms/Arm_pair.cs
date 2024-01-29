@@ -45,18 +45,21 @@ public class Arm_pair:
 
     #region Arm_controller itself
     
+    public units.humanoid.Humanoid user;
+    public Intelligence intelligence;
+    public Arm left_arm;
+    public Arm right_arm;
+    public Baggage baggage;
+    
+    public GameObject transporter_object;
+    public ITransporter transporter;
+    
     public List<Held_tool> held_tools = new List<Held_tool>();
     private Toolset toolset_being_equipped;
 
-    public ITransporter transporter;
 
-    public units.humanoid.Humanoid user;
-    public Intelligence intelligence;
     public Action_runner action_runner => intelligence.action_runner;
-    private Baggage baggage;
-    public Arm left_arm;
     
-    public Arm right_arm;
 
     public Tool left_tool => left_arm.held_tool;
     public Tool right_tool => right_arm.held_tool;
@@ -65,19 +68,7 @@ public class Arm_pair:
     
 
     void Awake() {
-        unit = GetComponent<Unit>();
-        user = GetComponent<Humanoid>();
-        intelligence = GetComponent<Intelligence>();
-        baggage = user.baggage;
-        transporter = GetComponent<ITransporter>();
-        
-        init_arms();
-    }
-
-    private void init_arms() {
-        left_arm.init();
-        right_arm.init();
-        left_arm.pair = right_arm.pair = this;
+        transporter = transporter_object.GetComponent<ITransporter>();
     }
 
     protected void Start() {
@@ -112,7 +103,7 @@ public class Arm_pair:
     }
 
 
-    public void wants_to_reload(Side in_side) {
+    public void wants_to_reload(Side_type in_side) {
 
         Arm gun_arm = get_arm_on_side(in_side);
         
@@ -169,10 +160,10 @@ public class Arm_pair:
 
     
 
-    public Arm get_arm_on_side(Side in_side) {
-        if (in_side == Side.LEFT) {
+    public Arm get_arm_on_side(Side_type in_side) {
+        if (in_side == Side_type.LEFT) {
             return left_arm;
-        } else if (in_side == Side.RIGHT) {
+        } else if (in_side == Side_type.RIGHT) {
             return right_arm;
         }
         return null;
@@ -251,7 +242,7 @@ public class Arm_pair:
 
     
 
-    public void attack_with_arm(Side in_side) {
+    public void attack_with_arm(Side_type in_side) {
         Arm arm = get_arm_on_side(in_side);
         if (arm.held_tool is Gun gun) {
             gun.pull_trigger();
