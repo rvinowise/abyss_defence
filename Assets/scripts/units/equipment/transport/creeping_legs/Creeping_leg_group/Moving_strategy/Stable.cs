@@ -35,7 +35,7 @@ public class Stable: Moving_strategy
     /* all the legs from at least one stable group will be on the ground
     if the parameter leg is up */
     private bool is_standing_stable_without(ILeg leg) {
-        Contract.Requires(!leg.is_up);
+        Contract.Requires(!leg.is_up());
         foreach (Stable_leg_group stable_leg_group in creeping_legs_group.stable_leg_groups) {
             if (leg.stable_group == stable_leg_group) {
                 continue; 

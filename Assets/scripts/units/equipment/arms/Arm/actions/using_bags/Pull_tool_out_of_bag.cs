@@ -1,5 +1,4 @@
-﻿using rvinowise.debug;
-using rvinowise.unity.units.parts.actions;
+﻿using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.tools;
 
 
@@ -27,8 +26,6 @@ public class Pull_tool_out_of_bag: Action_sequential_parent {
         return action;
     }
     
-
-
     private void init_child_actions() {
         add_children(
             Grab_tool.create(arm, bag, tool),
@@ -37,10 +34,6 @@ public class Pull_tool_out_of_bag: Action_sequential_parent {
     
         
     }
-    public override void restore_state() {
-        Log.info($"{GetType()} Action is ended. ");
-    }
-    
   
 }
 }

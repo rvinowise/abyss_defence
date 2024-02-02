@@ -1,7 +1,6 @@
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.contracts;
-using rvinowise.unity.helpers.graphics;
 using System.Linq;
 
 namespace rvinowise.unity.units.parts.limbs {

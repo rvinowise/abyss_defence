@@ -20,17 +20,15 @@ public class Push_object_into_slot: Arm_reach_orientation {
         action.slot = in_slot;
         return action;
     }
-    
 
-    public override void init_actors() {
-        base.init_actors();
+
+    protected override void on_start_execution() {
         slow_movements(arm);
         desired_orientation = slot.get_orientation_inside();
     }
 
-    public override void restore_state() {
+    protected override void restore_state() {
         restore_movements(arm);
-        base.restore_state();
     }
     
     private void slow_movements(Arm arm) {

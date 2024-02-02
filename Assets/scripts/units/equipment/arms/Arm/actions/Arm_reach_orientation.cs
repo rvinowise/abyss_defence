@@ -28,6 +28,7 @@ public class Arm_reach_orientation: arms.actions.Action_of_arm {
         }
     }
 
+
     protected virtual void set_desired_directions(Arm arm, Orientation needed_orientation) {
         arm.set_desired_directions_by_position(needed_orientation.position);
         arm.hand.target_rotation = needed_orientation.rotation;

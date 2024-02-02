@@ -40,6 +40,7 @@ public class Action_parallel_parent:
    
     public List<Action> child_actions = new List<Action>();
 
+    
 
     public override void set_root_action(Action in_root_action) {
         base.set_root_action(in_root_action);
@@ -68,13 +69,7 @@ public class Action_parallel_parent:
         }
     }
     
-    public override void finish() {
-        foreach (Action child_action in child_actions) {
-            child_action.finish();
-        }
-        child_actions.Clear();
-        base.finish();
-    }
+
 
 
     public override void reset() {
@@ -93,18 +88,13 @@ public class Action_parallel_parent:
 
     
 
-    public override void init_state_recursive() {
-        init_actors();
+    public override void start_execution_recursive() {
+        on_start_execution();
         foreach (Action child in child_actions) {
-            child.init_state_recursive();
+            child.start_execution_recursive();
         }
     }
-    public override void init_children_recursive() {
-        init_children();
-        foreach (Action child in child_actions) {
-            child.init_children_recursive();
-        }
-    }
+    
     public override void restore_state_recursive() {
         foreach (Action child in child_actions) {
             child.restore_state_recursive();
@@ -130,9 +120,9 @@ public class Action_parallel_parent:
             child.seize_needed_actors_recursive();
         }
     }
-    public override void notify_actors_about_finishing() {
+    public override void notify_actors_about_finishing_recursive() {
         foreach (Action child in child_actions) {
-            child.notify_actors_about_finishing();
+            child.notify_actors_about_finishing_recursive();
         }
     }
 }

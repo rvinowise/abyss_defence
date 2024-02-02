@@ -32,16 +32,14 @@ public class Hitting_with_limb2_swing_back: Action_leaf {
     public Hitting_with_limb2_swing_back() {
         
     }
-    
 
-    public override void init_actors() {
-        base.init_actors();
+
+    protected override void on_start_execution() {
         swing_side = find_swing_direction();
         slow_movements();
     }
 
-    public override void restore_state() {
-        base.restore_state();
+    protected override void restore_state() {
         restore_movements();
     }
 

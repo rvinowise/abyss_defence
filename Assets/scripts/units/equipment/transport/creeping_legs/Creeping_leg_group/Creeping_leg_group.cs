@@ -30,25 +30,11 @@ public partial class Creeping_leg_group:
     protected override void Start() {
         base.Start();
         
-        create_moving_strategy();
+        guess_moving_strategy();
 
         Contract.Requires(GetComponents<Turning_element>().Length <= 1,
             "only one component with Turning_element is enough");
-        turning_element = GetComponent<Turning_element>();
-    }
-
-    private void create_moving_strategy() {
-        if (legs.Count == 4) {
-            stable_leg_groups = new List<Stable_leg_group> {
-                new Stable_leg_group(
-                    new List<ALeg> {left_front_leg, right_hind_leg}
-                ),
-                new Stable_leg_group(
-                    new List<ALeg> {right_front_leg, left_hind_leg}
-                )
-            };
-        } 
-        guess_moving_strategy();
+        moved_body = GetComponent<Turning_element>();
     }
 
     private void init_components() {
@@ -72,9 +58,7 @@ public partial class Creeping_leg_group:
         return typeof(ILeg);
     }
 
-    protected override void init_child_list() {
-        _legs = new List<ALeg>();
-    }
+
   
     
 
@@ -100,8 +84,8 @@ public partial class Creeping_leg_group:
         }
         float impulse = 0;
         foreach (ILeg leg in legs) {
-            if (!leg.is_up) {
-                impulse += leg.provided_impulse;
+            if (!leg.is_up()) {
+                impulse += leg.get_provided_impulse();
             }
         }
         if (moving_strategy.belly_touches_ground()) {
@@ -138,14 +122,14 @@ public partial class Creeping_leg_group:
     }
     public void move_in_direction_as_transform(Vector2 moving_direction) {
         Vector2 delta_movement = (rvi.Time.deltaTime * possible_impulse * moving_direction );
-        transform.position += (Vector3)delta_movement;
+        moved_body.transform.position += (Vector3)delta_movement;
     }
     
     public void rotate_to_direction(Quaternion face_direction) {
 
-        turning_element.rotation_acceleration = possible_rotation;
-        turning_element.target_rotation = face_direction;
-        turning_element.rotate_to_desired_direction();
+        moved_body.rotation_acceleration = possible_rotation;
+        moved_body.target_rotation = face_direction;
+        moved_body.rotate_to_desired_direction();
     }
     
 
@@ -156,7 +140,7 @@ public partial class Creeping_leg_group:
     
     protected void execute_commands() {
         move_in_direction(command_batch.moving_direction_vector);
-        if (turning_element != null) {
+        if (moved_body != null) {
             rotate_to_direction(command_batch.face_direction_quaternion);
         }
     }
@@ -179,32 +163,24 @@ public partial class Creeping_leg_group:
     
     
 
-    private Turning_element turning_element;
-    
-    public IReadOnlyList<ALeg> legs {
-        set {
-            _legs = value as List<ALeg>;
-            guess_moving_strategy();
-        }
+    public Turning_element moved_body;
+
+    private IReadOnlyList<ALeg> legs {
         get {
-            return _legs as IReadOnlyList<ALeg>;
+            return _legs;
         }
     }
     public ALeg left_hind_leg {
         get { return legs[0];}
-        set { _legs[0] = value; }
     }
     public ALeg left_front_leg {
         get { return legs[1];}
-        set { _legs[1] = value; }
     }
     public ALeg right_hind_leg {
         get { return legs[2];}
-        set { _legs[2] = value; }
     }
     public ALeg right_front_leg {
         get { return legs[3];}
-        set { _legs[3] = value; }
     }
     [SerializeField]
     public List<ALeg> _legs = new List<ALeg>();
@@ -229,7 +205,7 @@ public partial class Creeping_leg_group:
                 continue;
             }
             leg.set_desired_position(get_optimal_position_for(leg)); 
-            if (leg.is_up) {
+            if (leg.is_up()) {
                 move_in_the_air(leg);
             } else {
                 moving_strategy.move_on_the_ground(leg);
@@ -246,17 +222,17 @@ public partial class Creeping_leg_group:
     }
 
     private void put_down(ILeg leg) {
-        Contract.Requires(leg.is_up);
+        Contract.Requires(leg.is_up());
         leg.put_down();
-        possible_impulse += leg.provided_impulse;
+        possible_impulse += leg.get_provided_impulse();
     }
 
     
     private Vector2 get_optimal_position_for(ILeg leg) {
         Vector2 shift_to_moving_direction =
-            command_batch.moving_direction_vector * (leg.moving_offset_distance * leg.transform.lossyScale.x);
+            command_batch.moving_direction_vector * (leg.get_moving_offset_distance() * leg.transform.lossyScale.x);
 
-        return leg.optimal_position_standing + 
+        return leg.get_optimal_position_standing() + 
                shift_to_moving_direction;
     }
 
@@ -265,7 +241,7 @@ public partial class Creeping_leg_group:
 
     bool can_move() {
         foreach (ILeg leg in legs) {
-            if (!leg.is_up) {
+            if (!leg.is_up()) {
                 return true;
             }
         }
@@ -311,7 +287,7 @@ public partial class Creeping_leg_group:
     }
 
     public void ensure_leg_raised(ILeg leg) {
-        if (leg.is_up) {
+        if (leg.is_up()) {
             return;
         }
         moving_strategy.raise_up(leg);
@@ -326,32 +302,32 @@ public partial class Creeping_leg_group:
     public Action current_action { get; set; }
     private Action_runner action_runner { get; set; }
     public void on_lacking_action() {
-        var animator = GetComponent<Animator>();
-        Action meeting_action = null;
-        if (animator != null) {
-            meeting_action =
-                Haymaker_with_creeping_leg.create(
-                    GetComponent<Animator>(),
-                    this,
-                    GameObject.FindWithTag("player")?.transform
-                );
-        }
-        else {
-            meeting_action =
-                Keep_distance_from_target.create(
-                    this,
-                    10,
-                    GameObject.FindWithTag("player")?.transform
-                );
-        }
+        // var animator = GetComponent<Animator>();
+        // Action meeting_action = null;
+        // if (animator != null) {
+        //     meeting_action =
+        //         Haymaker_with_creeping_leg.create(
+        //             GetComponent<Animator>(),
+        //             this,
+        //             GameObject.FindWithTag("player")?.transform
+        //         );
+        // }
+        // else {
+        //     meeting_action =
+        //         Keep_distance_from_target.create(
+        //             this,
+        //             10,
+        //             GameObject.FindWithTag("player")?.transform
+        //         );
+        // }
         
         Action_sequential_parent.create(
             Move_towards_target.create(
                 this,
                 reaching_distance(),
                 GameObject.FindWithTag("player")?.transform
-            ),
-            meeting_action
+            )
+            //,meeting_action
             
         ).start_as_root(action_runner);
     }

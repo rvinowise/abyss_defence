@@ -36,9 +36,8 @@ public class Aim_at_target: limbs.arms.actions.Action_of_arm {
     public Transform get_target() {
         return target;
     }
-    
-    public override void init_actors() {
-        base.init_actors();
+
+    protected override void on_start_execution() {
         arm.shoulder.set_target_direction_relative_to_parent(
             arm.shoulder.desired_idle_rotation
         );
@@ -54,7 +53,7 @@ public class Aim_at_target: limbs.arms.actions.Action_of_arm {
 
     public override void update() {
         if (target == null) {
-            this.finish();
+            this.mark_as_completed();
         }
         else { 
             Degree direction_to_target = arm.upper_arm.transform.degrees_to(target.position);

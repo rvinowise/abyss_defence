@@ -20,8 +20,7 @@ public class Arm_reach_holding_part_of_tool:Arm_reach_somewhere {
         return action;
     }
 
-    public override void init_actors() {
-        base.init_actors();
+    protected override void on_start_execution() {
         arm.hand.gesture = Hand_gesture.Support_of_horizontal;
     }
 
@@ -34,8 +33,5 @@ public class Arm_reach_holding_part_of_tool:Arm_reach_somewhere {
         );
     }
     
-    protected override bool complete(Orientation desired_orientation) {
-        return base.complete(desired_orientation);
-    }
 }
 }

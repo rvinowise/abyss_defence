@@ -30,8 +30,7 @@ public class Keep_distance_from_target: Action_leaf {
         
     }
 
-    public override void init_actors() {
-        base.init_actors();
+    protected override void on_start_execution() {
         transform = transporter.gameObject.transform;
     }
 

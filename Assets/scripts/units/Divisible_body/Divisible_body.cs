@@ -265,22 +265,22 @@ public class Divisible_body : MonoBehaviour
         }
 
         Vector2 calculate_push_vector(
-            Vector3 _piece_position,
-            Vector3 _contact_point,
-            float _force
+            Vector3 piece_position,
+            Vector3 contact_point,
+            float force
         ) {
             return 
-                (_piece_position - _contact_point).normalized *
-                _force;
+                (piece_position - contact_point).normalized *
+                force;
         }
 
         float calculate_torque(
-            Rigidbody2D _piece,
-            Vector3 _contact_point,
-            Vector3 _force_vector
+            Rigidbody2D piece,
+            Vector3 contact_point,
+            Vector3 force_vector
         ) {
-            float degrees_to_piece = _contact_point.degrees_to(_piece.transform.position);
-            float force_degrees = _force_vector.to_dergees();
+            float degrees_to_piece = contact_point.degrees_to(piece.transform.position);
+            float force_degrees = force_vector.to_dergees();
             var rotation_to_piece = new Degree(force_degrees).angle_to(degrees_to_piece);
             //var result = rotation_to_piece.degrees * (_force_vector.magnitude / 10 / (_piece.mass*100));
             var result = Math.Sign(rotation_to_piece.degrees)*5;

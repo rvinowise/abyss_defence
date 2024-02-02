@@ -20,17 +20,6 @@ public partial class Leg2:
     }
 
 
-    protected void Awake() {
-
-        check_components();
-    }
-
-    private void check_components() {
-        Contract.Ensures(optimal_relative_position_standing_transform != null);
-    }
-
-
-
     #region ILeg
     
     private bool is_touching_point(Vector2 aim) {
@@ -41,14 +30,14 @@ public partial class Leg2:
     }
 
     public override void put_down() {
-        is_up = false;
+        up = false;
         holding_point = tibia.tip;
     }
 
     public override bool is_twisted_uncomfortably() {
         Vector2 diff_with_optimal_point = 
             optimal_position - 
-            (Vector2)tibia.tip;
+            tibia.tip;
         
         if (diff_with_optimal_point.magnitude > reposition_distance) {
             return true;
@@ -64,7 +53,7 @@ public partial class Leg2:
     
     
 
-    #endregion //ILeg
+    #endregion ILeg
 
     
 
@@ -76,7 +65,7 @@ public partial class Leg2:
         
         Gizmos.color = new Color(1f,1f,1f,0.4f);
         Gizmos.DrawSphere(
-            optimal_position_standing, sphere_size);
+            get_optimal_position_standing(), sphere_size);
         
         Gizmos.color = new Color(0f,0f,1f,0.4f);
         Gizmos.DrawSphere(

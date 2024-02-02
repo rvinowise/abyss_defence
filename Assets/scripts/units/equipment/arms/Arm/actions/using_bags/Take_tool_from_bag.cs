@@ -1,5 +1,4 @@
-﻿using rvinowise.debug;
-using rvinowise.unity.units.parts.actions;
+﻿using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.tools;
 
 
@@ -36,12 +35,6 @@ public class Take_tool_from_bag: Action_sequential_parent {
     
         
     }
-    public override void restore_state() {
-        Log.info($"{GetType()} Action is ended. ");
-    }
 
-    public override void reset() {
-        base.reset();
-    }
 }
 }

@@ -18,16 +18,10 @@ namespace rvinowise.unity.units.control.human {
 public abstract class Player_human : Human_intelligence {
 
     private int[] held_tool_index;
-    private Unit unit;
     private Transform cursor_transform;
 
     public List<Transform> enemies = new List<Transform>();
 
-    protected override void Awake() {
-        base.Awake();
-        unit = GetComponent<Unit>();
-        arm_pair = GetComponent<Arm_pair>();
-    }
 
     protected override void Start() {
         base.Start();

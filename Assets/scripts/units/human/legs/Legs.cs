@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using rvinowise.contracts;
 using rvinowise.unity.units.parts.transport;
 using rvinowise.unity.geometry2d;
 using rvinowise.unity.units.parts.actions;
+using units.human.actions;
 using Action = rvinowise.unity.units.parts.actions.Action;
 
 namespace rvinowise.unity.units.parts.humanoid {
@@ -14,7 +14,6 @@ public class Legs:
     
     /* ITransporter interface */
 
-    //[HideInInspector]
     public transport.Transporter_commands command_batch { get; } = new transport.Transporter_commands();
     
     
@@ -68,6 +67,7 @@ public class Legs:
     #region IActor
     public Action current_action { get; set; }
     public void on_lacking_action() {
+        Idle.create(this).start_as_root(action_runner);
     }
 
     private Action_runner action_runner;

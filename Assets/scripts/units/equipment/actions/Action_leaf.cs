@@ -8,9 +8,9 @@ namespace rvinowise.unity.units.parts.actions {
 public abstract class Action_leaf:
     Action
 {
-    protected List<IActor> actors = new List<IActor>();
+    private readonly List<IActor> actors = new List<IActor>();
 
-    public IActor add_actor(IActor actor) {
+    protected IActor add_actor(IActor actor) {
         actors.Add(actor);
         return actor;
     }
@@ -24,8 +24,9 @@ public abstract class Action_leaf:
             seized_actor.current_action = this;
         }
     }
+
     
-    public override void notify_actors_about_finishing() {
+    public override void notify_actors_about_finishing_recursive() {
         foreach (IActor actor in actors) {
             actor.on_lacking_action();
         }

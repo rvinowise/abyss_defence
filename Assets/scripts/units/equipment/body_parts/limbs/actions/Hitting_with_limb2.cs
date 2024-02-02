@@ -28,8 +28,8 @@ public class Hitting_with_limb2: Action_sequential_parent {
         
         return action;
     }
-    
-    public override void init_children() {
+
+    protected override void on_start_execution() {
         
         Hitting_with_limb2_swing_back swinging_subaction 
             = Hitting_with_limb2_swing_back.create(limb, transporter, target);

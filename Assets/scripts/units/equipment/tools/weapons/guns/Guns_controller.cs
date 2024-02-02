@@ -29,10 +29,6 @@ public class Guns_controller:
         
     }
 
-   protected override void init_child_list() {
-
-   }
-
 
     /* IWeaponry interface */
 

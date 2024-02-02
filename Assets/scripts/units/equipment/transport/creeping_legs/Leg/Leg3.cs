@@ -72,7 +72,7 @@ public partial class Leg3:
     }
     
     public override void put_down() {
-        is_up = false;
+        up = false;
         holding_point = tibia.tip;
     }
 
@@ -173,7 +173,7 @@ public partial class Leg3:
         
         Gizmos.color = Color.white;
         Gizmos.DrawSphere(
-            optimal_position_standing, sphere_size);
+            get_optimal_position_standing(), sphere_size);
         
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(

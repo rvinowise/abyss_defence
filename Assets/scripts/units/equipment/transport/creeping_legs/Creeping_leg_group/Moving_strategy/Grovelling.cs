@@ -34,12 +34,12 @@ internal class Grovelling: Moving_strategy
 
     /* at least one leg will be on he ground if the parameter leg is raised up  */
     private bool can_move_without(ILeg in_leg) {
-        Contract.Requires(!in_leg.is_up);
+        Contract.Requires(!in_leg.is_up());
         foreach (ILeg leg in legs) {
             if (leg == in_leg) {
                 continue; 
             }
-            if (!leg.is_up) {
+            if (!leg.is_up()) {
                 return true;
             }
         }

@@ -16,14 +16,14 @@ public class Put_tool_into_bag: Action_sequential_parent {
         
         action.arm = in_arm;
         action.bag = in_bag;
-        action.init_child_actions();
+        action.create_child_actions();
         
         return action;
     }
     
 
 
-    private void init_child_actions() {
+    private void create_child_actions() {
         add_children(
             Put_hand_before_bag.create(arm, bag),
             Move_hand_into_bag.create(arm, bag),

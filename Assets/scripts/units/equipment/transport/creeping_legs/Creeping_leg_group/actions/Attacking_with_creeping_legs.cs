@@ -24,7 +24,7 @@ public class Attacking_with_creeping_legs: Action_parallel_parent {
     }
 
 
-    public override void init_children() {
+    protected override void on_start_execution() {
         attacking_leg = leg_group.get_best_leg_for_hitting(target) ;
         if (attacking_leg is Limb2 best_limb2) {
             
@@ -37,15 +37,9 @@ public class Attacking_with_creeping_legs: Action_parallel_parent {
                 Hitting_with_limb2.create(best_limb2, leg_group, target)
             );
         }
-    }
-
-    public override void init_actors() {
-        base.init_actors();
         leg_group.ensure_leg_raised(attacking_leg);
     }
 
-    public override void update() {
-        base.update();
-    }
+
 }
 }

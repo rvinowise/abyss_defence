@@ -1,5 +1,4 @@
 using UnityEngine;
-using rvinowise.unity.extensions;
 
 
 namespace rvinowise.unity.units.parts.teeth {

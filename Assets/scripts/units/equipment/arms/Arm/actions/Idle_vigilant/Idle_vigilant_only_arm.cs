@@ -26,11 +26,7 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
     }
 
 
-    public override void init_actors() {
-        base.init_actors();
-       /*  arm.shoulder.set_target_direction_relative_to_parent(
-            arm.shoulder.desired_idle_rotation
-        ); */
+    protected override void on_start_execution() {
         arm.shoulder.target_direction_relative = false;
         arm.upper_arm.target_direction_relative = false;
         arm.forearm.target_direction_relative = false;

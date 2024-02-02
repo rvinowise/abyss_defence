@@ -748,7 +748,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   divisible_body: {fileID: 9130186382300236195}
-  stable_leg_groups: []
+  stable_leg_groups:
+  - legs:
+    - {fileID: 7914823512948942470}
+    - {fileID: 2697739222602121059}
+  - legs:
+    - {fileID: 7914823512701991656}
+    - {fileID: 8875350870706720175}
   _legs:
   - {fileID: 7914823512948942470}
   - {fileID: 7914823512701991656}

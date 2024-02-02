@@ -1,5 +1,4 @@
 ﻿using rvinowise.contracts;
-using rvinowise.debug;
 using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.tools;
 using rvinowise.unity.geometry2d;
@@ -47,14 +46,10 @@ public class Reload_all: Action_sequential_parent {
         return action;
     }
 
-    public override void init_children() {
+    protected override void on_start_execution() {
         reload_all();
     }
- 
-
-    public override void restore_state() {
-        Log.info($"{GetType()} Action is ended. ");
-    }
+    
 
     private Side_type first_side;
     private Toolset reloaded_toolset;

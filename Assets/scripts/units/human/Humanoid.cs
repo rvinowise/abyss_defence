@@ -3,6 +3,7 @@ using rvinowise.contracts;
 using rvinowise.unity.units.parts.actions;
 using rvinowise.unity.units.parts.head;
 using rvinowise.unity.units.parts.tools;
+using units.human.actions;
 using Action = rvinowise.unity.units.parts.actions.Action;
 using Arm_pair = rvinowise.unity.units.parts.limbs.arms.humanoid.Arm_pair;
 
@@ -10,7 +11,7 @@ namespace rvinowise.unity.units.humanoid {
     using global::units;
 
 
-    [RequireComponent(typeof(PolygonCollider2D))]
+[RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Humanoid: 
     rvinowise.unity.units.Unit
@@ -21,7 +22,7 @@ public class Humanoid:
     /* parts of the human*/
     public Arm_pair arm_pair;
     public Head head;
-    public units.parts.humanoid.Legs legs;
+    //public units.parts.humanoid.Legs legs;
     public parts.humanoid.Baggage baggage;
     
     
@@ -37,7 +38,7 @@ public class Humanoid:
     public Action current_action { set; get; }
 
     public void on_lacking_action() {
-        
+        Idle.create(this).start_as_root(action_runner);
     }
 
     private Action_runner action_runner;

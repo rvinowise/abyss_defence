@@ -47,10 +47,9 @@ public class Haymaker_with_creeping_leg: Action_sequential_parent {
         );
 
     }
-    
 
-    public override void init_actors() {
-        base.init_actors();
+
+    protected override void on_start_execution() {
         leg_group.ensure_leg_raised(attacking_leg);
     }
 

@@ -15,10 +15,10 @@ public abstract class Moving_strategy {
     }
 
     public void raise_up(ILeg leg) {
-        Contract.Requires(!leg.is_up);
+        Contract.Requires(!leg.is_up());
         
         leg.raise_up();
-        creeping_legs_group.possible_impulse -= leg.provided_impulse;
+        creeping_legs_group.possible_impulse -= leg.get_provided_impulse();
     }
 
     //internal abstract void move_legs();

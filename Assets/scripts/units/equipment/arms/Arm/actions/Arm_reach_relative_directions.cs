@@ -39,7 +39,7 @@ public class Arm_reach_relative_directions: Action_leaf {
         return action;
     }
 
-    public override void init_actors() {
+    protected override void on_start_execution() {
         arm.shoulder.set_target_direction_relative_to_parent(
             shoulder_rotation
         );
@@ -54,7 +54,7 @@ public class Arm_reach_relative_directions: Action_leaf {
         );
     }
 
-    public override void restore_state() {
+    protected override void restore_state() {
         base.restore_state();
         arm.shoulder.target_direction_relative = false;
         arm.upper_arm.target_direction_relative = false;
@@ -66,25 +66,10 @@ public class Arm_reach_relative_directions: Action_leaf {
         if (complete()) {
             mark_as_completed();
         } else {
-            set_relative_target_directions();
             arm.rotate_to_desired_directions();
         }
     }
     
-    private void set_relative_target_directions() {
-        /* arm.shoulder.target_rotation =
-            shoulder_rotation;
-        
-        arm.upper_arm.set_target_direction_relative_to_parent(
-            upper_arm_rotation
-        );
-        arm.forearm.set_target_direction_relative_to_parent(
-            forearm_rotation
-        );
-        arm.hand.set_target_direction_relative_to_parent(
-            hand_rotation
-        ); */
-    }
 
     protected bool complete() {
         return arm.at_desired_rotation();

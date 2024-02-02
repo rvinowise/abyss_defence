@@ -11,16 +11,9 @@ public class Human_intelligence:Intelligence {
     public int current_equipped_set;
     protected override void Awake() {
         base.Awake();
-        if (arm_pair == null) {
-            arm_pair = GetComponent<parts.limbs.arms.humanoid.Arm_pair>();
-        }
+        
         user = GetComponent<Humanoid>();
     }
 
-    /*#region IAction 
-    public override void on_lacking_action() {
-        
-    }
-    #endregion*/
 }
 }

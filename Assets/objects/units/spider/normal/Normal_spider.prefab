@@ -112,8 +112,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 0
   sprite_renderer: {fileID: 8683286996090032275}
-  direction_adjustor: {fileID: 0}
   length: 0
+  parent_segment: {fileID: 0}
 --- !u!114 &4281413158074388195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,8 +252,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 0
   sprite_renderer: {fileID: 3149170231365449608}
-  direction_adjustor: {fileID: 0}
   length: 0
+  parent_segment: {fileID: 0}
 --- !u!114 &9039654963807440794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,6 +327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segment1: {fileID: 745362288262890748}
   segment2: {fileID: 7781236747278937426}
+  folding_side: 0
   _provided_impulse: 0.2
   _optimal_relative_position_standing_transform: {fileID: 8194206711336029459}
   _comfortable_distance: 0.3
@@ -503,8 +504,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 0
   sprite_renderer: {fileID: 2143267886778665773}
-  direction_adjustor: {fileID: 0}
   length: 0
+  parent_segment: {fileID: 0}
 --- !u!114 &7613622181227271091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -767,9 +768,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4fc3d2ae5a1871458a79adcd59ac8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  children_need_mirroring: 1
   divisible_body: {fileID: 3088679199685062585}
-  stable_leg_groups: []
+  stable_leg_groups:
+  - legs:
+    - {fileID: 1274625990874360518}
+    - {fileID: 1483378316983357115}
+  - legs:
+    - {fileID: 7869419028802016662}
+    - {fileID: 3977279490377477246}
   _legs:
   - {fileID: 7869419028802016662}
   - {fileID: 1274625990874360518}
@@ -944,8 +950,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 0
   sprite_renderer: {fileID: 8322529519423482827}
-  direction_adjustor: {fileID: 0}
   length: 0
+  parent_segment: {fileID: 0}
 --- !u!114 &5604402299150422642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1019,6 +1025,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segment1: {fileID: 421413179205264740}
   segment2: {fileID: 4853429019253691326}
+  folding_side: 0
   _provided_impulse: 0.2
   _optimal_relative_position_standing_transform: {fileID: 7843778805331638724}
   _comfortable_distance: 0.3
@@ -1135,8 +1142,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 0
   sprite_renderer: {fileID: 8737437336684714825}
-  direction_adjustor: {fileID: 0}
   length: 0
+  parent_segment: {fileID: 0}
 --- !u!114 &2428078718038133334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1210,6 +1217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segment1: {fileID: 6843796211803082518}
   segment2: {fileID: 4328912044105502876}
+  folding_side: 0
   _provided_impulse: 0.2
   _optimal_relative_position_standing_transform: {fileID: 7744180454356118101}
   _comfortable_distance: 0.3
@@ -1326,8 +1334,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 0
   sprite_renderer: {fileID: 6433221287748329462}
-  direction_adjustor: {fileID: 0}
   length: 0
+  parent_segment: {fileID: 0}
 --- !u!114 &1851034943900387670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1496,8 +1504,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 0
   sprite_renderer: {fileID: 1999425340289301297}
-  direction_adjustor: {fileID: 0}
   length: 0
+  parent_segment: {fileID: 0}
 --- !u!114 &7789057627449550373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1571,6 +1579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segment1: {fileID: 6161225410240653369}
   segment2: {fileID: 8745238475079165993}
+  folding_side: 0
   _provided_impulse: 0.2
   _optimal_relative_position_standing_transform: {fileID: 1231158805073788073}
   _comfortable_distance: 0.3
@@ -1747,8 +1756,8 @@ MonoBehaviour:
   turning_parent: {fileID: 0}
   ignore_parent: 0
   sprite_renderer: {fileID: 3374699277667468657}
-  direction_adjustor: {fileID: 0}
   length: 0
+  parent_segment: {fileID: 0}
 --- !u!114 &848351730249787363
 MonoBehaviour:
   m_ObjectHideFlags: 0

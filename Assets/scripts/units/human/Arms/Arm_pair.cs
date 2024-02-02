@@ -12,7 +12,6 @@ using rvinowise.unity.units.parts.tools;
 using rvinowise.unity.units.parts.transport;
 using rvinowise.unity.units.parts.weapons.guns;
 using Action = rvinowise.unity.units.parts.actions.Action;
-using rvinowise.unity.units.humanoid;
 using rvinowise.unity.units.control;
 using rvinowise.unity.extensions.attributes;
 using System;

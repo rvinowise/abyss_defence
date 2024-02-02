@@ -25,19 +25,16 @@ public class Move_hand_into_bag: Action_of_arm {
     public Move_hand_into_bag() {
         
     }
-    
 
-    public override void init_actors() {
-        base.init_actors();
-        
+
+    protected override void on_start_execution() {
         arm.shoulder_mirrored_target_direction = 45f;
 
         slow_movements(arm);
     }
 
-    public override void restore_state() {
+    protected override void restore_state() {
         restore_movements(arm);
-        base.restore_state();
     }
 
     private void slow_movements(Arm arm) {
@@ -74,7 +71,7 @@ public class Move_hand_into_bag: Action_of_arm {
         );
     }
 
-    protected bool complete(Orientation desired_orientation) {
+    private bool complete(Orientation desired_orientation) {
         if (
             arm.hand.position.close_enough_to(desired_orientation.position) /*&&
             arm.hand.rotation.abs_degrees_to(desired_orientation.rotation) < bag.entering_span*/

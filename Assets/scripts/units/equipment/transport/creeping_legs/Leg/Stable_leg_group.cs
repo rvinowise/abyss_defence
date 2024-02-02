@@ -23,7 +23,7 @@ public class Stable_leg_group {
     
     public bool all_down() {
         foreach(ALeg leg in legs) {
-            if (leg.is_up) {
+            if (leg.is_up()) {
                 return false;
             }
         }

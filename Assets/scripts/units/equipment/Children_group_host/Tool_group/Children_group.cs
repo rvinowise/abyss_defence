@@ -30,10 +30,8 @@ public abstract class Children_group:
     }
 
     public void hide_children_from_copying() {
-        children_stashed_from_copying = children.Where(leg => leg != null) as IEnumerable<IChild_of_group> ;
-        init_child_list();
+        children_stashed_from_copying = children.Where(leg => leg != null);
     }
-    protected abstract void init_child_list();
     
 
 
@@ -101,11 +99,6 @@ public abstract class Children_group:
 
     
 
-    
-
-    public virtual void on_draw_gizmos() {
-    
-    }
     
 }
 

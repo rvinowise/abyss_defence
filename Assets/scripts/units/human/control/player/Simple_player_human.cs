@@ -1,7 +1,7 @@
 using rvinowise.unity.ui.input;
 using rvinowise.unity.units.parts.limbs.arms.actions;
 using UnityEngine;
-using Action = rvinowise.unity.units.parts.actions.Action;
+
 
 namespace rvinowise.unity.units.control.human {
 public class Simple_player_human: Player_human {
@@ -61,25 +61,8 @@ public class Simple_player_human: Player_human {
         }
 
     }
-
-    private void reload_all() {
-        
-    }
-
-    /*public void on_first_tool_reloaded() {
-        if (wants_to_shoot) {
-            arm_pair.equip_tool_set(current_equipped_set);
-        }
-        else {
-            reload_second_tool();
-        }
-    }*/
     
     
-        
-    private void reload_second_tool() {
-        
-    }
     
     protected virtual void attack() {
         if (get_selected_target() is Transform target) {
@@ -90,20 +73,7 @@ public class Simple_player_human: Player_human {
         }
         
     }
-
-    public override void start_actions(Action action) {
-        Idle_vigilant_only_arm.create(
-            arm_pair.left_arm,
-            Player_input.instance.cursor.transform,
-            transporter
-        ).start_as_root(action_runner);
-        
-        Idle_vigilant_only_arm.create(
-            arm_pair.right_arm,
-            Player_input.instance.cursor.transform,
-            transporter
-        ).start_as_root(action_runner);
-    }
+    
     
 }
 }

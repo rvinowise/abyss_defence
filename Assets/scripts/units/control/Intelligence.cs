@@ -19,9 +19,16 @@ public abstract class Intelligence :
 {
 
     public Baggage baggage;
+    
     public ISensory_organ sensory_organ;
-    public ITransporter transporter { get; set; }
-    public IWeaponry weaponry { get; set; }
+    public GameObject sensory_organ_object;
+    
+    public ITransporter transporter;
+    public GameObject transporter_object;
+    
+    public IWeaponry weaponry;
+    public GameObject weaponry_object;
+    
     public float last_rotation;
 
     public Team team;
@@ -30,9 +37,9 @@ public abstract class Intelligence :
 
 
     protected virtual void Awake() {
-        sensory_organ = GetComponent<ISensory_organ>();
-        transporter = GetComponent<ITransporter>();
-        weaponry = GetComponent<IWeaponry>();
+        sensory_organ = sensory_organ_object.GetComponent<ISensory_organ>();
+        transporter = transporter_object.GetComponent<ITransporter>();
+        weaponry = weaponry_object.GetComponent<IWeaponry>();
         Contract.Requires(
             GetComponentsInChildren<Baggage>().Length <= 1, "which baggage should the Intelligence use?"
         );
@@ -87,19 +94,6 @@ public abstract class Intelligence :
         
     }
     
-    public virtual void on_root_action_finished() {
-        
-    }
-
-    public virtual void start_actions(Action in_action) {
-        action_runner.mark_action_as_finishing(in_action);
-    }
-
-    /*#region IActor
-    public Action current_action { get; set; }
-    public abstract void on_lacking_action();
-
-    #endregion*/
 
 
     public void add_action(Action action) {

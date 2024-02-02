@@ -43,7 +43,7 @@ public class Play_body_animation : Action_sequential_parent {
         base.on_child_completed(in_sender_child);
     }
 
-    public override void restore_state() {
+    protected override void restore_state() {
         base.restore_state();
         adjust_desired_positions();
     }

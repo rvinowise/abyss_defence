@@ -38,16 +38,10 @@ public class Equip_toolset: Action_parallel_parent {
         return action;
     }
 
-    public override void init_children() {
-        base.init_children();
+    protected override void on_start_execution() {
         stop_changing_tools();
         start_equipping_tool_set(toolset);
     }
-
-
-    public override void restore_state() {
-    }
-
     
 
 

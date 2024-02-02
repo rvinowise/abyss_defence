@@ -23,15 +23,14 @@ public class Move_towards_target: Action_leaf {
         action.target = in_target;
         action.transporter = in_transporter;
         action.needed_distance = needed_distance;
-        //action.actor = in_transporter;
+        action.add_actor(in_transporter);
         return action;
     }
     public Move_towards_target() {
         
     }
 
-    public override void init_actors() {
-        base.init_actors();
+    protected override void on_start_execution() {
         transform = transporter.gameObject.transform;
     }
 

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using rvinowise.contracts;
-using rvinowise.debug;
 using UnityEngine;
 
 
@@ -9,7 +8,8 @@ namespace rvinowise.unity.units.parts.actions {
 
 public class Action_sequential_parent :
     Action,
-    IAction_parent {
+    IAction_parent 
+{
 
     public Queue<Action> queued_child_actions = new Queue<Action>();
 
@@ -93,10 +93,7 @@ public class Action_sequential_parent :
     }
     
     
-    public override void finish() {
-        current_child_action.finish();
-        base.finish();
-    }
+
     
     
     
@@ -113,24 +110,20 @@ public class Action_sequential_parent :
         }
         queued_child_actions.Clear();
     }
-    
-    
 
+
+    public override void start_execution_recursive() {
+        on_start_execution();
+        if (current_child_action==null)
+            Debug.LogError($"current_child_action of sequentlal_action [{this.marker}] is null");
+        current_child_action.start_execution_recursive();
+    }
     
     public override void restore_state_recursive() {
         current_child_action.restore_state_recursive();
         restore_state();
     }
-    public override void init_state_recursive() {
-        init_actors();
-        current_child_action.init_state_recursive();
-    }
-    public override void init_children_recursive() {
-        init_children();
-        if (current_child_action == null) 
-            Debug.LogError($"current child of action [{this.marker}] is null");
-        current_child_action.init_children_recursive();
-    }
+    
 
     public override void reset_recursive() {
         current_child_action.reset_recursive();
@@ -147,8 +140,8 @@ public class Action_sequential_parent :
         current_child_action.seize_needed_actors_recursive();
     }
     
-    public override void notify_actors_about_finishing() {
-        current_child_action.notify_actors_about_finishing();
+    public override void notify_actors_about_finishing_recursive() {
+        current_child_action.notify_actors_about_finishing_recursive();
     }
     
 }

@@ -61,9 +61,8 @@ public class Reload_pistol: Reload_gun {
         );
 
     }
-    
-    public override void restore_state() {
-        base.restore_state();
+
+    protected override void restore_state() {
         adjust_desired_positions();
     }
 

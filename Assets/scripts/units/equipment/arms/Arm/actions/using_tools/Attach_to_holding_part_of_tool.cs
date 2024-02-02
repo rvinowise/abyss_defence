@@ -17,8 +17,7 @@ public class Attach_to_holding_part_of_tool: Action_of_arm {
         return action;
     }
 
-    public override void init_actors() {
-        base.init_actors();
+    protected override void on_start_execution() {
         arm.hand.gesture = Hand_gesture.Support_of_horizontal;
     }
 

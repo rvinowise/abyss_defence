@@ -31,7 +31,7 @@ public class Limb2_reach_relative_directions: Action_leaf {
         return action;
     }
 
-    public override void init_actors() {
+    protected override void on_start_execution() {
         
         limb.segment1.set_target_direction_relative_to_parent(
             femur_rotation
@@ -42,8 +42,7 @@ public class Limb2_reach_relative_directions: Action_leaf {
         
     }
 
-    public override void restore_state() {
-        base.restore_state();
+    protected override void restore_state() {
         limb.segment1.target_direction_relative = false;
         limb.segment2.target_direction_relative = false;
     }

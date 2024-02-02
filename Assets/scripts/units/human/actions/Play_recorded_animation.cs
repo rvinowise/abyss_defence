@@ -32,7 +32,7 @@ public class Play_recorded_animation: Action_leaf {
         return action;
     }
 
-    public override void init_actors() {
+    protected override void on_start_execution() {
         flippable_actor?.flip_for_animation(flipped);
 
         animator.enabled = true;
@@ -48,12 +48,6 @@ public class Play_recorded_animation: Action_leaf {
 
  
 
-    public override void restore_state() {
-        //animator.enabled = false;
-        // if (flipped) {
-        //     flippable_actor.restore_after_flipping();
-        // }
-    }
     
 }
 }

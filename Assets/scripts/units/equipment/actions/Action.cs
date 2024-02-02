@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using rvinowise.debug;
+﻿using System.Collections.Generic;
 using rvinowise.contracts;
 using UnityEngine;
 
@@ -10,16 +7,16 @@ namespace rvinowise.unity.units.parts.actions {
 
 public abstract partial class Action
 {
-    public Action parent_action;
+    private Action parent_action;
 
-    protected Action root_action;
+    private Action root_action;
 
-    public bool completed { protected set; get; }
+    public bool completed { private set; get; }
     private bool is_free_in_pool;
     private System.Action<Action> on_finished;
-    public Action_runner runner;
+    protected Action_runner runner;
 
-    protected List<Action> superceded_actions = new List<Action>();
+    private readonly List<Action> superceded_actions = new List<Action>();
     
 
     
@@ -29,12 +26,7 @@ public abstract partial class Action
 
     public string marker = "";
 
-    public string get_marker() {
-        return marker;
-    }
-
-    
-    public Action() {
+    protected Action() {
         root_action = this;
     }
 
@@ -43,18 +35,10 @@ public abstract partial class Action
         marker = in_marker;
         return this;
     }
+
+
+    protected virtual void on_start_execution() {}
     
-
-    
-
-
-
-    public virtual void init_children() {
-        
-    }
-    public virtual void init_actors() {
-        
-    }
 
     
 
@@ -97,7 +81,7 @@ public abstract partial class Action
         root_action.superceded_as_root = true;
     }
  
-    protected virtual void mark_as_completed() {
+    protected void mark_as_completed() {
         if (completed) {
             return;
         }
@@ -129,46 +113,29 @@ public abstract partial class Action
     
     
 
-    
-
-
-
     public void discard_whole_tree() {
         runner.mark_action_as_finishing(root_action);
     }
 
 
-
-
-
-
-    public virtual void restore_state() {
-        Log.info(String.Format("{0}: restore_state", GetType()));
-    }
-
     public virtual void restore_state_recursive() {
         restore_state();
     }
-    
-    public virtual void init_state_recursive() {
-        init_actors();
+
+    public virtual void start_execution_recursive() {
+        on_start_execution();
     }
 
-    public virtual void init_children_recursive() {
-        init_children();
-    }
-
+   
     public virtual void reset_recursive() {
         reset();
     }
-    
-    public virtual void finish() {
-        restore_state();
-        reset();
-    }
 
+    public virtual void free_actors_recursive() { }
+    public virtual void notify_actors_about_finishing_recursive() { }
+    public virtual void seize_needed_actors_recursive() { }
 
-    
+    protected virtual void restore_state() { }
 
 
     public Action get_root_action() {
@@ -195,19 +162,13 @@ public abstract partial class Action
 
     public bool is_reset {
         get {
-            return (
-                    (parent_action == null) &&
-                    (completed == false) &&
-                    (is_free_in_pool == true)
-                );
+            return parent_action == null &&
+                   completed == false &&
+                   is_free_in_pool;
         }
     }
 
-    public abstract void free_actors_recursive();
-
-    public abstract void seize_needed_actors_recursive();
-
-    public abstract void notify_actors_about_finishing();
+    
 
 
 }

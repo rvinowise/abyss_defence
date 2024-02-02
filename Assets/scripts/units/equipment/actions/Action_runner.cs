@@ -53,25 +53,23 @@ public class Action_runner {
     public void start_root_action(Action action) {
         current_actions.Add(action);
         
-        action.init_children_recursive();
         action.set_root_action(action);
-        action.init_state_recursive();
+        action.start_execution_recursive();
         action.seize_needed_actors_recursive();
         if (finishing_actions.Any()) {
-            finish_actions(); // superceded by started
+            finish_actions(); // superceded by the started actions
         }
         start_fallback_actions();
     }
+    private void start_action(Action action) {
+        action.start_execution_recursive();
+        action.seize_needed_actors_recursive();
+    }
 
-    public void finish_action(Action action) {
+    private void finish_action(Action action) {
         action.restore_state_recursive();
         action.free_actors_recursive();
         action.reset_recursive();
-    }
-    private void start_action(Action action) {
-        action.init_children_recursive();
-        action.init_state_recursive();
-        action.seize_needed_actors_recursive();
     }
 
     private void supercede_actions_which_use_same_actors() {

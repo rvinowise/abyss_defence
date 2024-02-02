@@ -18,18 +18,14 @@ public class Put_hand_before_bag: Action_of_arm {
         
         action.arm = in_arm;
         action.bag = in_bag;
-        //action.init(in_bag);
         return action;
     }
-
     
-
     public Put_hand_before_bag() {
         
     }
 
-    public override void init_actors() {
-        base.init_actors();
+    protected override void on_start_execution() {
 
         arm.shoulder_mirrored_target_direction = 60f;
 
@@ -57,7 +53,7 @@ public class Put_hand_before_bag: Action_of_arm {
         );
     }
 
-    protected bool is_reached_goal(Orientation desired_orientation) {
+    private bool is_reached_goal(Orientation desired_orientation) {
         if (
             arm.hand.position.close_enough_to(desired_orientation.position) &&
             arm.hand.rotation.abs_degrees_to(desired_orientation.rotation) < bag.entering_span
