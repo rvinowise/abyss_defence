@@ -177,10 +177,8 @@ MonoBehaviour:
     max:
       degrees: 0
     goes_through_switching_degrees: 0
-  rotation_speed: 60
   rotation_acceleration: 550
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
@@ -317,8 +315,8 @@ MonoBehaviour:
   - {fileID: 195495332085181066}
   - {fileID: 1479235099447554831}
   m_Bounds:
-    m_Center: {x: -0.0010469556, y: -0.0002578199, z: 0}
-    m_Extent: {x: 0.13171104, y: 0.3650267, z: 0}
+    m_Center: {x: -0.0010470152, y: -0.0002578199, z: 0}
+    m_Extent: {x: 0.13171104, y: 0.36502674, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &1910865361933189089
@@ -405,10 +403,8 @@ MonoBehaviour:
     max:
       degrees: 125.08
     goes_through_switching_degrees: 0
-  rotation_speed: 0
   rotation_acceleration: 1200
   rotation_slowing: 1200
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
@@ -468,10 +464,8 @@ MonoBehaviour:
     max:
       degrees: -136.36
     goes_through_switching_degrees: 0
-  rotation_speed: 0
   rotation_acceleration: 1200
   rotation_slowing: 1200
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
@@ -576,10 +570,8 @@ MonoBehaviour:
     max:
       degrees: 136.36
     goes_through_switching_degrees: 0
-  rotation_speed: 0
   rotation_acceleration: 1200
   rotation_slowing: 1200
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
@@ -717,8 +709,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 1077999285500026986}
   m_Bounds:
-    m_Center: {x: -1.9571321, y: -0.8284899, z: 0.01}
-    m_Extent: {x: 0.18049842, y: 0.097851664, z: 0}
+    m_Center: {x: -1.9571319, y: -0.82848996, z: 0.01}
+    m_Extent: {x: 0.18049836, y: 0.09785169, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &4047015360508724525
@@ -856,10 +848,8 @@ MonoBehaviour:
     max:
       degrees: -125.08
     goes_through_switching_degrees: 0
-  rotation_speed: 0
   rotation_acceleration: 1200
   rotation_slowing: 1200
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
@@ -1023,10 +1013,8 @@ MonoBehaviour:
     max:
       degrees: 0
     goes_through_switching_degrees: 0
-  rotation_speed: 60
   rotation_acceleration: 550
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
@@ -1266,10 +1254,8 @@ MonoBehaviour:
     max:
       degrees: 0
     goes_through_switching_degrees: 0
-  rotation_speed: 30
   rotation_acceleration: 550
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
@@ -1419,8 +1405,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 1546792823449280996}
   m_Bounds:
-    m_Center: {x: -1.9562783, y: -0.8270745, z: 0.01}
-    m_Extent: {x: 0.18209499, y: 0.09583002, z: 0}
+    m_Center: {x: -1.9562786, y: -0.8270746, z: 0.01}
+    m_Extent: {x: 0.18209505, y: 0.09583002, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &6285418931264465992
@@ -1473,10 +1459,8 @@ MonoBehaviour:
     max:
       degrees: -49.95
     goes_through_switching_degrees: 0
-  rotation_speed: 0
   rotation_acceleration: 900
   rotation_slowing: 900
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
@@ -1580,10 +1564,8 @@ MonoBehaviour:
     max:
       degrees: 49.95
     goes_through_switching_degrees: 0
-  rotation_speed: 0
   rotation_acceleration: 900
   rotation_slowing: 900
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
@@ -1692,8 +1674,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 7191131228544273968}
   m_Bounds:
-    m_Center: {x: -1.9669924, y: -0.02933541, z: 0.02}
-    m_Extent: {x: 0.17430335, y: 0.06935836, z: 0}
+    m_Center: {x: -1.9669927, y: -0.029335529, z: 0.02}
+    m_Extent: {x: 0.17430341, y: 0.06935836, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &8805824347242247989
@@ -1785,7 +1767,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8872970097586043496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85728fdd23697ad4d90b1ac4435a49da, type: 3}
+  m_Script: {fileID: 11500000, guid: 3be63c3a6d4e8fb4e81a98ae562bffe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   possible_span:
@@ -1794,10 +1776,8 @@ MonoBehaviour:
     max:
       degrees: 0
     goes_through_switching_degrees: 0
-  rotation_speed: 0
   rotation_acceleration: 550
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
@@ -1811,8 +1791,6 @@ MonoBehaviour:
   - {fileID: 1037348094982816066}
   - {fileID: 8436531842214485381}
   entering_span: 30
-  left_item: 0
-  right_item: 0
 --- !u!1 &9011604641591374975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1913,7 +1891,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2589469658143589156}
   m_Bounds:
-    m_Center: {x: -1.9559965, y: -0.8294258, z: 0.02}
+    m_Center: {x: -1.955996, y: -0.82942593, z: 0.02}
     m_Extent: {x: 0.17538184, y: 0.06973413, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1

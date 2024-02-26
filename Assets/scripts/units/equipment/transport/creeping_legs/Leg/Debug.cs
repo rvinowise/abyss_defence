@@ -2,7 +2,7 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 
-namespace rvinowise.unity.units.parts.limbs.creeping_legs {
+namespace rvinowise.unity {
 
 public partial class Leg2 {
     

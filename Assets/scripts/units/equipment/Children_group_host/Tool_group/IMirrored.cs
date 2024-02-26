@@ -1,7 +1,7 @@
-using rvinowise.unity.units.parts.limbs;
 using UnityEngine;
 
-namespace rvinowise.unity.units.parts {
+namespace rvinowise.unity {
+
 public interface IMirrored {
     IMirrored create_mirrored();
 }

@@ -1,7 +1,7 @@
 
 
 
-namespace rvinowise.unity.units.parts.actions {
+namespace rvinowise.unity.actions {
 
 public static class IPerform_actions_extensions {
 

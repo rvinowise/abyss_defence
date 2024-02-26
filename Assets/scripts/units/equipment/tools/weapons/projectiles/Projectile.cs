@@ -3,7 +3,7 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 
-namespace rvinowise.unity.units.parts.weapons.guns.common {
+namespace rvinowise.unity {
 
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class Projectile : MonoBehaviour {

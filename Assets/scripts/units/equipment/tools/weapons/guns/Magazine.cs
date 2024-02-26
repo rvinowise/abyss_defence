@@ -1,10 +1,8 @@
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.tools;
-using rvinowise.unity.units.parts.weapons.guns.common;
 
-namespace rvinowise.unity.units.parts.weapons.guns {
+namespace rvinowise.unity {
 
 public class Magazine : Ammunition {
 

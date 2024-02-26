@@ -1,10 +1,8 @@
 using UnityEngine;
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.units.humanoid;
-using rvinowise.unity.units.parts.actions;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions.using_guns.reloading {
+namespace rvinowise.unity.actions {
 
 public class Reload_gun: Action_sequential_parent {
     

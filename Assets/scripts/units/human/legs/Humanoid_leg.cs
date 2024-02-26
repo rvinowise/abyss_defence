@@ -1,12 +1,10 @@
 using System;
 using rvinowise.unity.extensions;
+using rvinowise.unity.actions;
 using UnityEngine;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.limbs.creeping_legs;
-using units.human.actions;
-using Action = rvinowise.unity.units.parts.actions.Action;
+using Action = rvinowise.unity.actions.Action;
 
-namespace rvinowise.unity.units.parts {
+namespace rvinowise.unity {
 
 
 public class Humanoid_leg: 

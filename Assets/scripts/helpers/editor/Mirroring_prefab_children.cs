@@ -2,20 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-
-
+using rvinowise.unity;
 using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.helpers.graphics;
-using rvinowise.unity.units.parts;
-using rvinowise.unity.units.parts.limbs.arms;
-using rvinowise.unity.units.parts.limbs.creeping_legs;
-using rvinowise.unity.units.parts.teeth;
 using UnityEngine;
 using UnityEditor;
 
 using UnityEditor.SceneManagement;
-using Segment = rvinowise.unity.units.parts.limbs.Segment;
 
 
 [InitializeOnLoad]
@@ -57,8 +50,8 @@ internal static class Mirroring_prefab_children {
 	
 	
 	private static void mirror_arm_segment(
-		rvinowise.unity.units.parts.limbs.arms.Segment src,
-		rvinowise.unity.units.parts.limbs.arms.Segment dst
+		rvinowise.unity.Arm_segment src,
+		rvinowise.unity.Arm_segment dst
 	) {
 		mirror_segment(src,dst);
 		dst.desired_idle_rotation = Quaternion.Inverse(src.desired_idle_rotation);

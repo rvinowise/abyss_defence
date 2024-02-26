@@ -1,8 +1,7 @@
-﻿using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.tools;
+﻿using rvinowise.unity;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 public class Take_ammo_from_bag: Action_sequential_parent {
 

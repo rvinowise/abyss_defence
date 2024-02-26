@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using rvinowise.unity.extensions;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.transport;
+using rvinowise.unity;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 public class Keep_distance_from_target: Action_leaf {
 
@@ -31,13 +30,14 @@ public class Keep_distance_from_target: Action_leaf {
     }
 
     protected override void on_start_execution() {
+        base.on_start_execution();
         transform = transporter.gameObject.transform;
     }
 
     public override void update() {
         base.update();
         float distane_to_target = (target.position - transform.position).magnitude;
-        Vector2 vector_to_target = transporter.command_batch.moving_direction_vector = 
+        Vector2 vector_to_target = 
             (target.position - transform.position).normalized;
         if (distane_to_target < optimal_distance) {
             vector_to_target = -vector_to_target;
@@ -52,7 +52,7 @@ public class Keep_distance_from_target: Action_leaf {
         // } else {
         //     mark_as_has_not_reached_goal();
         // }
-        mark_as_completed();
+        //mark_as_completed();
     }
 
     private bool has_reached_target() {

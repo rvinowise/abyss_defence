@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using rvinowise.contracts;
+using rvinowise.debug;
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.actions {
+namespace rvinowise.unity.actions {
 
 public class Action_sequential_parent :
     Action,
@@ -81,6 +82,15 @@ public class Action_sequential_parent :
             Contract.Assert(runner != null);
             runner.mark_action_as_finishing(current_child_action);
             runner.mark_action_as_starting(next_child);
+            
+            if (
+                (next_child.is_reset)||
+                (next_child.parent_action == null)
+                )
+            {
+                Debug.LogError($"next_child {next_child.marker} of action {marker} is reset");
+            }
+            
             current_child_action = next_child;
         }
         else {
@@ -142,6 +152,12 @@ public class Action_sequential_parent :
     
     public override void notify_actors_about_finishing_recursive() {
         current_child_action.notify_actors_about_finishing_recursive();
+    }
+ 
+    public override string get_actors_names() {
+        if (current_child_action != null)
+            return current_child_action.get_actors_names();
+        return "NO_CHILD";
     }
     
 }

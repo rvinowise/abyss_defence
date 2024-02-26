@@ -2,18 +2,17 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.units.parts.limbs.arms;
 
 
-namespace units.equipment.parts.actions.Action {
+namespace rvinowise.unity.actions {
 
 
-public class Arm_reach_transform: rvinowise.unity.units.parts.actions.Action_leaf {
+public class Arm_reach_transform: Action_leaf {
 
     public Arm arm;
     public Transform desired_transform;
     
-    public static rvinowise.unity.units.parts.actions.Action create(
+    public static Action create(
         Arm in_arm, 
         Transform in_desired_orientation
     ) {

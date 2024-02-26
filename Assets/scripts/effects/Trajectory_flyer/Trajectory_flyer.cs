@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace rvinowise.unity.effects.physics {
+namespace rvinowise.unity {
 
 public class Trajectory_flyer: MonoBehaviour {
 

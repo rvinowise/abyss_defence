@@ -1,16 +1,13 @@
 ﻿using System.Linq;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.tools;
-using rvinowise.unity.units.control.human;
-using rvinowise.unity.units.parts.limbs.arms.humanoid;
-using rvinowise.unity.units.parts.transport;
+
+using rvinowise.unity;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 public class Equip_toolset: Action_parallel_parent {
 
-    private units.humanoid.Humanoid user;
+    private Humanoid user;
     private Arm_pair arm_pair;
     private Arm left_arm;
     private Arm right_arm;
@@ -39,6 +36,7 @@ public class Equip_toolset: Action_parallel_parent {
     }
 
     protected override void on_start_execution() {
+        base.on_start_execution();
         stop_changing_tools();
         start_equipping_tool_set(toolset);
     }

@@ -1,7 +1,7 @@
-using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.actions;
 using UnityEngine;
 
-namespace rvinowise.unity.units.parts.limbs {
+namespace rvinowise.unity {
 
     public interface ILimb:IActor {
         bool is_twisted_badly();

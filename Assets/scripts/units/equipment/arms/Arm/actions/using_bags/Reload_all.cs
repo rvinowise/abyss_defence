@@ -1,21 +1,13 @@
 ﻿using rvinowise.contracts;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.tools;
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.units.control.human;
-using rvinowise.unity.units.humanoid;
-using rvinowise.unity.units.parts.limbs.arms.actions.using_guns.reloading;
-using rvinowise.unity.units.parts.limbs.arms.humanoid;
-using rvinowise.unity.units.parts.transport;
-using rvinowise.unity.units.parts.weapons.guns;
-using Action = rvinowise.unity.units.parts.actions.Action;
+using rvinowise.unity;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 public class Reload_all: Action_sequential_parent {
 
-    private units.humanoid.Humanoid user;
+    private Humanoid user;
     private Human_intelligence intelligence;
     private Arm_pair arm_pair;
     private Arm left_arm;
@@ -47,6 +39,7 @@ public class Reload_all: Action_sequential_parent {
     }
 
     protected override void on_start_execution() {
+        base.on_start_execution();
         reload_all();
     }
     

@@ -1,9 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using units;
 
 
-namespace rvinowise.animation {
+namespace rvinowise.unity {
 public class Animation_callback_handler : StateMachineBehaviour {
     internal Action on_state_exit;
     internal int awaited_animation_name_hash;

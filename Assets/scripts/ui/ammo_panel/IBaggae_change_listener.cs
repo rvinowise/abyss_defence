@@ -1,7 +1,6 @@
-﻿using rvinowise.unity.units.parts.tools;
+﻿
 
-
-namespace rvinowise.unity.ui {
+namespace rvinowise.unity {
 public interface IBaggae_change_listener
 {
     void update_ammo(Tool in_tool, int change);

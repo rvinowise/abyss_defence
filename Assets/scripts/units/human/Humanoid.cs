@@ -1,20 +1,15 @@
 ﻿using UnityEngine;
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.head;
-using rvinowise.unity.units.parts.tools;
-using units.human.actions;
-using Action = rvinowise.unity.units.parts.actions.Action;
-using Arm_pair = rvinowise.unity.units.parts.limbs.arms.humanoid.Arm_pair;
+using rvinowise.unity.actions;
+using Action = rvinowise.unity.actions.Action;
 
-namespace rvinowise.unity.units.humanoid {
-    using global::units;
+namespace rvinowise.unity {
 
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Humanoid: 
-    rvinowise.unity.units.Unit
+    Unit
     ,IFlippable_actor
     ,IActor
 {
@@ -23,7 +18,7 @@ public class Humanoid:
     public Arm_pair arm_pair;
     public Head head;
     //public units.parts.humanoid.Legs legs;
-    public parts.humanoid.Baggage baggage;
+    public Baggage baggage;
     
     
     //private IChildren_groups_host user_of_equipment;

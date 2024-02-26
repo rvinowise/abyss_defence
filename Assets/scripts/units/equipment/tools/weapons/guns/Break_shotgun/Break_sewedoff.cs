@@ -1,4 +1,4 @@
-namespace rvinowise.unity.units.parts.weapons.guns {
+namespace rvinowise.unity {
 
 public class Break_sewedoff: Break_shotgun {
 

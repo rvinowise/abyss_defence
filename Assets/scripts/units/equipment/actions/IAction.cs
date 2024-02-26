@@ -1,4 +1,4 @@
-﻿namespace rvinowise.unity.units.parts.actions {
+﻿namespace rvinowise.unity.actions {
 
 public interface IAction {
 

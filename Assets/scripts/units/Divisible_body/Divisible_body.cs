@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.debug;
-using rvinowise.unity.units.parts.weapons.guns.common;
 using System.Threading.Tasks;
 using rvinowise.unity.extensions.pooling;
 
-namespace rvinowise.unity.units.parts {
+
+namespace rvinowise.unity {
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -16,13 +16,11 @@ public class Divisible_body : MonoBehaviour
 ,IChildren_groups_host
 {
     public Sprite inside;
+    public Sprite outside;
 
-    public bool needs_initialisation = true; //it was added in editor and created from scratch
-
-    
     /* IChildren_groups_host */
     
-    public IList<Children_group> children_groups { get; } = new List<Children_group>();
+    public IList<Children_group> children_groups { get; private set; }
 
 
     public Pooled_object pooled_prefab;
@@ -31,25 +29,50 @@ public class Divisible_body : MonoBehaviour
     public event EventHandler on_polygon_changed;
 
     void Awake() {
+        outside = gameObject.GetComponent<SpriteRenderer>().sprite;
+
+        children_groups = new List<Children_group>(GetComponents<Children_group>());
+
     }
 
-
+    private void deactivate_pieces_without_children(List<Divisible_body> pieces) {
+        foreach (var piece in pieces) {
+            bool piece_has_children = false;
+            foreach (var children_group in piece.children_groups) {
+                if (children_group.children.Any()) {
+                    piece_has_children = true;
+                    break;
+                }
+            }
+            if (!piece_has_children) {
+                var intelligence = piece.gameObject.GetComponent<Intelligence>();
+                intelligence.notify_about_destruction();
+                Destroy(piece.gameObject.GetComponent<Targetable>());
+                Destroy(intelligence);
+                foreach (var children_group in piece.gameObject.GetComponents<Children_group>()) {
+                    Destroy(children_group);
+                }
+                piece.children_groups.Clear();
+            }
+        }
+    }
+    
     public List<Divisible_body> split_for_collider_pieces(
         List<Polygon> collider_pieces
     ) {
-        Sprite body = gameObject.GetComponent<SpriteRenderer>().sprite;
 
         List<Divisible_body> piece_objects = create_objects_for_colliders(
-            collider_pieces, body, inside
+            collider_pieces, outside, inside
         );
 
         Children_splitter.split_children_groups(this, piece_objects);
 
         adjust_center_of_colliders_and_children(piece_objects, collider_pieces);
+        deactivate_pieces_without_children(piece_objects);
 
         //preserve_impulse_in_pieces(piece_objects);
         
-        if (gameObject.GetComponent<Damage_receiver>() is Damage_receiver damage_receiver) {
+        if (GetComponent<Intelligence>() is {} damage_receiver) {
             damage_receiver.notify_about_destruction();
         }
         Destroy(gameObject);
@@ -145,11 +168,11 @@ public class Divisible_body : MonoBehaviour
         } else { */
             created_part = Instantiate(
                 gameObject,
-                transform.position-transform.rotation*(polygon_shift*1.1f*transform.lossyScale.x), 
+                transform.position-transform.rotation * polygon_shift * (1.1f * transform.lossyScale.x), 
                 transform.rotation
             );
         /* } */
-        created_part.name = String.Format("{0} {1}", "Spider_", piece_counter++);
+        created_part.name = $"{name}_{piece_counter++}";
         var test = created_part.GetComponent<Divisible_body>();
         
         Divisible_body new_body = created_part.GetComponent<Divisible_body>();
@@ -163,60 +186,73 @@ public class Divisible_body : MonoBehaviour
     ) {
         GetComponent<PolygonCollider2D>().SetPath(0, polygon.points.ToArray());
         GetComponent<SpriteRenderer>().sprite = sprite;
-        GetComponent<Divisible_body>().needs_initialisation = false;
+        outside = sprite;
     }
 
 
-    private float damaging_velocity = 5f;
     void OnCollisionEnter2D(Collision2D collision) {
         
         if (collision.get_damaging_projectile() is Projectile damaging_projectile ) {
-            damage_by_projectile(damaging_projectile, collision);
+            var contact = collision.GetContact(0);
+            damaging_projectile.stop_at_position(contact.point);
+            if (collision.otherCollider.gameObject == this.gameObject) {
+                damage_by_projectile(damaging_projectile, contact);
+            }
         }
     }
 
     Task<List<Polygon>> splitting_polygon;
     private struct Received_damage {
-        public Vector3 contact_point;
-        public Vector3 impulse;
+        public readonly Vector2 contact_point;
+        public readonly Vector2 impulse;
 
         public Received_damage(
-            Vector2 _contact_point,
-            Vector2 _impulse
+            Vector2 contact_point,
+            Vector2 impulse
         ) {
-            contact_point = _contact_point;
-            impulse = _impulse;
+            this.contact_point = contact_point;
+            this.impulse = impulse;
         }
     } 
     private Received_damage last_received_damage;
-    private void damage_by_projectile(
-        Projectile projectile, Collision2D collision
+    public void damage_by_projectile(
+        Projectile projectile, ContactPoint2D contact
     ) {
-        Vector2 contact_point = collision.GetContact(0).point;
+        Vector2 contact_point = contact.point;
         Ray2D ray_of_impact = new Ray2D(
-            contact_point, collision.GetContact(0).relativeVelocity
+            contact_point, contact.relativeVelocity
         );
         
         Polygon removed_polygon = projectile.get_damaged_area(
             ray_of_impact
         );
-        projectile.stop_at_position(contact_point);
         
+        damage_by_impact(
+            removed_polygon,
+            contact_point,
+            projectile.last_physics.velocity*projectile.rigid_body.mass
+        );
+
+    }
+    
+    public void damage_by_impact(
+        Polygon removed_polygon, 
+        Vector2 contact_point,
+        Vector2 impact_vector
+    ) {
         Debug_drawer.instance.draw_polygon_debug(removed_polygon, 5f);
 
         Polygon initial_polygon = new Polygon(gameObject.GetComponent<PolygonCollider2D>().GetPath(0));
         removed_polygon = transform.InverseTransformPolygon(removed_polygon);
         
-        splitting_polygon = Task.Run(()=>{
-            return Polygon_splitter.remove_polygon_from_polygon(
-                initial_polygon,
-                removed_polygon
-            );
-        });
+        splitting_polygon = Task.Run(()=> Polygon_splitter.remove_polygon_from_polygon(
+            initial_polygon,
+            removed_polygon
+        ));
         
         last_received_damage = new Received_damage(
             contact_point,
-            projectile.last_physics.velocity
+            impact_vector
         );        
         
     }
@@ -241,12 +277,12 @@ public class Divisible_body : MonoBehaviour
     private void push_pieces_away(
         IEnumerable<Divisible_body> pieces,
         Vector2 contact_point,
-        Vector3 force
+        Vector2 force
     ) {
         foreach (var piece in pieces) {
             
-            var rigidbody = piece.GetComponent<Rigidbody2D>();
-            rigidbody.AddForce(
+            var rigid_body = piece.GetComponent<Rigidbody2D>();
+            rigid_body.AddForce(
                 calculate_push_vector(
                     piece.transform.position,
                     contact_point,
@@ -254,9 +290,9 @@ public class Divisible_body : MonoBehaviour
                 ),
                 ForceMode2D.Impulse
             );
-            rigidbody.AddTorque(
+            rigid_body.AddTorque(
                 calculate_torque(
-                    rigidbody,
+                    rigid_body,
                     contact_point,
                     force
                 ),
@@ -289,7 +325,6 @@ public class Divisible_body : MonoBehaviour
     }
     
 
-    bool polygons_calculated = false;
     void Update() {
         if (split_polygons_calculated()) {
             make_use_of_new_polygons(

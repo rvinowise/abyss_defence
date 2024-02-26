@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using Debug = rvinowise.unity.debug.Debug;
 
-namespace rvinowise.unity.units.parts.actions {
+namespace rvinowise.unity.actions {
 
 public abstract partial class Action {
     
-    public class Pool<TBase> where TBase : units.parts.actions.Action {
+    public class Pool<TBase> where TBase : Action {
         private Dictionary<System.Type, Queue<TBase>> types_to_objects = 
             new Dictionary<Type, Queue<TBase>>();
 
@@ -20,6 +20,7 @@ public abstract partial class Action {
             }
             TBase restored_action = bases.Dequeue();
             restored_action.is_free_in_pool = false;
+            restored_action.id = Guid.NewGuid();
 
             return restored_action;
         }
@@ -32,7 +33,7 @@ public abstract partial class Action {
                 Debug.Assert(parallel_parent.child_actions.Count == 0);
             }
             Debug.Assert(in_action.parent_action == null);
-            Debug.Assert(!in_action.completed);
+            Debug.Assert(!in_action.is_completed);
             return true;
         }
 

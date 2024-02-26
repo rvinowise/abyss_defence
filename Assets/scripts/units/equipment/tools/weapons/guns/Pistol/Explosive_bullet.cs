@@ -1,10 +1,9 @@
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.units.parts.weapons.guns.common;
 
 
-namespace units.equipment.tools.weapons.guns.Pistol {
+namespace rvinowise.unity {
 
 public class Explosive_bullet: Bullet {
 

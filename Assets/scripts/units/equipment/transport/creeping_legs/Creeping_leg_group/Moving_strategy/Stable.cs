@@ -3,7 +3,7 @@ using UnityEngine;
 using rvinowise.contracts;
 
 
-namespace rvinowise.unity.units.parts.limbs.creeping_legs.strategy {
+namespace rvinowise.unity {
 
 /* always keep the belly above the ground:
  best speed and control

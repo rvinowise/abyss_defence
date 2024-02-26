@@ -1,17 +1,17 @@
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.units.parts.weapons.guns;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions.idle_vigilant.main_arm {
+namespace rvinowise.unity.actions {
 
-public class Gun_with_stock: actions.Action_of_arm
+public class Gun_with_stock: Action_of_arm
 {
 
     /* parameters given by the user */
     private Transform target;
-    private transport.ITransporter transporter; // movements of arms depend on where the body is moving
+    private ITransporter transporter; // movements of arms depend on where the body is moving
+    private Transform body; // movements of arms depend on where the body is moving
     
     /* inner parameters */
     private Quaternion upper_arm_offset_turn = Quaternion.identity;
@@ -22,11 +22,13 @@ public class Gun_with_stock: actions.Action_of_arm
     
     public static Gun_with_stock create(
         Transform in_target,
-        transport.ITransporter in_transporter
+        ITransporter in_transporter,
+        Transform in_body
     ) {
         Gun_with_stock action = (Gun_with_stock)pool.get(typeof(Gun_with_stock));
         action.target = in_target;
         action.transporter = in_transporter;
+        action.body = in_body;
         return action;
     }
     
@@ -38,6 +40,7 @@ public class Gun_with_stock: actions.Action_of_arm
     private float distance_shoulder_to_wrist;
 
     protected override void on_start_execution() {
+        base.on_start_execution();
         if (arm.held_tool is Gun gun) {
             held_gun = gun;
 
@@ -67,7 +70,7 @@ public class Gun_with_stock: actions.Action_of_arm
 
         var body_wants_to_turn = new Degree(
             transporter.command_batch.face_direction_degrees -    
-            transporter.direction_quaternion.to_float_degrees()
+            body.rotation.to_float_degrees()
         ).use_minus();
         
         arm.upper_arm.target_rotation = 

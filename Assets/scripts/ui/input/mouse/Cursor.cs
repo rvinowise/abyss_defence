@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace rvinowise.unity.ui.input.mouse {
+namespace rvinowise.unity {
 
 public class Cursor: MonoBehaviour {
     private SpriteRenderer sprite_renderer;

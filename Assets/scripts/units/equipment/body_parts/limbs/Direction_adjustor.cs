@@ -1,11 +1,10 @@
 
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.limbs;
 using UnityEngine;
 
 
 /* placed in a gameObject of the Image, which is a child of the Segment */
-namespace rvinowise.unity.helpers.graphics {
+namespace rvinowise.unity {
 
     [RequireComponent(typeof(SpriteRenderer))]
     public class Direction_adjustor: MonoBehaviour {

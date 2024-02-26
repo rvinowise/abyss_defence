@@ -1,23 +1,13 @@
 ﻿using UnityEngine;
 
-using rvinowise.unity.units.parts.weapons.guns.common;
-using rvinowise.unity.effects.persistent_residue;
 using rvinowise.unity.extensions;
 
-namespace rvinowise.unity.obstacles {
+namespace rvinowise.unity {
 public class Wall : MonoBehaviour
 {
     public Persistent_residue_sprite_holder residue_holder;
 
-    void Start()
-    {
-        
-    }
 
-    void Update()
-    {
-        
-    }
 
     /* void OnCollisionEnter2DChild (Collision2D collision) {
         if (collision.get_damaging_projectile() is Projectile projectile) {

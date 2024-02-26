@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using rvinowise.unity.extensions;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.transport;
+using rvinowise.unity;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 public class Move_towards_target: Action_leaf {
 
@@ -31,6 +30,7 @@ public class Move_towards_target: Action_leaf {
     }
 
     protected override void on_start_execution() {
+        base.on_start_execution();
         transform = transporter.gameObject.transform;
     }
 
@@ -42,6 +42,8 @@ public class Move_towards_target: Action_leaf {
         
         transporter.command_batch.face_direction_quaternion =
             transform.quaternion_to(target.position);
+
+        transporter.command_batch.set_target_position(target.position);
         
         if (has_reached_target()) {
             mark_as_completed();

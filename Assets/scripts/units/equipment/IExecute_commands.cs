@@ -1,4 +1,4 @@
-namespace rvinowise.unity.units.parts {
+namespace rvinowise.unity {
 
 public interface IExecute_commands {
 

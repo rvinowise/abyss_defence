@@ -1,12 +1,14 @@
 
 
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using rvinowise.contracts;
+using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.actions {
+namespace rvinowise.unity.actions {
 
 public class Action_runner {
     private readonly List<IActor> actors = new List<IActor>();
@@ -22,12 +24,30 @@ public class Action_runner {
     public void mark_action_as_finishing(Action action) {
               
         finishing_actions.Add(action);
+        
+        var finishing_actions_debug = new List<string>();
+        foreach (var finishing_action in finishing_actions) {
+            finishing_actions_debug.Add(finishing_action.get_explanation());
+        }
+        Debug.Log($"mark_action_as_finishing: {action.get_explanation()}\n"+
+            "finishing_actions=\n"+
+            $"{String.Join(";\n", finishing_actions_debug)}"
+        );
     }
     public void mark_action_as_starting(Action action) {
         Contract.Assert(!starting_actions.Contains(action), 
             "action is marked twice!"
-        );        
+        );
         starting_actions.Add(action);
+
+        var starting_actions_debug = new List<string>();
+        foreach (var starting_action in starting_actions) {
+            starting_actions_debug.Add(starting_action.get_explanation());
+        }
+        Debug.Log($"mark_action_as_starting: {action.get_explanation()}\n"+
+            "starting_actions="+
+            $"{String.Join("\n;", starting_actions_debug)}"
+        );
     }
     public void add_actor(IActor actor) {
         actors.Add(actor);
@@ -36,12 +56,15 @@ public class Action_runner {
     
     public void update() {
         if (finishing_actions.Any()) {
+            Debug.Log("Action_runner.update, first finish_actions");
             finish_actions(); // sequences & roots
-            if (starting_actions.Any()) {
-                start_actions(); // sequences
-                if (finishing_actions.Any()) {
-                    finish_actions(); // superceded by started
-                }
+        }
+        if (starting_actions.Any()) {
+            Debug.Log("Action_runner.update, start_actions");
+            start_actions(); // sequences
+            if (finishing_actions.Any()) {
+                Debug.Log("Action_runner.update, second finish_actions");
+                finish_actions(); // superceded by started
             }
         }
         start_fallback_actions();
@@ -50,23 +73,24 @@ public class Action_runner {
         }
     }
 
-    public void start_root_action(Action action) {
-        current_actions.Add(action);
-        
-        action.set_root_action(action);
-        action.start_execution_recursive();
-        action.seize_needed_actors_recursive();
-        if (finishing_actions.Any()) {
-            finish_actions(); // superceded by the started actions
-        }
-        start_fallback_actions();
+    public void prepare_root_action_for_start(Action action) {
+        Debug.Log($"ActionRunner.prepare_root_action_for_start {action.get_explanation()}");
+        starting_actions.Add(action);
     }
     private void start_action(Action action) {
+        Debug.Log($"ActionRunner.start_action {action.get_explanation()}");
+        if (action.parent_action == null) {
+            current_actions.Add(action);
+            action.set_root_action(action);
+            Debug.Log($"action {action.get_explanation()} is registered as a root action");
+        }
+        
         action.start_execution_recursive();
         action.seize_needed_actors_recursive();
     }
 
     private void finish_action(Action action) {
+        Debug.Log($"ActionRunner.finish_action {action.get_explanation()}");
         action.restore_state_recursive();
         action.free_actors_recursive();
         action.reset_recursive();
@@ -82,10 +106,15 @@ public class Action_runner {
     }
     
     private void finish_actions() {
-        foreach (Action completed_action in finishing_actions) {
-            finish_action(completed_action);
+        foreach (Action finished_action in finishing_actions) {
+            if (finished_action.is_completed) {
+                finished_action.on_completed?.Invoke(finished_action);
+                finished_action.on_completed_without_parameter?.Invoke();
+            }
+            finish_action(finished_action);
         }
         current_actions.RemoveAll(action => action.is_reset);
+        starting_actions.RemoveAll(action => action.is_reset);
         finishing_actions.Clear();
     }
     private void start_actions() {
@@ -103,8 +132,10 @@ public class Action_runner {
             }
         } 
     }
-    
-    
+
+    private void notify_intelligence_about_finished_actions() {
+        
+    }
     
     public void on_root_action_completed(Action in_action) {
         finishing_actions.Add(in_action);

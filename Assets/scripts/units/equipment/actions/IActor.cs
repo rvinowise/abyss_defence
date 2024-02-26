@@ -3,15 +3,17 @@
 
 using UnityEngine;
 
-namespace rvinowise.unity.units.parts.actions {
+namespace rvinowise.unity.actions {
 
-public interface IActor {
+public interface IActor: 
+    IRunning_actions
+
+{
 
     Action current_action { set; get; }
 
     void on_lacking_action();
     
     GameObject gameObject { get; }
-    void init_for_runner(Action_runner action_runner);
 }
 }

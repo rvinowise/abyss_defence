@@ -1,9 +1,19 @@
-﻿using UnityEngine;
-using rvinowise.unity.units.parts.actions;
+﻿using rvinowise.unity.actions;
+using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.transport {
-    
+namespace rvinowise.unity {
+
+public static class Physics_consts {
+    public const float rigidbody_impulse_multiplier = 1f;
+}
+
+}
+
+namespace rvinowise.unity {
+
+
+
 /* provides information about possible speed and rotation for a moving Unit */
 
 public interface ITransporter:
@@ -14,10 +24,10 @@ public interface ITransporter:
     float possible_rotation { get; set; }
     float possible_impulse { get; set; }
     
-    Quaternion direction_quaternion { get; }
+    Transporter_commands command_batch { get; }
 
-    transport.Transporter_commands command_batch { get; }
-    
+    // public void set_desired_face_rotation(Quaternion in_rotation);
+    // public void set_desired_position(Vector2 in_position);
 }
 
 }

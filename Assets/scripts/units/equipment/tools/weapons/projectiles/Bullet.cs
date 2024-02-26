@@ -1,4 +1,4 @@
-namespace rvinowise.unity.units.parts.weapons.guns.common {
+namespace rvinowise.unity {
 
 public abstract class Bullet : Bouncing_projectile {
     

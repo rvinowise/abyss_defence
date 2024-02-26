@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using rvinowise.unity.geometry2d;
 
-namespace rvinowise.unity.units.parts.weapons.thorny_mine {
+namespace rvinowise.unity {
 
 [RequireComponent(typeof(Pooled_object))]
 public class Thorny_mine: MonoBehaviour {

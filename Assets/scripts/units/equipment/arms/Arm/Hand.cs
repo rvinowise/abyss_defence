@@ -1,12 +1,12 @@
 using UnityEngine;
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.units.parts.tools;
 using rvinowise.contracts;
 
-namespace rvinowise.unity.units.parts.limbs.arms {
+
+namespace rvinowise.unity {
 
 [RequireComponent(typeof(Animator))]
-public class Hand:Segment
+public class Hand:Arm_segment
 {
 
     
@@ -51,7 +51,7 @@ public class Hand:Segment
 
     protected void Start() {
         //base.Start();
-        parent_segment = transform.parent?.GetComponent<Segment>();
+        parent_segment = transform.parent?.GetComponent<Arm_segment>();
 
         if (held_part != null) {
             attach_holding_part(held_part);

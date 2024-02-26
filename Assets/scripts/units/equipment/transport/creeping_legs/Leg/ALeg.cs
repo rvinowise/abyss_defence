@@ -1,7 +1,7 @@
-using rvinowise.unity.units.parts.limbs.arms.actions;
+using rvinowise.unity.actions;
 using UnityEngine;
 
-namespace rvinowise.unity.units.parts.limbs.creeping_legs {
+namespace rvinowise.unity {
 
 /* ILeg could substitute this class, but ALeg is needed for the inspector's serialization.
 It uses composition instead of inheritance */
@@ -56,6 +56,10 @@ public abstract class ALeg :
 
     public override void on_lacking_action() {
         Creeping_leg_partakes_in_moving.create(this).start_as_root(action_runner);
+    }
+
+    public virtual void Awake() {
+        Init_segmented_limbs.init_segmented_limbs(this.gameObject);
     }
 
 

@@ -4,7 +4,7 @@ using rvinowise.unity.extensions;
 using UnityEngine.Experimental.U2D.Animation;
 using System.Linq;
 
-namespace rvinowise.unity.effects.persistent_residue {
+namespace rvinowise.unity {
 
 public class Leaving_persistent_sprite_residue: 
 MonoBehaviour

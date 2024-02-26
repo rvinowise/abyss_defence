@@ -1,9 +1,8 @@
 using UnityEngine;
 using rvinowise.unity.extensions;
-using Player_input = rvinowise.unity.ui.input.Player_input;
 
 
-namespace rvinowise.unity.units.control.spider {
+namespace rvinowise.unity {
 
 public class Player_spider: Intelligence {
 

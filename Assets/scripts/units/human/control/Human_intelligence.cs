@@ -1,12 +1,11 @@
-using rvinowise.unity.units.humanoid;
 
 
-namespace rvinowise.unity.units.control.human {
+namespace rvinowise.unity {
 
 public class Human_intelligence:Intelligence {
 
     public Humanoid user;
-    public parts.limbs.arms.humanoid.Arm_pair arm_pair;
+    public Arm_pair arm_pair;
 
     public int current_equipped_set;
     protected override void Awake() {

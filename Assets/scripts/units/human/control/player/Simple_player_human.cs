@@ -1,9 +1,8 @@
-using rvinowise.unity.ui.input;
-using rvinowise.unity.units.parts.limbs.arms.actions;
+using rvinowise.unity.actions;
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.control.human {
+namespace rvinowise.unity {
 public class Simple_player_human: Player_human {
 
     
@@ -18,6 +17,7 @@ public class Simple_player_human: Player_human {
         }
         int desired_tool_set = determine_current_selected_set(wheel_steps);
         if (desired_tool_set != current_equipped_set) {
+            Debug.Log($"Mouse wheel is triggered, {wheel_steps} steps");
             equip_tool_set(desired_tool_set);
         }
     }
@@ -31,14 +31,6 @@ public class Simple_player_human: Player_human {
         return desired_current_equipped_set;
     }
 
-    private bool wants_to_shoot;
-    protected override void Update()
-    {
-        base.Update();
-        if (Input.GetMouseButtonDown(0)) {
-            wants_to_shoot = true;
-        }
-    }
     
     private void equip_tool_set(int set_index) {
         current_equipped_set = set_index;

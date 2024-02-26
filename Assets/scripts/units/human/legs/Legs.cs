@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
-using rvinowise.unity.units.parts.transport;
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.units.parts.actions;
-using units.human.actions;
-using Action = rvinowise.unity.units.parts.actions.Action;
+using rvinowise.unity.actions;
 
-namespace rvinowise.unity.units.parts.humanoid {
+
+namespace rvinowise.unity {
 
 public class Legs: 
     MonoBehaviour,
@@ -14,7 +12,7 @@ public class Legs:
     
     /* ITransporter interface */
 
-    public transport.Transporter_commands command_batch { get; } = new transport.Transporter_commands();
+    public Transporter_commands command_batch { get; } = new Transporter_commands();
     
     
     public void Update() {
@@ -40,17 +38,13 @@ public class Legs:
         set { _possible_impulse = value;}
     }
 
-    public Quaternion direction_quaternion {
-        get { return turning_element.rotation; }
-    }
+
 
 
     /* legs itself */
     public Rigidbody2D rigid_body;
     public Turning_element turning_element;
     public GameObject user;
-
-    private float acceleration = 0.339f * rvinowise.Settings.scale;
 
 
     public void move_in_direction(Vector2 direction) {

@@ -1,9 +1,9 @@
 using UnityEngine;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.animation;
 using rvinowise.contracts;
 
-namespace units {
+using rvinowise.unity;
+
+namespace rvinowise.unity.actions {
 
 public class Play_recorded_animation: Action_leaf {
 

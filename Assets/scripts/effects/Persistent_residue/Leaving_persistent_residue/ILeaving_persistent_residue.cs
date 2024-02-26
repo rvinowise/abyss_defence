@@ -1,4 +1,4 @@
-﻿namespace rvinowise.unity.effects.persistent_residue {
+﻿namespace rvinowise.unity {
 
 public interface ILeaving_persistent_residue {
 

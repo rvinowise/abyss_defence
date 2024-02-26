@@ -3,11 +3,12 @@ using UnityEngine;
 using rvinowise.unity.geometry2d;
 using rvinowise.contracts;
 
-namespace rvinowise.unity.units.parts {
+namespace rvinowise.unity {
+
 public static class Children_splitter {
     internal static void split_children_groups(
         IChildren_groups_host src_host_of_children,
-        IEnumerable<Divisible_body> piece_objects) 
+        List<Divisible_body> piece_objects) 
     {
         IList<IChildren_groups_host> piece_users = get_users_of_tools_from(piece_objects);
         
@@ -31,8 +32,8 @@ public static class Children_splitter {
 
     private static void distribute_children_to_pieces(
         IChildren_groups_host children_groups_host,
-        IEnumerable<Divisible_body> piece_objects) {
-
+        List<Divisible_body> piece_objects
+    ) {
         for (int i_children_group = 0;
             i_children_group < children_groups_host.children_groups.Count;
             i_children_group++) 

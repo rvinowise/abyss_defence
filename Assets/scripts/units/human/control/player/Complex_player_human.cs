@@ -1,10 +1,8 @@
 using System;
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.ui.input;
-using rvinowise.unity.units.parts.limbs.arms;
 using UnityEngine;
 
-namespace rvinowise.unity.units.control.human {
+namespace rvinowise.unity {
 public class Complex_player_human: Player_human {
     
     
@@ -62,7 +60,7 @@ public class Complex_player_human: Player_human {
     
     protected virtual void shoot() {
         if (get_selected_target() is Transform target) {
-            arm_pair.attack(target);
+            arm_pair.attack(target, null);
         } else {
             arm_pair.attack();
         }

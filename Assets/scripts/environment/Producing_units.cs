@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.extensions.attributes;
-using rvinowise.unity.units;
-using rvinowise.unity.units.control;
 
-namespace rvinowise.unity.infrastructure {
+namespace rvinowise.unity {
 public class Producing_units : MonoBehaviour
 {
 
@@ -23,10 +21,6 @@ public class Producing_units : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void Start()
-    {
-        
-    }
 
     void Update()
     {

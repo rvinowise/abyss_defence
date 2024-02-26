@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.weapons.guns {
+namespace rvinowise.unity {
 
 public abstract class Pistol: 
     Gun {

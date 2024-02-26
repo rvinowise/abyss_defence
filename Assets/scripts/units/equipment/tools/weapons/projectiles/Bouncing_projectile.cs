@@ -1,12 +1,8 @@
 ﻿using UnityEngine;
 using rvinowise.unity.extensions;
-using rvinowise.unity.maps;
-using rvinowise.unity.debug;
-using rvinowise.unity.effects.physics;
-using rvinowise.unity.effects.persistent_residue;
 using rvinowise.unity.effects.trails.mesh_impl;
 
-namespace rvinowise.unity.units.parts.weapons.guns.common {
+namespace rvinowise.unity {
 
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class Bouncing_projectile : Projectile {

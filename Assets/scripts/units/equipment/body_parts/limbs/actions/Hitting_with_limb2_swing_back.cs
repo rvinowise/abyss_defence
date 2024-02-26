@@ -1,11 +1,9 @@
 ﻿using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.transport;
 
 
-namespace rvinowise.unity.units.parts.limbs.actions {
+namespace rvinowise.unity.actions {
 
 public class Hitting_with_limb2_swing_back: Action_leaf {
 
@@ -35,6 +33,7 @@ public class Hitting_with_limb2_swing_back: Action_leaf {
 
 
     protected override void on_start_execution() {
+        base.on_start_execution();
         swing_side = find_swing_direction();
         slow_movements();
     }
@@ -44,12 +43,15 @@ public class Hitting_with_limb2_swing_back: Action_leaf {
     }
 
     private void slow_movements() {
-        limb.segment1.rotation_speed /= 2f;
-        limb.segment1.rotation_speed /= 2f;
+        limb.segment1.rotation_acceleration /= 2f;
+        limb.segment2.rotation_acceleration /= 2f;
+        UnityEngine.Debug.Log($"slowing arms, speed = {limb.segment1.rotation_acceleration}");
+        
     }
     private void restore_movements() {
-        limb.segment1.rotation_speed *= 2f;
-        limb.segment1.rotation_speed *= 2f;
+        limb.segment1.rotation_acceleration *= 2f;
+        limb.segment2.rotation_acceleration *= 2f;
+        UnityEngine.Debug.Log($"restoring the speed of arms, speed = {limb.segment1.rotation_acceleration}");
     }
 
 

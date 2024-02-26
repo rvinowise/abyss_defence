@@ -328,10 +328,11 @@ MonoBehaviour:
   segment1: {fileID: 745362288262890748}
   segment2: {fileID: 7781236747278937426}
   folding_side: 0
-  _provided_impulse: 0.2
-  _optimal_relative_position_standing_transform: {fileID: 8194206711336029459}
-  _comfortable_distance: 0.3
-  _moving_offset_distance: 0.3
+  provided_impulse: 0.2
+  optimal_relative_position_standing_transform: {fileID: 0}
+  reposition_distance: 0.3
+  moving_offset_distance: 0.3
+  up: 1
 --- !u!1 &1185446996519227102
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +777,7 @@ MonoBehaviour:
   - legs:
     - {fileID: 7869419028802016662}
     - {fileID: 3977279490377477246}
+  moved_body: {fileID: 0}
   _legs:
   - {fileID: 7869419028802016662}
   - {fileID: 1274625990874360518}
@@ -820,6 +822,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baggage: {fileID: 0}
+  sensory_organ_object: {fileID: 0}
+  transporter_object: {fileID: 0}
+  weaponry_object: {fileID: 0}
   last_rotation: 0
   team: {fileID: 0}
 --- !u!114 &8046874946596248553
@@ -835,6 +840,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baggage: {fileID: 0}
+  sensory_organ_object: {fileID: 0}
+  transporter_object: {fileID: 0}
+  weaponry_object: {fileID: 0}
   last_rotation: 0
   team: {fileID: 0}
   commander: {fileID: 0}
@@ -1026,10 +1034,11 @@ MonoBehaviour:
   segment1: {fileID: 421413179205264740}
   segment2: {fileID: 4853429019253691326}
   folding_side: 0
-  _provided_impulse: 0.2
-  _optimal_relative_position_standing_transform: {fileID: 7843778805331638724}
-  _comfortable_distance: 0.3
-  _moving_offset_distance: 0.3
+  provided_impulse: 0.2
+  optimal_relative_position_standing_transform: {fileID: 0}
+  reposition_distance: 0.3
+  moving_offset_distance: 0.3
+  up: 1
 --- !u!1 &5301397431696068568
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,10 +1227,11 @@ MonoBehaviour:
   segment1: {fileID: 6843796211803082518}
   segment2: {fileID: 4328912044105502876}
   folding_side: 0
-  _provided_impulse: 0.2
-  _optimal_relative_position_standing_transform: {fileID: 7744180454356118101}
-  _comfortable_distance: 0.3
-  _moving_offset_distance: 0.3
+  provided_impulse: 0.2
+  optimal_relative_position_standing_transform: {fileID: 0}
+  reposition_distance: 0.3
+  moving_offset_distance: 0.3
+  up: 1
 --- !u!1 &6333065314609993540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1580,10 +1590,11 @@ MonoBehaviour:
   segment1: {fileID: 6161225410240653369}
   segment2: {fileID: 8745238475079165993}
   folding_side: 0
-  _provided_impulse: 0.2
-  _optimal_relative_position_standing_transform: {fileID: 1231158805073788073}
-  _comfortable_distance: 0.3
-  _moving_offset_distance: 0.3
+  provided_impulse: 0.2
+  optimal_relative_position_standing_transform: {fileID: 0}
+  reposition_distance: 0.3
+  moving_offset_distance: 0.3
+  up: 1
 --- !u!1 &8488926874449066484
 GameObject:
   m_ObjectHideFlags: 0

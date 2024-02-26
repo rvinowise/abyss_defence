@@ -1,7 +1,6 @@
-using rvinowise.unity.units.parts.tools;
 
 
-namespace rvinowise.unity.units.parts.weapons.guns {
+namespace rvinowise.unity {
 
 public class Shotgun_round : Ammunition {
 

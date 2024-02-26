@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace rvinowise.unity.effects.trails {
+namespace rvinowise.unity {
 
 public interface ITrail {
 

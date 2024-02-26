@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.weapons.thorny_mine {
+namespace rvinowise.unity {
 
 public class Thorn_interval: MonoBehaviour {
 

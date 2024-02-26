@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.limbs.creeping_legs {
+namespace rvinowise.unity {
 
 public interface ILeg:
 ILimb,

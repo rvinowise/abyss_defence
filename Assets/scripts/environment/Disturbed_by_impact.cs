@@ -3,19 +3,10 @@
 [RequireComponent(typeof(Collider2D))]
 public class Disturbed_by_impact : MonoBehaviour
 {
-    public Collider2D collider;
+    public new Collider2D collider;
 
     void Awake() {
         collider = GetComponent<Collider2D>();
-    }
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
     }
 
     public void OnTriggerStay2D(Collider2D other) {

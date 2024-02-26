@@ -310,7 +310,6 @@ ITrail
     }
 
     private float last_decorative_update;
-    private float decorative_update_frequency = 0.1f;
     private float decorative_delta_time{
         get{
             return Time.time - last_decorative_update;

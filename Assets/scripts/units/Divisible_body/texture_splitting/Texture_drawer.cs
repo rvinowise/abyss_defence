@@ -30,7 +30,7 @@ public class Texture_drawer: MonoBehaviour {
 
     public Texture2D test_texture;
     private List<Texture2D> pooled_textures = new List<Texture2D>(100);
-    private int i_current_texture = 0;
+    //private int i_current_texture = 0;
 
     void Awake() {
         Contract.Requires(instance == null, "it's a singleton");
@@ -149,7 +149,10 @@ public class Texture_drawer: MonoBehaviour {
     private Texture2D move_to_texture(RenderTexture render_texture)
     {
         try {
-            Texture2D final_texture = pooled_textures[i_current_texture++];
+            Texture2D final_texture = //pooled_textures[i_current_texture++];
+                new Texture2D(
+                    render_texture.width, render_texture.height, TextureFormat.ARGB32, false
+                );
             Graphics.CopyTexture(render_texture, final_texture);
 
             RenderTexture.active = null;

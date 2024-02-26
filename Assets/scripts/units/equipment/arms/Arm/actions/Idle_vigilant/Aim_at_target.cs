@@ -3,11 +3,10 @@ using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.weapons.guns;
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
-public class Aim_at_target: limbs.arms.actions.Action_of_arm {
+public class Aim_at_target: Action_of_arm {
 
     private Transform target;
     private Turning_element body; 
@@ -38,6 +37,7 @@ public class Aim_at_target: limbs.arms.actions.Action_of_arm {
     }
 
     protected override void on_start_execution() {
+        base.on_start_execution();
         arm.shoulder.set_target_direction_relative_to_parent(
             arm.shoulder.desired_idle_rotation
         );

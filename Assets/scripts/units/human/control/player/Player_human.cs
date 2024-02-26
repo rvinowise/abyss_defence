@@ -2,18 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise.unity.extensions;
 
-using rvinowise.unity.units.parts.limbs.arms;
-using rvinowise.unity.units.parts.limbs.arms.actions.idle_vigilant.main_arm;
-using rvinowise.unity.units.parts.weapons.guns;
 using static rvinowise.unity.geometry2d.Directions;
-using Player_input = rvinowise.unity.ui.input.Player_input;
-using rvinowise.unity.units.parts.limbs.arms.humanoid;
-using rvinowise.unity.management;
 using rvinowise.contracts;
 using System.Linq;
+using rvinowise.unity.actions;
 using rvinowise.unity.geometry2d;
 
-namespace rvinowise.unity.units.control.human {
+namespace rvinowise.unity {
 
 public abstract class Player_human : Human_intelligence {
 
@@ -31,7 +26,7 @@ public abstract class Player_human : Human_intelligence {
     }
 
     private void consider_all_enemies() {
-        foreach(Team enemy_team in team.enemies) {
+        foreach(Team enemy_team in team.enemy_teams) {
             foreach(var enemy_unit in enemy_team.units) {
                 consider_enemy(enemy_unit);
             }
@@ -178,7 +173,7 @@ public abstract class Player_human : Human_intelligence {
             arm_pair.aim_at(in_enemy.transform);
         }
     }
-    public void on_enemy_disappeared(Damage_receiver in_enemy) {
+    public void on_enemy_disappeared(Intelligence in_enemy) {
         Contract.Requires(in_enemy.GetComponent<Intelligence>() != null);
         enemies.Remove(in_enemy.GetComponent<Transform>());
     }
@@ -206,7 +201,7 @@ public abstract class Player_human : Human_intelligence {
     
 
     private void subscribe_to_disappearance_of(Transform in_unit) {
-        if (in_unit.GetComponent<Damage_receiver>() is Damage_receiver damage_receiver) {
+        if (in_unit.GetComponent<Intelligence>() is {} damage_receiver) {
             damage_receiver.on_destroyed+=on_enemy_disappeared;
         }
     }

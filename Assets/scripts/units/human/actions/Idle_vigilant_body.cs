@@ -1,11 +1,8 @@
 using UnityEngine;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.limbs.arms;
-using rvinowise.unity.units.parts.limbs.arms.actions;
-using rvinowise.unity.units.parts.transport;
+using rvinowise.unity;
 
 
-namespace units.human.actions {
+namespace rvinowise.unity.actions {
 
 public class Idle_vigilant_body: Action_parallel_parent {
 

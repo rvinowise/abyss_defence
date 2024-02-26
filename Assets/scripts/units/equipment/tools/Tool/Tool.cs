@@ -1,11 +1,9 @@
 using UnityEngine;
 using rvinowise.unity.extensions;
 
-using rvinowise.unity.units.parts.limbs.arms;
 using rvinowise.contracts;
-using rvinowise.unity.maps;
 
-namespace rvinowise.unity.units.parts.tools {
+namespace rvinowise.unity {
 public abstract class Tool: MonoBehaviour
 {
 

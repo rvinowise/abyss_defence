@@ -1,14 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.limbs.creeping_legs;
-using rvinowise.unity.units.parts.transport;
-using units.human.actions;
-using UnityEngine.Serialization;
-using Action = rvinowise.unity.units.parts.actions.Action;
+using rvinowise.unity.actions;
 
-namespace rvinowise.unity.units.parts {
+namespace rvinowise.unity {
 public class Human_leg_group: 
     Children_group
     ,ITransporter
@@ -52,11 +47,9 @@ public class Human_leg_group:
         set{ Contract.Assert(false, "set possible_impulse instead");}
     }
 
-    public Quaternion direction_quaternion {
-        get { return transform.rotation; }
-    }
 
-    public transport.Transporter_commands command_batch { get; } = new transport.Transporter_commands();
+
+    public Transporter_commands command_batch { get; } = new Transporter_commands();
 
 
     public void move_in_direction_as_rigidbody(Vector2 moving_direction) {

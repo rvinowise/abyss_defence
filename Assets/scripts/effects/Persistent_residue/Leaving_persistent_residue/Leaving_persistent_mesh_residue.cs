@@ -3,7 +3,7 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 
-namespace rvinowise.unity.effects.persistent_residue {
+namespace rvinowise.unity {
 
 public class Leaving_persistent_mesh_residue: 
 MonoBehaviour

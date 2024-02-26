@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.teeth {
+namespace rvinowise.unity {
 public class Tooth :
     MonoBehaviour
     ,IChild_of_group

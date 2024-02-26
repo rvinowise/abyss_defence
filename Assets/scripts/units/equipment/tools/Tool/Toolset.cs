@@ -2,7 +2,7 @@ using rvinowise.unity.geometry2d;
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.tools {
+namespace rvinowise.unity {
 public class Toolset: MonoBehaviour {
 
     public Tool right_tool;

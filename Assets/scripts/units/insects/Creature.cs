@@ -1,17 +1,14 @@
-﻿using rvinowise.unity.units.parts;
-using rvinowise.unity.units.gore;
-using rvinowise.unity.units.parts.transport;
-using UnityEngine;
+﻿using UnityEngine;
 
 
-namespace rvinowise.unity.units {
+namespace rvinowise.unity {
 
 [RequireComponent(typeof(PolygonCollider2D))]
-public abstract class Creature: rvinowise.unity.units.Unit
+public abstract class Creature: Unit
 {
     /* IChildren_groups_host interface */
     public virtual ITransporter transporter { get; protected set; }
-    public virtual IWeaponry weaponry { get; set; }
+    public virtual IAttacker attacker { get; set; }
     
     
     /* Creature itself */

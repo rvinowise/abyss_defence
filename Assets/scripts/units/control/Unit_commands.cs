@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace rvinowise.unity.units.control {
+namespace rvinowise.unity {
 
 public class Unit_commands {
     

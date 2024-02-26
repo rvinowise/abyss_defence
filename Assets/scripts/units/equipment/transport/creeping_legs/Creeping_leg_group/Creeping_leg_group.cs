@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using rvinowise.unity.extensions;
 
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.limbs.actions;
-using rvinowise.unity.units.parts.limbs.arms.actions;
-using rvinowise.unity.units.parts.transport;
-using Action = rvinowise.unity.units.parts.actions.Action;
+using rvinowise.unity.actions;
+using rvinowise.unity.extensions;
+using Action = rvinowise.unity.actions.Action;
 
-namespace rvinowise.unity.units.parts.limbs.creeping_legs {
+
+namespace rvinowise.unity {
+
 public partial class Creeping_leg_group: 
     Children_group
     ,ITransporter
-    ,IWeaponry
 {
     
     #region Children_group
-    public override IEnumerable<IChild_of_group> children  {
-        get { return legs as IEnumerable<IChild_of_group>; }
+    public override IEnumerable<IChild_of_group> children {
+        get => legs;
     }
 
     protected override void Awake() {
@@ -37,7 +35,24 @@ public partial class Creeping_leg_group:
         moved_body = GetComponent<Turning_element>();
     }
 
+    private ALeg find_dominant_leg(Transform body, IEnumerable<ALeg> legs) {
+        ALeg front_leg = null;
+        Vector3 front_position = new Vector3(float.MinValue,0,0);
+        foreach(var leg in legs) {
+            var leg_position = body.InverseTransformPoint(leg.transform.position);
+            if (leg_position.x > front_position.x) {
+                front_position = leg_position;
+                front_leg = leg;
+            }
+        }
+        return front_leg;
+    }
+    
     private void init_components() {
+        dominant_leg =
+            find_dominant_leg(moved_body.transform, legs);
+            
+        
         rigid_body = gameObject.GetComponent<Rigidbody2D>();
         if (rigid_body != null) {
             move_in_direction = move_in_direction_as_rigidbody;
@@ -45,12 +60,13 @@ public partial class Creeping_leg_group:
         else {
             move_in_direction = move_in_direction_as_transform;
         }
+        
     }
 
     public override void add_child(IChild_of_group compound_object) {
         Contract.Requires(compound_object is ALeg);
         ALeg leg = compound_object as ALeg;
-        _legs.Add(leg);
+        legs.Add(leg);
         leg.transform.SetParent(transform, false);
     }
 
@@ -89,28 +105,26 @@ public partial class Creeping_leg_group:
             }
         }
         if (moving_strategy.belly_touches_ground()) {
-            impulse *= belly_friction_multiplier;
+            //impulse *= belly_friction_multiplier;
         }
         return impulse;
     }
 
 
 
-    private const float rotate_faster_than_move = 100f;
+    public float rotate_faster_than_move = 100f;
 
     public float possible_rotation {
         get { 
-            return GetComponent<Turning_element>().rotation_acceleration;
-            //return possible_impulse * rotate_faster_than_move; 
+            //return GetComponent<Turning_element>().rotation_acceleration;
+            return possible_impulse * rotate_faster_than_move; 
         }
         set{ Contract.Assert(false, "set possible_impulse instead");}
     }
 
-    public Quaternion direction_quaternion {
-        get { return transform.rotation; }
-    }
+ 
 
-    public transport.Transporter_commands command_batch { get; } = new transport.Transporter_commands();
+    public Transporter_commands command_batch { get; } = new Transporter_commands();
 
 
     private delegate void Move_in_direction(Vector2 moving_direction);
@@ -118,7 +132,7 @@ public partial class Creeping_leg_group:
         
     public void move_in_direction_as_rigidbody(Vector2 moving_direction) {
         Vector2 delta_movement = (rvi.Time.deltaTime * possible_impulse * moving_direction );
-        rigid_body.AddForce(delta_movement*10000f);
+        rigid_body.AddForce(delta_movement*Physics_consts.rigidbody_impulse_multiplier);
     }
     public void move_in_direction_as_transform(Vector2 moving_direction) {
         Vector2 delta_movement = (rvi.Time.deltaTime * possible_impulse * moving_direction );
@@ -134,10 +148,13 @@ public partial class Creeping_leg_group:
     
 
     void Update() {
-        execute_commands();
         move_legs();
     }
     
+    private void FixedUpdate() {
+        execute_commands();
+    }
+
     protected void execute_commands() {
         move_in_direction(command_batch.moving_direction_vector);
         if (moved_body != null) {
@@ -151,50 +168,30 @@ public partial class Creeping_leg_group:
     
     /* legs that are enough to be stable if they are on the ground */
     public List<Stable_leg_group> stable_leg_groups = new List<Stable_leg_group>();
-
-    public strategy.Moving_strategy moving_strategy {
+    public ALeg dominant_leg;
+    public List<ALeg> legs;
+    public Turning_element moved_body;
+    
+    public Moving_strategy moving_strategy {
         get { return _moving_strategy; }
         set {
             _moving_strategy = value;
             possible_impulse = calculate_possible_impulse();
         }
     }
-    private strategy.Moving_strategy _moving_strategy;
+    private Moving_strategy _moving_strategy;
     
     
-
-    public Turning_element moved_body;
-
-    private IReadOnlyList<ALeg> legs {
-        get {
-            return _legs;
-        }
-    }
-    public ALeg left_hind_leg {
-        get { return legs[0];}
-    }
-    public ALeg left_front_leg {
-        get { return legs[1];}
-    }
-    public ALeg right_hind_leg {
-        get { return legs[2];}
-    }
-    public ALeg right_front_leg {
-        get { return legs[3];}
-    }
-    [SerializeField]
-    public List<ALeg> _legs = new List<ALeg>();
-
     private Rigidbody2D rigid_body { get; set; }
 
     private void guess_moving_strategy() {
         if (stable_leg_groups.Count > 1) {
-            moving_strategy = new strategy.Stable(legs, this);
+            moving_strategy = new Stable(legs, this);
         } else
         if (legs.Count > 1 ) {
-            moving_strategy = new strategy.Grovelling(legs, this);
+            moving_strategy = new Grovelling(legs, this);
         } else if (legs.Count == 1) {
-            moving_strategy = new strategy.Faltering(legs, this);
+            moving_strategy = new Faltering(legs, this);
         }
     }
 
@@ -236,7 +233,12 @@ public partial class Creeping_leg_group:
                shift_to_moving_direction;
     }
 
-    
+    public void ensure_leg_raised(ILeg leg) {
+        if (leg.is_up()) {
+            return;
+        }
+        moving_strategy.raise_up(leg);
+    }
 
 
     bool can_move() {
@@ -265,38 +267,7 @@ public partial class Creeping_leg_group:
 
     #endregion
 
-    #region IWeaponry
-    public bool can_reach(Transform target) {
-        return transform.distance_to(target.position) < reaching_distance();
-    }
-
-    public float reaching_distance() {
-        return right_front_leg.get_reaching_distance();
-    }
-
-    public void attack(Transform target) {
-        ILeg best_leg = get_best_leg_for_hitting(target);
-        if (best_leg is Limb2 best_limb2) {
-            ensure_leg_raised(best_leg);
-            Hitting_with_limb2.create(
-                best_limb2,
-                this,
-                target
-            ).start_as_root(action_runner);
-        }
-    }
-
-    public void ensure_leg_raised(ILeg leg) {
-        if (leg.is_up()) {
-            return;
-        }
-        moving_strategy.raise_up(leg);
-    }
-
-    public ILeg get_best_leg_for_hitting(Transform target) {
-        return right_front_leg;
-    }
-    #endregion
+   
 
     #region IActor
     public Action current_action { get; set; }
@@ -321,15 +292,15 @@ public partial class Creeping_leg_group:
         //         );
         // }
         
-        Action_sequential_parent.create(
-            Move_towards_target.create(
-                this,
-                reaching_distance(),
-                GameObject.FindWithTag("player")?.transform
-            )
-            //,meeting_action
-            
-        ).start_as_root(action_runner);
+        // Action_sequential_parent.create(
+        //     Move_towards_target.create(
+        //         this,
+        //         reaching_distance(),
+        //         GameObject.FindWithTag("player")?.transform
+        //     )
+        //     //,meeting_action
+        //     
+        // ).start_as_root(action_runner);
     }
     public void init_for_runner(Action_runner action_runner) {
         this.action_runner = action_runner;

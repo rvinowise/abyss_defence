@@ -21,7 +21,7 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-    isReadable: 0
+    isReadable: 1
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
@@ -32,7 +32,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 100
+    spritePixelsToUnits: 340
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -68,18 +68,18 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   spriteImportData:
-  - name: 
+  - name: human_legs_1
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 0
-      height: 0
-    spriteID: 
+      width: 900
+      height: 500
+    spriteID: 8b59192eca3f814468c31376f4c516a9
     internalID: 0
     spriteBone: []
     spriteOutline: []
@@ -90,17 +90,149 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 0, y: 0}
-  mosaicSpriteImportData: []
-  rigSpriteImportData:
-  - name: shin_at_back
+  mosaicSpriteImportData:
+  - name: thigh_at_back
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.8830823, y: 0.50599974}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 117
       y: 58
+      width: 87
+      height: 55
+    spriteID: dd89a8df7524f1f409b7d49d07f7b038
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -265, y: -187}
+  - name: shin_at_back
+    originalName: 
+    pivot: {x: 0.89597833, y: 0.5153482}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 154
+      y: 4
+      width: 80
+      height: 43
+    spriteID: c3c8775a8410bf84ab871082607e9e54
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -172, y: -251}
+  - name: thigh_at_front
+    originalName: 
+    pivot: {x: 0.094696045, y: 0.4652651}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 121
+      width: 92
+      height: 57
+    spriteID: dfb4b0350a471864a966a0609d4f21fe
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -434, y: -71}
+  - name: shin_at_front
+    originalName: 
+    pivot: {x: 0.10673387, y: 0.51499903}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 104
+      y: 121
+      width: 73
+      height: 44
+    spriteID: 5a383e1f9ecbd3c44b7e1e77dfca7412
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -391, y: -78}
+  - name: boot_risen_tip
+    originalName: 
+    pivot: {x: 0.1417339, y: 0.47600138}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 58
+      width: 105
+      height: 55
+    spriteID: b321195e1b22b7d41a34614197259eff
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -537, y: -136}
+  - name: boot
+    originalName: 
+    pivot: {x: 0.17234184, y: 0.48565274}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 142
+      height: 46
+    spriteID: 76653e07cb7325b4296154c857c62c1d
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -500, y: -275}
+  rigSpriteImportData:
+  - name: shin_at_back
+    originalName: 
+    pivot: {x: 0.88772887, y: 0.42882726}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 154
+      y: 4
       width: 80
       height: 51
     spriteID: cf114263c0888894d82335efe3fda0db
@@ -113,11 +245,11 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -281, y: -192}
-  - name: knee_at_front
+    uvTransform: {x: -172, y: -251}
+  - name: thigh_at_front
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.12930357, y: 0.4080016}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -135,16 +267,16 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -436, y: -65}
+    uvTransform: {x: -434, y: -71}
   - name: shin_at_front
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.14577286, y: 0.47027725}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 154
-      y: 4
+      x: 104
+      y: 121
       width: 73
       height: 45
     spriteID: b0b20bff01c1262408bd8a92b843c627
@@ -157,11 +289,11 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -341, y: -195}
+    uvTransform: {x: -391, y: -78}
   - name: boot_risen_tip
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.13483767, y: 0.4594692}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -182,8 +314,8 @@ ScriptedImporter:
     uvTransform: {x: -537, y: -136}
   - name: boot
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.15463278, y: 0.490308}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -202,7 +334,51 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: -500, y: -275}
-  platformSettings: []
+  - name: thigh_at_back
+    originalName: 
+    pivot: {x: 0.8679108, y: 0.48800078}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 117
+      y: 58
+      width: 87
+      height: 55
+    spriteID: 595be8dcdee691d4989ad9a972ce941f
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -265, y: -187}
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
@@ -218,18 +394,67 @@ ScriptedImporter:
   textureActualHeight: 256
   spritePackingTag: 
   resliceFromLayer: 0
-  characterMode: 1
-  mosaicPSDLayers: []
+  characterMode: 0
+  mosaicPSDLayers:
+  - name: thigh_at_back
+    spriteName: thigh_at_back
+    isGroup: 0
+    parentIndex: -1
+    spriteID: dd89a8df7524f1f409b7d49d07f7b038
+    layerID: 51
+    mosaicPosition: {x: 117, y: 58}
+  - name: shin_at_back
+    spriteName: shin_at_back
+    isGroup: 0
+    parentIndex: -1
+    spriteID: c3c8775a8410bf84ab871082607e9e54
+    layerID: 48
+    mosaicPosition: {x: 154, y: 4}
+  - name: thigh_at_front
+    spriteName: thigh_at_front
+    isGroup: 0
+    parentIndex: -1
+    spriteID: dfb4b0350a471864a966a0609d4f21fe
+    layerID: 44
+    mosaicPosition: {x: 4, y: 121}
+  - name: shin_at_front
+    spriteName: shin_at_front
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 5a383e1f9ecbd3c44b7e1e77dfca7412
+    layerID: 41
+    mosaicPosition: {x: 104, y: 121}
+  - name: boot_risen_tip
+    spriteName: boot_risen_tip
+    isGroup: 0
+    parentIndex: -1
+    spriteID: b321195e1b22b7d41a34614197259eff
+    layerID: 40
+    mosaicPosition: {x: 4, y: 58}
+  - name: boot
+    spriteName: boot
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 76653e07cb7325b4296154c857c62c1d
+    layerID: 33
+    mosaicPosition: {x: 4, y: 4}
   rigPSDLayers:
+  - name: thigh_at_back
+    spriteName: thigh_at_back
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 595be8dcdee691d4989ad9a972ce941f
+    layerID: 51
+    mosaicPosition: {x: 117, y: 58}
   - name: shin_at_back
     spriteName: shin_at_back
     isGroup: 0
     parentIndex: -1
     spriteID: cf114263c0888894d82335efe3fda0db
     layerID: 48
-    mosaicPosition: {x: 117, y: 58}
-  - name: knee_at_front
-    spriteName: knee_at_front
+    mosaicPosition: {x: 154, y: 4}
+  - name: thigh_at_front
+    spriteName: thigh_at_front
     isGroup: 0
     parentIndex: -1
     spriteID: e71bae2017b3645458d0e03389ff2ab6
@@ -241,7 +466,7 @@ ScriptedImporter:
     parentIndex: -1
     spriteID: b0b20bff01c1262408bd8a92b843c627
     layerID: 41
-    mosaicPosition: {x: 154, y: 4}
+    mosaicPosition: {x: 104, y: 121}
   - name: boot_risen_tip
     spriteName: boot_risen_tip
     isGroup: 0

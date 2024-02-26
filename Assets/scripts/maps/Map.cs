@@ -4,7 +4,7 @@
 using UnityEngine;
 using rvinowise.contracts;
 
-namespace rvinowise.unity.maps {
+namespace rvinowise.unity {
 
 public class Map: MonoBehaviour {
 

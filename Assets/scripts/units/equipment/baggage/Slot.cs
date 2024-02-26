@@ -2,7 +2,7 @@ using UnityEngine;
 using rvinowise.unity.geometry2d;
 
 
-namespace rvinowise.unity.units.parts {
+namespace rvinowise.unity {
 
 public class Slot: MonoBehaviour {
 

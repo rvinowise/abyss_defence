@@ -3,17 +3,17 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
-public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
+public class Idle_vigilant_only_arm: Action_of_arm {
 
     private Transform target;
-    private transport.ITransporter transporter; // movements of arms depend on where the body is moving
+    private ITransporter transporter; // movements of arms depend on where the body is moving
     
     public static Idle_vigilant_only_arm create(
         Arm in_arm,
         Transform in_target,
-        transport.ITransporter in_transporter
+        ITransporter in_transporter
     ) {
         Idle_vigilant_only_arm action = 
             (Idle_vigilant_only_arm)pool.get(typeof(Idle_vigilant_only_arm));
@@ -27,6 +27,7 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
 
 
     protected override void on_start_execution() {
+        base.on_start_execution();
         arm.shoulder.target_direction_relative = false;
         arm.upper_arm.target_direction_relative = false;
         arm.forearm.target_direction_relative = false;
@@ -38,11 +39,6 @@ public class Idle_vigilant_only_arm: limbs.arms.actions.Action_of_arm {
     public override void update() {
         
         var direction_to_target = arm.upper_arm.transform.quaternion_to(target.position);
-        
-        var body_wants_to_turn = new Degree(
-            transporter.command_batch.face_direction_degrees -    
-            transporter.direction_quaternion.to_float_degrees()
-        ).use_minus();
         
         arm.shoulder.target_rotation = 
             arm.shoulder.desired_idle_rotation * direction_to_target;//transporter.direction_quaternion;

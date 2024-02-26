@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-namespace rvinowise.unity.management {
+namespace rvinowise.unity {
 public class Transition_to_first_scene : MonoBehaviour
 {
 

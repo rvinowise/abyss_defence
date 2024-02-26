@@ -1,12 +1,11 @@
 using rvinowise.contracts;
 using UnityEngine;
-using rvinowise.unity.units.control.human;
 using UnityEngine.SceneManagement;
 
-namespace rvinowise.unity.ui.input {
+namespace rvinowise.unity {
 public class Player_input: MonoBehaviour {
     
-    public mouse.Cursor cursor;
+    public Cursor cursor;
     public UnityEngine.Input unity;
     
     public Vector2 mouse_world_position => cursor.transform.position;

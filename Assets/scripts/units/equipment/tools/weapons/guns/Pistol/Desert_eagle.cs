@@ -1,21 +1,14 @@
+using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
 using UnityEngine;
-using rvinowise.unity.extensions;
-using rvinowise.unity.effects.physics;
-using rvinowise.unity.units.parts.weapons.guns.common;
 using Random = UnityEngine.Random;
 using rvinowise.unity.extensions.attributes;
 
-namespace rvinowise.unity.units.parts.weapons.guns {
+namespace rvinowise.unity {
 
 public class Desert_eagle: Pistol {
 
-    //public override float weight { set; get; } = 1f;
     public override float stock_length { get; } = 0f;
-
-    protected override void Awake() {
-        base.Awake();
-    }
 
 
     private static readonly int animation_fire = Animator.StringToHash("fire");

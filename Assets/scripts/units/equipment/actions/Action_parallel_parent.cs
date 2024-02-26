@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using rvinowise.contracts;
 
 
-namespace rvinowise.unity.units.parts.actions {
+namespace rvinowise.unity.actions {
 
 public class Action_parallel_parent: 
     Action,
@@ -79,7 +80,7 @@ public class Action_parallel_parent:
 
     private bool all_children_are_completed() {
         foreach (Action child_action in child_actions) {
-            if (!child_action.completed) {
+            if (!child_action.is_completed) {
                 return false;
             }
         }
@@ -124,6 +125,14 @@ public class Action_parallel_parent:
         foreach (Action child in child_actions) {
             child.notify_actors_about_finishing_recursive();
         }
+    }
+    
+    public override string get_actors_names() {
+        var names = new List<string>();
+        foreach (var child in child_actions) {
+            names.Add(child.get_actors_names());
+        }
+        return String.Join(", ",names);
     }
 }
 }

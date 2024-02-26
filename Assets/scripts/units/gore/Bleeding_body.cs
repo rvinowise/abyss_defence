@@ -2,14 +2,11 @@ using System;
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.effects.liquids;
-using rvinowise.unity.effects.physics;
-using rvinowise.unity.units.parts.weapons.guns.common;
 
 using Random = UnityEngine.Random;
 
 
-namespace rvinowise.unity.units.gore {
+namespace rvinowise.unity {
 
 public class Bleeding_body: MonoBehaviour {
 
@@ -17,9 +14,6 @@ public class Bleeding_body: MonoBehaviour {
     public Object_pool<Droplet> object_pool;*/
 
     [SerializeField] public Droplet droplet_prefab;
-
-    public void Awake() {
-    }
 
 
     private float spread_degrees = 15f;
@@ -90,7 +84,7 @@ public class Bleeding_body: MonoBehaviour {
 
             create_splash(
                 contact_point,
-                other.GetContact(0).relativeVelocity/800,
+                other.GetContact(0).relativeVelocity*collided_projectile.GetComponent<Rigidbody2D>().mass,
                 10
             );
             

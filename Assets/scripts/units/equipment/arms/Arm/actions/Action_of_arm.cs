@@ -1,6 +1,8 @@
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
 
-public abstract class Action_of_arm: parts.actions.Action_leaf {
+
+namespace rvinowise.unity.actions {
+
+public abstract class Action_of_arm: Action_leaf {
 
     protected Arm arm { get; set; }
     

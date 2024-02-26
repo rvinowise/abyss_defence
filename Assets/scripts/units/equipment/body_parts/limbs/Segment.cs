@@ -3,7 +3,7 @@ using rvinowise.unity.extensions;
 using rvinowise.contracts;
 using System.Linq;
 
-namespace rvinowise.unity.units.parts.limbs {
+namespace rvinowise.unity {
 
 public class Segment: Turning_element {
 

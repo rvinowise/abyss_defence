@@ -1,8 +1,7 @@
-﻿using rvinowise.unity.units.humanoid;
-using UnityEngine;
+﻿using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.tools {
+namespace rvinowise.unity {
 public class Pickable : MonoBehaviour
 {
     public Tool content;

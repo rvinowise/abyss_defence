@@ -1,12 +1,13 @@
-using rvinowise.unity.units.parts.tools;
+using rvinowise.debug;
+using rvinowise.unity;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 public class Push_object_into_slot: Arm_reach_orientation {
     public Tool insertee;
     public Slot slot;
-    private float old_rotation_speed;
+    private float old_rotation_acceleration;
 
     
     public static Push_object_into_slot create(
@@ -23,6 +24,7 @@ public class Push_object_into_slot: Arm_reach_orientation {
 
 
     protected override void on_start_execution() {
+        base.on_start_execution();
         slow_movements(arm);
         desired_orientation = slot.get_orientation_inside();
     }
@@ -32,11 +34,14 @@ public class Push_object_into_slot: Arm_reach_orientation {
     }
     
     private void slow_movements(Arm arm) {
-        old_rotation_speed = arm.upper_arm.rotation_speed;
-        arm.upper_arm.rotation_speed /= 2f;
+        old_rotation_acceleration = arm.upper_arm.rotation_acceleration;
+        arm.upper_arm.rotation_acceleration /= 10f;
+        arm.upper_arm.current_rotation_inertia = 0;
+        UnityEngine.Debug.Log($"Push_object_into_slot{id:N}: slowing {arm.name}, speed = {arm.upper_arm.rotation_acceleration}");
     }
     private void restore_movements(Arm arm) {
-        arm.upper_arm.rotation_speed = old_rotation_speed;
+        arm.upper_arm.rotation_acceleration = old_rotation_acceleration;
+        UnityEngine.Debug.Log($"Push_object_into_slot{id:N}{id:N}: restoring {arm.name}, speed = {arm.upper_arm.rotation_acceleration}");
     }
     
     public override void update() {

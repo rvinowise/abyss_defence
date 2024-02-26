@@ -1,7 +1,6 @@
-using rvinowise.unity.units.parts.tools;
+using rvinowise.unity;
 
-
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 public class Drop_tool_into_bag: Action_of_arm {
 

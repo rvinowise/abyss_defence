@@ -3,19 +3,19 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.contracts;
 
-namespace rvinowise.unity.units.parts.limbs.creeping_legs {
+namespace rvinowise.unity {
 
 [Serializable]
 public partial class Leg2: 
     ALeg
 {
     /* constant characteristics */
-    public Creeping_leg_segment femur {
-        get { return segment1 as creeping_legs.Creeping_leg_segment;}
+    public Segment femur {
+        get { return segment1;}
         set { segment1 = value; }
     }
-    public Creeping_leg_segment tibia {
-        get { return segment2 as creeping_legs.Creeping_leg_segment;}
+    public Segment tibia {
+        get { return segment2;}
         set { segment2 = value; }
     }
 

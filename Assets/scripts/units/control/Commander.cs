@@ -3,7 +3,7 @@ using UnityEngine;
 using rvinowise.contracts;
 
 
-namespace rvinowise.unity.units.control {
+namespace rvinowise.unity {
 
 /* Global intelligence, controlling all units of a team */
 public class Commander: 
@@ -21,7 +21,7 @@ MonoBehaviour
     }
 
 
-    public void on_unit_iddling(Strategic_intelligence in_intelligence) {
+    public void on_unit_iddling(Computer_intelligence in_intelligence) {
         in_intelligence.unit_commands.attack_target = enemy;
     }
 

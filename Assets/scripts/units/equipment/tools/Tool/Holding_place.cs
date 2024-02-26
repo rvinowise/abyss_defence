@@ -2,11 +2,10 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.limbs.arms;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 
-namespace rvinowise.unity.units.parts.tools {
+namespace rvinowise.unity {
 
 public class Holding_place: MonoBehaviour
 {

@@ -1,4 +1,3 @@
-using rvinowise.unity.effects.persistent_residue;
 using rvinowise.unity.extensions.pooling;
 
 using UnityEngine;
@@ -6,7 +5,7 @@ using rvinowise.unity.extensions;
 using rvinowise.unity.extensions.attributes;
 
 
-namespace rvinowise.unity.effects.liquids {
+namespace rvinowise.unity {
 
 public class Puddle: MonoBehaviour {
 

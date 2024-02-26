@@ -1,27 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using rvinowise.contracts;
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.actions {
+namespace rvinowise.unity.actions {
 
 public abstract partial class Action
 {
-    private Action parent_action;
+    internal Action parent_action;
 
     private Action root_action;
 
-    public bool completed { private set; get; }
+
+    public bool is_started { private set; get; } = false;
+    public bool is_completed { private set; get; }
     private bool is_free_in_pool;
-    private System.Action<Action> on_finished;
+    public System.Action<Action> on_completed;
+    public System.Action on_completed_without_parameter;
     protected Action_runner runner;
 
     private readonly List<Action> superceded_actions = new List<Action>();
-    
+    public Guid id = Guid.NewGuid();
 
     
 
-    protected static units.parts.actions.Action.Pool<units.parts.actions.Action> pool { get; } = 
+    protected static Pool<Action> pool { get; } = 
         new Pool<Action>();
 
     public string marker = "";
@@ -37,7 +41,10 @@ public abstract partial class Action
     }
 
 
-    protected virtual void on_start_execution() {}
+    protected virtual void on_start_execution() {
+        rvinowise.contracts.Contract.Assert(is_started==false, "a started action is started again without finishing");
+        is_started = true;
+    }
     
 
     
@@ -58,12 +65,16 @@ public abstract partial class Action
     public Action start_as_root(Action_runner action_runner) {
         Contract.Requires(action_runner != null);
         runner = action_runner;
-        action_runner.start_root_action(this);
+        action_runner.prepare_root_action_for_start(this);
         return this;
     }
 
-    public Action add_finish_notifyer(System.Action<Action> callback) {
-        this.on_finished = callback;
+    public Action set_on_completed(System.Action<Action> callback) {
+        this.on_completed = callback;
+        return this;
+    }
+    public Action set_on_completed(System.Action callback) {
+        this.on_completed_without_parameter = callback;
         return this;
     }
 
@@ -74,6 +85,10 @@ public abstract partial class Action
             !is_reset,
             "can't update a deleted action"
         );
+        Contract.Requires(
+            is_started,
+            "can't update a not started action"
+        );
     }
 
     public bool superceded_as_root { get; private set; }
@@ -82,27 +97,26 @@ public abstract partial class Action
     }
  
     protected void mark_as_completed() {
-        if (completed) {
+        if (is_completed) {
             return;
         }
-        completed = true;
+        is_completed = true;
 
         if (parent_action != null) {
             parent_action.on_child_completed(this);
         }
         else {
             runner.on_root_action_completed(this);
-            on_finished?.Invoke(this);
         }
     }
     
     protected void mark_as_not_completed() {
-        if (!completed) {
+        if (!is_completed) {
             return;
         }
 
-        Contract.Assume(completed, "should have reached its goal in order to lose it");
-        completed = false;
+        Contract.Assume(is_completed, "should have reached its goal in order to lose it");
+        is_completed = false;
         Contract.Assume(parent_action != null);
         parent_action.mark_as_not_completed();
     }
@@ -135,7 +149,9 @@ public abstract partial class Action
     public virtual void notify_actors_about_finishing_recursive() { }
     public virtual void seize_needed_actors_recursive() { }
 
-    protected virtual void restore_state() { }
+    protected virtual void restore_state() {
+        System.Diagnostics.Contracts.Contract.Assert(is_started, $"action {get_explanation()} restores the state, but it wasn't started");
+    }
 
 
     public Action get_root_action() {
@@ -147,15 +163,17 @@ public abstract partial class Action
 
 
     public virtual void reset() {
-        Contract.Assert(!is_reset, $"an action {this.marker} was reset, but is being reset again");
-        if (is_reset)
-            Debug.LogError("error");
+        rvinowise.contracts.Contract.Assert(!is_reset, $"an action {get_explanation()} was reset, but is being reset again");
+
         superceded_actions.Clear();
         parent_action = null;
         root_action = this;
-        completed = false;
+        is_completed = false;
+        is_started = false;
         marker = "";
         superceded_as_root = false;
+        on_completed = null;
+        on_completed_without_parameter = null;
         
         pool.return_to_pool(this);
     }
@@ -163,11 +181,20 @@ public abstract partial class Action
     public bool is_reset {
         get {
             return parent_action == null &&
-                   completed == false &&
+                   is_completed == false &&
                    is_free_in_pool;
         }
     }
 
+    public virtual string get_actors_names() {
+        return "";
+    }
+    public virtual string get_explanation() {
+        if (parent_action != null)
+            return $"{parent_action.get_explanation()} -> {GetType().Name}[{get_actors_names()}]{id:N}";
+        
+        return $"{GetType().Name}_[{get_actors_names()}]{id:N}";
+    }
     
 
 

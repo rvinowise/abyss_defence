@@ -1,11 +1,9 @@
 ﻿using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.transport;
 
 
-namespace rvinowise.unity.units.parts.limbs.actions {
+namespace rvinowise.unity.actions {
 
 public class Hitting_with_limb2_impact: Action_leaf {
 
@@ -46,6 +44,7 @@ public class Hitting_with_limb2_impact: Action_leaf {
         transporter.command_batch.face_direction_degrees = limb.transform.degrees_to(target.position);
         keep_optimal_distance_from_target();
         if (is_directed_towards_target()) {
+            var test = is_directed_towards_target();
             mark_as_completed();
         } else {
             mark_as_not_completed();
@@ -76,7 +75,7 @@ public class Hitting_with_limb2_impact: Action_leaf {
             limb.segment2.transform.get_degrees(),
             dir_to_target
         );
-        return segment1_offset + segment2_offset <= 20;
+        return Mathf.Abs(segment1_offset + segment2_offset) <= 10;
     }
     
     private float get_direction_to_target() {

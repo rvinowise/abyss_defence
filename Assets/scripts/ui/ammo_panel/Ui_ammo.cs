@@ -1,13 +1,10 @@
 ﻿using rvinowise.contracts;
-using rvinowise.unity.units.control.human;
-using rvinowise.unity.units.parts;
-using rvinowise.unity.units.parts.tools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-namespace rvinowise.unity.ui {
+namespace rvinowise.unity {
 public class Ui_ammo: 
 MonoBehaviour
 {

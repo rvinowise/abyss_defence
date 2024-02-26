@@ -3,9 +3,9 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
-public abstract class Arm_reach_somewhere: arms.actions.Action_of_arm {
+public abstract class Arm_reach_somewhere: Action_of_arm {
 
     public override void update() {
         base.update();

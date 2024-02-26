@@ -1,4 +1,4 @@
-namespace rvinowise.unity.effects.persistent_residue {
+namespace rvinowise.unity {
 public interface IPersistent_residue_holder {
 
     /* void add_piece(

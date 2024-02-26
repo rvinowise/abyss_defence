@@ -1,10 +1,8 @@
 using UnityEngine;
-using rvinowise.unity.units.humanoid;
 
-namespace rvinowise.unity.units.parts.tools {
+namespace rvinowise.unity {
 public static partial class Unity_extension {
 
-    //private const float damaging_velocity = 5f;
     private const float damaging_velocity = 0f;
     public static Humanoid get_user_of_tools(
         this Collision2D collision

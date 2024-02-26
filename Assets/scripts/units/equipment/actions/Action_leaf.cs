@@ -1,15 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.actions {
+namespace rvinowise.unity.actions {
 
 /* Action whith actually moves Actors (other actions are controllers of the execution flow) */
 public abstract class Action_leaf:
     Action
 {
-    private readonly List<IActor> actors = new List<IActor>();
+    internal readonly List<IActor> actors = new List<IActor>();
 
+    
+    
     protected IActor add_actor(IActor actor) {
         actors.Add(actor);
         return actor;
@@ -45,6 +48,14 @@ public abstract class Action_leaf:
     public override void reset() {
         actors.Clear();
         base.reset();
+    }
+    
+    public override string get_actors_names() {
+        var names = new List<string>();
+        foreach (var actor in actors) {
+            names.Add((actor as MonoBehaviour)?.name);
+        }
+        return String.Join(", ",names);
     }
     
 }

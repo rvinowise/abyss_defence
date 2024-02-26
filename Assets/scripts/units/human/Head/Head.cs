@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 using rvinowise.unity.extensions;
-using rvinowise.unity.units.parts.sensors;
 
 
-namespace rvinowise.unity.units.parts.head {
+namespace rvinowise.unity {
 
 public class Head: Turning_element, ISensory_organ {
 
     public Transform attention_target;
 
     protected void Start() {
-        attention_target = rvinowise.unity.ui.input.Player_input.instance.cursor.transform;
+        attention_target = Player_input.instance.cursor.transform;
     }
     public static Head create() {
         GameObject game_object = new GameObject();

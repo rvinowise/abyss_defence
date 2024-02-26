@@ -3,7 +3,7 @@ using UnityEngine;
 using rvinowise.contracts;
 
 
-namespace rvinowise.unity.units.parts.limbs.creeping_legs.strategy {
+namespace rvinowise.unity {
 
 /* don't try to raise the belly above the ground,
    but keep one leg on the ground to move constantly:

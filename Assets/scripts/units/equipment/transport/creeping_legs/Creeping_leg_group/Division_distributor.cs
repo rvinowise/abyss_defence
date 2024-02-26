@@ -3,10 +3,16 @@ using System.Linq;
 using rvinowise.contracts;
 
 
-namespace rvinowise.unity.units.parts.limbs.creeping_legs {
+namespace rvinowise.unity {
 
 public partial class Creeping_leg_group {
 
+    
+    public override void hide_children_from_copying() {
+        base.hide_children_from_copying();
+        legs.Clear();
+    }
+    
     public override void distribute_data_across(
         IEnumerable<Children_group> new_controllers
     ) {

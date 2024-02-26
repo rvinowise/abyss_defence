@@ -1,10 +1,7 @@
 using UnityEngine;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.tools;
-using rvinowise.unity.units.parts.weapons.guns;
 using units;
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions.using_guns.reloading {
+namespace rvinowise.unity.actions {
 
 public class Reload_pistol: Reload_gun {
     

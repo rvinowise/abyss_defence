@@ -1,10 +1,8 @@
-using rvinowise.unity.effects.persistent_residue;
 using rvinowise.unity.extensions.pooling;
 using UnityEngine;
-using rvinowise.unity.effects.physics;
 
 
-namespace rvinowise.unity.units.parts.weapons.guns.common {
+namespace rvinowise.unity {
 
 public class Gun_shell : MonoBehaviour {
     

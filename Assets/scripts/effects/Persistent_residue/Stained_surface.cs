@@ -1,19 +1,18 @@
-﻿using rvinowise.unity.effects.liquids;
-using UnityEngine;
+﻿using UnityEngine;
 
+
+namespace rvinowise.unity {
 
 public class Stained_surface : MonoBehaviour {
     public SpriteRenderer sprite_renderer;
-    public BoxCollider2D collider;
-    
+    public BoxCollider2D collider2d;
+
     void Awake() {
         sprite_renderer = GetComponent<SpriteRenderer>();
-        collider = GetComponent<BoxCollider2D>();
+        collider2d = GetComponent<BoxCollider2D>();
     }
-    void Update()
-    {
-        
-    }
+
+    void Update() { }
 
     private void OnCollisionEnter(Collision other) {
         if (other.gameObject.GetComponent<Puddle>() is Puddle puddle) {
@@ -21,7 +20,7 @@ public class Stained_surface : MonoBehaviour {
         }
     }
 
-    private void draw_image_forever() {
-        
-    }
+    private void draw_image_forever() { }
+}
+
 }

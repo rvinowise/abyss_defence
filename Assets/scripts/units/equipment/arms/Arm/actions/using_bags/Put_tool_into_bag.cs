@@ -1,7 +1,7 @@
-﻿using rvinowise.unity.units.parts.actions;
+﻿using rvinowise.unity;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 public class Put_tool_into_bag: Action_sequential_parent {
 

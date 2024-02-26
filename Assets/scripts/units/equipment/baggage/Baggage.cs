@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.tools;
 
 
-namespace rvinowise.unity.units.parts {
+namespace rvinowise.unity {
 
 public class Baggage: 
 Turning_element
@@ -77,10 +76,6 @@ Turning_element
     
     
     
-    void OnCollisionEnter2D(Collision2D collision) {
-        
-    }
-
     public delegate void EventHandler();
     public event EventHandler on_ammo_changed;
 

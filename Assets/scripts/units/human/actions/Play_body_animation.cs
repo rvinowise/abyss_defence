@@ -1,10 +1,6 @@
 using UnityEngine;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.limbs.arms;
-using Action = rvinowise.unity.units.parts.actions.Action;
 
-
-namespace units.human.actions {
+namespace rvinowise.unity.actions {
 
 public class Play_body_animation : Action_sequential_parent {
 

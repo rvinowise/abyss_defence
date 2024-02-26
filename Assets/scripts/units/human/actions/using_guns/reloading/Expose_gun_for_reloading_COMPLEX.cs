@@ -2,19 +2,18 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.weapons.guns;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions.using_guns.reloading {
+namespace rvinowise.unity.actions {
 
-public class Expose_gun_for_reloading_COMPLEX: parts.actions.Action_leaf {
+public class Expose_gun_for_reloading_COMPLEX: Action_leaf {
 
     public Arm arm;
 
     //private Gun gun;
     private Pistol pistol;
     
-    public static parts.actions.Action create(
+    public static Action create(
         Arm in_arm
     ) {
         Contract.Requires(
@@ -33,6 +32,7 @@ public class Expose_gun_for_reloading_COMPLEX: parts.actions.Action_leaf {
     }
     
     protected override void on_start_execution() {
+        base.on_start_execution();
         arm.hand.gesture = Hand_gesture.Support_of_horizontal;
         arm.held_tool.transform.flipY(arm.folding_side == Side_type.RIGHT);
         arm.held_tool.animator.SetBool("sideview", true);

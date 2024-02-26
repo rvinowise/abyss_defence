@@ -1,9 +1,10 @@
 ﻿using System;
+using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.limbs {
+namespace rvinowise.unity {
 
 [Serializable]
 public struct Span {
@@ -136,6 +137,40 @@ public struct Span {
         }
         return max;
     }
+
+    public Span to_absolute(Transform relative_to_what) {
+        return new Span(
+            new Degree(relative_to_what.rotation.to_degree() + this.min).normalized(),
+            new Degree(relative_to_what.rotation.to_degree() + this.max).normalized()
+        );
+    }
+
+    public bool has_direction_inside(float target) {
+        float min_to_target = min.angle_to(target).use_minus();
+        float max_to_target = max.angle_to(target).use_minus();
+
+        if (
+            (rvi.Math.sign_or_zero(min_to_target) != rvi.Math.sign_or_zero(max_to_target))
+            &&
+            (Math.Abs(min_to_target) + Math.Abs(max_to_target) < 180)
+            &&
+            (!goes_through_switching_degrees)
+        )
+        {
+            return true;
+        }
+        
+        return false;
+        
+        // bool is_within_smaller_span = (target >= min)&&
+        //                               (target <= max);
+        // if (goes_through_switching_degrees) {
+        //     return !is_within_smaller_span;
+        // }
+        // return is_within_smaller_span;
+    }
+    
+    
 }
 
 }

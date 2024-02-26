@@ -1,15 +1,11 @@
 ﻿using System;
 using rvinowise.contracts;
-using rvinowise.unity.units.control.human;
-using rvinowise.unity.units.parts.limbs.arms;
-using rvinowise.unity.units.parts.limbs.arms.humanoid;
-using rvinowise.unity.units.parts.tools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace rvinowise.unity.ui {
+namespace rvinowise.unity {
 public class Ui_arms: 
 MonoBehaviour
 {

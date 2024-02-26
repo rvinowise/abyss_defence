@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 
-namespace rvinowise.unity.units.parts.limbs.creeping_legs.strategy {
+namespace rvinowise.unity {
 
 
 /* don't try to move constantly - all legs can be raised up:

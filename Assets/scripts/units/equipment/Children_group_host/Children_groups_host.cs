@@ -1,13 +1,12 @@
-﻿using rvinowise.unity.units.parts.transport;
-
-namespace rvinowise.unity.units.parts
+﻿
+namespace rvinowise.unity
 {
 public partial class Children_groups_host
 {
 
 
     public ITransporter transporter { get; set; }
-    public IWeaponry weaponry { get; set; }
+    public IAttacker attacker { get; set; }
 
     
 

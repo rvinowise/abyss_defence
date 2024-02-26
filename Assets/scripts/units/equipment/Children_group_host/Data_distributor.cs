@@ -2,7 +2,7 @@
 using rvinowise.contracts;
 
 
-namespace rvinowise.unity.units.parts {
+namespace rvinowise.unity {
 
 public partial class Children_groups_host {
     public static class Data_distributor {

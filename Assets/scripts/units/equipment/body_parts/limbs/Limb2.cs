@@ -3,12 +3,12 @@ using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.actions;
+using rvinowise.unity.actions;
 using static rvinowise.unity.geometry2d.Directions;
-using Action = rvinowise.unity.units.parts.actions.Action;
+using Action = rvinowise.unity.actions.Action;
 
 
-namespace rvinowise.unity.units.parts.limbs {
+namespace rvinowise.unity {
 
 [Serializable]
 public partial class Limb2:
@@ -50,10 +50,10 @@ public partial class Limb2:
     }
 
     public virtual bool at_desired_rotation() {
-        return (
-            this.segment1.at_desired_rotation() &&
-            this.segment2.at_desired_rotation()
-        );
+        return 
+            segment1.at_desired_rotation() &&
+            segment2.at_desired_rotation()
+        ;
 
     }
     
@@ -74,7 +74,7 @@ public partial class Limb2:
     }
 
     private Directions determine_directions_reaching_point(Vector2 target) {
-        Contract.Requires((folding_side != Side_type.NONE) && (folding_side != null),
+        Contract.Requires((folding_side != Side_type.NONE),
             "folding_direction is needed for bending the limb"
         );
         float distance_to_aim = segment1.position.distance_to(target);
@@ -140,7 +140,7 @@ public partial class Limb2:
         }
         if (!segment2.is_within_span())
         {
-            if (this.name == "leg_l_f") {
+            if (this.name == "leg_1") {
                 bool test = segment2.is_within_span();
             }
             segment2.debug_draw_line(Color.red,1);

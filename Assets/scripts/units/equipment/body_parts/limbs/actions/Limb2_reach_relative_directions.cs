@@ -1,19 +1,22 @@
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.units.parts.actions;
+using rvinowise.unity;
+using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.limbs.actions {
+namespace rvinowise.unity.actions {
 
 public class Limb2_reach_relative_directions: Action_leaf {
     private Limb2 limb;
 
-    Degree femur_rotation;
-    Degree tibia_rotation;
+    Degree segment1_relative_direction;
+    Degree segment2_relative_direction;
+    private Transform relative_to_what;
     
-    public static parts.actions.Action create_assuming_left_limb(
+    public static Action create_assuming_left_limb(
         Limb2 in_limb, 
-        Degree in_femur_rotation,
-        Degree in_tibia_rotation
+        Degree in_segment1_direction,
+        Degree in_segment2_direction,
+        Transform relative_to_what
     ) {
         
         var action = (Limb2_reach_relative_directions)pool.get(typeof(Limb2_reach_relative_directions));
@@ -21,33 +24,26 @@ public class Limb2_reach_relative_directions: Action_leaf {
         action.add_actor(in_limb);
         action.limb = in_limb;
         if (in_limb.side == Side_type.LEFT) {
-            action.femur_rotation = in_femur_rotation;
-            action.tibia_rotation = in_tibia_rotation;
+            action.segment1_relative_direction = in_segment1_direction;
+            action.segment2_relative_direction = in_segment2_direction;
         } else {
-            action.femur_rotation = -in_femur_rotation;
-            action.tibia_rotation = -in_tibia_rotation;
-        } 
+            action.segment1_relative_direction = -in_segment1_direction;
+            action.segment2_relative_direction = -in_segment2_direction;
+        }
+        action.relative_to_what = relative_to_what;
         
         return action;
     }
-
-    protected override void on_start_execution() {
-        
-        limb.segment1.set_target_direction_relative_to_parent(
-            femur_rotation
-        );
-        limb.segment2.set_target_direction_relative_to_parent(
-            tibia_rotation
-        );
-        
-    }
-
-    protected override void restore_state() {
-        limb.segment1.target_direction_relative = false;
-        limb.segment2.target_direction_relative = false;
-    }
+    
 
     public override void update() {
+
+        limb.segment1.target_rotation =
+            relative_to_what.rotation * segment1_relative_direction.to_quaternion(); 
+            
+        limb.segment2.target_rotation =
+            limb.segment1.target_rotation * segment2_relative_direction.to_quaternion(); 
+        
         if (complete()) {
             mark_as_completed();
         } else {

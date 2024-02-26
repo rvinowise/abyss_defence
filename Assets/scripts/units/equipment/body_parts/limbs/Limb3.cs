@@ -1,7 +1,7 @@
 ﻿using rvinowise.unity.geometry2d;
 
 
-namespace rvinowise.unity.units.parts.limbs {
+namespace rvinowise.unity {
 
 public class Limb3: Limb2 {
 

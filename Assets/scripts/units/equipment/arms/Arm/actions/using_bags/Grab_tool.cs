@@ -1,8 +1,8 @@
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.tools;
+using rvinowise.unity;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 public class Grab_tool: Action_of_arm {
 

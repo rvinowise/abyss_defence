@@ -1,8 +1,9 @@
-﻿using rvinowise.unity.geometry2d;
+﻿using rvinowise.debug;
+using rvinowise.unity.geometry2d;
 using rvinowise.unity.extensions;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 public class Move_hand_into_bag: Action_of_arm {
 
@@ -28,6 +29,7 @@ public class Move_hand_into_bag: Action_of_arm {
 
 
     protected override void on_start_execution() {
+        base.on_start_execution();
         arm.shoulder_mirrored_target_direction = 45f;
 
         slow_movements(arm);
@@ -38,16 +40,25 @@ public class Move_hand_into_bag: Action_of_arm {
     }
 
     private void slow_movements(Arm arm) {
-        old_upper_arm_rotation_speed = arm.upper_arm.rotation_speed;
-        arm.upper_arm.rotation_speed /= 2f;
+        old_upper_arm_rotation_speed = arm.upper_arm.rotation_acceleration;
+        // arm.upper_arm.rotation_speed /= 2f;
+        //
+        old_shoulder_rotation_speed = arm.shoulder.rotation_acceleration;
+        // arm.shoulder.rotation_speed /= 2f;
+
+        arm.upper_arm.current_rotation_inertia = 0;
+        arm.upper_arm.rotation_acceleration /= 10f;
         
-        old_shoulder_rotation_speed = arm.shoulder.rotation_speed;
-        arm.shoulder.rotation_speed /= 2f;
-        
+        arm.shoulder.current_rotation_inertia = 0;
+        arm.shoulder.rotation_acceleration /= 10f;
+        if (arm.upper_arm.rotation_acceleration <=12f)
+            UnityEngine.Debug.Log($"Move_hand_into_bag: over-slowing {arm.name}, speed = {arm.upper_arm.rotation_acceleration}");
+        UnityEngine.Debug.Log($"Slowing speed by {get_explanation()}, speed = {arm.upper_arm.rotation_acceleration}");
     }
     private void restore_movements(Arm arm) {
-        arm.upper_arm.rotation_speed = old_upper_arm_rotation_speed;
-        arm.shoulder.rotation_speed = old_shoulder_rotation_speed;
+        arm.upper_arm.rotation_acceleration = old_upper_arm_rotation_speed;
+        arm.shoulder.rotation_acceleration = old_shoulder_rotation_speed;
+        UnityEngine.Debug.Log($"Restoring speed by {get_explanation()}, speed = {arm.upper_arm.rotation_acceleration}");
     }
 
 
@@ -73,8 +84,8 @@ public class Move_hand_into_bag: Action_of_arm {
 
     private bool complete(Orientation desired_orientation) {
         if (
-            arm.hand.position.close_enough_to(desired_orientation.position) /*&&
-            arm.hand.rotation.abs_degrees_to(desired_orientation.rotation) < bag.entering_span*/
+            arm.hand.position.close_enough_to(desired_orientation.position) //&&
+            //arm.hand.rotation.abs_degrees_to(desired_orientation.rotation) < bag.entering_span
             ) 
         {
             return true;

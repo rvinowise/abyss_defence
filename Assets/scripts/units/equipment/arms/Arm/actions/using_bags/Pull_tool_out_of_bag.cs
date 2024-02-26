@@ -1,8 +1,6 @@
-﻿using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.tools;
+﻿using rvinowise.unity;
 
-
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 /* requires: Move_hand_into_bag */
 public class Pull_tool_out_of_bag: Action_sequential_parent {

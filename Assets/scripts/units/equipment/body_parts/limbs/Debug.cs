@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.limbs {
+namespace rvinowise.unity {
 
 public partial class Limb2 { 
     public class Debug {

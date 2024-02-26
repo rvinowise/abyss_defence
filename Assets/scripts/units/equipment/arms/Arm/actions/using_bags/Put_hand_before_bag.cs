@@ -1,9 +1,10 @@
 ﻿using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
+using rvinowise.unity;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 public class Put_hand_before_bag: Action_of_arm {
 
@@ -26,6 +27,7 @@ public class Put_hand_before_bag: Action_of_arm {
     }
 
     protected override void on_start_execution() {
+        base.on_start_execution();
 
         arm.shoulder_mirrored_target_direction = 60f;
 

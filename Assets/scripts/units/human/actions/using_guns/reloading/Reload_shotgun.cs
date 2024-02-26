@@ -1,10 +1,7 @@
 using UnityEngine;
-using rvinowise.unity.units.humanoid;
-using rvinowise.unity.units.parts.tools;
-using rvinowise.unity.units.parts.weapons.guns;
 using units;
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions.using_guns.reloading {
+namespace rvinowise.unity.actions {
 
 public class Reload_shotgun: Reload_gun {
     
@@ -61,7 +58,7 @@ public class Reload_shotgun: Reload_gun {
     public void init_child_actions() {
         
         this.add_child(
-            rvinowise.unity.units.parts.actions.Action_parallel_parent.create(
+            Action_parallel_parent.create(
                 actions.Arm_reach_relative_directions.create_assuming_left_arm(
                     gun_arm,
                     -90f,

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using rvinowise.unity.units.parts.transport;
+using rvinowise.unity.actions;
 using UnityEngine;
-using rvinowise.unity.units.parts.actions;
-using Action = rvinowise.unity.units.parts.actions.Action;
+using Action = rvinowise.unity.actions.Action;
 
-
-namespace rvinowise.unity.units.parts {
+namespace rvinowise.unity {
     
 /* provides information about possible speed and rotation for a moving Unit */
 public class Empty_transporter: MonoBehaviour, ITransporter {
@@ -15,9 +13,7 @@ public class Empty_transporter: MonoBehaviour, ITransporter {
     public float possible_rotation { get; set; } = 0f;
     public float possible_impulse { get; set; } = 0f;
 
-    public Quaternion direction_quaternion { get; }
-
-    public transport.Transporter_commands command_batch { get; }
+    public Transporter_commands command_batch { get; }
 
 
     public void rotate_to_direction(float direction) {

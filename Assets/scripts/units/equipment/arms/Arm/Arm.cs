@@ -2,35 +2,30 @@
 using UnityEngine;
 
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.limbs.arms.actions;
-using rvinowise.unity.units.parts.tools;
+using rvinowise.unity.actions;
 using System;
-using rvinowise.unity.units.parts.limbs.arms.humanoid;
 using rvinowise.unity.extensions;
-using rvinowise.unity.ui.input;
-using rvinowise.unity.units.parts.weapons.guns;
 
-namespace rvinowise.unity.units.parts.limbs.arms  {
+namespace rvinowise.unity  {
 
-public partial class Arm: 
+public class Arm: 
     Limb3, IChild_of_group, IReceive_recoil
 
 {
 
     public Arm_pair pair;
-    public Segment shoulder;
+    public Arm_segment shoulder;
 
-    public Segment upper_arm {
-        get { return segment1 as arms.Segment;}
+    public Arm_segment upper_arm {
+        get { return segment1 as Arm_segment;}
         set { segment1 = value; }
     }
-    public Segment forearm {
-        get { return segment2 as arms.Segment;}
+    public Arm_segment forearm {
+        get { return segment2 as Arm_segment;}
         set { segment2 = value; }
     }
 
-    public override limbs.Segment segment3 {
+    public override Segment segment3 {
         get{
             return _hand;
         }
@@ -78,7 +73,7 @@ public partial class Arm:
 
     protected void Awake() 
     {
-        attention_target = ui.input.Player_input.instance.cursor.transform;
+        //attention_target = ui.input.Player_input.instance.cursor.transform;
     }
     
    

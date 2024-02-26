@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace rvinowise.unity.management {
+namespace rvinowise.unity {
 public class Persistent_everywhere : MonoBehaviour
 {
    void Awake() {

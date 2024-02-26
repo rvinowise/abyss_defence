@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace rvinowise.unity.effects.persistent_residue {
+namespace rvinowise.unity {
 public class Persistent_residue_mesh_holder:
 MonoBehaviour,
 IPersistent_residue_holder

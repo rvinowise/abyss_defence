@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace rvinowise.unity.units.parts
+namespace rvinowise.unity
 {
 
 /* represents a coherent system of several objects, 
@@ -11,7 +11,7 @@ public interface IChildren_group
     IEnumerable<IChild_of_group> children {
         get;
     }
-    IEnumerable<IChild_of_group> children_stashed_from_copying {
+    IList<IChild_of_group> children_stashed_from_copying {
         get;
     }
 
@@ -20,7 +20,7 @@ public interface IChildren_group
     void add_child(IChild_of_group compound_object);
     
     
-    void init();
+    //void init();
 }
 
 

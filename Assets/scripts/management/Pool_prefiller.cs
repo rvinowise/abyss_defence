@@ -4,7 +4,7 @@ using rvinowise.unity.extensions.pooling;
 using UnityEngine;
 
 
-namespace rvinowise.unity.management {
+namespace rvinowise.unity {
 
 [Serializable]
 public struct Prefilled_prefab{

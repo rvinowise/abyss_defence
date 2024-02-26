@@ -4,7 +4,7 @@ using rvinowise.unity.debug;
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts
+namespace rvinowise.unity
 {
 
 /*
@@ -16,21 +16,18 @@ public abstract class Children_group:
     MonoBehaviour,
     IChildren_group
 {
-    public IChildren_groups_host host;
-
-    public Divisible_body divisible_body;
 
     public abstract IEnumerable<IChild_of_group> children {
         get;
     }
 
-    public IEnumerable<IChild_of_group> children_stashed_from_copying {
+    public IList<IChild_of_group> children_stashed_from_copying {
         get;
-        protected set;
+        private set;
     }
 
-    public void hide_children_from_copying() {
-        children_stashed_from_copying = children.Where(leg => leg != null);
+    public virtual void hide_children_from_copying() {
+        children_stashed_from_copying = children.Where(child => child != null).ToList();
     }
     
 
@@ -41,15 +38,6 @@ public abstract class Children_group:
       
     
     protected virtual void Awake() {
-        host = GetComponent<IChildren_groups_host>();
-        if (host != null) {
-            host.children_groups.Add(this);
-        }
-
-        if (divisible_body == null) {
-            divisible_body = GetComponent<Divisible_body>();
-        }
-
         debug = new Debug(this);
         debug.increase_counter();
     }
@@ -70,7 +58,7 @@ public abstract class Children_group:
     public abstract void add_child(IChild_of_group in_child);
 
     
-    public virtual void init() { }
+    //public virtual void init() { }
 
 
 
@@ -83,9 +71,9 @@ public abstract class Children_group:
             child.transform.localPosition += (Vector3)in_shift;
         }
     }
-    
 
-    public class Debug: Debugger {
+
+    private class Debug: Debugger {
         protected override ref int count {
             get { return ref _count; }
         }
@@ -95,7 +83,8 @@ public abstract class Children_group:
         }
     }
 
-    public Debug debug;
+
+    private Debug debug;
 
     
 

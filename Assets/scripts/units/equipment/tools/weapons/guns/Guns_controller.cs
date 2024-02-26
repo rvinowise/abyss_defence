@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.weapons.guns {
+namespace rvinowise.unity {
 
 
 public class Guns_controller:
     Children_group
-    ,IWeaponry 
+    ,IAttacker 
 {
     private IList<Ak47> rifles;
 
@@ -36,7 +36,7 @@ public class Guns_controller:
         throw new NotImplementedException();
     }
 
-    public void attack(Transform target) {
+    public void attack(Transform target, Action on_completed) {
         throw new NotImplementedException();
     }
 }

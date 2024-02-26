@@ -2,7 +2,7 @@ using UnityEngine;
 using rvinowise.unity.geometry2d;
 
 
-namespace rvinowise.unity.units.parts.weapons.guns.common {
+namespace rvinowise.unity {
 
 public class Pellet_small : Pellet {
     private static Polygon circle;

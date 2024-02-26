@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 
 
-namespace rvinowise.unity.units.parts.teeth {
+namespace rvinowise.unity {
+
 public class Teeth_group :
 Children_group
 {

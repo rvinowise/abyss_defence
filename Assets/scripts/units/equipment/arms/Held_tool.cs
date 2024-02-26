@@ -3,13 +3,11 @@ using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.weapons;
-using rvinowise.unity.units.parts.weapons.guns;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms {
+namespace rvinowise.unity {
 
-public class Held_tool: IWeapon {
+public class Held_tool: IGun {
     
     public Gun gun;
 

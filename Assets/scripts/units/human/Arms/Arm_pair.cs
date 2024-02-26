@@ -5,30 +5,31 @@ using UnityEngine;
 
 using rvinowise.contracts;
 
-using rvinowise.unity.units.parts.limbs.arms.actions;
-using rvinowise.unity.units.parts.limbs.arms.actions.using_guns.reloading;
-using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.tools;
-using rvinowise.unity.units.parts.transport;
-using rvinowise.unity.units.parts.weapons.guns;
-using Action = rvinowise.unity.units.parts.actions.Action;
-using rvinowise.unity.units.control;
+using rvinowise.unity.actions;
 using rvinowise.unity.extensions.attributes;
 using System;
+using Action = rvinowise.unity.actions.Action;
 
-namespace rvinowise.unity.units.parts.limbs.arms.humanoid {
+
+namespace rvinowise.unity {
 
 public class Arm_pair:
     MonoBehaviour
-    ,IWeaponry
+    ,IAttacker
 {
 
     #region IWeaponry interface
 
-    public bool can_reach(Transform target) {
-        return true;
+    public bool can_reach(Transform in_target) {
+        return 
+            left_tool is Gun left_gun &&
+            aimed_at_target(left_gun, in_target)
+            ||
+            right_tool is Gun right_gun &&
+            aimed_at_target(right_gun, in_target)
+            ;
     }
-     public void attack(Transform in_target) {
+     public void attack(Transform in_target, System.Action on_completed = null) {
         if (
             get_arm_targeting(in_target) is {held_tool: Gun gun} arm &&
             gun.can_fire() &&
@@ -44,7 +45,7 @@ public class Arm_pair:
 
     #region Arm_controller itself
     
-    public units.humanoid.Humanoid user;
+    public Humanoid user;
     public Intelligence intelligence;
     public Arm left_arm;
     public Arm right_arm;
@@ -57,7 +58,7 @@ public class Arm_pair:
     private Toolset toolset_being_equipped;
 
 
-    public Action_runner action_runner => intelligence.action_runner;
+    public Action_runner action_runner;// => action_runner;
     
 
     public Tool left_tool => left_arm.held_tool;
@@ -202,7 +203,7 @@ public class Arm_pair:
         if (is_aiming_at(in_target)) {
             return;
         }
-        Arm best_arm = null;
+        Arm best_arm;
         if (get_free_arm_closest_to(in_target, typeof(Gun)) is Arm free_arm) {
             best_arm = free_arm;
         } else {
@@ -267,17 +268,21 @@ public class Arm_pair:
     }
 
     private void subscribe_to_disappearance_of(Transform in_unit) {
-        if (in_unit.GetComponent<Damage_receiver>() is Damage_receiver damage_receiver) {
+        if (in_unit.GetComponent<Intelligence>() is {} damage_receiver) {
             damage_receiver.on_destroyed+=handle_target_disappearence;
         }
     }
     private void unsubscribe_from_disappearance_of(Transform in_unit) {
-        if (in_unit.GetComponent<Damage_receiver>() is Damage_receiver damage_receiver) {
+        if (in_unit == null)
+        {
+            Debug.LogError($"Arm_pair is unsubscribing from the disappearance of a null target");
+        }else
+        if (in_unit.GetComponent<Intelligence>() is { } damage_receiver) {
             damage_receiver.on_destroyed-=handle_target_disappearence;
         }
     }
 
-    private void handle_target_disappearence(Damage_receiver disappearing_unit) {
+    private void handle_target_disappearence(Intelligence disappearing_unit) {
         foreach (Arm arm in get_all_armed_autoaimed_arms()) {
             if (arm.current_action is Aim_at_target aiming_action) {
                 if (aiming_action.get_target() == disappearing_unit.transform) {
@@ -382,7 +387,7 @@ public class Arm_pair:
             var right_target = get_target_of(right_arm);
             if (right_target != null) {
                 rvinowise.unity.debug.Debug.DrawLine_simple(
-                    ui.input.Player_input.instance.cursor.transform.position, 
+                    Player_input.instance.cursor.transform.position, 
                 right_target.transform.position,
                     Color.yellow,
                     3
@@ -391,7 +396,7 @@ public class Arm_pair:
             var left_target = get_target_of(left_arm);
             if (left_target != null) {
                 rvinowise.unity.debug.Debug.DrawLine_simple(
-                    ui.input.Player_input.instance.cursor.transform.position, 
+                    Player_input.instance.cursor.transform.position, 
                     left_target.transform.position,
                     Color.white,
                     3

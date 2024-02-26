@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Contract = rvinowise.contracts.Contract;
 
-namespace rvinowise.unity.units.parts.limbs.creeping_legs.strategy {
+namespace rvinowise.unity {
+
 public abstract class Moving_strategy {
 
     protected readonly IReadOnlyList<ILeg> legs;

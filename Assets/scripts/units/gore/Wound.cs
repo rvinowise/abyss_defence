@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.gore {
+namespace rvinowise.unity {
 
 public class Wound: MonoBehaviour {
 

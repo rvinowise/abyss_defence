@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace rvinowise.unity.units.parts.limbs.creeping_legs {
+namespace rvinowise.unity {
 
 
 [Serializable]

@@ -1,16 +1,11 @@
 using UnityEngine;
-using rvinowise.unity.units.parts;
-using rvinowise.unity.effects.persistent_residue;
-using rvinowise.unity.units.control;
-using rvinowise.unity.units.parts.limbs.creeping_legs;
-using rvinowise.unity.units.parts.weapons.guns.common;
 
-namespace rvinowise.unity.units {
+namespace rvinowise.unity {
 
 public class Damage_receiver: MonoBehaviour {
 
-    public delegate void EvendHandler(Damage_receiver unit);
-    public event EvendHandler on_destroyed;
+   
+    
 
     private Divisible_body divisible_body;
     private ILeaving_persistent_residue leaving_residue;
@@ -36,17 +31,12 @@ public class Damage_receiver: MonoBehaviour {
         needs_to_die = true;
     }
     private void destroy() {
-        leaving_residue.leave_persistent_residue();
+        leaving_residue?.leave_persistent_residue();
         
-        notify_about_destruction();
         Destroy(gameObject);
     }
 
-    public void notify_about_destruction() {
-        if (on_destroyed != null) {
-            on_destroyed(this);
-        }
-    }
+  
 
     void FixedUpdate() {
         if (needs_to_die) {

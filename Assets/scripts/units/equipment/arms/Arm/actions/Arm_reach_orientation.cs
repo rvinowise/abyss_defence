@@ -3,13 +3,13 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
-public class Arm_reach_orientation: arms.actions.Action_of_arm {
+public class Arm_reach_orientation: Action_of_arm {
 
     public Orientation desired_orientation;
     
-    public static parts.actions.Action create(
+    public static Action create(
         Arm in_arm, 
         Orientation in_desired_orientation
     ) {

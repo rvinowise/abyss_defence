@@ -1,23 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using rvinowise.unity.extensions;
 
 using rvinowise.unity.geometry2d;
 using static rvinowise.unity.geometry2d.Directions;
-using rvinowise.unity.units.parts.limbs;
 
-
-namespace rvinowise.unity.units.parts{
+namespace rvinowise.unity {
 
 public class Turning_element: MonoBehaviour {
     
     
     public Span possible_span;
-    public float rotation_speed;
     public float rotation_acceleration = 550f;
     public float rotation_slowing = 1100f;
-    public float rotation_friction = 0f;
 
-    
    
     public Degree current_rotation_inertia;
     public Saved_physics last_physics = new Saved_physics();
@@ -106,8 +102,9 @@ public class Turning_element: MonoBehaviour {
         return target_rotation;
     }
 
+    public static float rotation_epsilon = 0.01f;
     
-    public virtual void rotate_to_desired_direction() {
+    public void rotate_to_desired_direction() {
 
         float angle_to_pass = get_angle_to_pass();
         rvinowise.contracts.Contract.Assume(Mathf.Abs(angle_to_pass) < 180f, "angle too big");
@@ -134,19 +131,20 @@ public class Turning_element: MonoBehaviour {
 
         #region inner functions
         bool has_reached_target() {
-            return Mathf.Abs(angle_to_pass) < 0.01f;
+            return Mathf.Abs(angle_to_pass) <= rotation_epsilon;
         }
         
         bool is_ready_to_reach_target() {
-            bool result = (
+            bool result = 
                 (
-                    Mathf.Abs(angle_to_pass) < Mathf.Abs(current_rotation_inertia)  * Time.deltaTime
-                ) 
-                &&
-                (
-                    rotation_acceleration* Time.deltaTime >= Mathf.Abs(current_rotation_inertia)* Time.deltaTime
-                )
-            );
+                    (
+                        Mathf.Abs(angle_to_pass) < Mathf.Abs(current_rotation_inertia)  * Time.deltaTime
+                    ) 
+                    &&
+                    (
+                        rotation_acceleration* Time.deltaTime >= Mathf.Abs(current_rotation_inertia)* Time.deltaTime
+                    )
+                );
             
             return result;
         }
@@ -225,7 +223,8 @@ public class Turning_element: MonoBehaviour {
 
 
     public bool at_desired_rotation() {
-        return this.rotation.close_enough_to(this.target_rotation);
+        //return this.rotation.close_enough_to(this.target_rotation);
+        return Math.Abs(rotation.degrees_to(target_rotation)) <= rotation_epsilon;
     }
 
 

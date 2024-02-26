@@ -1,8 +1,7 @@
-﻿using rvinowise.unity.units.parts.actions;
-using rvinowise.unity.units.parts.limbs.creeping_legs;
+﻿
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions {
+namespace rvinowise.unity.actions {
 
 public class Creeping_leg_partakes_in_moving: Action_leaf {
 

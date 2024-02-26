@@ -1,4 +1,4 @@
-namespace rvinowise.unity.units.parts.tools {
+namespace rvinowise.unity {
 
 public class Ammunition: Tool {
     public int rounds_qty;

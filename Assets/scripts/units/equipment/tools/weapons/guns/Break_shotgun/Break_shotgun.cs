@@ -1,12 +1,10 @@
 using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
-using rvinowise.unity.units.parts.weapons.guns.common;
 using System.Diagnostics.Contracts;
 using Random = UnityEngine.Random;
-using rvinowise.unity.effects.physics;
 
-namespace rvinowise.unity.units.parts.weapons.guns {
+namespace rvinowise.unity {
 
 public class Break_shotgun: Gun {
 

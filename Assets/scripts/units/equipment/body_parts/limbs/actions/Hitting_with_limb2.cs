@@ -1,11 +1,9 @@
-﻿using rvinowise.unity.units.parts.actions;
-using UnityEngine;
+﻿using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
-using rvinowise.unity.units.parts.transport;
 
 
-namespace rvinowise.unity.units.parts.limbs.actions {
+namespace rvinowise.unity.actions {
 
 public class Hitting_with_limb2: Action_sequential_parent {
 
@@ -30,6 +28,7 @@ public class Hitting_with_limb2: Action_sequential_parent {
     }
 
     protected override void on_start_execution() {
+        base.on_start_execution();
         
         Hitting_with_limb2_swing_back swinging_subaction 
             = Hitting_with_limb2_swing_back.create(limb, transporter, target);

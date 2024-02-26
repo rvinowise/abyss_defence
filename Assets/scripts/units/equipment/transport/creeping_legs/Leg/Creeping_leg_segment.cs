@@ -1,6 +1,6 @@
-﻿namespace rvinowise.unity.units.parts.limbs.creeping_legs {
+﻿namespace rvinowise.unity {
 
-public class Creeping_leg_segment: limbs.Segment {
+public class Creeping_leg_segment: Segment {
 
 
 }

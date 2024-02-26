@@ -1,4 +1,4 @@
-namespace units {
+namespace rvinowise.unity {
 
 public interface IFlippable_actor {
 

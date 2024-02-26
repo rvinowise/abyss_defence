@@ -1,10 +1,9 @@
-using rvinowise.unity.effects.physics;
 using rvinowise.unity.extensions.pooling;
 using UnityEngine;
 using rvinowise.unity.extensions;
 
 
-namespace rvinowise.unity.effects.liquids {
+namespace rvinowise.unity {
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Trajectory_flyer))]
@@ -17,7 +16,7 @@ public class Droplet:
     public Object_pool pool { get; set; } 
 
     [HideInInspector]
-    public Rigidbody2D rigidbody;
+    public new Rigidbody2D rigidbody;
     [HideInInspector]
     public Pooled_object pooled_object;
     [HideInInspector]

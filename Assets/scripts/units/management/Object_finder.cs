@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using rvinowise.unity.units;
 using UnityEngine;
 using rvinowise.unity.extensions;
-using rvinowise.unity.units.control;
 
-namespace rvinowise.unity.management {
+namespace rvinowise.unity {
 public class Object_finder : MonoBehaviour
 {
 
@@ -20,9 +18,6 @@ public class Object_finder : MonoBehaviour
         contracts.Contract.Requires(instance == null, "it's a singleton");
         instance = this;
     }
-    void Start()
-    {
-    }
 
    
 
@@ -30,7 +25,7 @@ public class Object_finder : MonoBehaviour
         Team team = in_intelligence.team;
         List<Intelligence> enemies = new List<Intelligence>();
         if (team != null) { 
-            foreach(Team enemy_team in team.enemies) {
+            foreach(Team enemy_team in team.enemy_teams) {
                 if (team_to_units.get_values(enemy_team) is List<Intelligence> this_enemies) {
                     enemies.AddRange(this_enemies);
                 }

@@ -1,7 +1,6 @@
-using rvinowise.unity.units.parts.actions;
 
 
-namespace units.human.actions {
+namespace rvinowise.unity.actions {
 
 public class Idle: Action_leaf {
 
@@ -15,6 +14,15 @@ public class Idle: Action_leaf {
         
         return action;
     }
-    
+
+    // protected override void on_start_execution() {
+    //     base.on_start_execution();
+    //     if (actors[0] is ITransporter transporter) {
+    //         transporter.command_batch.
+    //     }
+    //     
+    // }
+
+
 }
 }

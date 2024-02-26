@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using rvinowise.unity.ui.input;
 
-namespace rvinowise.unity.units.control {
+namespace rvinowise.unity {
 
 /* autoaiming can target this object */
 public class Targetable: 

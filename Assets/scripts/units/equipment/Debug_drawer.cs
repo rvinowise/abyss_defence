@@ -4,18 +4,16 @@ using rvinowise.unity.extensions;
 
 using rvinowise.unity.geometry2d;
 using rvinowise.contracts;
-using Player_input = rvinowise.unity.ui.input.Player_input;
 
 
-namespace rvinowise.unity.debug {
+namespace rvinowise.unity {
 
 [RequireComponent(typeof(LineRenderer))]
 public class Debug_drawer : MonoBehaviour
 {
     
 
-    LineRenderer lineRenderer;
-    bool pressed = false;
+    LineRenderer line_renderer;
     private Polygon wedge;
 
     #region singleton
@@ -32,11 +30,11 @@ public class Debug_drawer : MonoBehaviour
     void Awake() {
         init_singleton();
 
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.02f;
-        lineRenderer.endWidth= 0.02f;
-        lineRenderer.widthMultiplier = 1f;
-        lineRenderer.loop = true;
+        line_renderer = GetComponent<LineRenderer>();
+        line_renderer.startWidth = 0.02f;
+        line_renderer.endWidth= 0.02f;
+        line_renderer.widthMultiplier = 1f;
+        line_renderer.loop = true;
         
     }
 
@@ -77,10 +75,10 @@ public class Debug_drawer : MonoBehaviour
     } */
     
     public void draw_polygon(Polygon polygon) {
-        lineRenderer.positionCount = polygon.points.Count;
+        line_renderer.positionCount = polygon.points.Count;
         for(int i = 0; i < polygon.points.Count; i++)
         {
-            lineRenderer.SetPosition(i, polygon.points[i]);
+            line_renderer.SetPosition(i, polygon.points[i]);
         }
     }
     

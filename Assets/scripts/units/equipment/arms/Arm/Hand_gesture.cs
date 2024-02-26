@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms {
+namespace rvinowise.unity {
 
 public class Hand_gesture : Headspring.Enumeration<Hand_gesture, int> {
     public static readonly Hand_gesture Relaxed = new Hand_gesture(

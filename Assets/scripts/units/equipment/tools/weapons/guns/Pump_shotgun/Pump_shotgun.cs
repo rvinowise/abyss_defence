@@ -1,10 +1,8 @@
 using rvinowise.unity.geometry2d;
 using UnityEngine;
-using rvinowise.unity.units.parts.limbs.arms;
-using rvinowise.unity.units.parts.tools;
 
 
-namespace rvinowise.unity.units.parts.weapons.guns {
+namespace rvinowise.unity {
 
 public class Pump_shotgun: Gun {
     

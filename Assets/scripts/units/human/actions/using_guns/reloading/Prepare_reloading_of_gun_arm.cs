@@ -1,14 +1,13 @@
 using rvinowise.contracts;
-using rvinowise.unity.units.parts.weapons.guns;
 
 
-namespace rvinowise.unity.units.parts.limbs.arms.actions.using_guns.reloading {
+namespace rvinowise.unity.actions {
 
 public class Prepare_reloading_of_gun_arm: Arm_reach_relative_directions {
 
     public Arm arm;
 
-    public static parts.actions.Action create(
+    public static Action create(
         Arm in_arm
     ) {
         Contract.Requires(

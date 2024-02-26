@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-namespace rvinowise.unity.units.parts.sensors {
+namespace rvinowise.unity {
 
 public interface ISensory_organ {
 
