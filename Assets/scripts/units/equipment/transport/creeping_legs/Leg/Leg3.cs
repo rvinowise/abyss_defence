@@ -43,19 +43,19 @@ public partial class Leg3:
         if (
             (
                 Quaternion.Angle(
-                    coxa.target_rotation,
+                    coxa.get_target_rotation(),
                     coxa.rotation
                 ) <= allowed_angle
             )&&
             (
                 Quaternion.Angle(
-                    femur.target_rotation,
+                    femur.get_target_rotation(),
                     femur.rotation
                 ) <= allowed_angle
             )&&
             (
                 Quaternion.Angle(
-                    tibia.target_rotation,
+                    tibia.get_target_rotation(),
                     tibia.rotation
                 ) <= allowed_angle
             )
@@ -94,12 +94,10 @@ public partial class Leg3:
     public override bool is_twisted_badly() {
         if (!femur.is_within_span())
         {
-            femur.debug_draw_line(Color.red,1);
             return true;
         }
         if (!tibia.is_within_span())
         {
-            tibia.debug_draw_line(Color.red,1);
             return true;
         }
         
@@ -119,11 +117,6 @@ public partial class Leg3:
     public override bool hold_onto_ground() {
         return hold_onto_point(holding_point);
     }
-
-
-    
-
-    
 
     public bool is_valid() {
         // this way it can be deleted from the editor when debugging
@@ -165,6 +158,18 @@ public partial class Leg3:
 
     #endregion
 
+    #region IAttaker
+    
+    #region IAttacker
+    
+    public override void attack(Transform target, Action on_completed = null) {
+        on_completed?.Invoke();
+    }
+    
+    #endregion
+    
+    #endregion
+    
    
     #region debug
     public override void draw_positions() {
@@ -183,50 +188,39 @@ public partial class Leg3:
     }
 
     public override void draw_directions(
-        Color color,
-        float time = 0.1f
+        Color color
     ) {
+        Gizmos.color = color;
         //float time=0.1f;
-        UnityEngine.Debug.DrawLine(
+        UnityEngine.Gizmos.DrawLine(
             coxa.position, 
-            coxa.tip,
-            color,
-            time
+            coxa.tip
         );
-        UnityEngine.Debug.DrawLine(
+        UnityEngine.Gizmos.DrawLine(
             femur.position, 
-            femur.tip,
-            color,
-            time
+            femur.tip
         );
         
-        UnityEngine.Debug.DrawLine(
+        UnityEngine.Gizmos.DrawLine(
             tibia.position,
-            tibia.tip,
-            color,
-            time
+            tibia.tip
+            
         );
     }
     public override void draw_desired_directions() {
-        float time=0.1f;
-        UnityEngine.Debug.DrawLine(
+        Gizmos.color=Color.cyan;
+        UnityEngine.Gizmos.DrawLine(
             coxa.position, 
-            coxa.desired_tip,
-            Color.cyan,
-            time
+            coxa.desired_tip
         );
-        UnityEngine.Debug.DrawLine(
+        UnityEngine.Gizmos.DrawLine(
             coxa.desired_tip, 
-            segment1.desired_tip,
-            Color.cyan,
-            time
+            segment1.desired_tip
         );
         
-        UnityEngine.Debug.DrawLine(
+        UnityEngine.Gizmos.DrawLine(
             segment1.desired_tip,
-            segment2.desired_tip,
-            Color.cyan,
-            time
+            segment2.desired_tip
         );
         
     }

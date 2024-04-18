@@ -13,7 +13,7 @@ using Action = rvinowise.unity.actions.Action;
 namespace rvinowise.unity {
 
 public class Shielding_limbs_group:
-    Children_group
+    Abstract_children_group
     ,IDefender
     ,IRunning_actions
 {
@@ -84,8 +84,8 @@ public class Shielding_limbs_group:
     
     #region Children_group
 
-    public override IEnumerable<IChild_of_group> children {
-        get => shielding_limbs;
+    public override IEnumerable<IChild_of_group> get_children() {
+        return shielding_limbs;
     }
 
     public override void add_child(IChild_of_group in_child) {

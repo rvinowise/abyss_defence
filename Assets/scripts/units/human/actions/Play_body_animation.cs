@@ -14,7 +14,7 @@ public class Play_body_animation : Action_sequential_parent {
         Arm in_right_arm,
         Animator in_animator
     ) {
-        Play_body_animation action = (Play_body_animation) pool.get(typeof(Play_body_animation));
+        Play_body_animation action = (Play_body_animation) object_pool.get(typeof(Play_body_animation));
         action.left_arm = in_left_arm;
         action.right_arm = in_right_arm;
         action.animator = in_animator;
@@ -45,11 +45,11 @@ public class Play_body_animation : Action_sequential_parent {
     }
 
     private void adjust_desired_positions() {
-        left_arm.segment1.target_rotation = left_arm.segment1.rotation;
-        left_arm.segment2.target_rotation = left_arm.segment2.rotation;
+        left_arm.segment1.set_target_rotation(left_arm.segment1.rotation);
+        left_arm.segment2.set_target_rotation(left_arm.segment2.rotation);
         
-        right_arm.segment1.target_rotation = right_arm.segment1.rotation;
-        right_arm.segment2.target_rotation = right_arm.segment2.rotation;
+        right_arm.segment1.set_target_rotation(right_arm.segment1.rotation);
+        right_arm.segment2.set_target_rotation(right_arm.segment2.rotation);
     }
 }
 }

@@ -22,7 +22,7 @@ public class Hide_leg_inside_body: Action_sequential_parent {
         ALeg leg,
         Transform body
     ) {
-        var action = (Hide_leg_inside_body)pool.get(typeof(Hide_leg_inside_body));
+        var action = (Hide_leg_inside_body)object_pool.get(typeof(Hide_leg_inside_body));
         action.body = body;
         action.leg = leg;
         

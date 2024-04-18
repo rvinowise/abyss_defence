@@ -46,10 +46,11 @@ public class Polygon {
         return middle;
     }
 
-    public void scale(float scale) {
+    public Polygon scale(float scale) {
         move(-middle);
         scale_relative_to_zero(scale);
         move(middle); // it's not obvious that Middle wasn't changed in previous functions
+        return this;
     }
     public Polygon move(Vector2 offset) {
         for(int i_point=0;i_point < points.Count;i_point++) {
@@ -102,5 +103,24 @@ public class Polygon {
         return out_polygon;
     }
 }
+
+
+public static class Polygon_creator {
+    public static Polygon get_circle_polygon(
+        float radius,
+        int points_amount
+    ) {
+        float angle_step = 360f / points_amount;
+        var circle = new Polygon(points_amount);
+        for (var i=0;i<points_amount;i++) {
+            circle.points.Add(
+                Directions.degrees_to_quaternion(angle_step * i) *
+                Vector2.right *
+                radius
+            );
+        }
+        return circle;
+    }
+} 
 
 }

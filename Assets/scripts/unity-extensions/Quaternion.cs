@@ -11,7 +11,7 @@ public static partial class Unity_extension {
     
 
     public static float to_float_degrees(this Quaternion quaternion) {
-        return quaternion.eulerAngles.z;
+        return Vector3.SignedAngle(Vector3.right, quaternion*Vector3.right, Vector3.forward);
     }
     
     public static Degree to_degree(this Quaternion quaternion) {
@@ -52,7 +52,7 @@ public static partial class Unity_extension {
     } 
 
     public static Quaternion change_magnitude_by_degrees(this Quaternion quaternion, float in_degrees) {
-        Degree current_degrees = new Degree(quaternion.eulerAngles.z).use_minus();
+        Degree current_degrees = new Degree(quaternion).use_minus();
         float change_degrees = Mathf.Sign(current_degrees.degrees) * in_degrees;
         if (will_be_nullified(current_degrees, change_degrees)) {
             return Quaternion.identity;    

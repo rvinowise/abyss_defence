@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -25,8 +26,6 @@ public class Trajectory_flyer: MonoBehaviour {
         height += vertical_velocity * Time.deltaTime;
         vertical_velocity -= weight * Time.deltaTime;
         
-        
-        
         if (is_on_the_ground()) {
             this.enabled = false;
             if (on_fell_on_the_ground != null) {
@@ -37,8 +36,19 @@ public class Trajectory_flyer: MonoBehaviour {
         
         float local_scale = size * (height + 1);
         transform.localScale = new Vector2(local_scale, local_scale);
+        transform.position = new Vector3(transform.position.x, transform.position.y, -height);
+    }
 
-        
+    public float get_vertical_impulse_for_landing_at_distance(
+        float landing_distance,
+        float launching_speed
+    ) {
+        var time_reaching_target = landing_distance / launching_speed;
+
+        var starting_velocity = 
+            - (float)(height - 0.5 * (weight) * Math.Pow(time_reaching_target, 2)) / time_reaching_target;
+
+        return starting_velocity;
     }
     
 

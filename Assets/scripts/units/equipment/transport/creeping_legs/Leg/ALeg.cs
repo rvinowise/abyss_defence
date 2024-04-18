@@ -1,5 +1,8 @@
+using System;
 using rvinowise.unity.actions;
 using UnityEngine;
+using Action = System.Action;
+
 
 namespace rvinowise.unity {
 
@@ -8,6 +11,7 @@ It uses composition instead of inheritance */
 public abstract class ALeg : 
     Limb2
     ,ILeg
+    ,IActor_attacker
 {
     public float provided_impulse = 0.2f;
     public float get_provided_impulse() => provided_impulse;
@@ -38,6 +42,8 @@ public abstract class ALeg :
     public bool up = true;
     public virtual bool is_up() => up;
 
+    [SerializeField] public String action_label;
+    
     public abstract void draw_positions();
     public abstract bool hold_onto_ground();
     public abstract bool is_twisted_uncomfortably();
@@ -52,17 +58,31 @@ public abstract class ALeg :
         base.set_desired_directions_by_position(optimal_position);
     }
 
-    
-
-    public override void on_lacking_action() {
-        Creeping_leg_partakes_in_moving.create(this).start_as_root(action_runner);
-    }
 
     public virtual void Awake() {
         Init_segmented_limbs.init_segmented_limbs(this.gameObject);
     }
 
+    
+    #region IActor_attacker
+    public override void on_lacking_action() {
+        Creeping_leg_partakes_in_moving.create(this).start_as_root(action_runner);
+    }
 
+    public bool can_reach(Transform target) {
+        var distance_to_target =
+            ((Vector2)target.position - (Vector2)transform.position).magnitude;
+        
+        return get_reaching_distance() >= distance_to_target;
+    }
+
+
+    public abstract void attack(Transform target, Action on_completed = null);
+
+    #endregion
+
+
+ 
 }
 
 }

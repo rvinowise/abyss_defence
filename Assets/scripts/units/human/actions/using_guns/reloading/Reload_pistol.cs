@@ -1,5 +1,4 @@
 using UnityEngine;
-using units;
 
 namespace rvinowise.unity.actions {
 
@@ -18,7 +17,7 @@ public class Reload_pistol: Reload_gun {
         Baggage in_bag, 
         Pistol in_tool
     ) {
-        var action = (Reload_pistol)pool.get(typeof(Reload_pistol));
+        var action = (Reload_pistol)object_pool.get(typeof(Reload_pistol));
         
         action.animator = in_animator;
         action.gun_arm = in_gun_arm;
@@ -64,11 +63,11 @@ public class Reload_pistol: Reload_gun {
     }
 
     private void adjust_desired_positions() {
-        ammo_arm.segment1.target_rotation = ammo_arm.segment1.rotation;
-        ammo_arm.segment2.target_rotation = ammo_arm.segment2.rotation;
+        ammo_arm.segment1.set_target_rotation(ammo_arm.segment1.rotation);
+        ammo_arm.segment2.set_target_rotation(ammo_arm.segment2.rotation);
         
-        gun_arm.segment1.target_rotation = gun_arm.segment1.rotation;
-        gun_arm.segment2.target_rotation = gun_arm.segment2.rotation;
+        gun_arm.segment1.set_target_rotation(gun_arm.segment1.rotation);
+        gun_arm.segment2.set_target_rotation(gun_arm.segment2.rotation);
     }
 
 

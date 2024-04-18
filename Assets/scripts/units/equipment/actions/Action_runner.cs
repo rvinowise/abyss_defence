@@ -22,7 +22,8 @@ public class Action_runner {
     }
 
     public void mark_action_as_finishing(Action action) {
-              
+        Contract.Assert(!action.is_free_in_pool, $"action {action.get_explanation()} was free in pool, but it's completed now");
+        
         finishing_actions.Add(action);
         
         var finishing_actions_debug = new List<string>();
@@ -138,6 +139,7 @@ public class Action_runner {
     }
     
     public void on_root_action_completed(Action in_action) {
+        Contract.Assert(!in_action.is_free_in_pool, $"action {in_action.get_explanation()} was free in pool, but it's completed now");
         finishing_actions.Add(in_action);
     }
 

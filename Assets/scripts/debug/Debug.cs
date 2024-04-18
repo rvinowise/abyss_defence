@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEditor;
 
 namespace rvinowise.unity.debug {
 
@@ -17,22 +16,23 @@ public static class Debug {
         Color color,
         float width = 1
     ) {
-        Handles.DrawBezier(p1,p2,p1,p2, color, null,width);
+#if UNITY_EDITOR
+        UnityEditor.Handles.DrawBezier(p1,p2,p1,p2, color, null,width);
+#endif
     }
     public static void DrawLine_simple(
         Vector3 p1,
         Vector3 p2,
         Color color,
-        float width = 1,
-        float time = 0
-    )
-    {
-
+        float width = 1
+    ) {
+        Gizmos.color = color;
+        
         int count = 1 + Mathf.CeilToInt(width); // how many lines are needed.
         if (count == 1)
         {
             //Gizmos.DrawLine(p1, p2);
-            UnityEngine.Debug.DrawLine(p1, p2, color, time);
+            Gizmos.DrawLine(p1, p2);
         }
         else
         {
@@ -53,7 +53,7 @@ public static class Debug {
                 Vector3 o = 0.99f * n * width * ((float)i / (count - 1) - 0.5f);
                 Vector3 origin = c.ScreenToWorldPoint(scp1 + o);
                 Vector3 destiny = c.ScreenToWorldPoint(scp2 + o);
-                UnityEngine.Debug.DrawLine(origin, destiny, color, time);
+                Gizmos.DrawLine(origin, destiny);
             }
         }
     }

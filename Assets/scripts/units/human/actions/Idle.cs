@@ -9,7 +9,7 @@ public class Idle: Action_leaf {
     public static Idle create(   
         IActor actor
     ) {
-        Idle action = (Idle)pool.get(typeof(Idle));
+        Idle action = (Idle)object_pool.get(typeof(Idle));
         action.add_actor(actor);
         
         return action;

@@ -26,12 +26,11 @@ public static class Side  {
         return (Side_type)((int)side * -1);
     }
 
-    private static float epsilon = 0.1f;
     public static Side_type from_degrees(float degrees) {
-        if (degrees > epsilon) {
+        if (degrees > Turning_element.rotation_epsilon) {
             return Side_type.LEFT;
         }
-        if (degrees < -epsilon) {
+        if (degrees < -Turning_element.rotation_epsilon) {
             return Side_type.RIGHT;
         }
         return Side_type.NONE;
@@ -45,7 +44,7 @@ public static class Side  {
 
     public static float turn_degrees(Side_type side, float degrees) {
         Contract.Assume(degrees >= 0, "not sure how to handle turning negative to_float_degrees into a direction");
-        Contract.Assume(side != Side_type.NONE, "not sure how to handle turning into Side.NONE");
+        //Contract.Assume(side != Side_type.NONE, "not sure how to handle turning into Side.NONE");
         return degrees * (int)side;
     }
 
@@ -54,12 +53,7 @@ public static class Side  {
         return new Degree(degrees * (int)side);
     }
 
-    public static Quaternion turn_quaternion(Side_type side, Quaternion rotation) {
-        //Contract.Assume(to_float_degrees >= 0, "not sure how to handle turning negative to_float_degrees into a direction");
-        Contract.Assume(side != Side_type.NONE, "not sure how to handle turning into Side.NONE");
-        return new Degree(rotation.eulerAngles.z * (int)side).to_quaternion();
-    }
-
+   
  
 
     public static Side_type flipped(Side_type side) {

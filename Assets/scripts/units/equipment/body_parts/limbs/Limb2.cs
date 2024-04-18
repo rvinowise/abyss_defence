@@ -4,6 +4,8 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.contracts;
 using rvinowise.unity.actions;
+using TMPro;
+using UnityEditor;
 using static rvinowise.unity.geometry2d.Directions;
 using Action = rvinowise.unity.actions.Action;
 
@@ -11,7 +13,7 @@ using Action = rvinowise.unity.actions.Action;
 namespace rvinowise.unity {
 
 [Serializable]
-public partial class Limb2:
+public class Limb2:
     MonoBehaviour, 
     ILimb,
     IChild_of_group
@@ -28,10 +30,9 @@ public partial class Limb2:
         get { return this.transform.localPosition; }
         set { this.transform.localPosition = value; }
     }
-    
-    
-    protected virtual Limb2.Debug debug_limb { get; set; }
-    
+
+
+    public Segment get_root_segment() => segment1;
 
     
     
@@ -44,10 +45,6 @@ public partial class Limb2:
         segment2.jump_to_desired_direction();
     }
     
-    public virtual void preserve_possible_rotations() {
-        segment1.preserve_possible_rotations();
-        segment2.preserve_possible_rotations();
-    }
 
     public virtual bool at_desired_rotation() {
         return 
@@ -57,7 +54,7 @@ public partial class Limb2:
 
     }
     
-    private struct Directions {
+    public struct Directions {
         public Quaternion segment1;
         public Quaternion segment2;
         public bool failed;
@@ -73,7 +70,7 @@ public partial class Limb2:
         }
     }
 
-    private Directions determine_directions_reaching_point(Vector2 target) {
+    public Directions determine_directions_reaching_point(Vector2 target) {
         Contract.Requires((folding_side != Side_type.NONE),
             "folding_direction is needed for bending the limb"
         );
@@ -86,7 +83,7 @@ public partial class Limb2:
             );
         bool unreacheble = false;
         if (float.IsNaN(segment1_angle_offset)) {
-            draw_directions(Color.magenta,0.5f);
+            draw_directions_debug(Color.magenta);
             segment1_angle_offset = 0f;
             unreacheble = true;
         }
@@ -108,42 +105,37 @@ public partial class Limb2:
     
     public void set_desired_directions_by_position(Vector2 target) {
         Directions directions = determine_directions_reaching_point(target);
-        segment1.target_rotation = directions.segment1;
-        segment2.target_rotation = directions.segment2;
+        segment1.set_target_rotation(directions.segment1);
+        segment2.set_target_rotation(directions.segment2);
 
     }
 
     public bool hold_onto_point(Vector2 target) {
         Directions directions = determine_directions_reaching_point(target);
-        segment1.rotation = directions.segment1;
-        segment2.rotation = directions.segment2;
+        segment1.transform.rotation = directions.segment1;
+        segment2.transform.rotation = directions.segment2;
         return !directions.failed;
     }
 
-    protected void set_relative_mirrored_target_direction(
+    public void set_relative_mirrored_target_direction(
         Segment in_segment,
         float in_degrees
     ) {
         if (folding_side == Side_type.RIGHT) {
             in_degrees = -in_degrees;
         }
-        in_segment.target_rotation = geometry2d.Directions.degrees_to_quaternion(in_degrees);
         in_segment.target_direction_relative = true;
+        in_segment.set_target_rotation(geometry2d.Directions.degrees_to_quaternion(in_degrees));
     }
 
  
     public virtual bool is_twisted_badly() {
         if (!segment1.is_within_span())
         {
-            segment1.debug_draw_line(Color.red,1);
             return true;
         }
         if (!segment2.is_within_span())
         {
-            if (this.name == "leg_1") {
-                bool test = segment2.is_within_span();
-            }
-            segment2.debug_draw_line(Color.red,1);
             return true;
         }
         
@@ -176,13 +168,13 @@ public partial class Limb2:
         if (
             (
                 Quaternion.Angle(
-                    segment1.target_rotation,
+                    segment1.get_target_rotation(),
                     segment1.rotation
                 ) <= allowed_angle
             )&&
             (
                 Quaternion.Angle(
-                    segment2.target_rotation,
+                    segment2.get_target_rotation(),
                     segment2.rotation
                 ) <= allowed_angle
             )
@@ -194,47 +186,81 @@ public partial class Limb2:
     }
 
     public float get_reaching_distance() {
-        return (segment1.length + segment2.length) * 2;
+        return (segment1.length + segment2.length);
     }
 
     #region debug
     
     public virtual void draw_directions(
-        Color color,
-        float time = 0.1f
+        Color color
     ) {
-        //float time=0.1f;
-        UnityEngine.Debug.DrawLine(
-            segment1.position, 
-            segment1.tip,
-            color,
-            time
-        );
-        
-        UnityEngine.Debug.DrawLine(
-            segment2.position,
-            segment2.tip,
-            color,
-            time
-        );
+        Gizmos.color = color;
+        try {
+            UnityEngine.Gizmos.DrawLine(
+                segment1.position,
+                segment1.tip
+            );
+
+            UnityEngine.Gizmos.DrawLine(
+                segment2.position,
+                segment2.tip
+            );
+        }
+        catch (NullReferenceException exc) {
+            UnityEngine.Debug.LogError("Exception");
+        }
+    }
+    public virtual void draw_directions_debug(
+        Color color
+    ) {
+        Gizmos.color = color;
+        try {
+            UnityEngine.Debug.DrawLine(
+                segment1.position,
+                segment1.tip
+            );
+
+            UnityEngine.Debug.DrawLine(
+                segment2.position,
+                segment2.tip
+            );
+        }
+        catch (NullReferenceException exc) {
+            UnityEngine.Debug.LogError("Exception");
+        }
     }
     public virtual void draw_desired_directions() {
-        float time=0.1f;
-        UnityEngine.Debug.DrawLine(
+        Gizmos.color = Color.cyan;
+        
+        UnityEngine.Gizmos.DrawLine(
             segment1.position, 
-            segment1.desired_tip,
-            Color.cyan,
-            time
+            segment1.desired_tip
         );
         
-        UnityEngine.Debug.DrawLine(
+        UnityEngine.Gizmos.DrawLine(
             segment1.desired_tip,
-            segment2.desired_tip,
-            Color.cyan,
-            time
+            segment2.desired_tip
         );
         
     }
+    
+#if UNITY_EDITOR
+    protected virtual void OnDrawGizmos() {
+        draw_desired_directions();
+        draw_directions(Color.white);
+
+        if (current_action != null) {
+            GUIStyle myStyle = new GUIStyle {
+                fontSize = 13
+                //fontStyle = FontStyle.Bold
+            };
+            myStyle.normal.textColor = Color.green;
+
+            Handles.Label(transform.position, current_action.ToString(),myStyle);
+        }
+    }
+#endif
+    
     #endregion
 
     #region IActor

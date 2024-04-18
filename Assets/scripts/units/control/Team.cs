@@ -30,6 +30,26 @@ public class Team: MonoBehaviour
         units.Remove(unit);
     }
 
+    public List<Intelligence> get_enemies() {
+        List<Intelligence> enemies = new List<Intelligence>();
+        foreach (var enemy_team in this.enemy_teams) {
+            foreach (var enemy_unit in enemy_team.units) {
+                enemies.Add(enemy_unit);
+            }
+        }
+        return enemies;
+    }
+    
+    public List<Transform> get_enemiy_transforms() {
+        List<Transform> enemies = new List<Transform>();
+        foreach (var enemy_team in this.enemy_teams) {
+            foreach (var enemy_unit in enemy_team.units) {
+                enemies.Add(enemy_unit.transform);
+            }
+        }
+        return enemies;
+    }
+
 }
 
 

@@ -8,10 +8,13 @@ namespace rvinowise.unity {
 
         void move_segments_towards_desired_direction();
         bool has_reached_aim();
+        bool hold_onto_point(Vector2 target);
 
+        Segment get_root_segment();
+        
         #region debug
         void draw_desired_directions();
-        void draw_directions(Color in_color, float in_time=0.1f);
+        void draw_directions(Color in_color);
         #endregion
     }
 

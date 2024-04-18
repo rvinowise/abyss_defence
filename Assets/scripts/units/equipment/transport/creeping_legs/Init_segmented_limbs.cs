@@ -17,13 +17,13 @@ public class Init_segmented_limbs {
             );
 		
         if (next_segment!=null) {
-            var position = next_segment.transform.localPosition;
+            var position = next_segment.transform.localPosition * segment.transform.lossyScale.x;
             position.y = 0;
-            segment.localTip = next_segment.transform.localPosition = position;
+            segment.localTip  = position;
         } else if (tip_tramsform != null) {
-            var position = tip_tramsform.localPosition;
+            var position = tip_tramsform.localPosition * segment.transform.lossyScale.x;
             position.y = 0;
-            segment.localTip = tip_tramsform.localPosition = position;
+            segment.localTip = position;
         }
     }
 	

@@ -15,18 +15,18 @@ public abstract partial class Action
 
     public bool is_started { private set; get; } = false;
     public bool is_completed { private set; get; }
-    private bool is_free_in_pool;
+    public bool is_free_in_pool;
     public System.Action<Action> on_completed;
     public System.Action on_completed_without_parameter;
     protected Action_runner runner;
 
-    private readonly List<Action> superceded_actions = new List<Action>();
+    //private readonly List<Action> superceded_actions = new List<Action>();
     public Guid id = Guid.NewGuid();
 
     
 
-    protected static Pool<Action> pool { get; } = 
-        new Pool<Action>();
+    protected static Object_pool<Action> object_pool { get; } = 
+        new Object_pool<Action>();
 
     public string marker = "";
 
@@ -165,7 +165,7 @@ public abstract partial class Action
     public virtual void reset() {
         rvinowise.contracts.Contract.Assert(!is_reset, $"an action {get_explanation()} was reset, but is being reset again");
 
-        superceded_actions.Clear();
+        //superceded_actions.Clear();
         parent_action = null;
         root_action = this;
         is_completed = false;
@@ -175,7 +175,7 @@ public abstract partial class Action
         on_completed = null;
         on_completed_without_parameter = null;
         
-        pool.return_to_pool(this);
+        object_pool.return_to_pool(this);
     }
 
     public bool is_reset {

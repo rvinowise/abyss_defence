@@ -2,11 +2,14 @@ using System;
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.contracts;
+using rvinowise.unity.actions;
+using Action = System.Action;
+
 
 namespace rvinowise.unity {
 
 [Serializable]
-public partial class Leg2: 
+public class Leg2: 
     ALeg
 {
     /* constant characteristics */
@@ -56,7 +59,18 @@ public partial class Leg2:
     #endregion ILeg
 
     
-
+    #region IAttacker
+    
+    public override void attack(Transform target, Action on_completed = null) {
+        Leg2_grab_target.create(
+            this,
+            target
+        ).set_on_completed(on_completed)
+        .start_as_root(action_runner);
+    }
+    
+    #endregion
+    
     #region debug
     public override void draw_positions() {
         const float sphere_size = 0.1f;
@@ -71,6 +85,31 @@ public partial class Leg2:
         Gizmos.DrawSphere(
             optimal_position, sphere_size);
         
+    }
+
+    protected override void OnDrawGizmos() {
+        base.OnDrawGizmos();
+        draw_positions();
+        if (
+            (is_twisted_badly())
+            ||
+            (determine_directions_reaching_point(holding_point).failed)
+        ) 
+        {
+            draw_directions(Color.red);
+        } 
+    }
+
+    #endregion
+    
+    #region optimization
+    /* faster calculation but not precise */
+    public void hold_onto_ground_FAST(Vector2 holding_point) {
+        tibia.direct_to(holding_point);
+        femur.set_direction(
+            femur.transform.degrees_to(holding_point)+
+            (90f-femur.transform.sqr_distance_to(holding_point)*1440f)
+        );
     }
     #endregion
     

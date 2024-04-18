@@ -36,10 +36,10 @@ public class Segment: Turning_element {
     public virtual Vector3 desired_tip {
         get {
             if (parent_segment == null) {
-                return this.transform.position + localTip.rotate(target_rotation);
+                return this.transform.position + localTip.rotate(get_target_rotation());
             }
             return parent_segment.desired_tip + 
-                   localTip.rotate(target_rotation);
+                   localTip.rotate(get_target_rotation());
         }
     }
 
@@ -70,7 +70,7 @@ public class Segment: Turning_element {
     
 
     
-    public void debug_draw_line(Color color, float time = 0.1f) {
+    public void debug_draw_line(Color color) {
         rvinowise.unity.debug.Debug.DrawLine_simple(
             transform.position, 
             tip, 
@@ -81,14 +81,15 @@ public class Segment: Turning_element {
 
     protected override void OnDrawGizmos() {
         base.OnDrawGizmos();
-       /*  if (is_leaf_segment()) {
-            Gizmos.color = Color.white;
-            Gizmos.DrawSphere(this.tip, 0.04f);
-        } */
+       
         Gizmos.color = Color.white;
         Gizmos.DrawSphere(this.tip, 0.02f);
         Gizmos.color = Color.cyan;
         Gizmos.DrawSphere(this.desired_tip, 0.02f);
+
+        if (!is_within_span()) {
+            debug_draw_line(Color.red);
+        }
     }
 
     private bool is_leaf_segment() {

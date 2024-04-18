@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using rvinowise.unity.extensions;
@@ -18,16 +19,16 @@ public class Intelligence :
 
     public Baggage baggage;
     
-    public ISensory_organ sensory_organ;
+    public IActor_sensory_organ sensory_organ;
     public GameObject sensory_organ_object;
     
-    public ITransporter transporter;
+    public IActor_transporter transporter;
     public GameObject transporter_object;
     
-    public IAttacker attacker;
+    public IActor_attacker attacker;
     public GameObject weaponry_object;
     
-    public IDefender defender;
+    public IActor_defender defender;
     public GameObject defender_object;
     
     public float last_rotation;
@@ -36,26 +37,12 @@ public class Intelligence :
 
     public Action_runner action_runner { get; } = new Action_runner();
     
-    public delegate void EvendHandler(Intelligence unit);
-    public event EvendHandler on_destroyed;
+    public delegate void Evend_handler(Intelligence unit);
+    public event Evend_handler on_destroyed;
 
-    protected virtual void Awake() {
-        sensory_organ = sensory_organ_object.GetComponent<ISensory_organ>();
-        transporter = transporter_object.GetComponent<ITransporter>();
+    public virtual void Awake() {
 
-        if (weaponry_object.GetComponents<IAttacker>().Length > 0) {
-            attacker = weaponry_object.GetComponents<IAttacker>().First();
-        }
-        else {
-            attacker = new Empty_attacker();
-        }
-
-        if (weaponry_object.GetComponents<IDefender>().Length > 0) {
-            defender = weaponry_object.GetComponents<IDefender>().First();
-        }
-        else {
-            defender = new Empty_defender();
-        }
+        init_devices();
         
         Contract.Requires(
             GetComponentsInChildren<Baggage>().Length <= 1, "which baggage should the Intelligence use?"
@@ -63,20 +50,126 @@ public class Intelligence :
         baggage = GetComponentInChildren<Baggage>();
         
         if (team != null) {
+            add_to_team();
+        }
+    }
+    
+    protected virtual void Start() {
+        
+        register_actor_parts();
+        if (team != null) {
             notify_about_appearance();
         }
     }
 
-    protected virtual void Start() {
+    public void init_devices_from_inspector() {
+        if ((sensory_organ_object != null)&&(sensory_organ_object.GetComponents<ISensory_organ>().Length > 0)) {
+            sensory_organ = sensory_organ_object.GetComponents<IActor_sensory_organ>().First();
+        }
+        else {
+            sensory_organ = new Empty_sensory_organ();
+        }
         
+        if ((transporter_object != null)&&(transporter_object.GetComponents<IActor_transporter>().Length > 0)) {
+            transporter = transporter_object.GetComponents<IActor_transporter>().First();
+        }
+        else {
+            transporter = new Empty_transporter();
+        }
+        
+
+        if ((weaponry_object != null)&&(weaponry_object.GetComponents<IAttacker>().Length > 0)) {
+            attacker = weaponry_object.GetComponents<IActor_attacker>().First();
+        }
+        else {
+            attacker = new Empty_attacker();
+        }
+
+        if ((defender_object != null)&&(defender_object.GetComponents<IDefender>().Length > 0)) {
+            defender = defender_object.GetComponents<IActor_defender>().First();
+        }
+        else {
+            defender = new Empty_defender();
+        }
+    }
+
+    public void init_devices() {
+        var attackers = GetComponentsInChildren<IActor_attacker>();
+        if (attackers.Length == 0) {
+            attacker = new Empty_attacker();
+        } else if (attackers.Length == 1) {
+            attacker = attackers.First();
+        }
+        else {
+            attacker = new Compound_attacker(attackers);
+        }
+        
+        var transporters = GetComponentsInChildren<IActor_transporter>();
+        if (transporters.Length == 0) {
+            transporter = new Empty_transporter();
+        } else if (transporters.Length == 1) {
+            transporter = transporters.First();
+        }
+        else {
+            transporter = new Compound_transporter(transporters);
+        }
+        transporter.set_moved_body(this.GetComponent<Turning_element>());
+        transporter.init_for_runner(action_runner);
+        
+        var defenders = GetComponentsInChildren<IActor_defender>();
+        if (defenders.Length == 0) {
+            defender = new Empty_defender();
+        } else if (attackers.Length == 1) {
+            defender = defenders.First();
+        }
+        else {
+            defender = new Compound_defender(defenders);
+        }
+        defender.init_for_runner(action_runner);
+        
+        var sensory_organs = GetComponentsInChildren<IActor_sensory_organ>();
+        if (sensory_organs.Length == 0) {
+            sensory_organ = new Empty_sensory_organ();
+        } else if (attackers.Length == 1) {
+            sensory_organ = sensory_organs.First();
+        }
+        else {
+            sensory_organ = new Compound_sensory_organ(sensory_organs);
+        }
+        sensory_organ.init_for_runner(action_runner);
+    }
+
+    // protected void init_device<
+    //         TDevice,
+    //         TEmpty_device,
+    //         TCompound_device
+    //     >
+    //     (ref TDevice local_device)
+    //     where TEmpty_device : TDevice, new()
+    //     where TCompound_device: TDevice, new()
+    //     
+    // {
+    //     var child_devices = GetComponentsInChildren<TDevice>();
+    //     if (child_devices.Length == 0) {
+    //         local_device = new TEmpty_device();
+    //     } else if (child_devices.Length == 1) {
+    //         local_device = child_devices.First();
+    //     }
+    //     else {
+    //         local_device = new TCompound_device(child_devices);
+    //     }
+    // }
+
+    
+
+    public void register_actor_parts() {
         add_actors_to_action_runner();
         action_runner.start_fallback_actions();
     }
-
+    
     private void add_actors_to_action_runner() {
         var actors = GetComponentsInChildren<IActor>();
         foreach (IActor actor in actors) {
-            //actor.init_for_runner(action_runner);
             action_runner.add_actor(actor);
         }
         var intelligent_children = GetComponentsInChildren<IRunning_actions>();
@@ -85,50 +178,66 @@ public class Intelligence :
         }
     }
 
-    
-    public void notify_about_appearance() {
+    private void add_to_team() {
         team.add_unit(this);
+    }
+    private void notify_about_appearance() {
         foreach (Team enemy_team in team.enemy_teams) {
             foreach (var enemy_unit in enemy_team.units) {
                 if (enemy_unit == null) {
                     Debug.LogError("enemy_unit is null");
                 }
-                enemy_unit.consider_enemy(this);
+                enemy_unit.on_enemy_appeared(this);
             }
         }
         foreach (Team ally_team in team.ally_teams) {
             foreach (var ally_unit in ally_team.units) {
-                ally_unit.consider_ally(this);
+                ally_unit.on_ally_appeared(this);
             }
         }
         foreach (var friendly_unit in team.units) {
-            friendly_unit.consider_friend(this);
+            friendly_unit.on_friend_appeared(this);
         }
     }
 
     public void notify_about_destruction() {
-        team.remove_unit(this);
         on_destroyed?.Invoke(this);
+
+        if (team != null) {
+            team.remove_unit(this);
+            foreach (Team enemy_team in team.enemy_teams) {
+                foreach (var enemy_unit in enemy_team.units) {
+                    if (enemy_unit == null) {
+                        Debug.LogError("enemy_unit is null");
+                    }
+                    enemy_unit.on_enemy_disappeared(this);
+                }
+            }
+            foreach (Team ally_team in team.ally_teams) {
+                foreach (var ally_unit in ally_team.units) {
+                    ally_unit.on_ally_disappeared(this);
+                }
+            }
+            foreach (var friendly_unit in team.units) {
+                friendly_unit.on_friend_disappeared(this);
+            }
+        }
     }
     
 
-    public virtual void consider_enemy(Intelligence in_enemy) { }
+    public virtual void on_enemy_appeared(Intelligence in_enemy) { }
 
-    public virtual void consider_ally(Intelligence in_ally) {
-        consider_friend(in_ally);
+    public virtual void on_ally_appeared(Intelligence in_ally) {
+        on_friend_appeared(in_ally);
     }
-    public virtual void consider_friend(Intelligence in_friend) { }
+    public virtual void on_friend_appeared(Intelligence in_friend) { }
+    
+    public virtual void on_enemy_disappeared(Intelligence in_enemy) { }
 
-    protected virtual void Update() {
-        read_input();
-        action_runner.update();
+    public virtual void on_ally_disappeared(Intelligence in_ally) {
+        on_friend_disappeared(in_ally);
     }
-
-    protected virtual void FixedUpdate() {
-        
-    }
-
-    protected virtual void read_input() { }
+    public virtual void on_friend_disappeared(Intelligence in_friend) { }
 
     protected void save_last_rotation(Quaternion needed_direction) {
         float angle_difference = transform.rotation.degrees_to(needed_direction).degrees;
@@ -140,7 +249,10 @@ public class Intelligence :
     }
 
     private void OnDestroy() {
-        Contract.Assert(!team.units.Contains(this), "the Intelligence is destroyed, but its team still has it");
+        if (team != null) {
+            team.remove_unit(this);
+            //Contract.Assert(!team.units.Contains(this), "the Intelligence is destroyed, but its team still has it");
+        }
     }
 
 

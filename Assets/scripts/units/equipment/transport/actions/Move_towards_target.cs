@@ -7,17 +7,17 @@ namespace rvinowise.unity.actions {
 
 public class Move_towards_target: Action_leaf {
 
-    private ITransporter transporter;
+    private IActor_transporter transporter;
     private Transform target;
-    private Transform transform;
     private float needed_distance;
+    private Transform moved_transform;
     
     public static Move_towards_target create(
-        ITransporter in_transporter,
+        IActor_transporter in_transporter,
         float needed_distance,
         Transform in_target
     ) {
-        var action = (Move_towards_target)pool.get(typeof(Move_towards_target));
+        var action = (Move_towards_target)object_pool.get(typeof(Move_towards_target));
         
         action.target = in_target;
         action.transporter = in_transporter;
@@ -31,19 +31,17 @@ public class Move_towards_target: Action_leaf {
 
     protected override void on_start_execution() {
         base.on_start_execution();
-        transform = transporter.gameObject.transform;
+
+        this.moved_transform = transporter.get_moved_body().transform;
     }
+
 
     public override void update() {
         base.update();
         
-        transporter.command_batch.moving_direction_vector = 
-            (target.position - transform.position).normalized;
-        
-        transporter.command_batch.face_direction_quaternion =
-            transform.quaternion_to(target.position);
+        transporter.face_rotation(moved_transform.quaternion_to(target.position));
 
-        transporter.command_batch.set_target_position(target.position);
+        transporter.move_towards_destination(target.position);
         
         if (has_reached_target()) {
             mark_as_completed();
@@ -53,7 +51,7 @@ public class Move_towards_target: Action_leaf {
     }
 
     private bool has_reached_target() {
-        return transform.distance_to(target.position) < needed_distance;
+        return moved_transform.distance_to(target.position) < needed_distance;
     }
    
 }

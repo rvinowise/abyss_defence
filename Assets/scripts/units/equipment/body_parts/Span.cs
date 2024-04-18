@@ -25,11 +25,11 @@ public struct Span {
 
         goes_through_switching_degrees = directions_within_same_sector(in_direction,180f);
             
-            
         var _min = min;
         var _max = max;
         min = Math.Min(_min,_max);
         max = Math.Max(_min,_max);
+        
         return this;
     }
 

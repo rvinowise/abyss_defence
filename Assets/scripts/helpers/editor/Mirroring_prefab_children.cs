@@ -36,11 +36,11 @@ internal static class Mirroring_prefab_children {
 		);
 		dst.transform.localRotation =
 			src.transform.localRotation.inverse();
-			
         
 		dst.possible_span = src.possible_span.mirror().init_for_direction(-src.local_degrees);
 
 		dst.sprite_renderer = dst.GetComponent<SpriteRenderer>();
+		src.sprite_renderer = src.GetComponent<SpriteRenderer>();
 		if (dst.sprite_renderer != null) {
 			dst.sprite_renderer.sprite = src.sprite_renderer.sprite;
 			dst.sprite_renderer.flipY = !src.sprite_renderer.flipY;
@@ -123,8 +123,8 @@ internal static class Mirroring_prefab_children {
 	
 	
     
-	private static void duplicate_mirrored_children(Children_group children_group) {
-		IList<IChild_of_group> initial_children = new List<IChild_of_group>(children_group.children);
+	private static void duplicate_mirrored_children(Abstract_children_group children_group) {
+		IList<IChild_of_group> initial_children = new List<IChild_of_group>(children_group.get_children());
 		foreach(var src_child in initial_children) {
 			IChild_of_group dst_child = src_child switch {
 				Leg2 src_leg2 => create_mirrored_leg2(src_leg2),
@@ -140,7 +140,7 @@ internal static class Mirroring_prefab_children {
     
 	[MenuItem("GameObject/Edit Automatically/Mirror Children")]
 	private static void mirror_children() {
-		var children_group = Selection.activeGameObject.GetComponent<Children_group>();
+		var children_group = Selection.activeGameObject.GetComponent<Abstract_children_group>();
 		duplicate_mirrored_children(children_group);
 		EditorSceneManager.MarkSceneDirty(Selection.activeGameObject.scene);
 	}

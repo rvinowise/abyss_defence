@@ -5,12 +5,6 @@ namespace rvinowise.unity.debug {
 public abstract class Debugger {
     public static bool is_off = false; //MANU
     
-    public System.Object obj;
-
-    public Debugger(System.Object in_object) {
-        obj = in_object;
-    }
-
     protected abstract ref int count { get; }
 
     public void increase_counter() {

@@ -45,6 +45,10 @@ public class Hitting_limb:
         }
         return false;
     }
+    
+    public float get_reaching_distance() {
+        return limb.segment1.length + limb.segment2.length;
+    }
 
     public void attack(Transform target, System.Action on_completed = null) {
         creeping_leg_group.ensure_leg_raised(limb);

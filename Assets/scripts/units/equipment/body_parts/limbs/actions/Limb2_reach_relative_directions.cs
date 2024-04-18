@@ -19,7 +19,7 @@ public class Limb2_reach_relative_directions: Action_leaf {
         Transform relative_to_what
     ) {
         
-        var action = (Limb2_reach_relative_directions)pool.get(typeof(Limb2_reach_relative_directions));
+        var action = (Limb2_reach_relative_directions)object_pool.get(typeof(Limb2_reach_relative_directions));
         
         action.add_actor(in_limb);
         action.limb = in_limb;
@@ -38,11 +38,13 @@ public class Limb2_reach_relative_directions: Action_leaf {
 
     public override void update() {
 
-        limb.segment1.target_rotation =
-            relative_to_what.rotation * segment1_relative_direction.to_quaternion(); 
+        limb.segment1.set_target_rotation(
+            relative_to_what.rotation * segment1_relative_direction.to_quaternion()
+        ); 
             
-        limb.segment2.target_rotation =
-            limb.segment1.target_rotation * segment2_relative_direction.to_quaternion(); 
+        limb.segment2.set_target_rotation(
+            limb.segment1.get_target_rotation() * segment2_relative_direction.to_quaternion()
+        ); 
         
         if (complete()) {
             mark_as_completed();

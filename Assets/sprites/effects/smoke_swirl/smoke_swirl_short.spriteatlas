@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: smoke_swirl_short
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 8059f5a73260485458afe40d8cb88c25, type: 3}
+    - {fileID: 2800000, guid: ef247d00c7ee2a045a8a974f6d2f6e39, type: 3}
+    - {fileID: 2800000, guid: 6e096a8fc2735b447b7dc89a866eba54, type: 3}
+    - {fileID: 2800000, guid: 4aaf9e5f830f4af4e82de28762caa7ff, type: 3}
+    - {fileID: 2800000, guid: 90955c8852296a540bfbc4f0cbad35fd, type: 3}
+    - {fileID: 2800000, guid: 9c06dba8c30eb7c4a8a1f818c2bf547c, type: 3}
+    - {fileID: 2800000, guid: 0267a95e2d901564e8f2ac0fa4f21304, type: 3}
+    - {fileID: 2800000, guid: 4971aa94834aabc43835768bf44c693d, type: 3}
+    - {fileID: 2800000, guid: 5183ac2e4691fd84086381bee0131985, type: 3}
+    - {fileID: 2800000, guid: 7d1dddae914eabf43ba0fd27f121210d, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: ef247d00c7ee2a045a8a974f6d2f6e39, type: 3}
+  - {fileID: 21300000, guid: 4971aa94834aabc43835768bf44c693d, type: 3}
+  - {fileID: 21300000, guid: 8059f5a73260485458afe40d8cb88c25, type: 3}
+  - {fileID: 21300000, guid: 90955c8852296a540bfbc4f0cbad35fd, type: 3}
+  - {fileID: 21300000, guid: 9c06dba8c30eb7c4a8a1f818c2bf547c, type: 3}
+  - {fileID: 21300000, guid: 5183ac2e4691fd84086381bee0131985, type: 3}
+  - {fileID: 21300000, guid: 0267a95e2d901564e8f2ac0fa4f21304, type: 3}
+  - {fileID: 21300000, guid: 7d1dddae914eabf43ba0fd27f121210d, type: 3}
+  - {fileID: 21300000, guid: 4aaf9e5f830f4af4e82de28762caa7ff, type: 3}
+  - {fileID: 21300000, guid: 6e096a8fc2735b447b7dc89a866eba54, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 0010
+  - 0070
+  - 0000
+  - 0040
+  - 0050
+  - 0080
+  - 0060
+  - 0090
+  - 0030
+  - 0020
+  m_RenderDataMap: {}
+  m_Tag: smoke_swirl_short
+  m_IsVariant: 0

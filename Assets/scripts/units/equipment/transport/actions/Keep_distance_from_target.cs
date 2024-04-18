@@ -7,21 +7,23 @@ namespace rvinowise.unity.actions {
 
 public class Keep_distance_from_target: Action_leaf {
 
-    private ITransporter transporter;
+    private IActor_transporter transporter;
     private Transform target;
-    private Transform transform;
+    private Transform moved_body;
     private float optimal_distance = 1;
     
     public static Keep_distance_from_target create(
-        ITransporter in_transporter,
+        IActor_transporter in_transporter,
+        Transform moved_body,
         float optimal_distance,
         Transform in_target
     ) {
-        var action = (Keep_distance_from_target)pool.get(typeof(Keep_distance_from_target));
+        var action = (Keep_distance_from_target)object_pool.get(typeof(Keep_distance_from_target));
         action.add_actor(in_transporter);
         
         action.target = in_target;
         action.transporter = in_transporter;
+        action.moved_body = moved_body;
         action.optimal_distance = optimal_distance;
         return action;
     }
@@ -29,34 +31,30 @@ public class Keep_distance_from_target: Action_leaf {
         
     }
 
-    protected override void on_start_execution() {
-        base.on_start_execution();
-        transform = transporter.gameObject.transform;
-    }
 
     public override void update() {
         base.update();
-        float distane_to_target = (target.position - transform.position).magnitude;
-        Vector2 vector_to_target = 
-            (target.position - transform.position).normalized;
-        if (distane_to_target < optimal_distance) {
-            vector_to_target = -vector_to_target;
+
+        if (target != null) {
+            float distance_to_target = (target.position - moved_body.position).magnitude;
+            Vector2 vector_to_target =
+                (target.position - moved_body.position).normalized;
+            if (distance_to_target > optimal_distance) {
+                transporter.move_towards_destination(target.position);
+            }
+            else {
+                transporter.move_towards_destination(moved_body.position - target.position);
+            }
+
+            transporter.face_rotation(moved_body.quaternion_to(target.position));
         }
-        transporter.command_batch.moving_direction_vector = vector_to_target.normalized;
-        
-        transporter.command_batch.face_direction_quaternion =
-            transform.quaternion_to(target.position);
-        
-        // if (has_reached_target()) {
-        //     mark_as_reached_goal();
-        // } else {
-        //     mark_as_has_not_reached_goal();
-        // }
-        //mark_as_completed();
+        else {
+            mark_as_completed();
+        }
     }
 
     private bool has_reached_target() {
-        return transform.distance_to(target.position) < 1;
+        return moved_body.distance_to(target.position) < 1;
     }
    
 }

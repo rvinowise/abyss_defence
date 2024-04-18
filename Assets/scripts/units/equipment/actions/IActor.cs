@@ -14,6 +14,6 @@ public interface IActor:
 
     void on_lacking_action();
     
-    GameObject gameObject { get; }
+    //GameObject gameObject { get; }
 }
 }

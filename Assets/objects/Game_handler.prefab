@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -203,6 +204,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &3108393711390883464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,6 +305,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2629191659097336047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +406,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5659515472140140980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,6 +643,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2879700294623461759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,49 +704,6 @@ MonoBehaviour:
   left_ammo: {fileID: 7236341721500695032}
   right_tool: {fileID: 1234868075736903734}
   right_ammo: {fileID: 2058316971346865737}
---- !u!1 &3821119814053847749
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1298447666742232444}
-  - component: {fileID: 2488644747186845821}
-  m_Layer: 0
-  m_Name: Object_finder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1298447666742232444
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3821119814053847749}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8964353403541586047}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2488644747186845821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3821119814053847749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2933bd85d2045d44a0afdda90c0b42d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3907468307845653689
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,6 +847,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1789348283885023127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1062,6 +1025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f6fe69e2064197bea4e43443b2cd5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite_renderer: {fileID: 7705747422497789116}
 --- !u!212 &7705747422497789116
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1234,6 +1198,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1570766145725971118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1469,6 +1434,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &9194219122239640193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1827,7 +1793,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8964353403541586047}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4441277279211593420
 MonoBehaviour:
@@ -2626,53 +2592,6 @@ MonoBehaviour:
   mask_material: {fileID: 2100000, guid: 26bccf6ca8fc1cf46a49de4d82c36ebe, type: 2}
   splitting_shader: {fileID: 4800000, guid: 402416482c9c0f24cb829af33a12e983, type: 3}
   test_texture: {fileID: 2800000, guid: c8f2a4b02dcde0c4bae69f9a436f1d6a, type: 3}
---- !u!1 &8964353403259232651
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8964353403259232648}
-  - component: {fileID: 8964353403259232649}
-  m_Layer: 0
-  m_Name: Pool_prefiller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &8964353403259232648
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8964353403259232651}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8964353403541586047}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8964353403259232649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8964353403259232651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8755f4b90ffc8b24aabf3a6e8db18527, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabs:
-  - prefab: {fileID: 8908099032306129881, guid: c664b81a76faba34799a4e858a9eb993,
-      type: 3}
-    qty: 100
 --- !u!1 &8964353403541586046
 GameObject:
   m_ObjectHideFlags: 0
@@ -2705,10 +2624,8 @@ Transform:
   - {fileID: 8964353402651853831}
   - {fileID: 8964353403787123517}
   - {fileID: 8964353402931923245}
-  - {fileID: 8964353403259232648}
   - {fileID: 5220134115445628180}
   - {fileID: 4426448256766356203}
-  - {fileID: 1298447666742232444}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2858,7 +2775,7 @@ PrefabInstance:
     - target: {fileID: 4184617915312124773, guid: 4e61abf1b1cda4542a8af7fde5d7d574,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4184617915312124773, guid: 4e61abf1b1cda4542a8af7fde5d7d574,
         type: 3}

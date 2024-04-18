@@ -22,7 +22,7 @@ public class Play_recorded_animation: Action_leaf {
             in_animator.HasState(0, in_animation_name_hash),
             "animation clip with this ID should exists in the animator"
         );
-        Play_recorded_animation action = (Play_recorded_animation) pool.get(typeof(Play_recorded_animation));
+        Play_recorded_animation action = (Play_recorded_animation) object_pool.get(typeof(Play_recorded_animation));
         action.animator = in_animator;
         action.animation_name_hash = in_animation_name_hash;
         //action.actor = in_animator.GetComponent<IActor>();

@@ -16,51 +16,40 @@ public class Turning_element: MonoBehaviour {
 
    
     public Degree current_rotation_inertia;
-    public Saved_physics last_physics = new Saved_physics();
+
+    public Quaternion rotation=> transform.rotation;
     
-    public Quaternion rotation {
-        get {
-            return transform.rotation;
+
+    public Quaternion get_target_rotation() {
+        return target_rotation;
+    }
+
+    public void set_target_rotation(Quaternion in_rotation) {
+        if (target_direction_relative) {
+            target_rotation = transform.parent.rotation * in_rotation;
         }
-        set {
-            transform.rotation = value;
+        else {
+            target_rotation = in_rotation;
         }
     }
-    public virtual Quaternion target_rotation{
-        get{
-            if (target_direction_relative) {
-                return transform.parent.rotation * _target_rotation;
-            } 
-            return _target_rotation;
-            
-        }
-        set{
-            _target_rotation = value;
-        }
-    }
-    private Quaternion _target_rotation;
+
+    private Quaternion target_rotation;
  
-    public virtual Degree target_degree{
+    public Degree target_degree{
         get{
-            return target_rotation.to_degree();
+            return get_target_rotation().to_degree();
         }
         set{
-            target_rotation = value.to_quaternion();
+            set_target_rotation(value.to_quaternion());
         }
     }
-    public bool target_direction_relative {
-        set{
-            _target_direction_relative = value;
-            /* if (this.gameObject.name == "b_shoulder_l") {
-                bool test = true;
-            } */
-        }
-        get{return _target_direction_relative;}
-    }
-    private bool _target_direction_relative = false;
 
 
     public Turning_element turning_parent;
+
+    public bool target_direction_relative;
+    private bool has_turning_parent;
+    private bool has_span;
     
     public Degree local_degrees {
         get {
@@ -74,7 +63,7 @@ public class Turning_element: MonoBehaviour {
         set=>transform.localPosition = value;
     }
 
-    public bool ignore_parent;
+    public bool ignore_parent = true;
     public void direct_to(Vector2 aim) => transform.direct_to(aim);
     public void set_direction(float direction) => transform.set_direction(direction);
 
@@ -83,9 +72,14 @@ public class Turning_element: MonoBehaviour {
         if (
             (turning_parent == null) &&
             (transform.parent != null) && 
-            (transform.parent.GetComponent<Turning_element>() is Turning_element turning_element)
+            (transform.parent.GetComponent<Turning_element>() is { } turning_element)
          ) {
             turning_parent = turning_element;
+            has_turning_parent = true;
+        }
+
+        if (Math.Abs(possible_span.min.angle_to(possible_span.max)) > Turning_element.rotation_epsilon) {
+            has_span = true;
         }
     }
 
@@ -102,12 +96,12 @@ public class Turning_element: MonoBehaviour {
         return target_rotation;
     }
 
-    public static float rotation_epsilon = 0.01f;
-    
+    public const float rotation_epsilon = 0.01f;
+
     public void rotate_to_desired_direction() {
 
         float angle_to_pass = get_angle_to_pass();
-        rvinowise.contracts.Contract.Assume(Mathf.Abs(angle_to_pass) < 180f, "angle too big");
+        rvinowise.contracts.Contract.Assume(Mathf.Abs(angle_to_pass) <= 180f, "angle too big");
         
         if (!has_reached_target())
         {
@@ -150,13 +144,13 @@ public class Turning_element: MonoBehaviour {
         }
 
         void fix_at_target_direction() {
-            if (relative_to_parent()) {
+            if (is_parent_taken_into_account()) {
                 transform.localRotation = 
                     new Degree(
                         turning_parent.target_degree.angle_to(target_degree)
                     ).to_quaternion();
             } else {
-                rotation = target_rotation;
+                transform.rotation = target_rotation;
             }
             current_rotation_inertia = Degree.zero;
         }
@@ -165,14 +159,17 @@ public class Turning_element: MonoBehaviour {
     }
 
     private Quaternion rotation_when_parent_reaches_its() {
-        if (relative_to_parent()) {
-            return turning_parent.target_rotation * this.transform.localRotation;
+        if (is_parent_taken_into_account()) {
+            return turning_parent.target_rotation * transform.localRotation;
         }
-        return this.transform.rotation;
+        return transform.rotation;
     }
 
-    private bool relative_to_parent() {
-        return (!ignore_parent && turning_parent!=null);
+    private bool is_parent_taken_into_account() {
+        return (!ignore_parent && has_turning_parent);
+    }
+    private bool are_angles_restricted_by_parent() {
+        return has_span;
     }
     private float get_angle_to_pass() {
         return rotation_when_parent_reaches_its().degrees_to(target_rotation);
@@ -218,22 +215,17 @@ public class Turning_element: MonoBehaviour {
 
 
     public virtual void jump_to_desired_direction() {
-        rotation = target_rotation;
+        transform.rotation = target_rotation;
     }
 
 
     public bool at_desired_rotation() {
-        //return this.rotation.close_enough_to(this.target_rotation);
         return Math.Abs(rotation.degrees_to(target_rotation)) <= rotation_epsilon;
     }
 
 
     public void preserve_possible_rotations() {
         if (!is_within_span()) {
-            if (this is Segment segment) {
-                segment.debug_draw_line(Color.red,1);
-                bool test = is_within_span();
-            }
             collide_with_closest_border();
         }
     }
@@ -242,13 +234,13 @@ public class Turning_element: MonoBehaviour {
         var parent = transform.parent;
         Degree abs_min_border = parent.rotation * new Degree(possible_span.min);
         Degree abs_max_border = parent.rotation * new Degree(possible_span.max);
-        bool touches_min_border = 
+        bool touches_max_border = 
             Mathf.Abs(abs_min_border.angle_to(this.rotation)) >
             Mathf.Abs(abs_max_border.angle_to(this.rotation));
-        if (touches_min_border) {
-            rotation = parent.rotation * degrees_to_quaternion(possible_span.max);
+        if (touches_max_border) {
+            transform.rotation = parent.rotation * degrees_to_quaternion(possible_span.max);
         } else {
-            rotation = parent.rotation * degrees_to_quaternion(possible_span.min);
+            transform.rotation = parent.rotation * degrees_to_quaternion(possible_span.min);
         }
         if (moves_into_border()) {
             current_rotation_inertia = Degree.zero;
@@ -256,9 +248,9 @@ public class Turning_element: MonoBehaviour {
 
         bool moves_into_border() {
             bool direct_result = false;
-            if ((touches_min_border)&&(current_rotation_inertia.use_minus() > 0)) {
+            if ((touches_max_border)&&(current_rotation_inertia.use_minus() > 0)) {
                 direct_result = true;
-            } else if ((!touches_min_border)&&(current_rotation_inertia.use_minus() < 0)) {
+            } else if ((!touches_max_border)&&(current_rotation_inertia.use_minus() < 0)) {
                 direct_result = true;
             }
             return direct_result && !possible_span.goes_through_switching_degrees;
@@ -268,8 +260,10 @@ public class Turning_element: MonoBehaviour {
 
     public virtual void update_rotation() {
         Degree rotation_change = current_rotation_inertia * Time.deltaTime;
-        rotation = (Degree.from_quaternion(rotation) + rotation_change).to_quaternion();
-  
+        transform.rotation = (Degree.from_quaternion(rotation) + rotation_change).to_quaternion();
+        if (are_angles_restricted_by_parent()) {
+            preserve_possible_rotations();
+        }
     }
 
     public bool is_within_span() {
@@ -289,6 +283,11 @@ public class Turning_element: MonoBehaviour {
     }
 
     protected virtual void OnDrawGizmos() {
+        draw_span();
+        draw_target_rotation();
+    }
+
+    private void draw_span() {
         float line_length = 0.1f;
         Gizmos.color = Color.green;
         
@@ -301,5 +300,12 @@ public class Turning_element: MonoBehaviour {
         Gizmos.DrawLine(transform.position, transform.position+min_rotation * Vector2.right * line_length);
         Gizmos.DrawLine(transform.position, transform.position+max_rotation * Vector2.right * line_length);
     }
+    
+    private void draw_target_rotation() {
+        float line_length = 0.2f;
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(transform.position, transform.position+get_target_rotation() * Vector2.right * line_length);
+    }
+
 }
 }

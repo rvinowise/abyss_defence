@@ -18,7 +18,7 @@ public class Idle_vigilant_body: Action_parallel_parent {
         Transform in_target,
         ITransporter in_transporter
     ) {
-        Idle_vigilant_body action = (Idle_vigilant_body)pool.get(typeof(Idle_vigilant_body));
+        Idle_vigilant_body action = (Idle_vigilant_body)object_pool.get(typeof(Idle_vigilant_body));
         action.left_arm = in_left_arm;
         action.right_arm = in_right_arm;
         action.target = in_target;

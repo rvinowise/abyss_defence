@@ -24,7 +24,7 @@ public class Leg_pull_out_segment2: Action_leaf {
         float pulling_speed,
         float hiding_depth
     ) {
-        var action = (Leg_pull_out_segment2)pool.get(typeof(Leg_pull_out_segment2));
+        var action = (Leg_pull_out_segment2)object_pool.get(typeof(Leg_pull_out_segment2));
         action.add_actor(leg);
         action.leg = leg;
         action.pulling_speed = pulling_speed;

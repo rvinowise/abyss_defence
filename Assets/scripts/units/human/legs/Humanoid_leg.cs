@@ -12,7 +12,11 @@ public class Humanoid_leg:
     ,ILeg
 {
     #region ILeg
-    
+
+    public Segment get_root_segment() {
+        return null;
+    }
+
     public float provided_impulse = 0.2f;
     public float get_provided_impulse() => provided_impulse;
     
@@ -68,7 +72,11 @@ public class Humanoid_leg:
         return true;
     }
 
-    
+    public bool hold_onto_point(Vector2 target) {
+        return true;
+    }
+
+
     public virtual void set_desired_position(Vector2 in_optimal_position) {
         optimal_position = in_optimal_position;
     }
@@ -85,7 +93,7 @@ public class Humanoid_leg:
         var moving_direction = (optimal_position - (Vector2) transform.position).normalized;
         Vector2 delta_movement = Time.deltaTime * movement_speed * moving_direction;
         transform.position += (Vector3)delta_movement;
-        turning_element.target_rotation = movable_body.rotation;
+        turning_element.set_target_rotation(movable_body.rotation);
         turning_element.rotate_to_desired_direction();
     }
 
@@ -135,7 +143,7 @@ public class Humanoid_leg:
         
     }
 
-    public void draw_directions(Color in_color, float in_time) {
+    public void draw_directions(Color in_color) {
         
     }
     

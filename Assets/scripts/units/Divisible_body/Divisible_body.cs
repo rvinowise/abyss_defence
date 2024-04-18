@@ -17,10 +17,11 @@ public class Divisible_body : MonoBehaviour
 {
     public Sprite inside;
     public Sprite outside;
+    public Disappearing_body disappearing_body;
 
     /* IChildren_groups_host */
     
-    public IList<Children_group> children_groups { get; private set; }
+    public IList<Abstract_children_group> children_groups { get; private set; }
 
 
     public Pooled_object pooled_prefab;
@@ -28,31 +29,33 @@ public class Divisible_body : MonoBehaviour
     public delegate void EventHandler();
     public event EventHandler on_polygon_changed;
 
-    void Awake() {
+    public void Awake() {
         outside = gameObject.GetComponent<SpriteRenderer>().sprite;
 
-        children_groups = new List<Children_group>(GetComponents<Children_group>());
-
+        children_groups = new List<Abstract_children_group>(GetComponentsInChildren<Abstract_children_group>());
+        disappearing_body = GetComponent<Disappearing_body>();
     }
 
-    private void deactivate_pieces_without_children(List<Divisible_body> pieces) {
+    private void simplify_pieces_without_children(List<Divisible_body> pieces) {
         foreach (var piece in pieces) {
             bool piece_has_children = false;
             foreach (var children_group in piece.children_groups) {
-                if (children_group.children.Any()) {
+                if (children_group.get_children().Any()) {
                     piece_has_children = true;
                     break;
                 }
             }
-            if (!piece_has_children) {
-                var intelligence = piece.gameObject.GetComponent<Intelligence>();
-                intelligence.notify_about_destruction();
+            var intelligence = piece.gameObject.GetComponent<Intelligence>();
+            if ((!piece_has_children) && (intelligence != null)) {
                 Destroy(piece.gameObject.GetComponent<Targetable>());
                 Destroy(intelligence);
-                foreach (var children_group in piece.gameObject.GetComponents<Children_group>()) {
+                foreach (var children_group in piece.gameObject.GetComponents<Abstract_children_group>()) {
                     Destroy(children_group);
                 }
                 piece.children_groups.Clear();
+                if (piece.disappearing_body != null) { 
+                    piece.disappearing_body.settle_when_stops();
+                }
             }
         }
     }
@@ -66,15 +69,16 @@ public class Divisible_body : MonoBehaviour
         );
 
         Children_splitter.split_children_groups(this, piece_objects);
-
-        adjust_center_of_colliders_and_children(piece_objects, collider_pieces);
-        deactivate_pieces_without_children(piece_objects);
+        
+        adjust_center_of_pieces(piece_objects, collider_pieces);
+        simplify_pieces_without_children(piece_objects);
 
         //preserve_impulse_in_pieces(piece_objects);
         
-        if (GetComponent<Intelligence>() is {} damage_receiver) {
-            damage_receiver.notify_about_destruction();
+        if (GetComponent<Intelligence>() is {} intelligence) {
+            intelligence.notify_about_destruction();
         }
+        Debug.Log($"AIMING: Destroy({name})");
         Destroy(gameObject);
 
         return piece_objects;
@@ -107,7 +111,7 @@ public class Divisible_body : MonoBehaviour
         return object_pieces;
     }
 
-    private void adjust_center_of_colliders_and_children(
+    private void adjust_center_of_pieces(
         List<Divisible_body> piece_objects,
         List<Polygon> collider_pieces
     ) {
@@ -120,7 +124,7 @@ public class Divisible_body : MonoBehaviour
             Vector2 polygon_shift = -collider_polygon.middle;
             collider_polygon.move(polygon_shift); 
             
-            foreach (Children_group children_group in children_group_host.children_groups) {
+            foreach (Abstract_children_group children_group in children_group_host.children_groups) {
                 children_group.shift_center(polygon_shift);
             }
 
@@ -131,15 +135,12 @@ public class Divisible_body : MonoBehaviour
     
     /* to avoid duplication of the Children when duplicating the Body */
     private void detach_children() {
-         foreach (Transform child_transform in gameObject.direct_children()) {
-             child_transform.SetParent(null, false);
-         }
-         foreach (Children_group children_group in children_groups) {
+         foreach (Abstract_children_group children_group in children_groups) {
              children_group.hide_children_from_copying();
          }
     }
 
-    private static int piece_counter = 0;
+    private static int piece_counter;
     private Divisible_body create_gameobject_from_polygon_and_texture(
         Polygon polygon, Texture2D texture
     ) 
@@ -159,21 +160,13 @@ public class Divisible_body : MonoBehaviour
             SpriteMeshType.FullRect
         );
 
-        GameObject created_part;
-        /* if (pooled_prefab != null) {
-            created_part = pooled_prefab.get_from_pool<Pooled_object>(
-                transform.position-transform.rotation*(polygon_shift*1.1f), 
-                transform.rotation
-            ).gameObject;
-        } else { */
-            created_part = Instantiate(
-                gameObject,
-                transform.position-transform.rotation * polygon_shift * (1.1f * transform.lossyScale.x), 
-                transform.rotation
-            );
-        /* } */
+        GameObject created_part = Instantiate(
+            gameObject,
+            transform.position-transform.rotation * polygon_shift * (1.1f * transform.lossyScale.x), 
+            transform.rotation
+        );
+        
         created_part.name = $"{name}_{piece_counter++}";
-        var test = created_part.GetComponent<Divisible_body>();
         
         Divisible_body new_body = created_part.GetComponent<Divisible_body>();
         new_body.init_object_for_piece(polygon, sprite);
@@ -192,7 +185,10 @@ public class Divisible_body : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision) {
         
+
         if (collision.get_damaging_projectile() is Projectile damaging_projectile ) {
+            Debug.Log($"AIMING: ({name})Divisible_body.OnCollisionEnter2D(projectile:{damaging_projectile.name})");
+            
             var contact = collision.GetContact(0);
             damaging_projectile.stop_at_position(contact.point);
             if (collision.otherCollider.gameObject == this.gameObject) {
@@ -230,11 +226,18 @@ public class Divisible_body : MonoBehaviour
         damage_by_impact(
             removed_polygon,
             contact_point,
-            projectile.last_physics.velocity*projectile.rigid_body.mass
+            projectile.last_physics.velocity*projectile.rigid_body.mass * 10f
         );
 
     }
-    
+
+    private ISet<Damage_dealer> damage_dealers = new HashSet<Damage_dealer>();
+    public void remember_damage_dealer(Damage_dealer damage_dealer) {
+        damage_dealers.Add(damage_dealer);
+    }
+    public void forget_damage_dealer(Damage_dealer damage_dealer) {
+        damage_dealers.Remove(damage_dealer);
+    }
     public void damage_by_impact(
         Polygon removed_polygon, 
         Vector2 contact_point,
@@ -260,6 +263,7 @@ public class Divisible_body : MonoBehaviour
     private void make_use_of_new_polygons(
         Received_damage damage
     ) {
+        Debug.Log($"AIMING: ({name})Divisible_body.make_use_of_new_polygons");
         List<Divisible_body> pieces = 
             split_for_collider_pieces(splitting_polygon.Result);
         push_pieces_away(
@@ -271,8 +275,16 @@ public class Divisible_body : MonoBehaviour
             if (piece.on_polygon_changed != null) {
                 piece.on_polygon_changed();
             }
+            piece.damage_dealers.UnionWith(this.damage_dealers);
+            piece.notify_damage_dealers_of_peace();
         }
-    } 
+    }
+
+    private void notify_damage_dealers_of_peace() {
+        foreach (var damage_dealer in damage_dealers) {
+            damage_dealer.remember_damaged_target(this.transform);
+        }
+    }
 
     private void push_pieces_away(
         IEnumerable<Divisible_body> pieces,

@@ -11,22 +11,12 @@ public class Puddle: MonoBehaviour {
 
     public float size;
 
-    //public Pooled_object pooled_object;
 
-    public void Awake() {
+    protected virtual void Awake() {
         transform.scale(size);
     }
 
-    [called_in_animation]
-    public void on_animation_ends() {
-        GetComponent<Pooled_object>().destroy();
-    }
-
-    [called_in_animation]
-    public void create_static_stain() {
-        GetComponent<Leaving_persistent_mesh_residue>().leave_persistent_residue();
-        
-    }
+    
 
 }
 }

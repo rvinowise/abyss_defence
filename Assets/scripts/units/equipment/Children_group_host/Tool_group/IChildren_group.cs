@@ -6,11 +6,8 @@ namespace rvinowise.unity
 /* represents a coherent system of several objects, 
 which work together under control of this object:
 creeping_legs, Weapons etc. */
-public interface IChildren_group
-{
-    IEnumerable<IChild_of_group> children {
-        get;
-    }
+public interface IChildren_group {
+    IEnumerable<IChild_of_group> get_children();
     IList<IChild_of_group> children_stashed_from_copying {
         get;
     }

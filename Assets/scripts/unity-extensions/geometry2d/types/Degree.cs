@@ -1,4 +1,5 @@
 ﻿using System;
+using rvinowise.unity.extensions;
 using UnityEngine;
 
 
@@ -15,7 +16,7 @@ public struct Degree {
         degrees = in_degrees;
     }
     public Degree(Quaternion in_quaternion) {
-        degrees = in_quaternion.eulerAngles.z;
+        degrees = in_quaternion.to_float_degrees();
     }
     
     public static implicit operator Degree(float in_degrees)
@@ -29,7 +30,7 @@ public struct Degree {
 
     public static implicit operator Degree(Quaternion in_quaternion)
     {
-        return new Degree(in_quaternion.eulerAngles.z);
+        return Degree.from_quaternion(in_quaternion);
     }
 
     public Quaternion to_quaternion() {
@@ -38,7 +39,9 @@ public struct Degree {
 
     public static Degree from_quaternion(Quaternion in_quaternion)
     {
-        return new Degree(in_quaternion.eulerAngles.z);
+        float angle = in_quaternion.to_float_degrees();
+        
+        return new Degree(angle);
     }
 
     public Vector2 to_vector() {

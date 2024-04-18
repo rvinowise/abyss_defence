@@ -90,6 +90,17 @@ public class Debug_drawer : MonoBehaviour
         }
          UnityEngine.Debug.DrawLine(polygon.points.Last(), polygon.points.First(), color, time);
     }
+    
+    public static void draw_polygon_gizmos(Polygon polygon) {
+        if (polygon == null) {
+            return;
+        }
+        for(int i = 0; i < polygon.points.Count-1; i++)
+        {
+            Gizmos.DrawLine(polygon.points[i],polygon.points[i+1]);
+        }
+        Gizmos.DrawLine(polygon.points.Last(), polygon.points.First());
+    }
 
     public void draw_collision(Ray2D in_ray, float time = 1f) {
         Polygon collision_polygon = new Polygon(new Vector2[] {

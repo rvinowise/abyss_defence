@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Camera_follower : MonoBehaviour
 {
@@ -23,8 +24,17 @@ public class Camera_follower : MonoBehaviour
         Vector3 diff = target.position - transform.position;
         return 
         (
-            (Mathf.Abs(central_rect.x) < diff.x) ||
-            (Mathf.Abs(central_rect.y) < diff.y)
+            (central_rect.x < Mathf.Abs(diff.x)) ||
+            (central_rect.y < Mathf.Abs(diff.y))
         );
+    }
+
+    private void OnDrawGizmos() {
+        // Gizmos.DrawLine(
+        //     new Vector2(transform.position.x-central_rect.x,transform.position.y+central_rect.y/2), 
+        //     new Vector2(transform.position.x+central_rect.x,transform.position.y+central_rect.y/2)
+        //     );
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, central_rect*2);
     }
 }

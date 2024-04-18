@@ -1434,7 +1434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4fc3d2ae5a1871458a79adcd59ac8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotate_faster_than_move: 2
+  rotate_faster_than_move: 20
   stable_leg_groups:
   - legs:
     - {fileID: 1041728648741110619}

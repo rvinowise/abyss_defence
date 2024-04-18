@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using rvinowise.contracts;
 
 
@@ -13,7 +14,7 @@ public class Action_parallel_parent:
     public static Action_parallel_parent create(
         params Action[] children
     ) {
-        var action = (Action_parallel_parent)pool.get(
+        var action = (Action_parallel_parent)object_pool.get(
             typeof(Action_parallel_parent)
         );
 
@@ -22,6 +23,14 @@ public class Action_parallel_parent:
             
         }
         
+        return action;
+    }
+
+    public static Action_parallel_parent create_from_actions(
+        IEnumerable<Action> child_actions
+    ) {
+        var action = create();
+        action.add_children(child_actions);
         return action;
     }
     
@@ -33,8 +42,12 @@ public class Action_parallel_parent:
     
     public void add_children(params Action[] in_children) {
         foreach (Action child in in_children) {
-            child_actions.Add(child);
-            child.attach_to_parent(this);
+            add_child(child);
+        }
+    }
+    public void add_children(IEnumerable<Action> in_children) {
+        foreach (Action child in in_children) {
+            add_child(child);
         }
     }
     
@@ -129,10 +142,13 @@ public class Action_parallel_parent:
     
     public override string get_actors_names() {
         var names = new List<string>();
-        foreach (var child in child_actions) {
-            names.Add(child.get_actors_names());
+        if (child_actions.Any()) {
+            foreach (var child in child_actions) {
+                names.Add(child.get_actors_names());
+            }
+            return String.Join(", ", names);
         }
-        return String.Join(", ",names);
+        return "NO_CHILDREN";
     }
 }
 }

@@ -52,7 +52,7 @@ public static partial class Unity_extension
     }
     public static float delta_degrees(this Transform transform, Transform other) {
         return //Quaternion.Angle(transform.rotation, other.rotation);
-            Mathf.DeltaAngle(transform.rotation.eulerAngles.z, other.rotation.eulerAngles.z);
+            Mathf.DeltaAngle(transform.rotation.to_degree(), other.rotation.to_degree());
     }
     public static void rotate_to(this Transform transform, float in_direction, float in_speed) {
         Quaternion needed_rotation = Quaternion.Euler(0, 0, in_direction);
@@ -66,7 +66,7 @@ public static partial class Unity_extension
     }
 
     public static Degree local_degrees(this Transform transform) {
-        return new Degree(transform.localEulerAngles.z);
+        return Degree.from_quaternion(transform.localRotation);
     }
 
     public static Orientation orientation(this Transform transform) {

@@ -20,7 +20,7 @@ public class Action_sequential_parent :
         params Action[] children
     ) {
         Action_sequential_parent action =
-            (Action_sequential_parent) pool.get(
+            (Action_sequential_parent) object_pool.get(
                 typeof(Action_sequential_parent)
             );
         foreach (Action child in children) {
@@ -125,12 +125,14 @@ public class Action_sequential_parent :
     public override void start_execution_recursive() {
         on_start_execution();
         if (current_child_action==null)
-            Debug.LogError($"current_child_action of sequentlal_action [{this.marker}] is null");
+            Debug.LogError($"current_child_action of sequential_action [{this.marker}] is null");
         current_child_action.start_execution_recursive();
     }
     
     public override void restore_state_recursive() {
-        current_child_action.restore_state_recursive();
+        if (current_child_action.is_started) {
+            current_child_action.restore_state_recursive();
+        }
         restore_state();
     }
     

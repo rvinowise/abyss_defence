@@ -25,6 +25,10 @@ public abstract class Action_leaf:
                 runner.mark_action_as_finishing(seized_actor.current_action.get_root_action());
             }
             seized_actor.current_action = this;
+            //debug
+            if (seized_actor is ALeg leg) {
+                leg.action_label = this.get_explanation();
+            }
         }
     }
 

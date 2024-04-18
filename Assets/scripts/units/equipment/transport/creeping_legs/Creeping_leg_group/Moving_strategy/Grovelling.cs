@@ -22,7 +22,6 @@ internal class Grovelling: Moving_strategy
             (!can_hold)
         ) 
         {
-            leg.draw_directions(Color.red);
             raise_up(leg);
         } 
         else if (leg.is_twisted_uncomfortably()) {

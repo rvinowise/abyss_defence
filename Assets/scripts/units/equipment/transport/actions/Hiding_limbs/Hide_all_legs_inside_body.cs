@@ -17,7 +17,7 @@ public class Hide_all_legs_inside_body: Action_parallel_parent {
         Creeping_leg_group leg_group,
         Transform body
     ) {
-        var action = (Hide_all_legs_inside_body)pool.get(typeof(Hide_all_legs_inside_body));
+        var action = (Hide_all_legs_inside_body)object_pool.get(typeof(Hide_all_legs_inside_body));
         action.body = body;
         action.leg_group = leg_group;
         
@@ -36,7 +36,7 @@ public class Hide_all_legs_inside_body: Action_parallel_parent {
                 )
             );
             if (!leg.is_up()) {
-                leg_group.moving_strategy.raise_up(leg);
+                leg.raise_up();
             }
         }
         

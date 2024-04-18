@@ -1,0 +1,637 @@
+fileFormatVersion: 2
+guid: f64f03f88bd119c4ca283c339a3824f7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7878724118932791085
+    second: burning_fire_narrow_0
+  - first:
+      213: 7240082078675063399
+    second: burning_fire_narrow_1
+  - first:
+      213: 2610577728010475684
+    second: burning_fire_narrow_2
+  - first:
+      213: -5742955461027295394
+    second: burning_fire_narrow_3
+  - first:
+      213: 1694941576165777440
+    second: burning_fire_narrow_4
+  - first:
+      213: -857222030951654617
+    second: burning_fire_narrow_5
+  - first:
+      213: -4838903239749387487
+    second: burning_fire_narrow_6
+  - first:
+      213: -5537031585111068294
+    second: burning_fire_narrow_7
+  - first:
+      213: 7467505426901995307
+    second: burning_fire_narrow_8
+  - first:
+      213: 1852040464919966746
+    second: burning_fire_narrow_9
+  - first:
+      213: -8985474504002603378
+    second: burning_fire_narrow_10
+  - first:
+      213: 3547658537689489238
+    second: burning_fire_narrow_11
+  - first:
+      213: -2058061819146919471
+    second: burning_fire_narrow_12
+  - first:
+      213: -5170059909727693339
+    second: burning_fire_narrow_13
+  - first:
+      213: 4116397061920420902
+    second: burning_fire_narrow_14
+  - first:
+      213: -6888110501424743927
+    second: burning_fire_narrow_15
+  - first:
+      213: -4379927215979081797
+    second: burning_fire_narrow_16
+  - first:
+      213: -3337466476210909857
+    second: burning_fire_narrow_17
+  - first:
+      213: -8019833722510770602
+    second: burning_fire_narrow_18
+  - first:
+      213: -8919450694455221676
+    second: burning_fire_narrow_19
+  - first:
+      213: -8940628468662209139
+    second: burning_fire_narrow_20
+  - first:
+      213: -8375852338699381111
+    second: burning_fire_narrow_21
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: burning_fire_narrow_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 906
+        width: 376
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d065b7382629a290800000000000000
+      internalID: -7878724118932791085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_1
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 958
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 762591c7a40f97460800000000000000
+      internalID: 7240082078675063399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_2
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 818
+        width: 392
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a85c98bc92aa3420800000000000000
+      internalID: 2610577728010475684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_3
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 892
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5f04988f6cec40b0800000000000000
+      internalID: -5742955461027295394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_4
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 722
+        width: 368
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 020e6622264a58710800000000000000
+      internalID: 1694941576165777440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_5
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 762
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72bdc77ca198a14f0800000000000000
+      internalID: -857222030951654617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_6
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 626
+        width: 361
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12b304c1423c8dcb0800000000000000
+      internalID: -4838903239749387487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_7
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 690
+        width: 11
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a71365b1c138823b0800000000000000
+      internalID: -5537031585111068294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_8
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 638
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2f8bc80f98e1a760800000000000000
+      internalID: 7467505426901995307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_9
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 618
+        width: 28
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1434358df4c3b910800000000000000
+      internalID: 1852040464919966746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_10
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 514
+        width: 369
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e867892bb8e2d4380800000000000000
+      internalID: -8985474504002603378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_11
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 418
+        width: 400
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65f1d5bc4a0db3130800000000000000
+      internalID: 3547658537689489238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_12
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 404
+        width: 22
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d124f7fdab4073e0800000000000000
+      internalID: -2058061819146919471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_13
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 314
+        width: 380
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e5513d77e14048b0800000000000000
+      internalID: -5170059909727693339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_14
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 322
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6247a367151602930800000000000000
+      internalID: 4116397061920420902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_15
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 312
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90ab0f46ef38860a0800000000000000
+      internalID: -6888110501424743927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_16
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 210
+        width: 401
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbf4085276f5733c0800000000000000
+      internalID: -4379927215979081797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_17
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 258
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5d8cab2cefeea1d0800000000000000
+      internalID: -3337466476210909857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_18
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 106
+        width: 426
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65efb0468b3d3b090800000000000000
+      internalID: -8019833722510770602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_19
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 168
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 452a265c9deb73480800000000000000
+      internalID: -8919450694455221676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_20
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 160
+        width: 11
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d85f4a8f6c18ce380800000000000000
+      internalID: -8940628468662209139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: burning_fire_narrow_21
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 436
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 986d2b4dcaef2cb80800000000000000
+      internalID: -8375852338699381111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: c39a49cef1b9a93468cae1881c8c787e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,3 +1,4 @@
+using rvinowise.unity.geometry2d;
 using UnityEngine;
 
 
@@ -39,9 +40,9 @@ public static partial class Unity_extension
         }
         return false;
     }
-    public static float degrees_to(this Vector3 position, Vector3 in_aim) {
-        Vector3 targetDirection = in_aim - position;
-        return targetDirection.to_dergees();
+    public static Degree degrees_to(this Vector3 position, Vector3 in_aim) {
+        Vector3 target_direction = in_aim - position;
+        return new Degree(target_direction.to_dergees());
     }
     public static Quaternion quaternion_to(this Vector3 position, Vector3 in_aim) {
         Vector3 targetDirection = in_aim - position;

@@ -8,7 +8,11 @@ using rvinowise.contracts;
 using rvinowise.unity.actions;
 using rvinowise.unity.extensions.attributes;
 using System;
+using System.Linq;
+using MoreLinq.Extensions;
+using rvinowise.unity.extensions;
 using Action = rvinowise.unity.actions.Action;
+using Transform = UnityEngine.Transform;
 
 
 namespace rvinowise.unity {
@@ -29,7 +33,12 @@ public class Arm_pair:
             aimed_at_target(right_gun, in_target)
             ;
     }
-     public void attack(Transform in_target, System.Action on_completed = null) {
+
+    public float get_reaching_distance() {
+        return float.MaxValue;
+    }
+    public void attack(Transform in_target, System.Action on_completed = null) {
+        Debug.Log($"AIMING: Arm_pair.attack({in_target.name})");
         if (
             get_arm_targeting(in_target) is {held_tool: Gun gun} arm &&
             gun.can_fire() &&
@@ -50,6 +59,7 @@ public class Arm_pair:
     public Arm left_arm;
     public Arm right_arm;
     public Baggage baggage;
+    public Team team;
     
     public GameObject transporter_object;
     public ITransporter transporter;
@@ -64,14 +74,18 @@ public class Arm_pair:
     public Tool left_tool => left_arm.held_tool;
     public Tool right_tool => right_arm.held_tool;
     public float shoulder_span { get; set; }
-    private Unit unit;
-    
 
+
+    private Transform cursor_transform;
+
+    private List<Arm> arms;
     void Awake() {
         transporter = transporter_object.GetComponent<ITransporter>();
+        arms = new List<Arm>{left_arm,right_arm};
     }
 
     protected void Start() {
+        cursor_transform = Player_input.instance.cursor.transform;
         init_directions();
     }
 
@@ -86,7 +100,70 @@ public class Arm_pair:
         right_arm.forearm.desired_idle_rotation = Directions.degrees_to_quaternion(20f);
         right_arm.hand.desired_idle_rotation = Directions.degrees_to_quaternion(0f);
     }
-    
+
+
+    private void Update() {
+        aim_at_hinted_targets();
+    }
+
+    private void aim_at_hinted_targets() {
+        var hinted_targets =
+            get_enemies_closest_to(Player_input.instance.cursor.transform.position);
+
+        var aiming_arms = get_arms_searching_for_targets();
+        var targets_of_arms =
+            aiming_arms
+            .Select(arm => new {target = arm.get_target(), arm})
+            .Where(p => p.target != null)
+            .ToDictionary(p => p.target, p => p.arm);
+        
+        
+        var needed_targets =
+            hinted_targets.Take(aiming_arms.Count).Select(tuple => tuple.Item1).ToList();
+        
+        var current_targets =
+            get_all_targets().ToHashSet();
+
+        var needed_not_targeted_enemies =
+            needed_targets.Except(current_targets).ToHashSet();
+
+        var arms_changing_targets =
+            aiming_arms
+                .Where(arm => !needed_targets.Contains(arm.get_target()))
+                .ToList();
+        
+        foreach (var target in needed_not_targeted_enemies) {
+            get_arm_closest_to(arms_changing_targets, target, typeof(Gun))
+                .aim_at(target);
+        }
+    }
+
+    private List<Arm> get_arms_searching_for_targets() {
+        return arms.Where(is_arm_searching_for_targets).ToList();
+    }
+    private bool is_arm_searching_for_targets(Arm in_arm) {
+        return
+            (arm_is_autoaimed(in_arm))
+            &&
+            (
+                (in_arm.current_action == null)
+                ||
+                (in_arm.current_action.GetType() == typeof(Idle_vigilant_only_arm))
+                ||
+                (in_arm.current_action.GetType() == typeof(Aim_at_target))
+            );
+    }
+
+
+    private List<Tuple<Transform,float>> get_enemies_closest_to(Vector2 in_position) {
+        List<Tuple<Transform, float>> enemies_and_distances = new List<Tuple<Transform, float>>();
+        foreach (var enemy in team.get_enemiy_transforms()) {
+            var distance = enemy.transform.sqr_distance_to(in_position);
+            enemies_and_distances.Add(new Tuple<Transform, float>(enemy,distance));
+        }
+        enemies_and_distances.Sort((tuple1,tuple2) => tuple1.Item2.CompareTo(tuple2.Item2) );
+        return enemies_and_distances;
+    }
 
     public List<Arm> get_all_armed_autoaimed_arms() {
         List<Arm> arms = new List<Arm>();
@@ -98,6 +175,20 @@ public class Arm_pair:
         if (arm_is_autoaimed(left_arm))
         {
             arms.Add(left_arm);
+        }
+        return arms;
+    }
+    
+    public List<Tuple<Arm,Transform>> get_autoaimed_arms_with_targets() {
+        List<Tuple<Arm,Transform>> arms = new List<Tuple<Arm, Transform>>();
+
+        if (arm_is_autoaimed(right_arm))
+        {
+            arms.Add(new Tuple<Arm, Transform>(right_arm,right_arm.get_target()));
+        }
+        if (arm_is_autoaimed(left_arm))
+        {
+            arms.Add(new Tuple<Arm, Transform>(left_arm,left_arm.get_target()));
         }
         return arms;
     }
@@ -200,11 +291,12 @@ public class Arm_pair:
     }
 
     public void aim_at(Transform in_target) {
+        Debug.Log($"AIMING: Arm_pair.aim_at({in_target.name})");
         if (is_aiming_at(in_target)) {
             return;
         }
         Arm best_arm;
-        if (get_free_arm_closest_to(in_target, typeof(Gun)) is Arm free_arm) {
+        if (get_free_arm_closest_to(in_target, typeof(Gun)) is {} free_arm) {
             best_arm = free_arm;
         } else {
             best_arm = get_arm_closest_to(
@@ -215,29 +307,48 @@ public class Arm_pair:
             if (best_arm == null) {
                 return;
             }
-            if (get_target_of(best_arm) is Transform old_target) {
-                unsubscribe_from_disappearance_of(old_target);
-            }
         }
         if (best_arm != null) {
             best_arm.aim_at(in_target);
-            subscribe_to_disappearance_of(in_target);
         }
     }
 
-    
 
+    private readonly RaycastHit2D[] targeted_targets = new RaycastHit2D[1000];
     private bool aimed_at_target(Gun gun, Transform in_target) {
-        RaycastHit2D hit = Physics2D.Raycast(
-            gun.transform.position, 
-            gun.muzzle.right
-        );
-
-        if (hit.transform == in_target) {
-            return true;
+        var targets_number = 
+            Physics2D.RaycastNonAlloc(
+                gun.transform.position, gun.muzzle.right, targeted_targets
+            );
+        for (var i_target=0;i_target<targets_number;++i_target) {
+            var hit = targeted_targets[i_target];
+            if (hit.transform == in_target) {
+                return true;
+            }
         }
 
         return false;
+    }
+    
+    private bool directed_at_target(Gun gun, Transform in_target) {
+        var vector_to_target =
+            (in_target.position - gun.transform.position);
+        
+        var direction_to_tarrget =
+            vector_to_target.to_dergees();
+
+        var distance_to_target = vector_to_target.magnitude;
+
+        var precision_angle = 10f;
+        
+        return 
+            Math.Abs(
+                gun.transform.rotation.to_degree().angle_to(direction_to_tarrget)
+            ) 
+            < 
+            precision_angle/distance_to_target;
+
+
     }
 
     
@@ -250,49 +361,46 @@ public class Arm_pair:
     }
 
     public void set_target_for(Arm in_arm, Transform in_target) {
-        if (get_target_of(in_arm) is Transform old_target) {
-            unsubscribe_from_disappearance_of(old_target);
-        }
         in_arm.aim_at(in_target);
-        subscribe_to_disappearance_of(in_target);
     }
 
     public List<Transform> get_all_targets() {
         List<Transform> result = new List<Transform>();
         foreach (Arm arm in get_all_armed_autoaimed_arms()) {
-            if (arm.current_action is Aim_at_target aiming_action) {
-                result.Add(aiming_action.get_target());
+            if (arm.get_target() != null) {
+                result.Add(arm.get_target());
             }
         }
         return result;
     }
 
-    private void subscribe_to_disappearance_of(Transform in_unit) {
-        if (in_unit.GetComponent<Intelligence>() is {} damage_receiver) {
-            damage_receiver.on_destroyed+=handle_target_disappearence;
-        }
-    }
-    private void unsubscribe_from_disappearance_of(Transform in_unit) {
-        if (in_unit == null)
-        {
-            Debug.LogError($"Arm_pair is unsubscribing from the disappearance of a null target");
-        }else
-        if (in_unit.GetComponent<Intelligence>() is { } damage_receiver) {
-            damage_receiver.on_destroyed-=handle_target_disappearence;
-        }
-    }
+   
 
-    private void handle_target_disappearence(Intelligence disappearing_unit) {
+    public void handle_target_disappearence(Intelligence disappearing_unit) {
+        Debug.Log($"AIMING: handle_target_disappearence {disappearing_unit.gameObject.name}");
         foreach (Arm arm in get_all_armed_autoaimed_arms()) {
-            if (arm.current_action is Aim_at_target aiming_action) {
-                if (aiming_action.get_target() == disappearing_unit.transform) {
-                    on_target_disappeared(arm);
-                    if (get_target_of(arm) == disappearing_unit.transform) {
-                        arm.start_idle_action();
-                    }
-                }
+            if (get_target_of(arm) == disappearing_unit.transform) {
+                try_find_new_target(arm);
             }
         }
+    }
+    
+    public void try_find_new_target(Arm in_arm) {
+        Debug.Log($"AIMING: try_find_new_target({in_arm.name})");
+        List<Transform> free_enemies = get_not_targeted_enemies();
+        Distance_to_component closest_target = Object_finder.instance.get_closest_object(
+            cursor_transform.position,
+            free_enemies
+        );
+        if (closest_target.get_transform() != null) {
+            set_target_for(in_arm, closest_target.get_transform());
+        }
+        else {
+            in_arm.start_idle_action();
+        }
+    }
+    private List<Transform> get_not_targeted_enemies() {
+        return team.get_enemiy_transforms().Except(get_all_targets()).ToList();
     }
 
     public delegate void EventHandler(Arm arm);
@@ -304,7 +412,7 @@ public class Arm_pair:
         return get_arm_closest_to(free_armed_arms, in_target, needed_tool);
     }
 
-    private Arm get_arm_closest_to(List<Arm> in_arms, Transform in_target, System.Type needed_tool) {
+    private Arm get_arm_closest_to(IEnumerable<Arm> in_arms, Transform in_target, System.Type needed_tool) {
         float closest_distance = float.MaxValue;
         Arm closest_arm = null;
         foreach(Arm arm in in_arms) {
@@ -319,10 +427,17 @@ public class Arm_pair:
         return closest_arm;
     }
 
+    private bool arm_is_ready_for_autoaiming(Arm in_arm) {
+        return
+            (right_arm.current_action is Idle_vigilant_only_arm)
+            ||
+            (right_arm.current_action == null);
+    }
+
     public List<Arm> get_iddling_armed_autoaimed_arms() {
         List<Arm> free_armed_arms = new List<Arm>();
         if (
-            right_arm.current_action is Idle_vigilant_only_arm
+            arm_is_ready_for_autoaiming(right_arm)
             &&
             arm_is_autoaimed(right_arm)
         )
@@ -330,7 +445,7 @@ public class Arm_pair:
             free_armed_arms.Add(right_arm);
         }
         if (
-            left_arm.current_action is Idle_vigilant_only_arm 
+            arm_is_ready_for_autoaiming(left_arm)
             &&
             arm_is_autoaimed(left_arm)
         )
@@ -530,6 +645,7 @@ public class Arm_pair:
     }
     
     public void attack() {
+        Debug.Log($"AIMING: Arm_pair.attack()");
         if (left_arm.held_tool is Gun gun) {
             gun.pull_trigger();
             on_ammo_changed(left_arm, gun.get_loaded_ammo());

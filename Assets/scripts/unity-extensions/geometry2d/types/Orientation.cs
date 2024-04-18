@@ -5,18 +5,13 @@ using rvinowise.unity.extensions;
 
 namespace rvinowise.unity.geometry2d {
 
-public class Orientation {
+public struct Orientation {
 
     public Vector3 position;
     public Quaternion rotation;
     
-    public Vector3 local_position;
-    public Vector3 local_direction;
-
     public Transform parent;
 
-
-    private Orientation() {}
 
     public Orientation(
         Transform in_parent
@@ -45,12 +40,10 @@ public class Orientation {
     public Orientation(Vector2 in_position, Quaternion in_rotation) {
         position = in_position;
         rotation = in_rotation;
+        parent = null;
     }
 
     public static bool operator ==(Orientation obj1, Orientation obj2) {
-        if (obj1 == null || obj2 == null) {
-            return false;
-        }
         return (
             (obj1.position == obj2.position) &&
             (obj1.rotation == obj2.rotation)
@@ -67,11 +60,13 @@ public class Orientation {
         return (position, rotation).GetHashCode();
     }
 
-    public void adjust_to_parent() {
-        position = parent.TransformPoint(local_position);
-        rotation = ((Vector2)parent.TransformDirection(local_direction)).to_quaternion();
+    public Orientation adjust_to_parent() {
+        return new Orientation {
+            position = parent.TransformPoint(position),
+            rotation = ((Vector2) parent.TransformDirection(rotation.to_vector())).to_quaternion()
+        };
     }
+}
 
     
-}
 }

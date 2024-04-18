@@ -75,13 +75,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7144662543986214788, guid: 31c03bf88e653dd42aab712cb444169c,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: fc10c66150066d744813c20803abfe13, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.2920354, y: 0.09144543}
+  m_Size: {x: 0.28285715, y: 0.08857143}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -120,12 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19eb9bc05f7f4757bf6eef688e0a5b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 0}
-  pooled_object: {fileID: 0}
-  trajectory_flyer: {fileID: 0}
-  size: 1
-  vertical_velocity: 0
-  puddle_prefab: {fileID: -5999515291599578302, guid: 12d73426bcf343a4abcc1c4c6b1847d3,
+  rigidbody: {fileID: -6775746378378417914}
+  trajectory_flyer: {fileID: 7612435402987248051}
+  puddle_prefab: {fileID: 3501107402530808539, guid: af1dbfd1a3d097945bec6340c5f1ef18,
     type: 3}
 --- !u!114 &-8591562747733743540
 MonoBehaviour:
@@ -155,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 0.1
   size: 1
-  height: 0
+  height: 1
   vertical_velocity: 0
   on_fell_on_the_ground:
     m_PersistentCalls:

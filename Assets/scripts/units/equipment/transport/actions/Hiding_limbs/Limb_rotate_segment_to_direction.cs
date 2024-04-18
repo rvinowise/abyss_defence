@@ -22,7 +22,7 @@ public class Limb_rotate_segment_to_direction: Action_leaf {
         Transform body,
         Quaternion relative_rotation
     ) {
-        var action = (Limb_rotate_segment_to_direction)pool.get(typeof(Limb_rotate_segment_to_direction));
+        var action = (Limb_rotate_segment_to_direction)object_pool.get(typeof(Limb_rotate_segment_to_direction));
         action.add_actor(limb);
         action.limb = limb;
         action.relative_rotation = relative_rotation;
@@ -42,8 +42,8 @@ public class Limb_rotate_segment_to_direction: Action_leaf {
 
     public override void update() {
         base.update();
-        limb.segment1.target_rotation = body.rotation * relative_rotation;
-        limb.segment2.target_rotation = limb.segment1.rotation;
+        limb.segment1.set_target_rotation(body.rotation * relative_rotation);
+        limb.segment2.set_target_rotation(limb.segment1.rotation);
         limb.rotate_to_desired_directions();
         if (segment_has_reached_direction()) {
             mark_as_completed();
@@ -56,7 +56,7 @@ public class Limb_rotate_segment_to_direction: Action_leaf {
     private bool segment_has_reached_direction() {
         return 
             //Mathf.Abs(segment.rotation.degrees_to(body.rotation * relative_rotation))  
-            Mathf.Abs(segment.rotation.degrees_to(segment.target_rotation))
+            Mathf.Abs(segment.rotation.degrees_to(segment.get_target_rotation()))
             <=
             Turning_element.rotation_epsilon;
     }

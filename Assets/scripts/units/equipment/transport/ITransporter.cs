@@ -5,7 +5,7 @@ using UnityEngine;
 namespace rvinowise.unity {
 
 public static class Physics_consts {
-    public const float rigidbody_impulse_multiplier = 1f;
+    public const float rigidbody_impulse_multiplier = 10000f;
 }
 
 }
@@ -16,18 +16,21 @@ namespace rvinowise.unity {
 
 /* provides information about possible speed and rotation for a moving Unit */
 
-public interface ITransporter:
-    IExecute_commands,
-    IActor
+public interface ITransporter {
+    float get_possible_rotation();
+    float get_possible_impulse();
+    void set_moved_body(Turning_element in_body);
+    Turning_element get_moved_body();
 
-{
-    float possible_rotation { get; set; }
-    float possible_impulse { get; set; }
+    void move_towards_destination(Vector2 destination);
+    void face_rotation(Quaternion rotation);
     
-    Transporter_commands command_batch { get; }
-
-    // public void set_desired_face_rotation(Quaternion in_rotation);
-    // public void set_desired_position(Vector2 in_position);
 }
+
+
+public interface IActor_transporter :
+    ITransporter
+    , IActor 
+{ }
 
 }

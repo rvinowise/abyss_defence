@@ -23,7 +23,7 @@ public class Expose_leg_from_body: Action_sequential_parent {
         ALeg leg,
         Transform body
     ) {
-        var action = (Expose_leg_from_body)pool.get(typeof(Expose_leg_from_body));
+        var action = (Expose_leg_from_body)object_pool.get(typeof(Expose_leg_from_body));
         action.body = body;
         action.leg = leg;
         

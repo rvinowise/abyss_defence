@@ -6,7 +6,6 @@ namespace rvinowise.unity {
 public class Player_input: MonoBehaviour {
     
     public Cursor cursor;
-    public UnityEngine.Input unity;
     
     public Vector2 mouse_world_position => cursor.transform.position;
     public Vector2 moving_vector { get; private set; }

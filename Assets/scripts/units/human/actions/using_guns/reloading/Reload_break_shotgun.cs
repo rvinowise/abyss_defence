@@ -1,5 +1,4 @@
 using UnityEngine;
-using units;
 
 namespace rvinowise.unity.actions {
 
@@ -23,7 +22,7 @@ public class Reload_break_shotgun: Reload_gun {
         Break_shotgun in_tool,
         Ammunition in_ammo
     ) {
-        var action = (Reload_break_shotgun)pool.get(typeof(Reload_break_shotgun));
+        var action = (Reload_break_shotgun)object_pool.get(typeof(Reload_break_shotgun));
         
         action.animator = in_animator;
         action.gun_arm = in_gun_arm;

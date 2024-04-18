@@ -21,7 +21,7 @@ public class Expose_gun_for_reloading_COMPLEX: Action_leaf {
             "the arm must hold a gun to reload it"
         );
         
-        var action = (Expose_gun_for_reloading_COMPLEX)pool.get(typeof(Expose_gun_for_reloading_COMPLEX));
+        var action = (Expose_gun_for_reloading_COMPLEX)object_pool.get(typeof(Expose_gun_for_reloading_COMPLEX));
         action.arm = in_arm;
         
         if (in_arm.held_tool is Pistol pistol) {

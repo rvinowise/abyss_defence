@@ -17,7 +17,7 @@ public class Expose_all_legs_from_body: Action_parallel_parent {
         Creeping_leg_group leg_group,
         Transform body
     ) {
-        var action = (Expose_all_legs_from_body)pool.get(typeof(Expose_all_legs_from_body));
+        var action = (Expose_all_legs_from_body)object_pool.get(typeof(Expose_all_legs_from_body));
         action.body = body;
         action.leg_group = leg_group;
         

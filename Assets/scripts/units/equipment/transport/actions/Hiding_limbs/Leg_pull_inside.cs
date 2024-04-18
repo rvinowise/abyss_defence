@@ -28,7 +28,7 @@ public class Leg_pull_inside: Action_leaf {
         //Quaternion hiding_relative_rotation,
         float hiding_depth
     ) {
-        var action = (Leg_pull_inside)pool.get(typeof(Leg_pull_inside));
+        var action = (Leg_pull_inside)object_pool.get(typeof(Leg_pull_inside));
         action.add_actor(leg);
         action.leg = leg;
         action.pulling_speed = pulling_speed;
@@ -51,10 +51,10 @@ public class Leg_pull_inside: Action_leaf {
     public override void update() {
         base.update();
         
-        segment.rotation = body.rotation * relative_rotation;
+        segment.transform.rotation = body.rotation * relative_rotation;
 
         if (segment == leg.segment1) {
-            leg.segment2.target_rotation = leg.segment1.rotation;
+            leg.segment2.set_target_rotation(leg.segment1.rotation);
             leg.segment2.rotate_to_desired_direction();
         }
         

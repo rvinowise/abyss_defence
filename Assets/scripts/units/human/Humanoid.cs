@@ -8,8 +8,8 @@ namespace rvinowise.unity {
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class Humanoid: 
-    Unit
+public class Humanoid:
+    MonoBehaviour
     ,IFlippable_actor
     ,IActor
 {
@@ -57,9 +57,8 @@ public class Humanoid:
             in_ammo.rounds_qty
             );
     }
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         init_components();
     }
 
@@ -126,18 +125,25 @@ public class Humanoid:
         arm_pair.left_arm.shoulder.current_rotation_inertia = 0;
         arm_pair.left_arm.segment1.current_rotation_inertia = 0;
         arm_pair.left_arm.segment2.current_rotation_inertia = 0;
-        arm_pair.left_arm.segment3.current_rotation_inertia = 0;
+        arm_pair.left_arm.hand.current_rotation_inertia = 0;
         arm_pair.right_arm.shoulder.current_rotation_inertia = 0;
         arm_pair.right_arm.segment1.current_rotation_inertia = 0;
         arm_pair.right_arm.segment2.current_rotation_inertia = 0;
-        arm_pair.right_arm.segment3.current_rotation_inertia = 0;
+        arm_pair.right_arm.hand.current_rotation_inertia = 0;
     }
     
     private void switch_tools() {
         arm_pair.switch_tools();
-        
     }
-
-   
+    
+    private void OnDestroy()
+    {
+        var st = new System.Diagnostics.StackTrace(true);
+        var sfs = st.GetFrames();
+        foreach (var sf in sfs)
+        {
+            Debug.Log(sf.GetFileName() + ", " + sf.GetFileLineNumber());
+        }
+    }
 }
 }

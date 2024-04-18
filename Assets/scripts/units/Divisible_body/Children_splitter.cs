@@ -13,10 +13,19 @@ public static class Children_splitter {
         IList<IChildren_groups_host> piece_users = get_users_of_tools_from(piece_objects);
         
         distribute_children_to_pieces(src_host_of_children, piece_objects);
-        destroy_undistributed_tools(src_host_of_children);
+        //destroy_undistributed_tools(src_host_of_children);
 
-        Children_groups_host.Data_distributor.distribute_data_across(src_host_of_children, piece_users);
+        Data_distributor.distribute_data_across(src_host_of_children, piece_users);
 
+        connect_devices_to_intelligence(piece_objects);
+    }
+
+    private static void connect_devices_to_intelligence(List<Divisible_body> piece_objects) {
+        foreach (var piece in piece_objects) {
+            if (piece.GetComponent<Intelligence>() is {} intelligence) {
+                intelligence.init_devices();
+            }
+        }
     }
 
     private static IList<IChildren_groups_host> get_users_of_tools_from(IEnumerable<Divisible_body> piece_objects) {
@@ -92,10 +101,8 @@ public static class Children_splitter {
         int i_children_group,
         IChild_of_group child) 
     {
-        IChildren_groups_host piece_children_groups_host =
-            piece_object.GetComponent<IChildren_groups_host>();
-        Children_group piece_children_group =
-            piece_children_groups_host.children_groups[i_children_group];
+        Abstract_children_group piece_children_group =
+            piece_object.children_groups[i_children_group];
         piece_children_group.add_child(child);
     }
 }

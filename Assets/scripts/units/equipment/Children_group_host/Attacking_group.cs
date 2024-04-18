@@ -6,21 +6,21 @@ using UnityEngine;
 namespace rvinowise.unity
 {
 public class Attacking_group: 
-    Children_group
+    Abstract_children_group
     ,IAttacker
 {
 
     public List<GameObject> weapon_objects; //only for initialisation in inspector
-    public readonly List<IAttacker_child_of_group> weapons = new List<IAttacker_child_of_group>();
-    public override IEnumerable<IChild_of_group> children {
-        get => weapons;
+    public readonly List<Attacker_child_of_group> weapons = new List<Attacker_child_of_group>();
+    public override IEnumerable<IChild_of_group> get_children() {
+        return weapons;
     }
 
 
-    protected override void Awake() {
+    internal override void Awake() {
         base.Awake();
         foreach (var weapon_object in weapon_objects) {
-            weapons.Add(weapon_object.GetComponent<IAttacker_child_of_group>());
+            weapons.Add(weapon_object.GetComponent<Attacker_child_of_group>());
         }
     }
     
@@ -30,8 +30,8 @@ public class Attacking_group:
         weapons.Clear();
     }
     public override void add_child(IChild_of_group in_child) {
-        Contract.Requires(in_child is IAttacker_child_of_group);
-        if (in_child is IAttacker_child_of_group attacker)
+        Contract.Requires(in_child is Attacker_child_of_group);
+        if (in_child is Attacker_child_of_group attacker)
         {
             weapons.Add(attacker);
             in_child.transform.SetParent(transform, false);
@@ -46,6 +46,16 @@ public class Attacking_group:
             }
         }
         return false;
+    }
+
+    public float get_reaching_distance() {
+        float max_distance = 0;
+        foreach (var weapon in weapons) {
+            if (max_distance < weapon.get_reaching_distance()) {
+                max_distance = weapon.get_reaching_distance();
+            }
+        }
+        return max_distance;
     }
 
     public void attack(Transform target, System.Action on_completed) {
