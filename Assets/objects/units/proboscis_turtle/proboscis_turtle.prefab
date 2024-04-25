@@ -137,6 +137,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 8555854319098109132}
   length: 0.946
@@ -278,6 +279,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 6205216225530486606}
   length: 0.946
@@ -395,6 +397,7 @@ MonoBehaviour:
   reposition_distance: 1
   moving_offset_distance: 0.4
   up: 1
+  action_label: 
 --- !u!1 &4223795952554280408
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +505,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 6380961792571208189}
   length: 1.32
@@ -613,6 +617,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 1814302133440198203}
   length: 0.946
@@ -724,6 +729,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 7220017851819256944}
   length: 1.32
@@ -865,6 +871,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 8985201902004097394}
   length: 0.946
@@ -1006,6 +1013,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 6728187105576223830}
   length: 1.32
@@ -1028,6 +1036,8 @@ GameObject:
   - component: {fileID: 2616655519740375660}
   - component: {fileID: 8332253965557640955}
   - component: {fileID: 1972582868388505799}
+  - component: {fileID: 7367328031447627115}
+  - component: {fileID: 1220625751583359477}
   m_Layer: 0
   m_Name: proboscis_turtle
   m_TagString: Untagged
@@ -1248,6 +1258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4fc3d2ae5a1871458a79adcd59ac8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moved_body: {fileID: 2616655519740375660}
   rotate_faster_than_move: 100
   stable_leg_groups:
   - legs:
@@ -1262,7 +1273,6 @@ MonoBehaviour:
   - {fileID: 3655175136849670958}
   - {fileID: 1373915025892328319}
   - {fileID: 8644091529037052295}
-  moved_body: {fileID: 2616655519740375660}
 --- !u!114 &126222188819073202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1277,6 +1287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inside: {fileID: 0}
   outside: {fileID: 0}
+  disappearing_body: {fileID: 0}
   pooled_prefab: {fileID: 0}
 --- !u!114 &2616655519740375660
 MonoBehaviour:
@@ -1301,6 +1312,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
 --- !u!114 &8332253965557640955
 MonoBehaviour:
@@ -1336,6 +1348,35 @@ MonoBehaviour:
   last_rotation: 0
   team: {fileID: 0}
   commander: {fileID: 0}
+--- !u!114 &7367328031447627115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6190161825161027862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4afe687255b4189b893241e2b6856dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  will_be_settled_when_stops: 0
+  is_decaying: 0
+--- !u!114 &1220625751583359477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6190161825161027862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c10a959143527740a26de809a02b7e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max_damage: 2
+  received_damage: 0
+  text_label: {fileID: 0}
 --- !u!1 &7153684885957629896
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,6 +1430,7 @@ MonoBehaviour:
   reposition_distance: 1
   moving_offset_distance: 0.4
   up: 1
+  action_label: 
 --- !u!1 &7208038673551516310
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,6 +1484,7 @@ MonoBehaviour:
   reposition_distance: 1
   moving_offset_distance: 0.4
   up: 1
+  action_label: 
 --- !u!1 &7954176245685431072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,6 +1538,7 @@ MonoBehaviour:
   reposition_distance: 1
   moving_offset_distance: 0.4
   up: 1
+  action_label: 
 --- !u!1 &8243525362105224878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1662,6 +1706,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 7897919095629115756}
   length: 1.32

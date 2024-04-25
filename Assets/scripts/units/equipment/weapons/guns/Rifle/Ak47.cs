@@ -4,10 +4,7 @@ using UnityEngine;
 
 namespace rvinowise.unity {
 
-public class Ak47: Gun {
-    
-    public override float weight { set; get; } = 4f;
-    public override float stock_length { get; } = 0.45f;
+public class Ak47: Gun { //stock length= 0.45
     
     protected override void init_holding_places() {
         main_holding = Holding_place.main(this);

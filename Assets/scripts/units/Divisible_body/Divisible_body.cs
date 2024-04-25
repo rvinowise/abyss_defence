@@ -53,9 +53,6 @@ public class Divisible_body : MonoBehaviour
                     Destroy(children_group);
                 }
                 piece.children_groups.Clear();
-                if (piece.disappearing_body != null) { 
-                    piece.disappearing_body.settle_when_stops();
-                }
             }
         }
     }
@@ -184,16 +181,13 @@ public class Divisible_body : MonoBehaviour
 
 
     void OnCollisionEnter2D(Collision2D collision) {
-        
 
         if (collision.get_damaging_projectile() is Projectile damaging_projectile ) {
             Debug.Log($"AIMING: ({name})Divisible_body.OnCollisionEnter2D(projectile:{damaging_projectile.name})");
             
             var contact = collision.GetContact(0);
             damaging_projectile.stop_at_position(contact.point);
-            if (collision.otherCollider.gameObject == this.gameObject) {
-                damage_by_projectile(damaging_projectile, contact);
-            }
+            damage_by_projectile(damaging_projectile, contact);
         }
     }
 

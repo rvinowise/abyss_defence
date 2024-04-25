@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7821254ee7c7a82458a070ab9dd1a972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_residue: 1500
+  max_residue: 10
   n_frames_x: 1
   sprite: {fileID: 0}
+  next_color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!33 &1590013417714289308
 MeshFilter:
   m_ObjectHideFlags: 0

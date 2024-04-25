@@ -13,7 +13,7 @@ public static class Children_splitter {
         IList<IChildren_groups_host> piece_users = get_users_of_tools_from(piece_objects);
         
         distribute_children_to_pieces(src_host_of_children, piece_objects);
-        //destroy_undistributed_tools(src_host_of_children);
+        destroy_undistributed_tools(src_host_of_children);
 
         Data_distributor.distribute_data_across(src_host_of_children, piece_users);
 

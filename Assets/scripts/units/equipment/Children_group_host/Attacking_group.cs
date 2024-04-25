@@ -28,12 +28,14 @@ public class Attacking_group:
     public override void hide_children_from_copying() {
         base.hide_children_from_copying();
         weapons.Clear();
+        weapon_objects.Clear();
     }
     public override void add_child(IChild_of_group in_child) {
         Contract.Requires(in_child is Attacker_child_of_group);
         if (in_child is Attacker_child_of_group attacker)
         {
             weapons.Add(attacker);
+            weapon_objects.Add(attacker.gameObject);
             in_child.transform.SetParent(transform, false);
         }
     }

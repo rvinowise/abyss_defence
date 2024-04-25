@@ -26,6 +26,7 @@ public class Explosion: MonoBehaviour {
 
     private void Awake() {
         damage_dealer = GetComponent<Damage_dealer>();
+        collider = GetComponent<CircleCollider2D>();
         
         foreach (var particle_system in particle_systems) {
             if (longest_particle_system_lifetime < particle_system.main.duration) {
@@ -58,24 +59,26 @@ public class Explosion: MonoBehaviour {
     public void damage_target(RaycastHit2D target_hit) {
         var target_divisible_body = target_hit.transform.GetComponent<Divisible_body>();
         
-        var impact_vector =
-            (target_hit.point - (Vector2)transform.position);
+        if (target_divisible_body != null) {
+            var impact_vector =
+                (target_hit.point - (Vector2) transform.position);
 
-        var distance_to_target = impact_vector.magnitude;
+            var distance_to_target = impact_vector.magnitude;
 
-        var removed_polygon =
-            Polygon_creator.get_circle_polygon(distance_to_target + dent_depth, 10)
-                .move(transform.position);
-        
-        Debug_drawer.instance.draw_polygon_debug(removed_polygon);
-        
-        target_divisible_body.damage_by_impact(
-            removed_polygon,
-            target_hit.point,
-            impact_vector*push_power
-        );
-        hit_targets.Add(target_hit.transform);
-        damage_dealer.remember_damaged_target(target_hit.transform);
+            var removed_polygon =
+                Polygon_creator.get_circle_polygon(distance_to_target + dent_depth, 10)
+                    .move(transform.position);
+
+            Debug_drawer.instance.draw_polygon_debug(removed_polygon);
+
+            target_divisible_body.damage_by_impact(
+                removed_polygon,
+                target_hit.point,
+                impact_vector * push_power
+            );
+            hit_targets.Add(target_hit.transform);
+            damage_dealer.remember_damaged_target(target_hit.transform);
+        }
     }
 
     private bool is_target_was_damaged(Transform target) {
@@ -106,7 +109,6 @@ public class Explosion: MonoBehaviour {
     } 
     
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Break();
         var potential_target = other.transform;
         var hit = get_explosion_collision_towards_target(potential_target);
         if (
@@ -119,6 +121,7 @@ public class Explosion: MonoBehaviour {
         }
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos() {
         Gizmos.color = Color.green;
         Debug_drawer.draw_polygon_gizmos(shock_wave_polygon_debug);
@@ -127,6 +130,8 @@ public class Explosion: MonoBehaviour {
             
         Debug_drawer.draw_polygon_gizmos(max_radius_polygon_debug);
     }
+#endif
+    
 }
 
 }

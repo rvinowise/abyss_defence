@@ -14,6 +14,8 @@ public class Team: MonoBehaviour
 
     public HashSet<Intelligence> units = new HashSet<Intelligence>();
 
+    public Color color;
+    
     void Awake() {
         foreach (var unit in FindObjectsByType<Intelligence>(FindObjectsSortMode.None)) {
             if (unit.team == this) {
@@ -24,9 +26,11 @@ public class Team: MonoBehaviour
     
     public void add_unit(Intelligence unit) {
         units.Add(unit);
+        unit.team = this;
     }
     
     public void remove_unit(Intelligence unit) {
+        Debug.Log($"LIFETIME: team {name} is removing its unit {unit.name}");
         units.Remove(unit);
     }
 

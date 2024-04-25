@@ -7,7 +7,6 @@ namespace rvinowise.unity {
 public class Trajectory_flyer: MonoBehaviour {
 
     public float weight = 0.1f;
-    [HideInInspector]
     public float size = 1f;
 
     public float height;
@@ -28,15 +27,16 @@ public class Trajectory_flyer: MonoBehaviour {
         
         if (is_on_the_ground()) {
             this.enabled = false;
+            transform.localScale = new Vector2(size, size);
+            stop_movement();
             if (on_fell_on_the_ground != null) {
-                transform.localScale = new Vector2(size, size);
                 on_fell_on_the_ground.Invoke();
             }
+        } else {
+            float local_scale = size * (height + 1);
+            transform.localScale = new Vector2(local_scale, local_scale);
+            transform.position = new Vector3(transform.position.x, transform.position.y, -height);
         }
-        
-        float local_scale = size * (height + 1);
-        transform.localScale = new Vector2(local_scale, local_scale);
-        transform.position = new Vector3(transform.position.x, transform.position.y, -height);
     }
 
     public float get_vertical_impulse_for_landing_at_distance(
@@ -50,7 +50,15 @@ public class Trajectory_flyer: MonoBehaviour {
 
         return starting_velocity;
     }
-    
+
+
+    public void stop_movement() {
+        var rigid_body = GetComponent<Rigidbody2D>();
+        if (rigid_body != null) {
+            rigid_body.velocity = Vector2.zero;
+            rigid_body.angularVelocity = 0;
+        }
+    }
 
 }
 }

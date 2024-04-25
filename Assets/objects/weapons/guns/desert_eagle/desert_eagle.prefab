@@ -43,7 +43,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1201677594883345000
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -56,10 +56,12 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &-5211986024171691197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ace1bdcab64e5d947e168a7c3b909b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weight: 5
   main_holding: {fileID: 8362259214313910014}
   second_holding: {fileID: 0}
   animator: {fileID: 1201677594883345000}
@@ -90,6 +93,7 @@ MonoBehaviour:
   bullet_shell_prefab: {fileID: 3724668389505664677, guid: a0651299a17882944898fedc396ac4b9,
     type: 3}
   aiming_automatically: 1
+  stock_length: 0
   recoil_force: 250
   shell_ejector: {fileID: 407324513766382050}
   projectile_force: 1000

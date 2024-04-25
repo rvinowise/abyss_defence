@@ -31,14 +31,19 @@ public class Limb2_hold_onto_target: Action_leaf {
 
     public override void update() {
 
-        var directions = limb.determine_directions_reaching_point(target.position);
-        if (directions.failed) {
+        if (target == null) {
             mark_as_completed();
         }
         else {
-            limb.hold_onto_point(target.position);
+            var directions = limb.determine_directions_reaching_point(target.position);
+            if (directions.failed) {
+                mark_as_completed();
+            }
+            else {
+                limb.hold_onto_point(target.position);
+            }
         }
-        
+
     }
 
 }

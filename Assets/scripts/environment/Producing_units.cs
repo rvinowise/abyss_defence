@@ -41,7 +41,7 @@ public class Producing_units : MonoBehaviour
         unit_being_created.rotation = spawn.rotation;
 
         if (unit_being_created.GetComponent<Intelligence>() is Intelligence intelligence) {
-            intelligence.team = team;
+            team.add_unit(intelligence);
         }
         unit_being_created.gameObject.SetActive(true);
     }

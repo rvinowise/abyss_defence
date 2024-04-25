@@ -82,6 +82,21 @@ public static partial class Unity_extension {
             field.SetValue(dst_component, field.GetValue(src_component));
         } 
     }
+    public static void copy_enabledness(
+        this Component dst_component,
+        Component src_component
+    ) {
+        if (
+            (dst_component is MonoBehaviour dst_behaviour)
+            &&
+            (src_component is MonoBehaviour src_behaviour)
+        ) {
+            if (dst_behaviour.enabled != src_behaviour.enabled) {
+                dst_behaviour.enabled = src_behaviour.enabled;
+            }
+        }
+    }
+    
 
     
 

@@ -8,7 +8,6 @@ namespace rvinowise.unity.actions {
 public class Equip_toolset: Action_parallel_parent {
 
     private Humanoid user;
-    private Arm_pair arm_pair;
     private Arm left_arm;
     private Arm right_arm;
     private Baggage baggage;
@@ -17,14 +16,13 @@ public class Equip_toolset: Action_parallel_parent {
     private Toolset toolset;
     
     public static Equip_toolset create(
-        Human_intelligence intelligence,
+        Humanoid in_user,
         Toolset in_toolset
     ) {
         var action = (Equip_toolset)object_pool.get(typeof(Equip_toolset));
-        action.user = intelligence.user;
+        action.user = in_user;
         
         Arm_pair arm_pair = action.user.arm_pair;
-        action.arm_pair = arm_pair;
         action.left_arm = arm_pair.left_arm;
         action.right_arm = arm_pair.right_arm;
         action.transporter = arm_pair.transporter;

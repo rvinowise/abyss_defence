@@ -10,21 +10,17 @@ namespace rvinowise.unity {
 
 public class Bleeding_body: MonoBehaviour {
 
-    /*[SerializeField] 
-    public Object_pool<Droplet> object_pool;*/
-
-    [SerializeField] public Droplet droplet_prefab;
+    [SerializeField] public Trajectory_flyer droplet_prefab;
 
 
     private float spread_degrees = 15f;
     private Vector2 rotation_to_speed_ratio = new Vector2(30f, 40f);
+    
     public void create_splash(
         Vector2 in_position,
         Vector2 in_impulse,
         int in_size
     ) {
-        
-        
         for (int i=0;i<in_size;i++) {
             Degree rotation_aside = new Degree(Random.Range(-spread_degrees, spread_degrees));
             Vector2 rotated_impulse = in_impulse.rotate(rotation_aside.degrees);
@@ -36,26 +32,25 @@ public class Bleeding_body: MonoBehaviour {
             
             Vector2 final_impulse = rotated_impulse * speed_preservation;
             
-            bleed_a_droplet(
+            emit_a_particle(
                 in_position,
                 final_impulse
             );
         }
-        
-        
     }
     
-    private Droplet bleed_a_droplet(
+    private Trajectory_flyer emit_a_particle(
         Vector2 in_position,
         Vector2 in_impulse
     ) {
-        Droplet droplet = droplet_prefab.get_from_pool<Droplet>();
-        droplet.transform.move_preserving_z(in_position);
-        Trajectory_flyer trajectory_flyer = droplet.GetComponent<Trajectory_flyer>();
-        trajectory_flyer.height = 0.2f;
-        trajectory_flyer.vertical_velocity = 1f + Random.value*3;
-        droplet.size = Random.Range(0.5f, 1.5f);
-        trajectory_flyer.weight = droplet.size * 20;
+        Trajectory_flyer trajectory_flyer = droplet_prefab.get_from_pool<Trajectory_flyer>();
+        trajectory_flyer.transform.position = in_position;
+        var droplet_height = -transform.position.z + 0.5f;
+        
+        trajectory_flyer.height = droplet_height;
+        trajectory_flyer.vertical_velocity = 0.1f + Random.value*2;
+        trajectory_flyer.size = Random.Range(0.1f, 0.5f);
+        trajectory_flyer.weight = trajectory_flyer.size * 200;
 
         Degree rotation_aside = new Degree(Random.Range(-spread_degrees, spread_degrees));
         Vector2 rotated_impulse = in_impulse.rotate(rotation_aside.degrees);
@@ -63,13 +58,26 @@ public class Bleeding_body: MonoBehaviour {
                               1 + Mathf.Abs(rotation_aside.degrees) /
                               Random.Range(rotation_to_speed_ratio.x, rotation_to_speed_ratio.y)
                           );
-            
-        droplet.rigidbody.AddForce(impulse*Time.deltaTime/10f,ForceMode2D.Impulse);
-        droplet.transform.rotation = impulse.to_quaternion();
-            
         
+        var particle_rigidbody = trajectory_flyer.GetComponent<Rigidbody2D>();
+        particle_rigidbody.AddForce(impulse*Time.deltaTime/10f,ForceMode2D.Impulse);
+        trajectory_flyer.transform.rotation = impulse.to_quaternion();
 
-        return droplet;
+        assign_color_to_particle(trajectory_flyer);
+        assign_fading_speed_to_particle(trajectory_flyer);
+        
+        return trajectory_flyer;
+    }
+
+    private void assign_color_to_particle(Trajectory_flyer particle) {
+        var sprite_renderer = particle.GetComponent<SpriteRenderer>();
+        sprite_renderer.color = new Color(0.5f+Random.value, Random.value*0.5f,Random.value*0.5f,1);
+    }
+    
+    private void assign_fading_speed_to_particle(Trajectory_flyer particle) {
+        var fading_piece = particle.GetComponent<Fading_piece>();
+        fading_piece.final_alpha = 0.4f + Random.value*0.6f;
+        fading_piece.alpha_change = 0.1f + Random.value;
     }
 
     
@@ -85,7 +93,7 @@ public class Bleeding_body: MonoBehaviour {
             create_splash(
                 contact_point,
                 other.GetContact(0).relativeVelocity*collided_projectile.GetComponent<Rigidbody2D>().mass,
-                10
+                100
             );
             
         }

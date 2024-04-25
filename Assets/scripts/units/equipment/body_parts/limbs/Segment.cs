@@ -79,6 +79,7 @@ public class Segment: Turning_element {
         );
     }
 
+#if UNITY_EDITOR
     protected override void OnDrawGizmos() {
         base.OnDrawGizmos();
        
@@ -91,7 +92,8 @@ public class Segment: Turning_element {
             debug_draw_line(Color.red);
         }
     }
-
+#endif
+    
     private bool is_leaf_segment() {
         return GetComponentsInChildren<Segment>().Count() ==1;
     }

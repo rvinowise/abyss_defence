@@ -87,6 +87,7 @@ public class Leg2:
         
     }
 
+#if UNITY_EDITOR
     protected override void OnDrawGizmos() {
         base.OnDrawGizmos();
         draw_positions();
@@ -99,16 +100,17 @@ public class Leg2:
             draw_directions(Color.red);
         } 
     }
+#endif
 
     #endregion
     
     #region optimization
     /* faster calculation but not precise */
-    public void hold_onto_ground_FAST(Vector2 holding_point) {
-        tibia.direct_to(holding_point);
+    public void hold_onto_ground_FAST(Vector2 in_holding_point) {
+        tibia.direct_to(in_holding_point);
         femur.set_direction(
-            femur.transform.degrees_to(holding_point)+
-            (90f-femur.transform.sqr_distance_to(holding_point)*1440f)
+            femur.transform.degrees_to(in_holding_point)+
+            (90f-femur.transform.sqr_distance_to(in_holding_point)*1440f)
         );
     }
     #endregion

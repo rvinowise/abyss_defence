@@ -84,6 +84,7 @@ public class Shielding_limb:
         }
     }
     
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected() {
         float line_length = 0.3f;
         Gizmos.color = Color.green;
@@ -93,6 +94,7 @@ public class Shielding_limb:
         Gizmos.DrawLine(creeping_leg_group.transform.position, creeping_leg_group.transform.position+min_rotation * Vector2.right * line_length);
         Gizmos.DrawLine(creeping_leg_group.transform.position, creeping_leg_group.transform.position+max_rotation * Vector2.right * line_length);
     }
+#endif
 
 }
 

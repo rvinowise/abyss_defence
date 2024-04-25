@@ -119,6 +119,17 @@ public static partial class Unity_extension
             new_z
         );
     }
+    
+    public static void set_local_z(
+        this Transform transform,
+        float new_z
+    ) {
+        transform.localPosition = new Vector3(
+            transform.localPosition.x,
+            transform.localPosition.y,
+            new_z
+        );
+    }
 
 
 }

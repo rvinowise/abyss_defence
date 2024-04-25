@@ -9,10 +9,6 @@ public class Pump_shotgun: Gun {
     [SerializeField]
     public Transform shell_ejector;
     public Slot reloading_slot { get; private set; }
-    
-    public override float weight { set; get; } = 6f;
-    public override float stock_length { get; } = 0.45f;
-
 
     public int max_rounds = 12;
     

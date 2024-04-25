@@ -68,7 +68,7 @@ public class Reload_all: Action_sequential_parent {
             
             add_child(
                 Equip_toolset.create(
-                    intelligence,
+                    user,
                     reloaded_toolset
                 )
             );
@@ -79,7 +79,7 @@ public class Reload_all: Action_sequential_parent {
             
             add_child(
                 Equip_toolset.create(
-                    intelligence,
+                    user,
                     reloaded_toolset
                 )
             );

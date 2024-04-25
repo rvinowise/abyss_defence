@@ -41,8 +41,8 @@ public static partial class Unity_extension
         return false;
     }
     public static float degrees_to(this Vector2 position, Vector2 in_aim) {
-        Vector2 targetDirection = in_aim - position;
-        return targetDirection.to_dergees();
+        Vector2 target_direction = in_aim - position;
+        return target_direction.to_dergees();
     }
     public static Quaternion quaternion_to(this Vector2 position, Vector2 in_aim) {
         Vector2 targetDirection = in_aim - position;
@@ -71,6 +71,11 @@ public static partial class Unity_extension
     private static Vector3 getV3fromV2 (Vector2 vector2)
     {
         return new Vector3(vector2.x, vector2.y);
+    }
+    
+    public static Vector3 with_height (this Vector2 vector2, float in_height)
+    {
+        return new Vector3(vector2.x, vector2.y, in_height);
     }
 
     /*public static Vector2(this Vector2 in_vector) {

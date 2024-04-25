@@ -21,7 +21,7 @@ IPersistent_residue_holder
     private Vector3[] vertices;
     private Vector2[] uv;
     private int[] triangles;
-
+    private Color[] colors;
     
     private float uv_frame_step_x;
 
@@ -40,6 +40,10 @@ IPersistent_residue_holder
         vertices = new Vector3[4 * max_residue];
         uv = new Vector2[4 * max_residue];
         triangles = new int[6 * max_residue];
+        colors = new Color[4 * max_residue];
+        // for (var i=0;i<colors.Length;i++) {
+        //     colors[i] = Color.red;
+        // }
 
         GetComponent<MeshFilter>().mesh = mesh;
 
@@ -67,6 +71,13 @@ IPersistent_residue_holder
         add_quad(in_position,Quaternion.identity,1);
     }*/
 
+    public Color next_color = Color.white;
+
+    public Persistent_residue_sprite_holder with_color(Color in_color) {
+        this.next_color = in_color;
+        return this;
+    }
+    
     public void add_piece(
         Vector2 in_position,
         Quaternion in_rotation,
@@ -99,7 +110,7 @@ IPersistent_residue_holder
         bool flip_y = false
     ) {
         if (last_quad_index >= max_residue) {
-            return;
+            last_quad_index = 0;
         }
 
         int v_index = last_quad_index * 4;
@@ -144,11 +155,19 @@ IPersistent_residue_holder
         triangles[t_index + 4] = v_index + 1;
         triangles[t_index + 5] = v_index + 2;
 
+        //color
+        colors[v_index] = next_color;
+        colors[v_index + 1] = next_color;
+        colors[v_index + 2] = next_color;
+        colors[v_index + 3] = next_color;
+        
+        
         last_quad_index++;
 
         mesh.vertices = vertices;
         mesh.uv = uv;
         mesh.triangles = triangles;
+        mesh.colors = colors;
 
     }
 

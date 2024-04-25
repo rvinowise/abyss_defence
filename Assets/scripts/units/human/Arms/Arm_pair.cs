@@ -111,12 +111,6 @@ public class Arm_pair:
             get_enemies_closest_to(Player_input.instance.cursor.transform.position);
 
         var aiming_arms = get_arms_searching_for_targets();
-        var targets_of_arms =
-            aiming_arms
-            .Select(arm => new {target = arm.get_target(), arm})
-            .Where(p => p.target != null)
-            .ToDictionary(p => p.target, p => p.arm);
-        
         
         var needed_targets =
             hinted_targets.Take(aiming_arms.Count).Select(tuple => tuple.Item1).ToList();
@@ -318,7 +312,7 @@ public class Arm_pair:
     private bool aimed_at_target(Gun gun, Transform in_target) {
         var targets_number = 
             Physics2D.RaycastNonAlloc(
-                gun.transform.position, gun.muzzle.right, targeted_targets
+                gun.muzzle.position, gun.muzzle.right, targeted_targets
             );
         for (var i_target=0;i_target<targets_number;++i_target) {
             var hit = targeted_targets[i_target];
@@ -497,6 +491,7 @@ public class Arm_pair:
     public event Handler_of_changing on_tools_changed;
     public event Handler_of_changing on_ammo_changed = delegate{};
 
+#if UNITY_EDITOR
     void OnDrawGizmos() {
         if (Application.isPlaying) {
             var right_target = get_target_of(right_arm);
@@ -519,7 +514,8 @@ public class Arm_pair:
             }
         }
     }
-
+#endif
+    
     struct Arm_angles {
         Degree shoulder;
         Degree upper_arm;

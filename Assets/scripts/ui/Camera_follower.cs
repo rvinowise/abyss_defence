@@ -29,6 +29,7 @@ public class Camera_follower : MonoBehaviour
         );
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos() {
         // Gizmos.DrawLine(
         //     new Vector2(transform.position.x-central_rect.x,transform.position.y+central_rect.y/2), 
@@ -37,4 +38,5 @@ public class Camera_follower : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position, central_rect*2);
     }
+#endif
 }

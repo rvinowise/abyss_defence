@@ -8,13 +8,8 @@ namespace rvinowise.unity {
 
 public class Desert_eagle: Pistol {
 
-    public override float stock_length { get; } = 0f;
-
 
     private static readonly int animation_fire = Animator.StringToHash("fire");
-
-    private float frames_to_shell_ejection = 15f;
-
 
     
     protected override void fire() {
@@ -27,7 +22,7 @@ public class Desert_eagle: Pistol {
         propell_projectile(new_projectile);
     }
 
-    public float projectile_force = 1000f;//100f;
+    public float projectile_force = 1000f;
 
     private void propell_projectile(Projectile projectile) {
         Rigidbody2D rigid_body = projectile.GetComponent<Rigidbody2D>();

@@ -34,11 +34,15 @@ public class Wing_group:
 
     public float rotation_speed = 100f;
     public float acceleration_speed = 1f;
+    public float slowing_speed = 1f;
     public float get_possible_rotation() {
         return rotation_speed;
     }
     public float get_possible_impulse() {
         return acceleration_speed;
+    }
+    public float get_possible_slowing() {
+        return slowing_speed;
     }
 
 
@@ -61,12 +65,10 @@ public class Wing_group:
 
         var needed_forward_acceleration = get_possible_impulse();
         if (is_on_the_right_way) {
-            //needed_acceleration = 0;
-            rigid_body.AddForce(needed_forward_acceleration*Physics_consts.rigidbody_impulse_multiplier*moved_body.rotation.to_vector());
-            rigid_body.drag = 0;
+            rigid_body.AddForce(get_possible_impulse()*Physics_consts.rigidbody_impulse_multiplier*moved_body.rotation.to_vector());
         }
-        else {
-            rigid_body.drag = get_possible_impulse()*35;
+        else if (is_flying_forward()){
+            rigid_body.AddForce(-get_possible_slowing()*Physics_consts.rigidbody_impulse_multiplier*moved_body.rotation.to_vector());
         }
 
         // var rotation_side =
@@ -82,10 +84,20 @@ public class Wing_group:
         moved_body.rotate_to_desired_direction();
     }
 
+    private bool is_flying_forward() {
+        return 
+            Mathf.Abs(
+                new Degree(rigid_body.velocity.to_dergees())
+                    .angle_to(moved_body.rotation)
+            ) 
+            < 90f;
+    }
+    
     public void face_rotation(Quaternion rotation) {
         
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos() {
         
         var line_length = 1f;
@@ -120,6 +132,8 @@ public class Wing_group:
             );
         }
     }
+#endif
+    
 }
 
 }

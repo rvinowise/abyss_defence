@@ -31,17 +31,21 @@ public class Limb2_touch_target: Action_leaf {
 
     public override void update() {
 
-        var directions = limb.determine_directions_reaching_point(target.position);
-        if (directions.failed) {
+        if (target == null) {
             mark_as_completed();
-        }
-        else if (limb.at_desired_rotation()) {
-            mark_as_completed();
-        }
-        else {
-            limb.segment1.set_target_rotation(directions.segment1);
-            limb.segment2.set_target_rotation(directions.segment2);
-            limb.rotate_to_desired_directions();
+        } else {
+            var directions = limb.determine_directions_reaching_point(target.position);
+            if (directions.failed) {
+                mark_as_completed();
+            }
+            else if (limb.at_desired_rotation()) {
+                mark_as_completed();
+            }
+            else {
+                limb.segment1.set_target_rotation(directions.segment1);
+                limb.segment2.set_target_rotation(directions.segment2);
+                limb.rotate_to_desired_directions();
+            }
         }
         
         

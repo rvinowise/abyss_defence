@@ -52,14 +52,16 @@ public class Intelligence :
         if (team != null) {
             add_to_team();
         }
+        add_actors_to_action_runner();
     }
     
     protected virtual void Start() {
         
-        register_actor_parts();
         if (team != null) {
             notify_about_appearance();
         }
+        action_runner.start_fallback_actions();
+        
     }
 
     public void init_devices_from_inspector() {
@@ -160,14 +162,8 @@ public class Intelligence :
     //     }
     // }
 
-    
 
-    public void register_actor_parts() {
-        add_actors_to_action_runner();
-        action_runner.start_fallback_actions();
-    }
-    
-    private void add_actors_to_action_runner() {
+    public void add_actors_to_action_runner() {
         var actors = GetComponentsInChildren<IActor>();
         foreach (IActor actor in actors) {
             action_runner.add_actor(actor);
@@ -249,9 +245,13 @@ public class Intelligence :
     }
 
     private void OnDestroy() {
+        Debug.Log($"LIFETIME: OnDestroy is called for {name}");
         if (team != null) {
+            
+            if (team.units.Contains(this)) {
+                Debug.Log("WARNING: the Intelligence is destroyed, but its team still has it");
+            }
             team.remove_unit(this);
-            //Contract.Assert(!team.units.Contains(this), "the Intelligence is destroyed, but its team still has it");
         }
     }
 

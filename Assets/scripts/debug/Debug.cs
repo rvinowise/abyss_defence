@@ -1,9 +1,21 @@
+#define OPTIMIZED
+
 using UnityEngine;
 
 namespace rvinowise.unity.debug {
 
 public static class Debug {
 
+    static Debug(){
+#if OPTIMIZED
+    UnityEngine.Debug.unityLogger.logEnabled = false;
+#elif UNITY_EDITOR
+    UnityEngine.Debug.unityLogger.logEnabled = true;
+#else
+    UnityEngine.Debug.unityLogger.logEnabled = false;
+#endif
+    }
+    
     public static void Assert(bool in_condition) {
         if (!in_condition) {
             UnityEngine.Debug.Assert(false);

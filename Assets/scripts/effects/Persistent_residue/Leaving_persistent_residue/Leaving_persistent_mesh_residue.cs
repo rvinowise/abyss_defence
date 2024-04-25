@@ -6,8 +6,9 @@ using rvinowise.unity.extensions;
 namespace rvinowise.unity {
 
 public class Leaving_persistent_mesh_residue: 
-MonoBehaviour
-,ILeaving_persistent_residue
+    MonoBehaviour
+    ,ILeaving_persistent_residue
+    ,IDestructible
 {
 
     public List<Mesh> left_meshes; 
@@ -32,6 +33,10 @@ MonoBehaviour
             left_meshes.get_random_item(),
             transform
         );
+    }
+
+    public void on_start_dying() {
+        leave_persistent_residue();
     }
 
 }

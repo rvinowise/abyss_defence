@@ -4,10 +4,9 @@ using rvinowise.unity.extensions;
 using rvinowise.contracts;
 
 namespace rvinowise.unity {
-public abstract class Tool: MonoBehaviour
-{
+public abstract class Tool: MonoBehaviour {
 
-    public virtual float weight { set; get; }
+    public float weight = 5f;
     
     public Holding_place main_holding;
     public Holding_place second_holding;
@@ -25,13 +24,10 @@ public abstract class Tool: MonoBehaviour
         init_components();
         init_holding_places();
     }
-
     
 
     protected virtual void init_components() {
         animator = gameObject.GetComponent<Animator>();
-        //rigid_body = gameObject.GetComponent<Rigidbody2D>();
-        
     }
 
     protected virtual void init_holding_places() {
@@ -48,7 +44,7 @@ public abstract class Tool: MonoBehaviour
     }
     
     public virtual void hold_by(Hand in_hand) {
-        transform.set_z(in_hand.held_object_local_z);
+        transform.set_local_z(in_hand.held_object_local_z);
     }
 
     public virtual void drop_from_hand() {

@@ -1,5 +1,6 @@
 ﻿//#define DEBUG
 //#define UNITY_ASSERTIONS
+#define RVI_CONTRACTS
 
 namespace rvinowise.contracts {
 public class Contract {

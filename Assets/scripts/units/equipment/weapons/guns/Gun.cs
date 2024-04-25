@@ -30,20 +30,11 @@ public abstract class Gun:
     [SerializeField]
     public bool aiming_automatically;
 
-    public virtual float stock_length { get; }
+    public float stock_length = 0.45f;
 
     
-    public Vector2 tip {
-        get { return muzzle.localPosition; }
-        set { muzzle.localPosition = value; }
-    }
+    public Vector2 tip =>muzzle.localPosition;
 
-    public bool has_stock {
-        get {
-            return stock_length > 0f;
-        }
-    }
-    
     public float butt_to_second_grip_distance {
         get { return stock_length + second_holding.place_on_tool.magnitude; }
     }
@@ -52,10 +43,6 @@ public abstract class Gun:
     protected float last_shot_time = 0f;
 
     protected IReceive_recoil recoil_receiver;
-
-    protected override void Awake() {
-        base.Awake();
-    }
 
     protected override void init_components() {
         base.init_components();
@@ -86,7 +73,7 @@ public abstract class Gun:
         Projectile new_projectile = projectile_prefab.get_from_pool<Projectile>(
             muzzle.position, muzzle.rotation
         );
-        ammo_qty -=1;
+        ammo_qty -= ammo_value;
         Transform new_spark = spark_prefab.get_from_pool<Transform>();
         new_spark.copy_physics_from(muzzle);
         

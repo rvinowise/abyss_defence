@@ -35,7 +35,7 @@ public class Simple_player_human: Player_human {
     private void equip_tool_set(int set_index) {
         current_equipped_set = set_index;
         Equip_toolset.create(
-            this,
+            user,
             baggage.tool_sets[set_index]
         ).add_marker("changing tool").start_as_root(action_runner);
     }

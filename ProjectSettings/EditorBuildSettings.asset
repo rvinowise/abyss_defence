@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/factory/arena.unity
+    guid: 837ae194616c6854a9479ecc17bb08cc
   - enabled: 1
     path: Assets/Scenes/_preload.unity
     guid: c6971b59aa1324a4ab2e6e3647496304
@@ -14,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/factory/hallway.unity
     guid: aa163d37342e6404dad006808910847e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/menu/main_menu.unity
     guid: 3d9c52ae219b491429714b6addbd7c4f
   m_configObjects:

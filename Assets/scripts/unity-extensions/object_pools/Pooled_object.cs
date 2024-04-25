@@ -82,6 +82,7 @@ public class Pooled_object: MonoBehaviour {
         foreach(Component src_component in reset_components) {
             Component dst_component = game_object.GetComponent(src_component.GetType());
             dst_component.copy_fields_from(src_component);
+            dst_component.copy_enabledness(src_component);
         } 
     }
 

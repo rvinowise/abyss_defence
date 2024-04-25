@@ -64,6 +64,8 @@ public class Jet_engine:
         
     }
 
+    
+#if UNITY_EDITOR
     private void OnDrawGizmos() {
         
         var line_length = 1f;
@@ -98,6 +100,8 @@ public class Jet_engine:
             );
         }
     }
+#endif
+    
 }
 
 }

@@ -49,7 +49,7 @@ MonoBehaviour:
   folding_side: 1
   pair: {fileID: 2817183903052466124}
   shoulder: {fileID: 5659737628635655281}
-  _hand: {fileID: 372621866041995711}
+  hand: {fileID: 372621866041995711}
   baggage: {fileID: 1621615018708045352}
   attention_target: {fileID: 0}
 --- !u!1 &1549464138353566146
@@ -277,6 +277,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 1
   sprite_renderer: {fileID: 0}
   length: 0.2596849
@@ -338,6 +339,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 1
   sprite_renderer: {fileID: 0}
   length: 0.23872048
@@ -444,6 +446,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 1
   sprite_renderer: {fileID: 0}
   length: 0.23872046
@@ -595,10 +598,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a5b03da69549b197ee3897b81b6bcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _possible_rotation: 400
-  _possible_impulse: 1
+  possible_rotation: 400
+  possible_impulse: 100
   rigid_body: {fileID: 8410119626936004833}
-  turning_element: {fileID: 4219268731796079786}
+  turning_element: {fileID: 8325680941803732441}
 --- !u!1 &4981709908241552782
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,6 +658,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 1
   sprite_renderer: {fileID: 0}
   length: 0.27760273
@@ -709,7 +713,7 @@ MonoBehaviour:
   folding_side: -1
   pair: {fileID: 2817183903052466124}
   shoulder: {fileID: 6875855175541999246}
-  _hand: {fileID: 7025312683631955186}
+  hand: {fileID: 7025312683631955186}
   baggage: {fileID: 1621615018708045352}
   attention_target: {fileID: 0}
 --- !u!1 &6029904662193437827
@@ -727,6 +731,8 @@ GameObject:
   - component: {fileID: 4219268731796079786}
   - component: {fileID: 2817183903052466124}
   - component: {fileID: 1092230787447800550}
+  - component: {fileID: 1442614188119441796}
+  - component: {fileID: 8325680941803732441}
   m_Layer: 0
   m_Name: human
   m_TagString: player
@@ -742,7 +748,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6029904662193437827}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.47, y: 0.36, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4490674262394542731}
@@ -763,7 +769,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6029904662193437827}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -859,19 +865,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea9f9b2c80433a4eaec96a7978039d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possible_span:
-    min:
-      degrees: 0
-    max:
-      degrees: 0
-    goes_through_switching_degrees: 0
-  rotation_acceleration: 550
-  rotation_slowing: 1100
-  current_rotation_inertia:
-    degrees: 0
-  turning_parent: {fileID: 0}
-  ignore_parent: 0
-  intelligence: {fileID: 1092230787447800550}
   arm_pair: {fileID: 2817183903052466124}
   head: {fileID: 479597505814581101}
   baggage: {fileID: 1621615018708045352}
@@ -893,6 +886,7 @@ MonoBehaviour:
   left_arm: {fileID: 7668768375071070052}
   right_arm: {fileID: 6911195405302035350}
   baggage: {fileID: 1621615018708045352}
+  team: {fileID: 0}
   transporter_object: {fileID: 4047015360508724525}
 --- !u!114 &1092230787447800550
 MonoBehaviour:
@@ -916,7 +910,46 @@ MonoBehaviour:
   user: {fileID: 4219268731796079786}
   arm_pair: {fileID: 2817183903052466124}
   current_equipped_set: 0
-  enemies: []
+--- !u!114 &1442614188119441796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6029904662193437827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c10a959143527740a26de809a02b7e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  max_damage: 3
+  received_damage: 0
+  text_label: {fileID: 0}
+--- !u!114 &8325680941803732441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6029904662193437827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f08f637c789a45e6bff580d2a15d8b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possible_span:
+    min:
+      degrees: 0
+    max:
+      degrees: 0
+    goes_through_switching_degrees: 0
+  rotation_acceleration: 550
+  rotation_slowing: 1100
+  current_rotation_inertia:
+    degrees: 0
+  turning_parent: {fileID: 0}
+  target_direction_relative: 0
+  ignore_parent: 0
 --- !u!1 &6280379820188002194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1076,6 +1109,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 1
   sprite_renderer: {fileID: 0}
   length: 0.29041532
@@ -1181,6 +1215,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 1
   sprite_renderer: {fileID: 0}
   length: 0.30260143
@@ -1393,6 +1428,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   tool_sets:
   - {fileID: 4542677751472955892}
@@ -2008,12 +2044,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23e8a7384b1afbf49bf1d6d3c0a0632e, type: 3}
---- !u!4 &7536408061744708940 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6121768017280805874, guid: 23e8a7384b1afbf49bf1d6d3c0a0632e,
-    type: 3}
-  m_PrefabInstance: {fileID: 4351128838553491134}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &849244035355932157 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -5211986024171691197, guid: 23e8a7384b1afbf49bf1d6d3c0a0632e,
@@ -2026,6 +2056,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ace1bdcab64e5d947e168a7c3b909b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &7536408061744708940 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6121768017280805874, guid: 23e8a7384b1afbf49bf1d6d3c0a0632e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4351128838553491134}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7073994237007893437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2379,12 +2415,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1961ee574f488754e98b2e6666a8be49, type: 3}
---- !u!4 &4490674262394542731 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6062530075309784013, guid: 1961ee574f488754e98b2e6666a8be49,
-    type: 3}
-  m_PrefabInstance: {fileID: 7669764896102424902}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3531668795486749216 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6589743204170720102, guid: 1961ee574f488754e98b2e6666a8be49,
@@ -2403,3 +2433,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8997fccc2b45aea09f1437905b935f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &4490674262394542731 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6062530075309784013, guid: 1961ee574f488754e98b2e6666a8be49,
+    type: 3}
+  m_PrefabInstance: {fileID: 7669764896102424902}
+  m_PrefabAsset: {fileID: 0}

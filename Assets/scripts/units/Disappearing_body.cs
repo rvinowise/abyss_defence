@@ -9,7 +9,10 @@ using Object = UnityEngine.Object;
 namespace rvinowise.unity {
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Disappearing_body:MonoBehaviour {
+public class Disappearing_body:
+    MonoBehaviour
+    ,IDestructible
+{
 
 
     public bool will_be_settled_when_stops = false;
@@ -95,6 +98,10 @@ public class Disappearing_body:MonoBehaviour {
 
     private bool has_decayed() {
         return sprite_renderer.color.a <=0f;
+    }
+    
+    public void on_start_dying() {
+        settle_when_stops();
     }
 }
 

@@ -282,11 +282,13 @@ public class Turning_element: MonoBehaviour {
         private Strategy(int value, string displayName) : base(value, displayName) { }
     }
 
+#if UNITY_EDITOR
     protected virtual void OnDrawGizmos() {
         draw_span();
         draw_target_rotation();
     }
-
+#endif
+    
     private void draw_span() {
         float line_length = 0.1f;
         Gizmos.color = Color.green;

@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 8754225974737805875}
   - component: {fileID: 6937667672118763470}
   - component: {fileID: 7421987004738298370}
+  - component: {fileID: 5876035741172346056}
   m_Layer: 0
   m_Name: hand
   m_TagString: Untagged
@@ -149,7 +150,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6937667672118763470
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -162,10 +163,12 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &7421987004738298370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,16 +181,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b87b7c150d5495b9f49fad82fdd2bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotated_bone: {fileID: 0}
   possible_span:
-    min: 0
-    max: 0
-  rotation_speed: 0
+    min:
+      degrees: 0
+    max:
+      degrees: 0
+    goes_through_switching_degrees: 0
   rotation_acceleration: 550
-  rotation_friction: 0
-  desired_idle_direction: {x: 0, y: 0, z: 0, w: 0}
+  rotation_slowing: 1100
+  current_rotation_inertia:
+    degrees: 0
+  turning_parent: {fileID: 0}
+  target_direction_relative: 0
+  ignore_parent: 1
+  sprite_renderer: {fileID: 0}
+  length: 0
+  parent_segment: {fileID: 0}
+  desired_idle_rotation: {x: 0, y: 0, z: 0, w: 0}
+  side: 1
   valuable_point: {fileID: 5828324400530116194}
   held_part: {fileID: 0}
+  arm: {fileID: 0}
+--- !u!70 &5876035741172346056
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6121270855680252269}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.13, y: 0}
+  m_Size: {x: 0.29, y: 0.14}
+  m_Direction: 1
 --- !u!1 &7124651043075730053
 GameObject:
   m_ObjectHideFlags: 0

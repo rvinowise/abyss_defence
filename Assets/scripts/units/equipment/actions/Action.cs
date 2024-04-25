@@ -190,10 +190,14 @@ public abstract partial class Action
         return "";
     }
     public virtual string get_explanation() {
+#if OPTIMIZED
+        return "";
+#else
         if (parent_action != null)
             return $"{parent_action.get_explanation()} -> {GetType().Name}[{get_actors_names()}]{id:N}";
         
         return $"{GetType().Name}_[{get_actors_names()}]{id:N}";
+#endif
     }
     
 

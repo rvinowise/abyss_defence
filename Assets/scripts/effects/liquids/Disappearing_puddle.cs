@@ -22,7 +22,7 @@ public class Disappearing_puddle: Puddle {
 
     [called_in_animation]
     public void on_spreaded() {
-        animator.SetTrigger("start_disappearing");
+        //animator.SetTrigger("start_disappearing");
     }
 
 }

@@ -101,6 +101,9 @@ public class Proboscis :
 
     [called_in_animation]
     public void on_completed() {
+        if (this == null) {
+            return;
+        }
         forget_damaged_targets();
         intelligence_on_completed?.Invoke();
     }

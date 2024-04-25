@@ -8,7 +8,8 @@ namespace rvinowise.unity {
 
 public class Leaving_persistent_sprite_residue: 
 MonoBehaviour
-,ILeaving_persistent_residue 
+,ILeaving_persistent_residue
+,IDestructible
 {
 
     public int max_images = 1500;
@@ -68,7 +69,11 @@ MonoBehaviour
     }
 
     public void leave_persistent_image(int in_frame) {
-        holder.add_piece(
+        holder
+        .with_color(
+            sprite_renderer.color    
+        )
+        .add_piece(
             transform.position,
             transform.rotation,
             transform.localScale.x,
@@ -76,6 +81,10 @@ MonoBehaviour
             sprite_renderer.flipX,
             sprite_renderer.flipY
         );
+    }
+
+    public void on_start_dying() {
+        leave_persistent_residue();
     }
 }
 

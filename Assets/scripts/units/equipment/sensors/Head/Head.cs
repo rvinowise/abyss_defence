@@ -64,6 +64,7 @@ public class Head:
 
     #endregion
 
+#if UNITY_EDITOR
     protected override void OnDrawGizmos() {
         base.OnDrawGizmos();
         if (Application.isPlaying) {
@@ -75,6 +76,8 @@ public class Head:
             );
         }
     }
+#endif
+    
 }
 
 

@@ -31,7 +31,20 @@ public class Computer_intelligence:Intelligence {
     
     public override void Awake() {
         base.Awake();
-    } 
+        set_team(team);
+    }
+
+    public void set_team(Team in_team) {
+        if (in_team == null) {
+            return;
+        }
+        team = in_team;
+        var sprite_renderers = this.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var sprite_renderer in sprite_renderers) {
+            var old_color = sprite_renderer.color;
+            sprite_renderer.color = team.color * old_color;// new Color(old_color.r, old_color.g, old_color.b);
+        }
+    }
     
     protected override void Start() {
         base.Start();
@@ -149,6 +162,9 @@ public class Computer_intelligence:Intelligence {
         Intelligence closest_enemy = null;
         foreach (var enemy_team in team.enemy_teams) {
             foreach (var enemy in enemy_team.units) {
+                if (enemy == null) {
+                    Debug.LogError($"enemy of {name} from team {enemy_team.name} is null");
+                }
                 var this_distance = transform.sqr_distance_to(enemy.transform.position);
                 if (this_distance < closest_distance) {
                     closest_distance = this_distance;
@@ -179,21 +195,28 @@ public class Computer_intelligence:Intelligence {
 
     private void on_target_disappeared(Intelligence disappearing_unit) {
         if (this == null) return;
+        
         move_towards_best_target();
     }
 
     private void on_attack_finished() {
+        if (this == null) return;
+        
         intelligence_action = Intelligence_action.Walking;
         move_towards_best_target();
     }
     
     private void on_assumed_defensive_position() {
+        if (this == null) return;
+        
         Debug.unityLogger.Log("ATTACK_DEFENCE", "Defending state");
         
         intelligence_action = Intelligence_action.Defending;
     }
 
     private void on_finished_defensive_position() {
+        if (this == null) return;
+        
         Debug.unityLogger.Log("ATTACK_DEFENCE", "on_finished_defensive_position, Walking stage");
         intelligence_action = Intelligence_action.Walking;
     }

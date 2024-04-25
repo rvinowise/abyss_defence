@@ -40,7 +40,16 @@ public class Arm:
 
     private Transform target;
     public Transform get_target() {
-        return target;
+        if (current_action == null) {
+            return null;
+        }
+        if (current_action.GetType() == typeof(Aim_at_target)) {
+            return target;
+        }
+        if (target != null) {
+            Debug.LogError($"arm [{name}] has target [${target.name}], but the current action of the arm is [{current_action.get_explanation()}]");
+        }
+        return null;
     }
     
 
@@ -199,12 +208,14 @@ public class Arm:
         hand.attach_holding_part(in_place);
     }
 
-    void OnDrawGizmos() {
+#if UNITY_EDITOR
+    protected override void OnDrawGizmos() {
         base.OnDrawGizmos();
         if (Application.isPlaying) {
             draw_desired_directions();
         }
     }
+#endif
     
     public override void on_lacking_action() {
         Idle_vigilant_only_arm.create(
