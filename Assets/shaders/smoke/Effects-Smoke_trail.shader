@@ -61,11 +61,11 @@ Shader "Effects/Smoke_trail"
     {
         SubShader
         {
-            Tags {"Queue" = "Transparent+30" "RenderType" = "Transparent" "RenderPipeline" = "UniversalPipeline" }
+            Tags {"Queue" = "Transparent" "RenderType" = "Transparent" "RenderPipeline" = "UniversalPipeline" }
 
             BlendOp [_BlendOp]
             Blend [_SrcBlend] [_DstBlend] 
-            ZWrite On
+            ZWrite Off
             Cull Off
             ColorMask RGB
 

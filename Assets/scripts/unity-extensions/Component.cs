@@ -5,6 +5,8 @@ using rvinowise.unity.extensions.pooling;
 using rvinowise.contracts;
 using UnityEngine;
 using rvinowise.unity.extensions.attributes;
+using Object = UnityEngine.Object;
+
 
 namespace rvinowise.unity.extensions {
 
@@ -46,10 +48,24 @@ public static partial class Unity_extension {
     )
         where TComponent : Component 
     {
-        if (prefab_component.GetComponent<Pooled_object>() is Pooled_object pooled_object) {
+        if (prefab_component.GetComponent<Pooled_object>() is {} pooled_object) {
             return pooled_object.get_from_pool<TComponent>();
         }
         return GameObject.Instantiate(prefab_component).GetComponent<TComponent>();
+    }
+    
+    [called_by_prefab]
+    public static TComponent instantiate<TComponent>(
+        this Component prefab_component,
+        Vector2 in_position,
+        Quaternion in_rotation
+    )
+        where TComponent : Component 
+    {
+        if (prefab_component.GetComponent<Pooled_object>() is {} pooled_object) {
+            return pooled_object.get_from_pool<TComponent>(in_position, in_rotation);
+        }
+        return Object.Instantiate(prefab_component,in_position, in_rotation).GetComponent<TComponent>();
     }
 
     public static void copy_physics_from(
@@ -87,17 +103,24 @@ public static partial class Unity_extension {
         Component src_component
     ) {
         if (
-            (dst_component is MonoBehaviour dst_behaviour)
+            (dst_component is Behaviour dst_behaviour)
             &&
-            (src_component is MonoBehaviour src_behaviour)
+            (src_component is Behaviour src_behaviour)
         ) {
             if (dst_behaviour.enabled != src_behaviour.enabled) {
                 dst_behaviour.enabled = src_behaviour.enabled;
             }
         }
     }
-    
 
+    public static void destroy(this Component component) {
+        if (component.GetComponent<Pooled_object>() is {} pooled_object) {
+            pooled_object.destroy();
+        }
+        else {
+            Object.Destroy(component.gameObject);
+        }
+    }
     
 
 }

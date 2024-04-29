@@ -21,10 +21,10 @@ public class Wall : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.get_damaging_projectile() is Projectile projectile) {
             var contact = collision.GetContact(0);
-            residue_holder.add_piece(
-                contact.point,
-                contact.relativeVelocity.to_quaternion()
-            );
+            // residue_holder.add_piece(
+            //     contact.point,
+            //     contact.relativeVelocity.to_quaternion()
+            // );
         }
     }
 }

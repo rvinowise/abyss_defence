@@ -25,8 +25,7 @@ public class Desert_eagle: Pistol {
     public float projectile_force = 1000f;
 
     private void propell_projectile(Projectile projectile) {
-        Rigidbody2D rigid_body = projectile.GetComponent<Rigidbody2D>();
-        rigid_body.AddForce(transform.rotation.to_vector() * (projectile_force * Time.deltaTime), ForceMode2D.Impulse);
+        projectile.rigid_body.AddForce(transform.rotation.to_vector() * (projectile_force * Time.deltaTime), ForceMode2D.Impulse);
         projectile.store_last_physics();
     }
 

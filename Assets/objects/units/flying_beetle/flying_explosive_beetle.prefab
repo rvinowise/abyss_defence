@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 68bc8b76fc82eb447b2e6b9a13ddcb79, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.039124012, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -154,7 +154,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6c5c0e7158b8a334084fc7925e270878, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.50980395}
+  m_Color: {r: 0.90120006, g: 1, b: 0, a: 0.50980395}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -236,7 +236,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6c5c0e7158b8a334084fc7925e270878, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.50980395}
+  m_Color: {r: 0.90120006, g: 1, b: 0, a: 0.50980395}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -266,9 +266,9 @@ GameObject:
   - component: {fileID: -4150143569704525696}
   - component: {fileID: 8620881500016403587}
   - component: {fileID: 5065715024069198856}
-  - component: {fileID: -8769506558125198316}
+  - component: {fileID: 2538962339502236148}
   m_Layer: 0
-  m_Name: flying_beetle
+  m_Name: flying_explosive_beetle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,7 +283,7 @@ Transform:
   m_GameObject: {fileID: 8587560745027414974}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_Children:
   - {fileID: 8587560745169262031}
   - {fileID: 8505969423584320397}
@@ -333,7 +333,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1f2b60136fcab2c47bb6f5f2bd11f20e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.037095428, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -355,7 +355,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 15
   m_LinearDrag: 0.1
   m_AngularDrag: 1
   m_GravityScale: 0
@@ -533,7 +533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splash_prefab: {fileID: 8063432660785123681, guid: 83e7bf578b16b4440b5743758a78c74b,
     type: 3}
---- !u!114 &-8769506558125198316
+--- !u!114 &2538962339502236148
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -542,11 +542,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8587560745027414974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4afe687255b4189b893241e2b6856dc, type: 3}
+  m_Script: {fileID: 11500000, guid: ff656668bd4044ea8b61884da636797c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  will_be_settled_when_stops: 0
-  is_decaying: 0
+  explosion_prefab: {fileID: 5684469972999433852, guid: ade6afba1ecca634a86fb9eed8510493,
+    type: 3}
 --- !u!1 &8587560745169262030
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +619,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 68bc8b76fc82eb447b2e6b9a13ddcb79, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.039124012, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

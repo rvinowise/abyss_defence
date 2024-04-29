@@ -259,7 +259,7 @@ MonoBehaviour:
       - m_Target: {fileID: 8142270241855328083}
         m_TargetAssemblyTypeName: rvinowise.unity.units.parts.weapons.guns.common.Projectile,
           units
-        m_MethodName: on_fall_on_ground
+        m_MethodName: fall_on_ground
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

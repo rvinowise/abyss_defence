@@ -29,7 +29,7 @@ public class Pooled_object: MonoBehaviour {
     [HideInInspector]
     public GameObject prefab;
     public List<Component> reset_components = new List<Component>();
-
+    public UnityEngine.Events.UnityEvent on_restored_from_pool;
 
 
     private void ensure_pool_created() {
@@ -48,11 +48,14 @@ public class Pooled_object: MonoBehaviour {
     ) 
         where TComponent: Component 
     {
-        GameObject game_object = get_from_pool();
-        game_object.transform.position = in_position;
-        game_object.transform.rotation = in_rotation;
-        game_object.SetActive(true);
-        TComponent component = game_object.GetComponent<TComponent>();
+        GameObject retrieved_object = get_from_pool();
+        retrieved_object.transform.position = in_position;
+        retrieved_object.transform.rotation = in_rotation;
+        retrieved_object.SetActive(true);
+        
+        retrieved_object.GetComponent<Pooled_object>().on_restored_from_pool?.Invoke();
+
+        TComponent component = retrieved_object.GetComponent<TComponent>();
         return component;
     }
 
@@ -78,12 +81,18 @@ public class Pooled_object: MonoBehaviour {
 
 
     [called_by_prefab]
-    public void init_reset_components(GameObject game_object) {
+    public void init_reset_components(GameObject restored_object) {
         foreach(Component src_component in reset_components) {
-            Component dst_component = game_object.GetComponent(src_component.GetType());
+            Component dst_component = restored_object.GetComponent(src_component.GetType());
             dst_component.copy_fields_from(src_component);
-            dst_component.copy_enabledness(src_component);
         } 
+    }
+
+    public void copy_enabledness_of_all_behaviours(GameObject restored_object) {
+        foreach (var src_behaviour in GetComponents<Behaviour>()) {
+            Component dst_component = restored_object.GetComponent(src_behaviour.GetType());
+            dst_component.copy_enabledness(src_behaviour);
+        }
     }
 
     [called_by_prefab]

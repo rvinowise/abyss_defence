@@ -23,6 +23,8 @@ public abstract class Projectile : MonoBehaviour {
 
     public abstract void stop_at_position(Vector2 in_point);
     
+    
+    public virtual void on_restored_from_pool() {}
 }
 
 

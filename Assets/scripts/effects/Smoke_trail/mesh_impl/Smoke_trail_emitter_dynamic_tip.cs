@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,79 +10,74 @@ using Random = UnityEngine.Random;
 
 namespace rvinowise.unity.effects.trails.mesh_impl {
 
-public class Smoke_trail:
+public class Smoke_trail_emitter_dynamic_tip:
 MonoBehaviour
 {
     
     /* parameters */
     public float distance_between_segments = 1f;
-    public float segment_max_speed = 0.1f;
     public float segment_speed_difference = 0.02f; 
     public float width = 0.2f;
-
+    public float fade_speed = 1f;
+    public float texture_length = 4f;
+    
     public UnityEngine.Events.UnityEvent on_disappeared;
-    public Transform emitter;
     public GameObject mesh_object;/* needed because the mesh uses global coordinates */
 
+    private float alpha;
+    
     private MeshFilter mesh_filter;
-
     private MeshRenderer mesh_renderer;
-
     
     /* fields for inner functionality */
-    public List<Segment> segments = new List<Segment>();
+    private readonly List<Segment> segments = new List<Segment>();
     private Segment last_settled_segment {get{
-        if (last_segment_settled) {
+        if (is_last_segment_settled) {
             return segments.Last();
         }
         return segments[segments.Count-2];
     }}
 
-    private Segment unsettled_segment {
-        get {
-            if (last_segment_settled) {
-                return null;
-            }
+    private Segment get_unsettled_segment() {
+        if (is_last_segment_settled) {
+            return null;
+        }
+        if (segments.Any()) {
             return segments.Last();
         }
+        return null;
     }
-    private bool last_segment_settled;
+    private bool is_last_segment_settled;
 
     private Segment last_segment {get{
         return segments.Last();
     }}
-    private List<Vector3> vertices = new List<Vector3>();
-    private List<int> triangles = new List<int>(/*(segments_n-1) * 6*/);
-    private List<Vector2> main_uvs = new List<Vector2>();
-    private List<Vector2> noise_uvs = new List<Vector2>();
+    private readonly List<Vector3> vertices = new List<Vector3>();
+    private readonly List<int> triangles = new List<int>(/*(segments_n-1) * 6*/);
+    private readonly List<Vector2> main_uvs = new List<Vector2>();
+    private readonly List<Vector2> noise_uvs = new List<Vector2>();
     private Mesh mesh;
-    private float alpha;
-    private float texture_length = 2;
+    
     
     protected void Awake() {
         init_components();
-        mesh_object.transform.SetParent(null, false);
-        mesh_object.transform.position = Vector3.zero;
+        mesh_object.transform.SetParent(null);
+        mesh_object.transform.position =
+            new Vector3(0,0,transform.position.z);
         mesh_object.transform.rotation = Quaternion.identity;
 
         
     }
-    protected void init_components() {
+
+    private void init_components() {
         mesh_filter = mesh_object.GetComponent<MeshFilter>();
         mesh_renderer = mesh_object.GetComponent<MeshRenderer>();
         mesh = mesh_filter.mesh;
         mesh.MarkDynamic();
-
-        if (emitter == null) {
-            emitter = transform;
-        }
     }
 
     void OnEnable() {
-        Contract.Requires(
-            segments.Count == 2, 
-            "starting points shound be given by the creater of the trail before its Enabling"
-        );
+        init_first_points(transform.position,transform.rotation.to_vector());
 
         alpha = 1;
         apply_alpha(alpha);
@@ -91,32 +87,28 @@ MonoBehaviour
         add_new_segments_to_mesh();
         
         last_decorative_update = Time.time;
-        InvokeRepeating("decorative_update", decorative_update_frequency, decorative_update_frequency);
+        InvokeRepeating(nameof(decorative_update), decorative_update_frequency, decorative_update_frequency);
     }
 
     
     public void init_first_points(
         Vector2 start_position,
-        Vector2 in_direction = new Vector2()
+        Vector2 in_direction
     ) {
+        Debug.Log($"TRAIL: [{name}]init_first_points start_position={start_position} direction={in_direction.to_dergees()}");
         add_segment(
             start_position,
             in_direction
         );
         add_last_segment_sticking_to_emitter(start_position);
-
-        
-        /* unsettled_segment = new Segment(
-            start_position,
-            Vector2.one
-        ); */
     }
 
-    public void add_bend_at(
+    public void add_bending_at(
         Vector2 position,
         Vector2 new_direction
     )
     {
+        Debug.Log($"TRAIL: [{name}]add_bending_at({position}, {new_direction})");
         Contract.Requires(new_direction.is_normalized(), "direction should be a normalized vector");
         build_trail_necessarily_reaching_point(position);
         segments.Last().is_abruption = true;
@@ -138,6 +130,7 @@ MonoBehaviour
     }
 
     public void visit_final_point(Vector2 position) {
+        Debug.Log($"TRAIL: [{name}]visit_final_point({position})");
         bool trail_grew = build_trail_necessarily_reaching_point(position);
         if (trail_grew) {
             add_new_segments_to_mesh();
@@ -154,7 +147,6 @@ MonoBehaviour
         } else if (end_changed) {
             mesh.vertices = get_vertices_from_segments();
         }
-        //debug_draw_segmnents();
     }
 
 
@@ -172,6 +164,7 @@ MonoBehaviour
         ) {
             return false;
         }
+        Debug.Log($"[{name}]build_trail_necessarily_reaching_point({to_point})");
 
         Point direction_to_goal;
         int segments_needed = new_segments_needed(
@@ -185,7 +178,7 @@ MonoBehaviour
         );
 
         if (segments_needed == 0) {
-            unsettled_segment.move_and_rotate(to_point, direction_to_goal);
+            get_unsettled_segment().move_and_rotate(to_point, direction_to_goal);
         } else {
             segments.Add(
                 Segment.new_continuation(
@@ -199,27 +192,27 @@ MonoBehaviour
         return true;
     }
     private bool built_trail_compensating_flight_of_emitter() {
-        Point direction_to_goal;
         int segments_needed = new_segments_needed(
-            emitter.position,
-            out direction_to_goal
+            transform.position,
+            out var direction_to_goal
         );
         if (segments_needed == 0) {
             return false;
         }
+        Debug.Log($"TRAIL: [{name}]built_trail_compensating_flight_of_emitter segments_needed={segments_needed}");
         
         add_segments_in_direction(
             segments_needed,
             direction_to_goal
         );
 
-        add_last_segment_sticking_to_emitter(emitter.position);
+        add_last_segment_sticking_to_emitter(transform.position);
         return true;
     }
 
 
     private void detach_last_point_from_emitter() {
-        last_segment_settled = true;
+        is_last_segment_settled = true;
     }
 
     private void add_segments_in_direction(
@@ -232,11 +225,12 @@ MonoBehaviour
         Point step_to_next_segment = direction_vector * 
                                      distance_between_segments;
 
-        unsettled_segment.move_and_rotate(
+        get_unsettled_segment().move_and_rotate(
             next_position(),
             direction_vector
         );
         for (int i=1; i<segments_n; i++) {
+            Debug.Log("TRAIL: add_segments_in_direction" );
             add_segment(
                 next_position(),
                 direction_vector
@@ -251,23 +245,25 @@ MonoBehaviour
     }
 
     private void add_last_segment_sticking_to_emitter(Point end_point) {
-        Vector2 direction = ((Vector2)emitter.position - segments.Last().position).normalized;
+        Vector2 direction = ((Vector2)transform.position - segments.Last().position).normalized;
         add_segment(
             end_point,
             direction
         );
-        last_segment_settled = false;
+        is_last_segment_settled = false;
+        
+        Debug.Log($"TRAIL: add_last_segment_sticking_to_emitter end_point={end_point}" );
     }
 
 
     private bool move_end_of_trail_to_emitter() {
-        Point direction_to_goal = (
-            (Vector2)emitter.position - 
+        Point direction_to_emitter = (
+            (Vector2)transform.position - 
             last_settled_segment.position
         ).normalized;
         
-        return unsettled_segment.move_and_rotate(
-            emitter.position, direction_to_goal
+        return get_unsettled_segment().move_and_rotate(
+            transform.position, direction_to_emitter
         );
     }
 
@@ -295,6 +291,17 @@ MonoBehaviour
             difference.magnitude/distance_between_segments
         );
         direction_to_goal = difference.normalized;
+
+        if (segments_needed > 0) {
+            Debug.Log(
+                $"TRAIL: difference.magnitude={difference.magnitude} " +
+                $"distance_between_segments={distance_between_segments} " +
+                $"segments_needed={segments_needed} "+
+                $"goal_point={goal_point} "+
+                $"last_settled_segment={last_settled_segment.position}"
+            );
+        }
+        
         return segments_needed;
     }
 
@@ -349,19 +356,19 @@ MonoBehaviour
     
     private void add_new_segments_to_mesh() {
         mesh.vertices = get_vertices_from_segments();
-        mesh.uv = get_main_uvs_from_segments();
+        mesh.uv = get_main_uvs_from_segments(texture_length);
         mesh.triangles = get_triangls_from_segments();
     }
 
     public void adjust_texture_at_end() {
-        float distance_to_last_segment =  
+        float textures_amount_to_last_segment =  
         (
             segments.Last().position - 
             segments[segments.Count-2].position
         ).magnitude / 
         texture_length;
 
-        float last_texture_x = main_uvs[main_uvs.Count-3].y + distance_to_last_segment;
+        float last_texture_x = main_uvs[main_uvs.Count-3].y + textures_amount_to_last_segment;
         main_uvs[main_uvs.Count-2] = new Point(last_texture_x, 1);
         main_uvs[main_uvs.Count-1] = new Point(last_texture_x, 0);
         mesh.uv = main_uvs.ToArray();
@@ -372,15 +379,15 @@ MonoBehaviour
     private Vector3[] get_vertices_from_segments() {
         vertices.Clear();
         foreach(Segment segment in segments) {
-            vertices.Add((Vector3)segment.left_point);
-            vertices.Add((Vector3)segment.right_point);
+            vertices.Add(segment.left_point);
+            vertices.Add(segment.right_point);
         }
         return vertices.ToArray();
     }
 
 
     
-    private Vector2[] get_main_uvs_from_segments(float ending_stretch = 4) {
+    private Vector2[] get_main_uvs_from_segments(float ending_stretch) {
         main_uvs.Clear();
         main_uvs.Add(new Point(0, 1));
         main_uvs.Add(new Point(0, 0));
@@ -440,7 +447,7 @@ MonoBehaviour
 
     
 
-    public float fade_speed = 1f;
+    
     private float get_faded_alpha() {
         return (alpha - fade_speed * decorative_delta_time);
     }
@@ -460,7 +467,6 @@ MonoBehaviour
 
   
     private void disappear() {
-        //Debug.Break();
         CancelInvoke();
         segments.Clear();
         on_disappeared?.Invoke();
@@ -474,11 +480,21 @@ MonoBehaviour
 
     private void debug_draw_segmnents() {
         foreach(Segment segment in segments) {
-            Debug.DrawLine(segment.left_point, segment.right_point, Color.red, 0f);
-            Debug.DrawLine(segment.left_point, segment.position, Color.green, 0f);
-            Debug.DrawLine(segment.right_point, segment.position, Color.blue, 0f);
+            
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(segment.left_point, segment.position);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(segment.right_point, segment.position);
+        }
+        if (get_unsettled_segment() != null) {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(get_unsettled_segment().left_point, get_unsettled_segment().right_point);
         }
         
+    }
+
+    private void OnDrawGizmos() {
+        debug_draw_segmnents();
     }
 }
 }

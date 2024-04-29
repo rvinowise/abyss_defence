@@ -14,7 +14,7 @@ public class Receiving_marks : MonoBehaviour
         Point position,
         Quaternion rotation
     ) {
-        holder.add_piece(position,rotation);
+        //holder.add_piece(position,rotation);
     }
 }
 

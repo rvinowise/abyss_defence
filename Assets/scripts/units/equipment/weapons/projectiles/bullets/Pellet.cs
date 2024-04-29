@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.effects.trails.mesh_impl;
+using UnityEngine.Serialization;
+
 
 namespace rvinowise.unity {
 
@@ -8,7 +10,7 @@ namespace rvinowise.unity {
 public abstract class Pellet : Projectile {
 
 
-    public Smoke_trail trail;
+    public Smoke_trail_emitter_dynamic_tip trail_emitter;
     
 
     protected virtual void Awake() {
@@ -30,12 +32,12 @@ public abstract class Pellet : Projectile {
         collider.enabled = true;
     }
     private void init_trail() {
-        if (trail != null) {
-            trail.init_first_points(
+        if (trail_emitter != null) {
+            trail_emitter.init_first_points(
                 transform.position,
                 transform.rotation.to_vector()
             );
-            trail.enabled = true;
+            trail_emitter.enabled = true;
         }
     }
 
@@ -51,14 +53,16 @@ public abstract class Pellet : Projectile {
         }
     }
 
-    private void stop_on_the_ground() {
+   
+    protected virtual void stop_on_the_ground() {
         collider.enabled = false;
         on_fall_on_ground();
-        if (trail.is_active()) {
-            trail.visit_final_point(transform.position);
-            trail.adjust_texture_at_end();
+        if (trail_emitter.is_active()) {
+            trail_emitter.visit_final_point(transform.position);
+            trail_emitter.adjust_texture_at_end();
         }
     }
+    
     public override void stop_at_position(Vector2 in_point) {
         transform.position = in_point;
         stop_on_the_ground();
@@ -78,8 +82,8 @@ public abstract class Pellet : Projectile {
         //debug_draw_collision(collision);
         Vector2 contact_point = collision.GetContact(0).point;
         Vector2 new_direction = collision.otherRigidbody.velocity.normalized;
-        if (trail.is_active()) {
-            trail.add_bend_at(
+        if (trail_emitter.is_active()) {
+            trail_emitter.add_bending_at(
                 contact_point,
                 new_direction
             );
@@ -117,7 +121,7 @@ public abstract class Pellet : Projectile {
     }
 
     private bool can_be_deleted() {
-        return !trail.has_visible_parts();
+        return !trail_emitter.has_visible_parts();
     }
 
     private void end_active_life() {

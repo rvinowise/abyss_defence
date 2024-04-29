@@ -114,7 +114,7 @@ public class Segment {
         return true;
     }
 
-    const float scr_neglect_distance = 0.2f;
+    const float scr_neglect_distance = 0.05f;
     const float neglect_degrees = 10f;
     public bool close_enough_to(
         Vector2 in_position,

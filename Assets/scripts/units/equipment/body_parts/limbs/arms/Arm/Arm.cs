@@ -46,9 +46,9 @@ public class Arm:
         if (current_action.GetType() == typeof(Aim_at_target)) {
             return target;
         }
-        if (target != null) {
-            Debug.LogError($"arm [{name}] has target [${target.name}], but the current action of the arm is [{current_action.get_explanation()}]");
-        }
+        // if ((target != null)&&(current_action.GetType() == typeof(Idle_vigilant_only_arm))) {
+        //     Debug.LogError($"arm [{name}] has target [{target.name}], but the current action of the arm is [{current_action.get_explanation()}]");
+        // }
         return null;
     }
     

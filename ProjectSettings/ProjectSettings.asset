@@ -599,16 +599,16 @@ PlayerSettings:
     Standalone: 3
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: abyss_defence
-  metroPackageVersion: 
-  metroCertificatePath: C:\prj\abyss_defence\Assets\WSATestCertificate.pfx
+  metroPackageName: abyssdefence
+  metroPackageVersion: 1.0.0.0
+  metroCertificatePath: Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
   metroCertificateSubject: rvinowise
   metroCertificateIssuer: rvinowise
   metroCertificateNotAfter: 80a3d181d4b3db01
   metroApplicationDescription: abyss_defence
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: abyss_defence
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

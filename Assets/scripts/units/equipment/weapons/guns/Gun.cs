@@ -70,7 +70,7 @@ public abstract class Gun:
     protected Projectile get_projectile() {
         Contract.Requires(can_fire(), "function Fire must be invoked after making sure it's possible");
         last_shot_time = Time.time;
-        Projectile new_projectile = projectile_prefab.get_from_pool<Projectile>(
+        Projectile new_projectile = projectile_prefab.instantiate<Projectile>(
             muzzle.position, muzzle.rotation
         );
         ammo_qty -= ammo_value;

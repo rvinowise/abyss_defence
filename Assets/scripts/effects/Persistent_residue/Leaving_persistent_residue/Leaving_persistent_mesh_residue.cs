@@ -22,7 +22,7 @@ public class Leaving_persistent_mesh_residue:
     }
 
     void Start() {
-        holder = Persistent_residue_router.instance.get_holder_for_material(
+        holder = Persistent_residue_router.instance.provide_holder_for_material(
             left_material
         );
     }

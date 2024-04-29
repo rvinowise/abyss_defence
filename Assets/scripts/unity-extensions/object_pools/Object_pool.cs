@@ -20,8 +20,11 @@ public class Object_pool {
             return add_object();
         }
         GameObject retrieved_object = objects.Dequeue();
-        prefab.GetComponent<Pooled_object>().init_reset_components(retrieved_object);
-
+        
+        var pooled_prefab = prefab.GetComponent<Pooled_object>();
+        pooled_prefab.copy_enabledness_of_all_behaviours(retrieved_object);
+        pooled_prefab.init_reset_components(retrieved_object);
+        
         return retrieved_object;
     }
 

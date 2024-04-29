@@ -27,10 +27,10 @@ public class Gun_shell : MonoBehaviour {
     }
 
     private void leave_residue() {
-        residue_leaver.leave_persistent_image(
-            0//(int)Math.Round((double)Random.Range(0,1))
-        );
-        pooled_object.destroy();
+        sprite_resolver.SetCategoryAndLabel(sprite_resolver.GetCategory(),"0");
+        sprite_resolver.ResolveSpriteToSpriteRenderer();
+        //(int)Math.Round((double)Random.Range(0,1))
+        residue_leaver.freeze_for_leaving_persistent_image();
     } 
   
 
