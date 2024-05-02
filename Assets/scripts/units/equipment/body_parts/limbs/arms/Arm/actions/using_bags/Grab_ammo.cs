@@ -7,20 +7,20 @@ public class Grab_ammo: Action_of_arm {
 
     private Hand hand;
     private Baggage bag;
-    private Tool reloaded_tool;
+    private Gun reloaded_gun;
     
 
     
     public static Grab_ammo create(
         Arm in_arm,
-        Baggage in_bag, Tool in_tool
+        Baggage in_bag, Gun in_gun
     ) {
         var action = (Grab_ammo)object_pool.get(typeof(Grab_ammo));
         action.add_actor(in_arm);
         
         action.hand = in_arm.hand;
         action.bag = in_bag;
-        action.reloaded_tool = in_tool;
+        action.reloaded_gun = in_gun;
         return action;
     }
    
@@ -42,8 +42,8 @@ public class Grab_ammo: Action_of_arm {
     }
 
     private void take_ammo_object() {
-        Ammunition ammo = bag.get_ammo_object_for_tool(reloaded_tool);
-        hand.switch_held_tools(ammo.main_holding);
+        Ammunition ammo = bag.get_ammo_object_for_gun(reloaded_gun);
+        hand.switch_held_tools(ammo.tool.main_holding);
     }
 
    

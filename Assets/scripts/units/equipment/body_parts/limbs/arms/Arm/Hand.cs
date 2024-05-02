@@ -13,6 +13,7 @@ public class Hand:Arm_segment
     public Side_type side = Side_type.LEFT;
     public Transform valuable_point;
     public Holding_place held_part;
+    public Arm arm;
     
     public Hand_gesture gesture {
         get { return _gesture;}
@@ -41,8 +42,6 @@ public class Hand:Arm_segment
     private Transform bottom_part;
     private Transform top_part;
 
-    [SerializeField]
-    public Arm arm;
 
     protected override void Awake() {
         base.Awake();

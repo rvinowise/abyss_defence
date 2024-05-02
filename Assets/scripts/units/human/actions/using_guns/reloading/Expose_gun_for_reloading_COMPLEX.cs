@@ -11,7 +11,7 @@ public class Expose_gun_for_reloading_COMPLEX: Action_leaf {
     public Arm arm;
 
     //private Gun gun;
-    private Pistol pistol;
+    private Gun pistol;
     
     public static Action create(
         Arm in_arm
@@ -24,7 +24,7 @@ public class Expose_gun_for_reloading_COMPLEX: Action_leaf {
         var action = (Expose_gun_for_reloading_COMPLEX)object_pool.get(typeof(Expose_gun_for_reloading_COMPLEX));
         action.arm = in_arm;
         
-        if (in_arm.held_tool is Pistol pistol) {
+        if (in_arm.held_tool.GetComponent<Gun>() is Gun pistol) {
             action.pistol = pistol;
         }
         

@@ -10,9 +10,7 @@ using Action = rvinowise.unity.actions.Action;
 
 namespace rvinowise.unity {
 
-/* asks tool controllers what they can do,
- orders them some actions based on this information,
- they do these actions later in the same step */
+
 public class Intelligence :
     MonoBehaviour
 {
@@ -20,16 +18,9 @@ public class Intelligence :
     public Baggage baggage;
     
     public IActor_sensory_organ sensory_organ;
-    public GameObject sensory_organ_object;
-    
     public IActor_transporter transporter;
-    public GameObject transporter_object;
-    
     public IActor_attacker attacker;
-    public GameObject weaponry_object;
-    
     public IActor_defender defender;
-    public GameObject defender_object;
     
     public float last_rotation;
 
@@ -64,36 +55,6 @@ public class Intelligence :
         
     }
 
-    public void init_devices_from_inspector() {
-        if ((sensory_organ_object != null)&&(sensory_organ_object.GetComponents<ISensory_organ>().Length > 0)) {
-            sensory_organ = sensory_organ_object.GetComponents<IActor_sensory_organ>().First();
-        }
-        else {
-            sensory_organ = new Empty_sensory_organ();
-        }
-        
-        if ((transporter_object != null)&&(transporter_object.GetComponents<IActor_transporter>().Length > 0)) {
-            transporter = transporter_object.GetComponents<IActor_transporter>().First();
-        }
-        else {
-            transporter = new Empty_transporter();
-        }
-        
-
-        if ((weaponry_object != null)&&(weaponry_object.GetComponents<IAttacker>().Length > 0)) {
-            attacker = weaponry_object.GetComponents<IActor_attacker>().First();
-        }
-        else {
-            attacker = new Empty_attacker();
-        }
-
-        if ((defender_object != null)&&(defender_object.GetComponents<IDefender>().Length > 0)) {
-            defender = defender_object.GetComponents<IActor_defender>().First();
-        }
-        else {
-            defender = new Empty_defender();
-        }
-    }
 
     public void init_devices() {
         var attackers = GetComponentsInChildren<IActor_attacker>();
@@ -140,28 +101,6 @@ public class Intelligence :
         }
         sensory_organ.init_for_runner(action_runner);
     }
-
-    // protected void init_device<
-    //         TDevice,
-    //         TEmpty_device,
-    //         TCompound_device
-    //     >
-    //     (ref TDevice local_device)
-    //     where TEmpty_device : TDevice, new()
-    //     where TCompound_device: TDevice, new()
-    //     
-    // {
-    //     var child_devices = GetComponentsInChildren<TDevice>();
-    //     if (child_devices.Length == 0) {
-    //         local_device = new TEmpty_device();
-    //     } else if (child_devices.Length == 1) {
-    //         local_device = child_devices.First();
-    //     }
-    //     else {
-    //         local_device = new TCompound_device(child_devices);
-    //     }
-    // }
-
 
     public void add_actors_to_action_runner() {
         var actors = GetComponentsInChildren<IActor>();
@@ -238,10 +177,6 @@ public class Intelligence :
     protected void save_last_rotation(Quaternion needed_direction) {
         float angle_difference = transform.rotation.degrees_to(needed_direction).degrees;
         last_rotation = angle_difference;
-    }
-
-    public virtual void start_dying(Projectile damaging_projectile) {
-        
     }
 
     private void OnDestroy() {

@@ -45,14 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance_between_segments: 2
-  width: 1
-  fade_speed: 0.1
+  width: 0.5
+  fade_speed: 1
   texture_length: 2
   on_disappeared:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: rvinowise.unity.Bouncing_projectile, Assembly-CSharp
+      - m_Target: {fileID: 6300923280871857658}
+        m_TargetAssemblyTypeName: rvinowise.unity.Projectile, Assembly-CSharp
         m_MethodName: on_trail_disappeared
         m_Mode: 1
         m_Arguments:
@@ -163,12 +163,12 @@ GameObject:
   - component: {fileID: -8632416045823008265}
   - component: {fileID: 3106826860434624612}
   m_Layer: 8
-  m_Name: penetrating_bullet
+  m_Name: burst_fire_bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6994008367860111093
 Transform:
   m_ObjectHideFlags: 0
@@ -378,7 +378,7 @@ Transform:
   m_GameObject: {fileID: 8848150420070349505}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6994008367860111093}
   m_RootOrder: 0

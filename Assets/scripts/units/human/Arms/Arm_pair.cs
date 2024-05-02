@@ -26,10 +26,10 @@ public class Arm_pair:
 
     public bool can_reach(Transform in_target) {
         return 
-            left_tool is Gun left_gun &&
+            left_tool.GetComponent<Gun>() is {} left_gun &&
             aimed_at_target(left_gun, in_target)
             ||
-            right_tool is Gun right_gun &&
+            right_tool.GetComponent<Gun>() is {} right_gun &&
             aimed_at_target(right_gun, in_target)
             ;
     }
@@ -39,10 +39,14 @@ public class Arm_pair:
     }
     public void attack(Transform in_target, System.Action on_completed = null) {
         Debug.Log($"AIMING: Arm_pair.attack({in_target.name})");
+        var arm = get_arm_targeting(in_target);
+        
         if (
-            get_arm_targeting(in_target) is {held_tool: Gun gun} arm &&
+            arm!=null &&
+            arm.get_held_gun() is {} gun &&
             gun.can_fire() &&
-            aimed_at_target(gun, in_target)) 
+            aimed_at_target(gun, in_target)
+        ) 
         {
             gun.pull_trigger();
             on_ammo_changed(arm, gun.get_loaded_ammo());
@@ -64,7 +68,6 @@ public class Arm_pair:
     public GameObject transporter_object;
     public ITransporter transporter;
     
-    public List<Held_tool> held_tools = new List<Held_tool>();
     private Toolset toolset_being_equipped;
 
 
@@ -137,7 +140,7 @@ public class Arm_pair:
     }
     private bool is_arm_searching_for_targets(Arm in_arm) {
         return
-            (arm_is_autoaimed(in_arm))
+            (is_arm_autoaimed(in_arm))
             &&
             (
                 (in_arm.current_action == null)
@@ -162,11 +165,11 @@ public class Arm_pair:
     public List<Arm> get_all_armed_autoaimed_arms() {
         List<Arm> arms = new List<Arm>();
 
-        if (arm_is_autoaimed(right_arm))
+        if (is_arm_autoaimed(right_arm))
         {
             arms.Add(right_arm);
         }
-        if (arm_is_autoaimed(left_arm))
+        if (is_arm_autoaimed(left_arm))
         {
             arms.Add(left_arm);
         }
@@ -176,11 +179,11 @@ public class Arm_pair:
     public List<Tuple<Arm,Transform>> get_autoaimed_arms_with_targets() {
         List<Tuple<Arm,Transform>> arms = new List<Tuple<Arm, Transform>>();
 
-        if (arm_is_autoaimed(right_arm))
+        if (is_arm_autoaimed(right_arm))
         {
             arms.Add(new Tuple<Arm, Transform>(right_arm,right_arm.get_target()));
         }
-        if (arm_is_autoaimed(left_arm))
+        if (is_arm_autoaimed(left_arm))
         {
             arms.Add(new Tuple<Arm, Transform>(left_arm,left_arm.get_target()));
         }
@@ -201,9 +204,9 @@ public class Arm_pair:
         Arm ammo_arm = other_arm(gun_arm);
 
         Action reloading_action = null;
-        if (gun_arm.held_tool is Pistol pistol) {
+        if (gun_arm.get_held_gun() is {} gun) {
 
-            Ammunition magazine = user.baggage.get_ammo_object_for_tool(pistol);
+            Ammunition magazine = user.baggage.get_ammo_object_for_gun(gun);
             Contract.Requires(magazine != null);
             
             reloading_action = Reload_pistol.create(
@@ -211,27 +214,28 @@ public class Arm_pair:
                 gun_arm,
                 ammo_arm,
                 user.baggage,
-                pistol
+                gun
             );
-        } else if (gun_arm.held_tool is Pump_shotgun shotgun) {
-            reloading_action = Reload_shotgun.create(
-                user.animator,
-                gun_arm,
-                ammo_arm,
-                user.baggage,
-                shotgun,
-                user.baggage.get_ammo_object_for_tool(shotgun)
-            );
-        } else if (gun_arm.held_tool is Break_shotgun break_shotgun) {
-            reloading_action = Reload_break_shotgun.create(
-                user.animator,
-                gun_arm,
-                ammo_arm,
-                user.baggage,
-                break_shotgun,
-                user.baggage.get_ammo_object_for_tool(break_shotgun)
-            );
-        }
+        } 
+        // else if (gun_arm.held_tool is Pump_shotgun shotgun) {
+        //     reloading_action = Reload_shotgun.create(
+        //         user.animator,
+        //         gun_arm,
+        //         ammo_arm,
+        //         user.baggage,
+        //         shotgun,
+        //         user.baggage.get_ammo_object_for_tool(shotgun)
+        //     );
+        // } else if (gun_arm.held_tool is Break_shotgun break_shotgun) {
+        //     reloading_action = Reload_break_shotgun.create(
+        //         user.animator,
+        //         gun_arm,
+        //         ammo_arm,
+        //         user.baggage,
+        //         break_shotgun,
+        //         user.baggage.get_ammo_object_for_tool(break_shotgun)
+        //     );
+        // }
         
         Action_sequential_parent.create(
             reloading_action,
@@ -258,7 +262,7 @@ public class Arm_pair:
         return 
             !is_reloading_now(weapon_holder)
             &&
-            baggage.check_ammo_qty(weapon_holder.held_tool.ammo_compatibility) > 0;
+            baggage.check_ammo_qty(weapon_holder.get_held_gun().ammo_compatibility) > 0;
     }
 
     private bool is_reloading_now(Arm weapon_holder) {
@@ -349,7 +353,7 @@ public class Arm_pair:
 
     public void attack_with_arm(Side_type in_side) {
         Arm arm = get_arm_on_side(in_side);
-        if (arm.held_tool is Gun gun) {
+        if (arm.get_held_gun() is {} gun) {
             gun.pull_trigger();
         }
     }
@@ -433,7 +437,7 @@ public class Arm_pair:
         if (
             arm_is_ready_for_autoaiming(right_arm)
             &&
-            arm_is_autoaimed(right_arm)
+            is_arm_autoaimed(right_arm)
         )
         {
             free_armed_arms.Add(right_arm);
@@ -441,7 +445,7 @@ public class Arm_pair:
         if (
             arm_is_ready_for_autoaiming(left_arm)
             &&
-            arm_is_autoaimed(left_arm)
+            is_arm_autoaimed(left_arm)
         )
         {
             free_armed_arms.Add(left_arm);
@@ -449,12 +453,8 @@ public class Arm_pair:
         return free_armed_arms;
     }
 
-    private bool arm_is_autoaimed(Arm in_arm) {
-        if (
-            in_arm.held_tool is Gun r_gun
-            &&
-            r_gun.aiming_automatically
-        ) {
+    private bool is_arm_autoaimed(Arm in_arm) {
+        if (in_arm.get_held_gun() is {aiming_automatically: true}) {
             return true;
         }
         return false;
@@ -599,13 +599,13 @@ public class Arm_pair:
         } */
         
         Contract.Requires(
-            gun_arm.held_tool is Gun,
+            gun_arm.get_held_gun() != null,
             "must hold a gun"
         );
-        if (gun_arm.held_tool is Break_sewedoff shotgun)
-        {
-            shotgun.eject_shells();
-        }
+        // if (gun_arm.get_held_gun() is Break_sewedoff shotgun)
+        // {
+        //     shotgun.eject_shells();
+        // }
     }
     
     /* invoked from the animation (in keyframes).*/
@@ -625,8 +625,8 @@ public class Arm_pair:
             "this arm must hold ammunition to reload"
         );
 
-        Gun gun = gun_arm.held_tool as Gun;
-        Ammunition ammo = ammo_arm.held_tool as Ammunition;
+        Gun gun = gun_arm.get_held_gun();
+        Ammunition ammo = ammo_arm.get_held_ammunition();
         gun.insert_ammunition(ammo);
 
     }
@@ -642,7 +642,7 @@ public class Arm_pair:
     
     public void attack() {
         Debug.Log($"AIMING: Arm_pair.attack()");
-        if (left_arm.held_tool is Gun gun) {
+        if (left_arm.get_held_gun() is {} gun) {
             gun.pull_trigger();
             on_ammo_changed(left_arm, gun.get_loaded_ammo());
         }

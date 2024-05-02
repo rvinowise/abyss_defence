@@ -51,7 +51,7 @@ public class Reload_all: Action_sequential_parent {
         first_side = get_side_with_less_ammo();
         Arm gun_arm = arm_pair.get_arm_on_side(first_side);
         Arm ammo_arm = arm_pair.other_arm(gun_arm);
-        reloaded_toolset = baggage.tool_sets[intelligence.current_equipped_set];
+        reloaded_toolset = baggage.tool_sets[intelligence.toolset_equipper.current_equipped_set];
 
         Action first_reloading_action = get_reloading_action_for(first_side).add_marker("first reloading");
         
@@ -93,9 +93,9 @@ public class Reload_all: Action_sequential_parent {
         Arm gun_arm = arm_pair.get_arm_on_side(in_side);
         Arm ammo_arm = arm_pair.other_arm(gun_arm);
         Tool reloaded_tool = reloaded_toolset.get_tool_on_side(in_side);
-        if (reloaded_tool is Pistol pistol) {
+        if (reloaded_tool.GetComponent<Gun>() is {} pistol) {
 
-            Ammunition magazine = user.baggage.get_ammo_object_for_tool(pistol);
+            Ammunition magazine = user.baggage.get_ammo_object_for_gun(pistol);
             Contract.Requires(magazine != null);
             
             return Reload_pistol.create(
@@ -106,26 +106,26 @@ public class Reload_all: Action_sequential_parent {
                 pistol
             );
         }
-        if (reloaded_tool is Pump_shotgun shotgun) {
-            return Reload_shotgun.create(
-                user.animator,
-                gun_arm,
-                ammo_arm,
-                user.baggage,
-                shotgun,
-                user.baggage.get_ammo_object_for_tool(shotgun)
-            );
-        }
-        if (reloaded_tool is Break_shotgun break_shotgun) {
-            return Reload_break_shotgun.create(
-                user.animator,
-                gun_arm,
-                ammo_arm,
-                user.baggage,
-                break_shotgun,
-                user.baggage.get_ammo_object_for_tool(break_shotgun)
-            );
-        }
+        // if (reloaded_tool is Pump_shotgun shotgun) {
+        //     return Reload_shotgun.create(
+        //         user.animator,
+        //         gun_arm,
+        //         ammo_arm,
+        //         user.baggage,
+        //         shotgun,
+        //         user.baggage.get_ammo_object_for_gun(shotgun)
+        //     );
+        // }
+        // if (reloaded_tool is Break_shotgun break_shotgun) {
+        //     return Reload_break_shotgun.create(
+        //         user.animator,
+        //         gun_arm,
+        //         ammo_arm,
+        //         user.baggage,
+        //         break_shotgun,
+        //         user.baggage.get_ammo_object_for_gun(break_shotgun)
+        //     );
+        // }
         return null;
     }
     
@@ -133,11 +133,14 @@ public class Reload_all: Action_sequential_parent {
         if (left_tool == null && right_tool == null) {
             return Side_type.NONE;
         }
-        int left_lacking_ammo = (left_tool?.max_ammo_qty - left_tool?.ammo_qty) ?? 0;
-        int right_lacking_ammo = (right_tool?.max_ammo_qty - right_tool?.ammo_qty) ?? 0;
+        var left_gun = left_tool.GetComponent<Gun>();
+        var right_gun = left_tool.GetComponent<Gun>();
+        
+        int left_lacking_ammo = (left_gun?.max_ammo_qty - left_gun?.ammo_qty) ?? 0;
+        int right_lacking_ammo = (right_gun?.max_ammo_qty - right_gun?.ammo_qty) ?? 0;
 
-        int left_lacking_value = left_lacking_ammo * left_tool.ammo_value;
-        int right_lacking_value = right_lacking_ammo * right_tool.ammo_value;
+        int left_lacking_value = left_lacking_ammo;
+        int right_lacking_value = right_lacking_ammo;
 
         if (left_lacking_value > right_lacking_value) {
             return Side_type.LEFT;

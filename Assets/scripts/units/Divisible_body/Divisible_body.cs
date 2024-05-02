@@ -17,14 +17,10 @@ public class Divisible_body : MonoBehaviour
 {
     public Sprite inside;
     public Sprite outside;
-    public Disappearing_body disappearing_body;
 
     /* IChildren_groups_host */
     
     public IList<Abstract_children_group> children_groups { get; private set; }
-
-
-    public Pooled_object pooled_prefab;
 
     public delegate void EventHandler();
     public event EventHandler on_polygon_changed;
@@ -33,7 +29,6 @@ public class Divisible_body : MonoBehaviour
         outside = gameObject.GetComponent<SpriteRenderer>().sprite;
 
         children_groups = new List<Abstract_children_group>(GetComponentsInChildren<Abstract_children_group>());
-        disappearing_body = GetComponent<Disappearing_body>();
     }
 
     private void simplify_pieces_without_children(List<Divisible_body> pieces) {
@@ -205,7 +200,8 @@ public class Divisible_body : MonoBehaviour
         }
     } 
     private Received_damage last_received_damage;
-    public void damage_by_projectile(
+
+    private void damage_by_projectile(
         Projectile projectile, ContactPoint2D contact
     ) {
         Vector2 contact_point = contact.point;

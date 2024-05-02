@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using rvinowise.unity.extensions;
 
@@ -13,12 +12,9 @@ namespace rvinowise.unity {
 public abstract class Player_human : Human_intelligence {
 
     private int[] held_tool_index;
-    private Transform cursor_transform;
-
 
     protected override void Start() {
         base.Start();
-        cursor_transform = Player_input.instance.cursor.transform;
         consider_all_enemies();
         sensory_organ?.pay_attention_to_target(Player_input.instance.cursor.transform);
     }
@@ -35,9 +31,6 @@ public abstract class Player_human : Human_intelligence {
         move_in_space();
         maybe_switch_items();
         use_tools();
-        
-        if (Input.GetMouseButton(0))
-            Debug.Log("Pressed left-click.");
         
         action_runner.update();
     }
@@ -109,7 +102,7 @@ public abstract class Player_human : Human_intelligence {
         Quaternion read_face_direction() {
             Vector2 mousePos = Player_input.instance.cursor.transform.position;
             Quaternion needed_direction = (mousePos - (Vector2) transform.position).to_quaternion();
-            if (has_gun_in_2hands(out var gun))
+            if (has_gun_in_2hands() is {} gun)
             {
                 needed_direction *= get_additional_rotation_for_2hands_gun(gun); 
                     
@@ -120,16 +113,14 @@ public abstract class Player_human : Human_intelligence {
         }
     }
 
-    private bool has_gun_in_2hands(out Gun out_gun) {
+    private Gun has_gun_in_2hands() {
         if (
             (arm_pair?.right_arm.current_action is Idle_vigilant_main_arm) &&
-            (arm_pair?.right_arm.held_tool is Gun gun)
+            (arm_pair?.right_arm.held_tool is { } tool)
         ) {
-            out_gun = gun;
-            return true;
+            return tool.GetComponent<Gun>();
         }
-        out_gun = null;
-        return false;
+        return null;
     }
 
     private Quaternion get_additional_rotation_for_2hands_gun(Gun gun) {

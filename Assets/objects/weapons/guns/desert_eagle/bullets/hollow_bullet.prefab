@@ -96,14 +96,13 @@ GameObject:
   - component: {fileID: 6789815900485976004}
   - component: {fileID: 7971257646426151467}
   - component: {fileID: 2554722589020391113}
-  - component: {fileID: 8142270241855328083}
   m_Layer: 0
   m_Name: hollow_bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5352801321395499467
 Transform:
   m_ObjectHideFlags: 0
@@ -223,6 +222,9 @@ MonoBehaviour:
   prefab: {fileID: 1989193172968240549}
   reset_components:
   - {fileID: 2554722589020391113}
+  on_restored_from_pool:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7971257646426151467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +239,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
 --- !u!114 &2554722589020391113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +260,7 @@ MonoBehaviour:
   on_fell_on_the_ground:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8142270241855328083}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: rvinowise.unity.units.parts.weapons.guns.common.Projectile,
           units
         m_MethodName: fall_on_ground
@@ -269,20 +273,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8142270241855328083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1989193172968240549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60044852508e466ea6f487660e236248, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigid_body: {fileID: 0}
-  trail: {fileID: 531768136884952689}
 --- !u!1 &3477755542885386677
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,9 +320,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance_between_segments: 999
-  segment_max_speed: 0
   segment_speed_difference: 0
   width: 2
+  fade_speed: 0.2
+  texture_length: 4
   on_disappeared:
     m_PersistentCalls:
       m_Calls:
@@ -349,9 +340,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  emitter: {fileID: 5352801321395499467}
   mesh_object: {fileID: 79329707863842113}
-  fade_speed: 0.2
+  decorative_update_frequency: 0.1
 --- !u!33 &5676805943648322498
 MeshFilter:
   m_ObjectHideFlags: 0

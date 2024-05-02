@@ -65,10 +65,10 @@ Turning_element
     }
 
 
-    public Ammunition get_ammo_object_for_tool(Tool in_tool) {
-        Ammunition ammo_prefab = in_tool.ammo_prefab;
+    public Ammunition get_ammo_object_for_gun(Gun in_gun) {
+        Ammunition ammo_prefab = in_gun.ammo_prefab;
         Ammunition ammo = ammo_prefab.instantiate<Ammunition>();
-        ammo.rounds_qty = fetch_ammo_qty(in_tool.ammo_compatibility, ammo_prefab.max_rounds_qty);
+        ammo.rounds_qty = fetch_ammo_qty(in_gun.ammo_compatibility, ammo_prefab.max_rounds_qty);
         Contract.Ensures(ammo.rounds_qty > 0);
         
         return ammo;

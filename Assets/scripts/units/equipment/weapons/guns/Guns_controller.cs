@@ -10,7 +10,7 @@ public class Guns_controller:
     Abstract_children_group
     ,IAttacker 
 {
-    private IList<Ak47> rifles;
+    //private IList<Ak47> rifles;
 
 
     public override IEnumerable<IChild_of_group> get_children() {

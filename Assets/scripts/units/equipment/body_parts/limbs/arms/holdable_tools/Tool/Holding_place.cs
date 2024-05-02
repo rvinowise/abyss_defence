@@ -9,9 +9,7 @@ namespace rvinowise.unity {
 
 public class Holding_place: MonoBehaviour
 {
-    [SerializeField]
     public bool is_main;
-    [SerializeField] 
     public string grip_gesture_from_editor = ""; 
     
     public Hand_gesture grip_gesture = Hand_gesture.Relaxed;
@@ -31,27 +29,14 @@ public class Holding_place: MonoBehaviour
         get { return transform.localRotation.to_degree(); }
     }
 
-    public Tool tool { get; set; }
+    public Tool tool { get; private set; }
     
-    public Hand holding_hand {
-        get { return _holding_hand; }
-        private set {
-            _holding_hand = value;
-        }
-    }
-    private Hand _holding_hand;
+    public Hand holding_hand { get; private set; }
 
 
-    public Vector2 position {
-        get{
-            return transform.position;
-        }
-    }
-    public Quaternion rotation {
-        get {
-            return transform.rotation;
-        }
-    }
+    public Vector2 position => transform.position;
+
+    public Quaternion rotation => transform.rotation;
     
 
     public static Holding_place main(Tool in_tool) {
@@ -99,7 +84,6 @@ public class Holding_place: MonoBehaviour
 
 
     protected void Awake() {
-        //base.Awake();
         Tool parent_tool = transform.GetComponentInParent<Tool>(); //transform?.parent.GetComponent<Tool>();
         Contract.Requires(parent_tool  != null, "a Holding_place must have a Tool in its parent, or be a Tool");
 

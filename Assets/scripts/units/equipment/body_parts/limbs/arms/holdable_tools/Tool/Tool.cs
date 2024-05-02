@@ -4,7 +4,7 @@ using rvinowise.unity.extensions;
 using rvinowise.contracts;
 
 namespace rvinowise.unity {
-public abstract class Tool: MonoBehaviour {
+public class Tool: MonoBehaviour {
 
     public float weight = 5f;
     
@@ -12,25 +12,20 @@ public abstract class Tool: MonoBehaviour {
     public Holding_place second_holding;
     
     public Animator animator;
-    
-    public Ammunition ammo_prefab;
-    public Ammo_compatibility ammo_compatibility;
-    public int ammo_qty;
-    public int max_ammo_qty;
-    public int ammo_value = 1;
 
-    protected readonly Saved_physics last_physics = new Saved_physics();
-    protected virtual void Awake() {
+
+    public readonly Saved_physics last_physics = new Saved_physics();
+    private void Awake() {
         init_components();
         init_holding_places();
     }
-    
 
-    protected virtual void init_components() {
+
+    private void init_components() {
         animator = gameObject.GetComponent<Animator>();
     }
 
-    protected virtual void init_holding_places() {
+    private void init_holding_places() {
         var holding_places = GetComponentsInChildren<Holding_place>();
         
         foreach(Holding_place holding_place in holding_places) {
@@ -43,11 +38,11 @@ public abstract class Tool: MonoBehaviour {
         Contract.Assert(main_holding != null);
     }
     
-    public virtual void hold_by(Hand in_hand) {
+    public void hold_by(Hand in_hand) {
         transform.set_local_z(in_hand.held_object_local_z);
     }
 
-    public virtual void drop_from_hand() {
+    public void drop_from_hand() {
         transform.set_z(Map.instance.ground_z);
     }
 
@@ -58,7 +53,7 @@ public abstract class Tool: MonoBehaviour {
         gameObject.SetActive(true);
     }
 
-    protected virtual void LateUpdate()
+    private void LateUpdate()
     {
         last_physics.position = transform.position;
     }

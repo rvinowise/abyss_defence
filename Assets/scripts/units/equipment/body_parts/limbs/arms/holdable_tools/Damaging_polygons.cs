@@ -16,6 +16,24 @@ public static class Damaging_polygons {
         });
         return wedge_of_split; 
     }
+    
+    
+    private static Polygon circle;
+
+    private static void create_circle_polygon() {
+        int points_n = 5;
+        float radius = 0.1f;
+        float angle_step = 360f / points_n;
+        circle = new Polygon(points_n);
+        for (int i=0;i<points_n;i++) {
+            circle.points.Add(
+                Directions.degrees_to_quaternion(angle_step * i) *
+                Vector2.right *
+                radius
+            );
+        }
+    }    
+
 }
 
 }

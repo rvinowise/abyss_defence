@@ -4,7 +4,7 @@ using rvinowise.unity.geometry2d;
 
 namespace rvinowise.unity {
 
-public class Hollow_bulet: Bullet {
+public class Hollow_bulet {
     
     
     private static Polygon circle;
@@ -26,7 +26,7 @@ public class Hollow_bulet: Bullet {
             );
         }
     }
-    public override Polygon get_damaged_area(Ray2D in_ray) {
+    public Polygon get_damaged_area(Ray2D in_ray) {
         Polygon damaged_area = circle.get_moved(in_ray.origin);
         return damaged_area;    
     }

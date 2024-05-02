@@ -14,17 +14,10 @@ public class Humanoid:
     ,IActor
 {
 
-    /* parts of the human*/
     public Arm_pair arm_pair;
     public Head head;
-    //public units.parts.humanoid.Legs legs;
     public Baggage baggage;
     
-    
-    //private IChildren_groups_host user_of_equipment;
-    
-    
-    /* components */
     private SpriteRenderer sprite_renderer;
     public Animator animator;
     
@@ -46,7 +39,7 @@ public class Humanoid:
     /* Humanoid itself */
 
     public void pick_up(Tool in_tool) {
-        if (in_tool is Ammunition ammo) {
+        if (in_tool.GetComponent<Ammunition>() is {} ammo) {
             baggage.change_ammo_qty(ammo.compatibility, ammo.rounds_qty);
         }
     }

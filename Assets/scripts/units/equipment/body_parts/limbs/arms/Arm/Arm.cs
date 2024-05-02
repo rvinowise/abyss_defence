@@ -22,12 +22,22 @@ public class Arm:
 
     public Hand hand;
 
-    public Tool held_tool {
-        get {return hand.held_tool;}
+    public Tool held_tool => hand.held_tool;
+
+    public Gun get_held_gun() {
+        if (held_tool.GetComponent<Gun>() is {} gun) {
+            return gun;
+        }
+        return null;
     }
-    public Holding_place held_part {
-        get {return hand.held_part;}
+    
+    public Ammunition get_held_ammunition() {
+        if (held_tool.GetComponent<Ammunition>() is {} ammunition) {
+            return ammunition;
+        }
+        return null;
     }
+    public Holding_place held_part => hand.held_part;
 
     public bool is_holding_tool() {
         return held_tool != null;
@@ -169,7 +179,7 @@ public class Arm:
     
     public bool aiming_automatically() {
         return 
-        (held_tool is Gun gun)&&
+        (get_held_gun() is {} gun)&&
         (gun.aiming_automatically);
     }
 

@@ -38,19 +38,22 @@ public class Damage_receiver: MonoBehaviour {
 
 
     void OnCollisionEnter2D(Collision2D collision) {
-        
-        if (collision.get_damaging_projectile() is { } damaging_projectile ) {
-            if (!damaging_projectile.GetComponent<Collider2D>().isActiveAndEnabled) {
-                //at high speeds, projectile mistakenly bounses off the target, even though it should stop at the target.
-                //switching its collider off at the first collision signifies that it shouldn't bounce and collide anymore
-                return; 
-            }
-            Debug.Log($"AIMING: ({name})Damage_receiver.OnCollisionEnter2D(projectile:{damaging_projectile.name})");
-            damaging_projectile.stop_at_position(collision.GetContact(0).point);
-            receive_damage(1f);
-        }
-        else if (collision.gameObject.GetComponent<Damage_dealer>() is {} damage_dealer){
+        if (collision.gameObject.GetComponent<Damage_dealer>() is {} damage_dealer){
             //receive_damage(1f);
+            if (damage_dealer.is_ignoring_damage_receiver(this)) {
+                return;
+            }
+            if (collision.get_damaging_projectile() is { } damaging_projectile ) {
+                if (!damaging_projectile.GetComponent<Collider2D>().isActiveAndEnabled) {
+                    //at high speeds, projectile mistakenly bounses off the target, even though it should stop at the target.
+                    //switching its collider off at the first collision signifies that it shouldn't bounce and collide anymore
+                    return; 
+                }
+                Debug.Log($"AIMING: ({name})Damage_receiver.OnCollisionEnter2D(projectile:{damaging_projectile.name})");
+                damaging_projectile.stop_at_position(collision.GetContact(0).point);
+                receive_damage(1f);
+            }
+            
         }
     }
 

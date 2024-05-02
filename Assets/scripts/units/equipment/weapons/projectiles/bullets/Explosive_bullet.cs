@@ -5,9 +5,8 @@ using rvinowise.unity.geometry2d;
 
 namespace rvinowise.unity {
 
-public class Explosive_bullet: Bullet {
+public class Explosive_bullet: MonoBehaviour {
 
-    [SerializeField]
     public PolygonCollider2D damage_area_editor;
     //private static Polygon polygon;
 
@@ -39,7 +38,7 @@ public class Explosive_bullet: Bullet {
         }
         
     }*/
-    public override Polygon get_damaged_area(Ray2D in_ray) {
+    public Polygon get_damaged_area(Ray2D in_ray) {
 
         Polygon damaged_area = new Polygon(
             damage_area_editor.GetPath(0)

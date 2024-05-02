@@ -7,7 +7,7 @@ public class Reload_pistol: Reload_gun {
     private static readonly int animation_reload_pistol = Animator.StringToHash("Base Layer.reloading_pistol");    
 
     private Baggage bag;
-    private Pistol gun;
+    private Gun gun;
     private Ammunition magazine;
     
     public static Reload_pistol create(
@@ -15,7 +15,7 @@ public class Reload_pistol: Reload_gun {
         Arm in_gun_arm,
         Arm in_magazine_arm,
         Baggage in_bag, 
-        Pistol in_tool
+        Gun in_gun
     ) {
         var action = (Reload_pistol)object_pool.get(typeof(Reload_pistol));
         
@@ -23,7 +23,7 @@ public class Reload_pistol: Reload_gun {
         action.gun_arm = in_gun_arm;
         action.ammo_arm = in_magazine_arm;
         action.bag = in_bag;
-        action.gun = in_tool;
+        action.gun = in_gun;
         action.init_child_actions();
         
         return action;
