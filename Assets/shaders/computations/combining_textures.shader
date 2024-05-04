@@ -2,8 +2,8 @@
 {
 	Properties
 	{
-		_Texture1 ("_Texture1", 2D) = "white" {}
-		_Texture2 ("_Texture2", 2D) = "white" {}
+		[MainTexture] _Bottom ("Bottom", 2D) = "white" {}
+		_Top ("Top", 2D) = "white" {}
 	}
 	SubShader
 	{
@@ -16,18 +16,18 @@
             #pragma fragment frag
 
            
-            sampler2D _Texture1;
-			sampler2D _Texture2;
+            sampler2D _Bottom;
+			sampler2D _Top;
 
 
 
 			fixed4 frag(v2f IN) : SV_Target
 			{
 				half4 color_bottom = (
-					tex2D(_Texture1, IN.texcoord)
+					tex2D(_Bottom, IN.texcoord)
 				);
 				half4 color_top = (
-					tex2D(_Texture2, IN.texcoord)
+					tex2D(_Top, IN.texcoord)
 				);
 				if (color_top.a > 0.1) {
 					return color_top;

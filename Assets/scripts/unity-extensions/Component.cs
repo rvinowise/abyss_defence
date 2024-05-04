@@ -113,7 +113,7 @@ public static partial class Unity_extension {
         }
     }
 
-    public static void destroy(this Component component) {
+    public static void destroy_object(this Component component) {
         if (component.GetComponent<Pooled_object>() is {} pooled_object) {
             pooled_object.destroy();
         }

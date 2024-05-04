@@ -14,11 +14,15 @@ public class Bleeding_body_splash_prefab: MonoBehaviour {
     
     public void create_splash(
         Vector2 in_position,
-        Vector2 in_impulse
+        Vector2 in_impulse,
+        Damage_dealer damage_dealer
     ) {
         var contact_with_height =
             in_position.with_height(this.transform.position.z-0.5f);
-        Instantiate(splash_prefab,contact_with_height, in_impulse.to_quaternion());
+        var splash = Instantiate(splash_prefab,contact_with_height, in_impulse.to_quaternion());
+        var particles = splash.GetComponent<ParticleSystem>();
+        var emission_module = particles.emission;
+        emission_module.burstCount = (int) (emission_module.burstCount * damage_dealer.effect_amount);
     }
     
 
@@ -30,7 +34,8 @@ public class Bleeding_body_splash_prefab: MonoBehaviour {
 
             create_splash(
                 contact_point,
-                other.GetContact(0).relativeVelocity*collided_projectile.GetComponent<Rigidbody2D>().mass
+                other.GetContact(0).relativeVelocity*collided_projectile.GetComponent<Rigidbody2D>().mass,
+                collided_projectile.damage_dealer
             );
             
         }

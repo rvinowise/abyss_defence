@@ -10,7 +10,9 @@ Shader "Effects/Smoke_trail"
         _Snake_offset_tex ("Snake Offset Texture", 2D) = "white" {}
 
         _Start_time ("Start time", float) = 0    
-
+        _Dumpen_with_time ("Dumpen with time", float)= 0.5
+        _Spread_speed  ("Spread speed", float)= 2
+        
         
         _Color ("Tint", Color) = (1,1,1,1)
         _Alpha ("Alpha", float) = 1
@@ -118,6 +120,8 @@ Shader "Effects/Smoke_trail"
                 float4 _Color;
                 float _Alpha;
                 float _Start_time;
+                float _Dumpen_with_time;
+                float _Spread_speed;
                 float time() {
                     return _Time[1] - _Start_time;
                 }
@@ -132,7 +136,7 @@ Shader "Effects/Smoke_trail"
                     OUT.vertex = vPosition;
                     OUT.texcoord = v.texcoord;
                     OUT.lightingUV = ComputeScreenPos(vPosition / vPosition.w).xy;
-                    OUT.parabolic_progress = pow (time(), 0.5) *2;
+                    OUT.parabolic_progress = pow (time(), _Dumpen_with_time) * _Spread_speed;
 
                     return OUT;
                 }

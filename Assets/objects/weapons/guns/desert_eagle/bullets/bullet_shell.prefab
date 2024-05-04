@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 430536658738526089}
   - component: {fileID: 3724668389505664677}
   - component: {fileID: 6436470299927022936}
+  - component: {fileID: 3835011913427209826}
   - component: {fileID: -8394938672125873362}
   - component: {fileID: 4983913429063402640}
   m_Layer: 0
@@ -192,7 +193,7 @@ MonoBehaviour:
   on_fell_on_the_ground:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &-8394938672125873362
+--- !u!114 &3835011913427209826
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,12 +202,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 7102603128024256053}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec115ea10e24906b8785120a4465f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
+--- !u!114 &-8394938672125873362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102603128024256053}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ff0136e303b33843b761bfbda5b39ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 3676137275394550588, guid: 8ffc2db33ec9a1f44986ab8fb1916a19,
     type: 3}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
 --- !u!114 &4983913429063402640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,3 +239,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
   reset_components: []
+  on_restored_from_pool:
+    m_PersistentCalls:
+      m_Calls: []

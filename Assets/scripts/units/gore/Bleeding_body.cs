@@ -93,7 +93,7 @@ public class Bleeding_body: MonoBehaviour {
             create_splash(
                 contact_point,
                 other.GetContact(0).relativeVelocity*collided_projectile.GetComponent<Rigidbody2D>().mass,
-                10
+                (int) (10*collided_projectile.damage_dealer.effect_amount)
             );
             
         }

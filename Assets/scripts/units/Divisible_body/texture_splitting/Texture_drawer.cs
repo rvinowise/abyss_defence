@@ -9,20 +9,11 @@ using Random = UnityEngine.Random;
 [singleton]
 public class Texture_drawer: MonoBehaviour {
 
-    [SerializeField]
-    private Material masked_material;
-    //    Resources.Load<Material>("shaders/masked_texture");
-
-    [SerializeField]
-    private Material combining_material;
-    //    Resources.Load<Material>("shaders/combining_textures");
-
-    [SerializeField]
-    private Material mask_material;
-    //    Resources.Load<Material>("shaders/default");
-
-    [SerializeField]
-    private Shader splitting_shader;
+    public Material masked_material; //for apply_mask_to_texture
+    public Material combining_material; //for overlay_textures
+    public Material mask_material; //for draw_polygon_on_texture
+    public Shader splitting_shader;
+    
     private Material splitting_material;
 
     public static Texture_drawer instance {get; private set;}
@@ -30,7 +21,6 @@ public class Texture_drawer: MonoBehaviour {
 
     public Texture2D test_texture;
     private List<Texture2D> pooled_textures = new List<Texture2D>(100);
-    //private int i_current_texture = 0;
 
     void Awake() {
         Contract.Requires(instance == null, "it's a singleton");
@@ -56,9 +46,10 @@ public class Texture_drawer: MonoBehaviour {
         
         /* basis.save_to_file("basis");
         mask.save_to_file("mask"); */
-        RenderTexture combining_texture = new RenderTexture(
-             basis.width, basis.height, 0, RenderTextureFormat.Default
-        );
+        RenderTexture combining_texture = 
+            new RenderTexture(
+                basis.width, basis.height, 0, RenderTextureFormat.Default
+            );
 
         masked_material.SetTexture("_MainTex", basis);
         masked_material.SetTexture("_Mask", mask);
@@ -115,14 +106,26 @@ public class Texture_drawer: MonoBehaviour {
         RenderTexture texture2
     ) {
         RenderTexture combining_texture = new RenderTexture(
-             texture1.width, texture1.height, 0, RenderTextureFormat.ARGB32
-             );
+            texture1.width, texture1.height, 0, RenderTextureFormat.ARGB32
+        );
 
         combining_material.SetTexture("_Texture1", texture1);
         combining_material.SetTexture("_Texture2", texture2);
         Graphics.Blit(texture1, combining_texture, combining_material);
         
         return move_to_texture(combining_texture);
+    }
+    
+    public RenderTexture draw_texture_on_texture(
+        RenderTexture bottom_result_texture,
+        Texture top_added_texture
+    ) {
+        // RenderTexture.active = bottom_result_texture;
+        combining_material.SetTexture("_Bottom", bottom_result_texture);
+        combining_material.SetTexture("_Top", top_added_texture);
+        Graphics.Blit(top_added_texture, bottom_result_texture, combining_material);
+
+        return bottom_result_texture;
     }
     
 

@@ -100,13 +100,13 @@ IPersistent_residue_holder
                 piece.sprite_renderer.flipY
             );
             
-            piece.destroy();
+            piece.destroy_object();
         }
         update_mesh();
     }
     
     private void add_piece_as_quad(
-        Vector2 in_position,
+        Vector3 in_position,
         Quaternion in_rotation,
         float in_size =1,
         int in_current_frame=0,
@@ -147,10 +147,10 @@ IPersistent_residue_holder
         int v_index = last_quad_index * 4;
 
         
-        Vector2 top_left = new Vector2(-quad_dimension.width/2, quad_dimension.height/2);
-        Vector2 top_right = new Vector2(quad_dimension.width/2, quad_dimension.height/2);
-        Vector2 bottom_right = new Vector2(quad_dimension.width/2, -quad_dimension.height/2);
-        Vector2 bottom_left = new Vector2(-quad_dimension.width/2, -quad_dimension.height/2);
+        Vector2 top_left = new Vector3(-quad_dimension.width/2, quad_dimension.height/2);
+        Vector2 top_right = new Vector3(quad_dimension.width/2, quad_dimension.height/2);
+        Vector2 bottom_right = new Vector3(quad_dimension.width/2, -quad_dimension.height/2);
+        Vector2 bottom_left = new Vector3(-quad_dimension.width/2, -quad_dimension.height/2);
         
         if (flip_y) {
             (top_left, bottom_left) = (bottom_left, top_left);

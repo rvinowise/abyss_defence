@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -6775746378378417914}
   - component: {fileID: -8591562747733743540}
   - component: {fileID: 7612435402987248051}
+  - component: {fileID: -680757417918752305}
   - component: {fileID: 7226591859492953414}
   - component: {fileID: -8141477991248581180}
   m_Layer: 0
@@ -157,7 +158,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7226591859492953414
+--- !u!114 &-680757417918752305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,6 +166,21 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768768293507912908}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec115ea10e24906b8785120a4465f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
+--- !u!114 &7226591859492953414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768768293507912908}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ff0136e303b33843b761bfbda5b39ee, type: 3}
   m_Name: 
@@ -190,8 +206,8 @@ MonoBehaviour:
   on_faded:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7226591859492953414}
-        m_TargetAssemblyTypeName: rvinowise.unity.Leaving_persistent_sprite_residue,
+      - m_Target: {fileID: -680757417918752305}
+        m_TargetAssemblyTypeName: rvinowise.unity.Leaving_persistent_residue_on_texture,
           Assembly-CSharp
         m_MethodName: leave_persistent_residue
         m_Mode: 1

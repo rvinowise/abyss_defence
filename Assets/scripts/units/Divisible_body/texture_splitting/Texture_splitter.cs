@@ -8,14 +8,14 @@ static class Texture_splitter {
     
     //Texture2D sticking_out;
 
-    static public Texture2D create_texture_for_polygon(
+    public static Texture2D create_texture_for_polygon(
         Sprite basis,
         Polygon polygon,
         Sprite inside=null)
     {
         if (inside)
         {
-            return create_texture_with_insides_for_polygon(
+            return create_texture_with_insides_for_polygon_OLD(
                 basis,
                 inside,
                 polygon);
@@ -25,7 +25,7 @@ static class Texture_splitter {
             polygon);
     }
 
-    static public Texture2D create_simple_texture_for_polygon(
+    private static Texture2D create_simple_texture_for_polygon(
         Sprite basis,
         Polygon polygon
     ) 
@@ -43,7 +43,7 @@ static class Texture_splitter {
     }
 
 
-    static public Texture2D create_texture_with_insides_for_polygon_OLD(
+    public static Texture2D create_texture_with_insides_for_polygon_OLD(
         Sprite basis,
         Sprite inside,
         Polygon polygon
@@ -69,8 +69,10 @@ static class Texture_splitter {
 
     private static RenderTexture mask_sprite_with_polygon(Sprite in_sprite, Polygon in_polygon) {
         Texture2D texture = in_sprite.texture;
-        RenderTexture positioned_mask = new RenderTexture(
-             texture.width, texture.height, 32, RenderTextureFormat.ARGB32);
+        RenderTexture positioned_mask = 
+            new RenderTexture(
+                texture.width, texture.height, 32, RenderTextureFormat.ARGB32
+            );
 
         Texture_drawer.instance.draw_polygon_on_texture(
             positioned_mask, 
@@ -78,10 +80,11 @@ static class Texture_splitter {
             in_polygon
         );
         
-        RenderTexture masked_texture = Texture_drawer.instance.apply_mask_to_texture(
-            texture,
-            positioned_mask
-        );
+        RenderTexture masked_texture = 
+            Texture_drawer.instance.apply_mask_to_texture(
+                texture,
+                positioned_mask
+            );
 
         //positioned_mask.save_to_file("positioned_mask");
 
@@ -93,7 +96,7 @@ static class Texture_splitter {
   
     }
 
-    static public Texture2D create_texture_with_insides_for_polygon(
+    public static Texture2D create_texture_with_insides_for_polygon(
         Sprite basis,
         Sprite inside,
         Polygon polygon

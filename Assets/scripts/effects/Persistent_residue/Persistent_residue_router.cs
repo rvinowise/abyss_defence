@@ -11,6 +11,7 @@ public class Persistent_residue_router: MonoBehaviour {
 
     public Persistent_residue_sprite_holder sprite_holder_prefab;
     public Persistent_residue_mesh_holder material_holder_prefab;
+    public Persistent_residue_texture_holder render_texture_holder;
 
     private readonly Dictionary<Sprite, Persistent_residue_sprite_holder> sprite_to_holder = 
         new Dictionary<Sprite, Persistent_residue_sprite_holder>();
@@ -21,7 +22,7 @@ public class Persistent_residue_router: MonoBehaviour {
     public static Persistent_residue_router instance;
 
     public float last_depth;
-    private const float depth_increment = 0.0001f;
+    private const float depth_increment = 0.01f;
     private void Awake() {
         Contract.Requires(instance == null, "Persistent_residue_router is a singleton");
         instance = this;

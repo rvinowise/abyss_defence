@@ -27,10 +27,10 @@ public class Arm_pair:
     public bool can_reach(Transform in_target) {
         return 
             left_tool.GetComponent<Gun>() is {} left_gun &&
-            aimed_at_target(left_gun, in_target)
+            left_gun.is_aimed_at_target(in_target)
             ||
             right_tool.GetComponent<Gun>() is {} right_gun &&
-            aimed_at_target(right_gun, in_target)
+            right_gun.is_aimed_at_target(in_target)
             ;
     }
 
@@ -45,11 +45,12 @@ public class Arm_pair:
             arm!=null &&
             arm.get_held_gun() is {} gun &&
             gun.can_fire() &&
-            aimed_at_target(gun, in_target)
+            gun.is_aimed_at_target(in_target)
         ) 
         {
             gun.pull_trigger();
             on_ammo_changed(arm, gun.get_loaded_ammo());
+            gun.release_trigger();
         }
     }
      
@@ -130,7 +131,7 @@ public class Arm_pair:
                 .ToList();
         
         foreach (var target in needed_not_targeted_enemies) {
-            get_arm_closest_to(arms_changing_targets, target, typeof(Gun))
+            get_arm_closest_to<Gun>(arms_changing_targets, target)
                 .aim_at(target);
         }
     }
@@ -294,13 +295,12 @@ public class Arm_pair:
             return;
         }
         Arm best_arm;
-        if (get_free_arm_closest_to(in_target, typeof(Gun)) is {} free_arm) {
+        if (get_free_arm_closest_to<Gun>(in_target) is {} free_arm) {
             best_arm = free_arm;
         } else {
-            best_arm = get_arm_closest_to(
+            best_arm = get_arm_closest_to<Gun>(
                 get_all_armed_autoaimed_arms(), 
-                in_target, 
-                typeof(Gun)
+                in_target
             );
             if (best_arm == null) {
                 return;
@@ -312,42 +312,7 @@ public class Arm_pair:
     }
 
 
-    private readonly RaycastHit2D[] targeted_targets = new RaycastHit2D[1000];
-    private bool aimed_at_target(Gun gun, Transform in_target) {
-        var targets_number = 
-            Physics2D.RaycastNonAlloc(
-                gun.muzzle.position, gun.muzzle.right, targeted_targets
-            );
-        for (var i_target=0;i_target<targets_number;++i_target) {
-            var hit = targeted_targets[i_target];
-            if (hit.transform == in_target) {
-                return true;
-            }
-        }
-
-        return false;
-    }
     
-    private bool directed_at_target(Gun gun, Transform in_target) {
-        var vector_to_target =
-            (in_target.position - gun.transform.position);
-        
-        var direction_to_tarrget =
-            vector_to_target.to_dergees();
-
-        var distance_to_target = vector_to_target.magnitude;
-
-        var precision_angle = 10f;
-        
-        return 
-            Math.Abs(
-                gun.transform.rotation.to_degree().angle_to(direction_to_tarrget)
-            ) 
-            < 
-            precision_angle/distance_to_target;
-
-
-    }
 
     
 
@@ -405,16 +370,16 @@ public class Arm_pair:
     public event EventHandler on_target_disappeared;
 
 
-    private Arm get_free_arm_closest_to(Transform in_target, System.Type needed_tool) {
+    private Arm get_free_arm_closest_to<Tool_component>(Transform in_target) {
         var free_armed_arms = get_iddling_armed_autoaimed_arms();
-        return get_arm_closest_to(free_armed_arms, in_target, needed_tool);
+        return get_arm_closest_to<Tool_component>(free_armed_arms, in_target);
     }
 
-    private Arm get_arm_closest_to(IEnumerable<Arm> in_arms, Transform in_target, System.Type needed_tool) {
+    private Arm get_arm_closest_to<Tool_component>(IEnumerable<Arm> in_arms, Transform in_target) {
         float closest_distance = float.MaxValue;
         Arm closest_arm = null;
         foreach(Arm arm in in_arms) {
-            if (arm.held_tool.GetType().IsSubclassOf(needed_tool)) {
+            if (arm.held_tool.GetComponent<Tool_component>() is {}) {
                 var this_distance = arm.get_aiming_distance_to(in_target);
                 if (this_distance < closest_distance) {
                     closest_distance = this_distance;

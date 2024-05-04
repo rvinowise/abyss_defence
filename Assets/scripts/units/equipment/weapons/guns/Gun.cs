@@ -184,5 +184,42 @@ public class Gun: MonoBehaviour
         flyer.height = 1;
         flyer.vertical_velocity = 1f + Random.value * 3f;
     }
+    
+    
+    private readonly RaycastHit2D[] targeted_targets = new RaycastHit2D[1000];
+    public bool is_aimed_at_target(Transform in_target) {
+        var targets_number = 
+            Physics2D.RaycastNonAlloc(
+                muzzle.position, muzzle.right, targeted_targets
+            );
+        for (var i_target=0;i_target<targets_number;++i_target) {
+            var hit = targeted_targets[i_target];
+            if (hit.transform == in_target) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    public bool is_directed_at_target(Transform in_target) {
+        var vector_to_target =
+            (in_target.position - transform.position);
+        
+        var direction_to_tarrget =
+            vector_to_target.to_dergees();
+
+        var distance_to_target = vector_to_target.magnitude;
+
+        var precision_angle = 10f;
+        
+        return 
+            Math.Abs(
+                transform.rotation.to_degree().angle_to(direction_to_tarrget)
+            ) 
+            < 
+            precision_angle/distance_to_target;
+    }
+    
 }
 }

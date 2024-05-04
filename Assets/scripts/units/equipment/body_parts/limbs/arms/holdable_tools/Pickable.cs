@@ -16,7 +16,7 @@ public class Pickable : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.get_user_of_tools() is Humanoid user) {
             user.pick_up(content);
-            this.destroy();
+            this.destroy_object();
         }
     }
 }

@@ -19,6 +19,7 @@ MonoBehaviour
     public float width = 0.2f;
     public float fade_speed = 1f;
     public float texture_length = 4f;
+    public float decorative_update_frequency = 0.1f;
     
     public UnityEngine.Events.UnityEvent on_disappeared;
     public GameObject mesh_object;/* needed because the mesh uses global coordinates */
@@ -270,7 +271,7 @@ MonoBehaviour
 
 
     private float last_decorative_update;
-    public float decorative_update_frequency = 0.1f;
+    
     private static readonly int shader_color = Shader.PropertyToID("_Color");
     private static readonly int shader_alpha = Shader.PropertyToID("_Alpha");
     private static readonly int shader_start_time = Shader.PropertyToID("_Start_time");

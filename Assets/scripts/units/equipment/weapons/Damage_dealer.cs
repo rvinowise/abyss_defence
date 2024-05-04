@@ -6,9 +6,14 @@ using Action = System.Action;
 
 namespace rvinowise.unity {
 public class Damage_dealer: MonoBehaviour {
+    
+    public float effect_amount = 1f;
+    
+    
     private readonly ISet<Transform> damaged_targets = new HashSet<Transform>();
     private Transform attacker;
 
+    
     public void on_restore_from_pool() {
         attacker = null;
         damaged_targets.Clear();

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -51,9 +52,14 @@ public static partial class Unity_extension
         file_path = getNextFileName(file_path);
         System.IO.FileInfo file = new System.IO.FileInfo(file_path);
         file.Directory.Create(); // If the directory already exists, this method does nothing.
-
-        byte[] texture_png = in_texture.EncodeToPNG();
-        System.IO.File.WriteAllBytes(file.FullName, texture_png);
+        
+        try {
+            byte[] texture_png = in_texture.EncodeToPNG();
+            System.IO.File.WriteAllBytes(file.FullName, texture_png);
+        }
+        catch (Exception e) {
+            Debug.LogError($"error when saving trexture to file {file}: {e}, {e.Message}");
+        }
     }
 
     public static void save_to_file(this RenderTexture in_render_texture, string filename) {

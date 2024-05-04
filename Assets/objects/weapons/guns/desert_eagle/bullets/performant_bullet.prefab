@@ -48,6 +48,7 @@ MonoBehaviour:
   width: 0.5
   fade_speed: 1
   texture_length: 2
+  decorative_update_frequency: 0.1
   on_disappeared:
     m_PersistentCalls:
       m_Calls:
@@ -64,7 +65,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   mesh_object: {fileID: 3053044783035480703}
-  decorative_update_frequency: 0.1
 --- !u!1 &3053044783035480703
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +124,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3fc358367772b96479335ba0a9bf32ff, type: 2}
+  - {fileID: 2100000, guid: a1cd00f777833bd469ab7445b169dc0e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -156,19 +156,19 @@ GameObject:
   m_Component:
   - component: {fileID: 6994008367860111093}
   - component: {fileID: 5487310770376727640}
-  - component: {fileID: 8417441564240366511}
+  - component: {fileID: 1182098242623487884}
   - component: {fileID: 6300923280871857658}
   - component: {fileID: -4648269287722537753}
   - component: {fileID: -4190364812540855019}
   - component: {fileID: -8632416045823008265}
   - component: {fileID: 3106826860434624612}
   m_Layer: 8
-  m_Name: burst_fire_bullet
+  m_Name: performant_bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6994008367860111093
 Transform:
   m_ObjectHideFlags: 0
@@ -206,8 +206,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!70 &8417441564240366511
-CapsuleCollider2D:
+--- !u!58 &1182098242623487884
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -219,9 +219,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0020267447, y: -0.0010505429}
-  m_Size: {x: 0.051442057, y: 0.04201081}
-  m_Direction: 1
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.03
 --- !u!114 &6300923280871857658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
   trajectory_flyer: {fileID: -8632416045823008265}
   damage_dealer: {fileID: -4648269287722537753}
   rigid_body: {fileID: 5487310770376727640}
-  collider: {fileID: 8417441564240366511}
+  collider: {fileID: 0}
 --- !u!114 &-4648269287722537753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfda79fa5ea447c79379deaa715b15f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effect_amount: 0.2
 --- !u!114 &-4190364812540855019
 MonoBehaviour:
   m_ObjectHideFlags: 0
