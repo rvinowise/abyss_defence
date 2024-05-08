@@ -8,6 +8,13 @@ public static partial class Unity_extension
 {
     public static Texture2D move_to_texture(this RenderTexture render_texture)
     {
+        Texture2D final_texture = copy_to_texture(render_texture);
+        render_texture.Release();
+        return final_texture;
+    }
+    
+    public static Texture2D copy_to_texture(this RenderTexture render_texture)
+    {
         RenderTexture.active = render_texture;
         Texture2D final_texture = new Texture2D(
             render_texture.width, render_texture.height/* , TextureFormat.ARGB32, false */
@@ -17,7 +24,6 @@ public static partial class Unity_extension
         );
         RenderTexture.active = null;
         final_texture.Apply();
-        render_texture.Release();
         return final_texture;
     }
 
@@ -47,7 +53,7 @@ public static partial class Unity_extension
 
     public static void save_to_file(this Texture2D in_texture, string filename) {
         string file_path = string.Format(
-            "./saved_textures/{0}_0.png", filename
+            "./saved_textures/0_{0}.png", filename
         );
         file_path = getNextFileName(file_path);
         System.IO.FileInfo file = new System.IO.FileInfo(file_path);
@@ -63,24 +69,28 @@ public static partial class Unity_extension
     }
 
     public static void save_to_file(this RenderTexture in_render_texture, string filename) {
-        Texture2D texture = in_render_texture.move_to_texture();
+        Texture2D texture = in_render_texture.copy_to_texture();
         texture.save_to_file(filename);
     }
 
     private static string getNextFileName(string fileName)
     {
-        string extension = System.IO.Path.GetExtension(fileName);
+        //string extension = System.IO.Path.GetExtension(fileName);
 
         int i = 0;
         while (System.IO.File.Exists(fileName))
         {
-            /* if (i == 0)
-                fileName = fileName.Replace(extension, "_" + ++i + extension);
-            else */
-                fileName = fileName.Replace("_" + i + extension, "_" + ++i + extension);
+            fileName = fileName.Replace("/" + i + "_", "/" + ++i + "_");
         }
 
         return fileName;
+    }
+
+    public static void clear(this RenderTexture texture) {
+        RenderTexture rt = UnityEngine.RenderTexture.active;
+        UnityEngine.RenderTexture.active = texture;
+        GL.Clear(true, true, Color.clear);
+        UnityEngine.RenderTexture.active = rt;
     }
 }
 

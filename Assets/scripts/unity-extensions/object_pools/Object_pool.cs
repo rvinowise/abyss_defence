@@ -6,7 +6,7 @@ namespace rvinowise.unity.extensions.pooling {
 
 using TObject = GameObject;
 public class Object_pool {
-    [SerializeField] private GameObject prefab;
+    public GameObject prefab;
 
     private Queue<TObject> objects = new Queue<TObject>();
 
@@ -20,13 +20,21 @@ public class Object_pool {
             return add_object();
         }
         GameObject retrieved_object = objects.Dequeue();
-        
-        var pooled_prefab = prefab.GetComponent<Pooled_object>();
-        pooled_prefab.copy_enabledness_of_all_behaviours(retrieved_object);
-        pooled_prefab.init_reset_components(retrieved_object);
-        
+        copy_parameters_of_prefab_into_object(prefab, retrieved_object);
         return retrieved_object;
     }
+
+    private void copy_parameters_of_prefab_into_object(
+        GameObject src_prefab,
+        GameObject dst_object
+    ) {
+        var pooled_prefab = src_prefab.GetComponent<Pooled_object>();
+
+        pooled_prefab.copy_enabledness_of_all_behaviours(dst_object);
+        pooled_prefab.init_reset_components(dst_object);
+        dst_object.layer = pooled_prefab.gameObject.layer;
+    }
+    
 
     public void return_to_pool(TObject in_object) {
         

@@ -29,10 +29,11 @@
 				half4 color_top = (
 					tex2D(_Top, IN.texcoord)
 				);
-				if (color_top.a > 0.1) {
-					return color_top;
-				}
-				return color_bottom * (1-color_top.a) + color_top;
+				//color_top.a=1; //test
+				// if (color_top.a > 0.1) {
+				// 	return color_top;
+				// }
+				return color_bottom * (1-color_top.a) + color_top*color_top.a;
 			} 
 			
            

@@ -67,3 +67,6 @@ TagManager:
   - name: flying junk
     uniqueID: 334106981
     locked: 0
+  - name: litter
+    uniqueID: 293723353
+    locked: 0

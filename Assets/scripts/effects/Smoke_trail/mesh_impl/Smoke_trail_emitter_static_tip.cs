@@ -67,9 +67,6 @@ MonoBehaviour
         main_uvs.Clear();
         segments.Clear();
 
-        if (transform.position.magnitude > 10f) {
-            Debug.LogError("trail bug!");
-        }
         init_first_segment(transform.position,transform.rotation.to_vector());
         
         last_decorative_update = Time.time;
@@ -88,7 +85,7 @@ MonoBehaviour
         Vector2 start_position,
         Vector2 in_direction
     ) {
-        Debug.Log($"TRAIL: [{name}]init_first_points start_position={start_position} direction={in_direction.to_dergees()}");
+        //Debug.Log($"TRAIL: [{name}]init_first_points start_position={start_position} direction={in_direction.to_dergees()}");
         add_segment(
             start_position,
             in_direction
@@ -100,7 +97,7 @@ MonoBehaviour
         Vector2 new_direction
     )
     {
-        Debug.Log($"TRAIL: [{name}]add_bending_at({position}, {new_direction})");
+        //Debug.Log($"TRAIL: [{name}]add_bending_at({position}, {new_direction})");
         Contract.Requires(new_direction.is_normalized(), "direction should be a normalized vector");
         build_trail_necessarily_reaching_point(position);
         segments.Last().is_abruption = true;
@@ -122,7 +119,7 @@ MonoBehaviour
     }
 
     public void visit_final_point(Vector2 position) {
-        Debug.Log($"TRAIL: [{name}]visit_final_point({position})");
+        //Debug.Log($"TRAIL: [{name}]visit_final_point({position})");
         bool trail_grew = build_trail_necessarily_reaching_point(position);
         if (trail_grew) {
             add_new_segments_to_mesh();
@@ -149,10 +146,10 @@ MonoBehaviour
         if (
             last_segment.close_enough_to(to_point)
         ) {
-            Debug.Log($"TRAIL: [{name}]build_trail_necessarily_reaching_point last_segment[{last_segment.position}] is close enough to point[{to_point}]");
+            //Debug.Log($"TRAIL: [{name}]build_trail_necessarily_reaching_point last_segment[{last_segment.position}] is close enough to point[{to_point}]");
             return false;
         }
-        Debug.Log($"TRAIL: [{name}]build_trail_necessarily_reaching_point({to_point})");
+        //Debug.Log($"TRAIL: [{name}]build_trail_necessarily_reaching_point({to_point})");
 
         int segments_needed = new_segments_needed(
             to_point,
@@ -183,7 +180,7 @@ MonoBehaviour
         if (segments_needed == 0) {
             return false;
         }
-        Debug.Log($"TRAIL: [{name}]built_trail_compensating_flight_of_emitter segments_needed={segments_needed}");
+        //Debug.Log($"TRAIL: [{name}]built_trail_compensating_flight_of_emitter segments_needed={segments_needed}");
         
         add_segments_in_direction(
             segments_needed,
@@ -227,7 +224,7 @@ MonoBehaviour
             direction
         );
         
-        Debug.Log($"TRAIL: add_last_segment_sticking_to_emitter end_point={end_point}" );
+        //Debug.Log($"TRAIL: add_last_segment_sticking_to_emitter end_point={end_point}" );
     }
 
 
@@ -256,15 +253,15 @@ MonoBehaviour
         );
         direction_to_goal = difference.normalized;
 
-        if (segments_needed > 0) {
-            Debug.Log(
-                $"TRAIL: difference.magnitude={difference.magnitude} " +
-                $"distance_between_segments={distance_between_segments} " +
-                $"segments_needed={segments_needed} "+
-                $"goal_point={goal_point} "+
-                $"last_segment={last_segment.position}"
-            );
-        }
+        // if (segments_needed > 0) {
+        //     Debug.Log(
+        //         $"TRAIL: difference.magnitude={difference.magnitude} " +
+        //         $"distance_between_segments={distance_between_segments} " +
+        //         $"segments_needed={segments_needed} "+
+        //         $"goal_point={goal_point} "+
+        //         $"last_segment={last_segment.position}"
+        //     );
+        // }
         
         return segments_needed;
     }

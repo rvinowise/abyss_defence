@@ -20,6 +20,7 @@ public class Gun_shell : MonoBehaviour {
         pooled_object = GetComponent<Pooled_object>();
 
         sprite_resolver = GetComponent<UnityEngine.Experimental.U2D.Animation.SpriteResolver>();
+        
     }
 
     void OnEnable() {
@@ -31,6 +32,7 @@ public class Gun_shell : MonoBehaviour {
         sprite_resolver.ResolveSpriteToSpriteRenderer();
         //(int)Math.Round((double)Random.Range(0,1))
         residue_leaver.leave_persistent_residue();
+        
     } 
   
 

@@ -46,13 +46,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance_between_segments: 2
   width: 1
-  fade_speed: 0.1
+  fade_speed: 1
   texture_length: 2
+  decorative_update_frequency: 0.1
   on_disappeared:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: rvinowise.unity.Bouncing_projectile, Assembly-CSharp
+      - m_Target: {fileID: 6300923280871857658}
+        m_TargetAssemblyTypeName: rvinowise.unity.Projectile, Assembly-CSharp
         m_MethodName: on_trail_disappeared
         m_Mode: 1
         m_Arguments:
@@ -64,7 +65,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   mesh_object: {fileID: 3053044783035480703}
-  decorative_update_frequency: 0.1
 --- !u!1 &3053044783035480703
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 8417441564240366511}
   - component: {fileID: 6300923280871857658}
   - component: {fileID: -4648269287722537753}
-  - component: {fileID: -4190364812540855019}
+  - component: {fileID: -5877605998203739688}
   - component: {fileID: -8632416045823008265}
   - component: {fileID: 3106826860434624612}
   m_Layer: 8
@@ -168,7 +168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6994008367860111093
 Transform:
   m_ObjectHideFlags: 0
@@ -251,7 +251,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfda79fa5ea447c79379deaa715b15f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4190364812540855019
+  effect_amount: 1
+--- !u!114 &-5877605998203739688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,10 +261,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3520765260758454939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ff0136e303b33843b761bfbda5b39ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ec115ea10e24906b8785120a4465f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_images: 1500
   left_sprite: {fileID: 0}
   sprite_renderer: {fileID: 2524941769257766465}
   sprite_resolver: {fileID: 0}
@@ -310,7 +310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0239f47f754fa48a4440fd3ad0417b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
   reset_components: []
   on_restored_from_pool:
     m_PersistentCalls:
@@ -352,6 +351,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: -5877605998203739688}
+        m_TargetAssemblyTypeName: rvinowise.unity.Leaving_persistent_residue_on_texture,
+          Assembly-CSharp
+        m_MethodName: on_restore_from_pool
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8848150420070349505
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +390,7 @@ Transform:
   m_GameObject: {fileID: 8848150420070349505}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6994008367860111093}
   m_RootOrder: 0

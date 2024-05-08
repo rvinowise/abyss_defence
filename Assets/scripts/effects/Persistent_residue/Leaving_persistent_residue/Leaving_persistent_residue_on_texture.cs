@@ -4,6 +4,7 @@ using rvinowise.unity.extensions;
 using UnityEngine.Experimental.U2D.Animation;
 using System.Linq;
 using rvinowise.rvi;
+using rvinowise.unity.extensions.pooling;
 using UnityEngine.Serialization;
 
 
@@ -25,6 +26,8 @@ MonoBehaviour
     private SpriteLibrary sprite_library;
 
     private int captured_layer;
+    private int initial_layer;
+    //private SpriteRenderer[] sprite_renderers;
     
     private void Awake() {
         if (sprite_renderer == null) {
@@ -36,6 +39,8 @@ MonoBehaviour
         sprite_resolver = GetComponent<SpriteResolver>();
         sprite_library = GetComponent<SpriteLibrary>();
         captured_layer = LayerMask.NameToLayer("litter");
+        initial_layer = LayerMask.NameToLayer("litter");
+        //sprite_renderers = GetComponentsInChildren<SpriteRenderer>();
     }
 
 
@@ -54,20 +59,37 @@ MonoBehaviour
         texture_holder = Persistent_residue_router.instance.render_texture_holder;
     }
 
+    public void on_restore_from_pool() {
+        //var initial_layer = GetComponent<Pooled_object>().prefab.
+        sprite_renderer.gameObject.layer =
+            GetComponent<Pooled_object>().
+                get_prefab().
+                GetComponent<Leaving_persistent_residue_on_texture>().
+                sprite_renderer.gameObject.layer;
+
+        // foreach (var sprite_renderer in sprite_renderers) {
+        //     sprite_renderer.gameObject.layer = initial_layer;
+        // }
+    }
     
     public void leave_persistent_residue() {
         freeze_for_leaving_persistent_image();
 
-        foreach(var persistent_child in persistent_children) {
-            persistent_child.leave_persistent_residue();
-        }
+        // foreach(var persistent_child in persistent_children) {
+        //     persistent_child.leave_persistent_residue();
+        // }
     }
 
-    public void freeze_for_leaving_persistent_image() {
+    private void freeze_for_leaving_persistent_image() {
         deactivate_all_behaviors();
-        gameObject.layer = captured_layer;
-        Debug.Break();
+        
         texture_holder.add_piece(this);
+    }
+
+    public void put_to_layer_for_photo() {
+        //foreach (var sprite_renderer in sprite_renderers) {
+        sprite_renderer.gameObject.layer = captured_layer;
+        //}
     }
 
     private void deactivate_all_behaviors() {

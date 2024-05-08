@@ -26,8 +26,7 @@ public class Pooled_object: MonoBehaviour {
         }
     }
 
-    [HideInInspector]
-    public GameObject prefab;
+    public GameObject get_prefab() => pool.prefab;
     public List<Component> reset_components = new List<Component>();
     public UnityEngine.Events.UnityEvent on_restored_from_pool;
 
@@ -35,7 +34,7 @@ public class Pooled_object: MonoBehaviour {
     private void ensure_pool_created() {
         if (pool == null) {
             count++;
-            this.gameObject.SetActive(false); // so that OnEnable is called as the instance constructor
+            //this.gameObject.SetActive(false); // so that OnEnable is called as the instance constructor
             pool = new Object_pool(this.gameObject);
             Debug.Log(String.Format("pooled_prefab: {0}, total: {1}", gameObject.name, count));
         }

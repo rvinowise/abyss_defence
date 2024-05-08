@@ -4,6 +4,7 @@ using rvinowise.unity.extensions;
 using rvinowise.contracts;
 using rvinowise.unity.extensions.attributes;
 using rvinowise.unity.geometry2d;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 
@@ -21,7 +22,8 @@ public class Gun: MonoBehaviour
     public float stock_length = 0.45f;
     public Transform shell_ejector;
     public Slot magazine_slot;
-    public int animation_fire = Animator.StringToHash("slide");
+    //public int animation_fire = Animator.StringToHash("slide");
+    public int shooting_animation = Animator.StringToHash("shoot");
     
     public float fire_rate_delay;
     public Projectile projectile_prefab;
@@ -132,7 +134,7 @@ public class Gun: MonoBehaviour
         }
         new_projectile.damage_dealer?.set_attacker(tool.main_holding.holding_hand.arm.pair.user.transform);
         
-        animator.SetTrigger(animation_fire);
+        animator.SetTrigger(shooting_animation);
         propell_projectile(new_projectile);
     }
     

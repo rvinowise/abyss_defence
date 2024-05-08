@@ -104,7 +104,7 @@ public class Projectile : MonoBehaviour {
     }
 
     private void end_active_life() {
-        GetComponent<Leaving_persistent_sprite_residue>().leave_persistent_residue();
+        GetComponent<ILeaving_persistent_residue>().leave_persistent_residue();
     }
 
     private void debug_draw_collision(Collision2D other) {

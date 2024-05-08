@@ -1,4 +1,5 @@
 using System;
+using rvinowise.unity.extensions.pooling;
 using UnityEngine;
 
 
@@ -15,11 +16,22 @@ public class Trajectory_flyer: MonoBehaviour {
 
 
     public UnityEngine.Events.UnityEvent on_fell_on_the_ground;
+
+    private Pooled_object pooled_object;
     
     public bool is_on_the_ground() {
         return height <= 0f;
     }
 
+    private void Awake() {
+        pooled_object = GetComponent<Pooled_object>();
+    }
+
+    public void on_restore_from_pool() {
+        if (pooled_object != null) {
+        }
+    }
+    
     private void Update() {
 
         height += vertical_velocity * Time.deltaTime;
@@ -38,6 +50,7 @@ public class Trajectory_flyer: MonoBehaviour {
             transform.position = new Vector3(transform.position.x, transform.position.y, -height);
         }
     }
+    
 
     public float get_vertical_impulse_for_landing_at_distance(
         float landing_distance,
