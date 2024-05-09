@@ -31,14 +31,16 @@ public class Simple_player_human: Player_human {
         return desired_current_equipped_set;
     }
 
-    
-    
+
+    private bool was_attacking = false;
     
     protected override void use_tools() {
         bool wants_to_attack = UnityEngine.Input.GetMouseButton(0);
 
         if (wants_to_attack) {
-            attack();
+            start_attack();
+        } else if (was_attacking) {
+            stop_attacking();
         }
 
         bool wants_to_reload = Player_input.instance.button_presed("reload");
@@ -46,9 +48,11 @@ public class Simple_player_human: Player_human {
             Reload_all.create(user, this).start_as_root(action_runner);
         }
 
+        was_attacking = wants_to_attack;
+
     }
     
-    protected virtual void attack() {
+    private void start_attack() {
         if (get_selected_target() is {} target) {
             Debug.Log("AIMING: Simple_player_human.attack");
             arm_pair.attack(target);
@@ -57,6 +61,10 @@ public class Simple_player_human: Player_human {
             arm_pair.attack();
         }
         
+    }
+
+    private void stop_attacking() {
+        arm_pair.stop_attacking();
     }
     
     

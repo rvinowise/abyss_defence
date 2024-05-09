@@ -10,7 +10,7 @@ MonoBehaviour
     void OnMouseOver()
     {
         if (transform != Player_input.instance.player.transform) {
-            Player_input.instance.player.aim_at(transform);
+            //Player_input.instance.player.aim_at(transform);
         }
     }
 }

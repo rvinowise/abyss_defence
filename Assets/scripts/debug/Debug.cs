@@ -1,5 +1,3 @@
-#define OPTIMIZED
-
 using UnityEngine;
 
 namespace rvinowise.unity.debug {

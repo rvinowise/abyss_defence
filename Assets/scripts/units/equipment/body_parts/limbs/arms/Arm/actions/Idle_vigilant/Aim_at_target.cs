@@ -16,7 +16,7 @@ public class Aim_at_target: Action_of_arm {
         Transform in_target,
         Transform in_body
     ) {
-        Contract.Assume(in_arm.held_tool is Gun, "aiming arm should hold a gun");
+        Contract.Assume(in_arm.get_held_gun() != null, "aiming arm should hold a gun");
 
         var action = 
             (Aim_at_target)object_pool.get(typeof(Aim_at_target));

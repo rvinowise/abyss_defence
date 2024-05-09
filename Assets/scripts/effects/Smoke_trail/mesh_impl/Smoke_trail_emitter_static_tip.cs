@@ -203,7 +203,6 @@ MonoBehaviour
                                      distance_between_segments;
 
         for (int i=0; i<segments_n; i++) {
-            Debug.Log($"TRAIL: add_segment_in_direction, position={next_position()}" );
             add_segment(
                 next_position(),
                 direction_vector

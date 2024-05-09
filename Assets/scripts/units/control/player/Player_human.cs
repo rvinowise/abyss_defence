@@ -37,19 +37,6 @@ public abstract class Player_human : Human_intelligence {
 
     protected abstract void use_tools();
 
-    private Arm get_arm_targeting_selected_target() {
-        Distance_to_component closest = Distance_to_component.empty();
-        foreach(Arm arm in arm_pair.get_all_armed_autoaimed_arms()) {
-            if (arm_pair.get_target_of(arm) is Transform target) {
-                float this_distance = target.sqr_distance_to(Player_input.instance.cursor.transform.position);
-                if (this_distance < closest.distance) {
-                    closest = new Distance_to_component(arm, this_distance);
-                }
-            }
-        }
-        return closest.component as Arm;
-    }
-
     protected Transform get_selected_target() {
         Distance_to_component closest = Distance_to_component.empty();
         foreach(Transform target in arm_pair.get_all_targets()) {
@@ -140,30 +127,6 @@ public abstract class Player_human : Human_intelligence {
         return degrees_to_quaternion(body_rotation);
     }
 
-
-    public override void on_enemy_appeared(Intelligence in_enemy) {
-        if (arm_pair.get_iddling_armed_autoaimed_arms().Any()) {
-            arm_pair.aim_at(in_enemy.transform);
-        }
-    }
-    public override void on_enemy_disappeared(Intelligence in_enemy) {
-        Contract.Requires(in_enemy.GetComponent<Intelligence>() != null);
-        arm_pair.handle_target_disappearence(in_enemy);
-    }
-    
-    
-
-
-
-    public void aim_at(Transform in_target) {
-        arm_pair.aim_at(in_target);
-    }
-    
-    
-
-
-    
-    
 
     
 }

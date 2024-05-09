@@ -50,7 +50,15 @@ public class Arm_pair:
         {
             gun.pull_trigger();
             on_ammo_changed(arm, gun.get_loaded_ammo());
-            gun.release_trigger();
+            //gun.release_trigger();
+        }
+    }
+
+    public void stop_attacking() {
+        foreach (var arm in arms) {
+            if (arm.get_held_gun() is { } gun) {
+                gun.release_trigger();
+            }
         }
     }
      
@@ -173,20 +181,6 @@ public class Arm_pair:
         if (is_arm_autoaimed(left_arm))
         {
             arms.Add(left_arm);
-        }
-        return arms;
-    }
-    
-    public List<Tuple<Arm,Transform>> get_autoaimed_arms_with_targets() {
-        List<Tuple<Arm,Transform>> arms = new List<Tuple<Arm, Transform>>();
-
-        if (is_arm_autoaimed(right_arm))
-        {
-            arms.Add(new Tuple<Arm, Transform>(right_arm,right_arm.get_target()));
-        }
-        if (is_arm_autoaimed(left_arm))
-        {
-            arms.Add(new Tuple<Arm, Transform>(left_arm,left_arm.get_target()));
         }
         return arms;
     }
