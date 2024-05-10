@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance_between_segments: 2
   width: 0.5
-  fade_speed: 1
+  fade_speed: 5
   texture_length: 2
   decorative_update_frequency: 0.1
   on_disappeared:

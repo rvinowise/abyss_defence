@@ -76,7 +76,7 @@ public class Bleeding_body: MonoBehaviour {
     
     private void assign_fading_speed_to_particle(Trajectory_flyer particle) {
         var fading_piece = particle.GetComponent<Fading_piece>();
-        fading_piece.final_alpha = 0.4f + Random.value*0.6f;
+        fading_piece.final_alpha = 0.8f + Random.value*0.2f;
         fading_piece.alpha_change = 0.1f + Random.value;
     }
 

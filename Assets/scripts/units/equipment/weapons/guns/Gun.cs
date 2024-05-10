@@ -134,7 +134,7 @@ public class Gun: MonoBehaviour
         }
         new_projectile.damage_dealer?.set_attacker(tool.main_holding.holding_hand.arm.pair.user.transform);
         
-        animator.SetTrigger(shooting_animation);
+        animator.SetTrigger("shoot");
         propell_projectile(new_projectile);
     }
     
@@ -169,7 +169,7 @@ public class Gun: MonoBehaviour
             shell_ejector.position,
             transform.rotation
         );
-        new_shell.enabled = true;
+        //new_shell.enabled = true;
             
         const float ejection_force = 5f;
         Vector2 ejection_vector = Directions.degrees_to_quaternion(-15+Random.value*30) *

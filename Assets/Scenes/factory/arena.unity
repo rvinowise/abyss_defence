@@ -1977,7 +1977,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 21300000, guid: 1cf99f38ddc5d5445a685ba3f503878b, type: 3}
   m_Color: {r: 0.32306868, g: 0.3597799, b: 0.4245283, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 1.1016667, y: 0.82666665}
   m_AdaptiveModeThreshold: 0.5
@@ -2239,7 +2239,7 @@ Camera:
   far clip plane: 10
   field of view: 11.168934
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -10739,7 +10739,7 @@ MonoBehaviour:
   shell_ejector: {fileID: 1344494745}
   magazine_slot: {fileID: 0}
   shooting_animation: 1928326754
-  fire_rate_delay: 0.1
+  fire_rate_delay: 0.12
   projectile_prefab: {fileID: 6300923280871857658, guid: 20d649fc7c3aa6843bcff167f8248294,
     type: 3}
   bullet_shell_prefab: {fileID: 3724668389505664677, guid: a0651299a17882944898fedc396ac4b9,
@@ -11124,13 +11124,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1138528254}
-  m_LocalRotation: {x: -0, y: -0, z: -0.0000001490116, w: 1}
-  m_LocalPosition: {x: 0.08, y: 0.045, z: -0.97}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: -0.042, z: -0.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1573230966}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &1214258642
 GameObject:
   m_ObjectHideFlags: 0
@@ -11159,7 +11159,7 @@ Transform:
   m_GameObject: {fileID: 1214258642}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 11569760}
   m_RootOrder: 2
@@ -11378,13 +11378,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1344494744}
-  m_LocalRotation: {x: -0, y: -0, z: -0.0000001490116, w: 1}
-  m_LocalPosition: {x: 0.08, y: 0.045, z: -0.97}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.006, y: -0.024, z: -0.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1010484938}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &1349212578
 GameObject:
   m_ObjectHideFlags: 0
@@ -12932,7 +12932,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1573230965}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -12963,7 +12963,7 @@ MonoBehaviour:
   shell_ejector: {fileID: 1138528255}
   magazine_slot: {fileID: 0}
   shooting_animation: 1928326754
-  fire_rate_delay: 0.1
+  fire_rate_delay: 0.12
   projectile_prefab: {fileID: 6300923280871857658, guid: 20d649fc7c3aa6843bcff167f8248294,
     type: 3}
   bullet_shell_prefab: {fileID: 3724668389505664677, guid: a0651299a17882944898fedc396ac4b9,
@@ -17637,7 +17637,7 @@ PrefabInstance:
         type: 3}
       propertyPath: on_fell_on_the_ground.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1930699805}
+      objectReference: {fileID: 0}
     - target: {fileID: 7612435402987248051, guid: 99719d73a86b68941bbc7a3179eb0bd6,
         type: 3}
       propertyPath: on_fell_on_the_ground.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -17650,18 +17650,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99719d73a86b68941bbc7a3179eb0bd6, type: 3}
---- !u!114 &1930699805 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7226591859492953414, guid: 99719d73a86b68941bbc7a3179eb0bd6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1930699804}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ff0136e303b33843b761bfbda5b39ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1939983050
 GameObject:
   m_ObjectHideFlags: 0
@@ -20780,7 +20768,7 @@ SpriteRenderer:
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 0.53333336, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
@@ -22366,7 +22354,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 89888252640120718, guid: 0d515dc3e06c74d4bbf963b1de1392f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 0.28214285, y: 0.13214286}
   m_AdaptiveModeThreshold: 0.5
@@ -23033,7 +23021,7 @@ Transform:
   m_GameObject: {fileID: 5948624105719568537}
   m_LocalRotation: {x: -0, y: -0, z: -0.023821497, w: 0.9997162}
   m_LocalPosition: {x: 0.23872046, y: 0, z: 0.01}
-  m_LocalScale: {x: 1, y: -1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5508467276812548949}
   - {fileID: 2824672417210707263}

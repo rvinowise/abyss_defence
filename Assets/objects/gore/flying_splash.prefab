@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: -8591562747733743540}
   - component: {fileID: 7612435402987248051}
   - component: {fileID: -680757417918752305}
-  - component: {fileID: 7226591859492953414}
   - component: {fileID: -8141477991248581180}
   m_Layer: 0
   m_Name: flying_splash
@@ -121,7 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0239f47f754fa48a4440fd3ad0417b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
   reset_components: []
   on_restored_from_pool:
     m_PersistentCalls:
@@ -182,22 +180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   left_sprite: {fileID: 0}
-  sprite_renderer: {fileID: 0}
-  sprite_resolver: {fileID: 0}
---- !u!114 &7226591859492953414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1768768293507912908}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ff0136e303b33843b761bfbda5b39ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  max_images: 10000
-  left_sprite: {fileID: 21300000, guid: 1c9776474951eaf46889f56cfc5e1376, type: 3}
   sprite_renderer: {fileID: 0}
   sprite_resolver: {fileID: 0}
 --- !u!114 &-8141477991248581180

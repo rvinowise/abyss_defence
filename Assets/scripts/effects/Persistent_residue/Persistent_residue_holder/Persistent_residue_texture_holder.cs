@@ -23,7 +23,7 @@ IPersistent_residue_holder
     private List<Leaving_persistent_residue_on_texture> batched_residues = new List<Leaving_persistent_residue_on_texture>();
 
 
-    private const int max_batch_amount = 50;
+    private const int max_batch_amount = 200;
     private int captured_layer;
 
     private void Awake() {
