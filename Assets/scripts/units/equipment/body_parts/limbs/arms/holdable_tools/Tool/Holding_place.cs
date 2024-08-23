@@ -10,8 +10,7 @@ namespace rvinowise.unity {
 public class Holding_place: MonoBehaviour
 {
     public bool is_main;
-    public string grip_gesture_from_editor = ""; 
-    
+    public Tool tool;
     public Hand_gesture grip_gesture = Hand_gesture.Relaxed;
     
     public Quaternion grip_direction_quaternion {
@@ -29,7 +28,7 @@ public class Holding_place: MonoBehaviour
         get { return transform.localRotation.to_degree(); }
     }
 
-    public Tool tool { get; private set; }
+    
     
     public Hand holding_hand { get; private set; }
 
@@ -82,16 +81,6 @@ public class Holding_place: MonoBehaviour
     }
     
 
-
-    protected void Awake() {
-        Tool parent_tool = transform.GetComponentInParent<Tool>(); //transform?.parent.GetComponent<Tool>();
-        Contract.Requires(parent_tool  != null, "a Holding_place must have a Tool in its parent, or be a Tool");
-
-        tool = parent_tool;
-        if (grip_gesture_from_editor != "") {
-            grip_gesture = Hand_gesture.Parse(grip_gesture_from_editor);
-        }
-    }
     
     public void set_parenting_for_holding(Hand in_hand) {
         holding_hand = in_hand;
@@ -102,23 +91,17 @@ public class Holding_place: MonoBehaviour
             else {
                 calculate_parenting_based_on_holding_place(in_hand);
             }
-            
-            
         }
     }
 
     private void calculate_parenting_based_on_holding_place(Hand in_hand) {
-        tool.transform.SetParent(in_hand.valuable_point.transform, false);
+        tool.transform.SetParent(in_hand.transform, false);
 
-        Vector2 inversed_position = -transform.localPosition;
-        Quaternion inversed_rotation = 
-            new Degree(-transform.localRotation.to_degree()).to_quaternion();
-            
-        tool.transform.localPosition =
-            inversed_position.rotate(inversed_rotation);
+        tool.transform.localPosition = transform.localPosition;
 
-        tool.transform.localRotation =
-            inversed_rotation;
+        tool.transform.localRotation = transform.localRotation;
+        
+
     }
 
     private void simply_attach_to_parent(Hand in_hand) {

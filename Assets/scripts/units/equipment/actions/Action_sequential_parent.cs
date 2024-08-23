@@ -51,7 +51,10 @@ public class Action_sequential_parent :
         foreach (var child in in_children) {
             child.attach_to_parent(this);
         }
-        current_child_action = in_children.First();
+        if (current_child_action == null) {
+            current_child_action = in_children.First();
+        }
+        
         for (int i_child = 1; i_child < in_children.Length; i_child++) {
             queued_child_actions.Enqueue(in_children[i_child]);
         }

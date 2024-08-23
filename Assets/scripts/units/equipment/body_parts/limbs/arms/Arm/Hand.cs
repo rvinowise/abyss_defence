@@ -15,13 +15,14 @@ public class Hand:Arm_segment
     public Holding_place held_part;
     public Arm arm;
     
-    public Hand_gesture gesture {
-        get { return _gesture;}
-        set {
-            _gesture = value;
-            animator.SetInteger("gesture", value.Value);
-            localTip = value.valuable_point;
-        } 
+    public Animator animator;
+    public Transform bottom_part;
+    public Transform top_part;
+    public Hand_gesture gesture;
+    
+    public void set_gesture(Hand_gesture in_gesture) {
+        gesture = in_gesture;
+        animator.SetInteger("gesture", (int)in_gesture);
     }
     
     public float held_object_local_z {
@@ -37,16 +38,7 @@ public class Hand:Arm_segment
         get { return held_part?.tool; }
     }
 
-    private Animator animator;
-    private Hand_gesture _gesture;
-    private Transform bottom_part;
-    private Transform top_part;
 
-
-    protected override void Awake() {
-        base.Awake();
-        init_parts();
-    }
 
     protected void Start() {
         //base.Start();
@@ -56,14 +48,6 @@ public class Hand:Arm_segment
             attach_holding_part(held_part);
         }
     }
-
-    private void init_parts() {
-        animator = GetComponent<Animator>();
-        bottom_part = transform.Find("bottom")?.transform;
-        top_part = transform.Find("top")?.transform;
-    }
-    
-    
 
 
     public void switch_held_tools(Holding_place new_held_part) {
@@ -90,7 +74,7 @@ public class Hand:Arm_segment
     }
 
     public void attach_holding_part(Holding_place held_part) {
-        gesture = held_part.grip_gesture;
+        set_gesture(held_part.grip_gesture);
         this.held_part = held_part;
         held_part.set_parenting_for_holding(this);
         held_part.tool.hold_by(this);

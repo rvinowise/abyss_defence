@@ -19,19 +19,32 @@ public class Take_tool_from_bag: Action_sequential_parent {
         action.arm = in_arm;
         action.bag = in_bag;
         action.tool = in_tool;
-        action.init_child_actions();
         
         return action;
     }
-    
+
+    protected override void on_start_execution() {
+        base.on_start_execution();
+        init_child_actions();
+    }
 
 
     private void init_child_actions() {
+        if (arm.held_tool is null) {
+            arm.hand.set_gesture(Hand_gesture.Open_sideview);
+            add_children(
+                Put_hand_before_bag.create(arm, bag),
+                Move_hand_into_bag.create(arm, bag)
+            );
+        }
+        else {
+            add_children(
+                Put_tool_into_bag.create(arm, bag)
+            );
+        }
         add_children(
-            Put_tool_into_bag.create(arm, bag),
             Pull_tool_out_of_bag.create(arm, bag, tool)
         );
-    
         
     }
 

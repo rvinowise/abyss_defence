@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6121768017280805874}
   - component: {fileID: 1201677594883345000}
-  - component: {fileID: -5211986024171691197}
   m_Layer: 0
   m_Name: desert_eagle
   m_TagString: Untagged
@@ -62,41 +61,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-5211986024171691197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1936059040042004714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6ace1bdcab64e5d947e168a7c3b909b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weight: 5
-  main_holding: {fileID: 8362259214313910014}
-  second_holding: {fileID: 0}
-  animator: {fileID: 1201677594883345000}
-  ammo_prefab: {fileID: 1034737149163476093, guid: 2c9e402c9f578e642b9950a5fd72f3d9,
-    type: 3}
-  ammo_compatibility: 0
-  ammo_qty: 9
-  max_ammo_qty: 9
-  ammo_value: 1
-  fire_rate_delay: 0.2
-  muzzle: {fileID: 8454711743962537359}
-  spark_prefab: {fileID: 7198755227066756123, guid: 8f766c7240d912a42b811144d99ae39e,
-    type: 3}
-  projectile_prefab: {fileID: 4991994977472840630, guid: 7fc502688ebc5874eae4f4ed36822dec,
-    type: 3}
-  bullet_shell_prefab: {fileID: 3724668389505664677, guid: a0651299a17882944898fedc396ac4b9,
-    type: 3}
-  aiming_automatically: 1
-  stock_length: 0
-  recoil_force: 250
-  shell_ejector: {fileID: 407324513766382050}
-  projectile_force: 1000
 --- !u!1 &2486645662213847114
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   is_main: 1
-  grip_gesture_from_editor: Grip_of_vertical
+  tool: {fileID: 0}
+  grip_gesture: 0
 --- !u!1 &4316797251384314046
 GameObject:
   m_ObjectHideFlags: 0

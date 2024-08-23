@@ -35,7 +35,7 @@ public class Simple_player_human: Player_human {
     private bool was_attacking = false;
     
     protected override void use_tools() {
-        bool wants_to_attack = UnityEngine.Input.GetMouseButton(0);
+        bool wants_to_attack = Player_input.instance.button_presed("attack");
 
         if (wants_to_attack) {
             start_attack();
@@ -44,10 +44,16 @@ public class Simple_player_human: Player_human {
         }
 
         bool wants_to_reload = Player_input.instance.button_presed("reload");
+        bool wants_to_power_tool = Player_input.instance.button_presed("power_tool");
+        
         if (wants_to_reload) {
             Reload_all.create(user, this).start_as_root(action_runner);
+        } else  if (wants_to_power_tool) {
+            if (baggage.retrieve_current_powertool() is {} powertool) {
+                //Attack_by_throwing_tool.create(user,powertool).start_as_root(action_runner);
+            }
         }
-
+        
         was_attacking = wants_to_attack;
 
     }

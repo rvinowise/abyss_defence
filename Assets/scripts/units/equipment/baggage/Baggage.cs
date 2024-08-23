@@ -3,11 +3,19 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using rvinowise.unity.extensions;
+using rvinowise.unity.extensions.pooling;
 using rvinowise.contracts;
 
 
 namespace rvinowise.unity {
 
+[Serializable]
+public class Power_tool_ammo {
+    public Tool tool;
+    public int amount;
+
+}
+    
 public class Baggage: 
 Turning_element
 {
@@ -18,6 +26,9 @@ Turning_element
     public Dictionary<Ammo_compatibility, int> tool_to_ammo = 
         new Dictionary<Ammo_compatibility, int>();
 
+    public List<Power_tool_ammo> power_tools = new List<Power_tool_ammo>();
+    public int current_powertool;
+    
     public int ensure_borders(int index) {
         if (Math.Abs(index) > tool_sets.Count) {
             index = tool_sets.Count % index;
@@ -73,7 +84,19 @@ Turning_element
         
         return ammo;
     }
-    
+
+
+    public Tool retrieve_current_powertool() {
+        var current_tool_ammo = power_tools[current_powertool];
+        if (current_tool_ammo.amount > 0) {
+            var powertool_prefab = current_tool_ammo.tool;
+            current_tool_ammo.amount -= 1;
+            var retrieved_powertool = powertool_prefab.instantiate<Tool>(this.transform.position, this.transform.rotation);
+            retrieved_powertool.deactivate();
+            return retrieved_powertool;
+        }
+        return null;
+    }
     
     
     public delegate void EventHandler();

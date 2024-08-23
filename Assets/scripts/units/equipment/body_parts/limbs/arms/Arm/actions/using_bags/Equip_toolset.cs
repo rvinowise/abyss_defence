@@ -35,7 +35,7 @@ public class Equip_toolset: Action_parallel_parent {
 
     protected override void on_start_execution() {
         base.on_start_execution();
-        stop_changing_tools();
+        Changing_tools.stop_changing_tools(left_arm,right_arm);
         start_equipping_tool_set(toolset);
     }
     
@@ -109,14 +109,7 @@ public class Equip_toolset: Action_parallel_parent {
     }
     
 
-    private void stop_changing_tools() {
-        if (left_arm.current_action?.get_root_action().marker.StartsWith("changing tool") ?? false) {
-            left_arm.current_action.discard_whole_tree();
-        }
-        if (right_arm.current_action?.get_root_action().marker.StartsWith("changing tool") ?? false) {
-            right_arm.current_action.discard_whole_tree();
-        }
-    } 
+    
     
     private int arms_changing_tools_qty(Toolset tool_set) {
         int qty = 0;

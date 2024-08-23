@@ -576,7 +576,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: RVI_CONTRACTS;OPTIMIZED
+    1: RVI_CONTRACTS;OPTIMIZED1
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

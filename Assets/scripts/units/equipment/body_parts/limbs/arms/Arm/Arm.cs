@@ -25,7 +25,12 @@ public class Arm:
     public Tool held_tool => hand.held_tool;
 
     public Gun get_held_gun() {
-        if (held_tool.GetComponent<Gun>() is {} gun) {
+        if (
+            !(held_tool is null)
+            &&
+            (held_tool.GetComponent<Gun>() is {} gun)
+        )
+        {
             return gun;
         }
         return null;
