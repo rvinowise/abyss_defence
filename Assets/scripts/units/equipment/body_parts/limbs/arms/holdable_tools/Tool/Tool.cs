@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using rvinowise.unity.extensions;
 
@@ -35,7 +36,7 @@ public class Tool: MonoBehaviour {
                 second_holding = holding_place;
             }
         }
-        Contract.Assert(main_holding != null);
+//        Contract.Assert(main_holding != null);
     }
     
     public void hold_by(Hand in_hand) {
@@ -58,6 +59,25 @@ public class Tool: MonoBehaviour {
         last_physics.position = transform.position;
     }
 
+    
+    public bool is_aimed_at_point(Vector3 in_point) {
+        var vector_to_target =
+            (in_point - transform.position);
+        
+        var direction_to_tarrget =
+            vector_to_target.to_dergees();
+
+        var distance_to_target = vector_to_target.magnitude;
+
+        var precision_angle = 10f;
+        
+        return 
+            Math.Abs(
+                transform.rotation.to_degree().angle_to(direction_to_tarrget)
+            ) 
+            < 
+            precision_angle/distance_to_target;
+    }
     
 }
 

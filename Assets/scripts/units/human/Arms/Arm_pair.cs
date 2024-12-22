@@ -9,7 +9,7 @@ using rvinowise.unity.actions;
 using rvinowise.unity.extensions.attributes;
 using System;
 using System.Linq;
-using MoreLinq.Extensions;
+//using static MoreLinq.Extensions.ToHashSetExtension;
 using rvinowise.unity.extensions;
 using Action = rvinowise.unity.actions.Action;
 using Transform = UnityEngine.Transform;
@@ -24,13 +24,13 @@ public class Arm_pair:
 
     #region IWeaponry interface
 
-    public bool can_reach(Transform in_target) {
+    public bool is_weapon_targeting_target(Transform in_target) {
         return 
-            left_tool.GetComponent<Gun>() is {} left_gun &&
-            left_gun.is_aimed_at_target(in_target)
+            left_tool.GetComponent<Gun>() is {} left_gun && left_gun != null &&
+            left_gun.is_aimed_at_collider(in_target)
             ||
-            right_tool.GetComponent<Gun>() is {} right_gun &&
-            right_gun.is_aimed_at_target(in_target)
+            right_tool.GetComponent<Gun>() is {} right_gun && right_gun != null &&
+            right_gun.is_aimed_at_collider(in_target)
             ;
     }
 
@@ -40,12 +40,10 @@ public class Arm_pair:
     public void attack(Transform in_target, System.Action on_completed = null) {
         Debug.Log($"AIMING: Arm_pair.attack({in_target.name})");
         var arm = get_arm_targeting(in_target);
-        
+
+        Gun gun = null;
         if (
-            arm!=null &&
-            arm.get_held_gun() is {} gun &&
-            gun.can_fire() &&
-            gun.is_aimed_at_target(in_target)
+            Arm.is_ready_to_attack_target(arm,in_target, ref gun)
         ) 
         {
             gun.pull_trigger();
@@ -64,6 +62,8 @@ public class Arm_pair:
      
     #endregion
 
+    
+    
 
     #region Arm_controller itself
     
@@ -120,7 +120,7 @@ public class Arm_pair:
 
     private void aim_at_hinted_targets() {
         var hinted_targets =
-            get_enemies_closest_to(Player_input.instance.cursor.transform.position);
+            team.get_enemies_closest_to(Player_input.instance.cursor.transform.position);
 
         var aiming_arms = get_arms_searching_for_targets();
         
@@ -128,10 +128,10 @@ public class Arm_pair:
             hinted_targets.Take(aiming_arms.Count).Select(tuple => tuple.Item1).ToList();
         
         var current_targets =
-            get_all_targets().ToHashSet();
+            new HashSet<Transform>(get_all_targets());
 
         var needed_not_targeted_enemies =
-            needed_targets.Except(current_targets).ToHashSet();
+            new HashSet<Transform>(needed_targets.Except(current_targets));
 
         var arms_changing_targets =
             aiming_arms
@@ -161,15 +161,6 @@ public class Arm_pair:
     }
 
 
-    private List<Tuple<Transform,float>> get_enemies_closest_to(Vector2 in_position) {
-        List<Tuple<Transform, float>> enemies_and_distances = new List<Tuple<Transform, float>>();
-        foreach (var enemy in team.get_enemiy_transforms()) {
-            var distance = enemy.transform.sqr_distance_to(in_position);
-            enemies_and_distances.Add(new Tuple<Transform, float>(enemy,distance));
-        }
-        enemies_and_distances.Sort((tuple1,tuple2) => tuple1.Item2.CompareTo(tuple2.Item2) );
-        return enemies_and_distances;
-    }
 
     public List<Arm> get_all_armed_autoaimed_arms() {
         List<Arm> arms = new List<Arm>();
@@ -357,11 +348,11 @@ public class Arm_pair:
         }
     }
     private List<Transform> get_not_targeted_enemies() {
-        return team.get_enemiy_transforms().Except(get_all_targets()).ToList();
+        return team.get_enemy_transforms().Except(get_all_targets()).ToList();
     }
 
     public delegate void EventHandler(Arm arm);
-    public event EventHandler on_target_disappeared;
+    //public event EventHandler on_target_disappeared;
 
 
     private Arm get_free_arm_closest_to<Tool_component>(Transform in_target) {
@@ -423,7 +414,7 @@ public class Arm_pair:
         return get_all_targets().IndexOf(in_target) > -1;
     }
 
-     #endregion
+    #endregion
 
     public Transform get_target_of(Arm in_arm) {
         if (in_arm.current_action is Aim_at_target aiming) {
@@ -447,7 +438,7 @@ public class Arm_pair:
     }
 
     public delegate void Handler_of_changing(Arm arm, int ammo);
-    public event Handler_of_changing on_tools_changed;
+    //public event Handler_of_changing on_tools_changed;
     public event Handler_of_changing on_ammo_changed = delegate{};
 
 #if UNITY_EDITOR
@@ -567,28 +558,6 @@ public class Arm_pair:
         // }
     }
     
-    /* invoked from the animation (in keyframes).*/
-    [called_in_animation]
-    void apply_ammunition_to_gun(AnimationEvent in_event) {
-        Arm gun_arm = right_arm;
-        /* if (user.is_flipped()) {
-            gun_arm = left_arm;
-        } */
-        Arm ammo_arm = other_arm(gun_arm);
-        Contract.Requires(
-            gun_arm.held_tool is Gun,
-            "this arm must hold a gun to reload it"
-        );
-        Contract.Requires(
-            ammo_arm.held_tool is Ammunition,
-            "this arm must hold ammunition to reload"
-        );
-
-        Gun gun = gun_arm.get_held_gun();
-        Ammunition ammo = ammo_arm.get_held_ammunition();
-        gun.insert_ammunition(ammo);
-
-    }
 
     public void switch_tools() {
         Holding_place left_holding = left_arm.held_part;
@@ -607,7 +576,14 @@ public class Arm_pair:
         }
     }
 
-       
+    public void use_supertool() {
+        Debug.Log($"AIMING: Arm_pair.use_supertool()");
+        Fire_gun_till_empty.create();
+        if (left_arm.get_held_gun() is {} gun) {
+            gun.pull_trigger();
+            on_ammo_changed(left_arm, gun.get_loaded_ammo());
+        }
+    }   
     
 }
 }

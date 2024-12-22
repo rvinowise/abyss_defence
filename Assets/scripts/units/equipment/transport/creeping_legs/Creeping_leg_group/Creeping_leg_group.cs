@@ -227,9 +227,9 @@ public partial class Creeping_leg_group:
 
     #region IActor_attacker
 
-    public bool can_reach(Transform target) {
+    public bool is_weapon_targeting_target(Transform target) {
         foreach (var leg in legs) {
-            if (leg.can_reach(target)) {
+            if (leg.is_weapon_targeting_target(target)) {
                 return true;
             }
         }
@@ -245,7 +245,7 @@ public partial class Creeping_leg_group:
 
     public void attack(Transform target, System.Action on_completed = null) {
         foreach (var leg in legs) {
-            if (leg.can_reach(target)) {
+            if (leg.is_weapon_targeting_target(target)) {
                 leg.attack(target,on_completed);
                 break;
             }

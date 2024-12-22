@@ -97,9 +97,16 @@ public class Holding_place: MonoBehaviour
     private void calculate_parenting_based_on_holding_place(Hand in_hand) {
         tool.transform.SetParent(in_hand.transform, false);
 
-        tool.transform.localPosition = transform.localPosition;
+        tool.transform.localPosition =
+            in_hand.valuable_point.localPosition
+            +
+            transform.InverseTransformPoint(tool.transform.position);
 
-        tool.transform.localRotation = transform.localRotation;
+        tool.transform.localRotation = 
+            in_hand.valuable_point.localRotation
+            *
+            transform.InverseTransformDirection(tool.transform.rotation.to_vector()).to_quaternion();
+            
         
 
     }

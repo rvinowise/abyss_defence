@@ -238,7 +238,7 @@ MonoBehaviour:
   trajectory_flyer: {fileID: -8632416045823008265}
   damage_dealer: {fileID: -4648269287722537753}
   rigid_body: {fileID: 5487310770376727640}
-  collider: {fileID: 8417441564240366511}
+  collider2d: {fileID: 8417441564240366511}
 --- !u!114 &-4648269287722537753
 MonoBehaviour:
   m_ObjectHideFlags: 0

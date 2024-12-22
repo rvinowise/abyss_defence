@@ -15,13 +15,12 @@ MonoBehaviour
 ,ILeaving_persistent_residue
 ,IDestructible
 {
-    public Sprite left_sprite;// or left_sprite_sheet
+    //public Sprite left_sprite;// or left_sprite_sheet
     
     private List<Leaving_persistent_sprite_residue> persistent_children = new List<Leaving_persistent_sprite_residue>(); 
 
     public SpriteRenderer sprite_renderer;
     
-    public SpriteResolver sprite_resolver;
     private Persistent_residue_texture_holder texture_holder;
     private SpriteLibrary sprite_library;
 
@@ -33,10 +32,9 @@ MonoBehaviour
         if (sprite_renderer == null) {
             sprite_renderer = GetComponentInChildren<SpriteRenderer>();
         }
-        if (left_sprite == null) {
-            left_sprite = sprite_renderer.sprite;
-        }
-        sprite_resolver = GetComponent<SpriteResolver>();
+        // if (left_sprite == null) {
+        //     left_sprite = sprite_renderer.sprite;
+        // }
         sprite_library = GetComponent<SpriteLibrary>();
         captured_layer = LayerMask.NameToLayer("litter");
         initial_layer = LayerMask.NameToLayer("litter");

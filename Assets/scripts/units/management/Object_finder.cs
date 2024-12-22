@@ -39,7 +39,7 @@ public class Object_finder : MonoBehaviour
     ) {
         return get_closest_object(
             unit.transform.position,
-            get_enemies_of(unit) as IReadOnlyList<Component>
+            get_enemies_of(unit)
         );
     }
 

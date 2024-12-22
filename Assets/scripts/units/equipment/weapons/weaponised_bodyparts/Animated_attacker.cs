@@ -26,7 +26,7 @@ public class Animated_attacker :
     
     
     #region IWeaponry interface
-    public override bool can_reach(Transform target) {
+    public override bool is_weapon_targeting_target(Transform target) {
         var target_collider = target.GetComponent<Collider2D>();
         return reacheble_targets.Contains(target_collider);
     }

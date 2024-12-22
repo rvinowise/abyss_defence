@@ -51,7 +51,7 @@ public class Reload_all: Action_sequential_parent {
         first_side = get_side_with_less_ammo();
         Arm gun_arm = arm_pair.get_arm_on_side(first_side);
         Arm ammo_arm = arm_pair.other_arm(gun_arm);
-        reloaded_toolset = baggage.tool_sets[intelligence.toolset_equipper.current_equipped_set];
+        reloaded_toolset = baggage.tool_sets[intelligence.toolset_equipper.desired_toolset_index];
 
         Action first_reloading_action = get_reloading_action_for(first_side).add_marker("first reloading");
         

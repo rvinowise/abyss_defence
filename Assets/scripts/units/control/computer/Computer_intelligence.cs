@@ -27,7 +27,7 @@ public class Computer_intelligence:Intelligence {
     [NonSerialized]
     public Intelligence target;
 
-    private Intelligence_action intelligence_action;
+    public Intelligence_action intelligence_action;
     
     public override void Awake() {
         base.Awake();
@@ -103,13 +103,13 @@ public class Computer_intelligence:Intelligence {
     protected void FixedUpdate() {
         if (target != null) {
             if (intelligence_action == Intelligence_action.Walking) {
-                if (attacker.can_reach(target.transform)) 
+                if (attacker.is_weapon_targeting_target(target.transform)) 
                 {
                     Debug.unityLogger.Log("ATTACK_DEFENCE", $"Computer_intelligence::FixedUpdate: weaponry.attack({target.name})");
                     intelligence_action = Intelligence_action.Attacking;
                     attacker.attack(target.transform, on_attack_finished);
                 } else
-                if (target.attacker.can_reach(this.transform)) {
+                if (target.attacker.is_weapon_targeting_target(this.transform)) {
                     Debug.unityLogger.Log("ATTACK_DEFENCE", $"Computer_intelligence::FixedUpdate: target.weaponry.can_reach this, defending");
                     intelligence_action = Intelligence_action.Starting_defending;
                     defender.start_defence(target.transform, on_assumed_defensive_position);
@@ -123,7 +123,7 @@ public class Computer_intelligence:Intelligence {
                         intelligence_action == Intelligence_action.Starting_defending
                     )
                     &&
-                    (!target.attacker.can_reach(this.transform))
+                    (!target.attacker.is_weapon_targeting_target(this.transform))
                 ) 
                 {
                     Debug.unityLogger.Log("ATTACK_DEFENCE", $"Computer_intelligence::FixedUpdate: !target.weaponry.can_reach this, walking");
@@ -134,7 +134,7 @@ public class Computer_intelligence:Intelligence {
                 (
                     intelligence_action == Intelligence_action.Finishing_defending
                     &&
-                    (target.attacker.can_reach(this.transform))
+                    (target.attacker.is_weapon_targeting_target(this.transform))
                 ) 
                 {
                     Debug.unityLogger.Log("ATTACK_DEFENCE", $"Keep defending, don't end the defence");
@@ -165,10 +165,12 @@ public class Computer_intelligence:Intelligence {
                 if (enemy == null) {
                     Debug.LogError($"enemy of {name} from team {enemy_team.name} is null");
                 }
-                var this_distance = transform.sqr_distance_to(enemy.transform.position);
-                if (this_distance < closest_distance) {
-                    closest_distance = this_distance;
-                    closest_enemy = enemy;
+                if (!enemy.is_ignored) {
+                    var this_distance = transform.sqr_distance_to(enemy.transform.position);
+                    if (this_distance < closest_distance) {
+                        closest_distance = this_distance;
+                        closest_enemy = enemy;
+                    }
                 }
             }
         }
@@ -236,6 +238,11 @@ public class Computer_intelligence:Intelligence {
         if (GetComponent<Damage_receiver>() is { } damage_receiver) {
             myStyle.normal.textColor = Color.green;
             Handles.Label(transform.position, damage_receiver.received_damage.ToString(),myStyle);
+        }
+
+        if (target != null) {
+            Handles.color = new Color(1f,0.6f,0f);
+            Handles.DrawLine(transform.position, target.transform.position);
         }
     }
 #endif

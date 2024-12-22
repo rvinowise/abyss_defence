@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace rvinowise.unity.actions {
 
-public abstract partial class Action
+public abstract class Action
 {
     internal Action parent_action;
 

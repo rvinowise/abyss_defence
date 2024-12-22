@@ -15,6 +15,11 @@ Abstract_children_group
         teeth.Add(tooth);
         tooth.transform.SetParent(transform, false);
     }
+    
+    public override void hide_children_from_copying() {
+        base.hide_children_from_copying();
+        teeth.Clear();
+    }
 
 }
 

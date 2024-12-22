@@ -7,7 +7,12 @@ public static class Ammo_interface_ {
 }
 
 public enum Ammo_compatibility {
-    BULLET_50AE,
-    ROUND_12GAUGE
+    pistol,
+    shotgun,
+    ballistic_rocket,
+    homing_missile,
+    sniper_rifle,
+    landmine,
+    grenade
 }
 }

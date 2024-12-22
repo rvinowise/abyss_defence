@@ -12,7 +12,7 @@ public class Empty_attacker:
 
     //public Transform transform { get; }
 
-    public bool can_reach(Transform target) {
+    public bool is_weapon_targeting_target(Transform target) {
         return false;
     }
 

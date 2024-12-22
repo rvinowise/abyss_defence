@@ -104,6 +104,8 @@ public class Wing_group:
         Gizmos.color = Color.cyan;
         
         //Gizmos.DrawLine(moved_body.position, moved_body.position + Vector3.right.rotate((float)rotation_side * 45f).rotate(moved_body.rotation)  * line_length);
+
+        if (!moved_body) return;
         
         var rotation_side =
             moved_body.rotation.degrees_to(moved_body.get_target_rotation()).side(); 

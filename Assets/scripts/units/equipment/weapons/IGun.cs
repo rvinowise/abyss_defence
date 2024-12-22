@@ -7,5 +7,7 @@ public interface IGun {
 
     float time_to_readiness();
 
+    int get_loaded_ammo();
+
 }
 }

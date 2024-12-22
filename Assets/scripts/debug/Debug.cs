@@ -1,4 +1,6 @@
+#define OPTIMIZED
 using UnityEngine;
+//#pragma OPTIMIZED
 
 namespace rvinowise.unity.debug {
 

@@ -30,10 +30,14 @@
 					tex2D(_Top, IN.texcoord)
 				);
 				//color_top.a=1; //test
-				// if (color_top.a > 0.1) {
-				// 	return color_top;
+				
+				// if (color_top.a < 0.7) {
+				// 	if (color_top.a > 0.1) {
+				// 		return half4(0,0,0,1);
+				// 	}
 				// }
-				return color_bottom * (1-color_top.a) + color_top*color_top.a;
+				//return color_bottom * (1-color_top.a) + color_top*color_top.a;
+				return color_bottom * 1.3 + color_top*color_top.a;
 			} 
 			
            

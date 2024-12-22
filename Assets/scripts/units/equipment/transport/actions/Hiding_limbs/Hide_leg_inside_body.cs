@@ -14,9 +14,9 @@ public class Hide_leg_inside_body: Action_sequential_parent {
 
     private ALeg leg;
     private Transform body;
-    private Quaternion relative_rotation = Quaternion.identity;
+    //private Quaternion relative_rotation = Quaternion.identity;
 
-    private float old_provided_impulse = 0;
+    //private float old_provided_impulse = 0;
     
     public static Hide_leg_inside_body create(
         ALeg leg,

@@ -14,22 +14,22 @@ public abstract class Bouncing_projectile : MonoBehaviour {
     public Trajectory_flyer trajectory_flyer;
 
     public Rigidbody2D rigid_body;
-    public Collider2D collider; 
+    [FormerlySerializedAs("collider")] public Collider2D collider2d; 
 
     protected virtual void Awake() {
         rigid_body = GetComponent<Rigidbody2D>();
         trajectory_flyer = GetComponent<Trajectory_flyer>();
         trajectory_flyer.enabled = false;
-        collider = GetComponent<Collider2D>();
+        collider2d = GetComponent<Collider2D>();
     }
 
     public void on_restored_from_pool() {
-        collider.enabled = true;
+        collider2d.enabled = true;
     }
 
     
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (!collider.enabled) {
+        if (!collider2d.enabled) {
             return;
         }
         

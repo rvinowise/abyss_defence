@@ -13,36 +13,27 @@ namespace rvinowise.unity {
 /* a tool consisting of one element which can shoot */
 [RequireComponent(typeof(Tool))]
 public class Gun: MonoBehaviour
-    ,IGun 
+    ,IGun ,IReloadable
 {
     public bool aiming_automatically;
 
     public Transform muzzle;
-    public Transform spark_prefab;
-    public float stock_length = 0.45f;
+    
     public Transform shell_ejector;
-    public Slot magazine_slot;
-    //public int animation_fire = Animator.StringToHash("slide");
     public int shooting_animation = Animator.StringToHash("shoot");
     
     public float fire_rate_delay;
-    public Projectile projectile_prefab;
     public Gun_shell bullet_shell_prefab;
     public Ammunition ammo_prefab;
     public Ammo_compatibility ammo_compatibility;
     public int ammo_qty;
     public int max_ammo_qty;
-    public float projectile_force = 1000f;
     public bool is_full_auto_fire;
 
     public Animator animator;
     public Tool tool;
     
-    public Vector2 tip =>muzzle.localPosition;
-
-    public float butt_to_second_grip_distance {
-        get { return stock_length + tool.second_holding.place_on_tool.magnitude; }
-    }
+    
 
     
     private float last_shot_time = 0f;
@@ -53,7 +44,6 @@ public class Gun: MonoBehaviour
 
     private void Awake() {
         animator = GetComponent<Animator>();
-        magazine_slot = GetComponentInChildren<Slot>();
         tool = GetComponent<Tool>();
     }
 
@@ -66,34 +56,25 @@ public class Gun: MonoBehaviour
     }
     
 
-    public virtual void insert_ammunition(Ammunition in_ammunition) {
-        in_ammunition.deactivate();
-        ammo_qty += in_ammunition.rounds_qty;
+    public virtual void insert_ammunition(Ammo_compatibility ammo, int rounds_amount) {
+        ammo_qty += rounds_amount;
         on_ammo_changed();
     }
     
 
     public float recoil_force = 150f;
-    private Projectile get_projectile() {
-        Contract.Requires(can_fire(), "function Fire must be invoked after making sure it's possible");
-        last_shot_time = Time.time;
-        Projectile new_projectile = projectile_prefab.instantiate<Projectile>(
-            muzzle.position, muzzle.rotation
-        );
-        ammo_qty -= 1;
-        Transform new_spark = spark_prefab.get_from_pool<Transform>();
-        new_spark.copy_physics_from(muzzle);
-        
-        this.recoil_receiver?.push_with_recoil(recoil_force);
-        on_ammo_changed();
-        return new_projectile;
-    }
+    
 
 
     public int get_loaded_ammo() {
         return ammo_qty;
     }
+    public int get_lacking_ammo() {
+        return max_ammo_qty - ammo_qty;
+    }
 
+    public Ammo_compatibility get_ammo_compatibility() => ammo_compatibility;
+    
     public float time_to_readiness() {
         return 0;
     }
@@ -118,30 +99,30 @@ public class Gun: MonoBehaviour
         )
         {
             fire();
+            
         }
         
         is_trigger_pulled = true;
+    }
+
+    public Direct_projectile_launcher projectile_launcher;
+    public void fire() {
+        projectile_launcher.fire();
+        last_shot_time = Time.time;
+        ammo_qty -= 1;
+        recoil_receiver?.push_with_recoil(recoil_force);
+        on_ammo_changed();
+        //animator.SetTrigger(shooting_animation);
+        if (animator) {
+            animator.Play(shooting_animation);
+        }
     }
 
     public void release_trigger() {
         is_trigger_pulled = false;
     }
 
-    private void fire() {
-        var new_projectile = get_projectile();
-        if (new_projectile == null) {
-            return;
-        }
-        new_projectile.damage_dealer?.set_attacker(tool.main_holding.holding_hand.arm.pair.user.transform);
-        
-        animator.SetTrigger("shoot");
-        propell_projectile(new_projectile);
-    }
     
-    private void propell_projectile(Projectile projectile) {
-        projectile.rigid_body.AddForce(transform.rotation.to_vector() * (projectile_force * Time.deltaTime), ForceMode2D.Impulse);
-        projectile.store_last_physics();
-    }
 
     private bool is_on_cooldown() {
         return Time.time - last_shot_time <= fire_rate_delay;
@@ -153,7 +134,6 @@ public class Gun: MonoBehaviour
             !is_on_cooldown();
     }
     
-
     public delegate void EventHandler();
     public event EventHandler on_ammo_changed = delegate{};
 
@@ -189,7 +169,7 @@ public class Gun: MonoBehaviour
     
     
     private readonly RaycastHit2D[] targeted_targets = new RaycastHit2D[1000];
-    public bool is_aimed_at_target(Transform in_target) {
+    public bool is_aimed_at_collider(Transform in_target) {
         var targets_number = 
             Physics2D.RaycastNonAlloc(
                 muzzle.position, muzzle.right, targeted_targets
@@ -204,24 +184,8 @@ public class Gun: MonoBehaviour
         return false;
     }
     
-    public bool is_directed_at_target(Transform in_target) {
-        var vector_to_target =
-            (in_target.position - transform.position);
-        
-        var direction_to_tarrget =
-            vector_to_target.to_dergees();
-
-        var distance_to_target = vector_to_target.magnitude;
-
-        var precision_angle = 10f;
-        
-        return 
-            Math.Abs(
-                transform.rotation.to_degree().angle_to(direction_to_tarrget)
-            ) 
-            < 
-            precision_angle/distance_to_target;
-    }
+    
+    
     
 }
 }

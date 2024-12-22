@@ -17,7 +17,7 @@ public static partial class Unity_extension
     {
         RenderTexture.active = render_texture;
         Texture2D final_texture = new Texture2D(
-            render_texture.width, render_texture.height/* , TextureFormat.ARGB32, false */
+            render_texture.width, render_texture.height, TextureFormat.RGBAFloat, false
         );
         final_texture.ReadPixels( 
             new Rect(0, 0, final_texture.width, final_texture.height), 0, 0
@@ -62,6 +62,13 @@ public static partial class Unity_extension
         try {
             byte[] texture_png = in_texture.EncodeToPNG();
             System.IO.File.WriteAllBytes(file.FullName, texture_png);
+            
+            // texture_png = in_texture.EncodeToJPG();
+            // System.IO.File.WriteAllBytes(file.FullName+".JPG", texture_png);
+            
+            // texture_png = in_texture.EncodeToTGA();
+            // System.IO.File.WriteAllBytes(file.FullName+".TGA", texture_png);
+            
         }
         catch (Exception e) {
             Debug.LogError($"error when saving trexture to file {file}: {e}, {e.Message}");
@@ -87,10 +94,10 @@ public static partial class Unity_extension
     }
 
     public static void clear(this RenderTexture texture) {
-        RenderTexture rt = UnityEngine.RenderTexture.active;
+        RenderTexture previous_active_texture = UnityEngine.RenderTexture.active;
         UnityEngine.RenderTexture.active = texture;
         GL.Clear(true, true, Color.clear);
-        UnityEngine.RenderTexture.active = rt;
+        UnityEngine.RenderTexture.active = previous_active_texture;
     }
 }
 

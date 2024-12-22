@@ -742,6 +742,8 @@ GameObject:
   - component: {fileID: 8727953520430060264}
   - component: {fileID: 7466893222758804889}
   - component: {fileID: 330983841967233527}
+  - component: {fileID: 4681154706135011975}
+  - component: {fileID: 3373717912239799523}
   m_Layer: 0
   m_Name: mawbug 2
   m_TagString: Untagged
@@ -980,12 +982,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baggage: {fileID: 0}
-  sensory_organ_object: {fileID: 0}
-  transporter_object: {fileID: 0}
-  weaponry_object: {fileID: 0}
-  defender_object: {fileID: 0}
   last_rotation: 0
   team: {fileID: 0}
+  action_runner: {fileID: 3373717912239799523}
   commander: {fileID: 0}
 --- !u!114 &330983841967233527
 MonoBehaviour:
@@ -1001,6 +1000,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   will_be_settled_when_stops: 0
   is_decaying: 0
+--- !u!114 &4681154706135011975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993360331315501668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12d608fbd8f6da7459ef0051464e0166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baggage: {fileID: 0}
+  last_rotation: 0
+  team: {fileID: 0}
+  action_runner: {fileID: 3373717912239799523}
+  commander: {fileID: 0}
+--- !u!114 &3373717912239799523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993360331315501668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0668f9c4a2ff4107b6ea901f90aeff2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5052464807703664627
 GameObject:
   m_ObjectHideFlags: 0

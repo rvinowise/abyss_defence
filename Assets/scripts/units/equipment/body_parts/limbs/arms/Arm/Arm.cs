@@ -82,7 +82,6 @@ public class Arm:
     public Baggage baggage; 
     public Transform attention_target;
 
-    
 
    
     public void start_idle_action() {
@@ -238,6 +237,17 @@ public class Arm:
             Player_input.instance.cursor.transform,
             pair.transporter
         ).start_as_root(action_runner);
+    }
+
+    public static bool is_ready_to_attack_target(Arm arm, Transform in_target, ref Gun gun) {
+        gun = arm.get_held_gun() as Gun;
+        var ready =
+            arm &&
+            gun &&
+            gun.can_fire() &&
+            gun.is_aimed_at_collider(in_target);
+
+        return ready;
     }
 
 }

@@ -40,7 +40,7 @@ public class Play_recorded_animation: Action_leaf {
         animator.Play(animation_name_hash, 0, 0f);
         
         Animation_callback_handler end_notifyer = animator.GetBehaviours<Animation_callback_handler>()[0];
-        end_notifyer.on_state_exit = this.mark_as_completed;
+        end_notifyer.on_state_exit = mark_as_completed;
         end_notifyer.awaited_animation_name_hash = animation_name_hash;
         end_notifyer.flippable_actor = flippable_actor;
 

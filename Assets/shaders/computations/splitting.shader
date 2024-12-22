@@ -17,12 +17,10 @@ Shader "computations/splitting"
                 #pragma vertex simple_vert
                 #pragma fragment frag
 
-
                 sampler2D _BodyTex;
                 sampler2D _InnardsTex;
                 sampler2D _BodyMask;
                 sampler2D _InnardsMask;
-
 
 
 				fixed4 frag(v2f IN) : SV_Target

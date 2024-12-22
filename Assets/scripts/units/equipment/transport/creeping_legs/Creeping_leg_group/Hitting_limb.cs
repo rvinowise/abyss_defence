@@ -35,7 +35,7 @@ public class Hitting_limb:
     #region IWeaponry
 
     public float damaging_radius = 0.5f;
-    public bool can_reach(Transform target) {
+    public bool is_weapon_targeting_target(Transform target) {
         // var target_collider = target.GetComponent<Collider2D>();
         // if (target_collider != null) {
         //     return target_collider.OverlapPoint(damage_point.transform.position);

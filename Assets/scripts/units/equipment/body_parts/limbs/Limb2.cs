@@ -207,7 +207,7 @@ public class Limb2:
             );
         }
         catch (NullReferenceException exc) {
-            UnityEngine.Debug.LogError("Exception");
+            UnityEngine.Debug.LogError("Exception: "+exc.Message);
         }
     }
     public virtual void draw_directions_debug(
@@ -226,7 +226,7 @@ public class Limb2:
             );
         }
         catch (NullReferenceException exc) {
-            UnityEngine.Debug.LogError("Exception");
+            UnityEngine.Debug.LogError("Exception: "+exc.Message);
         }
     }
     public virtual void draw_desired_directions() {

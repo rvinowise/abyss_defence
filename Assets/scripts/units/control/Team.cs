@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using rvinowise.unity.extensions;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -30,7 +31,12 @@ public class Team: MonoBehaviour
     }
     
     public void remove_unit(Intelligence unit) {
-        Debug.Log($"LIFETIME: team {name} is removing its unit {unit.name}");
+        if (unit != null) {
+            Debug.Log($"LIFETIME: team {name} is removing its unit {unit.name}");
+        }
+        else {
+            Debug.Log($"LIFETIME: team {name} is trying to remove a null unit {unit}");
+        }
         units.Remove(unit);
     }
 
@@ -44,7 +50,7 @@ public class Team: MonoBehaviour
         return enemies;
     }
     
-    public List<Transform> get_enemiy_transforms() {
+    public List<Transform> get_enemy_transforms() {
         List<Transform> enemies = new List<Transform>();
         foreach (var enemy_team in this.enemy_teams) {
             foreach (var enemy_unit in enemy_team.units) {
@@ -52,6 +58,23 @@ public class Team: MonoBehaviour
             }
         }
         return enemies;
+    }
+
+    public bool is_enemy(GameObject unit) {
+        if (unit.GetComponentInChildren<Intelligence>() is {} other_intelligence) {
+            return enemy_teams.Exists(team => other_intelligence.team == team);
+        }
+        return false;
+    }
+    
+    public List<Tuple<Transform,float>> get_enemies_closest_to(Vector2 in_position) {
+        List<Tuple<Transform, float>> enemies_and_distances = new List<Tuple<Transform, float>>();
+        foreach (var enemy in get_enemy_transforms()) {
+            var distance = enemy.transform.sqr_distance_to(in_position);
+            enemies_and_distances.Add(new Tuple<Transform, float>(enemy,distance));
+        }
+        enemies_and_distances.Sort((tuple1,tuple2) => tuple1.Item2.CompareTo(tuple2.Item2) );
+        return enemies_and_distances;
     }
 
 }

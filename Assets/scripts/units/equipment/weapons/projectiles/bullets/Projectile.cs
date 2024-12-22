@@ -2,6 +2,7 @@
 using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
+using UnityEngine.Serialization;
 
 
 namespace rvinowise.unity {
@@ -14,7 +15,7 @@ public class Projectile : MonoBehaviour {
     public Damage_dealer damage_dealer;
     
     public Rigidbody2D rigid_body;
-    public Collider2D collider; 
+    public Collider2D collider2d; 
     
     
     /* OnCollision callback fires after the velocity changes. The relevant velocity should be stored here  */
@@ -33,7 +34,7 @@ public class Projectile : MonoBehaviour {
         rigid_body = GetComponent<Rigidbody2D>();
         trajectory_flyer = GetComponent<Trajectory_flyer>();
         trajectory_flyer.enabled = false;
-        collider = GetComponent<Collider2D>();
+        collider2d = GetComponent<Collider2D>();
         damage_dealer = GetComponent<Damage_dealer>();
     }
     
@@ -42,7 +43,7 @@ public class Projectile : MonoBehaviour {
     }
     
     public void on_restored_from_pool() {
-        collider.enabled = true;
+        collider2d.enabled = true;
     }
     
     
@@ -62,7 +63,7 @@ public class Projectile : MonoBehaviour {
     private void stop_on_the_ground() {
         trajectory_flyer.height = 0f;
         trajectory_flyer.enabled = false;
-        collider.enabled = false;
+        collider2d.enabled = false;
         fall_on_ground();
         if (trail_emitter.is_active()) {
             trail_emitter.visit_final_point(transform.position);
@@ -114,6 +115,23 @@ public class Projectile : MonoBehaviour {
         );
         
         Debug_drawer.instance.draw_collision(ray_of_impact, 2f);
+    }
+    
+    void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.GetComponent<Damage_receiver>() is {} damage_receiver) {
+            if (damage_dealer.is_ignoring_damage_receiver(damage_receiver)) {
+                return;
+            }
+        }
+        
+        if (!GetComponent<Collider2D>().isActiveAndEnabled) {
+            //at high speeds, projectile mistakenly bounses off the target, even though it should stop at the target.
+            //switching its collider off at the first collision signifies that it shouldn't bounce and collide anymore
+            return; 
+        }
+        Debug.Log($"AIMING: ({name})Projectile.OnCollisionEnter2D()");
+        stop_at_position(collision.GetContact(0).point);
+            
     }
     
 }

@@ -18,7 +18,7 @@ public class Combining_circle : MonoBehaviour {
 
     public List<Combining_circle_ring> rings;
 
-    private Action_runner action_runner = new Action_runner();
+    public Action_runner action_runner;
     
     void Awake() {
         rings = new List<Combining_circle_ring> {

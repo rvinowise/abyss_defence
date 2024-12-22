@@ -34,9 +34,9 @@ public class Scorpion_pedipalps_group :
         pedipalps.Clear();
     }
 
-    public bool can_reach(Transform target) {
+    public bool is_weapon_targeting_target(Transform target) {
         foreach (var pedipalp in pedipalps) {
-            return pedipalp.can_reach(target);
+            return pedipalp.is_weapon_targeting_target(target);
         }
         return false;
     }
@@ -58,7 +58,7 @@ public class Scorpion_pedipalps_group :
 
     public void attack(Transform target, System.Action on_completed = null) {
         foreach (var pedipalp in pedipalps) {
-            if (pedipalp.can_reach(target)) {
+            if (pedipalp.is_weapon_targeting_target(target)) {
                 Scorpion_arm_attack.create(
                     pedipalp,
                     target

@@ -24,7 +24,7 @@ public class Scorpion_pedipalp:
         return femur.length + chila.length;
     }
     
-    public bool can_reach(Transform target) {
+    public bool is_weapon_targeting_target(Transform target) {
         var distance_to_target = (target.position - transform.position).magnitude;
         return get_length() >= distance_to_target;
     }

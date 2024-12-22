@@ -25,6 +25,9 @@ public class Trajectory_flyer: MonoBehaviour {
 
     private void Awake() {
         pooled_object = GetComponent<Pooled_object>();
+        // if (GetComponent<Rigidbody2D>() is { } rigidbody2d) {
+        //     weight = rigidbody2d.mass;
+        // }
     }
 
     public void on_restore_from_pool() {

@@ -30,7 +30,7 @@ public class Proboscis :
     }
 
     #region IWeaponry interface
-    public override bool can_reach(Transform target) {
+    public override bool is_weapon_targeting_target(Transform target) {
         var distance_to_target =
             transform.position.distance_to(target.position); 
         var angle_to_target =
@@ -57,7 +57,7 @@ public class Proboscis :
         return animator.GetCurrentAnimatorStateInfo(0).IsName("strike");
     }
 
-    void check_damaged_victims() {
+    void damage_victims() {
         var damaging_vector =
             tip.position - beginning.position;
 
@@ -95,7 +95,7 @@ public class Proboscis :
             !has_damaged_target
         )
         {
-            check_damaged_victims();
+            damage_victims();
         }
     }
 

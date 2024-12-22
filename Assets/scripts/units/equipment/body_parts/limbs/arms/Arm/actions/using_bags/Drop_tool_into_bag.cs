@@ -24,7 +24,6 @@ public class Drop_tool_into_bag: Action_of_arm {
         
     }
 
-    
 
     public override void update() {
         base.update();

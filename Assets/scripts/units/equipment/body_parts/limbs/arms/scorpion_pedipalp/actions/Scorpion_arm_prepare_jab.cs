@@ -45,7 +45,7 @@ public class Scorpion_arm_prepare_jab:Action_leaf {
         if (
             (pedipalp.chila.pincers_state == Pincers_state.opened)
             &&
-            (pedipalp.can_reach(target))
+            (pedipalp.is_weapon_targeting_target(target))
         ) {
             mark_as_completed();
         }

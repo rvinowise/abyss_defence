@@ -19,10 +19,6 @@ public class Children_group:
     public List<Child_of_group> children = new List<Child_of_group>();
     public override IEnumerable<IChild_of_group> get_children() => children;
     
-    public IList<IChild_of_group> children_stashed_from_copying {
-        get;
-        private set;
-    }
 
     public override void hide_children_from_copying() {
         base.hide_children_from_copying();

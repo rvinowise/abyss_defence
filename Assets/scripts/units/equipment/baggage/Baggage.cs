@@ -5,15 +5,23 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.extensions.pooling;
 using rvinowise.contracts;
+using UnityEngine.Serialization;
 
 
 namespace rvinowise.unity {
 
 [Serializable]
-public class Power_tool_ammo {
+public class Supertool_ammo {
     public Tool tool;
     public int amount;
 
+}
+
+
+[Serializable]
+public class Ammo_amount {
+    public Ammo_compatibility ammo;
+    public int amount;
 }
     
 public class Baggage: 
@@ -22,13 +30,26 @@ Turning_element
 
     public List<Toolset> tool_sets = new List<Toolset>();
     public List<Tool> tools = new List<Tool>();
+    
+    public List<Tool> supertools = new List<Tool>();
+    public List<Supertool_description> supertool_descriptions = new List<Supertool_description>();
+    
     public float entering_span = 30f;
-    public Dictionary<Ammo_compatibility, int> tool_to_ammo = 
+    
+    
+    public readonly Dictionary<Ammo_compatibility, int> tool_to_ammo = 
         new Dictionary<Ammo_compatibility, int>();
 
-    public List<Power_tool_ammo> power_tools = new List<Power_tool_ammo>();
-    public int current_powertool;
-    
+    public List<Supertool_ammo> supertool_ammo = new List<Supertool_ammo>();
+    public List<Ammo_amount> ammo = new List<Ammo_amount>();
+
+    protected override void Awake() {
+        base.Awake();
+        foreach (var ammo_amount in ammo) {
+            tool_to_ammo.Add(ammo_amount.ammo,ammo_amount.amount);
+        }
+    }
+
     public int ensure_borders(int index) {
         if (Math.Abs(index) > tool_sets.Count) {
             index = tool_sets.Count % index;
@@ -57,7 +78,6 @@ Turning_element
     public void change_ammo_qty(Ammo_compatibility in_compatibility, int in_qty) {
         tool_to_ammo.TryGetValue(in_compatibility, out var old_qty);
         int new_qty = old_qty + in_qty;
-        //Contract.Assert(new_qty >=0);
         tool_to_ammo[in_compatibility] = new_qty;
         
         if (on_ammo_changed != null) {
@@ -67,8 +87,13 @@ Turning_element
     
     public int fetch_ammo_qty(Ammo_compatibility in_compatibility, int needed_qty) {
         tool_to_ammo.TryGetValue(in_compatibility, out var available_qty);
-        int retrieved_qty = Math.Max(available_qty, needed_qty);
-        change_ammo_qty(in_compatibility, retrieved_qty);
+        int retrieved_qty = Math.Min(available_qty, needed_qty);
+        tool_to_ammo[in_compatibility] = available_qty-retrieved_qty;
+        
+        if (on_ammo_changed != null) {
+            on_ammo_changed();
+        }
+        
         return retrieved_qty;
     }
     public int check_ammo_qty(Ammo_compatibility in_compatibility) {
@@ -86,23 +111,23 @@ Turning_element
     }
 
 
-    public Tool retrieve_current_powertool() {
-        var current_tool_ammo = power_tools[current_powertool];
-        if (current_tool_ammo.amount > 0) {
-            var powertool_prefab = current_tool_ammo.tool;
-            current_tool_ammo.amount -= 1;
-            var retrieved_powertool = powertool_prefab.instantiate<Tool>(this.transform.position, this.transform.rotation);
-            retrieved_powertool.deactivate();
-            return retrieved_powertool;
-        }
-        return null;
-    }
+    // public Tool retrieve_current_powertool() {
+    //     var current_tool_ammo = supertool_ammo[current_powertool];
+    //     if (current_tool_ammo.amount > 0) {
+    //         var powertool_prefab = current_tool_ammo.tool;
+    //         current_tool_ammo.amount -= 1;
+    //         var retrieved_powertool = powertool_prefab.instantiate<Tool>(this.transform.position, this.transform.rotation);
+    //         retrieved_powertool.deactivate();
+    //         return retrieved_powertool;
+    //     }
+    //     return null;
+    // }
     
     
     public delegate void EventHandler();
     public event EventHandler on_ammo_changed;
 
-    public event EventHandler on_tools_changed;
+    //public event EventHandler on_tools_changed;
 
     /*public Ammunition retrieve_ammo_for_gun(
         Gun in_gun,

@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace rvinowise.unity.actions {
 
-public class Action_runner {
+public class Action_runner: MonoBehaviour {
     private readonly List<IActor> actors = new List<IActor>();
 
     private readonly List<Action> current_actions = new List<Action>();
@@ -79,7 +79,13 @@ public class Action_runner {
         starting_actions.Add(action);
     }
     private void start_action(Action action) {
-        Debug.Log($"ActionRunner.start_action {action.get_explanation()}");
+        try {
+            Debug.Log($"ActionRunner.start_action {action.get_explanation()}");
+        }
+        catch (Exception e) {
+            Debug.Log("starting an action whose actors are probably destroyed");
+        }
+
         if (action.parent_action == null) {
             current_actions.Add(action);
             action.set_root_action(action);

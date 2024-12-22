@@ -37,7 +37,7 @@ public abstract class Player_human : Human_intelligence {
 
     protected abstract void use_tools();
 
-    protected Transform get_selected_target() {
+    public Transform get_selected_target() { // out of the two targets of both hands
         Distance_to_component closest = Distance_to_component.empty();
         foreach(Transform target in arm_pair.get_all_targets()) {
             float this_distance = target.sqr_distance_to(Player_input.instance.cursor.transform.position);
@@ -80,24 +80,6 @@ public abstract class Player_human : Human_intelligence {
         Vector2 mouse_pos = Player_input.instance.cursor.transform.position;
         Quaternion needed_direction = (mouse_pos - (Vector2) transform.position).to_quaternion();
         transporter.face_rotation(needed_direction);
-        
-        Vector2 read_moving_direction() {
-            Vector2 direction_vector = Player_input.instance.moving_vector;
-            return direction_vector.normalized;
-        }
-
-        Quaternion read_face_direction() {
-            Vector2 mousePos = Player_input.instance.cursor.transform.position;
-            Quaternion needed_direction = (mousePos - (Vector2) transform.position).to_quaternion();
-            if (has_gun_in_2hands() is {} gun)
-            {
-                needed_direction *= get_additional_rotation_for_2hands_gun(gun); 
-                    
-            }
-            save_last_rotation(needed_direction);
-
-            return needed_direction;
-        }
     }
 
     private Gun has_gun_in_2hands() {
@@ -110,22 +92,7 @@ public abstract class Player_human : Human_intelligence {
         return null;
     }
 
-    private Quaternion get_additional_rotation_for_2hands_gun(Gun gun) {
-        
-        float body_rotation =
-            Triangles.get_angle_by_lengths(
-                arm_pair.shoulder_span,
-                gun.butt_to_second_grip_distance,
-                arm_pair.left_arm.length- arm_pair.left_arm.hand.length
-            ) -90f;
-        
-        
-        if (float.IsNaN(body_rotation)) {
-            return Quaternion.identity;
-        }
-        
-        return degrees_to_quaternion(body_rotation);
-    }
+    
 
 
     

@@ -41,9 +41,9 @@ public class Attacking_group:
     }
 
     #region IWeaponry
-    public bool can_reach(Transform target) {
+    public bool is_weapon_targeting_target(Transform target) {
         foreach (var weapon in weapons) {
-            if (weapon.can_reach(target)) {
+            if (weapon.is_weapon_targeting_target(target)) {
                 return true;
             }
         }
@@ -62,7 +62,7 @@ public class Attacking_group:
 
     public void attack(Transform target, System.Action on_completed) {
         foreach (var weapon in weapons) {
-            if (weapon.can_reach(target)) {
+            if (weapon.is_weapon_targeting_target(target)) {
                 weapon.attack(target,on_completed);
             }
         }

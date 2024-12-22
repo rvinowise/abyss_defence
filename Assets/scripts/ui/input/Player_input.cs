@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using rvinowise.contracts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -71,7 +72,23 @@ public class Player_input: MonoBehaviour {
         zoom_held = UnityEngine.Input.GetButton("Zoom");
     }
 
-
+    public Color highlighting_color = new Color(0.7f,0.0f,0.0f);
+    private ISet<Transform> highlighted_targets = new HashSet<Transform>();
+    public void highlight_target(Transform target) {
+        foreach (var sprite_renderer in target.GetComponentsInChildren<SpriteRenderer>()) {
+            sprite_renderer.color += highlighting_color;
+        }
+        highlighted_targets.Add(target);
+    }
+    
+    public void unhighlight_target(Transform target) {
+        if (highlighted_targets.Contains(target)) {
+            foreach (var sprite_renderer in target.GetComponentsInChildren<SpriteRenderer>()) {
+                sprite_renderer.color += highlighting_color;
+            }
+            highlighted_targets.Remove(target);
+        }
+    }
     
 }
 

@@ -53,11 +53,17 @@ public class Action_sequential_parent :
         }
         if (current_child_action == null) {
             current_child_action = in_children.First();
+            for (int i_child = 1; i_child < in_children.Length; i_child++) {
+                queued_child_actions.Enqueue(in_children[i_child]);
+            }
+        }
+        else {
+            foreach (var child_action in in_children) {
+                queued_child_actions.Enqueue(child_action);
+            }
         }
         
-        for (int i_child = 1; i_child < in_children.Length; i_child++) {
-            queued_child_actions.Enqueue(in_children[i_child]);
-        }
+        
     }
 
 

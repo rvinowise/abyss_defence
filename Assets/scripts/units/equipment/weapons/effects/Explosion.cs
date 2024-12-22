@@ -21,7 +21,7 @@ public class Explosion: MonoBehaviour {
     private float radius_growth;
     private float longest_particle_system_lifetime;
 
-    public CircleCollider2D collider;
+    [FormerlySerializedAs("collider")] public CircleCollider2D collider2d;
 
     private Polygon shock_wave_polygon_debug;
 
@@ -29,7 +29,7 @@ public class Explosion: MonoBehaviour {
     
     private void Awake() {
         damage_dealer = GetComponent<Damage_dealer>();
-        collider = GetComponent<CircleCollider2D>();
+        collider2d = GetComponent<CircleCollider2D>();
         
         if (!particle_systems.Any()) {
             particle_systems = GetComponentsInChildren<ParticleSystem>().ToList();
@@ -60,7 +60,7 @@ public class Explosion: MonoBehaviour {
 
     private void FixedUpdate() {
         current_radius += radius_growth*Time.deltaTime;
-        collider.radius = current_radius;
+        collider2d.radius = current_radius;
         shock_wave_polygon_debug = Polygon_creator.get_circle_polygon(current_radius,10).get_moved(transform.position);
     }
     
@@ -94,14 +94,15 @@ public class Explosion: MonoBehaviour {
             damage_dealer.remember_damaged_target(target_hit.transform);
         }
         
-        var rigid_body = target_hit.transform.GetComponent<Rigidbody2D>();
-        rigid_body.AddForce(
-            calculate_push_vector(
-                rigid_body.transform.position,
-                target_hit.point
-            ),
-            ForceMode2D.Impulse
-        );
+        if (target_hit.transform.GetComponent<Rigidbody2D>() is {} rigid_body&& rigid_body != null) {
+            rigid_body.AddForce(
+                calculate_push_vector(
+                    rigid_body.transform.position,
+                    target_hit.point
+                ),
+                ForceMode2D.Impulse
+            );
+        }
     }
 
     private Vector2 calculate_push_vector(Vector2 target_position, Vector2 hit_point) {

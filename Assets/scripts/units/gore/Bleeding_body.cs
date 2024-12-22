@@ -8,13 +8,26 @@ using Random = UnityEngine.Random;
 
 namespace rvinowise.unity {
 
-public class Bleeding_body: MonoBehaviour {
+public class Bleeding_body: MonoBehaviour,
+    IBleeding_body
+{
 
     [SerializeField] public Trajectory_flyer droplet_prefab;
 
 
     private float spread_degrees = 15f;
     private Vector2 rotation_to_speed_ratio = new Vector2(30f, 40f);
+
+
+
+    public void create_splash(
+        Vector2 in_position,
+        Vector2 in_impulse
+    ) {
+        create_splash(in_position, in_impulse, 5);
+    }
+    
+    
     
     public void create_splash(
         Vector2 in_position,
@@ -45,7 +58,7 @@ public class Bleeding_body: MonoBehaviour {
     ) {
         Trajectory_flyer trajectory_flyer = droplet_prefab.get_from_pool<Trajectory_flyer>();
         trajectory_flyer.transform.position = in_position;
-        var droplet_height = -transform.position.z + 0.5f;
+        var droplet_height = -transform.position.z + 0.1f;
         
         trajectory_flyer.height = droplet_height;
         trajectory_flyer.vertical_velocity = 0.1f + Random.value*2;

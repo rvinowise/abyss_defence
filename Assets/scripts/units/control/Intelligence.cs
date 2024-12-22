@@ -10,6 +10,18 @@ using Action = rvinowise.unity.actions.Action;
 
 namespace rvinowise.unity {
 
+public struct Target {
+    public Intelligence intelligence;
+    public Collider2D collider2d;
+
+    public Target(Transform transform) {
+        intelligence = transform.GetComponent<Intelligence>();
+        collider2d = transform.GetComponent<Collider2D>();
+    }
+    
+    public Vector3 position => intelligence.transform.position;
+    public Transform transform => intelligence.transform;
+}
 
 public class Intelligence :
     MonoBehaviour
@@ -19,14 +31,15 @@ public class Intelligence :
     
     public IActor_sensory_organ sensory_organ;
     public IActor_transporter transporter;
-    public IActor_attacker attacker;
+    public IAttacker attacker;
     public IActor_defender defender;
     
     public float last_rotation;
 
     public Team team;
+    public bool is_ignored;
 
-    public Action_runner action_runner { get; } = new Action_runner();
+    public Action_runner action_runner;
     
     public delegate void Evend_handler(Intelligence unit);
     public event Evend_handler on_destroyed;
@@ -57,7 +70,7 @@ public class Intelligence :
 
 
     public void init_devices() {
-        var attackers = GetComponentsInChildren<IActor_attacker>();
+        var attackers = GetComponentsInChildren<IAttacker>();
         if (attackers.Length == 0) {
             attacker = new Empty_attacker();
         } else if (attackers.Length == 1) {
@@ -136,8 +149,6 @@ public class Intelligence :
     }
 
     public void notify_about_destruction() {
-        on_destroyed?.Invoke(this);
-
         if (team != null) {
             team.remove_unit(this);
             foreach (Team enemy_team in team.enemy_teams) {
@@ -157,6 +168,7 @@ public class Intelligence :
                 friendly_unit.on_friend_disappeared(this);
             }
         }
+        on_destroyed?.Invoke(this);
     }
     
 

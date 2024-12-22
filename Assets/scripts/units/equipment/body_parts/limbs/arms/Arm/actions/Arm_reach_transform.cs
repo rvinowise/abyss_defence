@@ -19,6 +19,7 @@ public class Arm_reach_transform: Action_leaf {
         var action = (Arm_reach_transform)object_pool.get(typeof(Arm_reach_transform));
         action.arm = in_arm;
         action.desired_transform = in_desired_orientation;
+        action.add_actor(in_arm);
         
         return action;
     }
@@ -34,13 +35,14 @@ public class Arm_reach_transform: Action_leaf {
 
     protected virtual float touching_distance{ 
         get{
-            return 0.1f;
+            return 0.3f;
         }
     }
+    public float direction_epsilon = 15f;
     protected virtual bool complete(Transform desired_orientation) {
         if (
-            (arm.hand.position - desired_orientation.position).magnitude <= touching_distance  &&
-            arm.hand.rotation.abs_degrees_to(desired_orientation.rotation) <= Mathf.Epsilon
+            ((Vector2)arm.hand.position - (Vector2)desired_orientation.position).magnitude <= touching_distance  &&
+            arm.hand.rotation.abs_degrees_to(desired_orientation.rotation) <= direction_epsilon
         ) 
         {
             return true;

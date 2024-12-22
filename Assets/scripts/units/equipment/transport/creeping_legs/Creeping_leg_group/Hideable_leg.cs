@@ -16,7 +16,6 @@ public class Hideable_leg : MonoBehaviour {
 
 #if UNITY_EDITOR
     protected void OnDrawGizmos() {
-        float line_length = 0.15f;
         Gizmos.color = Color.cyan;
 
         var parent_rotation = Quaternion.identity;

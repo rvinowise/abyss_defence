@@ -29,7 +29,7 @@ public class Humanoid:
         Idle.create(this).start_as_root(action_runner);
     }
 
-    private Action_runner action_runner;
+    public Action_runner action_runner;
     public void init_for_runner(Action_runner action_runner) {
         this.action_runner = action_runner;
     }

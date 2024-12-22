@@ -6,9 +6,9 @@ namespace rvinowise.unity.actions {
 
 public class Grab_tool: Action_of_arm {
 
-    private Hand hand;
-    private Baggage bag;
-    private Tool tool;
+    protected Hand hand;
+    protected Baggage bag;
+    protected Tool tool;
     
 
     
@@ -40,13 +40,13 @@ public class Grab_tool: Action_of_arm {
         mark_as_completed();
     }
 
-    private void stash_old_tool() {
+    protected virtual void stash_old_tool() {
         Contract.Requires(hand.held_part != null);
-        Tool tool = hand.detach_tool();
-        bag.add_tool(tool);
+        Tool old_tool = hand.detach_tool();
+        bag.add_tool(old_tool);
     }
 
-    private void take_new_tool() {
+    protected virtual void take_new_tool() {
         tool.activate();
         hand.attach_holding_part(tool.main_holding);
     }

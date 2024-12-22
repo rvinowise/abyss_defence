@@ -32,6 +32,7 @@ public class Damage_receiver: MonoBehaviour {
         if (destructible != null) {
             Debug.Log($"({name})Damage_receiver.start_dying, received_damage={received_damage}");
             destructible.on_start_dying();
+            intelligence.notify_about_destruction();
             Destroy(intelligence);
         }
     }
@@ -39,7 +40,6 @@ public class Damage_receiver: MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.GetComponent<Damage_dealer>() is {} damage_dealer){
-            //receive_damage(1f);
             if (damage_dealer.is_ignoring_damage_receiver(this)) {
                 return;
             }
@@ -50,7 +50,7 @@ public class Damage_receiver: MonoBehaviour {
                     return; 
                 }
                 Debug.Log($"AIMING: ({name})Damage_receiver.OnCollisionEnter2D(projectile:{damaging_projectile.name})");
-                damaging_projectile.stop_at_position(collision.GetContact(0).point);
+                //damaging_projectile.stop_at_position(collision.GetContact(0).point);
                 receive_damage(1f);
             }
             

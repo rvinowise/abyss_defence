@@ -69,7 +69,7 @@ public abstract class ALeg :
         Creeping_leg_partakes_in_moving.create(this).start_as_root(action_runner);
     }
 
-    public bool can_reach(Transform target) {
+    public bool is_weapon_targeting_target(Transform target) {
         var distance_to_target =
             ((Vector2)target.position - (Vector2)transform.position).magnitude;
         

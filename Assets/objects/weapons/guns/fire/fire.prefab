@@ -12,13 +12,14 @@ GameObject:
   - component: {fileID: 6307343515899772315}
   - component: {fileID: 1002598669204302031}
   - component: {fileID: -6824250186765862756}
+  - component: {fileID: 4001736895298039106}
   m_Layer: 0
   m_Name: fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7198755227066756123
 Transform:
   m_ObjectHideFlags: 0
@@ -36,7 +37,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6307343515899772315
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -49,10 +50,12 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1002598669204302031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,8 +68,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0239f47f754fa48a4440fd3ad0417b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
   reset_components: []
+  on_restored_from_pool:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-6824250186765862756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +97,7 @@ MonoBehaviour:
   m_AlphaBlendOnOverlap: 0
   m_ShadowIntensity: 0
   m_ShadowVolumeIntensity: 0
+  m_Mesh: {fileID: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -112,6 +118,19 @@ MonoBehaviour:
   - {x: -0.1681495, y: 0.015714431, z: 0}
   - {x: -0.1381063, y: -0.32103932, z: 0}
   - {x: 0.021603985, y: -0.45841914, z: 0}
+--- !u!114 &4001736895298039106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597065929984423301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00aaad4c135b46cba7c9c6f085c2cc1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6307343515899772315}
 --- !u!1 &4967106163841655488
 GameObject:
   m_ObjectHideFlags: 0
