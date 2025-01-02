@@ -7,7 +7,7 @@ namespace rvinowise.unity {
 
 public class Head: 
     Turning_element
-    ,IActor_sensory_organ 
+    ,ISensory_organ 
 {
 
     public Transform attention_target;
@@ -51,15 +51,10 @@ public class Head:
     
     #region IActor
 
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
-    }
+    public Actor actor { get; set; }
 
-    private Action_runner action_runner;
-
-    public Action current_action { get; set; }
     public void on_lacking_action() {
-        Idle.create(this).start_as_root(action_runner);
+        Idle.create(actor).start_as_root(actor.action_runner);
     }
 
     #endregion

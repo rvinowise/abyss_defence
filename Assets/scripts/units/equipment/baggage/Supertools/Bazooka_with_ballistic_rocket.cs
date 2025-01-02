@@ -48,7 +48,7 @@ public class Bazooka_with_ballistic_rocket:
             tool,
             reloadable,
             ammo_compatibility
-        ).start_as_root(user.action_runner);
+        ).start_as_root(user.actor.action_runner);
     }
 }
 }

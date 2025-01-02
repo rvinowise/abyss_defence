@@ -16,7 +16,7 @@ namespace rvinowise.unity {
 
 /* provides information about possible speed and rotation for a moving Unit */
 
-public interface ITransporter {
+public interface ITransporter: IActing_role {
     float get_possible_rotation();
     float get_possible_impulse();
     void set_moved_body(Turning_element in_body);
@@ -27,10 +27,5 @@ public interface ITransporter {
     
 }
 
-
-public interface IActor_transporter :
-    ITransporter
-    , IActor 
-{ }
 
 }

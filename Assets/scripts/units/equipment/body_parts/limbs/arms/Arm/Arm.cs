@@ -55,10 +55,10 @@ public class Arm:
 
     private Transform target;
     public Transform get_target() {
-        if (current_action == null) {
+        if (actor.current_action == null) {
             return null;
         }
-        if (current_action.GetType() == typeof(Aim_at_target)) {
+        if (actor.current_action.GetType() == typeof(Aim_at_target)) {
             return target;
         }
         // if ((target != null)&&(current_action.GetType() == typeof(Idle_vigilant_only_arm))) {
@@ -89,7 +89,7 @@ public class Arm:
             this,
             attention_target,
             pair.transporter
-        ).start_as_root(action_runner);
+        ).start_as_root(actor.action_runner);
     }
     public void aim_at(Transform in_target) {
         Debug.Log($"AIMING: ({name})Arm.aim_at({in_target.name})");
@@ -98,7 +98,7 @@ public class Arm:
             this,
             in_target,
             pair.transform
-        ).start_as_root(action_runner);
+        ).start_as_root(actor.action_runner);
     }
 
     private bool controlled_by_animation() {
@@ -151,14 +151,14 @@ public class Arm:
                 attention_target,
                 pair.transporter
             )
-        ).start_as_root(action_runner);
+        ).start_as_root(actor.action_runner);
 
     }
 
     public void support_held_tool(Tool tool) {
         Contract.Requires(hand.held_tool == null, "must be free in order to grab a tool");
 
-        current_action = Action_sequential_parent.create(
+        actor.current_action = Action_sequential_parent.create(
             actions.Arm_reach_holding_part_of_tool.create(
                 tool.second_holding
             ),
@@ -236,10 +236,13 @@ public class Arm:
             this,
             Player_input.instance.cursor.transform,
             pair.transporter
-        ).start_as_root(action_runner);
+        ).start_as_root(actor.action_runner);
     }
 
     public static bool is_ready_to_attack_target(Arm arm, Transform in_target, ref Gun gun) {
+        if (arm == null) {
+            Debug.Log("ATTACK: arm is null");
+        }
         gun = arm.get_held_gun() as Gun;
         var ready =
             arm &&

@@ -8,7 +8,7 @@ using UnityEngine;
 namespace rvinowise.unity
 {
 public class Compound_attacker: 
-    IActor_attacker
+    IAttacker
 {
 
     public List<GameObject> weapon_objects; //only for initialisation in inspector
@@ -58,15 +58,11 @@ public class Compound_attacker:
     
     #endregion
 
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
-    }
 
-    private Action_runner action_runner;
+    public Actor actor { get; set; }
 
-    public Action current_action { get; set; }
     public void on_lacking_action() {
-        Idle.create(this).start_as_root(action_runner);
+        Idle.create(actor).start_as_root(actor.action_runner);
     }
 }
 

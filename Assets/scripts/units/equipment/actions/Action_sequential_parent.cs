@@ -79,9 +79,9 @@ public class Action_sequential_parent :
         current_child_action.update();
     }
 
-    public override void on_child_completed(Action in_sender_child) {
+    public override void on_child_completed(Action sender_child) {
         Contract.Requires(
-            in_sender_child == current_child_action,
+            sender_child == current_child_action,
             "only one child of a sequential parent can be executed at a time"
         );
 

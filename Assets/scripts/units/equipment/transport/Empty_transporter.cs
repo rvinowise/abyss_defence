@@ -9,7 +9,7 @@ namespace rvinowise.unity {
     
 /* provides information about possible speed and rotation for a moving Unit */
 public class Empty_transporter: 
-    IActor_transporter
+    ITransporter
 {
 
     public float get_possible_rotation(){ return 0;}
@@ -34,10 +34,8 @@ public class Empty_transporter:
     }
 
 
-    public void init_for_runner(Action_runner action_runner) {
-    }
+    public Actor actor { get; set; }
 
-    public Action current_action { get; set; }
     public void on_lacking_action() {
     }
 

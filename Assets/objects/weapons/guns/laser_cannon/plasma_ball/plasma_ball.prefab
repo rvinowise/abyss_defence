@@ -97,6 +97,8 @@ GameObject:
   - component: {fileID: -2214317690754465625}
   - component: {fileID: 3319183180109347547}
   - component: {fileID: 5225726917950991525}
+  - component: {fileID: -7962127730834510175}
+  - component: {fileID: 8622477484328088878}
   m_Layer: 0
   m_Name: plasma_ball
   m_TagString: Untagged
@@ -298,6 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect_amount: 1
+  hit_impact_prefab: {fileID: 0}
 --- !u!114 &5225726917950991525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +313,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff656668bd4044ea8b61884da636797c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion_prefab: {fileID: 0}
+  explosion_prefab: {fileID: 1077900821972317847, guid: 0b0addb9a1d82564e88be5cc2e2e6a0c,
+    type: 3}
+  is_explosion_instantiated: 0
+--- !u!114 &-7962127730834510175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597424940680807123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 761b722c3bcd4130a185751e65bf3e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage_dealer: {fileID: 3319183180109347547}
+  rigid_body: {fileID: -4382886989837692693}
+  collider2d: {fileID: -2214317690754465625}
+  explosive_body: {fileID: 5225726917950991525}
+--- !u!114 &8622477484328088878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597424940680807123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff656668bd4044ea8b61884da636797c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion_prefab: {fileID: 6884037029220798251, guid: d6862a5a5c8487640bcb3fd39102d3d7,
+    type: 3}
   is_explosion_instantiated: 0
 --- !u!1 &5597424941546550284
 GameObject:

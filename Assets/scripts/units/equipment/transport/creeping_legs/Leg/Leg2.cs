@@ -66,7 +66,7 @@ public class Leg2:
             this,
             target
         ).set_on_completed(on_completed)
-        .start_as_root(action_runner);
+        .start_as_root(actor.action_runner);
     }
     
     #endregion

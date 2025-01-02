@@ -7,7 +7,7 @@ using Action = rvinowise.unity.actions.Action;
 namespace rvinowise.unity {
     
 public class Empty_sensory_organ:
-    IActor_sensory_organ 
+    ISensory_organ 
 {
 
     public void pay_attention_to_target(Transform target) {
@@ -18,11 +18,9 @@ public class Empty_sensory_organ:
         return false;
     }
 
-    public void init_for_runner(Action_runner action_runner) {
-        
-    }
 
-    public Action current_action { get; set; }
+    public Actor actor { get; set; }
+
     public void on_lacking_action() {
     }
 

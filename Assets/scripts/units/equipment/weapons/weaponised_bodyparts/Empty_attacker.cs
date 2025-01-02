@@ -7,7 +7,7 @@ using Action = rvinowise.unity.actions.Action;
 namespace rvinowise.unity {
     
 public class Empty_attacker:
-    IActor_attacker 
+    IAttacker 
 {
 
     //public Transform transform { get; }
@@ -22,11 +22,9 @@ public class Empty_attacker:
         on_completed?.Invoke();
     }
 
-    public void init_for_runner(Action_runner action_runner) {
-        
-    }
 
-    public Action current_action { get; set; }
+    public Actor actor { get; set; }
+
     public void on_lacking_action() {
     }
 

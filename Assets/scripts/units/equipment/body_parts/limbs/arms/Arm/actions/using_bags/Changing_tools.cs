@@ -11,11 +11,11 @@ public static class Changing_tools {
         Arm left_arm,
         Arm right_arm
     ) {
-        if (left_arm.current_action?.get_root_action().marker.StartsWith("changing tool") ?? false) {
-            left_arm.current_action.discard_whole_tree();
+        if (left_arm.actor.current_action?.get_root_action().marker.StartsWith("changing tool") ?? false) {
+            left_arm.actor.current_action.discard_whole_tree();
         }
-        if (right_arm.current_action?.get_root_action().marker.StartsWith("changing tool") ?? false) {
-            right_arm.current_action.discard_whole_tree();
+        if (right_arm.actor.current_action?.get_root_action().marker.StartsWith("changing tool") ?? false) {
+            right_arm.actor.current_action.discard_whole_tree();
         }
     } 
     

@@ -77,7 +77,7 @@ public class Action_parallel_parent:
         
     }
 
-    public override void on_child_completed(Action child) {
+    public override void on_child_completed(Action sender_child) {
         if (all_children_are_completed()) {
             mark_as_completed();
         }

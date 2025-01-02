@@ -13,12 +13,10 @@ namespace rvinowise.unity {
 public class Hiding_limbs_group:
     MonoBehaviour
     ,IDefender
-    ,IActor
 {
     public List<ALeg> legs;
     public Creeping_leg_group creeping_leg_group;
 
-    private Action_runner action_runner;
 
     private System.Action intelligence_on_legs_are_hidden;
     private System.Action intelligence_on_legs_are_exposed;
@@ -28,7 +26,7 @@ public class Hiding_limbs_group:
             creeping_leg_group,
             transform
         ).set_on_completed(on_legs_are_hidden)
-        .start_as_root(action_runner);
+        .start_as_root(actor.action_runner);
     }
 
     protected void expose_legs() {
@@ -36,15 +34,15 @@ public class Hiding_limbs_group:
             creeping_leg_group,
             transform
         ).set_on_completed(on_legs_are_exposed)
-        .start_as_root(action_runner);
+        .start_as_root(actor.action_runner);
     }
 
     protected void on_legs_are_hidden(actions.Action action) {
         Idle.create(
-            creeping_leg_group
-        ).start_as_root(action_runner);
+            actor
+        ).start_as_root(actor.action_runner);
         foreach (var leg in creeping_leg_group.legs) {
-            Idle.create(leg).start_as_root(action_runner);
+            Idle.create(leg.actor).start_as_root(actor.action_runner);
         }
         intelligence_on_legs_are_hidden();
     }
@@ -66,14 +64,12 @@ public class Hiding_limbs_group:
         expose_legs();
     }
 
-    public Action current_action { get; set; }
+    public Actor actor { get; set; }
+
     public void on_lacking_action() {
-        Idle.create(this).start_as_root(action_runner);
+        Idle.create(actor).start_as_root(actor.action_runner);
     }
 
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
-    }
 }
 
 }

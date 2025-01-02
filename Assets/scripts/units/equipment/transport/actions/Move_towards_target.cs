@@ -6,14 +6,14 @@ using rvinowise.unity;
 namespace rvinowise.unity.actions {
 
 public class Move_towards_target: Action_leaf {
-
-    private IActor_transporter transporter;
+    
+    private ITransporter transporter;
     private Transform target;
     private float needed_distance;
     private Transform moved_transform;
     
     public static Move_towards_target create(
-        IActor_transporter in_transporter,
+        ITransporter in_transporter,
         float needed_distance,
         Transform in_target
     ) {

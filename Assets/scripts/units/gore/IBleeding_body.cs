@@ -11,7 +11,6 @@ namespace rvinowise.unity {
 public interface IBleeding_body {
 
 
-
     void create_splash(
         Vector2 in_position,
         Vector2 in_impulse

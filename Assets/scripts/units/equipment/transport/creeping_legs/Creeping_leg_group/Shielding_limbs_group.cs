@@ -15,12 +15,10 @@ namespace rvinowise.unity {
 public class Shielding_limbs_group:
     Abstract_children_group
     ,IDefender
-    ,IRunning_actions
 {
     public List<Shielding_limb> shielding_limbs;
     public Creeping_leg_group creeping_leg_group;
 
-    private Action_runner action_runner;
 
     private System.Action intelligence_on_shielded;
     
@@ -54,7 +52,7 @@ public class Shielding_limbs_group:
     public void finish_defence(System.Action on_completed) {
         Debug.Log("ATTACK_DEFENCE Shielding_limbs_group.finish_defence, all legs partake in moving");
         foreach (var leg in creeping_leg_group.legs) {
-            Creeping_leg_partakes_in_moving.create(leg).start_as_root(action_runner);
+            Creeping_leg_partakes_in_moving.create(leg).start_as_root(actor.action_runner);
         }
         on_completed?.Invoke();
     }
@@ -62,10 +60,10 @@ public class Shielding_limbs_group:
 
     protected void on_legs_are_shielding() {
         Idle.create(
-            creeping_leg_group
-        ).start_as_root(action_runner);
+            actor
+        ).start_as_root(actor.action_runner);
         foreach (var leg in creeping_leg_group.legs) {
-            Idle.create(leg).start_as_root(action_runner);
+            Idle.create(leg.actor).start_as_root(actor.action_runner);
         }
         intelligence_on_shielded();
     }
@@ -73,12 +71,14 @@ public class Shielding_limbs_group:
     #endregion
     
 
-    #region IRunning_actions
+    #region IActor
 
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
+    public Actor actor { get; set; }
+
+    public void on_lacking_action() {
+        
     }
-    
+
     #endregion
     
     

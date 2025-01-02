@@ -25,13 +25,15 @@ public class Simple_player_human: Player_human {
     private bool was_attacking = false;
     
     protected override void use_tools() {
-        bool wants_to_attack = Player_input.instance.button_presed("attack");
+        bool wants_to_attack = //Player_input.instance.button_presed("attack");
+            Input.GetButton("attack");
         bool wants_to_reload = Player_input.instance.button_presed("reload");
         bool wants_to_use_supertool = Player_input.instance.button_presed("supertool");
         
         
         if (wants_to_attack) {
             start_attack();
+            Debug.Log("Simple_player_human wants_to_attack");
         } else if (was_attacking) {
             stop_attacking();
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Linq;
+using Pathfinding;
 using rvinowise.unity.actions;
 using rvinowise.unity.extensions;
 using UnityEditor;
@@ -20,18 +21,20 @@ public enum Intelligence_action: int {
     Nothing
 }
 public class Computer_intelligence:Intelligence {
+
+    public Seeker path_seeker;
     
     public readonly Unit_commands unit_commands = new Unit_commands();
-    public Commander commander;
-
+    public Intelligence_action intelligence_action;
+    
     [NonSerialized]
     public Intelligence target;
-
-    public Intelligence_action intelligence_action;
+    
     
     public override void Awake() {
         base.Awake();
         set_team(team);
+        path_seeker = GetComponent<Seeker>();
     }
 
     public void set_team(Team in_team) {
@@ -62,18 +65,33 @@ public class Computer_intelligence:Intelligence {
             move_towards_target(target);
         }
         else {
-            Idle.create(transporter).start_as_root(action_runner);
+            Idle.create(transporter.actor).start_as_root(action_runner);
         }
     }
 
     private void move_towards_target(Intelligence in_target) {
         intelligence_action = Intelligence_action.Walking;
         Action_parallel_parent.create(
-            Keep_distance_from_target.create(
+            // Action_sequential_parent.create(
+            //     Traverse_obstacles_before_target.create(
+            //         transporter,
+            //         transform,
+            //         path_seeker,
+            //         in_target.transform
+            //     ),
+            //     Keep_distance_from_target.create(
+            //         transporter,
+            //         transform,
+            //         get_body_reaching_distance(),
+            //         in_target.transform
+            //     )
+            // ),
+            Follow_target.create(
                 transporter,
                 transform,
-                get_body_reaching_distance(),
-                in_target.transform
+                path_seeker,
+                in_target.transform,
+                get_body_reaching_distance()
             ),
             Sensor_pay_attention_to_target.create(
                 sensory_organ,
@@ -97,6 +115,9 @@ public class Computer_intelligence:Intelligence {
     }
 
     protected void Update() {
+        if (gameObject.name == "test") {
+            bool test = true;
+        }
         action_runner.update();
     }
     
@@ -109,7 +130,13 @@ public class Computer_intelligence:Intelligence {
                     intelligence_action = Intelligence_action.Attacking;
                     attacker.attack(target.transform, on_attack_finished);
                 } else
-                if (target.attacker.is_weapon_targeting_target(this.transform)) {
+                if 
+                    (
+                        (target.attacker.is_weapon_targeting_target(this.transform))
+                        &&
+                        !(defender is Empty_defender)
+                    )
+                {
                     Debug.unityLogger.Log("ATTACK_DEFENCE", $"Computer_intelligence::FixedUpdate: target.weaponry.can_reach this, defending");
                     intelligence_action = Intelligence_action.Starting_defending;
                     defender.start_defence(target.transform, on_assumed_defensive_position);
@@ -158,7 +185,7 @@ public class Computer_intelligence:Intelligence {
         if (team == null) {
             return null;
         }
-        var closest_distance = float.MaxValue;
+        var closest_distance = float.PositiveInfinity;
         Intelligence closest_enemy = null;
         foreach (var enemy_team in team.enemy_teams) {
             foreach (var enemy in enemy_team.units) {
@@ -177,7 +204,7 @@ public class Computer_intelligence:Intelligence {
         return closest_enemy;
     }
     private Intelligence find_closest_friend() {
-        var closest_distance = float.MaxValue;
+        var closest_distance = float.PositiveInfinity;
         Intelligence closest_unit = null;
         foreach (var unit in team.units) {
             if (unit==this)

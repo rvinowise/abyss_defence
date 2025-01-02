@@ -8,11 +8,11 @@ using UnityEngine;
 namespace rvinowise.unity
 {
 public class Compound_transporter: 
-    IActor_transporter
+    ITransporter
 {
 
     public List<GameObject> weapon_objects; //only for initialisation in inspector
-    public readonly List<IActor_transporter> child_transporters;
+    public readonly List<ITransporter> child_transporters;
 
 
     // internal override void Awake() {
@@ -22,7 +22,7 @@ public class Compound_transporter:
     //     }
     // }
 
-    public Compound_transporter(IEnumerable<IActor_transporter> transporters) {
+    public Compound_transporter(IEnumerable<ITransporter> transporters) {
         child_transporters = transporters.ToList();
     }
     
@@ -52,14 +52,11 @@ public class Compound_transporter:
         throw new System.NotImplementedException();
     }
 
-    private Action_runner action_runner;
-    public void init_for_runner(Action_runner in_action_runner) {
-        this.action_runner = in_action_runner;
-    }
 
-    public Action current_action { get; set; }
+    public Actor actor { get; set; }
+
     public void on_lacking_action() {
-        Idle.create(this).start_as_root(action_runner);
+        Idle.create(actor).start_as_root(actor.action_runner);
     }
 
     #endregion

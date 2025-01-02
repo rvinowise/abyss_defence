@@ -13,8 +13,8 @@ namespace rvinowise.unity {
 
 public partial class Creeping_leg_group: 
     Abstract_children_group
-    ,IActor_transporter
-    ,IActor_attacker
+    ,ITransporter
+    ,IAttacker
 {
     
     #region Children_group
@@ -28,6 +28,7 @@ public partial class Creeping_leg_group:
         if (moved_body != null) {
             set_moved_body(moved_body);
         }
+        actor = GetComponent<Actor>();
     }
 
     protected override void Start() {
@@ -174,7 +175,7 @@ public partial class Creeping_leg_group:
 
     private void move_legs() {
         foreach (ILeg leg in legs) {
-            if (!(leg.current_action is Creeping_leg_partakes_in_moving)) {
+            if (!(leg.actor.current_action is Creeping_leg_partakes_in_moving)) {
                 continue;
             }
             leg.set_desired_position(get_optimal_position_for(leg)); 
@@ -261,14 +262,13 @@ public partial class Creeping_leg_group:
    
 
     #region IActor
-    public Action current_action { get; set; }
-    private Action_runner action_runner { get; set; }
+
+    public Actor actor { get; set; }
+
     public void on_lacking_action() {
-        Idle.create(this).start_as_root(action_runner);
+        Idle.create(actor).start_as_root(actor.action_runner);
     }
-    public void init_for_runner(Action_runner in_action_runner) {
-        this.action_runner = in_action_runner;
-    }
+    
     #endregion
 }
 

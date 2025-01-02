@@ -12,7 +12,7 @@ public class Scorpion_arm_idle:Action_leaf {
     ) {
         var action = (Scorpion_arm_idle) object_pool.get(typeof(Scorpion_arm_idle));
 
-        action.add_actor(pedipalp);
+        action.add_actor(pedipalp.actor);
         action.pedipalp = pedipalp;
             
         return action;

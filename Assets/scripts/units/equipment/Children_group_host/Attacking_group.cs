@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using rvinowise.contracts;
+using rvinowise.unity.actions;
 using UnityEngine;
 
 
@@ -68,6 +69,16 @@ public class Attacking_group:
         }
     }
     
+    #endregion
+    
+    #region IActor
+
+    public Actor actor { get; set; }
+
+    public void on_lacking_action() {
+        
+    }
+
     #endregion
 }
 

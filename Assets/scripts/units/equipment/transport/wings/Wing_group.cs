@@ -10,7 +10,7 @@ namespace rvinowise.unity {
 
 public class Wing_group:
     MonoBehaviour
-    ,IActor_transporter
+    ,ITransporter
 {
 
     public Turning_element moved_body;
@@ -22,15 +22,13 @@ public class Wing_group:
         return moved_body;
     }
 
-    public Action current_action { get; set; }
+    public Actor actor { get; set; }
+
     public void on_lacking_action() {
-        Idle.create(this).start_as_root(action_runner);
+        Idle.create(actor).start_as_root(actor.action_runner);
     }
 
-    private Action_runner action_runner;
-    public void init_for_runner(Action_runner in_action_runner) {
-        action_runner = in_action_runner;
-    }
+    
 
     public float rotation_speed = 100f;
     public float acceleration_speed = 1f;
@@ -49,6 +47,7 @@ public class Wing_group:
     private Rigidbody2D rigid_body;
     void Awake() {
         rigid_body = GetComponent<Rigidbody2D>();
+        actor = GetComponent<Actor>();
     }
     
 

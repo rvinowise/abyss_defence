@@ -18,7 +18,7 @@ public class Landmine_supertool:
             user,
             tool,
             expendable_equipment
-        ).start_as_root(user.action_runner);
+        ).start_as_root(user.actor.action_runner);
     }
 }
 }

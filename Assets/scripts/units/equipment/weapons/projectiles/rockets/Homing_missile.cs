@@ -14,7 +14,7 @@ public class Homing_missile :
     MonoBehaviour
 {
 
-    public IActor_transporter transporter;
+    public ITransporter transporter;
     
     public Team team;
     public Transform target;
@@ -30,7 +30,7 @@ public class Homing_missile :
             GetComponentsInChildren<Baggage>().Length <= 1, "which baggage should the Intelligence use?"
         );
 
-        register_actor_parts();
+        action_runner.start_fallback_actions();
         
     }
 
@@ -42,16 +42,12 @@ public class Homing_missile :
 
     public void init_devices() {
         
-        transporter = GetComponentInChildren<IActor_transporter>();
+        transporter = GetComponentInChildren<ITransporter>();
         
         transporter.set_moved_body(this.GetComponent<Turning_element>());
-        transporter.init_for_runner(action_runner);
         
     }
 
-    public void register_actor_parts() {
-        action_runner.start_fallback_actions();
-    }
     
 
     public void fly_towards_target() {

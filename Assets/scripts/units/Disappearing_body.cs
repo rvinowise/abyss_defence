@@ -63,7 +63,7 @@ public class Disappearing_body:
         Destroy(rigid_body);
         Destroy(GetComponent<Collider2D>());
         Destroy(GetComponent<Turning_element>());
-        Destroy(GetComponent<Bleeding_body>());
+        Destroy(GetComponent<Bleeding_body_droplet_objects>());
         start_decaying();
         will_be_settled_when_stops = false;
         

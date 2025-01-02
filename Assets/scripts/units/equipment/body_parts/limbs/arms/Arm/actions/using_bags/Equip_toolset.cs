@@ -86,7 +86,7 @@ public class Equip_toolset: Action_parallel_parent {
                 ).add_marker("changing tool asynch left")
             );
         }
-        else if (left_arm.current_action == null) {
+        else if (left_arm.actor.current_action == null) {
             left_arm.on_lacking_action();
         }
         
@@ -99,7 +99,7 @@ public class Equip_toolset: Action_parallel_parent {
                 ).add_marker("changing tool asynch right")
             );
         } 
-        else if (right_arm.current_action == null) {
+        else if (right_arm.actor.current_action == null) {
             right_arm.on_lacking_action();
         }
 

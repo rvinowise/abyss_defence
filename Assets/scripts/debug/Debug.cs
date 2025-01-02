@@ -1,13 +1,14 @@
-#define OPTIMIZED
+//#define OPTIMIZED
+#undef DEBUG
+
 using UnityEngine;
-//#pragma OPTIMIZED
 
 namespace rvinowise.unity.debug {
 
 public static class Debug {
 
     static Debug(){
-#if OPTIMIZED
+#if !DEBUG
     UnityEngine.Debug.unityLogger.logEnabled = false;
 #elif UNITY_EDITOR
     UnityEngine.Debug.unityLogger.logEnabled = true;

@@ -24,7 +24,7 @@ public struct Paired_gun {
 public class Focusing_guns:
     MonoBehaviour, 
     IAttacker,
-    IActor_transporter
+    ITransporter
 {
 
     public Turning_element platform;
@@ -73,12 +73,8 @@ public class Focusing_guns:
         platform.set_target_rotation(rotation);
     }
 
-    public Action_runner action_runner;
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
-    }
+    public Actor actor { get; set; }
 
-    public actions.Action current_action { get; set; }
     public void on_lacking_action() {
         
     }

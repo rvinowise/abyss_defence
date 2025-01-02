@@ -41,14 +41,11 @@ public class Scorpion_pedipalp:
 
 
     public override void on_lacking_action() {
-        base.on_lacking_action();
-        Scorpion_arm_idle.create(this).start_as_root(action_runner);
+        Scorpion_arm_idle.create(this).start_as_root(actor.action_runner);
     }
 
-    #region Pedipalp itself
+
     
-    
-    #endregion
 }
 
 }

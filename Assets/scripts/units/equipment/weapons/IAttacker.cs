@@ -4,7 +4,7 @@ using Action = System.Action;
 
 
 namespace rvinowise.unity {
-public interface IAttacker 
+public interface IAttacker: IActing_role
 {
     bool is_weapon_targeting_target(Transform target);
     float get_reaching_distance();
@@ -12,17 +12,22 @@ public interface IAttacker
 }
 
 
-public interface IActor_attacker : IAttacker, IActor { }
 
 
 public abstract class Attacker_child_of_group: 
     Child_of_group,
-    IAttacker {
+    IAttacker 
+{
 
     public abstract bool is_weapon_targeting_target(Transform target);
     public abstract float get_reaching_distance();
 
     public abstract void attack(Transform target, Action on_completed = null);
+
+    public virtual void on_lacking_action() {}
+
+    public Actor actor { get; set; }
+
 }
 
 }

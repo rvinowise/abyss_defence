@@ -8,7 +8,7 @@ using Action = rvinowise.unity.actions.Action;
 namespace rvinowise.unity {
     
 public class Compound_defender:
-    IActor_defender
+    IDefender
 {
     public IList<IDefender> child_defenders;
 
@@ -31,7 +31,7 @@ public class Compound_defender:
         Action_parallel_parent.create_from_actions(
             defending_actions
         ).set_on_completed(on_completed)
-            .start_as_root(action_runner);
+            .start_as_root(actor.action_runner);
     }
 
     public void finish_defence(System.Action on_completed) {
@@ -48,19 +48,15 @@ public class Compound_defender:
         Action_parallel_parent.create_from_actions(
             finishing_actions
         ).set_on_completed(on_completed)
-            .start_as_root(action_runner);
+            .start_as_root(actor.action_runner);
     }
     
     #region IActor
 
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
-    }
+    public Actor actor { get; set; }
 
-    private Action_runner action_runner;
-    public Action current_action { get; set; }
     public void on_lacking_action() {
-        Idle.create(this).start_as_root(action_runner);
+        Idle.create(actor).start_as_root(actor.action_runner);
     }
 
     #endregion

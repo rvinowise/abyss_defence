@@ -10,7 +10,7 @@ using Action = rvinowise.unity.actions.Action;
 namespace rvinowise.unity {
 public class Proboscis : 
     Attacker_child_of_group,
-    IActor_attacker
+    IAttacker
 
 {
     public Transform beginning;
@@ -114,19 +114,6 @@ public class Proboscis :
     }
     
     
-    #region IActor
-
-    private Action_runner action_runner;
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
-    }
-
-    public Action current_action { get; set; }
-    public void on_lacking_action() {
-        Idle.create(this).start_as_root(action_runner);
-    }
-
-    #endregion
 }
 
 }

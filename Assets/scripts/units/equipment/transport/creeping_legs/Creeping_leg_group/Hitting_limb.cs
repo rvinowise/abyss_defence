@@ -14,7 +14,6 @@ namespace rvinowise.unity {
 public class Hitting_limb:
     MonoBehaviour
     ,IAttacker
-    ,IRunning_actions
     ,IChild_of_group
 {
     public ALeg limb;
@@ -27,7 +26,6 @@ public class Hitting_limb:
     
     public Transform damage_point;
     
-    private Action_runner action_runner;
 
     private System.Action<actions.Action> intelligence_on_shielded;
     
@@ -66,19 +64,21 @@ public class Hitting_limb:
                 creeping_leg_group.transform
             )
         ).set_on_completed(on_completed)
-        .start_as_root(action_runner);
+        .start_as_root(actor.action_runner);
     }
 
     #endregion IWeaponry
     
     
     
-    #region IRunning_actions
+    #region IActor
 
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
+    public Actor actor { get; set; }
+
+    public void on_lacking_action() {
+        
     }
-    
+
     #endregion
 
     

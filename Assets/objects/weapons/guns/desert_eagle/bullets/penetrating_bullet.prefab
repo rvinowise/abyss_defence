@@ -252,6 +252,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect_amount: 1
+  hit_impact_prefab: {fileID: 6070810915012417560, guid: 93909083cb4dbc0429fc30bf5cdab6a4,
+    type: 3}
 --- !u!114 &-5877605998203739688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,9 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec115ea10e24906b8785120a4465f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  left_sprite: {fileID: 0}
   sprite_renderer: {fileID: 2524941769257766465}
-  sprite_resolver: {fileID: 0}
 --- !u!114 &-8632416045823008265
 MonoBehaviour:
   m_ObjectHideFlags: 0

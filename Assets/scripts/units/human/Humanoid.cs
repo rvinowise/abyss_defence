@@ -11,7 +11,7 @@ namespace rvinowise.unity {
 public class Humanoid:
     MonoBehaviour
     ,IFlippable_actor
-    ,IActor
+    ,IActing_role
 {
 
     public Arm_pair arm_pair;
@@ -23,16 +23,13 @@ public class Humanoid:
     
     
     #region IActor
-    public Action current_action { set; get; }
+
+    public Actor actor { get; set; }
 
     public void on_lacking_action() {
-        Idle.create(this).start_as_root(action_runner);
+        Idle.create(actor).start_as_root(actor.action_runner);
     }
 
-    public Action_runner action_runner;
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
-    }
     #endregion
 
 
@@ -48,7 +45,7 @@ public class Humanoid:
         baggage.change_ammo_qty(
             in_ammo.compatibility,
             in_ammo.rounds_qty
-            );
+        );
     }
     protected void Awake()
     {

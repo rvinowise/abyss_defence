@@ -5,17 +5,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using rvinowise.contracts;
+using UnityEditor;
 using UnityEngine;
 
 
 namespace rvinowise.unity.actions {
 
 public class Action_runner: MonoBehaviour {
-    private readonly List<IActor> actors = new List<IActor>();
+    private readonly List<Actor> actors = new List<Actor>();
 
     private readonly List<Action> current_actions = new List<Action>();
     private readonly ISet<Action> finishing_actions = new HashSet<Action>();
     private readonly List<Action> starting_actions = new List<Action>();
+
+
+    private void Awake() {
+        var actors = GetComponentsInChildren<Actor>();
+        foreach (Actor actor in actors) {
+            add_actor(actor);
+            actor.action_runner = this;
+            var roles = actor.GetComponents<IActing_role>();
+            foreach (var role in roles) {
+                role.actor = actor;
+            }
+            actor.roles = roles.ToList();
+        }
+    }
 
     public void add_action(Action action) {
         current_actions.Add(action);
@@ -26,6 +41,7 @@ public class Action_runner: MonoBehaviour {
         
         finishing_actions.Add(action);
         
+        #if DEBUG
         var finishing_actions_debug = new List<string>();
         foreach (var finishing_action in finishing_actions) {
             finishing_actions_debug.Add(finishing_action.get_explanation());
@@ -34,6 +50,7 @@ public class Action_runner: MonoBehaviour {
             "finishing_actions=\n"+
             $"{String.Join(";\n", finishing_actions_debug)}"
         );
+        #endif
     }
     public void mark_action_as_starting(Action action) {
         Contract.Assert(!starting_actions.Contains(action), 
@@ -41,6 +58,7 @@ public class Action_runner: MonoBehaviour {
         );
         starting_actions.Add(action);
 
+        #if DEBUG
         var starting_actions_debug = new List<string>();
         foreach (var starting_action in starting_actions) {
             starting_actions_debug.Add(starting_action.get_explanation());
@@ -49,8 +67,9 @@ public class Action_runner: MonoBehaviour {
             "starting_actions="+
             $"{String.Join("\n;", starting_actions_debug)}"
         );
+        #endif
     }
-    public void add_actor(IActor actor) {
+    public void add_actor(Actor actor) {
         actors.Add(actor);
     }
 
@@ -133,7 +152,7 @@ public class Action_runner: MonoBehaviour {
 
 
     public void start_fallback_actions() {
-        foreach (IActor actor in actors) {
+        foreach (Actor actor in actors) {
             if (actor.current_action == null) {
                 actor.on_lacking_action();
             }
@@ -149,6 +168,27 @@ public class Action_runner: MonoBehaviour {
         finishing_actions.Add(in_action);
     }
 
+    
+#if UNITY_EDITOR
+    protected virtual void OnDrawGizmos() {
+        GUIStyle myStyle = new GUIStyle {
+            fontSize = 13,
+            normal = {
+                textColor = Color.green
+            }
+        };
+
+        foreach (var actor in actors) {
+            if (actor is Component actor_component) {
+                Handles.Label(actor_component.transform.position, actor.current_action.ToString(), myStyle);
+            }
+            else {
+                Debug.LogWarning($"WARNING: an actor {actor} is not a component");
+            }
+        }
+        
+    }
+#endif
 
 
 }

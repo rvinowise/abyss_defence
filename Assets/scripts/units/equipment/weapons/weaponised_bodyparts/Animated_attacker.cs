@@ -10,7 +10,7 @@ using Action = rvinowise.unity.actions.Action;
 namespace rvinowise.unity {
 public class Animated_attacker : 
     Attacker_child_of_group,
-    IActor_attacker
+    IAttacker
 {
 
     public Collider2D attacked_area;
@@ -88,15 +88,11 @@ public class Animated_attacker :
     
 
     #region IActor
+     
+    
 
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
-    }
-
-    public Action_runner action_runner;
-    public Action current_action { get; set; }
-    public void on_lacking_action() {
-        Idle.create(this).start_as_root(action_runner);
+    public override void on_lacking_action() {
+        Idle.create(actor).start_as_root(actor.action_runner);
     }
 
     #endregion

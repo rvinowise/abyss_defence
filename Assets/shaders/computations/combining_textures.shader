@@ -2,7 +2,9 @@
 {
 	Properties
 	{
-		[MainTexture] _Bottom ("Bottom", 2D) = "white" {}
+		/*[MainTexture]*/
+		//_MainTex ("MainTex", 2D) = "white" {}
+		_Bottom ("Bottom", 2D) = "white" {}
 		_Top ("Top", 2D) = "white" {}
 	}
 	SubShader
@@ -16,8 +18,8 @@
             #pragma fragment frag
 
            
-            sampler2D _Bottom;
-			sampler2D _Top;
+            sampler2D _Top;
+			sampler2D _Bottom;
 
 
 
@@ -36,8 +38,8 @@
 				// 		return half4(0,0,0,1);
 				// 	}
 				// }
-				//return color_bottom * (1-color_top.a) + color_top*color_top.a;
-				return color_bottom * 1.3 + color_top*color_top.a;
+				//return color_bottom + half4(0,color_top.a,0,color_top.a);// * (1/*-color_top.a*/);//
+				return color_bottom * (1-color_top.a) + color_top*color_top.a;
 			} 
 			
            

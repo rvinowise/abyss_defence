@@ -66,7 +66,6 @@ public class Attach_unit_parts: Action_leaf {
         attachable_body.transform.parent = null;
         var unit_intelligence = attachable_body.GetComponent<Computer_intelligence>();
         unit_intelligence.team = combining_circle.team;
-        unit_intelligence.add_actors_to_action_runner();
         unit_intelligence.action_runner.start_fallback_actions();
         unit_intelligence.init_devices();
         unit_intelligence.move_towards_best_target();

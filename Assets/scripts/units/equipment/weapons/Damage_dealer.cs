@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using rvinowise.unity.actions;
+using rvinowise.unity.extensions;
 using UnityEngine;
 using Action = System.Action;
 
@@ -8,7 +9,7 @@ namespace rvinowise.unity {
 public class Damage_dealer: MonoBehaviour {
     
     public float effect_amount = 1f;
-    
+    public GameObject hit_impact_prefab;
     
     private readonly ISet<Transform> damaged_targets = new HashSet<Transform>();
     private Transform attacker;
@@ -50,6 +51,18 @@ public class Damage_dealer: MonoBehaviour {
             was_target_damaged(receiver.transform)
             ||
             attacker == receiver.transform;
+    }
+    
+    
+    public void create_hit_impact( 
+        Vector2 in_position,
+        Vector2 in_impulse
+    ) {
+        // var contact_with_height =
+        //     in_position.with_height(0);
+        if (hit_impact_prefab != null) {
+            var effect = Instantiate(hit_impact_prefab, in_position, in_impulse.to_quaternion());
+        }
     }
 }
 

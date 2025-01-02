@@ -48,6 +48,8 @@ public class Double_barreled_shotgun: MonoBehaviour
     public Spark left_spark;
     private Spark right_spark;
 
+    public GameObject hit_impact_prefab;
+
     
     private float last_shot_time = 0f;
 
@@ -179,8 +181,10 @@ public class Double_barreled_shotgun: MonoBehaviour
                 if (hit.transform.GetComponent<Damage_receiver>() is {} damage_receiver) {
                     damage_receiver.receive_damage(1);
                 }
-                if (hit.transform.GetComponent<Bleeding_body_splash_prefab>() as IBleeding_body is {} bleeding_body) {
-                    bleeding_body.create_splash(hit.point,-impact_vector*10);
+                if (hit.transform.GetComponent<IBleeding_body>() is {} bleeding_body) {
+                    bleeding_body.create_splash(hit.point,impact_vector*10);
+                } else {
+                    damage_dealer.create_hit_impact(hit.point,hit.normal);
                 }
                 draw_trail(emitting_point, hit.point, i_shot);
             } else {
@@ -191,6 +195,7 @@ public class Double_barreled_shotgun: MonoBehaviour
         }
     }
 
+    
     private void create_spark(Transform muzzle) {
         if (muzzle == left_muzzle) {
             left_spark.activate_flash_detached();

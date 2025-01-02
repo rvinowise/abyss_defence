@@ -16,11 +16,9 @@ namespace rvinowise.unity {
 public class Hitting_limbs_group:
     Abstract_children_group
     ,IAttacker
-    ,IRunning_actions
 {
     public List<Hitting_limb> hitting_limbs;
 
-    private Action_runner action_runner;
 
     private System.Action<actions.Action> intelligence_on_complete;
     
@@ -55,11 +53,14 @@ public class Hitting_limbs_group:
     #endregion
     
 
-    #region IRunning_actions
+    #region IActor
 
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
+    public Actor actor { get; set; }
+
+    public void on_lacking_action() {
+        
     }
+
     
     #endregion
     

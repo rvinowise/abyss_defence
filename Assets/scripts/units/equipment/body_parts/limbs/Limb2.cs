@@ -34,8 +34,11 @@ public class Limb2:
 
     public Segment get_root_segment() => segment1;
 
-    
-    
+    private void Awake() {
+        actor = GetComponent<Actor>();
+    }
+
+
     public virtual void rotate_to_desired_directions() {
         segment1.rotate_to_desired_direction();
         segment2.rotate_to_desired_direction();
@@ -249,32 +252,26 @@ public class Limb2:
         draw_desired_directions();
         draw_directions(Color.white);
 
-        if (current_action != null) {
-            GUIStyle myStyle = new GUIStyle {
-                fontSize = 13
-                //fontStyle = FontStyle.Bold
-            };
-            myStyle.normal.textColor = Color.green;
-
-            Handles.Label(transform.position, current_action.ToString(),myStyle);
-        }
+        // if (current_action != null) {
+        //     GUIStyle myStyle = new GUIStyle {
+        //         fontSize = 13
+        //         //fontStyle = FontStyle.Bold
+        //     };
+        //     myStyle.normal.textColor = Color.green;
+        //
+        //     Handles.Label(transform.position, current_action.ToString(),myStyle);
+        // }
     }
 #endif
     
     #endregion
 
-    #region IActor
-    public Action current_action { get; set; }
-    public Action_runner action_runner { get; private set; }
+
+    public Actor actor { get; set; }
 
     public virtual void on_lacking_action() {
     }
 
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
-    }
-
-    #endregion
 
 }
 }

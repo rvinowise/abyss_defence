@@ -11,7 +11,7 @@ It uses composition instead of inheritance */
 public abstract class ALeg : 
     Limb2
     ,ILeg
-    ,IActor_attacker
+    ,IAttacker
 {
     public float provided_impulse = 0.2f;
     public float get_provided_impulse() => provided_impulse;
@@ -64,10 +64,15 @@ public abstract class ALeg :
     }
 
     
-    #region IActor_attacker
+    #region IActor
+    
+    
     public override void on_lacking_action() {
-        Creeping_leg_partakes_in_moving.create(this).start_as_root(action_runner);
+        Creeping_leg_partakes_in_moving.create(this).start_as_root(actor.action_runner);
     }
+    #endregion
+
+    #region IAttacker
 
     public bool is_weapon_targeting_target(Transform target) {
         var distance_to_target =
@@ -80,7 +85,6 @@ public abstract class ALeg :
     public abstract void attack(Transform target, Action on_completed = null);
 
     #endregion
-
 
  
 }

@@ -15,6 +15,7 @@ public class Damage_receiver: MonoBehaviour {
     public float received_damage;
 
     public IDestructible destructible;
+    public IBleeding_body bleeding_body;
     
     public TMP_Text text_label;
 

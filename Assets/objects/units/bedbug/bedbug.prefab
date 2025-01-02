@@ -133,13 +133,12 @@ MonoBehaviour:
     max:
       degrees: 0
     goes_through_switching_degrees: 0
-  rotation_speed: 5000
   rotation_acceleration: 5000
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 507573310418439003}
   length: 0.81
@@ -158,6 +157,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
 --- !u!1 &1857734719448557974
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,10 +237,12 @@ MonoBehaviour:
   segment1: {fileID: 6213284454597490606}
   segment2: {fileID: 7813514977215663210}
   folding_side: 1
-  _provided_impulse: 0.016
-  _optimal_relative_position_standing_transform: {fileID: 702663571037595817}
-  _comfortable_distance: 0.15
-  _moving_offset_distance: 0.1
+  provided_impulse: 0.2
+  optimal_relative_position_standing_transform: {fileID: 702663571037595817}
+  reposition_distance: 0.3
+  moving_offset_distance: 0.3
+  up: 1
+  action_label: 
 --- !u!1 &2088649184833553867
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,13 +406,12 @@ MonoBehaviour:
     max:
       degrees: 160.2
     goes_through_switching_degrees: 0
-  rotation_speed: 5000
   rotation_acceleration: 5000
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 3077113759369140437}
   length: 0.81
@@ -428,6 +430,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
 --- !u!1 &3659617947580310183
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,13 +535,12 @@ MonoBehaviour:
     max:
       degrees: 0
     goes_through_switching_degrees: 0
-  rotation_speed: 5000
   rotation_acceleration: 5000
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 9069457698354436501}
   length: 0.6
@@ -556,6 +559,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
 --- !u!1 &3873223353880489936
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,11 +606,12 @@ GameObject:
   - component: {fileID: 9165292977156152955}
   - component: {fileID: 8505692377089369882}
   - component: {fileID: 5289760542592414621}
-  - component: {fileID: 8250892630290664248}
   - component: {fileID: 7456789759797287093}
   - component: {fileID: 2749966809911182648}
-  - component: {fileID: 6869663159488216432}
   - component: {fileID: 5457782185794267139}
+  - component: {fileID: 1630921594}
+  - component: {fileID: 1630921595}
+  - component: {fileID: 1630921596}
   m_Layer: 0
   m_Name: bedbug
   m_TagString: Untagged
@@ -733,8 +739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inside: {fileID: 0}
-  needs_initialisation: 1
-  pooled_prefab: {fileID: 0}
+  outside: {fileID: 0}
 --- !u!114 &9165292977156152955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,7 +752,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4fc3d2ae5a1871458a79adcd59ac8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  divisible_body: {fileID: 9130186382300236195}
+  moved_body: {fileID: 0}
+  rotate_faster_than_move: 100
   stable_leg_groups:
   - legs:
     - {fileID: 7914823512948942470}
@@ -755,11 +761,8 @@ MonoBehaviour:
   - legs:
     - {fileID: 7914823512701991656}
     - {fileID: 8875350870706720175}
-  _legs:
-  - {fileID: 7914823512948942470}
-  - {fileID: 7914823512701991656}
-  - {fileID: 8875350870706720175}
-  - {fileID: 2697739222602121059}
+  dominant_leg: {fileID: 0}
+  legs: []
 --- !u!50 &8505692377089369882
 Rigidbody2D:
   serializedVersion: 4
@@ -799,30 +802,13 @@ MonoBehaviour:
     max:
       degrees: 0
     goes_through_switching_degrees: 0
-  rotation_speed: 0
   rotation_acceleration: 50
   rotation_slowing: 100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
---- !u!114 &8250892630290664248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4086627672631011292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d18a69c1cdb485a489f33f01f5dbd4ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baggage: {fileID: 0}
-  last_rotation: 0
-  team: {fileID: 0}
-  commander: {fileID: 0}
 --- !u!114 &7456789759797287093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -835,6 +821,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c10a959143527740a26de809a02b7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  max_damage: 2
+  received_damage: 0
+  text_label: {fileID: 0}
 --- !u!114 &2749966809911182648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,20 +836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc649ac9d2e44b69b88bdf89e5928450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  droplet_prefab: {fileID: 3642358614934767650, guid: 1f48d507629a89f4182bdb68c91044b4,
-    type: 3}
---- !u!114 &6869663159488216432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4086627672631011292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 600fe5cde1854d28b0b315a3a52f3330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  droplet_prefab: {fileID: 0}
 --- !u!114 &5457782185794267139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,6 +851,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
+--- !u!114 &1630921594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4086627672631011292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &1630921595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4086627672631011292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0668f9c4a2ff4107b6ea901f90aeff2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1630921596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4086627672631011292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12d608fbd8f6da7459ef0051464e0166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baggage: {fileID: 0}
+  last_rotation: 0
+  team: {fileID: 0}
+  is_ignored: 0
+  action_runner: {fileID: 1630921595}
+  path_seeker: {fileID: 1630921594}
+  intelligence_action: 4
 --- !u!1 &4511929939357444262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,13 +1075,12 @@ MonoBehaviour:
     max:
       degrees: -11.8
     goes_through_switching_degrees: 0
-  rotation_speed: 0
   rotation_acceleration: 5000
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 1996157301653159970}
   length: 0.352
@@ -1063,6 +1099,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
 --- !u!1 &5659167335761265160
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,10 +1149,12 @@ MonoBehaviour:
   segment1: {fileID: 6680826238214042624}
   segment2: {fileID: 8235071944740412968}
   folding_side: 1
-  _provided_impulse: 0.016
-  _optimal_relative_position_standing_transform: {fileID: 244838614479971403}
-  _comfortable_distance: 0.7
-  _moving_offset_distance: 0.3
+  provided_impulse: 0.2
+  optimal_relative_position_standing_transform: {fileID: 244838614479971403}
+  reposition_distance: 0.3
+  moving_offset_distance: 0.3
+  up: 1
+  action_label: 
   coxa: {fileID: 562799097132807254}
 --- !u!1 &6185728482207007317
 GameObject:
@@ -1219,13 +1259,12 @@ MonoBehaviour:
     max:
       degrees: -0
     goes_through_switching_degrees: 0
-  rotation_speed: 5000
   rotation_acceleration: 5000
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 5474785264655998641}
   length: 0.6
@@ -1244,6 +1283,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
 --- !u!1 &6393449457862130178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1347,13 +1388,12 @@ MonoBehaviour:
     max:
       degrees: -0
     goes_through_switching_degrees: 0
-  rotation_speed: 5000
   rotation_acceleration: 5000
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 6956421349555016549}
   length: 0.476
@@ -1372,6 +1412,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
 --- !u!1 &6824326309012478534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,13 +1517,12 @@ MonoBehaviour:
     max:
       degrees: 11.8
     goes_through_switching_degrees: 0
-  rotation_speed: 0
   rotation_acceleration: 5000
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 8306039803598641077}
   length: 0.352
@@ -1500,6 +1541,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
 --- !u!1 &6881717330827672004
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,13 +1676,12 @@ MonoBehaviour:
     max:
       degrees: 12.6
     goes_through_switching_degrees: 0
-  rotation_speed: 5000
   rotation_acceleration: 5000
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 5778265970244569580}
   length: 0.388
@@ -1658,6 +1700,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
 --- !u!1 &7011030005171824882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1706,10 +1750,12 @@ MonoBehaviour:
   segment1: {fileID: 2803105318726190424}
   segment2: {fileID: 942545835231851281}
   folding_side: -1
-  _provided_impulse: 0.016
-  _optimal_relative_position_standing_transform: {fileID: 5813998231623448711}
-  _comfortable_distance: 0.7
-  _moving_offset_distance: 0.3
+  provided_impulse: 0.2
+  optimal_relative_position_standing_transform: {fileID: 5813998231623448711}
+  reposition_distance: 0.3
+  moving_offset_distance: 0.3
+  up: 1
+  action_label: 
   coxa: {fileID: 6717392230665065246}
 --- !u!1 &7018831082052376237
 GameObject:
@@ -1814,13 +1860,12 @@ MonoBehaviour:
     max:
       degrees: -12.6
     goes_through_switching_degrees: 0
-  rotation_speed: 5000
   rotation_acceleration: 5000
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 3813369289373381028}
   length: 0.388
@@ -1839,6 +1884,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
 --- !u!1 &8004241066009416038
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,13 +1989,12 @@ MonoBehaviour:
     max:
       degrees: 158.59
     goes_through_switching_degrees: 0
-  rotation_speed: 5000
   rotation_acceleration: 5000
   rotation_slowing: 1100
-  rotation_friction: 0
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 2133001716742809039}
   length: 0.476
@@ -1967,6 +2013,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   max_images: 1500
   left_sprite: {fileID: 0}
+  sprite_renderer: {fileID: 0}
+  sprite_resolver: {fileID: 0}
 --- !u!1 &9021877191046208778
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,7 +2063,9 @@ MonoBehaviour:
   segment1: {fileID: 3247042218850436858}
   segment2: {fileID: 59933427946805637}
   folding_side: -1
-  _provided_impulse: 0.016
-  _optimal_relative_position_standing_transform: {fileID: 2125901373884445382}
-  _comfortable_distance: 0.15
-  _moving_offset_distance: 0.1
+  provided_impulse: 0.2
+  optimal_relative_position_standing_transform: {fileID: 2125901373884445382}
+  reposition_distance: 0.3
+  moving_offset_distance: 0.3
+  up: 1
+  action_label: 

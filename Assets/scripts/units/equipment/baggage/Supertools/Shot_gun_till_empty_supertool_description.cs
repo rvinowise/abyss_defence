@@ -27,7 +27,7 @@ public class Shot_gun_till_empty_supertool_description:
             tool,
             reloadable,
             ammo_compatibility
-        ).start_as_root(user.action_runner);
+        ).start_as_root(user.actor.action_runner);
     }
 }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define OPTIMIZED
+
+using System;
 using System.Collections.Generic;
 using rvinowise.contracts;
 using UnityEngine;
@@ -121,7 +123,7 @@ public abstract class Action
         parent_action.mark_as_not_completed();
     }
 
-    public virtual void on_child_completed(Action child) {
+    public virtual void on_child_completed(Action sender_child) {
         
     }
     

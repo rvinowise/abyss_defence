@@ -7,7 +7,7 @@ using UnityEngine;
 namespace rvinowise.unity {
 
 public class Compound_sensory_organ:
-    IActor_sensory_organ 
+    ISensory_organ 
 {
 
     public IList<ISensory_organ> child_sensors;
@@ -31,14 +31,11 @@ public class Compound_sensory_organ:
         return false;
     }
 
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
-    }
 
-    private Action_runner action_runner;
-    public Action current_action { get; set; }
+    public Actor actor { get; set; }
+
     public void on_lacking_action() {
-        Idle.create(this).start_as_root(action_runner);
+        Idle.create(actor).start_as_root(actor.action_runner);
     }
 
 }

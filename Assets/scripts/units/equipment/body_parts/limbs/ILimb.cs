@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace rvinowise.unity {
 
-    public interface ILimb:IActor {
+    public interface ILimb:IActing_role {
         bool is_twisted_badly();
 
         void move_segments_towards_desired_direction();

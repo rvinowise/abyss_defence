@@ -7,7 +7,7 @@ using Action = rvinowise.unity.actions.Action;
 namespace rvinowise.unity {
     
 public class Empty_defender:
-    IActor_defender 
+    IDefender 
 {
 
     public void start_defence(Transform target, System.Action on_completed) {
@@ -21,7 +21,8 @@ public class Empty_defender:
         
     }
 
-    public Action current_action { get; set; }
+    public Actor actor { get; set; }
+
     public void on_lacking_action() {
     }
 

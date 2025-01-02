@@ -82,15 +82,15 @@ public abstract class Player_human : Human_intelligence {
         transporter.face_rotation(needed_direction);
     }
 
-    private Gun has_gun_in_2hands() {
-        if (
-            (arm_pair?.right_arm.current_action is Idle_vigilant_main_arm) &&
-            (arm_pair?.right_arm.held_tool is { } tool)
-        ) {
-            return tool.GetComponent<Gun>();
-        }
-        return null;
-    }
+    // private Gun has_gun_in_2hands() {
+    //     if (
+    //         (arm_pair?.right_arm.current_action is Idle_vigilant_main_arm) &&
+    //         (arm_pair?.right_arm.held_tool is { } tool)
+    //     ) {
+    //         return tool.GetComponent<Gun>();
+    //     }
+    //     return null;
+    // }
 
     
 

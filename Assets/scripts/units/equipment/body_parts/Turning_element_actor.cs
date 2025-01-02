@@ -12,15 +12,17 @@ namespace rvinowise.unity {
 
 public class Turning_element_actor: 
     Turning_element
-    ,IActor 
+    ,IActing_role 
 {
-    private Action_runner action_runner;
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
+
+    #region IActor
+
+    public Actor actor { get; set; }
+
+    public void on_lacking_action() {
+        
     }
 
-    public Action current_action { get; set; }
-    public void on_lacking_action() {
-    }
+    #endregion
 }
 }

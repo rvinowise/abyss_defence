@@ -16,6 +16,7 @@ IPersistent_residue_holder
 
     public RenderTexture screen_texture;
     public RenderTexture permanent_texture;
+    private RenderTexture permanent_texture_buffer;
     public Camera residue_camera;
     public Shader photo_of_residue_shader;
 
@@ -27,20 +28,30 @@ IPersistent_residue_holder
     private int captured_layer;
 
     private void Awake() {
-        RenderTexture previous_texture = UnityEngine.RenderTexture.active;
-        //UnityEngine.RenderTexture.active = screen_texture;
-        GL.Clear(true, true, Color.clear);
-        UnityEngine.RenderTexture.active = previous_texture;
+        
+        clear_textures();
+        
         residue_camera.enabled = false;
         captured_layer = LayerMask.NameToLayer("litter");
-        
+
+        permanent_texture_buffer = new RenderTexture(
+            permanent_texture.width,
+            permanent_texture.height,
+            permanent_texture.depth,
+            permanent_texture.graphicsFormat
+        );
+    }
+
+    private void clear_textures() {
+        RenderTexture previous_texture = UnityEngine.RenderTexture.active;
+        GL.Clear(true, true, Color.clear);
+        RenderTexture.active = previous_texture;
         //permanent_texture.clear();
         //screen_texture.clear();
     }
 
     private void OnDestroy() {
-        //permanent_texture.clear();
-        //screen_texture.clear();
+        //clear_textures();
     }
 
     
@@ -81,9 +92,13 @@ IPersistent_residue_holder
         
         
         residue_camera.enabled = false;
-        
-        Texture_drawer.instance.draw_texture_on_texture(permanent_texture,screen_texture);
         RenderTexture.active = null;
+        
+        Texture_drawer.instance.draw_texture_on_texture(
+            permanent_texture_buffer,
+            permanent_texture,
+            screen_texture
+        );
     }
 
     

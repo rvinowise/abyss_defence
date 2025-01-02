@@ -35,8 +35,8 @@ public class Play_body_animation : Action_sequential_parent {
         );
     }
 
-    public override void on_child_completed(Action in_sender_child) {
-        base.on_child_completed(in_sender_child);
+    public override void on_child_completed(Action sender_child) {
+        base.on_child_completed(sender_child);
     }
 
     protected override void restore_state() {

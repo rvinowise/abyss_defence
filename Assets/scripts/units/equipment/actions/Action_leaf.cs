@@ -9,37 +9,47 @@ namespace rvinowise.unity.actions {
 public abstract class Action_leaf:
     Action
 {
-    internal readonly List<IActor> actors = new List<IActor>();
+    internal readonly List<Actor> actors = new List<Actor>();
 
     
     
-    protected IActor add_actor(IActor actor) {
+    protected Actor add_actor(Actor actor) {
+        if (actor == null) {
+            Debug.LogError($"actor is null");
+        }
         actors.Add(actor);
         return actor;
+    }
+    protected Actor add_actor(IActing_role role) {
+        if (role.actor == null) {
+            Debug.LogError($"actor or role {role} is null");
+        }
+        actors.Add(role.actor);
+        return role.actor;
     }
     
     
     public override void seize_needed_actors_recursive() {
-        foreach(IActor seized_actor in actors) {
+        foreach(Actor seized_actor in actors) {
             if (seized_actor.current_action != null) {
                 runner.mark_action_as_finishing(seized_actor.current_action.get_root_action());
             }
             seized_actor.current_action = this;
             //debug
-            if (seized_actor is ALeg leg) {
-                leg.action_label = this.get_explanation();
+            if (seized_actor.GetComponent<ALeg>() is {} leg) {
+                leg.action_label = get_explanation();
             }
         }
     }
 
     
     public override void notify_actors_about_finishing_recursive() {
-        foreach (IActor actor in actors) {
+        foreach (Actor actor in actors) {
             actor.on_lacking_action();
         }
     }
     public override void free_actors_recursive() {
-        foreach (IActor actor in actors) {
+        foreach (Actor actor in actors) {
             if (actor == null) {
                 Debug.LogError($"actor of action [{this.marker}] is null");
             }

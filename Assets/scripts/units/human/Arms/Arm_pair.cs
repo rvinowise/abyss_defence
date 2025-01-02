@@ -41,6 +41,10 @@ public class Arm_pair:
         Debug.Log($"AIMING: Arm_pair.attack({in_target.name})");
         var arm = get_arm_targeting(in_target);
 
+        if (arm is null) {
+            Debug.Log($"ATTACK: arm targeting {in_target} is null");
+        }
+        
         Gun gun = null;
         if (
             Arm.is_ready_to_attack_target(arm,in_target, ref gun)
@@ -48,7 +52,7 @@ public class Arm_pair:
         {
             gun.pull_trigger();
             on_ammo_changed(arm, gun.get_loaded_ammo());
-            //gun.release_trigger();
+            gun.release_trigger();
         }
     }
 
@@ -79,9 +83,6 @@ public class Arm_pair:
     
     private Toolset toolset_being_equipped;
 
-
-    public Action_runner action_runner;// => action_runner;
-    
 
     public Tool left_tool => left_arm.held_tool;
     public Tool right_tool => right_arm.held_tool;
@@ -119,6 +120,11 @@ public class Arm_pair:
     }
 
     private void aim_at_hinted_targets() {
+
+        if (Input.GetButton("attack")) {
+            bool test = true;
+        }
+        
         var hinted_targets =
             team.get_enemies_closest_to(Player_input.instance.cursor.transform.position);
 
@@ -152,11 +158,11 @@ public class Arm_pair:
             (is_arm_autoaimed(in_arm))
             &&
             (
-                (in_arm.current_action == null)
+                (in_arm.actor.current_action == null)
                 ||
-                (in_arm.current_action.GetType() == typeof(Idle_vigilant_only_arm))
+                (in_arm.actor.current_action.GetType() == typeof(Idle_vigilant_only_arm))
                 ||
-                (in_arm.current_action.GetType() == typeof(Aim_at_target))
+                (in_arm.actor.current_action.GetType() == typeof(Aim_at_target))
             );
     }
 
@@ -229,7 +235,7 @@ public class Arm_pair:
                 Idle_vigilant_only_arm.create(gun_arm,gun_arm.attention_target, transporter),
                 Idle_vigilant_only_arm.create(ammo_arm,gun_arm.attention_target, transporter)
             )
-        ).start_as_root(action_runner);
+        ).start_as_root(actor.action_runner);
 
     }
 
@@ -254,7 +260,7 @@ public class Arm_pair:
     private bool is_reloading_now(Arm weapon_holder) {
         //Arm ammo_taker = other_arm(weapon_holder); 
         if (
-            user.current_action is Action_sequential_parent sequential_parent&&
+            user.actor.current_action is Action_sequential_parent sequential_parent&&
             sequential_parent.current_child_action is Reload_pistol action_reload_pistol&&
             action_reload_pistol.gun_arm == weapon_holder
         )
@@ -377,9 +383,9 @@ public class Arm_pair:
 
     private bool arm_is_ready_for_autoaiming(Arm in_arm) {
         return
-            (right_arm.current_action is Idle_vigilant_only_arm)
+            (right_arm.actor.current_action is Idle_vigilant_only_arm)
             ||
-            (right_arm.current_action == null);
+            (right_arm.actor.current_action == null);
     }
 
     public List<Arm> get_iddling_armed_autoaimed_arms() {
@@ -417,20 +423,20 @@ public class Arm_pair:
     #endregion
 
     public Transform get_target_of(Arm in_arm) {
-        if (in_arm.current_action is Aim_at_target aiming) {
+        if (in_arm.actor.current_action is Aim_at_target aiming) {
             return aiming.get_target();
         }
         return null;
     }
     public Arm get_arm_targeting(Transform in_target) {
         if (
-            left_arm.current_action is Aim_at_target left_aiming&&
-            left_aiming.get_target() == in_target
+            //left_arm.current_action is Aim_at_target left_aiming&&
+            left_arm.get_target() == in_target
         ) {
             return left_arm;
         } else if (
-            right_arm.current_action is Aim_at_target right_aiming&&
-            right_aiming.get_target() == in_target 
+            //right_arm.current_action is Aim_at_target right_aiming&&
+            right_arm.get_target() == in_target 
         ) {
             return right_arm;
         }
@@ -585,5 +591,15 @@ public class Arm_pair:
         }
     }   
     
+    
+    #region IActor
+
+    public Actor actor { get; set; }
+
+    public void on_lacking_action() {
+        
+    }
+
+    #endregion
 }
 }

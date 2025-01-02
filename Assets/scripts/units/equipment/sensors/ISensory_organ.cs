@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace rvinowise.unity {
 
-public interface ISensory_organ {
+public interface ISensory_organ: IActing_role {
 
     void pay_attention_to_target(Transform target);
 
@@ -12,6 +12,5 @@ public interface ISensory_organ {
 }
 
 
-public interface IActor_sensory_organ : ISensory_organ, IActor { }
 
 }

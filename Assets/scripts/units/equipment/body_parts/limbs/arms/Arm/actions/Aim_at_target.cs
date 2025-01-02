@@ -63,9 +63,10 @@ public class Aim_at_target: Action_of_arm {
             mark_as_completed();
         }
         else { 
-            Degree direction_to_target = arm.upper_arm.transform.degrees_to(target.position);
+            Degree direction_from_upperarm_to_target = 
+                arm.upper_arm.transform.degrees_to(target.position);
             Degree body_direction = body.rotation.to_degree();
-            Degree offset_from_body = body_direction.angle_to(direction_to_target);
+            Degree offset_from_body = body_direction.angle_to(direction_from_upperarm_to_target);
 
             arm.shoulder.target_degree = get_shoulder_direction(
                 offset_from_body,
@@ -74,15 +75,17 @@ public class Aim_at_target: Action_of_arm {
 
             arm.upper_arm.target_degree = get_upperarm_direction(
                 offset_from_body,
-                direction_to_target
+                direction_from_upperarm_to_target
             );
 
             arm.forearm.target_degree = get_forearm_direction(
                 offset_from_body,
-                direction_to_target
+                direction_from_upperarm_to_target
             );
 
-            arm.hand.target_degree = direction_to_target;
+            Degree direction_from_hand_to_target = 
+                arm.hand.transform.degrees_to(target.position);
+            arm.hand.target_degree = direction_from_hand_to_target;
 
 
             arm.rotate_to_desired_directions();

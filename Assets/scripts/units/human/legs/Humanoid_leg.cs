@@ -111,16 +111,13 @@ public class Humanoid_leg:
     
     #region IActor
 
-    private Action_runner action_runner;
-    public Action current_action { get; set; }
+    public Actor actor { get; set; }
 
     public void on_lacking_action() {
-        Idle.create(this).start_as_root(action_runner);
+        Idle.create(actor).start_as_root(actor.action_runner);
     }
 
-    public void init_for_runner(Action_runner in_action_runner) {
-        this.action_runner = in_action_runner;
-    }
+   
 
     #endregion IActor
     

@@ -15,7 +15,6 @@ public class Shielding_limb:
     MonoBehaviour
     ,IDefender
     ,IChild_of_group
-    ,IRunning_actions
 {
     public ALeg shielding_limb;
     public Creeping_leg_group creeping_leg_group;
@@ -23,7 +22,6 @@ public class Shielding_limb:
     public float segment2_shielding_degree;
     public Span defended_span;
     
-    private Action_runner action_runner;
 
     private System.Action intelligence_on_shielded;
     
@@ -35,7 +33,7 @@ public class Shielding_limb:
     }
     
     public void finish_defence(System.Action on_completed) {
-        Creeping_leg_partakes_in_moving.create(shielding_limb).start_as_root(action_runner);
+        Creeping_leg_partakes_in_moving.create(shielding_limb).start_as_root(actor.action_runner);
         on_completed?.Invoke();
     }
     
@@ -47,13 +45,13 @@ public class Shielding_limb:
             segment2_shielding_degree,
             creeping_leg_group.transform
         ).set_on_completed(on_leg_is_shielding)
-        .start_as_root(action_runner);
+        .start_as_root(actor.action_runner);
     }
 
     protected void on_leg_is_shielding() {
         Idle.create(
-            shielding_limb
-        ).start_as_root(action_runner);
+            shielding_limb.actor
+        ).start_as_root(actor.action_runner);
         
         intelligence_on_shielded();
     }
@@ -62,12 +60,14 @@ public class Shielding_limb:
     
     
     
-    #region IRunning_actions
+    #region IActor
 
-    public void init_for_runner(Action_runner action_runner) {
-        this.action_runner = action_runner;
+    public Actor actor { get; set; }
+
+    public void on_lacking_action() {
+        
     }
-    
+
     #endregion
 
     void OnCollisionEnter2D(Collision2D collision) {

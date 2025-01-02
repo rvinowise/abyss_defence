@@ -29,10 +29,10 @@ public class Intelligence :
 
     public Baggage baggage;
     
-    public IActor_sensory_organ sensory_organ;
-    public IActor_transporter transporter;
+    public ISensory_organ sensory_organ;
+    public ITransporter transporter;
     public IAttacker attacker;
-    public IActor_defender defender;
+    public IDefender defender;
     
     public float last_rotation;
 
@@ -56,7 +56,6 @@ public class Intelligence :
         if (team != null) {
             add_to_team();
         }
-        add_actors_to_action_runner();
     }
     
     protected virtual void Start() {
@@ -70,7 +69,8 @@ public class Intelligence :
 
 
     public void init_devices() {
-        var attackers = GetComponentsInChildren<IAttacker>();
+        var attackers = 
+            this.GetComponentsInChildren<IAttacker>();
         if (attackers.Length == 0) {
             attacker = new Empty_attacker();
         } else if (attackers.Length == 1) {
@@ -80,7 +80,7 @@ public class Intelligence :
             attacker = new Compound_attacker(attackers);
         }
         
-        var transporters = GetComponentsInChildren<IActor_transporter>();
+        var transporters = GetComponentsInChildren<ITransporter>();
         if (transporters.Length == 0) {
             transporter = new Empty_transporter();
         } else if (transporters.Length == 1) {
@@ -90,41 +90,29 @@ public class Intelligence :
             transporter = new Compound_transporter(transporters);
         }
         transporter.set_moved_body(this.GetComponent<Turning_element>());
-        transporter.init_for_runner(action_runner);
         
-        var defenders = GetComponentsInChildren<IActor_defender>();
+        var defenders = GetComponentsInChildren<IDefender>();
         if (defenders.Length == 0) {
             defender = new Empty_defender();
-        } else if (attackers.Length == 1) {
+        } else if (defenders.Length == 1) {
             defender = defenders.First();
         }
         else {
             defender = new Compound_defender(defenders);
         }
-        defender.init_for_runner(action_runner);
         
-        var sensory_organs = GetComponentsInChildren<IActor_sensory_organ>();
+        var sensory_organs = GetComponentsInChildren<ISensory_organ>();
         if (sensory_organs.Length == 0) {
             sensory_organ = new Empty_sensory_organ();
-        } else if (attackers.Length == 1) {
+        } else if (sensory_organs.Length == 1) {
             sensory_organ = sensory_organs.First();
         }
         else {
             sensory_organ = new Compound_sensory_organ(sensory_organs);
         }
-        sensory_organ.init_for_runner(action_runner);
     }
 
-    public void add_actors_to_action_runner() {
-        var actors = GetComponentsInChildren<IActor>();
-        foreach (IActor actor in actors) {
-            action_runner.add_actor(actor);
-        }
-        var intelligent_children = GetComponentsInChildren<IRunning_actions>();
-        foreach (IRunning_actions intelligent_child in intelligent_children) {
-            intelligent_child.init_for_runner(action_runner);
-        }
-    }
+    
 
     private void add_to_team() {
         team.add_unit(this);

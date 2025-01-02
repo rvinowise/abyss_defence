@@ -1,4 +1,5 @@
-﻿using rvinowise.unity.effects.trails.mesh_impl;
+﻿using System.Linq;
+using rvinowise.unity.effects.trails.mesh_impl;
 using rvinowise.unity.geometry2d;
 using UnityEngine;
 using rvinowise.unity.extensions;
@@ -123,6 +124,10 @@ public class Projectile : MonoBehaviour {
                 return;
             }
         }
+        if (collision.gameObject.GetComponent<IBleeding_body>() is null) {
+            var hit = collision.contacts.First();
+            damage_dealer.create_hit_impact(hit.point, hit.normal);
+        }
         
         if (!GetComponent<Collider2D>().isActiveAndEnabled) {
             //at high speeds, projectile mistakenly bounses off the target, even though it should stop at the target.
@@ -133,6 +138,8 @@ public class Projectile : MonoBehaviour {
         stop_at_position(collision.GetContact(0).point);
             
     }
+    
+    
     
 }
 
