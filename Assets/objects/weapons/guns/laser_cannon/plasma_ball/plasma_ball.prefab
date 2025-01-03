@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5597424939800061527}
   - component: {fileID: 5597424939800061524}
-  m_Layer: 0
-  m_Name: plasma ball circle inside
+  m_Layer: 8
+  m_Name: plasma ball circle outside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ebbb0ec83b0e7dc4a871845bffe5ccd8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.6862745}
+  m_Color: {r: 0.63855267, g: 1, b: 0, a: 0.4745098}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,10 +96,9 @@ GameObject:
   - component: {fileID: -4382886989837692693}
   - component: {fileID: -2214317690754465625}
   - component: {fileID: 3319183180109347547}
-  - component: {fileID: 5225726917950991525}
   - component: {fileID: -7962127730834510175}
   - component: {fileID: 8622477484328088878}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: plasma_ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 5597424940680807123}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children:
   - {fileID: 5597424939800061527}
   - {fileID: 5597424941546550285}
@@ -214,8 +213,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0.54949, a: 1}
-      key1: {r: 1, g: 0, b: 0.6554785, a: 0}
+      key0: {r: 0.9706241, g: 1, b: 0, a: 1}
+      key1: {r: 0.9773154, g: 1, b: 0, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -300,22 +299,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect_amount: 1
-  hit_impact_prefab: {fileID: 0}
---- !u!114 &5225726917950991525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5597424940680807123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff656668bd4044ea8b61884da636797c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosion_prefab: {fileID: 1077900821972317847, guid: 0b0addb9a1d82564e88be5cc2e2e6a0c,
+  hit_impact_prefab: {fileID: 1077900821972317847, guid: 0b0addb9a1d82564e88be5cc2e2e6a0c,
     type: 3}
-  is_explosion_instantiated: 0
 --- !u!114 &-7962127730834510175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +316,7 @@ MonoBehaviour:
   damage_dealer: {fileID: 3319183180109347547}
   rigid_body: {fileID: -4382886989837692693}
   collider2d: {fileID: -2214317690754465625}
-  explosive_body: {fileID: 5225726917950991525}
+  explosive_bodies: []
 --- !u!114 &8622477484328088878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5597424941546550285}
   - component: {fileID: 5597424941546550282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: plasma ball line inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}

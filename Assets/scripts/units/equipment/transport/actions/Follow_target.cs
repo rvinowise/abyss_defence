@@ -46,13 +46,17 @@ public class Follow_target: Action_sequential_parent {
     }
 
     private void add_children() {
-        add_children(
-            Traverse_obstacles_before_target.create(
-                transporter,
-                moved_body,
-                path_seeker,
-                final_target
-            ),
+        if (Keep_distance_from_target.is_target_obstructed(final_target,moved_body)) {
+            add_child(
+                Traverse_obstacles_before_target.create(
+                    transporter,
+                    moved_body,
+                    path_seeker,
+                    final_target
+                )
+            );
+        }
+        add_child(
             Keep_distance_from_target.create(
                 transporter,
                 moved_body,

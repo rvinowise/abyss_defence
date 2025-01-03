@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 5065715024069198856}
   - component: {fileID: -8769506558125198316}
   - component: {fileID: 84742373891855044}
+  - component: {fileID: 8373228961727284466}
   m_Layer: 0
   m_Name: flying_beetle
   m_TagString: Untagged
@@ -575,6 +576,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0668f9c4a2ff4107b6ea901f90aeff2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8373228961727284466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8587560745027414974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d89aaf3d3df4f61a073dfb607175bdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action_runner: {fileID: 84742373891855044}
 --- !u!1 &8587560745169262030
 GameObject:
   m_ObjectHideFlags: 0

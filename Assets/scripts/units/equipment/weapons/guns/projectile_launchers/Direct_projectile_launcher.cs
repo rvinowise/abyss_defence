@@ -13,9 +13,8 @@ namespace rvinowise.unity {
 public class Direct_projectile_launcher: MonoBehaviour
 {
     
-    
     public Rigidbody2D projectile_prefab;
-    public float projectile_force = 1000f;
+    public float projectile_force = 18f;
     public Transform muzzle;
     public Transform spark_prefab;
     public Tool tool;
@@ -43,7 +42,7 @@ public class Direct_projectile_launcher: MonoBehaviour
     }
     
     public void propell_projectile(Rigidbody2D projectile) {
-        projectile.AddForce(transform.rotation.to_vector() * (projectile_force * Time.deltaTime), ForceMode2D.Impulse);
+        projectile.AddForce(transform.rotation.to_vector() * projectile_force, ForceMode2D.Impulse);
         //projectile.store_last_physics();
     }
     

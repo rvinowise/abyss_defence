@@ -42,7 +42,7 @@ public class Pooled_object: MonoBehaviour {
     
     [called_by_prefab]
     public TComponent get_from_pool<TComponent>(
-        Vector2 in_position,
+        Vector3 in_position,
         Quaternion in_rotation
     ) 
         where TComponent: Component 

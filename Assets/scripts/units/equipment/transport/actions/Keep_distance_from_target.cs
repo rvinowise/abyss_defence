@@ -37,7 +37,7 @@ public class Keep_distance_from_target: Action_leaf {
 
         if (
             (target != null)&&
-            (!is_target_obstructed())
+            (!is_target_obstructed(target,moved_body))
         )
         {
             float distance_to_target = (target.position - moved_body.position).magnitude;
@@ -63,20 +63,23 @@ public class Keep_distance_from_target: Action_leaf {
     
     
     RaycastHit2D[] hits = new RaycastHit2D[2];
-    private bool is_target_obstructed() {
-        var vector_to_target = target.position - moved_body.position;
-        // var hit = Physics2D.Raycast(
-        //     moved_body.position,
-        //     vector_to_target
-        // );
-        
-        Physics2D.RaycastNonAlloc(
-            moved_body.position, 
-            vector_to_target, 
-            hits
+    public static LayerMask obstacles_of_walking = ~LayerMask.GetMask("projectiles");
+    public static bool is_target_obstructed(Transform target, Transform seeker) {
+        var vector_to_target = target.position - seeker.position;
+        var hit = Physics2D.Raycast(
+            seeker.position,
+            vector_to_target,
+            vector_to_target.magnitude,
+            obstacles_of_walking
         );
-        //hits[0] will always be the Collider2D you are casting from.
-        var hit =  hits[1];
+        
+        // Physics2D.RaycastNonAlloc(
+        //     moved_body.position, 
+        //     vector_to_target, 
+        //     hits
+        // );
+        // //hits[0] will always be the Collider2D you are casting from.
+        // var hit =  hits[1];
 
         if (hit.transform != target.transform) {
             return true;

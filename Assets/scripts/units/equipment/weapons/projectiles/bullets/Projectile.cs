@@ -34,7 +34,9 @@ public class Projectile : MonoBehaviour {
     void Awake() {
         rigid_body = GetComponent<Rigidbody2D>();
         trajectory_flyer = GetComponent<Trajectory_flyer>();
-        trajectory_flyer.enabled = false;
+        if (trajectory_flyer) {
+            trajectory_flyer.enabled = false;
+        }
         collider2d = GetComponent<Collider2D>();
         damage_dealer = GetComponent<Damage_dealer>();
     }
@@ -62,8 +64,10 @@ public class Projectile : MonoBehaviour {
     }
 
     private void stop_on_the_ground() {
-        trajectory_flyer.height = 0f;
-        trajectory_flyer.enabled = false;
+        if (trajectory_flyer != null) {
+            trajectory_flyer.height = 0f;
+            trajectory_flyer.enabled = false;
+        }
         collider2d.enabled = false;
         fall_on_ground();
         if (trail_emitter.is_active()) {

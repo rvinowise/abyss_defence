@@ -57,7 +57,7 @@ public static partial class Unity_extension {
     [called_by_prefab]
     public static TComponent instantiate<TComponent>(
         this Component prefab_component,
-        Vector2 in_position,
+        Vector3 in_position,
         Quaternion in_rotation
     )
         where TComponent : Component 

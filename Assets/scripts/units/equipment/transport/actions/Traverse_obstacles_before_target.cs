@@ -69,7 +69,7 @@ public class Traverse_obstacles_before_target: Action_leaf {
         if (
             (final_target == null) 
             ||
-            is_target_unobstructed()
+            !Keep_distance_from_target.is_target_obstructed(final_target,moved_body)
             )
         {
             mark_as_completed();
@@ -120,28 +120,16 @@ public class Traverse_obstacles_before_target: Action_leaf {
         }
         return i_waypoint - 1;
     }
-    
 
-    private bool is_target_unobstructed() {
-        var vector_to_target = final_target.position - moved_body.position;
-        var hit = Physics2D.Raycast(
-            moved_body.position,
-            vector_to_target
-        );
 
-        if (hit.transform == final_target.transform) {
-            return true;
-        }
-        return false;
-    }
-    
     private bool is_waypoint_unobstructed(Vector3 position) {
         //raycast from the destination up to the source, in order to not be stuck in the initial collider of the ray-caster
         var vector_from_target = (Vector2)moved_body.position - (Vector2)position;
         var hit = Physics2D.Raycast(
             position,
             vector_from_target,
-            vector_from_target.magnitude
+            vector_from_target.magnitude,
+            Keep_distance_from_target.obstacles_of_walking
         );
 
         if (hit.transform == moved_body.transform) {

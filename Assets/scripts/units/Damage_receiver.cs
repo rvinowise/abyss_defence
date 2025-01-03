@@ -31,11 +31,11 @@ public class Damage_receiver: MonoBehaviour {
 
     private void start_dying() {
         if (destructible != null) {
-            Debug.Log($"({name})Damage_receiver.start_dying, received_damage={received_damage}");
             destructible.on_start_dying();
-            intelligence.notify_about_destruction();
-            Destroy(intelligence);
         }
+        Debug.Log($"({name})Damage_receiver.start_dying, received_damage={received_damage}");
+        intelligence.notify_about_destruction();
+        Destroy(intelligence);
     }
 
 
