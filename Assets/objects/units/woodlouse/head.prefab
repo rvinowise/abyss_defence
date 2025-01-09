@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8677043668044673927}
   - component: {fileID: 6754484636076321057}
-  - component: {fileID: 2242793045070322471}
   - component: {fileID: 7129754435002285990}
   - component: {fileID: 4709184780905629097}
+  - component: {fileID: 6054288471957760383}
   m_Layer: 0
   m_Name: head
   m_TagString: Untagged
@@ -87,27 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &2242793045070322471
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8553099852686138224}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e9340fd35f1e16d4c8a2ea30d41e72b6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!70 &7129754435002285990
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -138,9 +117,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attacked_area: {fileID: 7129754435002285990}
   area_starting_attack: {fileID: 7129754435002285990}
-  animator: {fileID: 2242793045070322471}
+  animator: {fileID: 0}
   attacking_animation: attack
   cooldown_seconds: 1
+--- !u!95 &6054288471957760383
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8553099852686138224}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8665968351339323071
 GameObject:
   m_ObjectHideFlags: 0
