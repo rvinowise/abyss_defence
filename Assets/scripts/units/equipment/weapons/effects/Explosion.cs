@@ -94,7 +94,12 @@ public class Explosion: MonoBehaviour {
             damage_dealer.remember_damaged_target(target_hit.transform);
         }
         
-        if (target_hit.transform.GetComponent<Rigidbody2D>() is {} rigid_body&& rigid_body != null) {
+        if (
+            (target_hit.transform.GetComponent<Projectile>() is null)
+            &&
+            (target_hit.transform.GetComponent<Rigidbody2D>() is {} rigid_body&& rigid_body != null) 
+        )
+        {
             rigid_body.AddForce(
                 calculate_push_vector(
                     rigid_body.transform.position,

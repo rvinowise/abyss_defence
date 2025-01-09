@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿//#define RVI_DEBUG
+
+using System.Linq;
 using Pathfinding;
 using UnityEngine;
 using rvinowise.unity.extensions;
@@ -37,20 +39,45 @@ public class Traverse_obstacles_before_target: Action_leaf {
     }
 
 
+    public GraphNode find_closest_unobstructed_waypoint(Vector3 start) {
+        GraphNode closest_visible_node = null;
+        float closest_distance = float.PositiveInfinity;
+
+        foreach (var waypoint in AstarPath.active.data.pointGraph.nodes) {
+            var this_distance = ((Vector3) waypoint.position - start).sqrMagnitude;
+            if (closest_distance > this_distance) {
+                if (
+                    !is_waypoint_obstructed((Vector3)waypoint.position,moved_body.position)
+                ) {
+                    closest_visible_node = waypoint;
+                    closest_distance = this_distance;
+                }
+            }
+        }
+
+        return closest_visible_node;
+    }
+
+    private GraphNode start_of_path;
     protected override void on_start_execution() {
         base.on_start_execution();
 
-        path_seeker.StartPath(moved_body.position, final_target.position, on_patch_found);
+        start_of_path = find_closest_unobstructed_waypoint(moved_body.position);
+        if (start_of_path != null) {
+            path_seeker.StartPath((Vector3) start_of_path.position, final_target.position, on_patch_found);
+        }
+        else {
+            #if RVI_DEBUG
+            Debug.Log($"COMPUTER {moved_body.name} #{transporter.actor.action_runner.number} Traverse_obstacles_before_target::on_start_execution start_of_path==null");
+            #endif
+        }
     }
 
-    protected override void restore_state() {
-        base.restore_state();
-        path_seeker.pathCallback -= on_patch_found;
-    }
+    
 
     private void on_patch_found(Path found_path) {
         if (found_path.error) {
-            Debug.Log($"TRANSPORT: {found_path.errorLog}; when moving from {moved_body} to {final_target}");
+            Debug.Log($"COMPUTER {found_path.errorLog}; when moving from {moved_body} to {final_target}");
         }
         else {
             path = found_path;
@@ -69,7 +96,9 @@ public class Traverse_obstacles_before_target: Action_leaf {
         if (
             (final_target == null) 
             ||
-            !Keep_distance_from_target.is_target_obstructed(final_target,moved_body)
+            !Keep_distance_from_target.is_target_obstructed_by_walls(final_target,moved_body.position)
+            ||
+            start_of_path == null
             )
         {
             mark_as_completed();
@@ -113,7 +142,7 @@ public class Traverse_obstacles_before_target: Action_leaf {
         while (
             (i_waypoint < path.path.Count)
             &&
-            (is_waypoint_unobstructed((Vector3) path.path[i_waypoint].position))
+            (!is_waypoint_obstructed((Vector3) path.path[i_waypoint].position, moved_body.position))
         )
         {
             i_waypoint++;
@@ -122,21 +151,26 @@ public class Traverse_obstacles_before_target: Action_leaf {
     }
 
 
-    private bool is_waypoint_unobstructed(Vector3 position) {
-        //raycast from the destination up to the source, in order to not be stuck in the initial collider of the ray-caster
-        var vector_from_target = (Vector2)moved_body.position - (Vector2)position;
+    public static bool is_waypoint_obstructed(Vector3 end, Vector3 start) {
+        var vector_to_target =(Vector2)end - (Vector2)start;
         var hit = Physics2D.Raycast(
-            position,
-            vector_from_target,
-            vector_from_target.magnitude,
-            Keep_distance_from_target.obstacles_of_walking
+            start,
+            vector_to_target,
+            vector_to_target.magnitude,
+            Keep_distance_from_target.permanent_obstacles_of_walking
         );
 
-        if (hit.transform == moved_body.transform) {
+        if (hit.transform) {
             return true;
         }
         return false;
     }
    
+    
+    protected override void restore_state() {
+        base.restore_state();
+        path_seeker.pathCallback -= on_patch_found;
+    }
+    
 }
 }

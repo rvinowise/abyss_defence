@@ -126,19 +126,13 @@ public class Texture_drawer: MonoBehaviour {
         // bottom_result_texture.save_to_file("bottom_result_texture before");
         // top_added_texture.save_to_file("top_added_texture");
 
-        // RenderTexture new_texture = new RenderTexture(
-        //     bottom_result_texture.width, bottom_result_texture.height, 16,GraphicsFormat.R8G8B8A8_UNorm
-        // );
-        //
-        // bottom_result_texture.save_to_file("new_texture");
-        
         combining_material.SetTexture("_Bottom", bottom_result_texture);
         combining_material.SetTexture("_Top", top_added_texture);
         Graphics.Blit(top_added_texture, bottom_buffer_texture, combining_material);
 
         Graphics.CopyTexture(bottom_buffer_texture, bottom_result_texture);
         
-        //bottom_result_texture.save_to_file("bottom_result_texture after");
+        // bottom_result_texture.save_to_file("bottom_result_texture after");
         
         return bottom_result_texture;
     }

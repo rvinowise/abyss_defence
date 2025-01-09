@@ -99,7 +99,7 @@ public class Focusing_guns:
     }
 
     public float shooting_range = 50f;
-    public bool is_weapon_targeting_target(Transform target) {
+    public bool is_weapon_ready_for_target(Transform target) {
         var gun = get_prepared_gun_to_shoot().gun;
         var is_target_close = gun.muzzle.sqr_distance_to(target.position) <= shooting_range;
         var is_directed_at_target = gun.is_aimed_at_collider(target);
@@ -122,7 +122,7 @@ public class Focusing_guns:
         var direction_to_target = platform.transform.quaternion_to(target.position);
         platform.set_target_rotation(direction_to_target);
         
-        if (is_weapon_targeting_target(target.transform)) {
+        if (is_weapon_ready_for_target(target.transform)) {
             pull_trigger();
         }
     }

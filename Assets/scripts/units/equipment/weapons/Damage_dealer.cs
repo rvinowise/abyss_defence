@@ -55,7 +55,7 @@ public class Damage_dealer: MonoBehaviour {
     
     
     public void create_hit_impact( 
-        Vector2 in_position,
+        Vector3 in_position,
         Vector2 in_impulse
     ) {
         // var contact_with_height =

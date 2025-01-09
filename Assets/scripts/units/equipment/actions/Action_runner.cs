@@ -1,4 +1,4 @@
-
+//#define RVI_DEBUG
 
 
 using System;
@@ -18,7 +18,10 @@ public class Action_runner: MonoBehaviour {
     private readonly ISet<Action> finishing_actions = new HashSet<Action>();
     private readonly List<Action> starting_actions = new List<Action>();
 
-
+    #if RVI_DEBUG
+    public int number = 0;
+    #endif
+    
     private void Awake() {
         var actors = GetComponentsInChildren<Actor>();
         foreach (Actor actor in actors) {
@@ -37,11 +40,11 @@ public class Action_runner: MonoBehaviour {
     }
 
     public void mark_action_as_finishing(Action action) {
-        Contract.Assert(!action.is_free_in_pool, $"action {action.get_explanation()} was free in pool, but it's completed now");
         
         finishing_actions.Add(action);
         
-        #if DEBUG
+        #if RVI_DEBUG
+        Contract.Assert(!action.is_free_in_pool, $"action {action.get_explanation()} was free in pool, but it's completed now");
         var finishing_actions_debug = new List<string>();
         foreach (var finishing_action in finishing_actions) {
             finishing_actions_debug.Add(finishing_action.get_explanation());
@@ -58,7 +61,7 @@ public class Action_runner: MonoBehaviour {
         );
         starting_actions.Add(action);
 
-        #if DEBUG
+        #if RVI_DEBUG
         var starting_actions_debug = new List<string>();
         foreach (var starting_action in starting_actions) {
             starting_actions_debug.Add(starting_action.get_explanation());
@@ -98,17 +101,19 @@ public class Action_runner: MonoBehaviour {
         starting_actions.Add(action);
     }
     private void start_action(Action action) {
+        #if RVI_DEBUG
         try {
             Debug.Log($"ActionRunner.start_action {action.get_explanation()}");
         }
         catch (Exception e) {
             Debug.Log("starting an action whose actors are probably destroyed");
         }
+        #endif
 
         if (action.parent_action == null) {
             current_actions.Add(action);
             action.set_root_action(action);
-            Debug.Log($"action {action.get_explanation()} is registered as a root action");
+            //Debug.Log($"action {action.get_explanation()} is registered as a root action");
         }
         
         action.start_execution_recursive();
@@ -178,15 +183,36 @@ public class Action_runner: MonoBehaviour {
             }
         };
 
+        try {
+            draw_actions(myStyle);
+        } catch (Exception e) {
+            Debug.LogError($"error in OnDrawGizmos for {name}: {e}, {e.Message}");
+            //draw_actions(myStyle);
+        }
+        
+    }
+
+    private void draw_actions(GUIStyle style) {
+        
         foreach (var actor in actors) {
+            
             if (actor is Component actor_component) {
-                Handles.Label(actor_component.transform.position, actor.current_action.ToString(), myStyle);
+                if (
+                    (actor.gameObject.GetComponent<ILeg>() != null)
+                    ||
+                    (actor.gameObject.GetComponent<Hitting_limbs_group>() != null)
+                ){
+                    continue;
+                }
+                Handles.Label(
+                    actor_component.transform.position, 
+                    actor.current_action is null ? "null" : actor.current_action.ToString(), 
+                    style);
             }
             else {
                 Debug.LogWarning($"WARNING: an actor {actor} is not a component");
             }
         }
-        
     }
 #endif
 

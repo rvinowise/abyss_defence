@@ -55,8 +55,14 @@ public abstract class Player_human : Human_intelligence {
         return arm_pair.get_arm_on_side(get_selected_side());
     }
     
+    public float last_rotation;
+
     public Side_type get_selected_side() {
         return Side.from_degrees(last_rotation);
+    }
+    protected void save_last_rotation(Quaternion needed_direction) {
+        float angle_difference = transform.rotation.degrees_to(needed_direction).degrees;
+        last_rotation = angle_difference;
     }
 
 

@@ -24,7 +24,7 @@ public class Arm_pair:
 
     #region IWeaponry interface
 
-    public bool is_weapon_targeting_target(Transform in_target) {
+    public bool is_weapon_ready_for_target(Transform in_target) {
         return 
             left_tool.GetComponent<Gun>() is {} left_gun && left_gun != null &&
             left_gun.is_aimed_at_collider(in_target)

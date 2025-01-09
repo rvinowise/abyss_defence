@@ -17,7 +17,9 @@ public class Animated_attacker :
     public Collider2D area_starting_attack;
     private readonly ISet<Collider2D> reacheble_targets = new HashSet<Collider2D>();
     public Animator animator;
-
+    public String attacking_animation = "attack";
+    private int attacking_animation_hash;
+    
     public float cooldown_seconds = 1;
     private float last_attack_time = float.MinValue;
 
@@ -25,8 +27,9 @@ public class Animated_attacker :
     
     
     
+    
     #region IWeaponry interface
-    public override bool is_weapon_targeting_target(Transform target) {
+    public override bool is_weapon_ready_for_target(Transform target) {
         var target_collider = target.GetComponent<Collider2D>();
         return reacheble_targets.Contains(target_collider);
     }
@@ -48,7 +51,8 @@ public class Animated_attacker :
 
 
     private void Awake() {
-        attacked_area.gameObject.SetActive(false);
+        attacking_animation_hash = Animator.StringToHash(attacking_animation);
+        //attacked_area.gameObject.SetActive(false);
     }
 
     public override void attack(Transform target, System.Action on_completed = null) {
@@ -67,7 +71,7 @@ public class Animated_attacker :
     }
     
     private void play_attack_animation() {
-        animator.SetTrigger("attack");
+        animator.Play(attacking_animation_hash);
     }
 
     [called_in_animation]

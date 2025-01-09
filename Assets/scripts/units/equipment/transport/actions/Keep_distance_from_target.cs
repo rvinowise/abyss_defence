@@ -37,7 +37,7 @@ public class Keep_distance_from_target: Action_leaf {
 
         if (
             (target != null)&&
-            (!is_target_obstructed(target,moved_body))
+            (!is_target_obstructed_by_walls(target,moved_body.position))
         )
         {
             float distance_to_target = (target.position - moved_body.position).magnitude;
@@ -63,25 +63,40 @@ public class Keep_distance_from_target: Action_leaf {
     
     
     RaycastHit2D[] hits = new RaycastHit2D[2];
-    public static LayerMask obstacles_of_walking = ~LayerMask.GetMask("projectiles");
-    public static bool is_target_obstructed(Transform target, Transform seeker) {
-        var vector_to_target = target.position - seeker.position;
+    public static LayerMask permanent_obstacles_of_walking = 
+        ~LayerMask.GetMask("projectiles")
+        & ~LayerMask.GetMask("bodies")
+        ;
+    
+    public static LayerMask obstacles_of_walking = 
+            ~LayerMask.GetMask("projectiles")
+        ;
+    
+    public static bool is_target_obstructed_by_walls(Transform target, Vector3 start) {
+        var vector_to_target = target.position - start;
         var hit = Physics2D.Raycast(
-            seeker.position,
+            start,
+            vector_to_target,
+            vector_to_target.magnitude,
+            permanent_obstacles_of_walking
+        );
+
+        if (hit.transform) {
+            return true;
+        }
+        return false;
+    }
+    
+    public static bool is_target_obstructed_by_something(Transform target, Vector3 start) {
+        var vector_to_target = target.position - start;
+        var hit = Physics2D.Raycast(
+            start,
             vector_to_target,
             vector_to_target.magnitude,
             obstacles_of_walking
         );
-        
-        // Physics2D.RaycastNonAlloc(
-        //     moved_body.position, 
-        //     vector_to_target, 
-        //     hits
-        // );
-        // //hits[0] will always be the Collider2D you are casting from.
-        // var hit =  hits[1];
 
-        if (hit.transform != target.transform) {
+        if (hit.transform != target.transform) { //assuming the target is a body itself
             return true;
         }
         return false;

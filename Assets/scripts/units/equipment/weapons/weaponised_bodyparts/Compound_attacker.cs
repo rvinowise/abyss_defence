@@ -28,9 +28,9 @@ public class Compound_attacker:
     
     
     #region IWeaponry
-    public bool is_weapon_targeting_target(Transform target) {
+    public bool is_weapon_ready_for_target(Transform target) {
         foreach (var weapon in child_attackers) {
-            if (weapon.is_weapon_targeting_target(target)) {
+            if (weapon.is_weapon_ready_for_target(target)) {
                 return true;
             }
         }
@@ -49,7 +49,7 @@ public class Compound_attacker:
 
     public void attack(Transform target, System.Action on_completed) {
         foreach (var weapon in child_attackers) {
-            if (weapon.is_weapon_targeting_target(target)) {
+            if (weapon.is_weapon_ready_for_target(target)) {
                 weapon.attack(target,on_completed);
                 break;
             }

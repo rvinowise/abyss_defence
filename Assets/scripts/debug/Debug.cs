@@ -1,5 +1,4 @@
-//#define OPTIMIZED
-#undef DEBUG
+//#define RVI_DEBUG
 
 using UnityEngine;
 
@@ -8,7 +7,7 @@ namespace rvinowise.unity.debug {
 public static class Debug {
 
     static Debug(){
-#if !DEBUG
+#if !RVI_DEBUG
     UnityEngine.Debug.unityLogger.logEnabled = false;
 #elif UNITY_EDITOR
     UnityEngine.Debug.unityLogger.logEnabled = true;

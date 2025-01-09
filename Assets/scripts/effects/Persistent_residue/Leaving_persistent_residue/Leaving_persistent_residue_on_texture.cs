@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿//#define RVI_DEBUG
+
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using rvinowise.unity.extensions;
 using UnityEngine.Experimental.U2D.Animation;
@@ -21,12 +24,18 @@ MonoBehaviour
 
     public SpriteRenderer sprite_renderer;
     
-    private Persistent_residue_texture_holder texture_holder;
+    private Persistent_residue_all_textures texture_holder;
     private SpriteLibrary sprite_library;
 
     private int captured_layer;
     private int initial_layer;
     //private SpriteRenderer[] sprite_renderers;
+    private bool is_frozen = false;
+    
+    #if RVI_DEBUG
+    public static int counter = 0;
+    public int number;
+    #endif
     
     private void Awake() {
         if (sprite_renderer == null) {
@@ -39,6 +48,11 @@ MonoBehaviour
         captured_layer = LayerMask.NameToLayer("litter");
         initial_layer = LayerMask.NameToLayer("litter");
         //sprite_renderers = GetComponentsInChildren<SpriteRenderer>();
+
+        #if RVI_DEBUG
+        number = counter++;
+        #endif
+
     }
 
 
@@ -71,8 +85,17 @@ MonoBehaviour
     }
     
     public void leave_persistent_residue() {
-        freeze_for_leaving_persistent_image();
-
+        if (!is_frozen_for_leaving_residue()) {
+            freeze_for_leaving_persistent_image();
+        } else {
+#if RVI_DEBUG
+            Debug.LogError(
+                $"RESIDUE: leave_persistent_residue twice for #{number}, {name} at {transform.position.x}, {transform.position.y}");
+#else
+            Debug.LogError(
+                $"RESIDUE: leave_persistent_residue twice for {name} at {transform.position.x}, {transform.position.y}");
+#endif
+        }
         // foreach(var persistent_child in persistent_children) {
         //     persistent_child.leave_persistent_residue();
         // }
@@ -80,8 +103,12 @@ MonoBehaviour
 
     private void freeze_for_leaving_persistent_image() {
         deactivate_all_behaviors();
-        
+        is_frozen = true;
         texture_holder.add_piece(this);
+    }
+
+    public bool is_frozen_for_leaving_residue() {
+        return is_frozen;
     }
 
     public void put_to_layer_for_photo() {
@@ -99,6 +126,14 @@ MonoBehaviour
     public void on_start_dying() {
         leave_persistent_residue();
     }
+
+#if RVI_DEBUG
+    private void OnDestroy() {
+        Debug.Log($"RESIDUE: Leaving_persistent_residue_on_texture::OnDestroy for residue #{number}, {gameObject}, at (({transform.position.x}, {transform.position.y})");
+    }
+#endif
+    
+    
 }
 
 }

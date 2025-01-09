@@ -12,7 +12,6 @@ namespace rvinowise.unity {
 public class Projectile : MonoBehaviour {
 
     public Smoke_trail_emitter_static_tip trail_emitter;
-    public Trajectory_flyer trajectory_flyer;
     public Damage_dealer damage_dealer;
     
     public Rigidbody2D rigid_body;
@@ -33,10 +32,7 @@ public class Projectile : MonoBehaviour {
     
     void Awake() {
         rigid_body = GetComponent<Rigidbody2D>();
-        trajectory_flyer = GetComponent<Trajectory_flyer>();
-        if (trajectory_flyer) {
-            trajectory_flyer.enabled = false;
-        }
+        
         collider2d = GetComponent<Collider2D>();
         damage_dealer = GetComponent<Damage_dealer>();
     }
@@ -64,10 +60,7 @@ public class Projectile : MonoBehaviour {
     }
 
     private void stop_on_the_ground() {
-        if (trajectory_flyer != null) {
-            trajectory_flyer.height = 0f;
-            trajectory_flyer.enabled = false;
-        }
+        
         collider2d.enabled = false;
         fall_on_ground();
         if (trail_emitter.is_active()) {
@@ -80,7 +73,7 @@ public class Projectile : MonoBehaviour {
     }
     
     private bool is_on_the_ground() {
-        return trajectory_flyer.is_on_the_ground();
+        return !collider2d.enabled;
     }
 
     private bool has_left_map() {
@@ -105,7 +98,7 @@ public class Projectile : MonoBehaviour {
 
     private bool can_be_deleted() {
         return 
-            trajectory_flyer.is_on_the_ground() && 
+            is_on_the_ground() && 
             !trail_emitter.has_visible_parts();
     }
 
@@ -123,14 +116,21 @@ public class Projectile : MonoBehaviour {
     }
     
     void OnCollisionEnter2D(Collision2D collision) {
+        Debug.Log($"AIMING: Projectile.OnCollisionEnter2D victim={collision.gameObject}, projectile={gameObject}");
         if (collision.gameObject.GetComponent<Damage_receiver>() is {} damage_receiver) {
             if (damage_dealer.is_ignoring_damage_receiver(damage_receiver)) {
                 return;
             }
+            else {
+                damage_receiver.receive_damage(1f);
+            }
         }
         if (collision.gameObject.GetComponent<IBleeding_body>() is null) {
             var hit = collision.contacts.First();
-            damage_dealer.create_hit_impact(hit.point, hit.normal);
+            damage_dealer.create_hit_impact(
+                hit.point.with_height(transform.position.z), 
+                hit.normal
+            );
         }
         
         if (!GetComponent<Collider2D>().isActiveAndEnabled) {
@@ -138,7 +138,7 @@ public class Projectile : MonoBehaviour {
             //switching its collider off at the first collision signifies that it shouldn't bounce and collide anymore
             return; 
         }
-        Debug.Log($"AIMING: ({name})Projectile.OnCollisionEnter2D()");
+        
         stop_at_position(collision.GetContact(0).point);
             
     }

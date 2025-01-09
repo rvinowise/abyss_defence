@@ -90,11 +90,10 @@ public class Separate_projectile_launcher : //e.g., bazooka wich can be used wit
         
     }
 
-    public float time_to_readiness() {
-        return is_projectile_attached ? 0 : 999;
+    public bool can_fire() {
+        return is_projectile_attached;
     }
 
-    
     #endregion IGun interface
 
     

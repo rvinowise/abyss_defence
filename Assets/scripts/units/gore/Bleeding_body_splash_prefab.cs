@@ -39,7 +39,11 @@ public class Bleeding_body_splash_prefab:
         var contact_with_height =
             in_position.with_height(this.transform.position.z-0.5f);
             //in_position.with_height(0);
-        var splash = Instantiate(back_splash_prefab,contact_with_height, (in_impulse*+1).to_quaternion());
+        var splash = Instantiate(
+            back_splash_prefab,
+            contact_with_height,
+            (in_impulse).to_quaternion()
+        );
     }
     
     public void create_frontal_splash(
@@ -48,7 +52,11 @@ public class Bleeding_body_splash_prefab:
     ) {
         var contact_with_height =
             in_position.with_height(0);
-        var splash = Instantiate(frontal_splash_prefab,contact_with_height, (in_impulse*-1).to_quaternion());
+        var splash = Instantiate(
+            frontal_splash_prefab,
+            contact_with_height,
+            (in_impulse).to_quaternion()
+        );
     }
 
 
@@ -62,9 +70,13 @@ public class Bleeding_body_splash_prefab:
                 contact_point,
                 other.GetContact(0).relativeVelocity*collided_projectile.GetComponent<Rigidbody2D>().mass
             );
+            // create_frontal_splash(
+            //     contact_point,
+            //     other.GetContact(0).relativeVelocity*collided_projectile.GetComponent<Rigidbody2D>().mass
+            // );
             create_frontal_splash(
                 contact_point,
-                other.GetContact(0).relativeVelocity*collided_projectile.GetComponent<Rigidbody2D>().mass
+                -other.GetContact(0).normal
             );
             
         }

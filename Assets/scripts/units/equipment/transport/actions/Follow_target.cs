@@ -46,7 +46,7 @@ public class Follow_target: Action_sequential_parent {
     }
 
     private void add_children() {
-        if (Keep_distance_from_target.is_target_obstructed(final_target,moved_body)) {
+        if (Keep_distance_from_target.is_target_obstructed_by_walls(final_target,moved_body.position)) {
             add_child(
                 Traverse_obstacles_before_target.create(
                     transporter,

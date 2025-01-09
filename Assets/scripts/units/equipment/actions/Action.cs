@@ -1,4 +1,4 @@
-﻿#define OPTIMIZED
+﻿//#define RVI_DEBUG
 
 using System;
 using System.Collections.Generic;
@@ -152,7 +152,9 @@ public abstract class Action
     public virtual void seize_needed_actors_recursive() { }
 
     protected virtual void restore_state() {
+        #if RVI_DEBUG
         System.Diagnostics.Contracts.Contract.Assert(is_started, $"action {get_explanation()} restores the state, but it wasn't started");
+        #endif
     }
 
 
@@ -165,7 +167,9 @@ public abstract class Action
 
 
     public virtual void reset() {
+        #if RVI_DEBUG
         rvinowise.contracts.Contract.Assert(!is_reset, $"an action {get_explanation()} was reset, but is being reset again");
+        #endif
 
         //superceded_actions.Clear();
         parent_action = null;
@@ -192,13 +196,13 @@ public abstract class Action
         return "";
     }
     public virtual string get_explanation() {
-#if OPTIMIZED
-        return "";
-#else
+#if RVI_DEBUG
         if (parent_action != null)
             return $"{parent_action.get_explanation()} -> {GetType().Name}[{get_actors_names()}]{id:N}";
         
         return $"{GetType().Name}_[{get_actors_names()}]{id:N}";
+#else
+        return "";
 #endif
     }
     

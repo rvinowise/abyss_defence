@@ -34,7 +34,6 @@ public class Intelligence :
     public IAttacker attacker;
     public IDefender defender;
     
-    public float last_rotation;
 
     public Team team;
     public bool is_ignored;
@@ -89,7 +88,7 @@ public class Intelligence :
         else {
             transporter = new Compound_transporter(transporters);
         }
-        transporter.set_moved_body(this.GetComponent<Turning_element>());
+        transporter.set_moved_body(GetComponent<Turning_element>());
         
         var defenders = GetComponentsInChildren<IDefender>();
         if (defenders.Length == 0) {
@@ -174,10 +173,7 @@ public class Intelligence :
     }
     public virtual void on_friend_disappeared(Intelligence in_friend) { }
 
-    protected void save_last_rotation(Quaternion needed_direction) {
-        float angle_difference = transform.rotation.degrees_to(needed_direction).degrees;
-        last_rotation = angle_difference;
-    }
+    
 
     private void OnDestroy() {
         Debug.Log($"LIFETIME: OnDestroy is called for {name}");
@@ -190,9 +186,5 @@ public class Intelligence :
         }
     }
 
-
-    public void add_action(Action action) {
-        action_runner.add_action(action);
-    }
 }
 }

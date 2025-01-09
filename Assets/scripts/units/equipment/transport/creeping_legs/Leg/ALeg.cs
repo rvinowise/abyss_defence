@@ -42,8 +42,6 @@ public abstract class ALeg :
     public bool up = true;
     public virtual bool is_up() => up;
 
-    [SerializeField] public String action_label;
-    
     public abstract void draw_positions();
     public abstract bool hold_onto_ground();
     public abstract bool is_twisted_uncomfortably();
@@ -74,7 +72,7 @@ public abstract class ALeg :
 
     #region IAttacker
 
-    public bool is_weapon_targeting_target(Transform target) {
+    public bool is_weapon_ready_for_target(Transform target) {
         var distance_to_target =
             ((Vector2)target.position - (Vector2)transform.position).magnitude;
         

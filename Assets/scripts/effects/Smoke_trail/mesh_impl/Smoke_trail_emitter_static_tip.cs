@@ -278,7 +278,7 @@ MonoBehaviour
     }
     private void decorative_update() {
         alpha = get_faded_alpha();
-        if (alpha < 0) {
+        if (alpha <= 0) {
             disappear();
             return;
         }

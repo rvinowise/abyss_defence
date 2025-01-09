@@ -50,10 +50,10 @@ public class Damage_receiver: MonoBehaviour {
                     //switching its collider off at the first collision signifies that it shouldn't bounce and collide anymore
                     return; 
                 }
-                Debug.Log($"AIMING: ({name})Damage_receiver.OnCollisionEnter2D(projectile:{damaging_projectile.name})");
                 //damaging_projectile.stop_at_position(collision.GetContact(0).point);
-                receive_damage(1f);
             }
+            Debug.Log($"AIMING: ({name})Damage_receiver.OnCollisionEnter2D(damage_dealer:{damage_dealer.name})");
+            receive_damage(damage_dealer.effect_amount);
             
         }
     }

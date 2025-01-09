@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5597424939800061527}
   - component: {fileID: 5597424939800061524}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: plasma ball circle outside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 3319183180109347547}
   - component: {fileID: -7962127730834510175}
   - component: {fileID: 8622477484328088878}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: plasma_ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 20
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -342,7 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5597424941546550285}
   - component: {fileID: 5597424941546550282}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: plasma ball line inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}

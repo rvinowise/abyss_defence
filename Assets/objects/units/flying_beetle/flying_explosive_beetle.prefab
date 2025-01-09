@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8505969423584320397}
   - component: {fileID: 1480928674791596596}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hard_wing_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 710542985405852953}
   - component: {fileID: 1871463615376988990}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: soft_wing_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8587560744800512542}
   - component: {fileID: 8587560744800512543}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: soft_wing_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 2538962339502236148}
   - component: {fileID: -5668555125182977883}
   - component: {fileID: -840928788953837627}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: flying_explosive_beetle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,7 +600,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8587560745169262031}
   - component: {fileID: 8587560745169262024}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hard_wing_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}

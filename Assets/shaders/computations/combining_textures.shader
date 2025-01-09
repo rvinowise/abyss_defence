@@ -31,6 +31,8 @@
 				half4 color_top = (
 					tex2D(_Top, IN.texcoord)
 				);
+				half4 color_top_opaque = color_top;
+				color_top_opaque.a = 1;
 				//color_top.a=1; //test
 				
 				// if (color_top.a < 0.7) {
@@ -39,7 +41,7 @@
 				// 	}
 				// }
 				//return color_bottom + half4(0,color_top.a,0,color_top.a);// * (1/*-color_top.a*/);//
-				return color_bottom * (1-color_top.a) + color_top*color_top.a;
+				return color_bottom * (1.0-color_top.a) + color_top_opaque*color_top.a;
 			} 
 			
            

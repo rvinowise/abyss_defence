@@ -11,7 +11,7 @@ public class Persistent_residue_router: MonoBehaviour {
 
     public Persistent_residue_sprite_holder sprite_holder_prefab;
     public Persistent_residue_mesh_holder material_holder_prefab;
-    public Persistent_residue_texture_holder render_texture_holder;
+    public Persistent_residue_all_textures render_texture_holder;
 
     private readonly Dictionary<Sprite, Persistent_residue_sprite_holder> sprite_to_holder = 
         new Dictionary<Sprite, Persistent_residue_sprite_holder>();

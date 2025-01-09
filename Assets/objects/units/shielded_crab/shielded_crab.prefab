@@ -107,6 +107,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 7576685673040637695}
   length: 0.892
@@ -278,6 +279,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 4709032319295180937}
   length: 1
@@ -389,6 +391,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 2834947681157237319}
   length: 0.9
@@ -500,6 +503,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 5290217193264492193}
   length: 0.892
@@ -611,6 +615,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 3734848345514600828}
   length: 0.888
@@ -722,6 +727,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 3149707398315652523}
   length: 0.888
@@ -833,6 +839,7 @@ MonoBehaviour:
   reposition_distance: 2
   moving_offset_distance: 0.2
   up: 1
+  action_label: 
 --- !u!114 &4672225871811144964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -958,6 +965,7 @@ MonoBehaviour:
   reposition_distance: 2
   moving_offset_distance: 0.2
   up: 1
+  action_label: 
 --- !u!1 &6778810332230046867
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,6 +1019,7 @@ MonoBehaviour:
   reposition_distance: 2
   moving_offset_distance: 0.2
   up: 1
+  action_label: 
 --- !u!1 &6895688403272827766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,6 +1127,7 @@ MonoBehaviour:
   reposition_distance: 2
   moving_offset_distance: 0.2
   up: 1
+  action_label: 
 --- !u!114 &71019294369952215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1238,7 +1248,7 @@ GameObject:
   - component: {fileID: 5829503716278284408}
   - component: {fileID: 8999462489907890314}
   - component: {fileID: 352097224997323517}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: shielded_crab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1434,6 +1444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4fc3d2ae5a1871458a79adcd59ac8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moved_body: {fileID: 7503347936232632876}
   rotate_faster_than_move: 20
   stable_leg_groups:
   - legs:
@@ -1448,7 +1459,6 @@ MonoBehaviour:
   - {fileID: 1041728648741110619}
   - {fileID: 6430978077493862375}
   - {fileID: 5968104080696235151}
-  moved_body: {fileID: 7503347936232632876}
 --- !u!114 &7503347936232632876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1472,6 +1482,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
 --- !u!114 &4870360133439210585
 MonoBehaviour:
@@ -1487,7 +1498,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inside: {fileID: 0}
   outside: {fileID: 0}
-  pooled_prefab: {fileID: 0}
 --- !u!114 &5829503716278284408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1501,13 +1511,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baggage: {fileID: 0}
-  sensory_organ_object: {fileID: 7416822016904595950}
-  transporter_object: {fileID: 7416822016904595950}
-  weaponry_object: {fileID: 7416822016904595950}
-  defender_object: {fileID: 0}
   last_rotation: 0
   team: {fileID: 0}
-  commander: {fileID: 0}
+  is_ignored: 0
+  action_runner: {fileID: 0}
+  path_seeker: {fileID: 0}
+  intelligence_action: 0
 --- !u!114 &8999462489907890314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1539,7 +1548,6 @@ MonoBehaviour:
   hitting_limbs:
   - {fileID: 7866234722377544803}
   - {fileID: 2066954272971696448}
-  creeping_leg_group: {fileID: 7933447934410191158}
 --- !u!1 &7523938825589369997
 GameObject:
   m_ObjectHideFlags: 0
@@ -1731,6 +1739,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 6690864997601023761}
   length: 1
@@ -1842,6 +1851,7 @@ MonoBehaviour:
   current_rotation_inertia:
     degrees: 0
   turning_parent: {fileID: 0}
+  target_direction_relative: 0
   ignore_parent: 0
   sprite_renderer: {fileID: 6936229864786169279}
   length: 0.9

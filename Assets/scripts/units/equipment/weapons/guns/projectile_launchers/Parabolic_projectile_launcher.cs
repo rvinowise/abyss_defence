@@ -22,7 +22,7 @@ public class Parabolic_projectile_launcher :
     private float last_shot_time = float.MinValue;
     
     #region IWeaponry interface
-    public override bool is_weapon_targeting_target(Transform target) {
+    public override bool is_weapon_ready_for_target(Transform target) {
         var distance_to_target =
             transform.position.distance_to(target.position); 
         var angle_to_target =

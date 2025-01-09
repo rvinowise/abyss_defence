@@ -26,9 +26,9 @@ public class Hitting_limbs_group:
     
     #region IWeaponry
 
-    public bool is_weapon_targeting_target(Transform target) {
+    public bool is_weapon_ready_for_target(Transform target) {
         foreach (var limb in hitting_limbs) {
-            if (limb.is_weapon_targeting_target(target)) {
+            if (limb.is_weapon_ready_for_target(target)) {
                 return true;
             }
         }

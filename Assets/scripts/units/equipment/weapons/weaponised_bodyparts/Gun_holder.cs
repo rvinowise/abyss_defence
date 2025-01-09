@@ -15,15 +15,35 @@ public class Gun_holder: MonoBehaviour,
     public IGun gun;
     public Turning_element turning_element;
     public Transform muzzle;
-
+    public static LayerMask obstacles_of_shooting;
+    
     private void Awake() {
         gun = GetComponentInChildren<IGun>();
+        obstacles_of_shooting= ~LayerMask.GetMask("projectiles");
     }
     
     
     #region IWeaponry
-    public bool is_weapon_targeting_target(Transform target) {
-        var hit = Physics2D.Raycast(muzzle.position, muzzle.rotation.to_vector(), reaching_distance);
+    
+    
+    public bool is_weapon_ready_for_target(Transform target) {
+        return
+            is_weapon_ready_to_shoot()
+            &&
+            is_weapon_directed_at_target(target);
+    }
+
+    public bool is_weapon_ready_to_shoot() {
+        return gun.can_fire();
+    }
+
+    public bool is_weapon_directed_at_target(Transform target) {
+        var hit = Physics2D.Raycast(
+            muzzle.position, 
+            muzzle.rotation.to_vector(),
+            reaching_distance,
+            obstacles_of_shooting
+        );
 
         if (hit.transform == target) {
             return true;

@@ -124,7 +124,7 @@ public class Gun: MonoBehaviour
 
     
 
-    private bool is_on_cooldown() {
+    public bool is_on_cooldown() {
         return Time.time - last_shot_time <= fire_rate_delay;
     }
 
@@ -145,7 +145,7 @@ public class Gun: MonoBehaviour
     [called_in_animation]
     private void eject_bullet_shell() {
         
-        Gun_shell new_shell = bullet_shell_prefab.get_from_pool<Gun_shell>(
+        Gun_shell new_shell = bullet_shell_prefab.instantiate<Gun_shell>(
             shell_ejector.position,
             transform.rotation
         );

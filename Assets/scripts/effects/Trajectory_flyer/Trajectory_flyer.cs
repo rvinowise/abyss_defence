@@ -1,3 +1,5 @@
+//#define RVI_DEBUG
+
 using System;
 using rvinowise.unity.extensions.pooling;
 using UnityEngine;
@@ -19,6 +21,11 @@ public class Trajectory_flyer: MonoBehaviour {
 
     private Pooled_object pooled_object;
     
+    #if RVI_DEBUG
+    public static int counter = 0;
+    public int number = 0;
+    #endif
+    
     public bool is_on_the_ground() {
         return height <= 0f;
     }
@@ -28,6 +35,10 @@ public class Trajectory_flyer: MonoBehaviour {
         // if (GetComponent<Rigidbody2D>() is { } rigidbody2d) {
         //     weight = rigidbody2d.mass;
         // }
+        
+#if RVI_DEBUG
+        number = counter++;
+#endif
     }
 
     public void on_restore_from_pool() {
@@ -41,12 +52,14 @@ public class Trajectory_flyer: MonoBehaviour {
         vertical_velocity -= weight * Time.deltaTime;
         
         if (is_on_the_ground()) {
-            this.enabled = false;
+            #if RVI_DEBUG
+            Debug.Log($"Trajectory_flyer::is_on_the_ground for {name} #{number}");
+            #endif
+            
+            enabled = false;
             transform.localScale = new Vector2(size, size);
             stop_movement();
-            if (on_fell_on_the_ground != null) {
-                on_fell_on_the_ground.Invoke();
-            }
+            on_fell_on_the_ground?.Invoke();
         } else {
             float local_scale = size * (height + 1);
             transform.localScale = new Vector2(local_scale, local_scale);
