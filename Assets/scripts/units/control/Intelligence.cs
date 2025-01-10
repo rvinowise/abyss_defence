@@ -66,10 +66,28 @@ public class Intelligence :
         
     }
 
+    private TDevice[] get_highest_devices<TDevice>() {
+        //subordinate devices are used by other devices, the intelligence shouldn't use them directly 
+        List<TDevice> needed_decives = new List<TDevice>();
+
+        return check_deeper_children(transform, needed_decives).ToArray();
+        
+        List<TDevice> check_deeper_children(Transform root, List<TDevice> found_devices) {
+            var needed_devices = root.GetComponents<TDevice>();
+            if (needed_devices.Length > 0) {
+                found_devices.AddRange(needed_devices);
+                return found_devices;
+            }
+            foreach (Transform child in root.transform) {
+                check_deeper_children(child, found_devices);
+            }
+            return found_devices;
+        }
+    }
 
     public void init_devices() {
         var attackers = 
-            this.GetComponentsInChildren<IAttacker>();
+            get_highest_devices<IAttacker>();
         if (attackers.Length == 0) {
             attacker = new Empty_attacker();
         } else if (attackers.Length == 1) {
@@ -79,7 +97,7 @@ public class Intelligence :
             attacker = new Compound_attacker(attackers);
         }
         
-        var transporters = GetComponentsInChildren<ITransporter>();
+        var transporters = get_highest_devices<ITransporter>();
         if (transporters.Length == 0) {
             transporter = new Empty_transporter();
         } else if (transporters.Length == 1) {
@@ -90,7 +108,7 @@ public class Intelligence :
         }
         transporter.set_moved_body(GetComponent<Turning_element>());
         
-        var defenders = GetComponentsInChildren<IDefender>();
+        var defenders = get_highest_devices<IDefender>();
         if (defenders.Length == 0) {
             defender = new Empty_defender();
         } else if (defenders.Length == 1) {
@@ -100,7 +118,7 @@ public class Intelligence :
             defender = new Compound_defender(defenders);
         }
         
-        var sensory_organs = GetComponentsInChildren<ISensory_organ>();
+        var sensory_organs = get_highest_devices<ISensory_organ>();
         if (sensory_organs.Length == 0) {
             sensory_organ = new Empty_sensory_organ();
         } else if (sensory_organs.Length == 1) {

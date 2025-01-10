@@ -14,7 +14,7 @@ namespace rvinowise.unity {
 public partial class Creeping_leg_group: 
     Abstract_children_group
     ,ITransporter
-    ,IAttacker
+    //,IAttacker
 {
     
     #region Children_group

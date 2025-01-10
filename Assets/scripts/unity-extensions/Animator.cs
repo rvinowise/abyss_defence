@@ -1,3 +1,4 @@
+using Animancer;
 using UnityEngine;
 
 
@@ -20,6 +21,18 @@ public static partial class Unity_extension
         return 0.0f;
     }
     
+    public static AnimancerState play_from_scratch(
+        this AnimancerComponent animancer, 
+        AnimationClip clip,
+        System.Action on_end
+    ) {
+        var animation_state = animancer.Play(clip);
+        animation_state.Time = 0;
+        animation_state.Speed = 1;
+        animation_state.Events.OnEnd ??= on_end;
+        return animation_state;
+    }
+
     
 }
 

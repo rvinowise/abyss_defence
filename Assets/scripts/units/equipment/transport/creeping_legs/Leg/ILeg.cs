@@ -5,7 +5,8 @@ namespace rvinowise.unity {
 
 public interface ILeg:
 ILimb,
-IChild_of_group {
+IChild_of_group 
+{
     float get_provided_impulse();
     bool is_up();
     void put_down();

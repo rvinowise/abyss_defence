@@ -98,6 +98,11 @@ public class Turning_element: MonoBehaviour {
 
     public const float rotation_epsilon = 0.01f;
 
+
+    public void rotate_towards(Quaternion target_rotation) {
+        set_target_rotation(target_rotation);
+        rotate_to_desired_direction();
+    }
     public void rotate_to_desired_direction() {
 
         float angle_to_pass = get_angle_to_pass();

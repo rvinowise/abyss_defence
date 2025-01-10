@@ -1,4 +1,4 @@
-//#define RVI_DEBUG
+#define RVI_DEBUG
 
 using System;
 using System.Globalization;
@@ -327,11 +327,11 @@ public class Computer_intelligence:Intelligence {
         // if (other.GetComponent<Damage_receiver>() is Damage_receiver damage_receiver) {
         //     damage_receiver.receive_damage();
         // }
-        Debug.Log("trigger enter test");
+        //Debug.Log("trigger enter test");
     }
 
     private void OnTriggerExit2D(Collider2D other) {
-        Debug.Log("trigger exit test");
+        //Debug.Log("trigger exit test");
     }
     
 }

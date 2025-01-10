@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Animancer;
 using rvinowise.unity.actions;
 using rvinowise.unity.extensions;
 using rvinowise.unity.extensions.attributes;
@@ -16,9 +17,8 @@ public class Animated_attacker :
     public Collider2D attacked_area;
     public Collider2D area_starting_attack;
     private readonly ISet<Collider2D> reacheble_targets = new HashSet<Collider2D>();
-    public Animator animator;
-    public String attacking_animation = "attack";
-    private int attacking_animation_hash;
+    public AnimancerComponent animancer;
+    public AnimationClip attacking_animation;
     
     public float cooldown_seconds = 1;
     private float last_attack_time = float.MinValue;
@@ -30,6 +30,11 @@ public class Animated_attacker :
     
     #region IWeaponry interface
     public override bool is_weapon_ready_for_target(Transform target) {
+        return is_ready_to_attack() && is_directed_at_target(target);
+
+    }
+
+    public bool is_directed_at_target(Transform target) {
         var target_collider = target.GetComponent<Collider2D>();
         return reacheble_targets.Contains(target_collider);
     }
@@ -50,10 +55,7 @@ public class Animated_attacker :
     }
 
 
-    private void Awake() {
-        attacking_animation_hash = Animator.StringToHash(attacking_animation);
-        //attacked_area.gameObject.SetActive(false);
-    }
+
 
     public override void attack(Transform target, System.Action on_completed = null) {
         if (is_ready_to_attack()) {
@@ -69,9 +71,10 @@ public class Animated_attacker :
     private bool is_ready_to_attack() {
         return Time.time - last_attack_time > cooldown_seconds;
     }
-    
+
+    private AnimancerState animation_state;
     private void play_attack_animation() {
-        animator.Play(attacking_animation_hash);
+        animation_state = animancer.play_from_scratch(attacking_animation, on_animation_ended);
     }
 
     [called_in_animation]
@@ -86,6 +89,9 @@ public class Animated_attacker :
     
     [called_in_animation]
     public void on_animation_ended() {
+        animation_state.Time = 0;
+        animation_state.Speed = 0;
+        animation_state.Events.OnEnd = null;
         intelligence_on_complete?.Invoke();
     }
 

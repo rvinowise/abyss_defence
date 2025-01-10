@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7129754435002285990}
   - component: {fileID: 4709184780905629097}
   - component: {fileID: 6054288471957760383}
+  - component: {fileID: 6712362193577652985}
   m_Layer: 0
   m_Name: head
   m_TagString: Untagged
@@ -117,8 +118,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attacked_area: {fileID: 7129754435002285990}
   area_starting_attack: {fileID: 7129754435002285990}
-  animator: {fileID: 0}
-  attacking_animation: attack
+  animancer: {fileID: 6712362193577652985}
+  attacking_animation: {fileID: 7400000, guid: d6e6f3f45af083e46b7b35e5936c1603, type: 2}
   cooldown_seconds: 1
 --- !u!95 &6054288471957760383
 Animator:
@@ -141,6 +142,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6712362193577652985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8553099852686138224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad50f81b1d25c441943c37a89ba23f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Animator: {fileID: 6054288471957760383}
+  _ActionOnDisable: 0
 --- !u!1 &8665968351339323071
 GameObject:
   m_ObjectHideFlags: 0

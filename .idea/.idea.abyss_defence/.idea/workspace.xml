@@ -5,95 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6d11f1b-b467-4aae-a6c7-5cd4403f1f06" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_holder/Persistent_residue_on_texture.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_holder/Persistent_residue_on_texture/Persistent_residue_all_textures.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_holder/Persistent_residue_on_texture/Persistent_residue_all_textures.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/factory/arena.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/factory/arena.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 1.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 1.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 10.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 10.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 11.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 11.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 12.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 12.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 13.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 13.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 14.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 14.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 15.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 15.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 2.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 2.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 3.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 3.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 4.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 4.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 5.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 5.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 6.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 6.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 7.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 7.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 8.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 8.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 9.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark 9.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/burn marks/burn mark.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/flying_beetle/flying_beetle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/flying_beetle/flying_beetle.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/flying_beetle/flying_explosive_beetle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/flying_beetle/flying_explosive_beetle.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/shielded_crab/shielded_crab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/shielded_crab/shielded_crab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/shooting_crab/shielded_crab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/shooting_crab/shielded_crab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/bullet_shell.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/bullet_shell.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/laser_cannon/plasma_ball/plasma_ball.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/laser_cannon/plasma_ball/plasma_ball.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/units/woodlouse/attack.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/woodlouse/attack.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/units/woodlouse/head.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/woodlouse/head.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/plugins/Animancer/Read Me v7.4.2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/plugins/Animancer/Read Me v7.4.2.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/debug/Debug.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/debug/Debug.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_holder/Persistent_residue_texture_holder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_holder/Persistent_residue_on_texture/Persistent_residue_texture_holder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_holder/Persistent_residue_texture_holder.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_holder/Persistent_residue_on_texture/Persistent_residue_texture_holder.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_router.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_router.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Smoke_trail/mesh_impl/Smoke_trail_emitter_static_tip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Smoke_trail/mesh_impl/Smoke_trail_emitter_static_tip.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Trajectory_flyer/Trajectory_flyer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Trajectory_flyer/Trajectory_flyer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/Damage_receiver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/Damage_receiver.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/texture_splitting/Texture_drawer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/texture_splitting/Texture_drawer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/Intelligence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/Intelligence.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/computer/Computer_intelligence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/computer/Computer_intelligence.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/player/Player_human.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/player/Player_human.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attacking_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attacking_group.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_leaf.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_leaf.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_runner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_runner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/Scorpion_pedipalp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/Scorpion_pedipalp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/Scorpion_pedipalps_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/Scorpion_pedipalps_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/actions/Scorpion_arm_prepare_jab.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/actions/Scorpion_arm_prepare_jab.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Follow_target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Follow_target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Keep_distance_from_target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Keep_distance_from_target.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/Turning_element.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/Turning_element.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Traverse_obstacles_before_target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Traverse_obstacles_before_target.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limb.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limbs_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limbs_group.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Leg/ALeg.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Leg/ALeg.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/Damage_dealer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/Damage_dealer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/IAttacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/IAttacker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/IGun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/IGun.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/effects/Explosion.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/effects/Explosion.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Gun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Gun.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Separate_projectile_launcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Separate_projectile_launcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/projectile_launchers/Parabolic_projectile_launcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/projectile_launchers/Parabolic_projectile_launcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/projectiles/Damaging_collider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/projectiles/Damaging_collider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/projectiles/bullets/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/projectiles/bullets/Projectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/turret/Focusing_guns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/turret/Focusing_guns.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Leg/ILeg.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Leg/ILeg.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Compound_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Compound_attacker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Empty_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Empty_attacker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Gun_holder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Gun_holder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Proboscis.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Proboscis.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Shooting_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Shooting_attacker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/gore/Bleeding_body_splash_prefab.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/gore/Bleeding_body_splash_prefab.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/unity-extensions/Component.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/unity-extensions/Component.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/shaders/Sprites-Regular.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/shaders/Sprites-Regular.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/unity-extensions/Animator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/unity-extensions/Animator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/shaders/computations/combining_textures.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/shaders/computations/combining_textures.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/shaders/computations/combining_textures.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/shaders/computations/combining_textures.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sprites/walls/pipe/pipe.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/sprites/walls/pipe/pipe.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_textures/0_bottom_result_texture after.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_textures/0_bottom_result_texture before.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_textures/0_top_added_texture.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_textures/1_bottom_result_texture after.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_textures/1_bottom_result_texture before.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_textures/1_top_added_texture.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_textures/2_bottom_result_texture after.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_textures/2_bottom_result_texture before.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_textures/2_top_added_texture.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/sprites/effects/burning_fire_narrow/burning_fire_narrow.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/sprites/effects/burning_fire_narrow/burning_fire_narrow.spriteatlas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/sprites/effects/smoke_swirl/smoke_swirl_short.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/sprites/effects/smoke_swirl/smoke_swirl_short.spriteatlas" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,39 +42,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1a34d7ee85f44ff2a9df5d0ea5a6ee325735b0/57/919fdf0e/Contract.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1a34d7ee85f44ff2a9df5d0ea5a6ee325735b0/73/bff85009/Math.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1a34d7ee85f44ff2a9df5d0ea5a6ee325735b0/f6/4d1f232f/ValueTuple`2.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2049f69b95434c348b97e9e5dc37443f1b800/a7/45487b8d/RaycastHit2D.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2049f69b95434c348b97e9e5dc37443f1b800/dc/f5400f2f/Physics2D.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/351e49e2a5bf4fd6beabb458ce2255f3ff600/9d/d735b036/Enumerable.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/49ef468a114d4b5bb0d197c2b98f1cc418200/56/b30e0232/Physics.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/69/b5ced0d6/Int32.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/f7/cfebfc91/List`1.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/00/658e68fb/Graphics.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/00/aab8bb18/Debug.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/01/af58dfca/Texture.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/3e/fcefc2d1/Transform.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/40/8b5e5620/LineRenderer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/48/99457cd4/GraphicsFormat.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/6e/367534c4/RenderTexture.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/6f/0001c06b/Vector2.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/7b/8ec50d9f/ILogger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/81/fcfeb484/Camera.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/88/f6ada13f/Behaviour.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/a6/6fcbfece/Material.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/d7/eb6d2d85/Texture2D.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/df/c5c8e5a2/Component.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/e3/c304b642/Renderer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/e7/f122170f/TextureFormat.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/f2/a4bbaf96/ContextMenu.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/f8/c57d251d/Object.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/fd/03291672/Bounds.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e74a8bbc3ce9423ba316d674bb02d78326c00/23/59e34e8f/Animator.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e74a8bbc3ce9423ba316d674bb02d78326c00/4c/d06a2bd4/StateMachineBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ac12718706b34f5b8e2f674c1819c4b0f9e00/d9/c17c21f0/AnimancerState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.animation@5.2.4/Editor/SkinningModule/SkinningCache/SpriteCacheExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.sprite@1.0.0/Editor/Interface/IHandles.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.spriteshape@5.3.0/Runtime/SpriteShapeGenerator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.18.19/Runtime/ResourceManager/ResourceProviders/AssetBundleProvider.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.18.19/Runtime/ResourceManager/ResourceProviders/BundledAssetProvider.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.18.19/Tests/Editor/EditorAddressablesAssetsTestFixture.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.18.19/Tests/Runtime/LegacyResourceTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ads@4.4.2/Editor/DevX/EditorGameServices/AdsService.cs" root0="SKIP_HIGHLIGHTING" />
@@ -240,7 +149,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="D:\Program Files\Unity\Hub\Editor\2020.3.48f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2020.3.48f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\prj\abyss_defence -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\prj\abyss_defence" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -248,17 +157,17 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="D:\Program Files\Unity\Hub\Editor\2020.3.48f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2020.3.48f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\prj\abyss_defence -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\prj\abyss_defence" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="6948">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="7320">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="6948" />
+      <option name="pid" value="7320" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -301,6 +210,10 @@
       <workItem from="1735908038353" duration="83918000" />
       <workItem from="1736159956536" duration="43030000" />
       <workItem from="1736279051909" duration="32688000" />
+      <workItem from="1736444759358" duration="415000" />
+      <workItem from="1736453147151" duration="142000" />
+      <workItem from="1736453817212" duration="39000" />
+      <workItem from="1736454109598" duration="23763000" />
     </task>
     <servers />
   </component>
@@ -325,26 +238,39 @@
           <line>92</line>
           <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\equipment\transport\actions\Traverse_obstacles_before_target.cs" containingFunctionPresentation="Method 'update'">
             <startOffsets>
-              <option value="2814" />
+              <option value="2812" />
             </startOffsets>
             <endOffsets>
-              <option value="2831" />
+              <option value="2829" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/scripts/units/control/computer/Computer_intelligence.cs</url>
-          <line>142</line>
-          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\control\computer\Computer_intelligence.cs" containingFunctionPresentation="Method 'FixedUpdate'">
+          <url>file://$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Compound_attacker.cs</url>
+          <line>52</line>
+          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\equipment\weapons\weaponised_bodyparts\Compound_attacker.cs" containingFunctionPresentation="Method 'attack'">
             <startOffsets>
-              <option value="4080" />
+              <option value="1490" />
             </startOffsets>
             <endOffsets>
-              <option value="4134" />
+              <option value="1525" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="45" />
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Moving_strategy/Stable.cs</url>
+          <line>37</line>
+          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\equipment\transport\creeping_legs\Creeping_leg_group\Moving_strategy\Stable.cs" containingFunctionPresentation="Method 'is_standing_stable_without'">
+            <startOffsets>
+              <option value="990" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1074" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="94" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

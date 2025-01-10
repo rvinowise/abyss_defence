@@ -1,4 +1,4 @@
-//#define RVI_DEBUG
+#define RVI_DEBUG
 
 using System;
 using rvinowise.unity.extensions.pooling;

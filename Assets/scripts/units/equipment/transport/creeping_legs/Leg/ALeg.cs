@@ -11,7 +11,7 @@ It uses composition instead of inheritance */
 public abstract class ALeg : 
     Limb2
     ,ILeg
-    ,IAttacker
+    //,IAttacker
 {
     public float provided_impulse = 0.2f;
     public float get_provided_impulse() => provided_impulse;

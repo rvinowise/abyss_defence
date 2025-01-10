@@ -5,45 +5,141 @@ using rvinowise.unity.extensions;
 using rvinowise.unity.extensions.attributes;
 using UnityEngine;
 using Action = rvinowise.unity.actions.Action;
+using Animancer;
 
 
 namespace rvinowise.unity {
 public class Fighting_head :
     MonoBehaviour,
     //Attacker_child_of_group,
-    //IAttacker,
+    IAttacker,
     ISensory_organ
 {
 
+    enum State {
+        CALM,
+        PREPARED_FOR_ATTACK
+    }
+
+
+    private State fighting_state;
+    private AnimancerState animation_state;
+
     public Animated_attacker animated_attacker;
+    public AnimancerComponent animancer;
+    
+    public AnimationClip prepare_for_attack_clip;
+    public AnimationClip attack_clip;
+    public AnimationClip stop_preparing_for_attack_clip;
 
     public Turning_element turning_element;
 
+    public Transform target;
+
+    public float distance_of_fight = 3;
+
+    private void Awake() {
+        assume_state_right_after_attack();
+    }
+
+    private void assume_state_right_after_attack() {
+        animation_state = animancer.play_from_scratch(stop_preparing_for_attack_clip, on_prepared_for_attack);
+        animation_state.Speed = 0;
+        animation_state.NormalizedTime = 1;
+    }
+
+    private void Update() {
+        if (target != null) {
+            var rotation_to_target = transform.quaternion_to(target.position);
+            turning_element.rotate_towards(rotation_to_target);
+            var vector_to_target = target.position - transform.position;
+            var distance_to_target = vector_to_target.magnitude;
+            if (is_needed_preparing_for_attack(distance_to_target)) {
+                if (is_calm()) {
+                    animation_state = animancer.play_from_scratch(prepare_for_attack_clip, on_prepared_for_attack);
+                }
+            } else {
+                if (is_prepared_for_attack()) {
+                    animation_state = animancer.play_from_scratch(stop_preparing_for_attack_clip, on_calmed);
+                }
+            }
+        }
+    }
+
+    public bool is_needed_preparing_for_attack(float distance_to_target) {
+        return distance_to_target <= distance_of_fight;
+    }
+
+    private void on_prepared_for_attack() {
+        fighting_state = State.PREPARED_FOR_ATTACK;
+        //animation_state.Time = 0;
+        animation_state.Speed = 0;
+        animation_state.Events.OnEnd = null;
+    }
+    private void on_calmed() {
+        fighting_state = State.CALM;
+        //animation_state.Time = 0;
+        animation_state.Speed = 0;
+        animation_state.Events.OnEnd = null;
+    }
+
+    private void on_attack_completed() {
+        assume_state_right_after_attack();
+        on_attack_completed_callback.Invoke();
+    }
+    
+    private bool is_calm() {
+        return
+            animation_state.Speed == 0
+            &&
+            animation_state.Clip == stop_preparing_for_attack_clip
+            &&
+            animation_state.NormalizedTime >= 1;
+    }
+    private bool is_prepared_for_attack() {
+        return
+            animation_state.Speed == 0
+            &&
+            animation_state.Clip == prepare_for_attack_clip
+            &&
+            animation_state.NormalizedTime >= 1;
+    }
+    
+    
+    
+    
+    
+    #region Sensor
     public void pay_attention_to_target(Transform target) {
-        var direction_to_target = transform.quaternion_to(target.position);
-        turning_element.set_target_rotation(direction_to_target);
-        turning_element.rotate_to_desired_direction();
+        this.target = target; 
+        
     }
 
     public bool is_focused_on_target() {
         return true;
     }
+    #endregion
 
-    // #region IWeaponry interface
-    // public override bool is_weapon_ready_for_target(Transform target) {
-    //     return animated_attacker.is_weapon_ready_for_target(target);
-    // }
-    //
-    // public override float get_reaching_distance() {
-    //     return animated_attacker.get_reaching_distance();
-    // }
-    //
-    // public override void attack(Transform target, System.Action on_completed = null) {
-    //     animated_attacker.attack(target, on_completed);
-    //
-    // }
-    //
-    // #endregion
+    #region IWeaponry interface
+    public bool is_weapon_ready_for_target(Transform target) {
+        return 
+            fighting_state == State.PREPARED_FOR_ATTACK
+            &&
+            animated_attacker.is_weapon_ready_for_target(target);
+    }
+    
+    public float get_reaching_distance() {
+        return animated_attacker.get_reaching_distance();
+    }
+
+    private System.Action on_attack_completed_callback;
+    public void attack(Transform target, System.Action on_completed = null) {
+        on_attack_completed_callback = on_completed;
+        animated_attacker.attack(target, on_attack_completed);
+    
+    }
+    
+    #endregion
 
     
 
