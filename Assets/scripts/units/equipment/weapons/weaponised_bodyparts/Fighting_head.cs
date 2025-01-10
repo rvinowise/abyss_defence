@@ -43,9 +43,9 @@ public class Fighting_head :
     }
 
     private void assume_state_right_after_attack() {
-        animation_state = animancer.play_from_scratch(stop_preparing_for_attack_clip, on_prepared_for_attack);
-        animation_state.Speed = 0;
-        animation_state.NormalizedTime = 1;
+        animation_state = animancer.play_from_scratch(prepare_for_attack_clip, on_prepared_for_attack);
+        animation_state.IsPlaying = false;
+        animation_state.NormalizedTime = 0;
     }
 
     private void Update() {
@@ -73,13 +73,13 @@ public class Fighting_head :
     private void on_prepared_for_attack() {
         fighting_state = State.PREPARED_FOR_ATTACK;
         //animation_state.Time = 0;
-        animation_state.Speed = 0;
+        animation_state.IsPlaying = false;
         animation_state.Events.OnEnd = null;
     }
     private void on_calmed() {
         fighting_state = State.CALM;
         //animation_state.Time = 0;
-        animation_state.Speed = 0;
+        animation_state.IsPlaying = false;
         animation_state.Events.OnEnd = null;
     }
 
@@ -90,7 +90,7 @@ public class Fighting_head :
     
     private bool is_calm() {
         return
-            animation_state.Speed == 0
+            animation_state.IsStopped
             &&
             animation_state.Clip == stop_preparing_for_attack_clip
             &&
@@ -98,17 +98,14 @@ public class Fighting_head :
     }
     private bool is_prepared_for_attack() {
         return
-            animation_state.Speed == 0
+            animation_state.IsStopped
             &&
             animation_state.Clip == prepare_for_attack_clip
             &&
             animation_state.NormalizedTime >= 1;
     }
     
-    
-    
-    
-    
+
     #region Sensor
     public void pay_attention_to_target(Transform target) {
         this.target = target; 
@@ -123,7 +120,7 @@ public class Fighting_head :
     #region IWeaponry interface
     public bool is_weapon_ready_for_target(Transform target) {
         return 
-            fighting_state == State.PREPARED_FOR_ATTACK
+            is_prepared_for_attack()
             &&
             animated_attacker.is_weapon_ready_for_target(target);
     }

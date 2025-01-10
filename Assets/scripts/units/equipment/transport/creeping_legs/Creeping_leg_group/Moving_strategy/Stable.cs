@@ -11,8 +11,19 @@ namespace rvinowise.unity {
 public class Stable: Moving_strategy
 {
 
-    public Stable(IReadOnlyList<ILeg> in_legs, Creeping_leg_group in_creeping_legs_group):
-        base(in_legs, in_creeping_legs_group) { }
+    public Stable(IReadOnlyList<ILeg> in_legs, Creeping_leg_group in_creeping_legs_group) :
+        base(in_legs, in_creeping_legs_group) 
+    {
+        init_stable_leg_groups();
+    }
+
+    private void init_stable_leg_groups() {
+        foreach (var stable_leg_group in creeping_legs_group.stable_leg_groups) {
+            foreach (var leg in stable_leg_group.legs) {
+                leg.stable_group = stable_leg_group;
+            }
+        }
+    }
     
 
     internal override void move_on_the_ground(ILeg leg) {

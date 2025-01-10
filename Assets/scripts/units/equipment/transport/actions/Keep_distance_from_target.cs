@@ -73,7 +73,7 @@ public class Keep_distance_from_target: Action_leaf {
         ;
     
     public static bool is_target_obstructed_by_walls(Transform target, Vector3 start) {
-        var vector_to_target = target.position - start;
+        Vector2 vector_to_target = target.position - start;
         var hit = Physics2D.Raycast(
             start,
             vector_to_target,
