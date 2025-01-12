@@ -202,7 +202,7 @@ public class Action_runner: MonoBehaviour {
                     ||
                     (actor.gameObject.GetComponent<Hitting_limbs_group>() != null)
                 ){
-                    continue;
+                    //continue;
                 }
                 Handles.Label(
                     actor_component.transform.position, 

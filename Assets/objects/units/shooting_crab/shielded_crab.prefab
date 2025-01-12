@@ -194,7 +194,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.43, y: 0}
+  m_Offset: {x: 0.52, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.28699863, y: 0.52904564}
@@ -205,7 +205,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.76, y: 0.15}
+  m_Size: {x: 0.82, y: 0.15}
   m_EdgeRadius: 0
 --- !u!1 &4475977054459826964
 GameObject:
@@ -1138,6 +1138,7 @@ GameObject:
   - component: {fileID: 4475977055464300279}
   - component: {fileID: 2411768687291148510}
   - component: {fileID: 8316393069010184261}
+  - component: {fileID: 6496144401345413351}
   m_Layer: 6
   m_Name: shielded_crab
   m_TagString: Untagged
@@ -1324,7 +1325,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4475977055464300286}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -1378,6 +1379,92 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   will_be_settled_when_stops: 0
   is_decaying: 0
+--- !u!60 &6496144401345413351
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4475977055464300286}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.59, y: 0.5}
+    oldSize: {x: 1.384, y: 1.556}
+    newSize: {x: 3.46, y: 3.89}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.3154401, y: -0.61}
+      - {x: 0.36744007, y: -0.55}
+      - {x: 0.42744008, y: -0.47800002}
+      - {x: 0.4954401, y: -0.41400003}
+      - {x: 0.52344006, y: -0.374}
+      - {x: 0.5674401, y: -0.294}
+      - {x: 0.5674401, y: -0.23400001}
+      - {x: 0.5354401, y: -0.162}
+      - {x: 0.5114401, y: -0.11000001}
+      - {x: 0.5034401, y: -0.038000003}
+      - {x: 0.5034401, y: 0.054}
+      - {x: 0.5114401, y: 0.126}
+      - {x: 0.5394401, y: 0.162}
+      - {x: 0.5674401, y: 0.23400001}
+      - {x: 0.5674401, y: 0.298}
+      - {x: 0.55144006, y: 0.33}
+      - {x: 0.4954401, y: 0.41400003}
+      - {x: 0.4074401, y: 0.50600004}
+      - {x: 0.36744007, y: 0.554}
+      - {x: 0.31144008, y: 0.614}
+      - {x: 0.2714401, y: 0.642}
+      - {x: 0.2554401, y: 0.65000004}
+      - {x: 0.20744008, y: 0.68200004}
+      - {x: 0.13544007, y: 0.74200004}
+      - {x: 0.087440066, y: 0.76600003}
+      - {x: 0.043440066, y: 0.77800006}
+      - {x: 0.027440066, y: 0.77800006}
+      - {x: -0.024559937, y: 0.754}
+      - {x: -0.09655994, y: 0.68600005}
+      - {x: -0.19255994, y: 0.56600004}
+      - {x: -0.26455995, y: 0.47400004}
+      - {x: -0.30855995, y: 0.45800003}
+      - {x: -0.35655996, y: 0.42600003}
+      - {x: -0.38055995, y: 0.40600002}
+      - {x: -0.47255996, y: 0.358}
+      - {x: -0.55656, y: 0.33}
+      - {x: -0.59655994, y: 0.314}
+      - {x: -0.67256, y: 0.238}
+      - {x: -0.73656, y: 0.15400001}
+      - {x: -0.79256, y: 0.078}
+      - {x: -0.81656, y: 0.042000003}
+      - {x: -0.81656, y: -0.042000003}
+      - {x: -0.80855995, y: -0.054}
+      - {x: -0.79256, y: -0.082}
+      - {x: -0.72455996, y: -0.16600001}
+      - {x: -0.66855997, y: -0.238}
+      - {x: -0.59655994, y: -0.31800002}
+      - {x: -0.52055997, y: -0.342}
+      - {x: -0.40055996, y: -0.39000002}
+      - {x: -0.38055995, y: -0.40600002}
+      - {x: -0.30855995, y: -0.45800003}
+      - {x: -0.27255994, y: -0.47400004}
+      - {x: -0.19255994, y: -0.56600004}
+      - {x: -0.08455994, y: -0.702}
+      - {x: -0.024559937, y: -0.75000006}
+      - {x: 0.027440066, y: -0.77800006}
+      - {x: 0.043440066, y: -0.77800006}
+      - {x: 0.087440066, y: -0.76600003}
+      - {x: 0.13544007, y: -0.73800004}
+      - {x: 0.20744008, y: -0.68200004}
+      - {x: 0.27544007, y: -0.642}
 --- !u!1 &4475977055490703885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,7 +1809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   limb: {fileID: 4475977055717296061}
-  creeping_leg_group: {fileID: 0}
+  creeping_leg_group: {fileID: 2714573688668781934}
   segment1_swinging_degree: 120
   segment2_swinging_degree: -118
   segment1_hitting_degree: 16
@@ -2016,7 +2103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   limb: {fileID: 4475977055916205226}
-  creeping_leg_group: {fileID: 0}
+  creeping_leg_group: {fileID: 2714573688668781934}
   segment1_swinging_degree: 120
   segment2_swinging_degree: -118
   segment1_hitting_degree: 16
@@ -2159,7 +2246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7097361574333040497}
   - component: {fileID: 2714573688668781934}
-  - component: {fileID: 5144617467473379557}
+  - component: {fileID: 311498344391920391}
   - component: {fileID: 5501206409036080934}
   m_Layer: 6
   m_Name: legs
@@ -2213,7 +2300,7 @@ MonoBehaviour:
   - {fileID: 4475977056239899619}
   - {fileID: 4475977055916205226}
   - {fileID: 4475977055753629608}
---- !u!114 &5144617467473379557
+--- !u!114 &311498344391920391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -36,6 +36,9 @@ public class Bleeding_body_splash_prefab:
         Vector2 in_position,
         Vector2 in_impulse
     ) {
+        if (back_splash_prefab == null) {
+            return;
+        }
         var contact_with_height =
             in_position.with_height(this.transform.position.z-0.5f);
             //in_position.with_height(0);
@@ -50,6 +53,9 @@ public class Bleeding_body_splash_prefab:
         Vector2 in_position,
         Vector2 in_impulse
     ) {
+        if (frontal_splash_prefab == null) {
+            return;
+        }
         var contact_with_height =
             in_position.with_height(0);
         var splash = Instantiate(
@@ -61,14 +67,14 @@ public class Bleeding_body_splash_prefab:
 
 
     public void OnCollisionEnter2D(Collision2D other) {
-        Projectile collided_projectile = other.gameObject.GetComponent<Projectile>();
-        if (collided_projectile != null) {
+        var damaging_collider = other.gameObject.GetComponent<Damaging_collider>();
+        if (damaging_collider != null) {
 
             Vector2 contact_point = other.GetContact(0).point;
 
             create_back_splash(
                 contact_point,
-                other.GetContact(0).relativeVelocity*collided_projectile.GetComponent<Rigidbody2D>().mass
+                other.GetContact(0).relativeVelocity*damaging_collider.GetComponent<Rigidbody2D>().mass
             );
             // create_frontal_splash(
             //     contact_point,

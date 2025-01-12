@@ -50,16 +50,6 @@ public class Segment: Turning_element {
             sprite_renderer = GetComponent<SpriteRenderer>();
         }
     }
-
-    
-    
-
-    public static Segment create(string in_name) {
-        GameObject game_object = new GameObject(in_name);
-        var new_component = game_object.add_component<Segment>();
-        return new_component;
-    }
-    
     
 
     public void init_length_to(Segment next_segment) {
@@ -67,9 +57,6 @@ public class Segment: Turning_element {
     }
 
 
-    
-
-    
     public void debug_draw_line(Color color) {
         rvinowise.unity.debug.Debug.DrawLine_simple(
             transform.position, 

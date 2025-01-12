@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 5487310770376727640}
   - component: {fileID: 8417441564240366511}
   - component: {fileID: 6300923280871857658}
+  - component: {fileID: 5716589292616010877}
   - component: {fileID: -4648269287722537753}
   - component: {fileID: -5877605998203739688}
   m_Layer: 8
@@ -233,10 +234,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trail_emitter: {fileID: 3542125471584446808}
-  trajectory_flyer: {fileID: 0}
   damage_dealer: {fileID: -4648269287722537753}
   rigid_body: {fileID: 5487310770376727640}
   collider2d: {fileID: 8417441564240366511}
+--- !u!114 &5716589292616010877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3520765260758454939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 761b722c3bcd4130a185751e65bf3e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage_dealer: {fileID: -4648269287722537753}
+  rigid_body: {fileID: 5487310770376727640}
+  collider2d: {fileID: 8417441564240366511}
+  explosive_bodies: []
 --- !u!114 &-4648269287722537753
 MonoBehaviour:
   m_ObjectHideFlags: 0

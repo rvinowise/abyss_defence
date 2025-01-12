@@ -26,9 +26,12 @@ public static partial class Unity_extension
         AnimationClip clip,
         System.Action on_end
     ) {
+        animancer.Stop();
+        
         var animation_state = animancer.Play(clip);
         animation_state.Time = 0;
-        animation_state.Speed = 1;
+        //animation_state.Speed = 1;
+        //animation_state.Weight = 1;
         animation_state.Events.OnEnd ??= on_end;
         return animation_state;
     }

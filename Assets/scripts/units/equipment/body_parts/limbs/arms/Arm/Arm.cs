@@ -24,6 +24,8 @@ public class Arm:
 
     public Tool held_tool => hand.held_tool;
 
+    public Damage_receiver damageble;
+
     public Gun get_held_gun() {
         if (
             !(held_tool is null)
@@ -83,7 +85,59 @@ public class Arm:
     public Transform attention_target;
 
 
-   
+
+    private void Awake() {
+        damageble = GetComponentInChildren<Damage_receiver>();
+        damageble.on_damage_changed += on_damaged;
+    }
+
+    public float rotation_slowing_for_damage = 1.2f;
+    private void on_damaged(float damage_change) {
+        slow_rotation_speed(damage_change);
+        paint_damaged_color(damage_change);
+    }
+
+    private void slow_rotation_speed(float damage_change) {
+        var rotation_slowing = damage_change*rotation_slowing_for_damage;
+        shoulder.rotation_acceleration /= rotation_slowing;
+        segment1.rotation_acceleration /= rotation_slowing;
+        segment2.rotation_acceleration /= rotation_slowing;
+        hand.rotation_acceleration /= rotation_slowing;
+    }
+
+    private void paint_damaged_color(float damage_change) {
+        var redness_for_hand_damage = 1.4f; 
+        var redness_for_forearm_damage = 1.2f; 
+        var redness_for_upperarm_damage = 1.1f; 
+        var redness_for_shoulder_damage = 1.05f; 
+        paint_damaged_color_for_sprite(
+            redness_for_hand_damage*damage_change, 
+            hand.bottom_part.GetComponent<SpriteRenderer>()
+        );
+        paint_damaged_color_for_sprite(
+            redness_for_hand_damage*damage_change, 
+            hand.top_part.GetComponent<SpriteRenderer>()
+        );
+        paint_damaged_color_for_sprite(
+            redness_for_upperarm_damage*damage_change, 
+            upper_arm.sprite_renderer
+        );
+        paint_damaged_color_for_sprite(
+            redness_for_forearm_damage*damage_change, 
+            forearm.sprite_renderer
+        );
+    }
+    
+    private void paint_damaged_color_for_sprite(float color_change, SpriteRenderer sprite_renderer) {
+        var old_color = sprite_renderer.color;
+        Color new_color = new Color(
+            old_color.r,
+            old_color.g / color_change,
+            old_color.b / color_change
+        );
+        sprite_renderer.color = new_color;
+    }
+    
     public void start_idle_action() {
         Idle_vigilant_only_arm.create(
             this,

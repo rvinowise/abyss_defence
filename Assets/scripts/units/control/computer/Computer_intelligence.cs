@@ -1,6 +1,7 @@
 //#define RVI_DEBUG
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Pathfinding;
@@ -8,6 +9,7 @@ using rvinowise.unity.actions;
 using rvinowise.unity.extensions;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions.Comparers;
 using Action = rvinowise.unity.actions.Action;
 
 
@@ -30,7 +32,7 @@ public class Computer_intelligence:Intelligence {
     public Intelligence_action intelligence_action;
     
     [NonSerialized]
-    public Intelligence target;
+    public Damage_receiver target;
     
     #if RVI_DEBUG
     public static int counter = 0;
@@ -76,14 +78,14 @@ public class Computer_intelligence:Intelligence {
         if (target != null) {
             target.on_destroyed += on_target_disappeared;
 
-            move_towards_target(target);
+            move_towards_target(target.transform);
         }
         else {
             Idle.create(transporter.actor).start_as_root(action_runner);
         }
     }
 
-    private void move_towards_target(Intelligence in_target) {
+    private void move_towards_target(Transform in_target) {
 #if RVI_DEBUG
         Debug.Log($"COMPUTER {name} #{number} Computer_intelligence::move_towards_target({in_target})");
 #endif
@@ -93,12 +95,12 @@ public class Computer_intelligence:Intelligence {
                 transporter,
                 transform,
                 path_seeker,
-                in_target.transform,
+                in_target,
                 get_body_reaching_distance()
             ),
             Sensor_pay_attention_to_target.create(
                 sensory_organ,
-                in_target.transform
+                in_target
             )
         )
         .set_on_completed(on_reached_destination)
@@ -116,7 +118,7 @@ public class Computer_intelligence:Intelligence {
 #if RVI_DEBUG
         Debug.Log($"COMPUTER {name} #{number} Computer_intelligence::on_reached_destination(moving_action={moving_action})");
 #endif
-        move_towards_target(target);
+        move_towards_target(target.transform);
     }
 
     protected void Update() {
@@ -141,52 +143,53 @@ public class Computer_intelligence:Intelligence {
 #endif
                     intelligence_action = Intelligence_action.Attacking;
                     attacker.attack(target.transform, on_attack_finished);
-                } else
-                if 
-                    (
-                        (target.attacker.is_weapon_ready_for_target(this.transform))
-                        &&
-                        !(defender is Empty_defender)
-                    )
-                {
-#if RVI_DEBUG
-                    Debug.Log($"COMPUTER {name} #{number} Computer_intelligence::FixedUpdate: target.weaponry.can_reach this, defending");
-#endif
-                    intelligence_action = Intelligence_action.Starting_defending;
-                    defender.start_defence(target.transform, on_assumed_defensive_position);
                 }
-            }
-            else {
-                if (
-                    (
-                        intelligence_action == Intelligence_action.Defending
-                        ||
-                        intelligence_action == Intelligence_action.Starting_defending
-                    )
-                    &&
-                    (!target.attacker.is_weapon_ready_for_target(this.transform))
-                ) 
-                {
-#if RVI_DEBUG
-                    Debug.Log($"COMPUTER {name} #{number} Computer_intelligence::FixedUpdate: !target.weaponry.can_reach this, walking");
-#endif
-                    intelligence_action = Intelligence_action.Finishing_defending;
-                    defender.finish_defence(on_finished_defensive_position);
-                } 
-                else if 
-                (
-                    intelligence_action == Intelligence_action.Finishing_defending
-                    &&
-                    (target.attacker.is_weapon_ready_for_target(this.transform))
-                ) 
-                {
-#if RVI_DEBUG
-                    Debug.Log($"COMPUTER {name} #{number} Keep defending, don't end the defence");
-#endif
-                    intelligence_action = Intelligence_action.Starting_defending;
-                    defender.start_defence(target.transform, on_assumed_defensive_position);
-                }
-            }
+//                 else
+//                 if 
+//                     (
+//                         (target.attacker.is_weapon_ready_for_target(this.transform))
+//                         &&
+//                         !(defender is Empty_defender)
+//                     )
+//                 {
+// #if RVI_DEBUG
+//                     Debug.Log($"COMPUTER {name} #{number} Computer_intelligence::FixedUpdate: target.weaponry.can_reach this, defending");
+// #endif
+//                     intelligence_action = Intelligence_action.Starting_defending;
+//                     defender.start_defence(target.transform, on_assumed_defensive_position);
+//                 }
+//             }
+//             else {
+//                 if (
+//                     (
+//                         intelligence_action == Intelligence_action.Defending
+//                         ||
+//                         intelligence_action == Intelligence_action.Starting_defending
+//                     )
+//                     &&
+//                     (!target.attacker.is_weapon_ready_for_target(this.transform))
+//                 ) 
+//                 {
+// #if RVI_DEBUG
+//                     Debug.Log($"COMPUTER {name} #{number} Computer_intelligence::FixedUpdate: !target.weaponry.can_reach this, walking");
+// #endif
+//                     intelligence_action = Intelligence_action.Finishing_defending;
+//                     defender.finish_defence(on_finished_defensive_position);
+//                 } 
+//                 else if 
+//                 (
+//                     intelligence_action == Intelligence_action.Finishing_defending
+//                     &&
+//                     (target.attacker.is_weapon_ready_for_target(this.transform))
+//                 ) 
+//                 {
+// #if RVI_DEBUG
+//                     Debug.Log($"COMPUTER {name} #{number} Keep defending, don't end the defence");
+// #endif
+//                     intelligence_action = Intelligence_action.Starting_defending;
+//                     defender.start_defence(target.transform, on_assumed_defensive_position);
+//                 }
+             }
         }
     }
 
@@ -196,9 +199,9 @@ public class Computer_intelligence:Intelligence {
 #endif
 
         if (target == null) {
-            target = in_enemy;
+            target = find_closest_damageable_of_unit(in_enemy);
             target.on_destroyed += on_target_disappeared;
-            move_towards_target(target);
+            move_towards_target(target.transform);
         }
     }
 
@@ -225,6 +228,31 @@ public class Computer_intelligence:Intelligence {
         }
         return closest_enemy;
     }
+
+    public static TComponent find_closest_component<TComponent>(Vector2 position, IEnumerable<TComponent> components) 
+    where TComponent: Component {
+        float closest_distance = float.PositiveInfinity;
+        TComponent closest_component = null;
+        foreach (var component in components) {
+            var this_distance = (position - (Vector2)component.transform.position).sqrMagnitude;
+            if (this_distance < closest_distance) {
+                closest_distance = this_distance;
+                closest_component = component;
+            }
+        }
+        return closest_component;
+    }
+
+    private Damage_receiver find_closest_damageable_of_unit(Intelligence unit) {
+        if (unit == null)
+        {
+            return null;
+        }
+        var damageables = unit.GetComponentsInChildren<Damage_receiver>();
+        return find_closest_component(transform.position, damageables);
+
+    }
+    
     private Intelligence find_closest_friend() {
         var closest_distance = float.PositiveInfinity;
         Intelligence closest_unit = null;
@@ -240,11 +268,12 @@ public class Computer_intelligence:Intelligence {
         return closest_unit;
     }
     
-    private Intelligence find_best_target() {
-        return find_closest_enemy();
+    private Damage_receiver find_best_target() {
+        var closest_enemy = find_closest_enemy();
+        return find_closest_damageable_of_unit(closest_enemy);
     }
 
-    private void on_target_disappeared(Intelligence disappearing_unit) {
+    private void on_target_disappeared(Damage_receiver disappearing_target) {
         if (this == null) return;
 #if RVI_DEBUG
         Debug.Log($"COMPUTER {name} #{number} Computer_intelligence::on_target_disappeared({disappearing_unit})");
@@ -307,7 +336,7 @@ public class Computer_intelligence:Intelligence {
             
             //Handles.
             var start_point = attacker.actor == null ? transform.position : attacker.actor.transform.position;
-            var end_point = target.defender.actor == null ? target.transform.position : target.defender.actor.transform.position;
+            var end_point = target.transform.position;
 
             Vector3 middle_point =
                 start_point

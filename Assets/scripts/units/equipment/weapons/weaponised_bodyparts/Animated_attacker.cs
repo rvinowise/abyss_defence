@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Animancer;
 using rvinowise.unity.actions;
 using rvinowise.unity.extensions;
@@ -16,6 +17,7 @@ public class Animated_attacker :
 
     public Collider2D attacked_area;
     public Collider2D area_starting_attack;
+    public float dealt_damage = 1;
     private readonly ISet<Collider2D> reacheble_targets = new HashSet<Collider2D>();
     public AnimancerComponent animancer;
     public AnimationClip attacking_animation;
@@ -23,7 +25,7 @@ public class Animated_attacker :
     public float cooldown_seconds = 1;
     private float last_attack_time = float.MinValue;
 
-    private System.Action intelligence_on_complete;
+    private System.Action on_complete_callback;
     
     
     
@@ -35,8 +37,8 @@ public class Animated_attacker :
     }
 
     public bool is_directed_at_target(Transform target) {
-        var target_collider = target.GetComponent<Collider2D>();
-        return reacheble_targets.Contains(target_collider);
+        var target_colliders = target.GetComponents<Collider2D>();
+        return reacheble_targets.Intersect(target_colliders).Any();
     }
 
     public override float get_reaching_distance() {
@@ -61,7 +63,7 @@ public class Animated_attacker :
         if (is_ready_to_attack()) {
             play_attack_animation();
             last_attack_time = Time.time;
-            intelligence_on_complete = on_completed;
+            on_complete_callback = on_completed;
         }
         
     }
@@ -75,24 +77,32 @@ public class Animated_attacker :
     private AnimancerState animation_state;
     private void play_attack_animation() {
         animation_state = animancer.play_from_scratch(attacking_animation, on_animation_ended);
+        //animation_state.SetWeight(1);
     }
 
     [called_in_animation]
     public void on_damage_started() {
-        attacked_area.gameObject.SetActive(true);
+        //attacked_area.gameObject.SetActive(true);
+        foreach (var target in reacheble_targets) {
+            if (target.GetComponent<Damage_receiver>() is { } damagable) {
+                damagable.receive_damage(dealt_damage);
+            }
+            if (target.GetComponent<IBleeding_body>() is { } bleeding) {
+                bleeding.create_splash(target.transform.position, transform.rotation.to_vector());
+            }
+        }
     }
     
     [called_in_animation]
     public void on_damage_ended() {
-        attacked_area.gameObject.SetActive(false);
+        //attacked_area.gameObject.SetActive(false);
     }
     
     [called_in_animation]
     public void on_animation_ended() {
-        animation_state.Time = 0;
-        animation_state.Speed = 0;
+        animation_state.IsPlaying = false;
         animation_state.Events.OnEnd = null;
-        intelligence_on_complete?.Invoke();
+        on_complete_callback?.Invoke();
     }
 
     

@@ -24,7 +24,6 @@ public class Limb2:
     public Side_type folding_side; //1 of -1
     public unity.geometry2d.Side_type side => folding_side; // left or right arm?
 
-    [SerializeField]
     
     public Vector2 local_position {
         get { return this.transform.localPosition; }

@@ -79,6 +79,9 @@ public class Intelligence :
                 return found_devices;
             }
             foreach (Transform child in root.transform) {
+                if (!child.gameObject.activeSelf) {
+                    continue;
+                }
                 check_deeper_children(child, found_devices);
             }
             return found_devices;

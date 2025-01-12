@@ -8,16 +8,22 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/factory/arena.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/factory/arena.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/objects/units/shooting_crab/shielded_crab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/shooting_crab/shielded_crab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/debug/Debug.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/debug/Debug.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Trajectory_flyer/Trajectory_flyer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Trajectory_flyer/Trajectory_flyer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/units/woodlouse/head.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/woodlouse/head.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/pistol_bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/pistol_bullet.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/plugins/Animancer/Read Me v7.4.2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/plugins/Animancer/Read Me v7.4.2.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/Damage_receiver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/Damage_receiver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/Intelligence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/Intelligence.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/computer/Computer_intelligence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/computer/Computer_intelligence.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_runner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_runner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Keep_distance_from_target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Keep_distance_from_target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Traverse_obstacles_before_target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Traverse_obstacles_before_target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Moving_strategy/Stable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Moving_strategy/Stable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/Limb2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/Limb2.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/Segment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/Segment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/Arm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/Arm.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Gun_holder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Gun_holder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/gore/Bleeding_body_splash_prefab.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/gore/Bleeding_body_splash_prefab.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/unity-extensions/Animator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/unity-extensions/Animator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/shaders/computations/masked_texture.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/shaders/computations/masked_texture.mat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +37,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1a34d7ee85f44ff2a9df5d0ea5a6ee325735b0/57/919fdf0e/Contract.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1a34d7ee85f44ff2a9df5d0ea5a6ee325735b0/73/bff85009/Math.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1a34d7ee85f44ff2a9df5d0ea5a6ee325735b0/f6/4d1f232f/ValueTuple`2.cs" root0="SKIP_HIGHLIGHTING" />
@@ -58,7 +70,10 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/e7/f122170f/TextureFormat.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/f2/a4bbaf96/ContextMenu.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/f8/c57d251d/Object.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/fa/3c72930b/GameObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/fd/03291672/Bounds.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ac12718706b34f5b8e2f674c1819c4b0f9e00/29/63acbfa2/AnimancerNode.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ac12718706b34f5b8e2f674c1819c4b0f9e00/d9/c17c21f0/AnimancerState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e74a8bbc3ce9423ba316d674bb02d78326c00/23/59e34e8f/Animator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e74a8bbc3ce9423ba316d674bb02d78326c00/4c/d06a2bd4/StateMachineBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.animation@5.2.4/Editor/SkinningModule/SkinningCache/SpriteCacheExtensions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -167,7 +182,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2020.3.48f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="D:\Program Files\Unity\Hub\Editor\2020.3.48f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\prj\abyss_defence -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\prj\abyss_defence" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -175,17 +190,17 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2020.3.48f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="D:\Program Files\Unity\Hub\Editor\2020.3.48f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\prj\abyss_defence -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\prj\abyss_defence" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="6948">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="34808">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="6948" />
+      <option name="pid" value="34808" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -252,43 +267,17 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/plugins/Animancer/Internal/Editor/ReadMe.cs</url>
-          <line>148</line>
-          <properties documentPath="C:\prj\abyss_defence\Assets\plugins\Animancer\Internal\Editor\ReadMe.cs" containingFunctionPresentation="Property 'CheckForUpdates'">
+          <url>file://$PROJECT_DIR$/Assets/scripts/units/gore/Bleeding_body_splash_prefab.cs</url>
+          <line>69</line>
+          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\gore\Bleeding_body_splash_prefab.cs" containingFunctionPresentation="Method 'OnCollisionEnter2D'">
             <startOffsets>
-              <option value="7050" />
+              <option value="1626" />
             </startOffsets>
             <endOffsets>
-              <option value="7104" />
+              <option value="1701" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="98" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/plugins/Animancer/Internal/Editor/ReadMe.cs</url>
-          <line>149</line>
-          <properties documentPath="C:\prj\abyss_defence\Assets\plugins\Animancer\Internal\Editor\ReadMe.cs" containingFunctionPresentation="Property 'CheckForUpdates'">
-            <startOffsets>
-              <option value="7117" />
-            </startOffsets>
-            <endOffsets>
-              <option value="7172" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="99" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/plugins/Animancer/Internal/Editor/ReadMe.cs</url>
-          <line>474</line>
-          <properties documentPath="C:\prj\abyss_defence\Assets\plugins\Animancer\Internal\Editor\ReadMe.cs" containingFunctionPresentation="Method 'DoCheckForUpdates'">
-            <startOffsets>
-              <option value="19493" />
-            </startOffsets>
-            <endOffsets>
-              <option value="19568" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="100" />
+          <option name="timeStamp" value="162" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -297,12 +286,19 @@
         <watch expression="gun.can_fire()" language="C#" />
         <watch expression="get_possible_impulse()*Physics_consts.rigidbody_impulse_multiplier" language="C#" />
         <watch expression="hit.transform.GetComponent&lt;Bleeding_body_splash_prefab&gt;() as IAttacker" language="C#" />
+        <watch expression="reacheble_targets.Intersect(target_colliders)" language="C#" />
         <watch expression="moved_body.rotation.to_vector()" language="C#" />
         <watch expression="get_possible_impulse()*Physics_consts.rigidbody_impulse_multiplier*moved_body.rotation.to_vector()" language="C#" />
         <watch expression="is_on_cooldown()" language="C#" />
         <watch expression="get_children()" language="C#" />
         <watch expression="get_selected_target()" language="C#" />
         <watch expression="get_target_moving_vector()" language="C#" />
+        <watch expression="is_ready_to_attack()" language="C#" />
+        <watch expression="is_directed_at_target(target)" language="C#" />
+        <watch expression="gun.can_fire();" language="C#" />
+        <watch expression="is_weapon_directed_at_target(target);" language="C#" />
+        <watch expression="animated_attacker.is_weapon_ready_for_target(target)" language="C#" />
+        <watch expression="reacheble_targets.Intersect(target_colliders).Any()" language="C#" />
       </configuration>
     </watches-manager>
   </component>

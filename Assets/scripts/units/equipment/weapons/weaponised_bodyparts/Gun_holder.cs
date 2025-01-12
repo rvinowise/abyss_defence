@@ -45,7 +45,7 @@ public class Gun_holder: MonoBehaviour,
             obstacles_of_shooting
         );
 
-        if (hit.transform == target) {
+        if (hit.collider?.transform == target) {
             return true;
         }
         return false;
@@ -59,7 +59,7 @@ public class Gun_holder: MonoBehaviour,
     public void attack(Transform target, System.Action on_completed) {
         gun.pull_trigger();
         gun.release_trigger();
-        on_completed.Invoke();
+        on_completed?.Invoke();
     }
     
     #endregion

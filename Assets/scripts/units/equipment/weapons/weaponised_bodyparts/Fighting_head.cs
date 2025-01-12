@@ -23,7 +23,6 @@ public class Fighting_head :
 
 
     private State fighting_state;
-    private AnimancerState animation_state;
 
     public Animated_attacker animated_attacker;
     public AnimancerComponent animancer;
@@ -39,13 +38,13 @@ public class Fighting_head :
     public float distance_of_fight = 3;
 
     private void Awake() {
-        assume_state_right_after_attack();
+        assume_calm_state();
     }
 
-    private void assume_state_right_after_attack() {
-        animation_state = animancer.play_from_scratch(prepare_for_attack_clip, on_prepared_for_attack);
+    private void assume_calm_state() {
+        var animation_state = animancer.play_from_scratch(prepare_for_attack_clip, on_prepared_for_attack);
         animation_state.IsPlaying = false;
-        animation_state.NormalizedTime = 0;
+        //animation_state.NormalizedTime = 0;
     }
 
     private void Update() {
@@ -56,11 +55,11 @@ public class Fighting_head :
             var distance_to_target = vector_to_target.magnitude;
             if (is_needed_preparing_for_attack(distance_to_target)) {
                 if (is_calm()) {
-                    animation_state = animancer.play_from_scratch(prepare_for_attack_clip, on_prepared_for_attack);
+                    animancer.play_from_scratch(prepare_for_attack_clip, on_prepared_for_attack);
                 }
             } else {
                 if (is_prepared_for_attack()) {
-                    animation_state = animancer.play_from_scratch(stop_preparing_for_attack_clip, on_calmed);
+                    animancer.play_from_scratch(stop_preparing_for_attack_clip, on_calmed);
                 }
             }
         }
@@ -72,33 +71,32 @@ public class Fighting_head :
 
     private void on_prepared_for_attack() {
         fighting_state = State.PREPARED_FOR_ATTACK;
-        //animation_state.Time = 0;
-        animation_state.IsPlaying = false;
-        animation_state.Events.OnEnd = null;
+        animancer.States.Current.IsPlaying = false;
+        animancer.States.Current.Events.OnEnd = null;
     }
     private void on_calmed() {
         fighting_state = State.CALM;
-        //animation_state.Time = 0;
-        animation_state.IsPlaying = false;
-        animation_state.Events.OnEnd = null;
+        assume_calm_state();
     }
 
     private void on_attack_completed() {
-        assume_state_right_after_attack();
+        assume_calm_state();
         on_attack_completed_callback.Invoke();
     }
     
     private bool is_calm() {
+        var animation_state = animancer.States.Current;
         return
-            animation_state.IsStopped
+            !animation_state.IsPlaying
             &&
-            animation_state.Clip == stop_preparing_for_attack_clip
+            animation_state.Clip == prepare_for_attack_clip
             &&
-            animation_state.NormalizedTime >= 1;
+            animation_state.NormalizedTime == 0;
     }
     private bool is_prepared_for_attack() {
+        var animation_state = animancer.States.Current;
         return
-            animation_state.IsStopped
+            !animation_state.IsPlaying
             &&
             animation_state.Clip == prepare_for_attack_clip
             &&
