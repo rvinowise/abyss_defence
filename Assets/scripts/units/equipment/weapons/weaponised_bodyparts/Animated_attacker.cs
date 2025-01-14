@@ -18,7 +18,8 @@ public class Animated_attacker :
     public Collider2D attacked_area;
     public Collider2D area_starting_attack;
     public float dealt_damage = 1;
-    private readonly ISet<Collider2D> reacheble_targets = new HashSet<Collider2D>();
+    private readonly ISet<Collider2D> reacheble_colliders = new HashSet<Collider2D>();
+    private readonly ISet<Damage_receiver> reacheble_damageable_enemies = new HashSet<Damage_receiver>();
     public AnimancerComponent animancer;
     public AnimationClip attacking_animation;
     
@@ -26,34 +27,84 @@ public class Animated_attacker :
     private float last_attack_time = float.MinValue;
 
     private System.Action on_complete_callback;
-    
-    
-    
-    
+
+    public Intelligence intelligence;
+
+    private void Awake() {
+        intelligence = GetComponentInParent<Intelligence>();
+    }
+
     #region IWeaponry interface
     public override bool is_weapon_ready_for_target(Transform target) {
         return is_ready_to_attack() && is_directed_at_target(target);
 
     }
 
+    //public IList<Damage_receiver> targets = new List<Damage_receiver>();
+    public override IEnumerable<Damage_receiver> get_targets() {
+        if (is_ready_to_attack()) {
+            return reacheble_damageable_enemies;
+        }
+        return Enumerable.Empty<Damage_receiver>();
+    }
+    
+    // public static IEnumerable<Damage_receiver> get_enemies_from_collisions(
+    //     IEnumerable<Collider2D> colliders    
+    // ) {
+    //     IEnumerable<Damage_receiver> damageable_targets;
+    //     foreach (var collider in colliders) {
+    //         
+    //     }
+    //     colliders.Select(hit => collider.)
+    //
+    //     return damageable_targets;
+    // }
+
     public bool is_directed_at_target(Transform target) {
         var target_colliders = target.GetComponents<Collider2D>();
-        return reacheble_targets.Intersect(target_colliders).Any();
+        return reacheble_colliders.Intersect(target_colliders).Any();
     }
 
     public override float get_reaching_distance() {
         return attacked_area.transform.position.distance_to(transform.position);
     }
 
+
+    // public static Damage_receiver get_damageable_enemy_from_collider(
+    //     Team my_team,
+    //     Collider2D collider
+    // ) {
+    //     if (collider.GetComponent<Damage_receiver>() is { } damage_receiver) {
+    //         if (damage_receiver.intelligence.team.is_enemy_team(my_team)) {
+    //             return damage_receiver;
+    //         }
+    //     }
+    //     return null;
+    // }
+    public static Damage_receiver get_damageable_enemy_from_transform(
+        Transform target,
+        Team my_team
+    ) {
+        if (target.GetComponent<Damage_receiver>() is { } damage_receiver) {
+            if (damage_receiver.intelligence.team.is_enemy_team(my_team)) {
+                return damage_receiver;
+            }
+        }
+        return null;
+    }
+    
     void OnTriggerEnter2D(Collider2D other) {
-        // if (other.GetComponent<Damage_receiver>() is Damage_receiver damage_receiver) {
-        //     damage_receiver.receive_damage();
-        // }
-        reacheble_targets.Add(other);
+        reacheble_colliders.Add(other);
+        if (get_damageable_enemy_from_transform(other.transform, intelligence.team) is {} damageable) {
+            reacheble_damageable_enemies.Add(damageable);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
-        reacheble_targets.Remove(other);
+        reacheble_colliders.Remove(other);
+        if (get_damageable_enemy_from_transform(other.transform, intelligence.team) is {} damageable) {
+            reacheble_damageable_enemies.Remove(damageable);
+        }
     }
 
 
@@ -83,7 +134,7 @@ public class Animated_attacker :
     [called_in_animation]
     public void on_damage_started() {
         //attacked_area.gameObject.SetActive(true);
-        foreach (var target in reacheble_targets) {
+        foreach (var target in reacheble_colliders) {
             if (target.GetComponent<Damage_receiver>() is { } damagable) {
                 damagable.receive_damage(dealt_damage);
             }

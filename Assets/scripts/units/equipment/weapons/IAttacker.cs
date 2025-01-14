@@ -1,4 +1,5 @@
-﻿using rvinowise.unity.actions;
+﻿using System.Collections.Generic;
+using rvinowise.unity.actions;
 using UnityEngine;
 using Action = System.Action;
 
@@ -7,8 +8,11 @@ namespace rvinowise.unity {
 public interface IAttacker: IActing_role
 {
     bool is_weapon_ready_for_target(Transform target);
+    IEnumerable<Damage_receiver> get_targets();
     float get_reaching_distance();
     void attack(Transform target, System.Action on_completed = null);
+
+    
 }
 
 
@@ -20,6 +24,8 @@ public abstract class Attacker_child_of_group:
 {
 
     public abstract bool is_weapon_ready_for_target(Transform target);
+    public abstract IEnumerable<Damage_receiver> get_targets();
+
     public abstract float get_reaching_distance();
 
     public abstract void attack(Transform target, Action on_completed = null);

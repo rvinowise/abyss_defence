@@ -67,6 +67,10 @@ public class Team: MonoBehaviour
         return false;
     }
     
+    public bool is_enemy_team(Team other_team) {
+        return enemy_teams.Contains(other_team);
+    }
+    
     public List<Tuple<Transform,float>> get_enemies_closest_to(Vector2 in_position) {
         List<Tuple<Transform, float>> enemies_and_distances = new List<Tuple<Transform, float>>();
         foreach (var enemy in get_enemy_transforms()) {

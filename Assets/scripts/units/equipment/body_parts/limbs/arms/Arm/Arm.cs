@@ -111,24 +111,24 @@ public class Arm:
         var redness_for_upperarm_damage = 1.1f; 
         var redness_for_shoulder_damage = 1.05f; 
         paint_damaged_color_for_sprite(
-            redness_for_hand_damage*damage_change, 
-            hand.bottom_part.GetComponent<SpriteRenderer>()
+            hand.bottom_part.GetComponent<SpriteRenderer>(),
+            redness_for_hand_damage*damage_change
         );
         paint_damaged_color_for_sprite(
-            redness_for_hand_damage*damage_change, 
-            hand.top_part.GetComponent<SpriteRenderer>()
+            hand.top_part.GetComponent<SpriteRenderer>(),
+            redness_for_hand_damage*damage_change 
         );
         paint_damaged_color_for_sprite(
-            redness_for_upperarm_damage*damage_change, 
-            upper_arm.sprite_renderer
+            upper_arm.sprite_renderer,
+            redness_for_upperarm_damage*damage_change 
         );
         paint_damaged_color_for_sprite(
-            redness_for_forearm_damage*damage_change, 
-            forearm.sprite_renderer
+            forearm.sprite_renderer,
+            redness_for_forearm_damage*damage_change 
         );
     }
     
-    private void paint_damaged_color_for_sprite(float color_change, SpriteRenderer sprite_renderer) {
+    public static void paint_damaged_color_for_sprite(SpriteRenderer sprite_renderer, float color_change) {
         var old_color = sprite_renderer.color;
         Color new_color = new Color(
             old_color.r,

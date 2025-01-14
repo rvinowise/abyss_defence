@@ -9,7 +9,10 @@ using rvinowise.unity.geometry2d;
 
 namespace rvinowise.unity {
 
-public abstract class Player_human : Human_intelligence {
+public abstract class Player_human : 
+    Human_intelligence
+    ,IInput_receiver
+{
 
     private int[] held_tool_index;
 
@@ -17,6 +20,7 @@ public abstract class Player_human : Human_intelligence {
         base.Start();
         consider_all_enemies();
         sensory_organ?.pay_attention_to_target(Player_input.instance.cursor.transform);
+        Player_input.instance.add_input_receiver(this);
     }
 
     private void consider_all_enemies() {
@@ -27,15 +31,22 @@ public abstract class Player_human : Human_intelligence {
         }
     }
 
+    
+    public bool is_finished { get; private set; }
+
+    public bool process_input() {
+        var is_input_used = false;
+        is_input_used |= move_in_space();
+        is_input_used |= maybe_switch_items();
+        is_input_used |= use_tools();
+        return is_input_used;
+    }
+
     protected void Update() {
-        move_in_space();
-        maybe_switch_items();
-        use_tools();
-        
         action_runner.update();
     }
 
-    protected abstract void use_tools();
+    protected abstract bool use_tools();
 
     public Transform get_selected_target() { // out of the two targets of both hands
         Distance_to_component closest = Distance_to_component.empty();
@@ -49,7 +60,7 @@ public abstract class Player_human : Human_intelligence {
     }
     
 
-    protected abstract void maybe_switch_items();
+    protected abstract bool maybe_switch_items();
 
     public Arm get_selected_arm() {
         return arm_pair.get_arm_on_side(get_selected_side());
@@ -76,9 +87,9 @@ public abstract class Player_human : Human_intelligence {
         return true;
     }
 
-    private void move_in_space() {
+    private bool move_in_space() {
         if (transporter == null) {
-            return;
+            return false;
         }
         var destination = (Vector2)transform.position+Player_input.instance.moving_vector;
         transporter.move_towards_destination(destination);
@@ -86,6 +97,11 @@ public abstract class Player_human : Human_intelligence {
         Vector2 mouse_pos = Player_input.instance.cursor.transform.position;
         Quaternion needed_direction = (mouse_pos - (Vector2) transform.position).to_quaternion();
         transporter.face_rotation(needed_direction);
+
+        if (Player_input.instance.moving_vector.magnitude > 0) {
+            return true;
+        }
+        return false;
     }
 
     // private Gun has_gun_in_2hands() {

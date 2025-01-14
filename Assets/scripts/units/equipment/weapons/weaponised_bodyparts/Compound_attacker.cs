@@ -37,6 +37,15 @@ public class Compound_attacker:
         return false;
     }
 
+    private readonly List<Damage_receiver> targets = new List<Damage_receiver>();
+    public IEnumerable<Damage_receiver> get_targets() {
+        targets.Clear();
+        foreach (var weapon in child_attackers) {
+            targets.AddRange(weapon.get_targets());
+        }
+        return targets;
+    }
+
     public float get_reaching_distance() {
         float max_distance = 0;
         foreach (var weapon in child_attackers) {

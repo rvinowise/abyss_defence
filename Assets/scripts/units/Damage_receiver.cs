@@ -19,28 +19,30 @@ public class Damage_receiver: MonoBehaviour {
     
     public TMP_Text text_label;
 
-    private Intelligence intelligence;
-    public delegate void Evend_handler(Damage_receiver damagable);
-    public event Evend_handler on_destroyed;
+    public Intelligence intelligence;
+    public delegate void Event_handler(Damage_receiver damagable);
+    public event Event_handler on_destroyed;
     public delegate void On_damaged_handler(float damage_change);
     
     public event On_damaged_handler on_damage_changed;
     
     void Awake() {
-        intelligence = GetComponent<Intelligence>();
+        intelligence = GetComponentInParent<Intelligence>();
 
-        destructible = GetComponent<IDestructible>();
+        if (destructible == null) {
+            destructible = GetComponent<IDestructible>();
+        }
         
     }
 
     private void start_dying() {
         if (destructible != null) {
             destructible.on_start_dying();
+            intelligence.notify_about_destruction();
+            on_destroyed?.Invoke(this);
+            Destroy(intelligence);
         }
         Debug.Log($"({name})Damage_receiver.start_dying, received_damage={received_damage}");
-        intelligence.notify_about_destruction();
-        Destroy(intelligence);
-        on_destroyed?.Invoke(this);
     }
 
 
@@ -64,13 +66,18 @@ public class Damage_receiver: MonoBehaviour {
     }
 
     public void receive_damage(float in_damage) {
+        on_damage_changed?.Invoke(in_damage);
+        
+        if (
+            (received_damage < max_damage)&& //so that it won't start dying many times after exceeding the maximum damage
+            (received_damage + in_damage >= max_damage) 
+        ){
+            start_dying();
+        }
+        
         received_damage += in_damage;
         if (text_label != null) {
             text_label.text = received_damage.ToString(CultureInfo.InvariantCulture);
-        }
-        on_damage_changed?.Invoke(in_damage);
-        if (received_damage >= max_damage) {
-            start_dying();
         }
     }
 

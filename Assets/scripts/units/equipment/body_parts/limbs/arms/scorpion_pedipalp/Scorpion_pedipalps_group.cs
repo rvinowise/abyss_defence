@@ -47,6 +47,10 @@ public class Scorpion_pedipalps_group :
         return false;
     }
 
+    public IEnumerable<Damage_receiver> get_targets() {
+        throw new NotImplementedException();
+    }
+
     public float get_reaching_distance() {
         float max_distance = 0;
         foreach (var arm in pedipalps) {

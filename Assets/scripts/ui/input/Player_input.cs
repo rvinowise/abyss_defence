@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using rvinowise.contracts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -31,9 +33,13 @@ public class Player_input: MonoBehaviour {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+    private void Start() {
         player = GameObject.FindWithTag("player")?.GetComponent<Player_human>();
     }
+
+    // void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+    //     player = GameObject.FindWithTag("player")?.GetComponent<Player_human>();
+    // }
     public Vector2 read_mouse_world_position()
     {
         return Camera.main.ScreenToWorldPoint(
@@ -42,7 +48,7 @@ public class Player_input: MonoBehaviour {
 
     }
 
-    public bool button_presed(string name) {
+    public bool is_button_presed(string name) {
         return UnityEngine.Input.GetButtonDown(name);
     }
     
@@ -63,9 +69,27 @@ public class Player_input: MonoBehaviour {
         float wheel_movement = UnityEngine.Input.GetAxis("Mouse ScrollWheel");
         return wheel_movement * 1200;
     }
-    
 
+
+    private readonly Stack<IInput_receiver> input_receivers = new Stack<IInput_receiver>();
+
+    public void add_input_receiver(IInput_receiver receiver) {
+        input_receivers.Push(receiver);
+    }
     private void Update() {
+        // bool input_processed = false;
+        // do {
+        //     IInput_receiver input_receiver = ;
+        //     input_processed = input_receiver.process_input();
+        // } while (!input_processed);
+        input_receivers.Peek().process_input();
+
+        while (
+            input_receivers.Peek().is_finished
+        ) {
+            input_receivers.Pop();
+        }
+        
         cursor.transform.position = read_mouse_world_position();
         moving_vector = read_moving_vector();
         scroll_value = read_scroll();

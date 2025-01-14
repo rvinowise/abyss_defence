@@ -8,7 +8,6 @@ using Object = UnityEngine.Object;
 
 namespace rvinowise.unity {
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class Disappearing_body:
     MonoBehaviour
     ,IDestructible
@@ -20,7 +19,7 @@ public class Disappearing_body:
     private float decaying_speed = 0.2f;
     
     private Rigidbody2D rigid_body;
-    private SpriteRenderer sprite_renderer;
+    public SpriteRenderer sprite_renderer;
 
     private List<SpriteRenderer> decaying_sprite_renders = new List<SpriteRenderer>();
     

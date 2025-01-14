@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using rvinowise.unity.actions;
 using rvinowise.unity.extensions;
 using rvinowise.unity.extensions.attributes;
@@ -122,7 +123,14 @@ public class Fighting_head :
             &&
             animated_attacker.is_weapon_ready_for_target(target);
     }
-    
+
+    public IEnumerable<Damage_receiver> get_targets() {
+        if (is_prepared_for_attack()) {
+            return animated_attacker.get_targets();
+        }
+        return Enumerable.Empty<Damage_receiver>();
+    }
+
     public float get_reaching_distance() {
         return animated_attacker.get_reaching_distance();
     }

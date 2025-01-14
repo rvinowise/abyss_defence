@@ -35,6 +35,10 @@ public class Hitting_limbs_group:
         return false;
     }
 
+    public IEnumerable<Damage_receiver> get_targets() {
+        return Enumerable.Empty<Damage_receiver>();
+    }
+
     public float get_reaching_distance() {
         float max_distance = 0;
         foreach (var limb in hitting_limbs) {

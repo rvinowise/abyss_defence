@@ -183,6 +183,15 @@ public class Gun: MonoBehaviour
 
         return false;
     }
+
+    public Transform get_aiming_target() {
+        var hit = 
+            Physics2D.Raycast(
+                muzzle.position, 
+                muzzle.right 
+            );
+        return hit.transform;
+    }
     
     
     

@@ -7,28 +7,27 @@ public class Simple_player_human: Player_human {
 
     
     
-    protected override void maybe_switch_items() {
+    protected override bool maybe_switch_items() {
         if (!switching_items_is_possible()) {
-            return;
+            return false;
         }
         int wheel_steps = Player_input.instance.mouse_wheel_steps;
         if (wheel_steps == 0) {
-            return;
+            return false;
         }
         //toolset_equipper.switch_toolset_to_steps(wheel_steps);
         supertool_user.switch_supertool_to_steps(wheel_steps);
-        
-        
+        return true;
     }
 
 
     private bool was_attacking = false;
     
-    protected override void use_tools() {
+    protected override bool use_tools() {
         bool wants_to_attack = //Player_input.instance.button_presed("attack");
             Input.GetButton("attack");
-        bool wants_to_reload = Player_input.instance.button_presed("reload");
-        bool wants_to_use_supertool = Player_input.instance.button_presed("supertool");
+        bool wants_to_reload = Player_input.instance.is_button_presed("reload");
+        bool wants_to_use_supertool = Player_input.instance.is_button_presed("supertool");
         
         
         if (wants_to_attack) {
@@ -49,7 +48,8 @@ public class Simple_player_human: Player_human {
         }
         
         was_attacking = wants_to_attack;
-
+        
+        return wants_to_attack || wants_to_reload || wants_to_use_supertool;
     }
     
     private void start_attack() {

@@ -127,6 +127,13 @@ public class Computer_intelligence:Intelligence {
         }
         action_runner.update();
     }
+
+    private Damage_receiver get_best_target(IList<Damage_receiver> targets) {
+        if (targets.Contains(target)) {
+            return target;
+        }
+        return targets.First();
+    }
     
     protected void FixedUpdate() {
         if (gameObject.name == "test") {
@@ -136,8 +143,10 @@ public class Computer_intelligence:Intelligence {
             sensory_organ.pay_attention_to_target(target.transform);
             
             if (intelligence_action == Intelligence_action.Walking) {
-                if (attacker.is_weapon_ready_for_target(target.transform)) 
-                {
+                var reachable_targets = attacker.get_targets().ToList();
+                if (reachable_targets.Any()) {
+                    target = get_best_target(reachable_targets);
+                    
 #if RVI_DEBUG
                     Debug.Log($"COMPUTER {name} #{number} Computer_intelligence::FixedUpdate: weaponry.attack({target.name})");
 #endif
@@ -189,7 +198,7 @@ public class Computer_intelligence:Intelligence {
 //                     intelligence_action = Intelligence_action.Starting_defending;
 //                     defender.start_defence(target.transform, on_assumed_defensive_position);
 //                 }
-             }
+            }
         }
     }
 

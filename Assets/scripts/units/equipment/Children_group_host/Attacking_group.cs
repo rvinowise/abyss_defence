@@ -51,6 +51,15 @@ public class Attacking_group:
         return false;
     }
 
+    private readonly List<Damage_receiver> targets = new List<Damage_receiver>();
+    public IEnumerable<Damage_receiver> get_targets() {
+        targets.Clear();
+        foreach (var weapon in weapons) {
+            targets.AddRange(weapon.get_targets());
+        }
+        return targets;
+    }
+
     public float get_reaching_distance() {
         float max_distance = 0;
         foreach (var weapon in weapons) {

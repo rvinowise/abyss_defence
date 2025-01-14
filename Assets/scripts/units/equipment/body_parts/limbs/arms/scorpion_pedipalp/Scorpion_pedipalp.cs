@@ -29,6 +29,10 @@ public class Scorpion_pedipalp:
         return get_length() >= distance_to_target;
     }
 
+    public IEnumerable<Damage_receiver> get_targets() {
+        throw new NotImplementedException();
+    }
+
     public void attack(Transform target, System.Action on_completed = null) {
         
     }

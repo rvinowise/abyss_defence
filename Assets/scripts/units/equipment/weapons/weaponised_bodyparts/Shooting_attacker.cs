@@ -37,6 +37,10 @@ public class Shooting_attacker:
         return false;
     }
 
+    public IEnumerable<Damage_receiver> get_targets() {
+        throw new System.NotImplementedException();
+    }
+
     public float get_reaching_distance() {
         float max_distance = 0;
         foreach (var weapon in child_attackers) {

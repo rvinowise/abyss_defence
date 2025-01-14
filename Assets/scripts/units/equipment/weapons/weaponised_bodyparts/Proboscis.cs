@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using rvinowise.unity.actions;
 using rvinowise.unity.extensions;
 using rvinowise.unity.extensions.attributes;
@@ -40,6 +41,10 @@ public class Proboscis :
             distance_to_target <= max_length
             &&
             Math.Abs(angle_to_target.degrees) <= 10f;
+    }
+
+    public override IEnumerable<Damage_receiver> get_targets() {
+        return Enumerable.Empty<Damage_receiver>();
     }
 
     public override float get_reaching_distance() {

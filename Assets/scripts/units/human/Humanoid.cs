@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using rvinowise.contracts;
 using rvinowise.unity.actions;
+using UnityEngine.Serialization;
 using Action = rvinowise.unity.actions.Action;
 
 namespace rvinowise.unity {
 
 
-[RequireComponent(typeof(PolygonCollider2D))]
-[RequireComponent(typeof(Rigidbody2D))]
 public class Humanoid:
     MonoBehaviour
     ,IFlippable_actor
@@ -17,6 +16,10 @@ public class Humanoid:
     public Arm_pair arm_pair;
     public Head head;
     public Baggage baggage;
+    
+    
+    public Damage_receiver damageable_body;
+    public SpriteRenderer body_sprite_renderer;
     
     private SpriteRenderer sprite_renderer;
     public Animator animator;
@@ -58,9 +61,18 @@ public class Humanoid:
             animator.enabled = false;
         }
         arm_pair = GetComponent<Arm_pair>();
+        
+        damageable_body.on_damage_changed += on_damaged;
+        body_sprite_renderer = damageable_body.GetComponent<SpriteRenderer>();
     }
 
-    
+    private void on_damaged(float damage_change) {
+        float redness_for_body_damage = 1.2f;
+        Arm.paint_damaged_color_for_sprite(
+            body_sprite_renderer, 
+            damage_change*redness_for_body_damage
+        );
+    }
 
 
     void FixedUpdate() {

@@ -43,8 +43,8 @@ public class Scene_transition : MonoBehaviour
 
     void Update() {
         if (
-            is_ready_to_switch_scenes() &&
-            player_wants_to_switch_scenes()
+            player_wants_to_switch_scenes()&&
+            is_ready_to_switch_scenes()
         ) {
             effect.start_transition(loading_scene);
             hide_text();
@@ -63,7 +63,7 @@ public class Scene_transition : MonoBehaviour
     }
 
     private bool is_player(GameObject in_go) {
-        return in_go.tag == "player";
+        return in_go.CompareTag("player");
     }
 
     private IEnumerator start_loading_scene(string sceneName)

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using rvinowise.unity.actions;
 using UnityEngine;
 using rvinowise.unity.extensions;
@@ -104,6 +106,17 @@ public class Focusing_guns:
         var is_target_close = gun.muzzle.sqr_distance_to(target.position) <= shooting_range;
         var is_directed_at_target = gun.is_aimed_at_collider(target);
         return is_target_close && is_directed_at_target;
+    }
+
+    public IEnumerable<Damage_receiver> get_targets() {
+        var gun = get_prepared_gun_to_shoot().gun;
+        var target = Gun_holder.get_target_of_aiming(gun.muzzle,shooting_range);
+        if (target != null) {
+            if (Animated_attacker.get_damageable_enemy_from_transform(target, intelligence.team) is {} damageable_enemy) {
+                return new[]{damageable_enemy};
+            }
+        }
+        return Enumerable.Empty<Damage_receiver>();
     }
 
     public float get_reaching_distance() {

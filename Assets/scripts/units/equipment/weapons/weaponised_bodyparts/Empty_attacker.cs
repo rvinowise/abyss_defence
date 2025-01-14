@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using rvinowise.unity.actions;
 using UnityEngine;
 using Action = rvinowise.unity.actions.Action;
@@ -14,6 +15,10 @@ public class Empty_attacker:
 
     public bool is_weapon_ready_for_target(Transform target) {
         return false;
+    }
+
+    public IEnumerable<Damage_receiver> get_targets() {
+        return Enumerable.Empty<Damage_receiver>();
     }
 
     public float get_reaching_distance() => 0f;
