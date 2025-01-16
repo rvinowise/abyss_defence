@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7610452895494540078}
   - component: {fileID: 6904934796301265816}
   - component: {fileID: 5795029637292001897}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: mesh_object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6789815900485976004}
   - component: {fileID: 7971257646426151467}
   - component: {fileID: 2554722589020391113}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: hollow_bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e0239f47f754fa48a4440fd3ad0417b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1989193172968240549}
   reset_components:
   - {fileID: 2554722589020391113}
   on_restored_from_pool:
@@ -285,7 +284,7 @@ GameObject:
   - component: {fileID: 531768136884952689}
   - component: {fileID: 5676805943648322498}
   - component: {fileID: 4097130088614040483}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

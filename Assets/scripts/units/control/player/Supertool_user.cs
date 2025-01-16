@@ -43,7 +43,7 @@ public class Supertool_user: MonoBehaviour {
             desired_tool_index = get_current_tool_index();
         }
         desired_tool_index = get_desired_tool(wheel_steps);
-        Debug.Log($"selected supertool = {baggage.supertool_descriptions[desired_tool_index].name}");
+        Debug.Log($"selected supertool = {baggage.supertool_descriptions[desired_tool_index].tool_name}");
     }
 }
 

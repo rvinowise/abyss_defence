@@ -11,7 +11,7 @@ public class Droplet:
 {
 
 
-    public new Rigidbody2D rigidbody;
+    public Rigidbody2D rigidbody;
     public Trajectory_flyer trajectory_flyer;
 
     public Puddle puddle_prefab;

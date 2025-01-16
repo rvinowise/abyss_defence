@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9020362112059261940}
   - component: {fileID: 2785801234893211790}
   - component: {fileID: 7982995133613150662}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: explosive_bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,6 +50,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -139,6 +140,7 @@ TrailRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -241,6 +243,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65606043f4324aa3b001f2f98a4b26f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigid_body: {fileID: 0}
   damage_area_editor: {fileID: 3714816362830625417, guid: b16f6a782df54f24fb44581f74b50f74,
     type: 3}

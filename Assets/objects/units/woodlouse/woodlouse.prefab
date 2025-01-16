@@ -2040,6 +2040,7 @@ MonoBehaviour:
   max_damage: 2
   received_damage: 0
   text_label: {fileID: 0}
+  intelligence: {fileID: 0}
 --- !u!114 &8620079115152015517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2070,6 +2071,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   will_be_settled_when_stops: 0
   is_decaying: 0
+  sprite_renderer: {fileID: 0}
 --- !u!114 &3513005674329544273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2197,6 +2199,11 @@ PrefabInstance:
     - target: {fileID: 8677043668044673927, guid: 010803de1b10ed642896311836704db8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189850180131745851, guid: 010803de1b10ed642896311836704db8,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

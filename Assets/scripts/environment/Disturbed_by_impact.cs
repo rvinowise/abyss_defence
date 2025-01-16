@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
+
 
 [RequireComponent(typeof(Collider2D))]
 public class Disturbed_by_impact : MonoBehaviour
 {
-    public new Collider2D collider;
+    public Collider2D collider2d;
 
     void Awake() {
-        collider = GetComponent<Collider2D>();
+        collider2d = GetComponent<Collider2D>();
     }
 
     public void OnTriggerStay2D(Collider2D other) {

@@ -63,7 +63,7 @@ public class Scene_transition : MonoBehaviour
     }
 
     private bool is_player(GameObject in_go) {
-        return in_go.CompareTag("player");
+        return Player_input.instance.player.GetComponent<Humanoid>().damageable_body.gameObject == in_go;
     }
 
     private IEnumerator start_loading_scene(string sceneName)

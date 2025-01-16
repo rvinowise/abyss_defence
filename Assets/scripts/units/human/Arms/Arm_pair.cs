@@ -191,7 +191,7 @@ public class Arm_pair:
 
         Arm gun_arm = get_arm_on_side(in_side);
         
-        Contract.Requires(gun_arm.held_tool is Gun, "reloaded arm must hold a gun");
+        //Contract.Requires(gun_arm.held_tool is Gun, "reloaded arm must hold a gun");
 
         if (!can_reload(gun_arm)) {
             return;

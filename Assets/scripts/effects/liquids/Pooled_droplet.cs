@@ -1,6 +1,7 @@
 using rvinowise.unity.extensions.pooling;
 using UnityEngine;
 using rvinowise.unity.extensions;
+using UnityEngine.Serialization;
 
 
 namespace rvinowise.unity {
@@ -13,7 +14,7 @@ public class Pooled_droplet:
     // exists only in the Prefab, provides pooling for all the instances of it
     public Object_pool pool { get; set; } 
 
-    public new Rigidbody2D rigidbody;
+    public Rigidbody2D rigidbody2d;
     public Pooled_object pooled_object;
     public Trajectory_flyer trajectory_flyer;
 

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2850827888371723458}
   - component: {fileID: 70071743291276224}
+  - component: {fileID: 5537068975207474201}
   m_Layer: 0
   m_Name: attacked_area
   m_TagString: Untagged
@@ -47,6 +48,21 @@ CapsuleCollider2D:
   m_Offset: {x: 0.19, y: 0}
   m_Size: {x: 0.22, y: 0.12}
   m_Direction: 1
+--- !u!114 &5537068975207474201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157569021445540682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3d399bc5634053a967e49fc018d80d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attacked_area: {fileID: 70071743291276224}
+  area_starting_attack: {fileID: 70071743291276224}
+  animated_attacker: {fileID: 4709184780905629097}
 --- !u!1 &8553099852686138224
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,6 +76,7 @@ GameObject:
   - component: {fileID: 4709184780905629097}
   - component: {fileID: 6054288471957760383}
   - component: {fileID: 6712362193577652985}
+  - component: {fileID: 9189850180131745851}
   m_Layer: 0
   m_Name: head
   m_TagString: Untagged
@@ -147,11 +164,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d3bb85511b4ab3a08a94000697eb63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attacked_area: {fileID: 70071743291276224}
+  attacked_area: {fileID: 5537068975207474201}
   area_starting_attack: {fileID: 70071743291276224}
+  dealt_damage: 1
   animancer: {fileID: 6712362193577652985}
   attacking_animation: {fileID: 7400000, guid: d6e6f3f45af083e46b7b35e5936c1603, type: 2}
   cooldown_seconds: 1
+  intelligence: {fileID: 0}
 --- !u!95 &6054288471957760383
 Animator:
   serializedVersion: 5
@@ -187,6 +206,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Animator: {fileID: 6054288471957760383}
   _ActionOnDisable: 0
+--- !u!70 &9189850180131745851
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8553099852686138224}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.020000003, y: 0}
+  m_Size: {x: 0.2, y: 0.28}
+  m_Direction: 0
 --- !u!1 &8665968351339323071
 GameObject:
   m_ObjectHideFlags: 0

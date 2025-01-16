@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Input
-  - player
+  - player root
+  - player body
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - bodies
   - projectiles
   - litter
-  - 
+  - flying
   - 
   - 
   - 

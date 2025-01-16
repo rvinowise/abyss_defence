@@ -567,7 +567,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4475977054523948023}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.906, y: 0, z: 0}
+  m_LocalPosition: {x: 1.12, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4475977054381613091}
@@ -1365,6 +1365,7 @@ MonoBehaviour:
   max_damage: 2
   received_damage: 0
   text_label: {fileID: 0}
+  intelligence: {fileID: 0}
 --- !u!114 &8316393069010184261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1379,6 +1380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   will_be_settled_when_stops: 0
   is_decaying: 0
+  sprite_renderer: {fileID: 0}
 --- !u!60 &6496144401345413351
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1969,6 +1971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turning_element: {fileID: 4475977055788327483}
   muzzle: {fileID: 4475977054523948020}
+  intelligence: {fileID: 0}
   reaching_distance: 5
 --- !u!114 &4475977055788327485
 MonoBehaviour:

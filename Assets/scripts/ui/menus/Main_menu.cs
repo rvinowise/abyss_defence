@@ -1,10 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using rvinowise.unity;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+
 
 public class Main_menu : MonoBehaviour
 {
-    [SerializeField] public string first_scene = "hallway";
-    public Transform options_menu;
+    public string first_scene = "hallway";
+    public Transform settings_menu;
+    public Save_load_game loading_game;
+
+    private void Awake() {
+        
+    }
+
+    private void Start() {
+        loading_game.load_progress();
+    }
 
     public void start_new_game() {
         SceneManager.LoadScene(first_scene);
@@ -15,8 +28,8 @@ public class Main_menu : MonoBehaviour
         Application.Quit();
     }
 
-    public void switch_to_options() {
-        options_menu.gameObject.SetActive(true);
-        this.gameObject.SetActive(false);
+    public void switch_to_settings() {
+        settings_menu.gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

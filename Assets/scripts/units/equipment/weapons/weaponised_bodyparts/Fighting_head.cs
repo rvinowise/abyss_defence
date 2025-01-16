@@ -23,7 +23,7 @@ public class Fighting_head :
     }
 
 
-    private State fighting_state;
+    //private State fighting_state;
 
     public Animated_attacker animated_attacker;
     public AnimancerComponent animancer;
@@ -71,12 +71,12 @@ public class Fighting_head :
     }
 
     private void on_prepared_for_attack() {
-        fighting_state = State.PREPARED_FOR_ATTACK;
+        //fighting_state = State.PREPARED_FOR_ATTACK;
         animancer.States.Current.IsPlaying = false;
         animancer.States.Current.Events.OnEnd = null;
     }
     private void on_calmed() {
-        fighting_state = State.CALM;
+        //fighting_state = State.CALM;
         assume_calm_state();
     }
 

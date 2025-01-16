@@ -89,9 +89,9 @@ public class Traverse_obstacles_before_target: Action_leaf {
     public override void update() {
         base.update();
 
-        if (moved_body.gameObject.name == "test") {
-            bool test = true;
-        }
+        // if (moved_body.gameObject.name == "test") {
+        //     bool test = true;
+        // }
         
         if (
             (final_target == null) 

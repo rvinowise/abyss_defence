@@ -64,7 +64,7 @@ MonoBehaviour
         Canvas canvas = GetComponent<Canvas>();
         canvas.worldCamera = GameObject.FindWithTag("MainCamera")?.GetComponent<Camera>();
         canvas.planeDistance = -50;
-        var player = GameObject.FindWithTag("player")?.GetComponent<Player_human>();
+        var player = GameObject.FindWithTag("player root")?.GetComponent<Player_human>();
         if (player != null) {
             //baggage = player.baggage;
             arm_pair = player.arm_pair;

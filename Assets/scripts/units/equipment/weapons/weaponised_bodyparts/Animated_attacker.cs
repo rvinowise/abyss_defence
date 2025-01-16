@@ -15,11 +15,9 @@ public class Animated_attacker :
     IAttacker
 {
 
-    public Collider2D attacked_area;
+    public Animated_attacker_attacked_area attacked_area;
     public Collider2D area_starting_attack;
     public float dealt_damage = 1;
-    private readonly ISet<Collider2D> reacheble_colliders = new HashSet<Collider2D>();
-    private readonly ISet<Damage_receiver> reacheble_damageable_enemies = new HashSet<Damage_receiver>();
     public AnimancerComponent animancer;
     public AnimationClip attacking_animation;
     
@@ -40,29 +38,17 @@ public class Animated_attacker :
 
     }
 
-    //public IList<Damage_receiver> targets = new List<Damage_receiver>();
     public override IEnumerable<Damage_receiver> get_targets() {
         if (is_ready_to_attack()) {
-            return reacheble_damageable_enemies;
+            return attacked_area.reacheble_damageable_enemies;
         }
         return Enumerable.Empty<Damage_receiver>();
     }
-    
-    // public static IEnumerable<Damage_receiver> get_enemies_from_collisions(
-    //     IEnumerable<Collider2D> colliders    
-    // ) {
-    //     IEnumerable<Damage_receiver> damageable_targets;
-    //     foreach (var collider in colliders) {
-    //         
-    //     }
-    //     colliders.Select(hit => collider.)
-    //
-    //     return damageable_targets;
-    // }
+
 
     public bool is_directed_at_target(Transform target) {
         var target_colliders = target.GetComponents<Collider2D>();
-        return reacheble_colliders.Intersect(target_colliders).Any();
+        return attacked_area.reacheble_colliders.Intersect(target_colliders).Any();
     }
 
     public override float get_reaching_distance() {
@@ -70,17 +56,6 @@ public class Animated_attacker :
     }
 
 
-    // public static Damage_receiver get_damageable_enemy_from_collider(
-    //     Team my_team,
-    //     Collider2D collider
-    // ) {
-    //     if (collider.GetComponent<Damage_receiver>() is { } damage_receiver) {
-    //         if (damage_receiver.intelligence.team.is_enemy_team(my_team)) {
-    //             return damage_receiver;
-    //         }
-    //     }
-    //     return null;
-    // }
     public static Damage_receiver get_damageable_enemy_from_transform(
         Transform target,
         Team my_team
@@ -93,21 +68,6 @@ public class Animated_attacker :
         return null;
     }
     
-    void OnTriggerEnter2D(Collider2D other) {
-        reacheble_colliders.Add(other);
-        if (get_damageable_enemy_from_transform(other.transform, intelligence.team) is {} damageable) {
-            reacheble_damageable_enemies.Add(damageable);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other) {
-        reacheble_colliders.Remove(other);
-        if (get_damageable_enemy_from_transform(other.transform, intelligence.team) is {} damageable) {
-            reacheble_damageable_enemies.Remove(damageable);
-        }
-    }
-
-
 
 
     public override void attack(Transform target, System.Action on_completed = null) {
@@ -134,7 +94,7 @@ public class Animated_attacker :
     [called_in_animation]
     public void on_damage_started() {
         //attacked_area.gameObject.SetActive(true);
-        foreach (var target in reacheble_colliders) {
+        foreach (var target in attacked_area.reacheble_colliders) {
             if (target.GetComponent<Damage_receiver>() is { } damagable) {
                 damagable.receive_damage(dealt_damage);
             }

@@ -29,17 +29,14 @@ public class Player_input: MonoBehaviour {
         instance = this;
         
     }
-    void OnEnable() {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
 
+    public static Player_human find_player() {
+        return GameObject.FindWithTag("player root")?.GetComponent<Player_human>();
+    }
     private void Start() {
-        player = GameObject.FindWithTag("player")?.GetComponent<Player_human>();
+        player = find_player();
     }
-
-    // void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-    //     player = GameObject.FindWithTag("player")?.GetComponent<Player_human>();
-    // }
+    
     public Vector2 read_mouse_world_position()
     {
         return Camera.main.ScreenToWorldPoint(

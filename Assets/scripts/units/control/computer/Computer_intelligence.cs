@@ -122,9 +122,9 @@ public class Computer_intelligence:Intelligence {
     }
 
     protected void Update() {
-        if (gameObject.name == "test") {
-            bool test = true;
-        }
+        // if (gameObject.name == "test") {
+        //     bool test = true;
+        // }
         action_runner.update();
     }
 
