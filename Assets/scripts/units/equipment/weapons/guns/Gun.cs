@@ -56,21 +56,19 @@ public class Gun: MonoBehaviour
     }
     
 
-    public virtual void insert_ammunition(Ammo_compatibility ammo, int rounds_amount) {
-        ammo_qty += rounds_amount;
-        on_ammo_changed();
-    }
-    
-
     public float recoil_force = 150f;
     
-
 
     public int get_loaded_ammo() {
         return ammo_qty;
     }
     public int get_lacking_ammo() {
         return max_ammo_qty - ammo_qty;
+    }
+    
+    public virtual void insert_ammunition(Ammo_compatibility ammo, int rounds_amount) {
+        ammo_qty += rounds_amount;
+        on_ammo_changed();
     }
 
     public Ammo_compatibility get_ammo_compatibility() => ammo_compatibility;

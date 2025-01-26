@@ -37,7 +37,7 @@ public class Keep_distance_from_target: Action_leaf {
 
         if (
             (target != null)&&
-            (!is_target_obstructed_by_walls(target,moved_body.position))
+            (!is_target_obstructed_by_walls(target,moved_body))
         )
         {
             float distance_to_target = (target.position - moved_body.position).magnitude;
@@ -71,9 +71,15 @@ public class Keep_distance_from_target: Action_leaf {
     public static LayerMask obstacles_of_walking = 
             ~LayerMask.GetMask("projectiles")
         ;
-    
-    public static bool is_target_obstructed_by_walls(Transform target, Vector3 start) {
-        Vector2 vector_to_target = target.position - start;
+
+    public static int flying_layer = LayerMask.NameToLayer("flying");
+    public static bool is_target_obstructed_by_walls(Transform target, Transform body) {
+        if (body.gameObject.layer == flying_layer) {
+            return false;
+        }
+        
+        var start = (Vector2) body.position;
+        Vector2 vector_to_target = (Vector2)target.position - start;
         var hit = Physics2D.Raycast(
             start,
             vector_to_target,
@@ -87,8 +93,8 @@ public class Keep_distance_from_target: Action_leaf {
         return false;
     }
     
-    public static bool is_target_obstructed_by_something(Transform target, Vector3 start) {
-        var vector_to_target = target.position - start;
+    public static bool is_target_obstructed_by_something(Transform target, Vector2 start) {
+        var vector_to_target = (Vector2)target.position - start;
         var hit = Physics2D.Raycast(
             start,
             vector_to_target,

@@ -24,8 +24,10 @@ public class Object_pool<TBase> where TBase : Action {
         return restored_action;
     }
     
+  
+    
     public TChild get<TChild>() where TChild: TBase {
-        Stack<TBase> bases = get_or_create_place_for_type(typeof(TChild));
+        Stack<TBase> bases = get_or_create_place_for_type<TChild>();
 
         if (bases.Count == 0) {
             TBase new_base = create_new_object<TChild>();

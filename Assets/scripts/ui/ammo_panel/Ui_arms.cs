@@ -25,6 +25,17 @@ MonoBehaviour
         instance = this;
     }
 
+    void OnEnable() {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        var player = GameObject.FindWithTag("player root")?.GetComponent<Player_human>();
+        if (player != null) {
+            //baggage = player.baggage;
+            arm_pair = player.arm_pair;
+        }
+    }
     void Start() {
         //arm_pair.on_tools_changed += update_held_tools;
         arm_pair.on_ammo_changed += update_ammo;
@@ -56,20 +67,7 @@ MonoBehaviour
         throw new System.NotImplementedException();
     }
 
-    void OnEnable() {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        Canvas canvas = GetComponent<Canvas>();
-        canvas.worldCamera = GameObject.FindWithTag("MainCamera")?.GetComponent<Camera>();
-        canvas.planeDistance = -50;
-        var player = GameObject.FindWithTag("player root")?.GetComponent<Player_human>();
-        if (player != null) {
-            //baggage = player.baggage;
-            arm_pair = player.arm_pair;
-        }
-    }
+    
 
   
 

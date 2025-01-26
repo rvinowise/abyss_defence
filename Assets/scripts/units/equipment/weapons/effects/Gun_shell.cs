@@ -9,13 +9,16 @@ public class Gun_shell : MonoBehaviour {
     private ILeaving_persistent_residue residue_leaver;
     private Trajectory_flyer trajectory_flyer;
     private Pooled_object pooled_object;
-    private UnityEngine.Experimental.U2D.Animation.SpriteResolver sprite_resolver; 
+    private UnityEngine.Experimental.U2D.Animation.SpriteResolver sprite_resolver;
 
+    public AudioClip falling_sound;
+    public AudioSource audio_source;
     void Awake() {
         residue_leaver = GetComponent<ILeaving_persistent_residue>();
         
         trajectory_flyer = GetComponent<Trajectory_flyer>();
         trajectory_flyer.on_fell_on_the_ground.AddListener(leave_residue);
+        trajectory_flyer.on_fell_on_the_ground.AddListener(play_sound);
 
         pooled_object = GetComponent<Pooled_object>();
 
@@ -33,7 +36,11 @@ public class Gun_shell : MonoBehaviour {
         //(int)Math.Round((double)Random.Range(0,1))
         residue_leaver.leave_persistent_residue();
         
-    } 
+    }
+
+    private void play_sound() {
+        audio_source.PlayOneShot(falling_sound);
+    }
   
 
 }

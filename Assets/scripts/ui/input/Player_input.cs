@@ -68,29 +68,53 @@ public class Player_input: MonoBehaviour {
     }
 
 
-    private readonly Stack<IInput_receiver> input_receivers = new Stack<IInput_receiver>();
+    private readonly IList<IInput_receiver> input_receivers = new List<IInput_receiver>();
 
     public void add_input_receiver(IInput_receiver receiver) {
-        input_receivers.Push(receiver);
+        input_receivers.Add(receiver);
+        receiver.is_finished = false;
     }
-    private void Update() {
-        // bool input_processed = false;
-        // do {
-        //     IInput_receiver input_receiver = ;
-        //     input_processed = input_receiver.process_input();
-        // } while (!input_processed);
-        input_receivers.Peek().process_input();
 
-        while (
-            input_receivers.Peek().is_finished
-        ) {
-            input_receivers.Pop();
-        }
-        
+    private void read_input_from_controllers() {
         cursor.transform.position = read_mouse_world_position();
         moving_vector = read_moving_vector();
         scroll_value = read_scroll();
         zoom_held = UnityEngine.Input.GetButton("Zoom");
+    }
+
+    private void pass_input_to_receivers() {
+        
+        bool input_processed = false;
+        int checked_receiver = input_receivers.Count-1;
+        
+        if (checked_receiver < 0) {
+            Debug.LogError($"no input receivers for {name}");
+            return;
+        }
+        
+        do {
+            IInput_receiver input_receiver = input_receivers[checked_receiver];
+            input_processed = input_receiver.process_input();
+            checked_receiver--;
+        } while (
+            !input_processed
+            &&
+            checked_receiver>=0
+        );
+        //input_receivers.Peek().process_input();
+    }
+
+    private void remove_finished_receivers() {
+        while (
+            input_receivers.Last().is_finished
+        ) {
+            input_receivers.RemoveAt(input_receivers.Count-1);
+        }
+    }
+    private void Update() {
+        read_input_from_controllers();
+        pass_input_to_receivers();
+        remove_finished_receivers();
     }
 
     public Color highlighting_color = new Color(0.7f,0.0f,0.0f);

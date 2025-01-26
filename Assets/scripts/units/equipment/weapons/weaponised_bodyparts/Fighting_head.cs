@@ -52,7 +52,7 @@ public class Fighting_head :
         if (target != null) {
             var rotation_to_target = transform.quaternion_to(target.position);
             turning_element.rotate_towards(rotation_to_target);
-            var vector_to_target = target.position - transform.position;
+            var vector_to_target = (Vector2)target.position - (Vector2)transform.position;
             var distance_to_target = vector_to_target.magnitude;
             if (is_needed_preparing_for_attack(distance_to_target)) {
                 if (is_calm()) {

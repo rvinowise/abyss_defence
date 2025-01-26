@@ -50,14 +50,20 @@ public class Move_hand_into_bag: Action_of_arm {
         
         arm.shoulder.current_rotation_inertia = 0;
         arm.shoulder.rotation_acceleration /= 10f;
+        
+#if RVI_DEBUG
         if (arm.upper_arm.rotation_acceleration <=12f)
             UnityEngine.Debug.Log($"Move_hand_into_bag: over-slowing {arm.name}, speed = {arm.upper_arm.rotation_acceleration}");
         UnityEngine.Debug.Log($"Slowing speed by {get_explanation()}, speed = {arm.upper_arm.rotation_acceleration}");
+#endif
     }
     private void restore_movements(Arm arm) {
         arm.upper_arm.rotation_acceleration = old_upper_arm_rotation_speed;
         arm.shoulder.rotation_acceleration = old_shoulder_rotation_speed;
+        
+#if RVI_DEBUG
         UnityEngine.Debug.Log($"Restoring speed by {get_explanation()}, speed = {arm.upper_arm.rotation_acceleration}");
+#endif
     }
 
 
@@ -77,7 +83,7 @@ public class Move_hand_into_bag: Action_of_arm {
     
     private Orientation get_orientation_touching_baggage() {
         return new Orientation(
-            bag.position,// + (Vector2)(aggage.rotation * hand.tip),
+            bag.position,// + (Vector2)(baggage.rotation * hand.tip),
             bag.rotation * Directions.degrees_to_quaternion(180f),
             null
         );

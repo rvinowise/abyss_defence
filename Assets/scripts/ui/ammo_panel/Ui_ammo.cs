@@ -42,9 +42,6 @@ MonoBehaviour
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        Canvas canvas = GetComponent<Canvas>();
-        canvas.worldCamera = GameObject.FindWithTag("MainCamera")?.GetComponent<Camera>();
-        canvas.planeDistance = -50;
         var player = GameObject.FindWithTag("player")?.GetComponent<Player_human>();
         if (player != null) {
             baggage = player.baggage;

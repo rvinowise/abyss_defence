@@ -12,7 +12,7 @@ public class Put_tool_into_bag: Action_sequential_parent {
         Arm in_arm,
         Baggage in_bag
     ) {
-        var action = (Put_tool_into_bag)object_pool.get(typeof(Put_tool_into_bag));
+        var action = object_pool.get<Put_tool_into_bag>();
         
         action.arm = in_arm;
         action.bag = in_bag;

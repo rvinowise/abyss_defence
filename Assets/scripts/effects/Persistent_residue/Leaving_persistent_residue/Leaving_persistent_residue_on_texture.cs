@@ -119,6 +119,9 @@ MonoBehaviour
 
     private void deactivate_all_behaviors() {
         foreach (var behaviour in gameObject.GetComponents<Behaviour>()) {
+            if (behaviour is AudioSource) {
+                continue;
+            }
             behaviour.enabled = false;
         }
     }

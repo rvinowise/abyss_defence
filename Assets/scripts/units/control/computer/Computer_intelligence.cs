@@ -1,10 +1,11 @@
-//#define RVI_DEBUG
+// #define RVI_DEBUG
 
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Pathfinding;
+using rvinowise.contracts;
 using rvinowise.unity.actions;
 using rvinowise.unity.extensions;
 using UnityEditor;
@@ -43,6 +44,7 @@ public class Computer_intelligence:Intelligence {
         base.Awake();
         set_team(team);
         path_seeker = GetComponent<Seeker>();
+        Contract.Requires(path_seeker!=null, "a computer intelligence must have a path seeker");
         
 #if RVI_DEBUG
     int number = counter++;
@@ -209,6 +211,12 @@ public class Computer_intelligence:Intelligence {
 
         if (target == null) {
             target = find_closest_damageable_of_unit(in_enemy);
+            if (target == null) {
+#if RVI_DEBUG
+        Debug.Log($"COMPUTER: the damageable of unit {in_enemy} is null");
+#endif
+                return;
+            }
             target.on_destroyed += on_target_disappeared;
             move_towards_target(target.transform);
         }

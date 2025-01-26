@@ -19,6 +19,9 @@ public class Direct_projectile_launcher: MonoBehaviour
     public Transform spark_prefab;
     public Tool tool;
 
+    public AudioClip shot_sound;
+    public AudioSource audio_source;
+    
     public Rigidbody2D get_projectile() {
         Rigidbody2D new_projectile = projectile_prefab.instantiate<Rigidbody2D>(
             muzzle.position, muzzle.rotation
@@ -37,8 +40,11 @@ public class Direct_projectile_launcher: MonoBehaviour
         }
         //new_projectile.damage_dealer?.set_attacker(tool.main_holding.holding_hand.arm.pair.user.transform);
         
-        
         propell_projectile(new_projectile);
+        
+        if ((audio_source != null)&&(shot_sound != null)) {
+            audio_source.PlayOneShot(shot_sound);
+        }
     }
     
     public void propell_projectile(Rigidbody2D projectile) {

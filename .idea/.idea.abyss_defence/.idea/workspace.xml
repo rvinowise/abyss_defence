@@ -5,66 +5,81 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd6462a0-2be3-4446-9e5c-7281b717e754" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/StreamingAssets.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/StreamingAssets/UnityServicesProjectConfiguration.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/StreamingAssets/UnityServicesProjectConfiguration.json.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/objects/ui/blackening_screen.anim" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/objects/ui/blackening_screen.anim.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/objects/units/flying_beetle/flying_beetle_with_head.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/objects/units/flying_beetle/flying_beetle_with_head.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/management/persistence.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/management/persistence/Player_progress.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/management/persistence/Player_progress.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/management/persistence/Save_load_game.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/management/persistence/Save_load_game.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/management/persistence/Visited_scenes.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/management/persistence/Visited_scenes.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/ui/Unfocusing_game_effect.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/ui/Unfocusing_game_effect.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker_attacked_area.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker_attacked_area.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_composer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_composer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/Loading_indicator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/Loading_indicator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/Saving_cell.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/Saving_cell.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/Savings_menu.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/Savings_menu.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/Settings_menu.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/Settings_menu.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Reloadable.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Reloadable.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/actions/using_guns/reloading/Refill_gun.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/actions/using_guns/reloading/Refill_gun.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/actions/using_guns/reloading/Reload_pistol_simple.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/actions/using_guns/reloading/Reload_pistol_simple.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ionide/symbolCache.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.run/Attach to Unity Editor &amp; Play.run.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.run/Attach to Unity Editor.run.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/numbered-bookmarks.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/factory/arena.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/factory/arena.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/factory/hallway.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/factory/hallway.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/menu/main_menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/menu/main_menu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/ui/appear.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/ui/appear.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/ui/crossfade.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/ui/crossfade.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/shooting_crab/shielded_crab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/shooting_crab/shielded_crab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/woodlouse/attack.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/woodlouse/attack.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/woodlouse/head.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/woodlouse/head.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/woodlouse/woodlouse.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/woodlouse/woodlouse.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/explosive_bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/explosive_bullet.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/hollow_bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/hollow_bullet.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/penetrating_bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/penetrating_bullet.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/pistol_bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/pistol_bullet.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/liquids/Droplet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/liquids/Droplet.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/liquids/Pooled_droplet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/liquids/Pooled_droplet.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/environment/Disturbed_by_impact.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/environment/Disturbed_by_impact.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/management/ui.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/UnityServicesProjectConfiguration.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/UnityServicesProjectConfiguration.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/URP.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/URP.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/Music_player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/Music_player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/text.controller" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/text.controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/visible.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/visible.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/ui/crossfade.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/ui/crossfade.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/ui/map_transition.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/ui/map_transition.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/bullet_shell.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/bullet_shell.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/gray_desert_eagle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/gray_desert_eagle.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/debug/contracts/Contract.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/debug/contracts/Contract.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/environment/maps/Map.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/environment/maps/Map.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/management/persistence/Player_progress.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/management/persistence/Saved_game.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/management/persistence/Player_progress.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/management/persistence/Saved_game.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/management/persistence/Save_load_game.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/management/persistence/Save_load_game.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/management/persistence/Visited_scenes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/management/persistence/Visited_scenes.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_track.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_track.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/sounds/music/State_analyzer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/State_analyzer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/ui/Scene_transition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/ui/Scene_transition.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/ui/Scene_transition_effect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/ui/Scene_transition_effect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/ui/ammo_panel/Ui_ammo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/ui/ammo_panel/Ui_ammo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/ui/ammo_panel/Ui_arms.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/ui/ammo_panel/Ui_arms.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/ui/input/Player_input.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/ui/input/Player_input.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/ui/menus/IInput_receiver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/IInput_receiver.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/ui/menus/Main_menu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/Main_menu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/ui/menus/Restarting_game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/Restarting_game.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/ui/menus/Restarting_game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/Game_over_menu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/ui/menus/Restarting_game.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/ui/menus/Game_over_menu.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/computer/Computer_intelligence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/computer/Computer_intelligence.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/player/Supertool_user.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/player/Supertool_user.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/baggage/Supertools/Supertool_description.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/baggage/Supertools/Supertool_description.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/player/Player_human.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/player/Player_human.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Actor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Actor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Object_pool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Object_pool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Move_hand_into_bag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Move_hand_into_bag.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Put_tool_into_bag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Put_tool_into_bag.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Follow_target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Follow_target.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Keep_distance_from_target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Keep_distance_from_target.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Traverse_obstacles_before_target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Traverse_obstacles_before_target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Wing_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Wing_group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/effects/Gun_shell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/effects/Gun_shell.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Gun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Gun.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/projectile_launchers/Direct_projectile_launcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/projectile_launchers/Direct_projectile_launcher.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/unity-extensions/Component.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/unity-extensions/Component.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,36 +87,53 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DpaMonitoringSettings">
+    <option name="autoShow" value="false" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "a3a3a3ff",
-  "associatedIndex": 3
-}]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/05/893af202/NullReferenceException.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/24/be679250/LoadSceneMode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/df/c5c8e5a2/Component.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/ea/ccbcb89d/SetupCoroutine.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.quicksearch@2.0.2/Editor/UI/ListSelectionWindow.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.10.1/Runtime/Debugging/DebugUpdater.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/InputFieldEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/VertexModifiers/Outline.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;a3a3a3ff&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2rhPLOm5uRQlWN1tKmPyR4EzDu6" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="foldersAlwaysOnTop" value="false" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/../abyss_defence_build/abyss_defence.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../abyss_defence_build\abyss_defence.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\prj\abyss_defence_build" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -134,10 +166,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="12468">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="12468" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -153,7 +185,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1737008278783</updated>
-      <workItem from="1737008283747" duration="2942000" />
+      <workItem from="1737008283747" duration="67167000" />
+      <workItem from="1737239546031" duration="239000" />
+      <workItem from="1737282536645" duration="5657000" />
+      <workItem from="1737363155008" duration="12435000" />
+      <workItem from="1737425131749" duration="44092000" />
+      <workItem from="1737699370107" duration="9367000" />
     </task>
     <servers />
   </component>

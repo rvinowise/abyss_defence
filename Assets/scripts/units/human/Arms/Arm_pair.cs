@@ -52,12 +52,20 @@ public class Arm_pair:
         Gun gun = null;
         if (
             Arm.is_ready_to_attack_target(arm,in_target, ref gun)
-        ) 
-        {
-            gun.pull_trigger();
-            on_ammo_changed(arm, gun.get_loaded_ammo());
-            gun.release_trigger();
+        ) {
+            fire_gun(arm, gun);
         }
+    }
+
+    public void fire_gun(Arm arm, Gun gun) {
+        gun.pull_trigger();
+        gun.release_trigger();
+        if (gun.ammo_qty == 0) {
+            Reload_pistol_simple.create(
+                arm, gun, baggage,on_ammo_changed
+            ).start_as_root(intelligence.action_runner);
+        }
+        on_ammo_changed(arm, gun.get_loaded_ammo());
     }
 
     public void stop_attacking() {
@@ -99,6 +107,8 @@ public class Arm_pair:
     void Awake() {
         transporter = transporter_object.GetComponent<ITransporter>();
         arms = new List<Arm>{left_arm,right_arm};
+        intelligence = GetComponentInParent<Intelligence>();
+        team = intelligence.team;
     }
 
     protected void Start() {
@@ -581,8 +591,7 @@ public class Arm_pair:
     public void attack() {
         Debug.Log($"AIMING: Arm_pair.attack()");
         if (left_arm.get_held_gun() is {} gun) {
-            gun.pull_trigger();
-            on_ammo_changed(left_arm, gun.get_loaded_ammo());
+            fire_gun(left_arm, gun);
         }
     }
 

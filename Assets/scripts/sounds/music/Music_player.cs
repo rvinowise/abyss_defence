@@ -4,9 +4,6 @@ using UnityEngine;
 namespace rvinowise.unity.music {
     public class Music_player: MonoBehaviour {
 
-        public Music_track track_advance;
-        public Music_track track_retreat;
-        public Music_track track_tension;
 
         public Music_track current_track;
         private Music_phrase current_phrase;
@@ -25,13 +22,11 @@ namespace rvinowise.unity.music {
         private bool running = false;
         private int i_audio = 0;
 
-        public State_analyzer state;
 
         void Start()
         {
             next_phrase_time = AudioSettings.dspTime + 2.0f;
             init_audio_sources();
-            //transition_to_track(current_track);
         }
 
         private void init_audio_sources() {
@@ -45,24 +40,13 @@ namespace rvinowise.unity.music {
 
         private float time_to_prepare_phrase = 1f;
         void Update() {
-
-            if (state.enemy_is_close()) {
-                set_next_track(track_tension);
-            } else {
-                if (state.player_advanses()) {
-                    set_next_track(track_advance);
-                } else if (state.player_retreats()) {
-                    set_next_track(track_retreat);
-                }
-            }
             
-
             if (is_time_to_prepare_next_phrase())
             {
                 Debug.Log("is_time_to_prepare_next_phrase");
                 schedule_next_phrase();
 
-                next_phrase_time += 60.0f / bpm * 16;
+                next_phrase_time += 60.0f / bpm * beats_per_phrase;
             }
         }
 

@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 namespace rvinowise.unity {
 public interface IInput_receiver {
     //bool process_input(KeyCode key);
-    bool is_finished { get; }
+    bool is_finished { get; set; }
     bool process_input();
 }
 

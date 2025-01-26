@@ -32,7 +32,7 @@ public abstract class Player_human :
     }
 
     
-    public bool is_finished { get; private set; }
+    public bool is_finished { get; set; }
 
     public bool process_input() {
         var is_input_used = false;

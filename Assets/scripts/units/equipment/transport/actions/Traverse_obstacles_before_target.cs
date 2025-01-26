@@ -2,6 +2,7 @@
 
 using System.Linq;
 using Pathfinding;
+using rvinowise.contracts;
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity;
@@ -27,6 +28,9 @@ public class Traverse_obstacles_before_target: Action_leaf {
     ) {
         var action = (Traverse_obstacles_before_target)object_pool.get(typeof(Traverse_obstacles_before_target));
         action.add_actor(in_transporter);
+        
+        Contract.Requires(in_target != null, "target shouldn't be null");
+        Contract.Requires(in_seeker != null, "seeker shouldn't be null");
         
         action.final_target = in_target;
         action.transporter = in_transporter;
@@ -96,9 +100,9 @@ public class Traverse_obstacles_before_target: Action_leaf {
         if (
             (final_target == null) 
             ||
-            !Keep_distance_from_target.is_target_obstructed_by_walls(final_target,moved_body.position)
-            ||
             start_of_path == null
+            ||
+            !Keep_distance_from_target.is_target_obstructed_by_walls(final_target,moved_body)
             )
         {
             mark_as_completed();

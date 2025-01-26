@@ -125,8 +125,13 @@ public static partial class Unity_extension {
             Object.Destroy(component.gameObject);
         }
     }
-    
-    
+
+    public static void activate(this Component component) {
+        component.gameObject.SetActive(true);
+    }
+    public static void deactivate(this Component component) {
+        component.gameObject.SetActive(false);
+    }
     
 
 }

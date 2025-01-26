@@ -21,6 +21,7 @@ public class Actor: MonoBehaviour {
 
     private void Awake() {
         //action_runner = transform.root.GetComponentInChildren<Action_runner>(); //it can be attached to a combining circle slot
+        action_runner = GetComponentInParent<Action_runner>();
     }
 }
 

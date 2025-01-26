@@ -46,7 +46,7 @@ public class Wing_group:
 
     private Rigidbody2D rigid_body;
     void Awake() {
-        rigid_body = GetComponent<Rigidbody2D>();
+        rigid_body = GetComponentInParent<Rigidbody2D>();
         actor = GetComponent<Actor>();
     }
     
