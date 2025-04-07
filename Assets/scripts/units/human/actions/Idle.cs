@@ -7,10 +7,10 @@ public class Idle: Action_leaf {
 
     
     public static Idle create(   
-        Actor actor
+        IActing_role role
     ) {
         Idle action = (Idle)object_pool.get(typeof(Idle));
-        action.add_actor(actor);
+        action.add_actor(role);
         
         return action;
     }

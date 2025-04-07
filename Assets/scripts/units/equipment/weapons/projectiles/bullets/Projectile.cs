@@ -27,6 +27,7 @@ public class Projectile : MonoBehaviour {
 
     public Polygon get_damaged_area(Ray2D in_ray) {
         return Damaging_polygons.get_splitting_wedge(in_ray);
+        //return Damaging_polygons.get_damaging_circle(in_ray);
     }
 
     
@@ -103,7 +104,7 @@ public class Projectile : MonoBehaviour {
     }
 
     private void end_active_life() {
-        GetComponent<ILeaving_persistent_residue>().leave_persistent_residue();
+        GetComponent<ILeaving_persistent_residue>()?.leave_persistent_residue();
     }
 
     private void debug_draw_collision(Collision2D other) {
@@ -121,9 +122,7 @@ public class Projectile : MonoBehaviour {
             if (damage_dealer.is_ignoring_damage_receiver(damage_receiver)) {
                 return;
             }
-            else {
-                damage_receiver.receive_damage(1f);
-            }
+            damage_receiver.receive_damage(damage_dealer.effect_amount);
         }
         if (collision.gameObject.GetComponent<IBleeding_body>() is null) {
             var hit = collision.contacts.First();

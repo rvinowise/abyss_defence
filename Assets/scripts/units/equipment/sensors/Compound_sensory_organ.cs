@@ -7,11 +7,38 @@ using UnityEngine;
 namespace rvinowise.unity {
 
 public class Compound_sensory_organ:
-    ISensory_organ 
-{
+    MonoBehaviour,
+    ISensory_organ {
 
+    public List<GameObject> sensor_objects = new List<GameObject>(); // for inspector
     public IList<ISensory_organ> child_sensors;
 
+    public static Compound_sensory_organ create(
+        Intelligence host,
+        IList<ISensory_organ> sensors
+    ) {
+        var tool_object = new GameObject("Compound_sensory_organ");
+        var tool_component = tool_object.AddComponent<Compound_sensory_organ>();
+        tool_component.child_sensors = sensors.ToList();
+        //host.action_runner.add_actor(tool_object.AddComponent<Actor>());
+        tool_object.transform.parent = host.transform;
+        return tool_component;
+    }
+    
+    protected void Awake() {
+        child_sensors = new List<ISensory_organ>();
+        foreach (var sensor_object in sensor_objects) {
+            if (sensor_object.GetComponent<ISensory_organ>() is { } sensor) {
+                child_sensors.Add(sensor);
+            }
+        }
+    }
+
+    public void init_sensors() {
+        
+    }
+    
+    
     public Compound_sensory_organ(IEnumerable<ISensory_organ> in_child_sensors) {
         child_sensors = in_child_sensors.ToList();
     }
@@ -35,7 +62,7 @@ public class Compound_sensory_organ:
     public Actor actor { get; set; }
 
     public void on_lacking_action() {
-        Idle.create(actor).start_as_root(actor.action_runner);
+        Idle.create(this).start_as_root(actor.action_runner);
     }
 
 }

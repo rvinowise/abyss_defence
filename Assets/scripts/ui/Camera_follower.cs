@@ -1,4 +1,5 @@
 ﻿using System;
+using rvinowise.unity;
 using UnityEngine;
 
 public class Camera_follower : MonoBehaviour
@@ -10,7 +11,10 @@ public class Camera_follower : MonoBehaviour
     private Vector3 old_target_position;
 
 
-    private void Awake() {
+    private void Start() {
+        if (target == null) {
+            target = Player_input.find_player().transform;
+        }
         old_target_position = target.position;
     }
 

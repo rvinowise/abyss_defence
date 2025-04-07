@@ -18,6 +18,8 @@ public class Proboscis :
     public Transform tip;
 
     public float max_length;
+    public float damage_amount = 2;
+    
     public Animator animator;
     private static readonly int strike = Animator.StringToHash("strike");
 
@@ -73,14 +75,28 @@ public class Proboscis :
 
         );
         foreach (var hit in hits) {
+            if (hit.collider.GetComponent<Damage_receiver>() is {} damage_receiver) {
+                damage_receiver.receive_damage(damage_amount);
+                has_damaged_target = true;
+            }
+            if (hit.collider.GetComponent<IBleeding_body>() is {} bleeding_body) {
+                bleeding_body.receive_damage(
+                    hit.point,
+                    tip.rotation.to_vector(),
+                    hit.normal,
+                    damage_amount
+                );
+                has_damaged_target = true;
+            }
+            
             if (
-                hit.collider != null &&
+                //hit.collider != null &&
                 //(!damaged_targets.Contains(hit.collider))&&
                 hit.collider.GetComponent<Divisible_body>() is { } divisible
             ) {
                 //damaged_targets.Add(hit.collider);
                 Debug.Log($"ATTACK: Attacker '{this.name}' owned by '{this.transform.parent}' has damaged '{divisible.name}'");
-                has_damaged_target = true;
+                
                 divisible.damage_by_impact(
                     Damaging_polygons.get_splitting_wedge(
                         new Ray2D(beginning.position, transform.rotation.to_vector())
@@ -88,7 +104,10 @@ public class Proboscis :
                     hit.point,
                     transform.rotation.to_vector()
                 );
+                has_damaged_target = true;
             }
+
+            
         }
         
     }

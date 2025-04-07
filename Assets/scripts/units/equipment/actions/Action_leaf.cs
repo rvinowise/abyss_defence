@@ -1,7 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿#define RVI_DEBUG
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using rvinowise.contracts;
+using UnityEngine;
 
 namespace rvinowise.unity.actions {
 
@@ -13,22 +16,36 @@ public abstract class Action_leaf:
 
     
     
-    protected Actor add_actor(Actor actor) {
-        if (actor == null) {
-            Debug.LogError($"actor is null");
-        }
-        actors.Add(actor);
-        return actor;
-    }
+    // protected Actor add_actor(Actor actor) {
+    //     if (actor == null) {
+    //         Debug.LogError($"actor is null");
+    //     }
+    //     actors.Add(actor);
+    //     return actor;
+    // }
     protected Actor add_actor(IActing_role role) {
         if (role.actor == null) {
-            Debug.LogError($"actor or role {role} is null");
+            Debug.LogError($"the actor of role {role} is null");
         }
+        
         actors.Add(role.actor);
         return role.actor;
     }
-    
-    
+
+    protected override void on_start_execution() {
+        #if RVI_DEBUG
+        foreach (var actor in actors) {
+            Contract.Requires(
+                runner.get_actors().Contains(actor),
+                $"the actor {actor}, used in the action {get_explanation()} doesn't exist in its action_runner {runner.name}"
+            );
+        }
+        #endif
+        
+        base.on_start_execution();
+        
+    }
+
     public override void seize_needed_actors_recursive() {
         foreach(Actor seized_actor in actors) {
             if (seized_actor.current_action != null) {

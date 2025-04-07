@@ -1,4 +1,4 @@
-﻿//#define RVI_DEBUG
+﻿#define RVI_DEBUG
 
 using System;
 using System.Collections.Generic;
@@ -45,10 +45,9 @@ public abstract class Action
 
     protected virtual void on_start_execution() {
         rvinowise.contracts.Contract.Assert(is_started==false, "a started action is started again without finishing");
+
         is_started = true;
     }
-    
-
     
 
     public virtual void set_root_action(Action in_root_action) {
@@ -163,6 +162,18 @@ public abstract class Action
             return this.parent_action.get_root_action();
         }
         return this;
+    }
+
+    public bool is_part_of_action(Type action_type) {
+        return is_part_of_action_recursive(this, action_type);
+
+        bool is_part_of_action_recursive(Action child, Type needed_type) {
+            if (child.GetType() == action_type) return true;
+            if (this.parent_action is { } parent) {
+                return is_part_of_action_recursive(parent, needed_type);
+            }
+            return false;
+        }
     }
 
 

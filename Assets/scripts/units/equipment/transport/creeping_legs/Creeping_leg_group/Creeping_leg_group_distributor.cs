@@ -13,7 +13,7 @@ public partial class Creeping_leg_group {
     }
     
     public override void distribute_data_across(
-        IEnumerable<Abstract_children_group> new_controllers
+        IEnumerable<IChildren_group> new_controllers
     ) {
         Creeping_leg_group_distributor.distribute_data_across(
             this,
@@ -31,7 +31,7 @@ public static class Creeping_leg_group_distributor {
         
     public static void distribute_data_across(
         Creeping_leg_group src_group,
-        IEnumerable<Abstract_children_group> new_controllers
+        IEnumerable<IChildren_group> new_controllers
     ) {
         
         List<Creeping_leg_group> new_leg_controllers = 
@@ -44,8 +44,9 @@ public static class Creeping_leg_group_distributor {
         distribute_stable_legs_groups(src_group, new_leg_controllers);
         init_moving_strategies(new_leg_controllers);
     }
+    
 
-    private static void init_moving_strategies(IList<Creeping_leg_group> leg_controllers) {
+    public static void init_moving_strategies(IList<Creeping_leg_group> leg_controllers) {
         foreach (var leg_controller in leg_controllers) {
             if (leg_controller.moving_strategy == null) {
                 leg_controller.guess_moving_strategy();
@@ -53,7 +54,7 @@ public static class Creeping_leg_group_distributor {
         }
     }
 
-    private static void distribute_stable_legs_groups(
+    public static void distribute_stable_legs_groups(
         Creeping_leg_group divided_leg_group,
         IReadOnlyList<Creeping_leg_group> all_leg_controllers) 
     {

@@ -14,7 +14,7 @@ public class Humanoid:
 {
 
     public Arm_pair arm_pair;
-    public Head head;
+    [FormerlySerializedAs("head")] public Turning_sensor turning_sensor;
     public Baggage baggage;
     
     
@@ -30,7 +30,7 @@ public class Humanoid:
     public Actor actor { get; set; }
 
     public void on_lacking_action() {
-        Idle.create(actor).start_as_root(actor.action_runner);
+        Idle.create(this).start_as_root(actor.action_runner);
     }
 
     #endregion
@@ -76,7 +76,7 @@ public class Humanoid:
 
 
     void FixedUpdate() {
-        head.rotate_to_desired_direction();
+        turning_sensor.rotate_to_desired_direction();
     }
 
   

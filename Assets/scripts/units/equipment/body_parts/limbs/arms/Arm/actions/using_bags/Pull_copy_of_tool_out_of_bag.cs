@@ -30,7 +30,7 @@ public class Pull_copy_of_tool_out_of_bag: Action_sequential_parent {
     
     private void init_child_actions() {
         add_children(
-            Grab_copy_of_tool.create(arm, bag, tool,expendable_equipment),
+            Grab_copy_of_tool_from_bag.create(arm, bag, tool,expendable_equipment),
             Put_hand_before_bag.create(arm, bag)
         );
     

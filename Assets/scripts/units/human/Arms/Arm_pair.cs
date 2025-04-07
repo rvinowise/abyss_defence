@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 //using static MoreLinq.Extensions.ToHashSetExtension;
 using rvinowise.unity.extensions;
+using rvinowise.unity.music;
 using Action = rvinowise.unity.actions.Action;
 using Transform = UnityEngine.Transform;
 
@@ -22,15 +23,15 @@ public class Arm_pair:
     ,IAttacker
 {
 
-    #region IWeaponry interface
+    #region IAttacker
 
     public bool is_weapon_ready_for_target(Transform in_target) {
         return 
             left_tool.GetComponent<Gun>() is {} left_gun && left_gun != null &&
-            left_gun.is_aimed_at_collider(in_target)
+            left_gun.is_ready_for_target(in_target)
             ||
             right_tool.GetComponent<Gun>() is {} right_gun && right_gun != null &&
-            right_gun.is_aimed_at_collider(in_target)
+            right_gun.is_ready_for_target(in_target)
             ;
     }
 
@@ -42,30 +43,29 @@ public class Arm_pair:
         return float.MaxValue;
     }
     public void attack(Transform in_target, System.Action on_completed = null) {
-        Debug.Log($"AIMING: Arm_pair.attack({in_target.name})");
-        var arm = get_arm_targeting(in_target);
-
-        if (arm is null) {
-            Debug.Log($"ATTACK: arm targeting {in_target} is null");
-        }
-        
-        Gun gun = null;
-        if (
-            Arm.is_ready_to_attack_target(arm,in_target, ref gun)
-        ) {
-            fire_gun(arm, gun);
-        }
+        Arm_pair_shooting.attack(this, in_target,on_completed);
     }
 
-    public void fire_gun(Arm arm, Gun gun) {
-        gun.pull_trigger();
-        gun.release_trigger();
-        if (gun.ammo_qty == 0) {
-            Reload_pistol_simple.create(
-                arm, gun, baggage,on_ammo_changed
-            ).start_as_root(intelligence.action_runner);
-        }
-        on_ammo_changed(arm, gun.get_loaded_ammo());
+    private Transform explicit_target;
+
+    public Transform get_explicit_target() {
+        return explicit_target;
+    }
+    public void set_explicit_target(Transform target) {
+        explicit_target = target;
+    }
+    public void remove_explicit_target(Transform target) {
+        if (explicit_target == target) {
+            explicit_target = null;
+        };
+    }
+
+    public bool is_arm_ready_to_fire(Arm arm) {
+        return
+            arm.actor.current_action?.GetType() == typeof(Idle_vigilant_only_arm)
+            ||
+            arm.actor.current_action?.GetType() == typeof(Aim_at_target);
+
     }
 
     public void stop_attacking() {
@@ -78,23 +78,20 @@ public class Arm_pair:
      
     #endregion
 
-    
-    
 
-    #region Arm_controller itself
     
     public Humanoid user;
     public Intelligence intelligence;
     public Arm left_arm;
     public Arm right_arm;
     public Baggage baggage;
-    public Team team;
-    
+    public Team team => intelligence.team;
+
     public GameObject transporter_object;
     public ITransporter transporter;
     
     private Toolset toolset_being_equipped;
-
+    public float last_shot_time = 0;
 
     public Tool left_tool => left_arm.held_tool;
     public Tool right_tool => right_arm.held_tool;
@@ -103,12 +100,11 @@ public class Arm_pair:
 
     private Transform cursor_transform;
 
-    private List<Arm> arms;
+    public List<Arm> arms;
     void Awake() {
         transporter = transporter_object.GetComponent<ITransporter>();
         arms = new List<Arm>{left_arm,right_arm};
         intelligence = GetComponentInParent<Intelligence>();
-        team = intelligence.team;
     }
 
     protected void Start() {
@@ -130,146 +126,102 @@ public class Arm_pair:
 
 
     private void Update() {
-        aim_at_hinted_targets();
+        detect_selected_object();
+        Arm_pair_aiming.aim_at_hinted_targets(this);
     }
 
-    private void aim_at_hinted_targets() {
-
-        if (Input.GetButton("attack")) {
-            bool test = true;
-        }
+    public bool is_on_cooldown() {
+        return Time.time - last_shot_time <= (left_arm.get_held_gun() as Gun).fire_rate_delay;
+    }
+    
+    private Ray ray;
+    private RaycastHit hit;
+    private void detect_selected_object() {
+        set_explicit_target(null);
         
-        var hinted_targets =
-            team.get_enemies_closest_to(Player_input.instance.cursor.transform.position);
-
-        var aiming_arms = get_arms_searching_for_targets();
-        
-        var needed_targets =
-            hinted_targets.Take(aiming_arms.Count).Select(tuple => tuple.Item1).ToList();
-        
-        var current_targets =
-            new HashSet<Transform>(get_all_targets());
-
-        var needed_not_targeted_enemies =
-            new HashSet<Transform>(needed_targets.Except(current_targets));
-
-        var arms_changing_targets =
-            aiming_arms
-                .Where(arm => !needed_targets.Contains(arm.get_target()))
-                .ToList();
-        
-        foreach (var target in needed_not_targeted_enemies) {
-            get_arm_closest_to<Gun>(arms_changing_targets, target)
-                .aim_at(target);
+        if(
+            Physics2D.OverlapPoint(
+                Player_input.instance.mouse_world_position
+            ) is {} collider
+        ) {
+            if (collider.transform.GetComponent<Intelligence>() is { } intelligence) {
+                if (this.intelligence.team.is_enemy_team(intelligence.team)) {
+                    set_explicit_target(intelligence.transform);
+                }
+            } else if (collider.transform.GetComponent<Targetable>() is { } targetable) {
+                set_explicit_target(targetable.transform);
+            }
         }
     }
 
-    private List<Arm> get_arms_searching_for_targets() {
-        return arms.Where(is_arm_searching_for_targets).ToList();
-    }
-    private bool is_arm_searching_for_targets(Arm in_arm) {
-        return
-            (is_arm_autoaimed(in_arm))
-            &&
-            (
-                (in_arm.actor.current_action == null)
-                ||
-                (in_arm.actor.current_action.GetType() == typeof(Idle_vigilant_only_arm))
-                ||
-                (in_arm.actor.current_action.GetType() == typeof(Aim_at_target))
-            );
-    }
 
-
-
-    public List<Arm> get_all_armed_autoaimed_arms() {
-        List<Arm> arms = new List<Arm>();
-
-        if (is_arm_autoaimed(right_arm))
-        {
-            arms.Add(right_arm);
-        }
-        if (is_arm_autoaimed(left_arm))
-        {
-            arms.Add(left_arm);
-        }
-        return arms;
-    }
-
-
-    public void wants_to_reload(Side_type in_side) {
-
-        Arm gun_arm = get_arm_on_side(in_side);
-        
-        //Contract.Requires(gun_arm.held_tool is Gun, "reloaded arm must hold a gun");
-
-        if (!can_reload(gun_arm)) {
-            return;
-        }
-        
-        Arm ammo_arm = other_arm(gun_arm);
-
-        Action reloading_action = null;
-        if (gun_arm.get_held_gun() is {} gun) {
-
-            Ammunition magazine = user.baggage.get_ammo_object_for_gun(gun);
-            Contract.Requires(magazine != null);
-            
-            reloading_action = Reload_pistol.create(
-                user.animator,
-                gun_arm,
-                ammo_arm,
-                user.baggage,
-                gun
-            );
-        } 
-        // else if (gun_arm.held_tool is Pump_shotgun shotgun) {
-        //     reloading_action = Reload_shotgun.create(
-        //         user.animator,
-        //         gun_arm,
-        //         ammo_arm,
-        //         user.baggage,
-        //         shotgun,
-        //         user.baggage.get_ammo_object_for_tool(shotgun)
-        //     );
-        // } else if (gun_arm.held_tool is Break_shotgun break_shotgun) {
-        //     reloading_action = Reload_break_shotgun.create(
-        //         user.animator,
-        //         gun_arm,
-        //         ammo_arm,
-        //         user.baggage,
-        //         break_shotgun,
-        //         user.baggage.get_ammo_object_for_tool(break_shotgun)
-        //     );
-        // }
-        
-        Action_sequential_parent.create(
-            reloading_action,
-            Action_parallel_parent.create(
-                Idle_vigilant_only_arm.create(gun_arm,gun_arm.attention_target, transporter),
-                Idle_vigilant_only_arm.create(ammo_arm,gun_arm.attention_target, transporter)
-            )
-        ).start_as_root(actor.action_runner);
-
-    }
+    
+    // public void wants_to_reload(Side_type in_side) {
+    //
+    //     Arm gun_arm = Arm_pair_helpers.get_arm_on_side(this, in_side);
+    //     
+    //     //Contract.Requires(gun_arm.held_tool is Gun, "reloaded arm must hold a gun");
+    //
+    //     if (!can_reload(gun_arm)) {
+    //         return;
+    //     }
+    //     
+    //     Arm ammo_arm = other_arm(gun_arm);
+    //
+    //     Action reloading_action = null;
+    //     if (gun_arm.get_held_gun() is {} gun) {
+    //
+    //         Ammunition magazine = user.baggage.get_ammo_object_for_gun(gun);
+    //         Contract.Requires(magazine != null);
+    //         
+    //         reloading_action = Reload_pistol.create(
+    //             user.animator,
+    //             gun_arm,
+    //             ammo_arm,
+    //             user.baggage,
+    //             gun
+    //         );
+    //     } 
+    //     // else if (gun_arm.held_tool is Pump_shotgun shotgun) {
+    //     //     reloading_action = Reload_shotgun.create(
+    //     //         user.animator,
+    //     //         gun_arm,
+    //     //         ammo_arm,
+    //     //         user.baggage,
+    //     //         shotgun,
+    //     //         user.baggage.get_ammo_object_for_tool(shotgun)
+    //     //     );
+    //     // } else if (gun_arm.held_tool is Break_shotgun break_shotgun) {
+    //     //     reloading_action = Reload_break_shotgun.create(
+    //     //         user.animator,
+    //     //         gun_arm,
+    //     //         ammo_arm,
+    //     //         user.baggage,
+    //     //         break_shotgun,
+    //     //         user.baggage.get_ammo_object_for_tool(break_shotgun)
+    //     //     );
+    //     // }
+    //     
+    //     Action_sequential_parent.create(
+    //         reloading_action,
+    //         Action_parallel_parent.create(
+    //             Idle_vigilant_only_arm.create(gun_arm,gun_arm.attention_target, transporter),
+    //             Idle_vigilant_only_arm.create(ammo_arm,gun_arm.attention_target, transporter)
+    //         )
+    //     ).start_as_root(actor.action_runner);
+    //
+    // }
 
     
 
-    public Arm get_arm_on_side(Side_type in_side) {
-        if (in_side == Side_type.LEFT) {
-            return left_arm;
-        } else if (in_side == Side_type.RIGHT) {
-            return right_arm;
-        }
-        return null;
-    }
+    
 
-    private bool can_reload(Arm weapon_holder) {
-        return 
-            !is_reloading_now(weapon_holder)
-            &&
-            baggage.check_ammo_qty(weapon_holder.get_held_gun().ammo_compatibility) > 0;
-    }
+    // private bool can_reload(Arm weapon_holder) {
+    //     return 
+    //         !is_reloading_now(weapon_holder)
+    //         &&
+    //         baggage.check_ammo_qty(weapon_holder.get_held_gun().ammo_compatibility) > 0;
+    // }
 
     private bool is_reloading_now(Arm weapon_holder) {
         //Arm ammo_taker = other_arm(weapon_holder); 
@@ -294,93 +246,56 @@ public class Arm_pair:
         return left_arm;
     }
 
-    public void aim_at(Transform in_target) {
-        Debug.Log($"AIMING: Arm_pair.aim_at({in_target.name})");
-        if (is_aiming_at(in_target)) {
-            return;
-        }
-        Arm best_arm;
-        if (get_free_arm_closest_to<Gun>(in_target) is {} free_arm) {
-            best_arm = free_arm;
-        } else {
-            best_arm = get_arm_closest_to<Gun>(
-                get_all_armed_autoaimed_arms(), 
-                in_target
-            );
-            if (best_arm == null) {
-                return;
-            }
-        }
-        if (best_arm != null) {
-            best_arm.aim_at(in_target);
-        }
-    }
-
-
+    // public void aim_at(Transform in_target) {
+    //     Debug.Log($"AIMING: Arm_pair.aim_at({in_target.name})");
+    //     if (is_aiming_at(in_target)) {
+    //         return;
+    //     }
+    //     Arm best_arm;
+    //     if (get_free_arm_closest_to<Gun>(in_target) is {} free_arm) {
+    //         best_arm = free_arm;
+    //     } else {
+    //         best_arm = get_arm_closest_to<Gun>(
+    //             get_all_armed_autoaimed_arms(), 
+    //             in_target
+    //         );
+    //         if (best_arm == null) {
+    //             return;
+    //         }
+    //     }
+    //     if (best_arm != null) {
+    //         best_arm.start_aiming_at_target(in_target);
+    //     }
+    // }
     
-
-    
-
     public void attack_with_arm(Side_type in_side) {
-        Arm arm = get_arm_on_side(in_side);
+        Arm arm = Arm_pair_helpers.get_arm_on_side(this, in_side);
         if (arm.get_held_gun() is {} gun) {
             gun.pull_trigger();
         }
     }
 
-    public void set_target_for(Arm in_arm, Transform in_target) {
-        in_arm.aim_at(in_target);
-    }
-
-    public List<Transform> get_all_targets() {
-        List<Transform> result = new List<Transform>();
-        foreach (Arm arm in get_all_armed_autoaimed_arms()) {
-            if (arm.get_target() != null) {
-                result.Add(arm.get_target());
-            }
-        }
-        return result;
-    }
-
-   
 
     public void handle_target_disappearence(Intelligence disappearing_unit) {
         Debug.Log($"AIMING: handle_target_disappearence {disappearing_unit.gameObject.name}");
-        foreach (Arm arm in get_all_armed_autoaimed_arms()) {
-            if (get_target_of(arm) == disappearing_unit.transform) {
-                try_find_new_target(arm);
+        foreach (Arm arm in Arm_pair_aiming.get_all_armed_autoaimed_arms(this)) {
+            if (Arm_pair_aiming.get_target_of(arm) == disappearing_unit.transform) {
+                Arm_pair_aiming.try_find_new_target(this,arm);
             }
         }
     }
-    
-    public void try_find_new_target(Arm in_arm) {
-        Debug.Log($"AIMING: try_find_new_target({in_arm.name})");
-        List<Transform> free_enemies = get_not_targeted_enemies();
-        Distance_to_component closest_target = Object_finder.instance.get_closest_object(
-            cursor_transform.position,
-            free_enemies
-        );
-        if (closest_target.get_transform() != null) {
-            set_target_for(in_arm, closest_target.get_transform());
-        }
-        else {
-            in_arm.start_idle_action();
-        }
-    }
-    private List<Transform> get_not_targeted_enemies() {
-        return team.get_enemy_transforms().Except(get_all_targets()).ToList();
-    }
+
 
     public delegate void EventHandler(Arm arm);
     //public event EventHandler on_target_disappeared;
 
 
-    private Arm get_free_arm_closest_to<Tool_component>(Transform in_target) {
+    public Arm get_free_arm_closest_to<Tool_component>(Transform in_target) {
         var free_armed_arms = get_iddling_armed_autoaimed_arms();
         return get_arm_closest_to<Tool_component>(free_armed_arms, in_target);
     }
 
-    private Arm get_arm_closest_to<Tool_component>(IEnumerable<Arm> in_arms, Transform in_target) {
+    public Arm get_arm_closest_to<Tool_component>(IEnumerable<Arm> in_arms, Transform in_target) {
         float closest_distance = float.MaxValue;
         Arm closest_arm = null;
         foreach(Arm arm in in_arms) {
@@ -407,7 +322,7 @@ public class Arm_pair:
         if (
             arm_is_ready_for_autoaiming(right_arm)
             &&
-            is_arm_autoaimed(right_arm)
+            Arm_pair_aiming.is_arm_autoaimed(right_arm)
         )
         {
             free_armed_arms.Add(right_arm);
@@ -415,7 +330,7 @@ public class Arm_pair:
         if (
             arm_is_ready_for_autoaiming(left_arm)
             &&
-            is_arm_autoaimed(left_arm)
+            Arm_pair_aiming.is_arm_autoaimed(left_arm)
         )
         {
             free_armed_arms.Add(left_arm);
@@ -423,48 +338,20 @@ public class Arm_pair:
         return free_armed_arms;
     }
 
-    private bool is_arm_autoaimed(Arm in_arm) {
-        if (in_arm.get_held_gun() is {aiming_automatically: true}) {
-            return true;
-        }
-        return false;
-    }
-
-    private bool is_aiming_at(Transform in_target) {
-        return get_all_targets().IndexOf(in_target) > -1;
-    }
-
-    #endregion
-
-    public Transform get_target_of(Arm in_arm) {
-        if (in_arm.actor.current_action is Aim_at_target aiming) {
-            return aiming.get_target();
-        }
-        return null;
-    }
-    public Arm get_arm_targeting(Transform in_target) {
-        if (
-            //left_arm.current_action is Aim_at_target left_aiming&&
-            left_arm.get_target() == in_target
-        ) {
-            return left_arm;
-        } else if (
-            //right_arm.current_action is Aim_at_target right_aiming&&
-            right_arm.get_target() == in_target 
-        ) {
-            return right_arm;
-        }
-        return null;
-    }
+    
 
     public delegate void Handler_of_changing(Arm arm, int ammo);
     //public event Handler_of_changing on_tools_changed;
     public event Handler_of_changing on_ammo_changed = delegate{};
 
+    public void raise_on_ammo_changed(Arm arm, int ammo) {
+        on_ammo_changed(arm, ammo);
+    }
+            
 #if UNITY_EDITOR
     void OnDrawGizmos() {
         if (Application.isPlaying) {
-            var right_target = get_target_of(right_arm);
+            var right_target = Arm_pair_aiming.get_target_of(right_arm);
             if (right_target != null) {
                 rvinowise.unity.debug.Debug.DrawLine_simple(
                     Player_input.instance.cursor.transform.position, 
@@ -473,7 +360,7 @@ public class Arm_pair:
                     3
                 );
             }
-            var left_target = get_target_of(left_arm);
+            var left_target = Arm_pair_aiming.get_target_of(left_arm);
             if (left_target != null) {
                 rvinowise.unity.debug.Debug.DrawLine_simple(
                     Player_input.instance.cursor.transform.position, 
@@ -588,21 +475,16 @@ public class Arm_pair:
         right_arm.grab_tool(left_holding);
     }
     
-    public void attack() {
-        Debug.Log($"AIMING: Arm_pair.attack()");
-        if (left_arm.get_held_gun() is {} gun) {
-            fire_gun(left_arm, gun);
-        }
-    }
+    
 
-    public void use_supertool() {
-        Debug.Log($"AIMING: Arm_pair.use_supertool()");
-        Fire_gun_till_empty.create();
-        if (left_arm.get_held_gun() is {} gun) {
-            gun.pull_trigger();
-            on_ammo_changed(left_arm, gun.get_loaded_ammo());
-        }
-    }   
+    // public void use_supertool() {
+    //     Debug.Log($"AIMING: Arm_pair.use_supertool()");
+    //     Fire_gun_till_empty.create();
+    //     if (left_arm.get_held_gun() is {} gun) {
+    //         gun.pull_trigger();
+    //         on_ammo_changed(left_arm, gun.get_loaded_ammo());
+    //     }
+    // }   
     
     
     #region IActor

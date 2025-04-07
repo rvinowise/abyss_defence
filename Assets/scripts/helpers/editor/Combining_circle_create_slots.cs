@@ -45,6 +45,12 @@ public class Combining_circle_create_slots: EditorWindow {
 		};
 		add_for_selected_ring.clicked += create_slots_for_selected_circle;
 		rootVisualElement.Add(add_for_selected_ring);
+		
+		var add_children_along_circle = new Button {
+			text = "add copies of selected child along a circle"
+		};
+		add_children_along_circle.clicked += create_children_along_a_circle_for_selected_child;
+		rootVisualElement.Add(add_children_along_circle);
 
 		number_edit = new UnityEngine.UIElements.TextField();
 		rootVisualElement.Add(number_edit);
@@ -82,41 +88,53 @@ public class Combining_circle_create_slots: EditorWindow {
 	private void move_slots_to_their_ring_radius_for_all_rings() {
 		var rings = Selection.activeGameObject.GetComponentsInChildren<Combining_circle_ring>();
 		foreach(var ring in rings) {
-			move_slots_to_their_ring_radius(ring);
+			move_slots_to_their_ring_radius(ring.transform);
 		}
 		EditorSceneManager.MarkSceneDirty(Selection.activeGameObject.scene);
 	}
 	
 	private void move_slots_to_their_ring_radius_for_selected_ring() {
 		var ring = Selection.activeGameObject.GetComponent<Combining_circle_ring>();
-		move_slots_to_their_ring_radius(ring);
+		move_slots_to_their_ring_radius(ring.transform);
 		EditorSceneManager.MarkSceneDirty(Selection.activeGameObject.scene);
 	}
 	
 	
 	private void add_unit_slots (Combining_circle_ring ring, int slots_amount) {
 		var example_slot = ring.unit_slots.First();
-		var ring_radius = example_slot.transform.position.distance_to(ring.transform.position);
-		var step_angle = 360 / slots_amount;
-		for (var i_slot = 1; i_slot < slots_amount; i_slot++) {
+		add_children_along_a_circle(example_slot.transform, slots_amount);
+		move_slots_to_their_ring_radius(ring.transform);
+
+	}
+	
+	private void create_children_along_a_circle_for_selected_child() {
+		var slots_number = Int32.Parse(number_edit.value);
+		var copied_child = Selection.activeGameObject.GetComponent<Transform>();
+		add_children_along_a_circle(copied_child, slots_number);
+		move_slots_to_their_ring_radius(copied_child.parent);
+		EditorSceneManager.MarkSceneDirty(Selection.activeGameObject.scene);
+	}
+	private void add_children_along_a_circle (Transform first_child, int children_amount) {
+		var ring_radius = first_child.transform.position.distance_to(first_child.position);
+		var step_angle = 360 / children_amount;
+		for (var i_slot = 1; i_slot < children_amount; i_slot++) {
 			var new_slot = 
 				Object.Instantiate(
-					example_slot, 
-					example_slot.transform.parent, 
+					first_child, 
+					first_child.parent, 
 					false
 				);
 
-			new_slot.name = example_slot.name + $"{i_slot + 1}";
+			new_slot.name = first_child.name + $"{i_slot + 1}";
 			
-			ring.unit_slots.Add(new_slot);
 		}
-		move_slots_to_their_ring_radius(ring);
 
 	}
 
-	private void move_slots_to_their_ring_radius(Combining_circle_ring ring) {
+	private void move_slots_to_their_ring_radius(Transform ring) {
 		var slots = ring.GetComponentsInChildren<Combining_circle_slot>();
 		var example_slot = slots.First();
+		var example_slot_rotation = example_slot.transform.localRotation * new Degree(180).to_quaternion();
 		var ring_radius = example_slot.transform.position.distance_to(ring.transform.position);
 		var step_angle = 360 / slots.Length;
 		
@@ -125,7 +143,7 @@ public class Combining_circle_create_slots: EditorWindow {
 			
 			slot_transform.transform.localPosition =
 				new Degree(i_slot*step_angle).to_quaternion()* Vector2.right * ring_radius;
-			slot_transform.transform.rotation = slot_transform.transform.position.degrees_to(ring.transform.position).to_quaternion();
+			slot_transform.transform.rotation = slot_transform.transform.position.degrees_to(ring.transform.position).to_quaternion() * example_slot_rotation;
 		}
 	}
 

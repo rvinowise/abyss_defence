@@ -33,7 +33,7 @@ public class Limb2:
 
     public Segment get_root_segment() => segment1;
 
-    private void Awake() {
+    protected virtual void Awake() {
         actor = GetComponent<Actor>();
     }
 

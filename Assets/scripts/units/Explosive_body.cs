@@ -24,7 +24,7 @@ public class Explosive_body:
         }
     }
 
-    public void on_start_dying() {
+    public void die() {
         create_explosion();
         Destroy(gameObject);
     }

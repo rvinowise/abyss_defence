@@ -38,11 +38,9 @@ public class Hiding_limbs_group:
     }
 
     protected void on_legs_are_hidden(actions.Action action) {
-        Idle.create(
-            actor
-        ).start_as_root(actor.action_runner);
+        Idle.create(this).start_as_root(actor.action_runner);
         foreach (var leg in creeping_leg_group.legs) {
-            Idle.create(leg.actor).start_as_root(actor.action_runner);
+            Idle.create(leg).start_as_root(actor.action_runner);
         }
         intelligence_on_legs_are_hidden();
     }
@@ -67,7 +65,7 @@ public class Hiding_limbs_group:
     public Actor actor { get; set; }
 
     public void on_lacking_action() {
-        Idle.create(actor).start_as_root(actor.action_runner);
+        Idle.create(this).start_as_root(actor.action_runner);
     }
 
 }

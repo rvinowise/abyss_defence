@@ -15,5 +15,12 @@ public interface IBleeding_body {
         Vector2 in_position,
         Vector2 in_impulse
     );
+
+    public void receive_damage(
+        Vector2 contact_point,
+        Vector2 impact_impulse,
+        Vector2 impact_normal,
+        float strenght
+    );
 }
 }

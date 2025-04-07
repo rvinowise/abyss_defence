@@ -7,11 +7,21 @@ using Action = rvinowise.unity.actions.Action;
 
 namespace rvinowise.unity {
     
+//[RequireComponent(typeof(Actor))]
 public class Empty_attacker:
+    MonoBehaviour,
     IAttacker 
 {
 
-    //public Transform transform { get; }
+    public static Empty_attacker create(
+        Intelligence host    
+    ) {
+        var tool_object = new GameObject("Empty_attacker");
+        var tool_component = tool_object.AddComponent<Empty_attacker>();
+        host.action_runner.add_actor(tool_object.AddComponent<Actor>());
+        tool_object.transform.parent = host.transform;
+        return tool_component;
+    }
 
     public bool is_weapon_ready_for_target(Transform target) {
         return false;

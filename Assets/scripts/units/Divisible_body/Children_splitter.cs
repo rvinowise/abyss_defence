@@ -5,6 +5,7 @@ using rvinowise.contracts;
 
 namespace rvinowise.unity {
 
+public partial class Divisible_body {
 public static class Children_splitter {
     internal static void split_children_groups(
         IChildren_groups_host src_host_of_children,
@@ -14,10 +15,11 @@ public static class Children_splitter {
         
         distribute_children_to_pieces(src_host_of_children, piece_objects);
         destroy_undistributed_tools(src_host_of_children);
-
         Data_distributor.distribute_data_across(src_host_of_children, piece_users);
 
-        connect_devices_to_intelligence(piece_objects);
+        Children_simplifier.simplify_pieces_without_children(piece_objects);
+
+        //connect_devices_to_intelligence(piece_objects);
     }
 
     private static void connect_devices_to_intelligence(List<Divisible_body> piece_objects) {
@@ -101,10 +103,11 @@ public static class Children_splitter {
         int i_children_group,
         IChild_of_group child) 
     {
-        Abstract_children_group piece_children_group =
+        IChildren_group piece_children_group =
             piece_object.children_groups[i_children_group];
         piece_children_group.add_child(child);
     }
 }
 
+}
 }

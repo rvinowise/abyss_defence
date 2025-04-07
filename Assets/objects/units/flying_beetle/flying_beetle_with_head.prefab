@@ -339,16 +339,16 @@ GameObject:
   - component: {fileID: 6775317795498758218}
   - component: {fileID: 601437206205521355}
   - component: {fileID: 7842712105424864001}
-  - component: {fileID: 3795267214802944022}
   - component: {fileID: 7598404928656394340}
   - component: {fileID: 4146164505936011406}
   - component: {fileID: 897955657827497983}
   - component: {fileID: -5396843304122238703}
   - component: {fileID: -4150143569704525696}
   - component: {fileID: 5065715024069198856}
-  - component: {fileID: -8769506558125198316}
   - component: {fileID: 84742373891855044}
   - component: {fileID: 8373228961727284466}
+  - component: {fileID: 2722470353392390349}
+  - component: {fileID: 8290007494508287672}
   m_Layer: 9
   m_Name: flying_beetle_with_head
   m_TagString: Untagged
@@ -438,8 +438,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
-  m_LinearDrag: 0.1
+  m_Mass: 14
+  m_LinearDrag: 0.18
   m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -500,18 +500,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3795267214802944022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8587560745027414974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 600fe5cde1854d28b0b315a3a52f3330, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7598404928656394340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,6 +557,8 @@ MonoBehaviour:
   team: {fileID: 0}
   is_ignored: 0
   action_runner: {fileID: 84742373891855044}
+  performance_cost: 0.8
+  ownership_cost: 20
   path_seeker: {fileID: 0}
   intelligence_action: 0
 --- !u!114 &-5396843304122238703
@@ -631,21 +621,6 @@ MonoBehaviour:
     type: 3}
   frontal_splash_prefab: {fileID: 375282640950205156, guid: f08ffdfc104c1d944b7dcc2755aaed83,
     type: 3}
---- !u!114 &-8769506558125198316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8587560745027414974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4afe687255b4189b893241e2b6856dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  will_be_settled_when_stops: 0
-  is_decaying: 0
-  sprite_renderer: {fileID: 0}
 --- !u!114 &84742373891855044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -671,6 +646,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   action_runner: {fileID: 84742373891855044}
+--- !u!114 &2722470353392390349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8587560745027414974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac70c08d5a7484da4ec511a315bdd59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropped_items:
+  - {fileID: 0}
+--- !u!114 &8290007494508287672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8587560745027414974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1706fba485bb42dfb09ddfa283a65ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8587560745169262030
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,19 +18,25 @@ public class Animated_attacker_attacked_area : MonoBehaviour
     public readonly ISet<Collider2D> reacheble_colliders = new HashSet<Collider2D>();
     public readonly ISet<Damage_receiver> reacheble_damageable_enemies = new HashSet<Damage_receiver>();
 
-    public Animated_attacker animated_attacker;
+    public Team team;
     
-    private void Awake() {
-        animated_attacker = GetComponentInParent<Animated_attacker>();
+
+    private void Start() {
+        if (GetComponentInParent<Animated_attacker>() is Animated_attacker animated_attacker) {
+            team = animated_attacker.intelligence?.team;
+        }
+        else if (GetComponentInParent<Intelligence>() is {} intelligence) {
+            team = intelligence.team;
+        }
     }
 
-   
+
     void OnTriggerEnter2D(Collider2D other) {
         reacheble_colliders.Add(other);
         if (
-            Animated_attacker.get_damageable_enemy_from_transform(
+            Animated_attacker.get_damagable_enemy_from_transform(
                 other.transform, 
-                animated_attacker.intelligence.team
+                team
             ) is {} damageable) {
             reacheble_damageable_enemies.Add(damageable);
         }
@@ -39,9 +45,9 @@ public class Animated_attacker_attacked_area : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other) {
         reacheble_colliders.Remove(other);
         if (
-            Animated_attacker.get_damageable_enemy_from_transform(
+            Animated_attacker.get_damagable_enemy_from_transform(
                 other.transform, 
-                animated_attacker.intelligence.team
+                team
             ) is {} damageable) {
             reacheble_damageable_enemies.Remove(damageable);
         }

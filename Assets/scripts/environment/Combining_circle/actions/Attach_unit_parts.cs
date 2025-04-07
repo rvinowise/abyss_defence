@@ -10,23 +10,26 @@ namespace rvinowise.unity.actions {
 
 public class Attach_unit_parts: Action_leaf {
 
-    private Combining_circle combining_circle;
-
+    private Team team;
+    private Intelligence.Evend_handler on_destroyed_listener;
+    
     private Combining_circle_slot body_slot;
     private Combining_circle_slot legs_slot;
     private Combining_circle_slot head_slot;
     public static Attach_unit_parts create(
-        Combining_circle circle,
+        Team team,
         Combining_circle_slot head_slot,
         Combining_circle_slot body_slot,
-        Combining_circle_slot legs_slot
+        Combining_circle_slot legs_slot,
+        Intelligence.Evend_handler on_destroyed_listener
     ) {
         var action = (Attach_unit_parts) object_pool.get(typeof(Attach_unit_parts));
 
-        action.combining_circle = circle;
+        action.team = team;
         action.head_slot = head_slot;
         action.body_slot = body_slot;
         action.legs_slot = legs_slot;
+        action.on_destroyed_listener = on_destroyed_listener;
         
         return action;
     }
@@ -36,11 +39,19 @@ public class Attach_unit_parts: Action_leaf {
         
         base.on_start_execution();
 
+        
+    }
+
+    public override void update() {
+        base.update();
+        
         attach_slots_content(
             head_slot,
             body_slot,
             legs_slot
         );
+        
+        mark_as_completed();
     }
 
     private Intelligence attach_slots_content(
@@ -53,23 +64,39 @@ public class Attach_unit_parts: Action_leaf {
         Assert.IsNotNull(head_slot.content);
         
         var attachable_body = body_slot.content.GetComponent<Attachable_body>();
+        var unit_intelligence = attachable_body.GetComponent<Computer_intelligence>();
         
-        var attachable_limbs = limbs_slot.content.GetComponent<Attachable_limbs>();
-        if (attachable_limbs != null) {
-            attachable_limbs.attach_limbs_to_body(attachable_body);
+        var attachable_limb_groups = limbs_slot.content.GetComponentsInChildren<Attachable_limbs>();
+        foreach (var attachable_limb_group in attachable_limb_groups) {
+            attach_all_actors_to_intelligence(unit_intelligence, attachable_limb_group);
+            attachable_limb_group.attach_appendages_to_body(attachable_body);
         }
-        var head_group = head_slot.content.GetComponentInChildren<Children_group>();
-        if (head_group != null) {
-            attach_head_to_body(attachable_body, head_group);
+        unit_intelligence.init_devices();
+        
+        var attachable_head = head_slot.GetComponentInChildren<Attachable_head>();
+        if (attachable_head != null) {
+            attach_all_actors_to_intelligence(unit_intelligence, attachable_head);
+            var attached_group = attach_head_to_body(attachable_body, attachable_head);
+        }
+        
+        if (head_slot.GetComponentInChildren<Attachable_guns>() is {} attachable_guns) {
+            attach_all_actors_to_intelligence(unit_intelligence, attachable_guns);
+            var attached_group = attach_guns_to_body(attachable_body, attachable_guns);
         }
         
         attachable_body.transform.parent = null;
-        var unit_intelligence = attachable_body.GetComponent<Computer_intelligence>();
-        unit_intelligence.team = combining_circle.team;
+        
+        attach_all_team_members_to_team(attachable_body, team);
+        attach_all_tools_to_intelligence(attachable_body, unit_intelligence);
+        
+        team.add_unit(unit_intelligence);
         unit_intelligence.action_runner.start_fallback_actions();
         unit_intelligence.init_devices();
+        unit_intelligence.fill_lacking_devices_with_empty_devices();
+        unit_intelligence.action_runner.init_actors();
         unit_intelligence.move_towards_best_target();
         unit_intelligence.enabled = true;
+        unit_intelligence.on_destroyed += on_destroyed_listener;
         attachable_body.GetComponent<Divisible_body>()?.Awake();
         
         delete_attaching_helpers(attachable_body);
@@ -77,25 +104,45 @@ public class Attach_unit_parts: Action_leaf {
         return unit_intelligence;
     }
 
-    private void attach_head_to_body(Attachable_body body, Children_group head_group) {
-        if (body.intelligence.transporter is Creeping_leg_group creeping_leg_group) {
+    private Abstract_children_group attach_head_to_body(Attachable_body attachable_body, Attachable_head attachable_head) {
+
+        Abstract_children_group head_group = attachable_head.GetComponentInChildren<Abstract_children_group>();
+        
+        if (attachable_body.intelligence.transporter is Creeping_leg_group creeping_leg_group) {
             var head_legs = head_group.GetComponentsInChildren<ALeg>(); //e.g. squid head has legs
             foreach (var leg in head_legs) {
-                creeping_leg_group.add_child(leg);
+                creeping_leg_group.add_child_on_other_transform(leg);
             }
         }
         
-        head_group.transform.parent = body.transform;
+        head_group.transform.parent = attachable_body.transform;
         head_group.transform.localRotation = Vector2.right.to_quaternion();
         head_group.transform.localPosition = Vector3.zero;
-
-        //body.intelligence.attacker = head_group.GetComponentInChildren<IAttacker>();
-        //body.intelligence.sensory_organ = head_group.GetComponentInChildren<ISensory_organ>();
         
-        //head.transform.parent = body.transform;
-        var head_transform = head_group.GetComponentInChildren<Head>().transform;
-        head_transform.localPosition = body.head_attachment.localPosition;
-        head_transform.localRotation = body.head_attachment.localRotation;
+        var head_transform = attachable_head.head.transform;
+        head_transform.localPosition = attachable_body.head_attachment.localPosition;
+        head_transform.localRotation = attachable_body.head_attachment.localRotation;
+
+        return head_group;
+    }
+    
+    private Abstract_children_group attach_guns_to_body(Attachable_body attachable_body, Attachable_guns attachable_guns) {
+
+        Abstract_children_group gun_group = attachable_guns.GetComponentInChildren<Abstract_children_group>();
+        
+        gun_group.transform.parent = attachable_body.transform;
+        gun_group.transform.localRotation = Vector2.right.to_quaternion();
+        gun_group.transform.localPosition = Vector3.zero;
+
+        attach_gun(attachable_guns.gun_l, attachable_body.gun_l_attachment);
+        attach_gun(attachable_guns.gun_r, attachable_body.gun_r_attachment);
+
+        return gun_group;
+    }
+
+    private void attach_gun(Transform gun, Transform attachment_point) {
+        gun.transform.localPosition = attachment_point.localPosition;
+        gun.transform.localRotation = attachment_point.localRotation;
     }
 
     private void delete_attaching_helpers(Attachable_body attachable_body) {
@@ -105,6 +152,29 @@ public class Attach_unit_parts: Action_leaf {
         Object.Destroy(attachable_body);
     }
 
+    
+    public static void attach_all_actors_to_intelligence(Intelligence intelligence, Component attached_object) {
+        foreach (var actor in attached_object.GetComponentsInChildren<Actor>()) {
+            actor.action_runner = intelligence.action_runner;
+        }
+    }
+    
+    public static void attach_all_team_members_to_team(
+        Component unit_root,
+        Team in_team
+    ) {
+        foreach (var member in unit_root.GetComponentsInChildren<ITeam_member>()) {
+            member.attach_to_team(in_team);
+        }
+    }
+    public static void attach_all_tools_to_intelligence(
+        Component unit_root,
+        Intelligence in_intelligence
+    ) {
+        foreach (var tool in unit_root.GetComponentsInChildren<IUsed_by_intelligence>()) {
+            tool.attach_to_intelligence(in_intelligence);
+        }
+    }
 }
 
 }

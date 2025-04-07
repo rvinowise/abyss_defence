@@ -72,20 +72,34 @@ public class Bleeding_body_splash_prefab:
 
             Vector2 contact_point = other.GetContact(0).point;
 
-            create_back_splash(
+            receive_damage(
                 contact_point,
-                other.GetContact(0).relativeVelocity*damaging_collider.GetComponent<Rigidbody2D>().mass
+                other.GetContact(0).relativeVelocity,
+                other.GetContact(0).normal,
+                damaging_collider.GetComponent<Rigidbody2D>().mass
             );
-            // create_frontal_splash(
-            //     contact_point,
-            //     other.GetContact(0).relativeVelocity*collided_projectile.GetComponent<Rigidbody2D>().mass
-            // );
-            create_frontal_splash(
-                contact_point,
-                -other.GetContact(0).normal
-            );
-            
+
         }
+    }
+
+    public void receive_damage(
+        Vector2 contact_point, 
+        Vector2 impact_impulse, 
+        Vector2 impact_normal, 
+        float strenght
+    ) {
+        create_back_splash(
+            contact_point,
+            impact_impulse*strenght
+        );
+        // create_frontal_splash(
+        //     contact_point,
+        //     other.GetContact(0).relativeVelocity*collided_projectile.GetComponent<Rigidbody2D>().mass
+        // );
+        create_frontal_splash(
+            contact_point,
+            -impact_normal
+        );
     }
 }
 }

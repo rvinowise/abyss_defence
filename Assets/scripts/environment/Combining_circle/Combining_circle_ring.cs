@@ -32,6 +32,8 @@ public class Combining_circle_ring : MonoBehaviour {
         unit_slots[index].filled = false;
     }
     public Combining_circle_slot retrieve_random_filled_slot() {
+        if (!filled_slots_indices.Any()) return null;
+        
         var slot_index = get_random_filled_slot_index();
         free_slot_with_index(slot_index);
         return unit_slots[slot_index];

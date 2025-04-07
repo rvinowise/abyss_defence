@@ -15,10 +15,10 @@ namespace rvinowise.unity {
 /* a tool consisting of one element which can shoot */
 [RequireComponent(typeof(Tool))]
 public class Double_barreled_shotgun: MonoBehaviour
-    ,IGun, IReloadable
+    ,IGun
 {
     public bool aiming_automatically;
-
+    
     public Transform left_muzzle;
     public Transform right_muzzle;
     
@@ -34,14 +34,13 @@ public class Double_barreled_shotgun: MonoBehaviour
     public float range_randomness = 5;
     
     public Gun_shell bullet_shell_prefab;
-    public int loaded_rounds_amount;
-    public int maximum_rounds_amount;
-    public float projectile_force = 1000f;
 
     public Animator animator;
+    
     public Tool tool;
     public Damage_dealer damage_dealer;
-
+    public Reloadable reloadable;
+    
     public LineRenderer line_renderer;
     private List<LineRenderer> line_renderers = new List<LineRenderer>();
     
@@ -59,16 +58,19 @@ public class Double_barreled_shotgun: MonoBehaviour
 
 
     private void Awake() {
+        if (!reloadable) {
+            reloadable = GetComponent<Reloadable>();
+        }
         init_line_renderers();
         init_sparks();
     }
 
     private void init_line_renderers() {
         line_renderers.Add(line_renderer);
-        for (int i_shot = 0; i_shot < projectiles_amount*maximum_rounds_amount-1; i_shot++) {
+        for (int i_shot = 0; i_shot < projectiles_amount*reloadable.max_ammo_qty-1; i_shot++) {
             line_renderers.Add(Instantiate(line_renderer,line_renderer.transform.parent));
         }
-        for (int i_shot = 0; i_shot < projectiles_amount*maximum_rounds_amount; i_shot++) {
+        for (int i_shot = 0; i_shot < projectiles_amount*reloadable.max_ammo_qty; i_shot++) {
             trail_fading.Add(1);
             line_renderers[i_shot].positionCount = 2;
         }
@@ -80,49 +82,16 @@ public class Double_barreled_shotgun: MonoBehaviour
         
     }
 
-    public void hold_by(Hand in_hand) {
-        recoil_receiver = in_hand.arm;
-    }
-    
-    public void drop_from_hand() {
-        recoil_receiver = null;
-    }
-    
-
-    public virtual void insert_ammunition(Ammunition in_ammunition) {
-        in_ammunition.deactivate();
-        loaded_rounds_amount += in_ammunition.rounds_qty;
-        on_ammo_changed();
-    }
-    public virtual void insert_ammunition(int rounds_amount) {
-        loaded_rounds_amount += rounds_amount;
-        on_ammo_changed();
-    }
-    public virtual void insert_ammunition(Ammo_compatibility ammo_type, int rounds_amount) {
-        loaded_rounds_amount += rounds_amount;
-        on_ammo_changed();
-    }
-
     public float recoil_force = 150f;
-    
-    
 
 
-    public int get_loaded_ammo() {
-        return loaded_rounds_amount;
+
+    private Transform get_active_muzzle() {
+        if (reloadable.get_loaded_ammo() > 1) {
+            return left_muzzle;
+        }
+        return right_muzzle;
     }
-    public int get_lacking_ammo() {
-        return maximum_rounds_amount - loaded_rounds_amount;
-    }
-    public Ammo_compatibility get_ammo_compatibility() => ammo_compatibility;
-
-    
-    
-    public float time_to_readiness() {
-        return 0;
-    }
-
-
 
     public void pull_trigger() {
         if (
@@ -131,12 +100,7 @@ public class Double_barreled_shotgun: MonoBehaviour
             (can_fire())
         )
         {
-            if (loaded_rounds_amount > 1) {
-                fire(left_muzzle);
-            }
-            else {
-                fire(right_muzzle);
-            }
+            fire(get_active_muzzle());
         }
         
         is_trigger_pulled = true;
@@ -147,18 +111,20 @@ public class Double_barreled_shotgun: MonoBehaviour
     }
 
     public float emitting_randomisation = 0.05f;
+    public AudioSource audio_source;
+    public AudioClip shot_sound;
     private void fire(Transform muzzle) {
         
         last_shot_time = Time.time;
-        loaded_rounds_amount -= 1;
+        reloadable.spend_ammo(1);
         
         recoil_receiver?.push_with_recoil(recoil_force);
-        on_ammo_changed();
         
         damage_dealer.set_attacker(tool.main_holding.holding_hand.arm.pair.user.transform);
         
         animator.SetTrigger(shooting_animation);
         create_spark(muzzle);
+        audio_source?.PlayOneShot(shot_sound);
  
         
         float angle_step = spread_angle / projectiles_amount;
@@ -176,7 +142,7 @@ public class Double_barreled_shotgun: MonoBehaviour
                     -emitting_randomisation+Random.value*emitting_randomisation*2
                 );
             var randomized_range = range - range_randomness / 2 + Random.value * range_randomness;
-            RaycastHit2D hit = Physics2D.Raycast(emitting_point, impact_vector, randomized_range);
+            RaycastHit2D hit = Finding_objects.raycast(emitting_point, impact_vector, randomized_range);
             if (hit) {
                 if (hit.transform.GetComponent<Damage_receiver>() is {} damage_receiver) {
                     damage_receiver.receive_damage(1);
@@ -254,17 +220,25 @@ public class Double_barreled_shotgun: MonoBehaviour
 
     public bool can_fire() {
         return 
-            loaded_rounds_amount >0 &&
+            reloadable.get_loaded_ammo() >0 &&
             !is_on_cooldown();
     }
     
-
-    public delegate void EventHandler();
-    public event EventHandler on_ammo_changed = delegate{};
-
-    protected void notify_that_ammo_changed() {
-        on_ammo_changed?.Invoke();
+    public bool is_aiming_automatically() {
+        return aiming_automatically;
     }
+
+    public bool is_ready_for_target(Transform target) {
+        return Gun.is_muzzle_aimed_at_collider(get_active_muzzle(), target);
+    }
+    public void set_vertical_pointing(IGun.Vertical_pointing pointing) {
+    }
+
+    public Reloadable get_reloadable() {
+        return reloadable;
+    }
+
+    
     
     /* invoked from an animation */
     [called_in_animation]

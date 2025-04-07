@@ -99,7 +99,7 @@ public class Disappearing_body:
         return sprite_renderer.color.a <=0f;
     }
     
-    public void on_start_dying() {
+    public void die() {
         settle_when_stops();
     }
 }

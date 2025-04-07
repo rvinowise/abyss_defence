@@ -44,9 +44,9 @@ public class Fire_gun_at_target: Aim_at_target {
             gun.pull_trigger();
             gun.release_trigger();
         }
-        if (gun.get_loaded_ammo() == 0) {
-            mark_as_completed();
-        }
+        // if (gun.get_loaded_ammo() == 0) {
+        //     mark_as_completed();
+        // }
     }
 
     public bool is_ready_to_attack_target(Arm arm, Vector3 in_target) {
@@ -54,7 +54,7 @@ public class Fire_gun_at_target: Aim_at_target {
         var ready =
             arm &&
             tool &&
-            (gun.get_loaded_ammo() > 0) &&
+            //(gun.get_loaded_ammo() > 0) &&
             tool.is_aimed_at_point(in_target);
 
         return ready;

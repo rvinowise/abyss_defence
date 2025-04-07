@@ -42,7 +42,7 @@ MonoBehaviour
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        var player = GameObject.FindWithTag("player")?.GetComponent<Player_human>();
+        var player = GameObject.FindWithTag("player root")?.GetComponent<Player_human>();
         if (player != null) {
             baggage = player.baggage;
         }

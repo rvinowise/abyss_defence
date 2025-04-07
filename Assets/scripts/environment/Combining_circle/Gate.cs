@@ -30,10 +30,12 @@ public class Gate:
     }
 
     public void start_closing() {
+        animator.speed = 0.25f;
         animator.SetTrigger("close");
     }
     
     public void start_opening() {
+        animator.speed = 1;
         animator.SetTrigger("open");
     }
 }

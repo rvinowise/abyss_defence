@@ -50,7 +50,7 @@ public class Shielding_limb:
 
     protected void on_leg_is_shielding() {
         Idle.create(
-            shielding_limb.actor
+            shielding_limb
         ).start_as_root(actor.action_runner);
         
         intelligence_on_shielded();

@@ -11,8 +11,8 @@ using Animancer;
 
 namespace rvinowise.unity {
 public class Fighting_head :
-    MonoBehaviour,
-    //Attacker_child_of_group,
+    Child_of_group,
+    //MonoBehaviour,
     IAttacker,
     ISensory_organ
 {
@@ -151,7 +151,7 @@ public class Fighting_head :
     public Actor actor { get; set; }
 
     public void on_lacking_action() {
-        Idle.create(actor).start_as_root(actor.action_runner);
+        Idle.create(this).start_as_root(actor.action_runner);
     }
 
     #endregion

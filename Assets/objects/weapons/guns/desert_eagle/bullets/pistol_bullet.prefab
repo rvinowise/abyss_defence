@@ -160,7 +160,6 @@ GameObject:
   - component: {fileID: 6300923280871857658}
   - component: {fileID: 5716589292616010877}
   - component: {fileID: -4648269287722537753}
-  - component: {fileID: -5877605998203739688}
   m_Layer: 7
   m_Name: pistol_bullet
   m_TagString: Untagged
@@ -268,19 +267,6 @@ MonoBehaviour:
   effect_amount: 1
   hit_impact_prefab: {fileID: 6070810915012417560, guid: 93909083cb4dbc0429fc30bf5cdab6a4,
     type: 3}
---- !u!114 &-5877605998203739688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3520765260758454939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec115ea10e24906b8785120a4465f49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite_renderer: {fileID: 2524941769257766465}
 --- !u!1 &8848150420070349505
 GameObject:
   m_ObjectHideFlags: 0

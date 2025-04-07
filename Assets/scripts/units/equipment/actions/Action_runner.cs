@@ -1,8 +1,9 @@
-//#define RVI_DEBUG
+#define RVI_DEBUG
 
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using rvinowise.contracts;
 using UnityEditor;
@@ -21,18 +22,35 @@ public class Action_runner: MonoBehaviour {
     #if RVI_DEBUG
     public int number = 0;
     #endif
+
+    public IReadOnlyList<Actor> get_actors() {
+        return actors;
+    }
     
     private void Awake() {
-        var actors = GetComponentsInChildren<Actor>();
-        foreach (Actor actor in actors) {
-            add_actor(actor);
-            actor.action_runner = this;
-            var roles = actor.GetComponents<IActing_role>();
-            foreach (var role in roles) {
-                role.actor = actor;
+        init_actors();
+    }
+    
+    public void init_actors() {
+        foreach (Actor actor in GetComponentsInChildren<Actor>()) {
+            if (
+                (!actors.Contains(actor))
+                &&
+                (actor.action_runner == this)
+            ) {
+                add_actor(actor);
             }
-            actor.roles = roles.ToList();
         }
+    }
+    
+    public void add_actor(Actor actor) {
+        actors.Add(actor);
+        actor.action_runner = this;
+        var roles = actor.GetComponents<IActing_role>();
+        foreach (var role in roles) {
+            role.actor = actor;
+        }
+        actor.roles = roles.ToList();
     }
 
     public void add_action(Action action) {
@@ -72,9 +90,7 @@ public class Action_runner: MonoBehaviour {
         );
         #endif
     }
-    public void add_actor(Actor actor) {
-        actors.Add(actor);
-    }
+    
 
     
     public void update() {
@@ -109,6 +125,7 @@ public class Action_runner: MonoBehaviour {
             Debug.Log("starting an action whose actors are probably destroyed");
         }
         #endif
+        
 
         if (action.parent_action == null) {
             current_actions.Add(action);
@@ -121,7 +138,10 @@ public class Action_runner: MonoBehaviour {
     }
 
     private void finish_action(Action action) {
+        #if RVI_DEBUG
         Debug.Log($"ActionRunner.finish_action {action.get_explanation()}");
+        #endif
+        
         action.restore_state_recursive();
         action.free_actors_recursive();
         action.reset_recursive();
@@ -175,7 +195,7 @@ public class Action_runner: MonoBehaviour {
 
     
 #if UNITY_EDITOR
-    protected virtual void OnDrawGizmos() {
+    protected void OnDrawGizmos() {
         GUIStyle myStyle = new GUIStyle {
             fontSize = 13,
             normal = {

@@ -19,10 +19,10 @@ MonoBehaviour
         teams = new HashSet<Team>(GetComponentsInChildren<Team>());
     }
 
-    public void add_unit_of_team(Intelligence unit, Team team) {
-        team.add_unit(unit);
-        
-    }
+    // public void add_unit_of_team(Intelligence unit, Team team) {
+    //     team.add_unit(unit);
+    //     
+    // }
     
  
 

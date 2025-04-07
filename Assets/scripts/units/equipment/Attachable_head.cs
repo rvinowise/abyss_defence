@@ -5,9 +5,8 @@ using UnityEngine;
 
 namespace rvinowise.unity {
 
-public class Attachable_head : MonoBehaviour 
-{
-    
+public class Attachable_head : MonoBehaviour {
+    public Transform head;
 }
 
 }

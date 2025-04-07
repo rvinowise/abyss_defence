@@ -78,7 +78,7 @@ public class Damaging_collider : MonoBehaviour {
         }
         Debug.Log($"AIMING: ({name})Damaging_collider.OnCollisionEnter2D()");
         foreach(var explosive_body in explosive_bodies) {
-            explosive_body.on_start_dying();
+            explosive_body.die();
         }
             
     }

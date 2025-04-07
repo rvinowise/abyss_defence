@@ -61,7 +61,7 @@ public class Humanoid_legs:
     public Actor actor { get; set; }
 
     public void on_lacking_action() {
-        Idle.create(actor).start_as_root(actor.action_runner);
+        Idle.create(this).start_as_root(actor.action_runner);
     }
 
 

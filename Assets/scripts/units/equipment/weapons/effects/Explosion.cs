@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 
 namespace rvinowise.unity {
@@ -18,6 +21,7 @@ public class Explosion: MonoBehaviour {
     public float time_to_reach_max_radius = 0.5f;
     public float push_power = 5f;
     public float dent_depth = 0.5f;
+    public GameObject ground_mark;
     private float radius_growth;
     private float longest_particle_system_lifetime;
 
@@ -45,9 +49,19 @@ public class Explosion: MonoBehaviour {
     }
 
     void Start() {
+        leave_ground_mark();
         
-        Destroy(gameObject,longest_particle_system_lifetime);
         Invoke(nameof(on_radius_reached_maximum),time_to_reach_max_radius);
+        Destroy(gameObject,longest_particle_system_lifetime);
+    }
+
+    void leave_ground_mark() {
+        if (ground_mark != null) {
+            ground_mark.transform.SetParent(null,true);
+            ground_mark.transform.set_z(Map.instance.ground_z);
+            ground_mark.transform.rotation = new Degree(Random.Range(0, 360)).to_quaternion();
+            ground_mark.SetActive(true);
+        }
     }
 
 
@@ -58,10 +72,18 @@ public class Explosion: MonoBehaviour {
         damage_dealer.forget_damaged_targets();
     }
 
+    public float get_global_scale() {
+        Contract.Assert(Mathf.Approximately(transform.lossyScale.x, transform.lossyScale.y), "scale of an explosion should be round");
+        return transform.lossyScale.x;
+    }
     private void FixedUpdate() {
         current_radius += radius_growth*Time.deltaTime;
         collider2d.radius = current_radius;
-        shock_wave_polygon_debug = Polygon_creator.get_circle_polygon(current_radius,10).get_moved(transform.position);
+        shock_wave_polygon_debug = 
+            Polygon_creator.get_circle_polygon(
+                current_radius*get_global_scale(),
+                10
+                ).get_moved(transform.position);
     }
     
     public void damage_target(RaycastHit2D target_hit) {
@@ -90,7 +112,7 @@ public class Explosion: MonoBehaviour {
 
         var target_damage_receiver = target_hit.transform.GetComponent<Damage_receiver>();
         if (target_damage_receiver != null) {
-            target_damage_receiver.receive_damage(1);
+            target_damage_receiver.receive_damage(damage_dealer.effect_amount);
             damage_dealer.remember_damaged_target(target_hit.transform);
         }
         
@@ -114,7 +136,7 @@ public class Explosion: MonoBehaviour {
         var impact_vector = (target_position - (Vector2) transform.position);
 
         var weakening_with_distance =
-            1 - impact_vector.magnitude / max_radius;
+            1 - impact_vector.magnitude / (max_radius*get_global_scale());
             
         return impact_vector.normalized * push_power * weakening_with_distance;
     }
@@ -133,7 +155,7 @@ public class Explosion: MonoBehaviour {
             (target.position - transform.position);
         Physics2D.queriesHitTriggers = false;
         
-        var hit = Physics2D.Raycast(
+        var hit = Finding_objects.raycast(
             transform.position,
             vector_to_target,
             vector_to_target.magnitude
@@ -161,7 +183,10 @@ public class Explosion: MonoBehaviour {
         Gizmos.color = Color.green;
         Debug_drawer.draw_polygon_gizmos(shock_wave_polygon_debug);
         Gizmos.color = Color.yellow;
-        var max_radius_polygon_debug = Polygon_creator.get_circle_polygon(max_radius, 10).move(transform.position);
+        var max_radius_polygon_debug = 
+            Polygon_creator.get_circle_polygon(
+                max_radius*get_global_scale(),
+                10).move(transform.position);
             
         Debug_drawer.draw_polygon_gizmos(max_radius_polygon_debug);
     }

@@ -18,14 +18,19 @@ public abstract class Player_human :
 
     protected override void Start() {
         base.Start();
+        find_and_assign_team();
         consider_all_enemies();
         sensory_organ?.pay_attention_to_target(Player_input.instance.cursor.transform);
         Player_input.instance.add_input_receiver(this);
     }
 
+    private void find_and_assign_team() {
+        GameObject.FindWithTag("player team")?.GetComponent<Team>().add_unit(this);
+    }
+
     private void consider_all_enemies() {
         foreach(Team enemy_team in team.enemy_teams) {
-            foreach(var enemy_unit in enemy_team.units) {
+            foreach(var enemy_unit in enemy_team.get_units()) {
                 on_enemy_appeared(enemy_unit);
             }
         }
@@ -50,7 +55,7 @@ public abstract class Player_human :
 
     public Transform get_selected_target() { // out of the two targets of both hands
         Distance_to_component closest = Distance_to_component.empty();
-        foreach(Transform target in arm_pair.get_all_targets()) {
+        foreach(Transform target in Arm_pair_aiming.get_all_targets(arm_pair)) {
             float this_distance = target.sqr_distance_to(Player_input.instance.cursor.transform.position);
             if (this_distance < closest.distance) {
                 closest = new Distance_to_component(target, this_distance);
@@ -63,7 +68,7 @@ public abstract class Player_human :
     protected abstract bool maybe_switch_items();
 
     public Arm get_selected_arm() {
-        return arm_pair.get_arm_on_side(get_selected_side());
+        return Arm_pair_helpers.get_arm_on_side(arm_pair, get_selected_side());
     }
     
     public float last_rotation;

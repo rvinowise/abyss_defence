@@ -48,8 +48,8 @@ public class Reload_all: Action_sequential_parent {
     private Toolset reloaded_toolset;
 
     private void reload_all() {
-        first_side = get_side_with_less_ammo();
-        Arm gun_arm = arm_pair.get_arm_on_side(first_side);
+        first_side = get_side_with_less_ammo(left_tool, right_tool);
+        Arm gun_arm = Arm_pair_helpers.get_arm_on_side(arm_pair, first_side);
         Arm ammo_arm = arm_pair.other_arm(gun_arm);
         reloaded_toolset = baggage.tool_sets[intelligence.toolset_equipper.desired_toolset_index];
 
@@ -90,7 +90,7 @@ public class Reload_all: Action_sequential_parent {
     }
 
     private Action get_reloading_action_for(Side_type in_side) {
-        Arm gun_arm = arm_pair.get_arm_on_side(in_side);
+        Arm gun_arm = Arm_pair_helpers.get_arm_on_side(arm_pair, in_side);
         Arm ammo_arm = arm_pair.other_arm(gun_arm);
         Tool reloaded_tool = reloaded_toolset.get_tool_on_side(in_side);
         if (reloaded_tool.GetComponent<Gun>() is {} pistol) {
@@ -129,19 +129,22 @@ public class Reload_all: Action_sequential_parent {
         return null;
     }
     
-    private Side_type get_side_with_less_ammo() {
+    public static Side_type get_side_with_less_ammo(Tool left_tool, Tool right_tool) {
         if (left_tool == null && right_tool == null) {
             return Side_type.NONE;
         }
-        var left_gun = left_tool.GetComponent<Gun>();
-        var right_gun = left_tool.GetComponent<Gun>();
+        var left_gun = left_tool.GetComponent<Reloadable>();
+        var right_gun = right_tool.GetComponent<Reloadable>();
         
-        int left_lacking_ammo = (left_gun?.max_ammo_qty - left_gun?.ammo_qty) ?? 0;
-        int right_lacking_ammo = (right_gun?.max_ammo_qty - right_gun?.ammo_qty) ?? 0;
+        int left_lacking_ammo = left_gun?.get_lacking_ammo() ?? 0;
+        int right_lacking_ammo = right_gun?.get_lacking_ammo() ?? 0;
 
         int left_lacking_value = left_lacking_ammo;
         int right_lacking_value = right_lacking_ammo;
 
+        if (left_lacking_value == right_lacking_value) {
+            return Side_type.NONE;
+        }
         if (left_lacking_value > right_lacking_value) {
             return Side_type.LEFT;
         }

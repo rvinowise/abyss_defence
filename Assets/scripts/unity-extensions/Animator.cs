@@ -21,10 +21,16 @@ public static partial class Unity_extension
         return 0.0f;
     }
     
+    // public static AnimancerState play_from_scratch(
+    //     this AnimancerComponent animancer, 
+    //     AnimationClip clip
+    // ) {
+    //     animancer.play_from_scratch(clip, null);
+    // }
     public static AnimancerState play_from_scratch(
         this AnimancerComponent animancer, 
         AnimationClip clip,
-        System.Action on_end
+        System.Action on_end = null
     ) {
         animancer.Stop();
         

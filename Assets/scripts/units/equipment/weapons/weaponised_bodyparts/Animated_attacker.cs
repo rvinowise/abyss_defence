@@ -56,12 +56,20 @@ public class Animated_attacker :
     }
 
 
-    public static Damage_receiver get_damageable_enemy_from_transform(
+    public static Damage_receiver get_damagable_enemy_from_transform(
         Transform target,
         Team my_team
     ) {
-        if (target.GetComponent<Damage_receiver>() is { } damage_receiver) {
-            if (damage_receiver.intelligence.team.is_enemy_team(my_team)) {
+        if (
+            (target.GetComponent<Damage_receiver>() is { } damage_receiver)
+            &&
+            (damage_receiver.intelligence is {} intelligence)
+        ) {
+
+            // if (intelligence.team == null) {
+            //     Debug.LogError($"the team of intelligence {intelligence.name} is null");
+            // }
+            if (intelligence.team?.is_enemy_team(my_team) == true) {
                 return damage_receiver;
             }
         }
@@ -123,7 +131,7 @@ public class Animated_attacker :
     
 
     public override void on_lacking_action() {
-        Idle.create(actor).start_as_root(actor.action_runner);
+        Idle.create(this).start_as_root(actor.action_runner);
     }
 
     #endregion

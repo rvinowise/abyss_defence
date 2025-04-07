@@ -7,6 +7,8 @@ TagManager:
   - Input
   - player root
   - player body
+  - player
+  - player team
   layers:
   - Default
   - TransparentFX
@@ -18,9 +20,9 @@ TagManager:
   - projectiles
   - litter
   - flying
-  - 
-  - 
-  - 
+  - low obstacles
+  - overhanging
+  - tall
   - 
   - 
   - 

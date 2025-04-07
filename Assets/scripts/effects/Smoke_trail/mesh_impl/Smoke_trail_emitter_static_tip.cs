@@ -371,9 +371,9 @@ MonoBehaviour
     private void disappear() {
         CancelInvoke();
         segments.Clear();
-        on_disappeared?.Invoke();
         mesh_object.SetActive(false);
         this.enabled = false;
+        on_disappeared?.Invoke();
     }
 
     public bool is_active() {

@@ -18,7 +18,7 @@ public class Hitting_limbs_group:
     ,IAttacker
 {
     public List<Hitting_limb> hitting_limbs;
-
+    public Transform damage_point;
 
     private System.Action<actions.Action> intelligence_on_complete;
     
@@ -76,7 +76,15 @@ public class Hitting_limbs_group:
     }
 
     public override void add_child(IChild_of_group in_child) {
-        hitting_limbs.Add(in_child as Hitting_limb);
+        var hitting_limb = in_child as Hitting_limb;
+        if (hitting_limb == null) {
+            Debug.LogError($"hitting limb group is given a child which is not a hitting limb");
+            return;
+        }
+        hitting_limb.creeping_leg_group = GetComponent<Creeping_leg_group>();
+        hitting_limb.actor.action_runner = GetComponentInParent<Action_runner>();
+        hitting_limbs.Add(hitting_limb);
+        actor.action_runner.add_actor(hitting_limb.actor);
     }
     
     public override void hide_children_from_copying() {

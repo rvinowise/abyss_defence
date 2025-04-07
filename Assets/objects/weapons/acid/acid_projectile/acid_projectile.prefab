@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 6289766262684069682}
   - component: {fileID: 8558679744308879057}
   - component: {fileID: 3870916771216801796}
+  - component: {fileID: 6535414062717276595}
+  - component: {fileID: 5327523211071285019}
+  - component: {fileID: 4296863386876271008}
   m_Layer: 0
   m_Name: acid_projectile
   m_TagString: Untagged
@@ -28,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8558679744308879070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.14, y: -7.33, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -137,6 +140,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  number: 0
 --- !u!114 &3870916771216801796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,4 +156,51 @@ MonoBehaviour:
   rigidbody: {fileID: 6289766262684069682}
   trajectory_flyer: {fileID: 8558679744308879057}
   puddle_prefab: {fileID: 5176021766682481944, guid: e10a8599602f55747b28a348ab542f34,
+    type: 3}
+--- !u!58 &6535414062717276595
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8558679744308879070}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.02, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.14894068
+--- !u!114 &5327523211071285019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8558679744308879070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 761b722c3bcd4130a185751e65bf3e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage_dealer: {fileID: 4296863386876271008}
+  rigid_body: {fileID: 6289766262684069682}
+  collider2d: {fileID: 6535414062717276595}
+  explosive_bodies: []
+--- !u!114 &4296863386876271008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8558679744308879070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfda79fa5ea447c79379deaa715b15f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect_amount: 1
+  hit_impact_prefab: {fileID: 5684469972999433852, guid: ade6afba1ecca634a86fb9eed8510493,
     type: 3}

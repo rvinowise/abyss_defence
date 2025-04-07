@@ -47,6 +47,10 @@ public class Tool: MonoBehaviour {
         transform.set_z(Map.instance.ground_z);
     }
 
+    public bool is_held_by_hand() {
+        return main_holding.holding_hand != null;
+    }
+
     public void deactivate() {
         gameObject.SetActive(false);
     }

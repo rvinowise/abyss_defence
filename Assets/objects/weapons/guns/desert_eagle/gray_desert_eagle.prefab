@@ -84,16 +84,13 @@ MonoBehaviour:
   fire_rate_delay: 0.3
   bullet_shell_prefab: {fileID: 3724668389505664677, guid: a0651299a17882944898fedc396ac4b9,
     type: 3}
-  ammo_prefab: {fileID: 1034737149163476093, guid: 2c9e402c9f578e642b9950a5fd72f3d9,
-    type: 3}
-  ammo_compatibility: 0
-  ammo_qty: 9
-  max_ammo_qty: 9
   is_full_auto_fire: 0
   animator: {fileID: 186608791509809628}
   tool: {fileID: 641063256355128159}
-  recoil_force: 150
   projectile_launcher: {fileID: 0}
+  reloadable: {fileID: 0}
+  recoil_force: 150
+  vertical_pointing: 0
 --- !u!114 &641063256355128159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,9 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dfbfd0aa02e4a6e9e542c607ed72bcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile_prefab: {fileID: 5487310770376727640, guid: 7fc502688ebc5874eae4f4ed36822dec,
+  projectile_prefab: {fileID: 5487310770376727640, guid: 242c55d678f5287429a99f19ecba9b55,
     type: 3}
-  projectile_force: 1000
+  projectile_force: 16
   muzzle: {fileID: 7453153212259675707}
   spark_prefab: {fileID: 7198755227066756123, guid: 8f766c7240d912a42b811144d99ae39e,
     type: 3}
@@ -143,7 +140,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.658
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -243,6 +240,10 @@ MonoBehaviour:
     type: 3}
   insert_magazine_sound: {fileID: 8300000, guid: 787aa77bdaa810a43a092cfa8c1e7b36,
     type: 3}
+  ammo_qty: 9
+  max_ammo_qty: 9
+  ammo_prefab: {fileID: 0}
+  ammo_compatibility: 0
 --- !u!1 &1235589255994094464
 GameObject:
   m_ObjectHideFlags: 0

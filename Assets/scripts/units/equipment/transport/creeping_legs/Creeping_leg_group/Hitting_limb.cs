@@ -26,11 +26,17 @@ public class Hitting_limb:
     public float segment2_hitting_degree;
     
     public Transform damage_point;
-    
+    public Animated_attacker_attacked_area attacked_area;
 
     private System.Action<actions.Action> intelligence_on_shielded;
-    
-    
+
+
+    private void Awake() {
+        if (!attacked_area) {
+            attacked_area = GetComponent<Animated_attacker_attacked_area>();
+        }
+    }
+
     #region IWeaponry
 
     public float damaging_radius = 0.5f;
@@ -46,7 +52,8 @@ public class Hitting_limb:
     }
 
     public IEnumerable<Damage_receiver> get_targets() {
-        return Enumerable.Empty<Damage_receiver>();
+        //return Enumerable.Empty<Damage_receiver>();\
+        return attacked_area.reacheble_damageable_enemies;
     }
 
     public float get_reaching_distance() {

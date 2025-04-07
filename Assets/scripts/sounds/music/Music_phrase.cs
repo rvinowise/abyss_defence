@@ -1,4 +1,5 @@
 namespace rvinowise.unity.music {
+
     [System.Serializable]
     public class Music_phrase: Sound {
 

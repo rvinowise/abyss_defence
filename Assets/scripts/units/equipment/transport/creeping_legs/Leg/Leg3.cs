@@ -6,7 +6,7 @@ using rvinowise.contracts;
 namespace rvinowise.unity {
 
 [Serializable]
-public partial class Leg3: 
+public class Leg3: 
     ALeg
 {
 
@@ -22,7 +22,7 @@ public partial class Leg3:
     
     #region Leg
 
-    public override void Awake() {
+    protected override void Awake() {
         base.Awake();
         check_components();
     }

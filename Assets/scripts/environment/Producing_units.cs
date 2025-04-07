@@ -24,10 +24,29 @@ public class Producing_units : MonoBehaviour
 
     void Update()
     {
-        if (Time.time - last_producing_time >= producing_time) {
+        if (can_produce_unit()) {
             produce_unit();
             last_producing_time = Time.time;
         }
+    }
+    
+    static bool has_notified_that_complexity_exceeded = false;
+
+    private bool can_produce_unit() {
+        if (!Map.instance.is_complexity_exceeded()) {
+            if (Time.time - last_producing_time >= producing_time) {
+                return true;
+            }
+            has_notified_that_complexity_exceeded = false;
+        }
+        else {
+            if (!has_notified_that_complexity_exceeded) {
+                Debug.Log(
+                    $"LIMITING_UNITS: maximum complexity of map ({Map.max_complexity}) is exceeded, it's {Map.instance.current_complexity} now");
+                has_notified_that_complexity_exceeded = true;
+            }
+        }
+        return false;
     }
 
     private void produce_unit() {

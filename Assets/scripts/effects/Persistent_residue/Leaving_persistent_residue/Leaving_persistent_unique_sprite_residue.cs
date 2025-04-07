@@ -45,6 +45,10 @@ MonoBehaviour
             child.leave_persistent_residue();
         }
     }
+    
+    public void destroy_object() {
+        ((Component)this).destroy_object();
+    }
 
     public void leave_persistent_image( ) {
         SpriteRenderer residue = residue_prefab.instantiate<SpriteRenderer>();
@@ -60,8 +64,10 @@ MonoBehaviour
 
         
     }
+    
+    
 
-    public void on_start_dying() {
+    public void die() {
         leave_persistent_residue();
     }
 }

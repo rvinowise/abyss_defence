@@ -26,14 +26,25 @@ public class Arm:
 
     public Damage_receiver damageble;
 
-    public Gun get_held_gun() {
+    public IGun get_held_gun() {
         if (
             !(held_tool is null)
             &&
-            (held_tool.GetComponent<Gun>() is {} gun)
+            (held_tool.GetComponent<IGun>() is {} gun)
         )
         {
             return gun;
+        }
+        return null;
+    }
+    public Reloadable get_held_reloadable() {
+        if (
+            !(held_tool is null)
+            &&
+            (held_tool.GetComponent<Reloadable>() is {} reloadable)
+        )
+        {
+            return reloadable;
         }
         return null;
     }
@@ -145,7 +156,7 @@ public class Arm:
             pair.transporter
         ).start_as_root(actor.action_runner);
     }
-    public void aim_at(Transform in_target) {
+    public void start_aiming_at_target(Transform in_target) {
         Debug.Log($"AIMING: ({name})Arm.aim_at({in_target.name})");
         target = in_target;
         Aim_at_target.create(
@@ -238,7 +249,7 @@ public class Arm:
     public bool aiming_automatically() {
         return 
         (get_held_gun() is {} gun)&&
-        (gun.aiming_automatically);
+        (gun.is_aiming_automatically());
     }
 
     public void draw_desired_directions(float time=0.1f) {
@@ -293,16 +304,16 @@ public class Arm:
         ).start_as_root(actor.action_runner);
     }
 
-    public static bool is_ready_to_attack_target(Arm arm, Transform in_target, ref Gun gun) {
+    public static bool is_ready_to_attack_target(Arm arm, Transform in_target, ref IGun gun) {
         if (arm == null) {
             Debug.Log("ATTACK: arm is null");
         }
-        gun = arm.get_held_gun() as Gun;
+        gun = arm.get_held_gun();
         var ready =
             arm &&
-            gun &&
+            (gun!=null) &&
             gun.can_fire() &&
-            gun.is_aimed_at_collider(in_target);
+            gun.is_ready_for_target(in_target);
 
         return ready;
     }

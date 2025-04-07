@@ -66,6 +66,10 @@ MonoBehaviour
             persistent_child.leave_persistent_residue();
         }
     }
+    
+    public void destroy_object() {
+        ((Component)this).destroy_object();
+    }
 
     public void freeze_for_leaving_persistent_image() {
         deactivate_all_behaviors();
@@ -78,7 +82,7 @@ MonoBehaviour
         }
     }
     
-    public void on_start_dying() {
+    public void die() {
         leave_persistent_residue();
     }
 }

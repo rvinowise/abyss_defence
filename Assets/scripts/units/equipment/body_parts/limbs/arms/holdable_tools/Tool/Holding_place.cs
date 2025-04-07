@@ -9,7 +9,7 @@ namespace rvinowise.unity {
 
 public class Holding_place: MonoBehaviour
 {
-    public bool is_main;
+    public bool is_main = true;
     public Tool tool;
     public Hand_gesture grip_gesture = Hand_gesture.Relaxed;
     

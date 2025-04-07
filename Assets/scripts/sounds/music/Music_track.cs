@@ -7,7 +7,6 @@ namespace rvinowise.unity.music {
     eg: "moving_forward", "seeing_enemies" */
     [Serializable]
     public class Music_track {
-        public string name;
         public Music_phrase[] phrases; 
 
         public int i_current_phrase;
@@ -20,6 +19,10 @@ namespace rvinowise.unity.music {
             if (++i_current_phrase == phrases.Length){
                 i_current_phrase = 0;
             }
+            return phrases[i_current_phrase];
+        }
+
+        public Music_phrase get_current_phrase() {
             return phrases[i_current_phrase];
         }
     }

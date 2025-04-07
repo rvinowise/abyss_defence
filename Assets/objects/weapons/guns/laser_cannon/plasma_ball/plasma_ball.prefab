@@ -98,6 +98,8 @@ GameObject:
   - component: {fileID: 3319183180109347547}
   - component: {fileID: -7962127730834510175}
   - component: {fileID: 8622477484328088878}
+  - component: {fileID: 3367041925795731413}
+  - component: {fileID: 1176583113894798268}
   m_Layer: 7
   m_Name: plasma_ball
   m_TagString: Untagged
@@ -262,7 +264,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 20
-  m_LinearDrag: 0
+  m_LinearDrag: 0.2
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -332,6 +334,32 @@ MonoBehaviour:
   explosion_prefab: {fileID: 6884037029220798251, guid: d6862a5a5c8487640bcb3fd39102d3d7,
     type: 3}
   is_explosion_instantiated: 0
+--- !u!114 &3367041925795731413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597424940680807123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e982b4329040fba774e0d8b39eb1cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigid_body: {fileID: -4382886989837692693}
+  minimum_velocity: 0.5
+--- !u!114 &1176583113894798268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597424940680807123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 600fe5cde1854d28b0b315a3a52f3330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5597424941546550284
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,8 +20,7 @@ public class Scorpion_pedipalps_group :
     public List<Scorpion_pedipalp> pedipalps = new List<Scorpion_pedipalp>();
 
 
-    internal override void Awake() {
-        base.Awake();
+    protected virtual void Awake() {
         actor = GetComponent<Actor>();
     }
 
@@ -89,7 +88,7 @@ public class Scorpion_pedipalps_group :
     public Actor actor { get; set; }
 
     public void on_lacking_action() {
-        Idle.create(actor).start_as_root(actor.action_runner);
+        Idle.create(this).start_as_root(actor.action_runner);
     }
 
     #endregion IActor

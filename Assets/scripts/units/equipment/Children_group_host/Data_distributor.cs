@@ -10,12 +10,12 @@ public static class Data_distributor {
         IChildren_groups_host base_user,
         IEnumerable<IChildren_groups_host> other_users) 
     {
-        IList<IList<Abstract_children_group>> controllers_of_type = new List<IList<Abstract_children_group>>();
+        IList<IList<IChildren_group>> controllers_of_type = new List<IList<IChildren_group>>();
         for(int i_base_controller = 0; 
             i_base_controller < base_user.children_groups.Count; 
             i_base_controller++) 
         {
-            controllers_of_type.Add(new List<Abstract_children_group>());
+            controllers_of_type.Add(new List<IChildren_group>());
 
             foreach (var other_user in other_users) {
                 Contract.Requires(

@@ -22,7 +22,7 @@ IPersistent_residue_holder {
     public Camera residue_camera;
 
     /* adding each piece to the mesh is slow, we need to add many pieces at once, after they accumulate as simple game objects */
-    public List<Leaving_persistent_residue_on_texture> batched_residues = new List<Leaving_persistent_residue_on_texture>();
+    public List<ILeaving_persistent_residue_on_texture> batched_residues = new List<ILeaving_persistent_residue_on_texture>();
     
     public int rows_amount = 5;
     public int columns_amount = 5;
@@ -77,46 +77,17 @@ IPersistent_residue_holder {
         //clear_textures();
     }
 
-    public bool is_residue_on_texture_holder(
-        Persistent_residue_texture_holder texture_holder,
-        Leaving_persistent_residue_on_texture residue
-    ) {
-        Vector2 distance = residue.transform.position - texture_holder.transform.position;
-        Vector2 residue_extents = residue.sprite_renderer.bounds.extents;
-         if (
-             (Math.Abs(distance.x) < texture_holder.transform.localScale.x/2+residue_extents.x)
-             &&
-             (Math.Abs(distance.y) < texture_holder.transform.localScale.y/2+residue_extents.y)
-         ) {
-             return true;
-         }
-        // if (
-        //     (Math.Abs(distance.x) < texture_holder.transform.localScale.x/2)
-        //     &&
-        //     (Math.Abs(distance.y) < texture_holder.transform.localScale.y/2)
-        // ){
-        //     return true;
-        // }
-        // Vector2 residue_extents = residue.sprite_renderer.bounds.extents;
-        // if (
-        //     (Math.Abs(distance.x)+2 < texture_holder.transform.localScale.x/2)
-        //     &&
-        //     (Math.Abs(distance.y)+2 < texture_holder.transform.localScale.y/2)
-        // ) {
-        //     return true;
-        // }
-        return false;
-    }
+    
     
     private readonly List<Persistent_residue_texture_holder> texture_holders_with_residue = new List<Persistent_residue_texture_holder>();
     
     public List<Persistent_residue_texture_holder> get_texture_holders_with_residue(
-        Leaving_persistent_residue_on_texture residue
+        ILeaving_persistent_residue_on_texture residue
     ) {
         texture_holders_with_residue.Clear();
         foreach (var row in textures_matrix) {
             foreach (var texture_holder in row) {
-                if (is_residue_on_texture_holder(texture_holder, residue)) {
+                if (residue.is_residue_on_texture_holder(texture_holder)) {
                     texture_holders_with_residue.Add(texture_holder);
                 }
             }
@@ -128,7 +99,7 @@ IPersistent_residue_holder {
         = new HashSet<Persistent_residue_texture_holder>();
     
     public void add_piece(
-        Leaving_persistent_residue_on_texture in_residue
+        ILeaving_persistent_residue_on_texture in_residue
     ) {
         batched_residues.Add(in_residue);
         

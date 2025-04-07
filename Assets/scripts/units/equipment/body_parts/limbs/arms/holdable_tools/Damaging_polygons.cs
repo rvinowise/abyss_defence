@@ -17,12 +17,16 @@ public static class Damaging_polygons {
         return wedge_of_split; 
     }
     
+    public static Polygon get_damaging_circle(Ray2D ray) {
+        return circle.get_moved(ray.origin); 
+    }
     
-    private static Polygon circle;
+    
+    public static Polygon circle;
 
     private static void create_circle_polygon() {
-        int points_n = 5;
-        float radius = 0.1f;
+        int points_n = 10;
+        float radius = 0.2f;
         float angle_step = 360f / points_n;
         circle = new Polygon(points_n);
         for (int i=0;i<points_n;i++) {
@@ -32,7 +36,11 @@ public static class Damaging_polygons {
                 radius
             );
         }
-    }    
+    }
+
+    static Damaging_polygons() {
+        create_circle_polygon();
+    }
 
 }
 

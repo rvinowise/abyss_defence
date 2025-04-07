@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.extensions.pooling;
@@ -48,6 +48,7 @@ Turning_element
         foreach (var ammo_amount in ammo) {
             tool_to_ammo.Add(ammo_amount.ammo,ammo_amount.amount);
         }
+        tool_sets = GetComponentsInChildren<Toolset>().ToList();
     }
 
     public int ensure_borders(int index) {
@@ -102,12 +103,14 @@ Turning_element
 
 
     public Ammunition get_ammo_object_for_gun(Gun in_gun) {
-        Ammunition ammo_prefab = in_gun.ammo_prefab;
-        Ammunition ammo = ammo_prefab.instantiate<Ammunition>();
-        ammo.rounds_qty = fetch_ammo_qty(in_gun.ammo_compatibility, ammo_prefab.max_rounds_qty);
-        Contract.Ensures(ammo.rounds_qty > 0);
-        
-        return ammo;
+        // Ammunition ammo_prefab = in_gun.ammo_prefab;
+        // Ammunition ammo = ammo_prefab.instantiate<Ammunition>();
+        // ammo.rounds_qty = fetch_ammo_qty(in_gun.ammo_compatibility, ammo_prefab.max_rounds_qty);
+        // Contract.Ensures(ammo.rounds_qty > 0);
+        //
+        // return ammo;
+
+        return null;
     }
 
 

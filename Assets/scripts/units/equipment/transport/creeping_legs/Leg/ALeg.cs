@@ -57,7 +57,8 @@ public abstract class ALeg :
     }
 
 
-    public virtual void Awake() {
+    protected override void Awake() {
+        base.Awake();
         Init_segmented_limbs.init_segmented_limbs(this.gameObject);
     }
 

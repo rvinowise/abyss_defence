@@ -18,8 +18,7 @@ public class Attacking_group:
     }
 
 
-    internal override void Awake() {
-        base.Awake();
+    protected void Awake() {
         foreach (var weapon_object in weapon_objects) {
             weapons.Add(weapon_object.GetComponent<Attacker_child_of_group>());
         }

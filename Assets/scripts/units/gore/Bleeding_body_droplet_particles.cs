@@ -82,5 +82,9 @@ public class Bleeding_body_droplet_particles:
             
         }
     }
+    
+    public void receive_damage(Vector2 contact_point, Vector2 impact_impulse, Vector2 impact_normal, float strenght) {
+        throw new NotImplementedException();
+    }
 }
 }

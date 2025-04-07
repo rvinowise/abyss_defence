@@ -1,4 +1,4 @@
-// #define RVI_DEBUG
+#define RVI_DEBUG
 
 using System;
 using System.Collections.Generic;
@@ -25,6 +25,7 @@ public enum Intelligence_action: int {
     Walking,
     Nothing
 }
+[RequireComponent(typeof(Seeker))]
 public class Computer_intelligence:Intelligence {
 
     public Seeker path_seeker;
@@ -44,7 +45,7 @@ public class Computer_intelligence:Intelligence {
         base.Awake();
         set_team(team);
         path_seeker = GetComponent<Seeker>();
-        Contract.Requires(path_seeker!=null, "a computer intelligence must have a path seeker");
+        //Contract.Requires(path_seeker!=null, "a computer intelligence must have a path seeker");
         
 #if RVI_DEBUG
     int number = counter++;
@@ -83,7 +84,7 @@ public class Computer_intelligence:Intelligence {
             move_towards_target(target.transform);
         }
         else {
-            Idle.create(transporter.actor).start_as_root(action_runner);
+            //Idle.create(transporter.actor).start_as_root(action_runner);
         }
     }
 
@@ -145,9 +146,10 @@ public class Computer_intelligence:Intelligence {
             sensory_organ.pay_attention_to_target(target.transform);
             
             if (intelligence_action == Intelligence_action.Walking) {
-                var reachable_targets = attacker.get_targets().ToList();
-                if (reachable_targets.Any()) {
-                    target = get_best_target(reachable_targets);
+                // var reachable_targets = attacker.get_targets().ToList();
+                // if (reachable_targets.Any()) {
+                //     target = get_best_target(reachable_targets);
+                if (attacker.is_weapon_ready_for_target(target.transform)) {
                     
 #if RVI_DEBUG
                     Debug.Log($"COMPUTER {name} #{number} Computer_intelligence::FixedUpdate: weaponry.attack({target.name})");
@@ -230,7 +232,7 @@ public class Computer_intelligence:Intelligence {
         var closest_distance = float.PositiveInfinity;
         Intelligence closest_enemy = null;
         foreach (var enemy_team in team.enemy_teams) {
-            foreach (var enemy in enemy_team.units) {
+            foreach (var enemy in enemy_team.get_units()) {
                 if (enemy == null) {
                     Debug.LogError($"enemy of {name} from team {enemy_team.name} is null");
                 }
@@ -246,19 +248,7 @@ public class Computer_intelligence:Intelligence {
         return closest_enemy;
     }
 
-    public static TComponent find_closest_component<TComponent>(Vector2 position, IEnumerable<TComponent> components) 
-    where TComponent: Component {
-        float closest_distance = float.PositiveInfinity;
-        TComponent closest_component = null;
-        foreach (var component in components) {
-            var this_distance = (position - (Vector2)component.transform.position).sqrMagnitude;
-            if (this_distance < closest_distance) {
-                closest_distance = this_distance;
-                closest_component = component;
-            }
-        }
-        return closest_component;
-    }
+    
 
     private Damage_receiver find_closest_damageable_of_unit(Intelligence unit) {
         if (unit == null)
@@ -266,14 +256,14 @@ public class Computer_intelligence:Intelligence {
             return null;
         }
         var damageables = unit.GetComponentsInChildren<Damage_receiver>();
-        return find_closest_component(transform.position, damageables);
+        return Finding_objects.find_closest_component(transform.position, damageables);
 
     }
     
     private Intelligence find_closest_friend() {
         var closest_distance = float.PositiveInfinity;
         Intelligence closest_unit = null;
-        foreach (var unit in team.units) {
+        foreach (var unit in team.get_units()) {
             if (unit==this)
                 continue;
             var this_distance = transform.sqr_distance_to(unit.transform.position);
@@ -293,7 +283,7 @@ public class Computer_intelligence:Intelligence {
     private void on_target_disappeared(Damage_receiver disappearing_target) {
         if (this == null) return;
 #if RVI_DEBUG
-        Debug.Log($"COMPUTER {name} #{number} Computer_intelligence::on_target_disappeared({disappearing_unit})");
+        Debug.Log($"COMPUTER {name} #{number} Computer_intelligence::on_target_disappeared({disappearing_target})");
 #endif
         move_towards_best_target();
     }

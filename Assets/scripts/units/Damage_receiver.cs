@@ -14,7 +14,7 @@ public class Damage_receiver: MonoBehaviour {
     public float max_damage = 2f;
     public float received_damage;
 
-    public IDestructible destructible;
+    public List<IDestructible> destructibles = new List<IDestructible>();
     public IBleeding_body bleeding_body;
     
     public TMP_Text text_label;
@@ -29,18 +29,20 @@ public class Damage_receiver: MonoBehaviour {
     void Awake() {
         intelligence = GetComponentInParent<Intelligence>();
 
-        if (destructible == null) {
-            destructible = GetComponent<IDestructible>();
+        if (!destructibles.Any()) {
+            destructibles = GetComponents<IDestructible>().ToList();
         }
         
     }
 
-    private void start_dying() {
-        if (destructible != null) {
-            destructible.on_start_dying();
-            intelligence.notify_about_destruction();
+    public void start_dying() {
+        if (destructibles.Any()) {
+            destructibles.ForEach(destructible => destructible.die());
+            if (intelligence) {
+                intelligence.notify_about_destruction();
+                Destroy(intelligence);
+            }
             on_destroyed?.Invoke(this);
-            Destroy(intelligence);
         }
         Debug.Log($"({name})Damage_receiver.start_dying, received_damage={received_damage}");
     }
@@ -55,6 +57,7 @@ public class Damage_receiver: MonoBehaviour {
                 if (!damaging_projectile.GetComponent<Collider2D>().isActiveAndEnabled) {
                     //at high speeds, projectile mistakenly bounses off the target, even though it should stop at the target.
                     //switching its collider off at the first collision signifies that it shouldn't bounce and collide anymore
+                    //Debug.Break();
                     return; 
                 }
                 //damaging_projectile.stop_at_position(collision.GetContact(0).point);

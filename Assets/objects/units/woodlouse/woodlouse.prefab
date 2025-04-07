@@ -616,6 +616,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3597712757773332244}
   - component: {fileID: 3597712757773332245}
+  - component: {fileID: 8141956538670619732}
   m_Layer: 0
   m_Name: femur
   m_TagString: Untagged
@@ -667,6 +668,19 @@ MonoBehaviour:
   sprite_renderer: {fileID: 3597712759169440255}
   length: 0.30349997
   parent_segment: {fileID: 0}
+--- !u!114 &8141956538670619732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3597712757773332247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec115ea10e24906b8785120a4465f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite_renderer: {fileID: 0}
 --- !u!1 &3597712757887696519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,8 +1839,9 @@ GameObject:
   - component: {fileID: 357802158684274052}
   - component: {fileID: 8613731151661802517}
   - component: {fileID: 8620079115152015517}
-  - component: {fileID: 4008714454561353857}
   - component: {fileID: 3513005674329544273}
+  - component: {fileID: 1757185937504833197}
+  - component: {fileID: 815427140606949006}
   m_Layer: 6
   m_Name: woodlouse
   m_TagString: Untagged
@@ -1995,6 +2010,8 @@ MonoBehaviour:
   team: {fileID: 0}
   is_ignored: 0
   action_runner: {fileID: 3513005674329544273}
+  performance_cost: 1
+  ownership_cost: 10
   path_seeker: {fileID: 0}
   intelligence_action: 0
 --- !u!114 &357802158684274052
@@ -2057,21 +2074,6 @@ MonoBehaviour:
     type: 3}
   frontal_splash_prefab: {fileID: 375282640950205156, guid: f08ffdfc104c1d944b7dcc2755aaed83,
     type: 3}
---- !u!114 &4008714454561353857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5098215853012676395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4afe687255b4189b893241e2b6856dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  will_be_settled_when_stops: 0
-  is_decaying: 0
-  sprite_renderer: {fileID: 0}
 --- !u!114 &3513005674329544273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2082,6 +2084,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0668f9c4a2ff4107b6ea901f90aeff2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1757185937504833197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5098215853012676395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac70c08d5a7484da4ec511a315bdd59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carried_items: []
+--- !u!114 &815427140606949006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5098215853012676395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1706fba485bb42dfb09ddfa283a65ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5067079294652040711

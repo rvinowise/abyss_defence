@@ -10,9 +10,9 @@ using rvinowise.unity.extensions.pooling;
 
 namespace rvinowise.unity {
 
-[RequireComponent(typeof(PolygonCollider2D))]
-[RequireComponent(typeof(SpriteRenderer))]
-public class Divisible_body : MonoBehaviour
+//[RequireComponent(typeof(PolygonCollider2D))]
+//[RequireComponent(typeof(SpriteRenderer))]
+public partial class Divisible_body : MonoBehaviour
 ,IChildren_groups_host
 {
     public Sprite inside;
@@ -20,7 +20,9 @@ public class Divisible_body : MonoBehaviour
 
     /* IChildren_groups_host */
     
-    public IList<Abstract_children_group> children_groups { get; private set; }
+    //public IList<Abstract_children_group> children_groups { get; private set; }
+    public List<IChildren_group> children_groups { get; private set; }
+    public IList<IChild_of_group> children { get; private set; }
 
     public delegate void EventHandler();
     public event EventHandler on_polygon_changed;
@@ -28,29 +30,11 @@ public class Divisible_body : MonoBehaviour
     public void Awake() {
         outside = gameObject.GetComponent<SpriteRenderer>().sprite;
 
-        children_groups = new List<Abstract_children_group>(GetComponentsInChildren<Abstract_children_group>());
+        children_groups = new List<IChildren_group>(GetComponentsInChildren<IChildren_group>());
+        children = new List<IChild_of_group>(GetComponentsInChildren<IChild_of_group>());
     }
 
-    private void simplify_pieces_without_children(List<Divisible_body> pieces) {
-        foreach (var piece in pieces) {
-            bool piece_has_children = false;
-            foreach (var children_group in piece.children_groups) {
-                if (children_group.get_children().Any()) {
-                    piece_has_children = true;
-                    break;
-                }
-            }
-            var intelligence = piece.gameObject.GetComponent<Intelligence>();
-            if ((!piece_has_children) && (intelligence != null)) {
-                Destroy(piece.gameObject.GetComponent<Targetable>());
-                Destroy(intelligence);
-                foreach (var children_group in piece.gameObject.GetComponents<Abstract_children_group>()) {
-                    Destroy(children_group);
-                }
-                piece.children_groups.Clear();
-            }
-        }
-    }
+    
     
     public List<Divisible_body> split_for_collider_pieces(
         List<Polygon> collider_pieces
@@ -63,7 +47,6 @@ public class Divisible_body : MonoBehaviour
         Children_splitter.split_children_groups(this, piece_objects);
         
         adjust_center_of_pieces(piece_objects, collider_pieces);
-        simplify_pieces_without_children(piece_objects);
 
         //preserve_impulse_in_pieces(piece_objects);
         
@@ -116,7 +99,7 @@ public class Divisible_body : MonoBehaviour
             Vector2 polygon_shift = -collider_polygon.middle;
             collider_polygon.move(polygon_shift); 
             
-            foreach (Abstract_children_group children_group in children_group_host.children_groups) {
+            foreach (IChildren_group children_group in children_group_host.children_groups) {
                 children_group.shift_center(polygon_shift);
             }
 
@@ -127,7 +110,7 @@ public class Divisible_body : MonoBehaviour
     
     /* to avoid duplication of the Children when duplicating the Body */
     private void detach_children() {
-         foreach (Abstract_children_group children_group in children_groups) {
+         foreach (IChildren_group children_group in children_groups) {
              children_group.hide_children_from_copying();
          }
     }
@@ -216,7 +199,7 @@ public class Divisible_body : MonoBehaviour
         damage_by_impact(
             removed_polygon,
             contact_point,
-            projectile.last_physics.velocity*projectile.rigid_body.mass * 10f
+            projectile.last_physics.velocity*projectile.rigid_body.mass * 40f
         );
 
     }
@@ -321,7 +304,7 @@ public class Divisible_body : MonoBehaviour
             float force_degrees = force_vector.to_dergees();
             var rotation_to_piece = new Degree(force_degrees).angle_to(degrees_to_piece);
             //var result = rotation_to_piece.degrees * (_force_vector.magnitude / 10 / (_piece.mass*100));
-            var result = Math.Sign(rotation_to_piece.degrees)*5;
+            var result = Math.Sign(rotation_to_piece.degrees)*force_vector.magnitude/400;
             return result;
         }
     }

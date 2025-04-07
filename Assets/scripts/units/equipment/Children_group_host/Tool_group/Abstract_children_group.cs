@@ -31,41 +31,16 @@ public abstract class Abstract_children_group:
         children_stashed_from_copying = get_children().Where(child => child != null).ToList();
         
     }
-    
-
 
     public bool has_child(IChild_of_group in_compound_object) {
         return get_children().Any(tool => tool == in_compound_object);
     }
-      
-    
-    internal virtual void Awake() {
-        debug = new Debug(this);
-        debug.increase_counter();
-    }
-
-    protected virtual void Start() {
-        
-    }
-
-    
-    
-
-    ~Abstract_children_group() {
-        debug.decrease_counter();
-    }
-
 
 
     public abstract void add_child(IChild_of_group in_child);
 
-
-    //public virtual void init() { }
-
-
-
     public virtual void distribute_data_across(
-        IEnumerable<Abstract_children_group> new_controllers
+        IEnumerable<IChildren_group> new_controllers
     ) {}
 
     public virtual void shift_center(Vector2 in_shift) {
@@ -75,18 +50,6 @@ public abstract class Abstract_children_group:
     }
 
 
-    private class Debug: Debugger {
-        protected override ref int count {
-            get { return ref _count; }
-        }
-        static protected int _count = 0;
-
-        public Debug(Abstract_children_group in_controller):base() {
-        }
-    }
-
-
-    private Debug debug;
 
     
 

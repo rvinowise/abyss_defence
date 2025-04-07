@@ -21,43 +21,25 @@ public partial class Creeping_leg_group:
     public override IEnumerable<IChild_of_group> get_children() {
         return legs;
     }
-
-    internal override void Awake() {
-        base.Awake();
-        
-        if (moved_body != null) {
-            set_moved_body(moved_body);
-        }
-        actor = GetComponent<Actor>();
-    }
-
-    protected override void Start() {
-        base.Start();
-        
-        guess_moving_strategy();
-
-        
-    }
-
-    private ALeg find_dominant_leg(Transform body, IEnumerable<ALeg> legs) {
-        ALeg front_leg = null;
-        Vector3 front_position = new Vector3(float.MinValue,0,0);
-        foreach(var leg in legs) {
-            var leg_position = body.InverseTransformPoint(leg.transform.position);
-            if (leg_position.x > front_position.x) {
-                front_position = leg_position;
-                front_leg = leg;
-            }
-        }
-        return front_leg;
-    }
     
 
     public override void add_child(IChild_of_group compound_object) {
         Contract.Requires(compound_object is ALeg);
         ALeg leg = compound_object as ALeg;
-        legs.Add(leg);
-        leg.transform.SetParent(transform, false);
+        if (leg) {
+            legs.Add(leg);
+            leg.transform.SetParent(transform, false);
+            leg.actor.action_runner = GetComponentInParent<Action_runner>();
+        }
+    }
+    
+    public void add_child_on_other_transform(IChild_of_group compound_object) {
+        Contract.Requires(compound_object is ALeg);
+        ALeg leg = compound_object as ALeg;
+        if (leg) {
+            legs.Add(leg);
+            leg.actor.action_runner = GetComponentInParent<Action_runner>();
+        }
     }
 
 
@@ -153,6 +135,31 @@ public partial class Creeping_leg_group:
     public List<ALeg> legs;
     
     
+    protected virtual void Awake() {
+        
+        if (moved_body != null) {
+            set_moved_body(moved_body);
+        }
+        actor = GetComponent<Actor>();
+    }
+
+    protected void Start() {
+        guess_moving_strategy();
+    }
+
+    private ALeg find_dominant_leg(Transform body, IEnumerable<ALeg> in_legs) {
+        ALeg front_leg = null;
+        Vector3 front_position = new Vector3(float.MinValue,0,0);
+        foreach(var leg in in_legs) {
+            var leg_position = body.InverseTransformPoint(leg.transform.position);
+            if (leg_position.x > front_position.x) {
+                front_position = leg_position;
+                front_leg = leg;
+            }
+        }
+        return front_leg;
+    }
+    
     public void set_moving_strategy(Moving_strategy strategy) {
         moving_strategy = strategy;
         update_possible_impulse();
@@ -175,7 +182,7 @@ public partial class Creeping_leg_group:
 
     private void move_legs() {
         foreach (ILeg leg in legs) {
-            if (!(leg.actor.current_action is Creeping_leg_partakes_in_moving)) {
+            if (!(leg.actor?.current_action is Creeping_leg_partakes_in_moving)) {
                 continue;
             }
             leg.set_desired_position(get_optimal_position_for(leg)); 
@@ -266,7 +273,7 @@ public partial class Creeping_leg_group:
     public Actor actor { get; set; }
 
     public void on_lacking_action() {
-        Idle.create(actor).start_as_root(actor.action_runner);
+        Idle.create(this).start_as_root(actor.action_runner);
     }
     
     #endregion

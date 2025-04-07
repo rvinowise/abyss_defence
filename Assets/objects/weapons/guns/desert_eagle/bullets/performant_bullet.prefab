@@ -159,9 +159,8 @@ GameObject:
   - component: {fileID: 1182098242623487884}
   - component: {fileID: 6300923280871857658}
   - component: {fileID: -4648269287722537753}
-  - component: {fileID: -4190364812540855019}
+  - component: {fileID: 3135456611460843395}
   - component: {fileID: -8632416045823008265}
-  - component: {fileID: 3106826860434624612}
   m_Layer: 8
   m_Name: performant_bullet
   m_TagString: Untagged
@@ -235,10 +234,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trail_emitter: {fileID: 3542125471584446808}
-  trajectory_flyer: {fileID: -8632416045823008265}
   damage_dealer: {fileID: -4648269287722537753}
   rigid_body: {fileID: 5487310770376727640}
-  collider: {fileID: 0}
+  collider2d: {fileID: 0}
 --- !u!114 &-4648269287722537753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,7 +250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect_amount: 0.2
---- !u!114 &-4190364812540855019
+  hit_impact_prefab: {fileID: 6070810915012417560, guid: 93909083cb4dbc0429fc30bf5cdab6a4,
+    type: 3}
+--- !u!114 &3135456611460843395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -261,13 +261,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3520765260758454939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ff0136e303b33843b761bfbda5b39ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 761b722c3bcd4130a185751e65bf3e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_images: 1500
-  left_sprite: {fileID: 0}
-  sprite_renderer: {fileID: 2524941769257766465}
-  sprite_resolver: {fileID: 0}
+  damage_dealer: {fileID: -4648269287722537753}
+  rigid_body: {fileID: 5487310770376727640}
+  collider2d: {fileID: 1182098242623487884}
+  explosive_bodies: []
 --- !u!114 &-8632416045823008265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,59 +290,6 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Projectile, equipment
         m_MethodName: fall_on_ground
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3106826860434624612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3520765260758454939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e0239f47f754fa48a4440fd3ad0417b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reset_components: []
-  on_restored_from_pool:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6300923280871857658}
-        m_TargetAssemblyTypeName: rvinowise.unity.Projectile, Assembly-CSharp
-        m_MethodName: on_restored_from_pool
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3542125471584446808}
-        m_TargetAssemblyTypeName: rvinowise.unity.effects.trails.mesh_impl.Smoke_trail_emitter_static_tip,
-          Assembly-CSharp
-        m_MethodName: recreate_trail_from_scratch
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: -4648269287722537753}
-        m_TargetAssemblyTypeName: rvinowise.unity.Damage_dealer, Assembly-CSharp
-        m_MethodName: on_restore_from_pool
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

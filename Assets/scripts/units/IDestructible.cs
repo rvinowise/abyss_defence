@@ -10,7 +10,7 @@ namespace rvinowise.unity {
 
 
 public interface IDestructible {
-    void on_start_dying();
+    void die();
 }
 
 

@@ -15,8 +15,8 @@ public class Simple_player_human: Player_human {
         if (wheel_steps == 0) {
             return false;
         }
-        //toolset_equipper.switch_toolset_to_steps(wheel_steps);
-        supertool_user.switch_supertool_to_steps(wheel_steps);
+        toolset_equipper.switch_toolset_to_steps(wheel_steps);
+        //supertool_user.switch_supertool_to_steps(wheel_steps);
         return true;
     }
 
@@ -28,6 +28,7 @@ public class Simple_player_human: Player_human {
             Input.GetButton("attack");
         bool wants_to_reload = Player_input.instance.is_button_presed("reload");
         bool wants_to_use_supertool = Player_input.instance.is_button_presed("supertool");
+        bool wants_to_pickup_tool = Player_input.instance.is_button_presed("use");
         
         
         if (wants_to_attack) {
@@ -38,13 +39,17 @@ public class Simple_player_human: Player_human {
         }
 
         if (wants_to_reload) {
-            Reload_all.create(user, this).start_as_root(action_runner);
+            //Reload_all.create(user, this).start_as_root(action_runner);\
+            Arm_pair_reloading.reload(arm_pair);
         } else if (wants_to_use_supertool) {
             //arm_pair.use_supertool();
             // if (baggage.retrieve_current_powertool() is {} powertool) {
             //     Attack_by_throwing_tool.create(user,powertool).start_as_root(action_runner);
             // }
             supertool_user.use_desired_supertool();
+        } 
+        else if (wants_to_pickup_tool) {
+            Arm_pair_picking_tool.pick_hinded_tool(arm_pair);    
         }
         
         was_attacking = wants_to_attack;
@@ -58,7 +63,8 @@ public class Simple_player_human: Player_human {
             arm_pair.attack(target);
         } else {
             Debug.Log("AIMING: attack (no target)");
-            arm_pair.attack();
+            Arm_pair_shooting.attack(arm_pair);
+            var test = get_selected_target();
         }
         
     }

@@ -1,4 +1,4 @@
-﻿//#define RVI_DEBUG
+﻿#define RVI_DEBUG
 
 using System.Linq;
 using Pathfinding;
@@ -51,7 +51,7 @@ public class Traverse_obstacles_before_target: Action_leaf {
             var this_distance = ((Vector3) waypoint.position - start).sqrMagnitude;
             if (closest_distance > this_distance) {
                 if (
-                    !is_waypoint_obstructed((Vector3)waypoint.position,moved_body.position)
+                    !is_waypoint_obstructed_concave_collider((Vector3)waypoint.position,moved_body)
                 ) {
                     closest_visible_node = waypoint;
                     closest_distance = this_distance;
@@ -93,16 +93,16 @@ public class Traverse_obstacles_before_target: Action_leaf {
     public override void update() {
         base.update();
 
-        // if (moved_body.gameObject.name == "test") {
-        //     bool test = true;
-        // }
+        if (moved_body.gameObject.name == "test") {
+            bool test = true;
+        }
         
         if (
             (final_target == null) 
             ||
             start_of_path == null
             ||
-            !Keep_distance_from_target.is_target_obstructed_by_walls(final_target,moved_body)
+            !Keep_distance_from_target.is_target_obstructed_by_walls_concave_collider(final_target,moved_body)
             )
         {
             mark_as_completed();
@@ -146,7 +146,7 @@ public class Traverse_obstacles_before_target: Action_leaf {
         while (
             (i_waypoint < path.path.Count)
             &&
-            (!is_waypoint_obstructed((Vector3) path.path[i_waypoint].position, moved_body.position))
+            (!is_waypoint_obstructed_concave_collider((Vector3)path.path[i_waypoint].position, moved_body))
         )
         {
             i_waypoint++;
@@ -154,11 +154,12 @@ public class Traverse_obstacles_before_target: Action_leaf {
         return i_waypoint - 1;
     }
 
-
-    public static bool is_waypoint_obstructed(Vector3 end, Vector3 start) {
-        var vector_to_target =(Vector2)end - (Vector2)start;
-        var hit = Physics2D.Raycast(
-            start,
+    //faster, but requires the collider of the seeker to be convex (not concave, without nooks)
+    public static bool is_waypoint_obstructed_convex_collider(Transform target_waypoint, Transform seeker) {
+        
+        var vector_to_target =(Vector2)target_waypoint.position - (Vector2)seeker.position;
+        var hit = Finding_objects.raycast(
+            seeker.position,
             vector_to_target,
             vector_to_target.magnitude,
             Keep_distance_from_target.permanent_obstacles_of_walking
@@ -170,6 +171,15 @@ public class Traverse_obstacles_before_target: Action_leaf {
         return false;
     }
    
+    //slower, but works with all types of seeker's colliders
+    public static bool is_waypoint_obstructed_concave_collider(Vector2 target, Transform seeker) {
+        return Finding_objects.are_there_obstacles_between_points(
+            seeker.transform.position,
+            target,
+            Keep_distance_from_target.permanent_obstacles_of_walking,
+            new []{seeker.GetComponent<Collider2D>()}
+        );
+    }
     
     protected override void restore_state() {
         base.restore_state();

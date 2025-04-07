@@ -57,7 +57,7 @@ public class Rocket :
 
     private void OnTriggerExit2D(Collider2D other) {
         if (is_flying()) {
-            explosive_body.on_start_dying();
+            explosive_body.die();
         }
     }
 

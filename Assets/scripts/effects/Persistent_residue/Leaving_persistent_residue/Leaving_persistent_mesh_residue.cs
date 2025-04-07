@@ -34,8 +34,12 @@ public class Leaving_persistent_mesh_residue:
             transform
         );
     }
+    
+    public void destroy_object() {
+        ((Component)this).destroy_object();
+    }
 
-    public void on_start_dying() {
+    public void die() {
         leave_persistent_residue();
     }
 

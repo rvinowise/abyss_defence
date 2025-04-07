@@ -29,11 +29,11 @@ public class Toolset_equipper: MonoBehaviour {
         Equip_toolset.create(
             humanoid,
             baggage.tool_sets[set_index]
-        ).add_marker("changing tool").start_as_root(action_runner);
+        ).start_as_root(action_runner);
     }
     
-    private int get_desired_toolset(int wheel_steps) {
-        int desired_current_equipped_set = desired_toolset_index + wheel_steps;
+    private int get_desired_toolset(int current_toolset, int wheel_steps) {
+        int desired_current_equipped_set = current_toolset + wheel_steps;
         desired_current_equipped_set %= baggage.tool_sets.Count;
         if (desired_current_equipped_set < 0) {
             desired_current_equipped_set = baggage.tool_sets.Count + desired_current_equipped_set;
@@ -42,11 +42,9 @@ public class Toolset_equipper: MonoBehaviour {
     }
     
     public void switch_toolset_to_steps(int wheel_steps) {
-        if (desired_toolset_index == -1) {
-            desired_toolset_index = get_current_toolset_index();
-        }
-        int desired_toolset = get_desired_toolset(wheel_steps);
-        if (desired_toolset != desired_toolset_index) {
+        var current_toolset = get_current_toolset_index();
+        int desired_toolset = get_desired_toolset(current_toolset, wheel_steps);
+        if (desired_toolset != current_toolset) {
             Debug.Log($"Mouse wheel is triggered, {wheel_steps} steps");
             equip_tool_set(desired_toolset);
         }

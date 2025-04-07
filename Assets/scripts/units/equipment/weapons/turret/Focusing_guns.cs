@@ -104,7 +104,7 @@ public class Focusing_guns:
     public bool is_weapon_ready_for_target(Transform target) {
         var gun = get_prepared_gun_to_shoot().gun;
         var is_target_close = gun.muzzle.sqr_distance_to(target.position) <= shooting_range;
-        var is_directed_at_target = gun.is_aimed_at_collider(target);
+        var is_directed_at_target = gun.is_ready_for_target(target);
         return is_target_close && is_directed_at_target;
     }
 
@@ -112,7 +112,7 @@ public class Focusing_guns:
         var gun = get_prepared_gun_to_shoot().gun;
         var target = Gun_holder.get_target_of_aiming(gun.muzzle,shooting_range);
         if (target != null) {
-            if (Animated_attacker.get_damageable_enemy_from_transform(target, intelligence.team) is {} damageable_enemy) {
+            if (Animated_attacker.get_damagable_enemy_from_transform(target, intelligence.team) is {} damageable_enemy) {
                 return new[]{damageable_enemy};
             }
         }

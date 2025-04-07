@@ -34,7 +34,7 @@ public class Landmine: MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (team.is_enemy(other.gameObject)) {
-            explosive_body.on_start_dying();
+            explosive_body.die();
         }
     }
 
