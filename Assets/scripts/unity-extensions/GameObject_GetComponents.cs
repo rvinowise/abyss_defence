@@ -117,7 +117,24 @@ public static partial class Unity_extension
             }
         }
         return needed_components.ToArray();
-    } 
-    
+    }
+
+    public static List<TNeeded_component> get_components_in_children_stop_at_component
+        <TNeeded_component, TStoppong_component>
+        (this Component root) 
+    {
+        var found_components = new List<TNeeded_component>();
+        scan_components_recursive(root);
+        return found_components;
+        
+        void scan_components_recursive(Component root) {
+            found_components.AddRange(root.GetComponents<TNeeded_component>());
+            foreach (Transform child in root.transform) {
+                if (child.GetComponent<TStoppong_component>() is null ) {
+                    scan_components_recursive(child);
+                }
+            }
+        }
+    }
 }
 }

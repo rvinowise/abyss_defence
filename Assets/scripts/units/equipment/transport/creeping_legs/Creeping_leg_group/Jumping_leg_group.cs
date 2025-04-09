@@ -110,7 +110,6 @@ public class Jumping_leg_group:
 
     public void distribute_jumping_legs(IEnumerable<IChildren_group> new_controllers) {
         var distributed_jumping_legs = jumping_legs;
-        jumping_legs = new List<ALeg>();
         foreach (var child_controller in new_controllers) {
             if (child_controller is Jumping_leg_group new_jumping_group) {
                 new_jumping_group.jumping_legs = new List<ALeg>();

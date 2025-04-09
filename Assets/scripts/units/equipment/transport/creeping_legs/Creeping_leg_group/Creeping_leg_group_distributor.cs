@@ -58,10 +58,12 @@ public static class Creeping_leg_group_distributor {
         Creeping_leg_group divided_leg_group,
         IReadOnlyList<Creeping_leg_group> all_leg_controllers) 
     {
+        var divided_stable_leg_groups = divided_leg_group.stable_leg_groups.ToList();
+        
         foreach (var leg_group in all_leg_controllers) {
             leg_group.clear_data_related_to_children();
         }
-        foreach (var stable_leg_group in divided_leg_group.stable_leg_groups) {
+        foreach (var stable_leg_group in divided_stable_leg_groups) {
             if (
                 get_controller_with_all_tools_from(
                     all_leg_controllers,

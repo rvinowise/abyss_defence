@@ -5,280 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd6462a0-2be3-4446-9e5c-7281b717e754" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/ILeaving_persistent_residue_on_texture.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/ILeaving_persistent_residue_on_texture.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture_parent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture_parent.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/Combining_cogs_system.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/Combining_cogs_system.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/Connector_of_parts.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/Connector_of_parts.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/IAttachable_part.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/IAttachable_part.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/Remembering_collision.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/Remembering_collision.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/actions.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/actions/Combining_cogs_invoke_creature.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/actions/Combining_cogs_invoke_creature.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/actions/Turn_connected_cogs.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/actions/Turn_connected_cogs.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/helpers/editor/Remove_missing_scripts.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/helpers/editor/Remove_missing_scripts.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Sequential_track_group.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Sequential_track_group.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Switchable_layer_group.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Track_player.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Children_simplifier.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Children_simplifier.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/control/Finding_objects.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/control/Finding_objects.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/control/ITeam_member.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/control/ITeam_member.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/control/IUsed_by_intelligence.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/control/IUsed_by_intelligence.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Attachable_guns.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Attachable_guns.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Limb2_touch_target.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Limb2_touch_target.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/Arm_participates_in_targeting_hinted_targets.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/Arm_participates_in_targeting_hinted_targets.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Grab_tool_from_map.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Grab_tool_from_map.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_tools/Pickup_tool_from_map.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_tools/Pickup_tool_from_map.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/items.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/items/Carriable_item.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/items/Carriable_item.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/items/Dropping_item.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/items/Dropping_item.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/items/Item_carrier.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/items/Item_carrier.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/items/Opening_box.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/items/Opening_box.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/items/Opening_box.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Flying_transporter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Flying_transporter.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Wing.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Wing.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/projectile_launchers/Separate_projectile_launcher.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/projectiles/Plasma_ball.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/projectiles/Plasma_ball.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair_aiming.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair_aiming.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair_helpers.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair_helpers.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair_picking_tool.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair_picking_tool.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair_reloading.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair_reloading.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair_shooting.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair_shooting.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attachment_points_group.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attachment_points_group.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Attachment_point.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Attachment_point.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Game_handler.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Game_handler.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/factory/arena.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/factory/arena.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/factory/circle.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/factory/circle.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/human.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/human.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/Music_player.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/Music_player.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/bullet holes in concrete/bullet hole in concrete 1.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/bullet holes in concrete/bullet hole in concrete 1.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/bullet holes in concrete/bullet hole in concrete 2.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/bullet holes in concrete/bullet hole in concrete 2.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/bullet holes in concrete/bullet hole in concrete 3.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/bullet holes in concrete/bullet hole in concrete 3.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/bullet holes in concrete/bullet hole in concrete 4.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/bullet holes in concrete/bullet hole in concrete 4.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/damage marks/bullet holes in concrete/bullet hole in concrete 5.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/damage marks/bullet holes in concrete/bullet hole in concrete 5.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/effects/fire_explosion.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/effects/fire_explosion.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/flying_beetle/flying_beetle_with_head.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/flying_beetle/flying_beetle_with_head.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/mandibles_head/attack.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/mandibles_head/attack.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/mawbug/mawbug 2.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/mawbug/mawbug 2.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/proboscis_turtle/proboscis/proboscis.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/proboscis_turtle/proboscis/proboscis.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/shooting_crab/shielded_crab.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/shooting_crab/shielded_crab.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/transporters/moth_wings/flapping.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/transporters/moth_wings/flapping.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/transporters/moth_wings/moth_wings.controller" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/transporters/moth_wings/moth_wings.controller.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/units/woodlouse/woodlouse.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/units/woodlouse/woodlouse.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/acid/acid_projectile/acid_projectile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/acid/acid_projectile/acid_projectile.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/break_sawedoff/lupara.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/break_sawedoff/lupara.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/break_sawedoff/lupara.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/break_sawedoff/lupara.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/performant_bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/performant_bullet.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/pistol_bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/bullets/pistol_bullet.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/gray_desert_eagle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/desert_eagle/gray_desert_eagle.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/grenade_launcher/heat_rocket.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/grenade_launcher/heat_rocket.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/laser_cannon/plasma_ball/plasma_ball.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/laser_cannon/plasma_ball/plasma_ball.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/objects/weapons/guns/uzi/uzi.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/objects/weapons/guns/uzi/uzi.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/debug/Debug.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/debug/Debug.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/ILeaving_persistent_residue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/ILeaving_persistent_residue.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_mesh_residue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_mesh_residue.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_sprite_residue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_sprite_residue.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_unique_sprite_residue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_unique_sprite_residue.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_holder/Persistent_residue_on_texture/Persistent_residue_all_textures.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_holder/Persistent_residue_on_texture/Persistent_residue_all_textures.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_holder/Persistent_residue_on_texture/Persistent_residue_texture_holder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Persistent_residue_holder/Persistent_residue_on_texture/Persistent_residue_texture_holder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Smoke_trail/mesh_impl/Smoke_trail_emitter_static_tip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Smoke_trail/mesh_impl/Smoke_trail_emitter_static_tip.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Trajectory_flyer/Trajectory_flyer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Trajectory_flyer/Trajectory_flyer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/Combining_circle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/Combining_circle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/Combining_circle_ring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/Combining_circle_ring.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/Gate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/Gate.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/actions/Attach_unit_parts.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/actions/Attach_unit_parts.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/actions/Combining_circle_invoke_creature.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/actions/Combining_circle_invoke_creature.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/actions/Eject_creature.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/actions/Eject_creature.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/environment/Producing_units.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/environment/Producing_units.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/environment/maps/Map.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/environment/maps/Map.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/helpers/editor/Combining_circle_create_slots.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/helpers/editor/Combining_circle_create_slots.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_composer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_composer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_phrase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_phrase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Switchable_layer_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_player.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Track_player.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_track.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Music_track.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/sounds/music/Sound.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/Sound.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/sounds/music/State_analyzer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/sounds/music/State_analyzer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/ui/Camera_follower.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/ui/Camera_follower.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/ui/ammo_panel/Ui_ammo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/ui/ammo_panel/Ui_ammo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/Damage_receiver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/Damage_receiver.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/Disappearing_body.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/Disappearing_body.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Children_splitter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Children_splitter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Divisible_body.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Divisible_body.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/Explosive_body.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/Explosive_body.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/IDestructible.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/IDestructible.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/Intelligence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/Intelligence.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/Targetable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/Targetable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/Team.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/Team.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/Team_units_list.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/Team_units_list.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/computer/Computer_intelligence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/computer/Computer_intelligence.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/player/Player_human.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/player/Player_human.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/player/Simple_player_human.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/player/Simple_player_human.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/player/Toolset_equipper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/player/Toolset_equipper.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Attachable_body.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Attachable_body.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Attachable_head.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Attachable_head.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Attachable_limbs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Attachable_limbs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attacking_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attacking_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Data_distributor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Data_distributor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/IChildren_groups_host.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/IChildren_groups_host.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Abstract_children_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Abstract_children_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/IChildren_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/IChildren_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_leaf.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_leaf.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_runner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_runner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Actor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Actor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/baggage/Baggage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/baggage/Baggage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/baggage/Supertools/Bazooka_with_ballistic_rocket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/baggage/Supertools/Bazooka_with_ballistic_rocket.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/Span_component.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/Span_component.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/defender_bodyparts/Compound_defender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/defender_bodyparts/Compound_defender.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/defender_bodyparts/Empty_defender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/defender_bodyparts/Empty_defender.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/Limb2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/Limb2.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/Arm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/Arm.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Grab_copy_of_tool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Grab_copy_of_tool_from_bag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Grab_copy_of_tool.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Grab_copy_of_tool_from_bag.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Grab_tool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Grab_tool_from_bag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Grab_tool.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Grab_tool_from_bag.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Pull_copy_of_tool_out_of_bag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Pull_copy_of_tool_out_of_bag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Pull_tool_out_of_bag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Pull_tool_out_of_bag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Reload_all.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_bags/Reload_all.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_tools/using_supertools/Fire_gun_at_target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/Arm/actions/using_tools/using_supertools/Fire_gun_at_target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/holdable_tools/Damaging_polygons.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/holdable_tools/Damaging_polygons.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/holdable_tools/Tool/Holding_place.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/holdable_tools/Tool/Holding_place.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/holdable_tools/Tool/Tool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/holdable_tools/Tool/Tool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/Scorpion_pedipalps_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/Scorpion_pedipalps_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/actions/Scorpion_arm_idle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/actions/Scorpion_arm_idle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Compound_sensory_organ.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Compound_sensory_organ.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Empty_sensory_organ.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Empty_sensory_organ.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Head/Head.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Head/Turning_sensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Head/Head.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Head/Turning_sensor.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/Compound_transporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/Compound_transporter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/Empty_transporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/Empty_transporter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/Jet_engine/Homing_jet_engine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/Jet_engine/Homing_jet_engine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/Wheels/Wheels.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/Wheels/Wheels.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Follow_target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Follow_target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Keep_distance_from_target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Keep_distance_from_target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Traverse_obstacles_before_target.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/actions/Traverse_obstacles_before_target.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Crab_leg_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Crab_leg_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group_distributor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group_distributor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hiding_limbs_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hiding_limbs_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limb.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limbs_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limbs_group.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Jumping_leg_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Jumping_leg_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Shielding_limb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Shielding_limb.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Shielding_limbs_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Shielding_limbs_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Leg/ALeg.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Leg/ALeg.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Leg/Leg3.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Leg/Leg3.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Wing_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Wing_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Wing_group.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Wing_group.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/IGun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/IGun.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/IGun.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/IGun.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/effects/Explosion.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/effects/Explosion.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Double_barreled_shotgun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Double_barreled_shotgun.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Gun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Gun.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Reloadable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Reloadable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Separate_projectile_launcher.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/Separate_projectile_launcher.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/projectile_launchers/Separate_projectile_launcher.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/projectile_launchers/Direct_projectile_launcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/projectile_launchers/Direct_projectile_launcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/installations/Landmine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/installations/Landmine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/projectiles/Damaging_collider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/projectiles/Damaging_collider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/projectiles/bullets/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/projectiles/bullets/Projectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/projectiles/rockets/Rocket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/projectiles/rockets/Rocket.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/turret/Focusing_guns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/turret/Focusing_guns.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker_attacked_area.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker_attacked_area.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Compound_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Compound_attacker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Empty_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Empty_attacker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Gun_holder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Gun_holder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Proboscis.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Proboscis.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Shooting_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Shooting_attacker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/gore/Bleeding_body_droplet_objects.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/gore/Bleeding_body_droplet_objects.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/gore/Bleeding_body_droplet_particles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/gore/Bleeding_body_droplet_particles.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/gore/Bleeding_body_splash_prefab.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/gore/Bleeding_body_splash_prefab.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/gore/IBleeding_body.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/gore/IBleeding_body.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/Humanoid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Humanoid.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/actions/Idle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/actions/Idle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/actions/using_guns/reloading/Refill_gun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/actions/using_guns/reloading/Refill_reloadable_tool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/actions/using_guns/reloading/Refill_gun.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/actions/using_guns/reloading/Refill_reloadable_tool.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/actions/using_guns/reloading/Reload_pistol_simple.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/actions/using_guns/reloading/Reload_pistol_simple.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/legs/Humanoid_leg.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/legs/Humanoid_leg.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/legs/Humanoid_legs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/legs/Humanoid_legs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/unity-extensions/Animator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/unity-extensions/Animator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/drums.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/drums.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano back1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano back1.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano back2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano back2.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano forv1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano forv1.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano forv2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano forv2.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano forv3 to back.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano forv3 to back.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano forv3.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano forv3.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano forv4.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano forv4.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano tension1.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano tension1.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano tension2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano tension2.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano tension3.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano tension3.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano tension4.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sounds/music/mild/piano tension4.mp3.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sprites/infrastructure/chemical_barrel/chemical_barrel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sprites/infrastructure/chemical_barrel/chemical_barrel.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sprites/infrastructure/chemical_barrel/chemical_barrel_normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sprites/infrastructure/chemical_barrel/chemical_barrel_normal.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sprites/infrastructure/gas_barrel/gas_barrel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sprites/infrastructure/gas_barrel/gas_barrel.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sprites/infrastructure/gas_barrel/gas_barrel_normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sprites/infrastructure/gas_barrel/gas_barrel_normal.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sprites/levels/circle/gate/opening.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/sprites/levels/circle/gate/opening.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sprites/weapons/cylindrical_grenade/cylindrical_grenade.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/sprites/weapons/cylindrical_grenade/cylindrical_grenade.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/InputManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/InputManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/unity-extensions/GameObject_GetComponents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/unity-extensions/GameObject_GetComponents.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -301,6 +38,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/351e49e2a5bf4fd6beabb458ce2255f3ff600/c6/6533b962/HashSet`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/05/893af202/NullReferenceException.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/69/b5ced0d6/Int32.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/f7/cfebfc91/List`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/24/be679250/LoadSceneMode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/3e/fcefc2d1/Transform.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/68/a8aeaf3e/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
@@ -313,6 +51,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/f8/c57d251d/Object.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/fa/3c72930b/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/fd/03291672/Bounds.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b18a8b3398e74bca86895881dd02956c573648/65/8466463f/List`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/actions/Combining_cogs_invoke_creature.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.animation@5.2.4/Editor/Triangle/Tools/QualityMeasure.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.sprite@1.0.0/Editor/SpriteEditorModule/SpriteFrameModule/SpritePolygonModeModule.cs" root0="SKIP_HIGHLIGHTING" />
@@ -448,7 +187,7 @@
       <workItem from="1741600553896" duration="37127000" />
       <workItem from="1742770569731" duration="31576000" />
       <workItem from="1742947445620" duration="156829000" />
-      <workItem from="1743815223239" duration="74383000" />
+      <workItem from="1743815223239" duration="137888000" />
     </task>
     <servers />
   </component>
@@ -466,6 +205,36 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attachment_points_group.cs</url>
+          <line>33</line>
+          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\equipment\Children_group_host\Attachment_points_group.cs" containingFunctionPresentation="Method 'add_child'">
+            <startOffsets>
+              <option value="940" />
+            </startOffsets>
+            <endOffsets>
+              <option value="980" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="283" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs</url>
+          <line>97</line>
+          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\equipment\weapons\weaponised_bodyparts\Fighting_head.cs" containingFunctionPresentation="Method 'is_prepared_for_attack'">
+            <startOffsets>
+              <option value="2867" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2914" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="285" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Type#UnityEngine.Component" memberName="gameObject" />
