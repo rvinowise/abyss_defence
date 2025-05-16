@@ -11,15 +11,15 @@ public class Attachment_points_group:
 {
 
     public List<Attachment_point> attachment_points = new List<Attachment_point>();
-    public override IEnumerable<IChild_of_group> get_children() {
+    public override IEnumerable<Child_of_group> get_children() {
         return attachment_points;
     }
 
 
     protected void Awake() {
-        foreach (var attachment_point in GetComponentsInChildren<Attachment_point>()) {
-            attachment_points.Add(attachment_point);
-        }
+        // foreach (var attachment_point in GetComponentsInChildren<Attachment_point>()) {
+        //     attachment_points.Add(attachment_point);
+        // }
     }
     
     
@@ -27,7 +27,7 @@ public class Attachment_points_group:
         base.hide_children_from_copying();
         attachment_points.Clear();
     }
-    public override void add_child(IChild_of_group in_child) {
+    public override void add_child(Child_of_group in_child) {
         Contract.Requires(in_child is Attachment_point);
         if (in_child is Attachment_point attachment_point)
         {

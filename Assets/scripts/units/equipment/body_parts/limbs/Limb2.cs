@@ -14,9 +14,8 @@ namespace rvinowise.unity {
 
 [Serializable]
 public class Limb2:
-    MonoBehaviour, 
-    ILimb,
-    IChild_of_group
+    Child_of_group,
+    ILimb
 {
     public Segment segment1; //beginning (root)
     public Segment segment2; //ending (leaf)

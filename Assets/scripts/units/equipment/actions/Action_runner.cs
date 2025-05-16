@@ -28,16 +28,24 @@ public class Action_runner: MonoBehaviour {
     }
     
     private void Awake() {
-        init_actors();
+        accept_attached_actors();
     }
     
-    public void init_actors() {
+    public void accept_attached_actors() {
         foreach (Actor actor in GetComponentsInChildren<Actor>()) {
             if (
                 (!actors.Contains(actor))
                 &&
                 (actor.action_runner == this)
             ) {
+                add_actor(actor);
+            }
+        }
+    }
+    
+    public void update_actors() {
+        foreach (Actor actor in GetComponentsInChildren<Actor>()) {
+            if (!actors.Contains(actor)) {
                 add_actor(actor);
             }
         }

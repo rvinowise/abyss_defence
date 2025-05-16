@@ -7,11 +7,12 @@ using UnityEngine;
 namespace rvinowise.unity {
 
 public class Compound_sensory_organ:
-    MonoBehaviour,
-    ISensory_organ {
+    Abstract_children_group,
+    ISensory_organ
+{
 
-    public List<GameObject> sensor_objects = new List<GameObject>(); // for inspector
-    public IList<ISensory_organ> child_sensors;
+    //public List<GameObject> sensor_objects = new List<GameObject>(); // for inspector
+    public List<Sensor_child_of_group> child_sensors;
 
     public static Compound_sensory_organ create(
         Intelligence host,
@@ -19,27 +20,18 @@ public class Compound_sensory_organ:
     ) {
         var tool_object = new GameObject("Compound_sensory_organ");
         var tool_component = tool_object.AddComponent<Compound_sensory_organ>();
-        tool_component.child_sensors = sensors.ToList();
-        //host.action_runner.add_actor(tool_object.AddComponent<Actor>());
+        tool_component.child_sensors = 
+            sensors
+                .Select(tool => tool as Sensor_child_of_group)
+                .Where(tool => tool != null)
+                .ToList();
         tool_object.transform.parent = host.transform;
         return tool_component;
     }
     
-    protected void Awake() {
-        child_sensors = new List<ISensory_organ>();
-        foreach (var sensor_object in sensor_objects) {
-            if (sensor_object.GetComponent<ISensory_organ>() is { } sensor) {
-                child_sensors.Add(sensor);
-            }
-        }
-    }
-
-    public void init_sensors() {
-        
-    }
     
     
-    public Compound_sensory_organ(IEnumerable<ISensory_organ> in_child_sensors) {
+    public Compound_sensory_organ(IEnumerable<Sensor_child_of_group> in_child_sensors) {
         child_sensors = in_child_sensors.ToList();
     }
     
@@ -58,12 +50,33 @@ public class Compound_sensory_organ:
         return false;
     }
 
+    #region Children_group
+
+    public override IEnumerable<Child_of_group> get_children() {
+        return child_sensors;
+    }
+
+    public override void add_child(Child_of_group in_child) {
+        if (in_child is Sensor_child_of_group sensor) {
+            child_sensors.Add(sensor);
+        }
+    }
+
+    public override void hide_children_from_copying() {
+        base.hide_children_from_copying();
+        child_sensors.Clear();
+    }
+
+    #endregion
+    
 
     public Actor actor { get; set; }
 
     public void on_lacking_action() {
         Idle.create(this).start_as_root(actor.action_runner);
     }
+    
+    
 
 }
 }

@@ -71,11 +71,11 @@ public class Hitting_limbs_group:
     
     #region Children_group
 
-    public override IEnumerable<IChild_of_group> get_children() {
+    public override IEnumerable<Child_of_group> get_children() {
         return hitting_limbs;
     }
 
-    public override void add_child(IChild_of_group in_child) {
+    public override void add_child(Child_of_group in_child) {
         var hitting_limb = in_child as Hitting_limb;
         if (hitting_limb == null) {
             Debug.LogError($"hitting limb group is given a child which is not a hitting limb");

@@ -80,7 +80,7 @@ public static class Creeping_leg_group_distributor {
 
     private static Abstract_children_group get_controller_with_all_tools_from( //#generalize
         IReadOnlyList<Abstract_children_group> all_controllers,
-        IReadOnlyList<IChild_of_group> in_legs
+        IReadOnlyList<Child_of_group> in_legs
         ) 
     {
         foreach (var controller in all_controllers) {
@@ -93,7 +93,7 @@ public static class Creeping_leg_group_distributor {
 
     //#generalize
     private static bool all_tools_are_within_controller(
-        IReadOnlyList<IChild_of_group> in_tools, 
+        IReadOnlyList<Child_of_group> in_tools, 
         Abstract_children_group controller) 
     {
         foreach (var tool in in_tools) {

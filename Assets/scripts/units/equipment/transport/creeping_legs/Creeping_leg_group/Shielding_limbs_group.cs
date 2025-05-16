@@ -82,11 +82,11 @@ public class Shielding_limbs_group:
     
     #region Children_group
 
-    public override IEnumerable<IChild_of_group> get_children() {
+    public override IEnumerable<Child_of_group> get_children() {
         return shielding_limbs;
     }
 
-    public override void add_child(IChild_of_group in_child) {
+    public override void add_child(Child_of_group in_child) {
         shielding_limbs.Add(in_child as Shielding_limb);
     }
     

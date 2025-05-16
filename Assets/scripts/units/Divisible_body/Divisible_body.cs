@@ -5,6 +5,7 @@ using UnityEngine;
 using rvinowise.unity.extensions;
 using rvinowise.unity.geometry2d;
 using System.Threading.Tasks;
+using rvinowise.unity.actions;
 using rvinowise.unity.extensions.pooling;
 
 
@@ -23,27 +24,31 @@ public partial class Divisible_body : MonoBehaviour
     
     //public IList<Abstract_children_group> children_groups { get; private set; }
     public List<IChildren_group> children_groups { get; private set; }
-    public IList<IChild_of_group> children { get; private set; }
 
-    public delegate void EventHandler();
-    public event EventHandler on_polygon_changed;
 
     private bool is_splitting_triggered;
     private Divisible_body main_divisible_body;
+    protected Collider2D collider2d;
 
     public void Awake() {
         if (sprite_renderer == null) {
             sprite_renderer = GetComponent<SpriteRenderer>();
         }
+        collider2d = GetComponent<Collider2D>();
+        
         outside = sprite_renderer.sprite;
 
         children_groups = this.get_components_in_children_stop_at_component<IChildren_group, Divisible_body>();
 
-        main_divisible_body = GetComponentsInParent<Divisible_body>().Last();
+        update_body_composition();
 
         //children = new List<IChild_of_group>(GetComponentsInChildren<IChild_of_group>());
     }
 
+    public void update_body_composition() {
+        main_divisible_body = GetComponentsInParent<Divisible_body>().Last();
+
+    }
     
     
     public List<Divisible_body> split_for_polygon_pieces(
@@ -55,18 +60,18 @@ public partial class Divisible_body : MonoBehaviour
             Children_splitter.distribute_children_to_polygons(this, piece_polygons);
         
         List<Divisible_body> piece_objects = create_objects_for_polygons(
-            polygons_with_tools, outside, inside
+            this, polygons_with_tools, outside, inside
         );
-
+        
         Children_splitter.split_children_groups(this, piece_objects);
         
-        adjust_center_of_pieces(piece_objects, piece_polygons);
 
         if (GetComponent<Intelligence>() is {} intelligence) {
             intelligence.notify_about_destruction();
         }
-        Debug.Log($"AIMING: Destroy({name})");
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        splitting_polygon.Dispose();
+        splitting_polygon = null;
 
         return piece_objects;
     }
@@ -75,26 +80,66 @@ public partial class Divisible_body : MonoBehaviour
 
 
     private List<Divisible_body> create_objects_for_polygons(
-        IEnumerable<Children_splitter.Polygon_with_tools> piece_polygons,
+        Divisible_body original_body,
+        IList<Children_splitter.Polygon_with_tools> piece_polygons,
         Sprite original_sprite,
         Sprite inside
     ) {
         List<Divisible_body> object_pieces = new List<Divisible_body>();
-        foreach (var piece_polygon in piece_polygons) {
-
-            Sprite piece_sprite = create_sprite_for_polygon(piece_polygon.polygon, original_sprite, inside);
-
-            if (piece_polygon.attached_to_something) {
-                
-            } else {
-                object_pieces.Add(
-                    create_gameobject_from_polygon_and_sprite(
-                        piece_polygon.polygon, piece_sprite
-                    )
-                );
+        foreach (var piece_polygon in piece_polygons.Take(piece_polygons.Count -1)) {
+            
+            Texture2D polygon_texture = Texture_splitter.create_texture_for_polygon(
+                original_sprite,
+                piece_polygon.polygon,
+                inside
+            );
+            
+            Sprite piece_sprite = create_shifted_sprite_for_piece(
+                piece_polygon.polygon, 
+                polygon_texture,
+                original_sprite
+            );
+            var piece_body = create_gameobject_from_polygon_and_sprite(
+                piece_polygon.polygon, piece_sprite
+            );
+            
+            Children_splitter.attach_children_to_host(piece_body, piece_polygon.tools);
+            adjust_center_of_piece(piece_body, piece_polygon.polygon);
+            if (piece_was_part_of_bigger_system(this)) {
+                make_piece_self_sufficient(this, piece_body);
             }
+            object_pieces.Add(piece_body);
         }
+        reuse_original_body_for_piece(original_body, piece_polygons.Last(), original_sprite, inside);
+        object_pieces.Add(this);
+        
         return object_pieces;
+    }
+
+    private void reuse_original_body_for_piece(
+        Divisible_body original_body,
+        Children_splitter.Polygon_with_tools piece_polygon,
+        Sprite original_sprite,
+        Sprite inside
+    ) {
+        Children_splitter.attach_children_to_host(this, piece_polygon.tools);
+        Sprite piece_sprite;
+        Texture2D polygon_texture = Texture_splitter.create_texture_for_polygon(
+            original_sprite,
+            piece_polygon.polygon,
+            inside
+        );
+        if (piece_polygon.attached_to_something) {
+            piece_sprite = create_unshifted_sprite_for_piece(polygon_texture, original_sprite);
+        }
+        else {
+            piece_sprite = create_shifted_sprite_for_piece(piece_polygon.polygon, polygon_texture, original_sprite);
+            adjust_center_of_piece(this, piece_polygon.polygon);
+        }
+        original_body.init_object_for_piece(piece_polygon.polygon, piece_sprite);
+        if (original_body.main_divisible_body?.GetComponent<Intelligence>() is { } intelligence) {
+            intelligence.update_devices();
+        }
     }
 
     private void adjust_center_of_pieces(
@@ -102,21 +147,27 @@ public partial class Divisible_body : MonoBehaviour
         List<Polygon> collider_pieces
     ) {
         for (int i_piece = 0; i_piece < piece_objects.Count; i_piece ++) {
-            
             Divisible_body created_part = piece_objects[i_piece];
-            IChildren_groups_host children_group_host = created_part.GetComponent<IChildren_groups_host>();
-            
             Polygon collider_polygon = collider_pieces[i_piece];
-            Vector2 polygon_shift = -collider_polygon.middle;
-            collider_polygon.move(polygon_shift); 
-            
-            foreach (IChildren_group children_group in children_group_host.children_groups) {
-                children_group.shift_center(polygon_shift);
-            }
-
-            
-            created_part.GetComponent<PolygonCollider2D>().SetPath(0, collider_polygon.points.ToArray());
+            adjust_center_of_piece(created_part, collider_polygon);
         }
+    }
+
+    public void adjust_center_of_piece(
+        Divisible_body piece_body,
+        Polygon piece_polygon
+        ) 
+    {
+        IChildren_groups_host children_group_host = piece_body.GetComponent<IChildren_groups_host>();
+            
+        Vector2 polygon_shift = -piece_polygon.middle;
+        piece_polygon.move(polygon_shift); 
+            
+        foreach (IChildren_group children_group in children_group_host.children_groups) {
+            children_group.shift_center(polygon_shift);
+        }
+            
+        piece_body.GetComponent<PolygonCollider2D>().SetPath(0, piece_polygon.points.ToArray());    
     }
     
     /* to avoid duplication of the Children when duplicating the Body */
@@ -139,12 +190,12 @@ public partial class Divisible_body : MonoBehaviour
             inside
         );
 
-        Sprite polygon_sprite = create_sprite_for_piece(
+        Sprite polygon_sprite = create_shifted_sprite_for_piece(
             polygon, polygon_texture, original_sprite
         );
         return polygon_sprite;
     }
-    public static Sprite create_sprite_for_piece(
+    public static Sprite create_shifted_sprite_for_piece(
         Polygon polygon, Texture2D texture, Sprite original_sprite
     ) 
     {
@@ -161,14 +212,26 @@ public partial class Divisible_body : MonoBehaviour
             SpriteMeshType.FullRect
         );
     }
+    public static Sprite create_unshifted_sprite_for_piece(
+        Texture2D texture, Sprite original_sprite
+    ) 
+    {
+        return Sprite.Create(
+            texture,
+            new Rect(0.0f, 0.0f, texture.width, texture.height),
+            original_sprite.to_texture_coordinates(original_sprite.pivot),
+            original_sprite.pixelsPerUnit,
+            0,
+            SpriteMeshType.FullRect
+        );
+    }
     private Divisible_body create_gameobject_from_polygon_and_sprite(
         Polygon polygon, Sprite piece_sprite
     ) 
     {
-        Vector2 polygon_shift = -polygon.middle;
         GameObject created_part = Instantiate(
             gameObject,
-            transform.position-transform.rotation * polygon_shift * (1.1f * transform.lossyScale.x), 
+            transform.position+get_shift_for_split_piece(transform, polygon), 
             transform.rotation
         );
         
@@ -176,7 +239,43 @@ public partial class Divisible_body : MonoBehaviour
         
         Divisible_body new_body = created_part.GetComponent<Divisible_body>();
         new_body.init_object_for_piece(polygon, piece_sprite);
+        
+        
         return new_body;
+    }
+
+    private static bool piece_was_part_of_bigger_system(Divisible_body original_body) {
+        return ((original_body.main_divisible_body != original_body) && (original_body.main_divisible_body != null));
+    }
+
+    private static void make_piece_self_sufficient(Divisible_body original_body, Divisible_body new_body) {
+        if (new_body.GetComponent<Turning_sensor>() is {} turning_sensor) {
+            Destroy(turning_sensor);
+        }
+        
+        if (new_body.GetComponent<Rigidbody2D>() == null) {
+            var rigidbody2d = new_body.gameObject.AddComponent<Rigidbody2D>();
+            rigidbody2d.gravityScale = 0;
+            new_body.collider2d.density = 500;
+            rigidbody2d.useAutoMass = true;
+        }
+        
+        var new_action_runner = new_body.gameObject.AddComponent<Action_runner>();
+        var new_intelligence = new_body.gameObject.AddComponent<Computer_intelligence>();
+        var original_intelligence = original_body.main_divisible_body.GetComponent<Intelligence>();
+        
+        Attach_unit_parts.attach_all_team_members_to_team(new_body, original_intelligence.team);
+        Attach_unit_parts.attach_all_tools_to_intelligence(new_body, new_intelligence);
+        Attach_unit_parts.update_divisible_body_composition(new_body);
+        new_intelligence.action_runner.update_actors();
+        new_intelligence.update_devices();
+    }
+
+    public static Vector3 get_shift_for_split_piece(
+        Transform original_body, Polygon piece_polygon
+    ) {
+        Vector2 polygon_shift = -piece_polygon.middle;
+        return -(original_body.rotation * polygon_shift * (1.1f * original_body.lossyScale.x));
     }
 
     private void init_object_for_piece(
@@ -184,7 +283,7 @@ public partial class Divisible_body : MonoBehaviour
         Sprite sprite
     ) {
         GetComponent<PolygonCollider2D>().SetPath(0, polygon.points.ToArray());
-        GetComponent<SpriteRenderer>().sprite = sprite;
+        sprite_renderer.sprite = sprite;
         outside = sprite;
     }
 
@@ -285,15 +384,13 @@ public partial class Divisible_body : MonoBehaviour
         );
         
         foreach(var piece in pieces) {
-            if (piece.on_polygon_changed != null) {
-                piece.on_polygon_changed();
-            }
+            
             piece.damage_dealers.UnionWith(this.damage_dealers);
-            piece.notify_damage_dealers_of_peace();
+            piece.notify_damage_dealers_of_piece();
         }
     }
 
-    private void notify_damage_dealers_of_peace() {
+    private void notify_damage_dealers_of_piece() {
         foreach (var damage_dealer in damage_dealers) {
             damage_dealer.remember_damaged_target(this.transform);
         }
@@ -307,22 +404,24 @@ public partial class Divisible_body : MonoBehaviour
         foreach (var piece in pieces) {
             
             var rigid_body = piece.GetComponent<Rigidbody2D>();
-            rigid_body.AddForce(
-                calculate_push_vector(
-                    piece.transform.position,
-                    contact_point,
-                    force.magnitude
-                ),
-                ForceMode2D.Impulse
-            );
-            rigid_body.AddTorque(
-                calculate_torque(
-                    rigid_body,
-                    contact_point,
-                    force
-                ),
-                ForceMode2D.Impulse
-            );
+            if (rigid_body != null) {
+                rigid_body.AddForce(
+                    calculate_push_vector(
+                        piece.transform.position,
+                        contact_point,
+                        force.magnitude
+                    ),
+                    ForceMode2D.Impulse
+                );
+                rigid_body.AddTorque(
+                    calculate_torque(
+                        rigid_body,
+                        contact_point,
+                        force
+                    ),
+                    ForceMode2D.Impulse
+                );
+            }
         }
 
         Vector2 calculate_push_vector(

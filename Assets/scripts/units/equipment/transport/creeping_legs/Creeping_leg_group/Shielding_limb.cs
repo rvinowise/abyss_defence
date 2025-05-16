@@ -12,9 +12,8 @@ using Action = rvinowise.unity.actions.Action;
 namespace rvinowise.unity {
 
 public class Shielding_limb:
-    MonoBehaviour
+    Child_of_group
     ,IDefender
-    ,IChild_of_group
 {
     public ALeg shielding_limb;
     public Creeping_leg_group creeping_leg_group;

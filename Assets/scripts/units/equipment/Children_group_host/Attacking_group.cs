@@ -13,7 +13,7 @@ public class Attacking_group:
 
     public List<GameObject> weapon_objects; //only for initialisation in inspector
     public readonly List<Attacker_child_of_group> weapons = new List<Attacker_child_of_group>();
-    public override IEnumerable<IChild_of_group> get_children() {
+    public override IEnumerable<Child_of_group> get_children() {
         return weapons;
     }
 
@@ -30,7 +30,7 @@ public class Attacking_group:
         weapons.Clear();
         weapon_objects.Clear();
     }
-    public override void add_child(IChild_of_group in_child) {
+    public override void add_child(Child_of_group in_child) {
         Contract.Requires(in_child is Attacker_child_of_group);
         if (in_child is Attacker_child_of_group attacker)
         {

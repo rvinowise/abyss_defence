@@ -13,9 +13,8 @@ using Action = rvinowise.unity.actions.Action;
 namespace rvinowise.unity {
 
 public class Hitting_limb:
-    MonoBehaviour
+    Child_of_group
     ,IAttacker
-    ,IChild_of_group
 {
     public ALeg limb;
     public Creeping_leg_group creeping_leg_group;

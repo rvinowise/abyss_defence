@@ -17,11 +17,11 @@ public abstract class Player_human :
     private int[] held_tool_index;
 
     protected override void Start() {
+        Player_input.instance.add_input_receiver(this);
         base.Start();
         find_and_assign_team();
         consider_all_enemies();
         sensory_organ?.pay_attention_to_target(Player_input.instance.cursor.transform);
-        Player_input.instance.add_input_receiver(this);
     }
 
     private void find_and_assign_team() {

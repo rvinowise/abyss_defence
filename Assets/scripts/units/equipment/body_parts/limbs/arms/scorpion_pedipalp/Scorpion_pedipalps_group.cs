@@ -24,11 +24,11 @@ public class Scorpion_pedipalps_group :
         actor = GetComponent<Actor>();
     }
 
-    public override IEnumerable<IChild_of_group> get_children() {
+    public override IEnumerable<Child_of_group> get_children() {
         return pedipalps;
     }
 
-    public override void add_child(IChild_of_group in_child) {
+    public override void add_child(Child_of_group in_child) {
         var added_child = in_child as Scorpion_pedipalp;
         pedipalps.Add(added_child);
         added_child.transform.SetParent(transform, false);

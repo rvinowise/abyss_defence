@@ -26,7 +26,8 @@ public readonly struct Target {
 }
 
 public class Intelligence :
-    MonoBehaviour
+    MonoBehaviour,
+    ITeam_member
 {
 
     public Baggage baggage;
@@ -52,6 +53,10 @@ public class Intelligence :
             GetComponentsInChildren<Baggage>().Length <= 1, "which baggage should the Intelligence use?"
         );
         baggage = GetComponentInChildren<Baggage>();
+
+        if (action_runner == null) {
+            action_runner = GetComponent<Action_runner>();
+        }
         
         if (
             (team != null)&&
@@ -62,8 +67,7 @@ public class Intelligence :
     }
     
     protected virtual void Start() {
-        init_devices();
-        fill_lacking_devices_with_empty_devices();
+        update_devices();
         
         if (team != null) {
             notify_about_appearance();
@@ -73,6 +77,15 @@ public class Intelligence :
         Map.instance.current_complexity += performance_cost;
     }
 
+    public void attach_to_team(Team in_team) {
+        team = in_team;
+    }
+
+    public void update_devices() {
+        init_devices();
+        fill_lacking_devices_with_empty_devices();
+    }
+
     private TDevice[] get_highest_devices<TDevice>() {
         //subordinate devices are used by other devices, the intelligence shouldn't use them directly 
         List<TDevice> needed_decives = new List<TDevice>();
@@ -80,11 +93,10 @@ public class Intelligence :
         return check_deeper_children(transform, needed_decives).ToArray();
         
         List<TDevice> check_deeper_children(Transform root, List<TDevice> found_devices) {
-            var needed_devices = 
-                root.GetComponents<TDevice>().
-                    Where(device => !is_device_empty(device)).ToList();
-            if (needed_devices.Any()) {
-                found_devices.AddRange(needed_devices);
+            var needed_device = 
+                root.GetComponents<TDevice>().FirstOrDefault(device => !is_device_empty(device));
+            if (needed_device != null) {
+                found_devices.Add(needed_device);
                 return found_devices;
             }
             foreach (Transform child in root.transform) {

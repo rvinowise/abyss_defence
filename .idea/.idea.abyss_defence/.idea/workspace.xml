@@ -5,17 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd6462a0-2be3-4446-9e5c-7281b717e754" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attachment_points_group.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attachment_points_group.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Attachment_point.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Attachment_point.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Sensor_child_of_group.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Sensor_child_of_group.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/factory/circle.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/factory/circle.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture_parent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture_parent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/actions/Attach_unit_parts.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/actions/Attach_unit_parts.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/helpers/editor/Mirroring_prefab_children.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/helpers/editor/Mirroring_prefab_children.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Children_splitter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Children_splitter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Divisible_body.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Divisible_body.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/Intelligence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/Intelligence.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/player/Player_human.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/player/Player_human.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attachment_points_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attachment_points_group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attacking_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attacking_group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Abstract_children_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Abstract_children_group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Attachment_point.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Attachment_point.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Children_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Children_group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/IChildren_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/IChildren_group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_runner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_runner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/Turning_element.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/Turning_element.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/Limb2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/Limb2.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/Scorpion_pedipalps_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/Scorpion_pedipalps_group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/teeth/Teeth_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/teeth/Teeth_group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/teeth/Tooth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/teeth/Tooth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Compound_sensory_organ.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Compound_sensory_organ.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Head/Turning_sensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Head/Turning_sensor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/ISensory_organ.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/ISensory_organ.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group_distributor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group_distributor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Jumping_leg_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Jumping_leg_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/unity-extensions/GameObject_GetComponents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/unity-extensions/GameObject_GetComponents.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limb.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limbs_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limbs_group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Shielding_limb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Shielding_limb.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Shielding_limbs_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Shielding_limbs_group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Wing_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Wing_group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/turret/Focusing_guns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/turret/Focusing_guns.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/Humanoid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Humanoid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/shaders/computations/masked_texture.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/shaders/computations/masked_texture.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/sprites/units/composable_parts/heads/mantis_head.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/sprites/units/composable_parts/heads/mantis_head.png.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,16 +57,20 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2049f69b95434c348b97e9e5dc37443f1b800/38/5314e8d7/Rigidbody2D.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2049f69b95434c348b97e9e5dc37443f1b800/dc/f5400f2f/Physics2D.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2049f69b95434c348b97e9e5dc37443f1b800/ec/d301eb40/ContactFilter2D.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/33e48bb58a2c4410a8b1ce7df977e04bfc00/ef/ebf8a26e/AudioSource.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/351e49e2a5bf4fd6beabb458ce2255f3ff600/9d/d735b036/Enumerable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/351e49e2a5bf4fd6beabb458ce2255f3ff600/c6/6533b962/HashSet`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/05/893af202/NullReferenceException.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/69/b5ced0d6/Int32.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/f7/cfebfc91/List`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/24/be679250/LoadSceneMode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/3e/fcefc2d1/Transform.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/40/61e42ac1/Sprite.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/68/a8aeaf3e/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/80/ce59b349/FindObjectsSortMode.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/81/fcfeb484/Camera.cs" root0="FORCE_HIGHLIGHTING" />
@@ -67,8 +97,10 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Runtime/Intrinsics/x86/Popcnt.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Tests/Editor/SeparateAssembly/TypeHashWrapper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Tests/Runtime/BurstJobTester.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Tests/Runtime/Shared/030-Expressions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Tests/Runtime/Shared/MonoOnlyAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Tests/Runtime/Shared/TestCompilerAttributeBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Unity.Burst.CodeGen/FunctionPointerInvokeTransform.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections@1.5.1/Unity.Collections.BurstCompatibilityGen/BurstCompatibilityTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections@1.5.1/Unity.Collections.CodeGen/JobReflectionDataPostProcessor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections@1.5.1/Unity.Collections.Tests/WordsTests.gen.cs" root0="SKIP_HIGHLIGHTING" />
@@ -152,10 +184,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="32828">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="29056">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="32828" />
+      <option name="pid" value="29056" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -188,6 +220,8 @@
       <workItem from="1742770569731" duration="31576000" />
       <workItem from="1742947445620" duration="156829000" />
       <workItem from="1743815223239" duration="137888000" />
+      <workItem from="1744361011206" duration="13807000" />
+      <workItem from="1744659617471" duration="140606000" />
     </task>
     <servers />
   </component>
@@ -208,30 +242,17 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attachment_points_group.cs</url>
-          <line>33</line>
-          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\equipment\Children_group_host\Attachment_points_group.cs" containingFunctionPresentation="Method 'add_child'">
+          <url>file://$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Children_splitter.cs</url>
+          <line>74</line>
+          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\Divisible_body\Children_splitter.cs" containingFunctionPresentation="Method 'attach_children_to_host'">
             <startOffsets>
-              <option value="940" />
+              <option value="2748" />
             </startOffsets>
             <endOffsets>
-              <option value="980" />
+              <option value="2831" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="283" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs</url>
-          <line>97</line>
-          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\equipment\weapons\weaponised_bodyparts\Fighting_head.cs" containingFunctionPresentation="Method 'is_prepared_for_attack'">
-            <startOffsets>
-              <option value="2867" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2914" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="285" />
+          <option name="timeStamp" value="374" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -246,6 +267,9 @@
         <watch expression="is_facing_target(destination)" language="C#" />
         <watch expression="moved_body.transform.rotation.to_degree().angle_to(79)" language="C#" />
         <watch expression="(destination - (Vector2) moved_body.transform.position).to_dergees();" language="C#" />
+        <watch expression="get_children()" language="C#" />
+        <watch expression="new_body.GetComponent&lt;Rigidbody2D&gt;()" language="C#" />
+        <watch expression="find_closest_enemy()" language="C#" />
       </configuration>
     </watches-manager>
   </component>

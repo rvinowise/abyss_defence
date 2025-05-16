@@ -76,7 +76,7 @@ public class Humanoid:
 
 
     void FixedUpdate() {
-        turning_sensor.rotate_to_desired_direction();
+        //turning_sensor.rotate_to_desired_direction();
     }
 
   

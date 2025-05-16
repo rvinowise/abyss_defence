@@ -33,18 +33,10 @@ MonoBehaviour
     private Persistent_residue_all_textures texture_holder;
 
     private Rigidbody2D rigidbody2d;
-    private void Awake() {
-        // persistent_children = 
-        //     GetComponentsInChildren<Leaving_persistent_residue_on_texture>().
-        //     Where(component => component != this).
-        //     ToList();
-        
+    private void Start() {
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
-    // private void Start() {
-    //     texture_holder = Persistent_residue_all_textures.instance;
-    // }
 
     public void leave_persistent_residue() {
         sprite_renderers = GetComponentsInChildren<SpriteRenderer>().ToList();

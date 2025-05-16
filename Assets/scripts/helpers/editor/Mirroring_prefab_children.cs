@@ -124,9 +124,9 @@ internal static class Mirroring_prefab_children {
 	
     
 	private static void duplicate_mirrored_children(Abstract_children_group children_group) {
-		IList<IChild_of_group> initial_children = new List<IChild_of_group>(children_group.get_children());
+		IList<Child_of_group> initial_children = new List<Child_of_group>(children_group.get_children());
 		foreach(var src_child in initial_children) {
-			IChild_of_group dst_child = src_child switch {
+			Child_of_group dst_child = src_child switch {
 				Leg2 src_leg2 => create_mirrored_leg2(src_leg2),
 				Arm src_arm => create_mirrored_arm(src_arm),
 				Leg3 src_leg3 => create_mirrored_leg3(src_leg3),

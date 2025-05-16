@@ -26,7 +26,7 @@ public struct Paired_gun {
 public class Focusing_guns:
     MonoBehaviour, 
     IAttacker,
-    ITransporter
+    ITeam_member
 {
 
     public Turning_element platform;
@@ -43,7 +43,8 @@ public class Focusing_guns:
     public Side_type prepared_gun = Side_type.LEFT;
 
     //public bool is_attacking;
-    public Computer_intelligence intelligence;
+    //public Computer_intelligence intelligence;
+    public Team team;
     
     private void Awake() {
         left_gun = new Paired_gun(left_gun_turning);
@@ -52,28 +53,32 @@ public class Focusing_guns:
         //intelligence = GetComponent<Computer_intelligence>();
     }
 
-    public float get_possible_rotation() {
-        return platform.rotation_acceleration;
+    public void attach_to_team(Team in_team) {
+        team = in_team;
     }
 
-    public float get_possible_impulse() {
-        return 0;
-    }
-
-    public void set_moved_body(Turning_element in_body) {
-        
-    }
-
-    public Turning_element get_moved_body() {
-        return platform;
-    }
-
-    public void move_towards_destination(Vector2 destination) {
-    }
-
-    public void face_rotation(Quaternion rotation) {
-        platform.set_target_rotation(rotation);
-    }
+    // public float get_possible_rotation() {
+    //     return platform.rotation_acceleration;
+    // }
+    //
+    // public float get_possible_impulse() {
+    //     return 0;
+    // }
+    //
+    // public void set_moved_body(Turning_element in_body) {
+    //     
+    // }
+    //
+    // public Turning_element get_moved_body() {
+    //     return platform;
+    // }
+    //
+    // public void move_towards_destination(Vector2 destination) {
+    // }
+    //
+    // public void face_rotation(Quaternion rotation) {
+    //     platform.set_target_rotation(rotation);
+    // }
 
     public Actor actor { get; set; }
 
@@ -112,7 +117,7 @@ public class Focusing_guns:
         var gun = get_prepared_gun_to_shoot().gun;
         var target = Gun_holder.get_target_of_aiming(gun.muzzle,shooting_range);
         if (target != null) {
-            if (Animated_attacker.get_damagable_enemy_from_transform(target, intelligence.team) is {} damageable_enemy) {
+            if (Animated_attacker.get_damagable_enemy_from_transform(target, team) is {} damageable_enemy) {
                 return new[]{damageable_enemy};
             }
         }
@@ -152,10 +157,9 @@ public class Focusing_guns:
     }
 
     private void Update() {
-        if (intelligence.intelligence_action == Intelligence_action.Attacking) {
-            attacking_step();
-        }
+        
         if (target.intelligence != null) {
+            attacking_step();
             focus_on_target(target);
         }
         platform.rotate_to_desired_direction();

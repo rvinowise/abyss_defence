@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using rvinowise.unity.geometry2d;
 using rvinowise.contracts;
@@ -12,7 +13,6 @@ public static class Children_splitter {
         List<Divisible_body> piece_objects) 
     {
         
-        distribute_children_to_pieces(src_host_of_children, piece_objects);
         destroy_undistributed_tools(src_host_of_children);
         
         Data_distributor.distribute_data_across(
@@ -52,7 +52,7 @@ public static class Children_splitter {
         {
             IChildren_group distributed_children_group =
                 children_groups_host.children_groups[i_children_group];
-            foreach (IChild_of_group tool in distributed_children_group.children_stashed_from_copying) {
+            foreach (Child_of_group tool in distributed_children_group.children_stashed_from_copying) {
                 Contract.Requires(tool!= null, "children prepared to distribution should be valid");
                 foreach (Divisible_body piece_object in piece_objects) {
                     if (tool_is_inside_object(tool, piece_object)) {
@@ -64,11 +64,37 @@ public static class Children_splitter {
         }
     }
 
+    public static void attach_children_to_host(
+        Divisible_body children_groups_host,
+        List<List<Child_of_group>> groups_with_tools
+    ) {
+        var tool_groups_amount = children_groups_host.children_groups.Count;
+        //Contract.Assert(tool_groups_amount == groups_with_tools.Count, "tool groups should match");
+
+        if (tool_groups_amount != groups_with_tools.Count) {
+            Debug.LogError($"tool groups don't match, original=`{children_groups_host.name}`");
+        }
+        
+        for (int i_children_group = 0;
+             i_children_group < tool_groups_amount;
+             i_children_group++) 
+        {
+            IChildren_group dst_children_group =
+                children_groups_host.children_groups[i_children_group];
+
+            List<Child_of_group> src_tools = groups_with_tools[i_children_group];
+
+            foreach (var tool in src_tools) {
+                dst_children_group.add_child(tool);
+            }
+        }
+    }
+
     public static void distribute_children_to_pieces(
         List<Polygon_with_tools> polygons_with_tools
     ) {
         foreach (var polygon_with_tools in polygons_with_tools) {
-            polygon_with_tools.divisible_body.children_groups
+            //polygon_with_tools.divisible_body.children_groups
         }
     }
 
@@ -76,11 +102,14 @@ public static class Children_splitter {
     public class Polygon_with_tools {
         public Polygon polygon;
         //public Dictionary<IChildren_group, IChild_of_group> group_to_tools;
-        public List<List<IChild_of_group>> tools;
+        public List<List<Child_of_group>> tools;
         public bool attached_to_something;
         public Divisible_body divisible_body;
         public Polygon_with_tools(Polygon polygon, int tool_groups_amount) {
-            tools = new List<List<IChild_of_group>>(tool_groups_amount);
+            tools = new List<List<Child_of_group>>(tool_groups_amount);
+            for (int i = 0; i < tool_groups_amount; i++) {
+                tools.Add(new List<Child_of_group>());
+            }
             this.polygon = polygon;
             attached_to_something = false;
         }
@@ -99,7 +128,7 @@ public static class Children_splitter {
             IChildren_group distributed_children_group =
                 children_groups_host.children_groups[i_children_group];
 
-            foreach (IChild_of_group tool in distributed_children_group.children_stashed_from_copying) {
+            foreach (Child_of_group tool in distributed_children_group.children_stashed_from_copying) {
                 Contract.Requires(tool!= null, "children prepared to distribution should be valid");
                 foreach (var polygon_with_tools in result) {
                     if (tool_is_inside_polygon(tool, polygon_with_tools.polygon)) {
@@ -114,7 +143,7 @@ public static class Children_splitter {
                 }
             }
         }
-        return result;
+        return result.OrderBy(polygon => polygon.attached_to_something).ToList();
     }
 
     public static List<Polygon_with_tools> polygons_to_polygon_with_tools(
@@ -132,15 +161,19 @@ public static class Children_splitter {
     }
 
     private static void destroy_undistributed_tools(IChildren_groups_host children_groups_host) {
-        foreach(IChild_of_group tool in get_undistributed_tools(children_groups_host)) {
-            GameObject.Destroy(tool.transform.gameObject);
+        foreach(Child_of_group tool in get_undistributed_tools(children_groups_host)) {
+            if (tool.GetComponent<Damage_receiver>() is { } damage_receiver) {
+                damage_receiver.start_dying();
+            } else {
+                GameObject.Destroy(tool.transform.gameObject);
+            }
         }
     }
 
-    private static IEnumerable<IChild_of_group> get_undistributed_tools(IChildren_groups_host children_groups_host) {
-        List<IChild_of_group> result = new List<IChild_of_group>();
+    private static IEnumerable<Child_of_group> get_undistributed_tools(IChildren_groups_host children_groups_host) {
+        List<Child_of_group> result = new List<Child_of_group>();
         foreach (var group in children_groups_host.children_groups){
-            foreach (IChild_of_group tool in group.children_stashed_from_copying) {
+            foreach (Child_of_group tool in group.children_stashed_from_copying) {
                 if (tool.transform.parent == null) {
                     result.Add(tool);
                 }
@@ -178,7 +211,7 @@ public static class Children_splitter {
     private static void attach_tool_to_object(
         Divisible_body piece_object,
         int i_children_group,
-        IChild_of_group child) 
+        Child_of_group child) 
     {
         IChildren_group piece_children_group =
             piece_object.children_groups[i_children_group];

@@ -272,6 +272,10 @@ public class Turning_element: MonoBehaviour {
     }
 
     public bool is_within_span() {
+        if (transform.parent == null) {
+            Debug.LogError($"turning element `{name}` isn't attached to a parent, can't determine its span");
+            return true;
+        }
         float delta_degrees = transform.parent.delta_degrees(transform);
         bool is_within_smaller_span = (delta_degrees >= possible_span.min)&&
                                       (delta_degrees <= possible_span.max);

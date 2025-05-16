@@ -20,18 +20,18 @@ public class Wing_group:
 
     
     #region Children_group
-    public IEnumerable<IChild_of_group> get_children() {
+    public IEnumerable<Child_of_group> get_children() {
         return wings;
     }
 
-    public void add_child(IChild_of_group in_child) {
+    public void add_child(Child_of_group in_child) {
         if (in_child as Wing is {} wing) {
             wings.Add(wing);
             wing.transform.SetParent(transform, false);
         }
     }
 
-    public IList<IChild_of_group> children_stashed_from_copying { get; private set; }
+    public IList<Child_of_group> children_stashed_from_copying { get; private set; }
     public void hide_children_from_copying() {
         foreach (var child in get_children()) {
             child.transform.SetParent(null,false);
@@ -41,7 +41,7 @@ public class Wing_group:
     }
 
     public void shift_center(Vector2 in_shift) {
-        foreach (IChild_of_group child in get_children()) {
+        foreach (Child_of_group child in get_children()) {
             child.transform.localPosition += (Vector3)in_shift;
         }
     }

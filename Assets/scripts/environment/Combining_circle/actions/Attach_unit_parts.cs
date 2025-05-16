@@ -88,12 +88,12 @@ public class Attach_unit_parts: Action_leaf {
         
         attach_all_team_members_to_team(attachable_body, team);
         attach_all_tools_to_intelligence(attachable_body, unit_intelligence);
+        update_divisible_body_composition(attachable_body);
         
         team.add_unit(unit_intelligence);
         unit_intelligence.action_runner.start_fallback_actions();
-        unit_intelligence.init_devices();
-        unit_intelligence.fill_lacking_devices_with_empty_devices();
-        unit_intelligence.action_runner.init_actors();
+        unit_intelligence.update_devices();
+        unit_intelligence.action_runner.accept_attached_actors();
         unit_intelligence.move_towards_best_target();
         unit_intelligence.enabled = true;
         unit_intelligence.on_destroyed += on_destroyed_listener;
@@ -167,6 +167,14 @@ public class Attach_unit_parts: Action_leaf {
             member.attach_to_team(in_team);
         }
     }
+    public static void update_divisible_body_composition(
+        Component unit_root
+    ) {
+        foreach (var member in unit_root.GetComponentsInChildren<Divisible_body>()) {
+            member.update_body_composition();
+        }
+    }
+    
     public static void attach_all_tools_to_intelligence(
         Component unit_root,
         Intelligence in_intelligence

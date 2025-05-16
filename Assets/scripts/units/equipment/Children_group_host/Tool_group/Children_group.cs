@@ -17,7 +17,7 @@ public class Children_group:
 {
 
     public List<Child_of_group> children = new List<Child_of_group>();
-    public override IEnumerable<IChild_of_group> get_children() => children;
+    public override IEnumerable<Child_of_group> get_children() => children;
     
 
     public override void hide_children_from_copying() {
@@ -27,7 +27,7 @@ public class Children_group:
     
 
 
-    public override void add_child(IChild_of_group in_child) {
+    public override void add_child(Child_of_group in_child) {
         children.Add(in_child as Child_of_group);
         in_child.transform.SetParent(this.transform, false);
     }

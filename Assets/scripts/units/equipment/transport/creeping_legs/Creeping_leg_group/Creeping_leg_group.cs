@@ -18,12 +18,12 @@ public partial class Creeping_leg_group:
 {
     
     #region Children_group
-    public override IEnumerable<IChild_of_group> get_children() {
+    public override IEnumerable<Child_of_group> get_children() {
         return legs;
     }
     
 
-    public override void add_child(IChild_of_group compound_object) {
+    public override void add_child(Child_of_group compound_object) {
         Contract.Requires(compound_object is ALeg);
         ALeg leg = compound_object as ALeg;
         if (leg) {
@@ -33,7 +33,7 @@ public partial class Creeping_leg_group:
         }
     }
     
-    public void add_child_on_other_transform(IChild_of_group compound_object) {
+    public void add_child_on_other_transform(Child_of_group compound_object) {
         Contract.Requires(compound_object is ALeg);
         ALeg leg = compound_object as ALeg;
         if (leg) {
