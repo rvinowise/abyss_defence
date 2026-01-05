@@ -29,7 +29,7 @@ public class Direct_projectile_launcher:
 
     private void Start() {
         if (GetComponentInParent<Intelligence>() is {} intelligence) {
-            attach_to_team(team);
+            
             attach_to_intelligence(intelligence);
         }
     }
@@ -39,6 +39,7 @@ public class Direct_projectile_launcher:
     }
     public void attach_to_intelligence(Intelligence in_intelligence) {
         this.intelligence = in_intelligence;
+        attach_to_team(in_intelligence.team);
     }
 
     public Rigidbody2D get_projectile() {

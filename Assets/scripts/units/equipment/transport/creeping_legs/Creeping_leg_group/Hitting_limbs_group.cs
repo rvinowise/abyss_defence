@@ -24,7 +24,7 @@ public class Hitting_limbs_group:
     
     
     
-    #region IWeaponry
+    #region IAttacker
 
     public bool is_weapon_ready_for_target(Transform target) {
         foreach (var limb in hitting_limbs) {

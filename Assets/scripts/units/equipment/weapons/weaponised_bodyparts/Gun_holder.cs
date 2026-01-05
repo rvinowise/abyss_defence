@@ -33,7 +33,7 @@ public class Gun_holder:
         this.team = in_team;
     }
 
-    #region IWeaponry
+    #region IAttacker
     
     
     public override bool is_weapon_ready_for_target(Transform target) {
@@ -117,7 +117,7 @@ public class Gun_holder:
     }
 
     public IList<IChild_of_group> children_stashed_from_copying { get; } = new List<IChild_of_group>();
-    public void hide_children_from_copying() {
+    public  void hide_children_from_copying() {
         gun.transform.SetParent(null,false);
         children_stashed_from_copying.Clear();
         children_stashed_from_copying.Add(gun);
@@ -142,11 +142,6 @@ public class Gun_holder:
     
     #region IActor
 
-    public Actor actor { get; set; }
-
-    public void on_lacking_action() {
-        Idle.create(this).start_as_root(actor.action_runner);
-    }
     
     #endregion
 }

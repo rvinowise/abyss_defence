@@ -116,7 +116,7 @@ public class Fighting_head :
     }
     #endregion
 
-    #region IWeaponry interface
+    #region IAttacker interface
     public bool is_weapon_ready_for_target(Transform target) {
         return 
             is_prepared_for_attack()

@@ -46,7 +46,7 @@ public class Arm_pair:
         Arm_pair_shooting.attack(this, in_target,on_completed);
     }
 
-    private Transform explicit_target;
+    private Transform explicit_target; //which the player chooses by hovering the mouse coursor over it
 
     public Transform get_explicit_target() {
         return explicit_target;

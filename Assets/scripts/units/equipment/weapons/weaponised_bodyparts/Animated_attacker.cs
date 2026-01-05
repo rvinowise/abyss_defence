@@ -32,7 +32,7 @@ public class Animated_attacker :
         intelligence = GetComponentInParent<Intelligence>();
     }
 
-    #region IWeaponry interface
+    #region IAttacker interface
     public override bool is_weapon_ready_for_target(Transform target) {
         return is_ready_to_attack() && is_directed_at_target(target);
 
@@ -87,7 +87,7 @@ public class Animated_attacker :
         
     }
     
-    #endregion IWeaponry interface
+    #endregion IAttacker interface
 
     private bool is_ready_to_attack() {
         return Time.time - last_attack_time > cooldown_seconds;

@@ -5,43 +5,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd6462a0-2be3-4446-9e5c-7281b717e754" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Sensor_child_of_group.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Sensor_child_of_group.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.abyss_defence/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/factory/circle.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/factory/circle.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture_parent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/effects/Persistent_residue/Leaving_persistent_residue/Leaving_persistent_residue_on_texture_parent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/actions/Attach_unit_parts.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/actions/Attach_unit_parts.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/helpers/editor/Mirroring_prefab_children.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/helpers/editor/Mirroring_prefab_children.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Children_splitter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Children_splitter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Divisible_body.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Divisible_body.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/Intelligence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/Intelligence.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/control/player/Player_human.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/control/player/Player_human.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attachment_points_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attachment_points_group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BillingMode.json.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BillingMode.json.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/factory/arena.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/factory/arena.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/WSATestCertificate.pfx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/WSATestCertificate.pfx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/models/rect1x2.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/models/rect1x2.blend.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/models/rect1x2.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/models/rect1x2.blend1.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/models/square.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/models/square.blend.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/models/square.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/models/square.blend1.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/models/square1x2.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/models/square1x2.blend1.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/Post_effect.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/Post_effect.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/UnityPurchasing.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/UnityPurchasing/generated.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/UnityPurchasing/generated/WindowsRuntimeWorkaround.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/UnityPurchasing/generated/WindowsRuntimeWorkaround.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attacking_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Attacking_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Abstract_children_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Abstract_children_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Attachment_point.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Attachment_point.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Children_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/Children_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/IChildren_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/Children_group_host/Tool_group/IChildren_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_runner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/actions/Action_runner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/Turning_element.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/Turning_element.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/Limb2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/Limb2.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/Scorpion_pedipalps_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/limbs/arms/scorpion_pedipalp/Scorpion_pedipalps_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/teeth/Teeth_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/teeth/Teeth_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/teeth/Tooth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/body_parts/teeth/Tooth.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Compound_sensory_organ.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Compound_sensory_organ.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Head/Turning_sensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/Head/Turning_sensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/ISensory_organ.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/sensors/ISensory_organ.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group_distributor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Creeping_leg_group_distributor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limb.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limbs_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Hitting_limbs_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Shielding_limb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Shielding_limb.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Shielding_limbs_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/creeping_legs/Creeping_leg_group/Shielding_limbs_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Wing_group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/transport/wings/Wing_group.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/turret/Focusing_guns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/turret/Focusing_guns.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/Humanoid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Humanoid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/projectile_launchers/Direct_projectile_launcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/projectile_launchers/Direct_projectile_launcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/projectile_launchers/Parabolic_projectile_launcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/guns/projectile_launchers/Parabolic_projectile_launcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Animated_attacker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Compound_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Compound_attacker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Fighting_head.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Gun_holder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Gun_holder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Proboscis.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Proboscis.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Shooting_attacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Shooting_attacker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/units/human/Arms/Arm_pair.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/shaders/computations/masked_texture.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/shaders/computations/masked_texture.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/sprites/units/composable_parts/heads/mantis_head.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/sprites/units/composable_parts/heads/mantis_head.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/PackageManagerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/PackageManagerSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +62,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "rvinowise"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/rvinowise/YarnSpinner-Unity2020",
+    "accountId": "0c164a59-349b-4498-9a26-68ffc0d61b44"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
@@ -62,12 +85,15 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2049f69b95434c348b97e9e5dc37443f1b800/38/5314e8d7/Rigidbody2D.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2049f69b95434c348b97e9e5dc37443f1b800/dc/f5400f2f/Physics2D.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2049f69b95434c348b97e9e5dc37443f1b800/ec/d301eb40/ContactFilter2D.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e9a7a8bb63044f388010c2c2742060e15200/50/69fcab6b/VirtualMachine.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2e9a7a8bb63044f388010c2c2742060e15200/d5/449edd03/Dialogue.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/33e48bb58a2c4410a8b1ce7df977e04bfc00/ef/ebf8a26e/AudioSource.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/351e49e2a5bf4fd6beabb458ce2255f3ff600/9d/d735b036/Enumerable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/351e49e2a5bf4fd6beabb458ce2255f3ff600/c6/6533b962/HashSet`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/05/893af202/NullReferenceException.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/69/b5ced0d6/Int32.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/695d1cc93cca45069c528c15c9fdd7493e2800/f7/cfebfc91/List`1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/897ef38332da431da2567b55992547f814400/37/79c197de/Dialogue.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/24/be679250/LoadSceneMode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/3e/fcefc2d1/Transform.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/40/61e42ac1/Sprite.cs" root0="FORCE_HIGHLIGHTING" />
@@ -81,51 +107,39 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/f8/c57d251d/Object.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/fa/3c72930b/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/913bb12059fd4cef8da5cc94ad2f093313e400/fd/03291672/Bounds.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/aac262d40c9d4b63bd4d0bdda259edfe41600/cd/a5c16ff9/ISubmitHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/b18a8b3398e74bca86895881dd02956c573648/65/8466463f/List`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/scripts/environment/Combining_cogs/actions/Combining_cogs_invoke_creature.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.animation@5.2.4/Editor/Triangle/Tools/QualityMeasure.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.sprite@1.0.0/Editor/SpriteEditorModule/SpriteFrameModule/SpritePolygonModeModule.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.sprite@1.0.0/Editor/SpriteEditorModule/SpriteOutlineModule.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.spriteshape@5.3.0/Runtime/SpriteShapeGenerator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ads@4.4.2/Editor/DevX/EditorGameServices/AdsService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ads@4.4.2/Editor/DevX/Networking/RequestGameIds.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ads@4.4.2/Runtime/Advertisement/Utilities/MiniJSON.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Editor/BurstDisassembler.Core.Wasm.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Editor/BurstDisassembler.Core.x86.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Runtime/Intrinsics/v128.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Runtime/Intrinsics/x86/Csr.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Runtime/Intrinsics/x86/Popcnt.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Tests/Editor/SeparateAssembly/TypeHashWrapper.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Tests/Runtime/BurstJobTester.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Tests/Runtime/Shared/030-Expressions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Tests/Runtime/Shared/MonoOnlyAttribute.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Tests/Runtime/Shared/TestCompilerAttributeBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.6.6/Unity.Burst.CodeGen/FunctionPointerInvokeTransform.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections@1.5.1/Unity.Collections.BurstCompatibilityGen/BurstCompatibilityTests.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections@1.5.1/Unity.Collections.CodeGen/JobReflectionDataPostProcessor.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections@1.5.1/Unity.Collections.Tests/WordsTests.gen.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections@1.5.1/Unity.Collections/ConcurrentMask.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.purchasing@4.8.0/Runtime/Stores/SubscriptionManager.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.quicksearch@2.0.2/Editor/Indexing/AssetIndexer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.quicksearch@2.0.2/Editor/UI/ListSelectionWindow.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.10.1/Runtime/Debugging/DebugUpdater.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.10.1/Shaders/PostProcessing/SubpixelMorphologicalAntialiasing.hlsl" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.searcher@4.3.2/Tests/Editor/SearcherTests.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Tests/Editor/TMP_EditorTests.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/InputFieldEditor.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Graphic.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/GraphicRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/CanvasScaler.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/ILayoutElement.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Utility/ReflectionMethodsCache.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/VertexModifiers/Outline.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.18.19/Runtime/Addressables.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.18.19/Runtime/AddressablesImpl.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.18.19/Runtime/ResourceManager/Util/DelegateList.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collab-proxy@2.0.4/Editor/PlasticSCM/Help/DrawHelpPanel.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.purchasing@4.8.0/Runtime/Stores/FakeStore/UIFakeStore.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@10.10.1/Editor/LookDev/CameraController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.10.1/Tests/Runtime/RuntimeTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/SelectableEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/InputModules/BaseInput.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/DefaultControls.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Navigation.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Scrollbar.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Selectable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/Canvas/CanvasGroupInheritedAlpha.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/EventSystem/SelectableTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.xr.legacyinputhelpers@2.1.10/Runtime/ArmModels/TransitionArmModel.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Packages/ink-unity-integration-1.2.1/Assets/Ink/Demos/Basic Demo/Scripts/BasicInkExample.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Packages/ink-unity-integration-1.2.1/Assets/Publishing/Editor/Tools/PublishingTools.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Packages/ink-unity-integration-1.2.1/Packages/Ink/InkLibs/InkCompiler/Compiler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Packages/ink-unity-integration-1.2.1/Packages/Ink/InkLibs/InkCompiler/Plugins/PluginManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Packages/ink-unity-integration-1.2.1/Packages/Ink/package.json" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;a3a3a3ff&quot;,
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2rhPLOm5uRQlWN1tKmPyR4EzDu6" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -134,24 +148,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.48833334&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "XThreadsFramesViewSplitterKey": "0.48833334",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/../abyss_defence_build/abyss_defence.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../abyss_defence_arena\abyss_defence.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\prj\abyss_defence_build" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -159,7 +174,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="D:\Program Files\Unity\Hub\Editor\2020.3.48f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="D:\Program Files\Unity\Hub\Editor\2020.3.49f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\prj\abyss_defence -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\prj\abyss_defence" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -167,7 +182,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="D:\Program Files\Unity\Hub\Editor\2020.3.48f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="D:\Program Files\Unity\Hub\Editor\2020.3.49f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\prj\abyss_defence -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\prj\abyss_defence" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -184,10 +199,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="29056">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="21724">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="29056" />
+      <option name="pid" value="21724" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -222,6 +237,9 @@
       <workItem from="1743815223239" duration="137888000" />
       <workItem from="1744361011206" duration="13807000" />
       <workItem from="1744659617471" duration="140606000" />
+      <workItem from="1766773513074" duration="21802000" />
+      <workItem from="1767045239630" duration="4507000" />
+      <workItem from="1767144102722" duration="95783000" />
     </task>
     <servers />
   </component>
@@ -236,6 +254,10 @@
   </component>
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/Packages/(SAVED)YarnSpinner-Unity-2.2.4" />
+      <path value="$PROJECT_DIR$/Packages/YarnSpinner-Unity2020" />
+    </ignored-roots>
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -253,6 +275,266 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="374" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/scripts/environment/Combining_circle/actions/Attach_unit_parts.cs</url>
+          <line>166</line>
+          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\environment\Combining_circle\actions\Attach_unit_parts.cs" containingFunctionPresentation="Method 'attach_all_team_members_to_team'">
+            <startOffsets>
+              <option value="6388" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6419" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="382" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Divisible_body.cs</url>
+          <line>175</line>
+          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\Divisible_body\Divisible_body.cs" containingFunctionPresentation="Method 'detach_children'">
+            <startOffsets>
+              <option value="6078" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6122" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="387" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/scripts/units/Divisible_body/Divisible_body.cs</url>
+          <line>174</line>
+          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\Divisible_body\Divisible_body.cs" containingFunctionPresentation="Method 'detach_children'">
+            <startOffsets>
+              <option value="6003" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6062" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="388" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/scripts/units/equipment/weapons/weaponised_bodyparts/Gun_holder.cs</url>
+          <line>120</line>
+          <properties documentPath="C:\prj\abyss_defence\Assets\scripts\units\equipment\weapons\weaponised_bodyparts\Gun_holder.cs" containingFunctionPresentation="Method 'hide_children_from_copying'">
+            <startOffsets>
+              <option value="3382" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3418" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="389" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Library/PackageCache/dev.yarnspinner.unity@80c1e26e8a/Runtime/Views/VoiceOverView.cs</url>
+          <line>121</line>
+          <properties documentPath="C:\prj\abyss_defence\Library\PackageCache\dev.yarnspinner.unity@80c1e26e8a\Runtime\Views\VoiceOverView.cs" containingFunctionPresentation="Method 'DoRunLine'">
+            <startOffsets>
+              <option value="4672" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4852" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="397" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Library/PackageCache/dev.yarnspinner.unity@80c1e26e8a/Runtime/Views/VoiceOverView.cs</url>
+          <line>117</line>
+          <properties documentPath="C:\prj\abyss_defence\Library\PackageCache\dev.yarnspinner.unity@80c1e26e8a\Runtime\Views\VoiceOverView.cs" containingFunctionPresentation="Method 'DoRunLine'">
+            <startOffsets>
+              <option value="4549" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4601" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="398" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Library/PackageCache/dev.yarnspinner.unity@80c1e26e8a/Runtime/DialogueRunner.cs</url>
+          <line>894</line>
+          <properties documentPath="C:\prj\abyss_defence\Library\PackageCache\dev.yarnspinner.unity@80c1e26e8a\Runtime\DialogueRunner.cs" containingFunctionPresentation="Method 'HandleLine'">
+            <startOffsets>
+              <option value="39378" />
+            </startOffsets>
+            <endOffsets>
+              <option value="39428" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="399" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Library/PackageCache/dev.yarnspinner.unity@80c1e26e8a/Runtime/Localization.cs</url>
+          <line>128</line>
+          <properties documentPath="C:\prj\abyss_defence\Library\PackageCache\dev.yarnspinner.unity@80c1e26e8a\Runtime\Localization.cs" containingFunctionPresentation="Method 'AddLocalizedString'">
+            <startOffsets>
+              <option value="5223" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5259" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="401" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Library/PackageCache/dev.yarnspinner.unity@80c1e26e8a/Runtime/Localization.cs</url>
+          <line>155</line>
+          <properties documentPath="C:\prj\abyss_defence\Library\PackageCache\dev.yarnspinner.unity@80c1e26e8a\Runtime\Localization.cs" containingFunctionPresentation="Method 'AddLocalizedStrings'">
+            <startOffsets>
+              <option value="6264" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6305" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="403" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Library/PackageCache/dev.yarnspinner.unity@80c1e26e8a/Runtime/Localization.cs</url>
+          <line>140</line>
+          <properties documentPath="C:\prj\abyss_defence\Library\PackageCache\dev.yarnspinner.unity@80c1e26e8a\Runtime\Localization.cs" containingFunctionPresentation="Method 'AddLocalizedStrings'">
+            <startOffsets>
+              <option value="5692" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5722" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="404" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Packages/YarnSpinner-Unity-2.3.1/Runtime/Localization.cs</url>
+          <line>140</line>
+          <properties documentPath="C:\prj\abyss_defence\Packages\YarnSpinner-Unity-2.3.1\Runtime\Localization.cs" containingFunctionPresentation="Method 'AddLocalizedStrings'">
+            <startOffsets>
+              <option value="5692" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5722" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="405" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Packages/YarnSpinner-Unity-2.3.1/Runtime/Localization.cs</url>
+          <line>155</line>
+          <properties documentPath="C:\prj\abyss_defence\Packages\YarnSpinner-Unity-2.3.1\Runtime\Localization.cs" containingFunctionPresentation="Method 'AddLocalizedStrings'">
+            <startOffsets>
+              <option value="6264" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6305" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="406" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Packages/YarnSpinner-Unity-2.3.1/Runtime/Localization.cs</url>
+          <line>128</line>
+          <properties documentPath="C:\prj\abyss_defence\Packages\YarnSpinner-Unity-2.3.1\Runtime\Localization.cs" containingFunctionPresentation="Method 'AddLocalizedString'">
+            <startOffsets>
+              <option value="5223" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5259" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="407" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Packages/YarnSpinner-Unity-2.3.1/Runtime/LineMetadataTableEntry.cs</url>
+          <line>94</line>
+          <properties documentPath="C:\prj\abyss_defence\Packages\YarnSpinner-Unity-2.3.1\Runtime\LineMetadataTableEntry.cs" containingFunctionPresentation="Method 'ParseFromCSV'">
+            <startOffsets>
+              <option value="3488" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3537" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="412" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.18.19/Runtime/AddressablesImpl.cs</url>
+          <line>572</line>
+          <properties documentPath="C:\prj\abyss_defence\Library\PackageCache\com.unity.addressables@1.18.19\Runtime\AddressablesImpl.cs" containingFunctionPresentation="Method 'LoadAssetAsync'">
+            <startOffsets>
+              <option value="21831" />
+            </startOffsets>
+            <endOffsets>
+              <option value="21952" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="421" />
+        </line-breakpoint>
+        <line-breakpoint type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Packages/YarnSpinner-Unity-2.3.1/Runtime/DialogueRunner.cs</url>
+          <line>1133</line>
+          <properties documentPath="C:\prj\abyss_defence\Packages\YarnSpinner-Unity-2.3.1\Runtime\DialogueRunner.cs" containingFunctionPresentation="Method 'DismissLineFromViews'">
+            <startOffsets>
+              <option value="48567" />
+            </startOffsets>
+            <endOffsets>
+              <option value="48610" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="444" />
+        </line-breakpoint>
+        <line-breakpoint type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Packages/YarnSpinner-Unity-2.3.1/Runtime/DialogueRunner.cs</url>
+          <line>1140</line>
+          <properties documentPath="C:\prj\abyss_defence\Packages\YarnSpinner-Unity-2.3.1\Runtime\DialogueRunner.cs" containingFunctionPresentation="Method 'DismissLineFromViews'">
+            <startOffsets>
+              <option value="48795" />
+            </startOffsets>
+            <endOffsets>
+              <option value="48872" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="445" />
+        </line-breakpoint>
+        <line-breakpoint type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Packages/YarnSpinner-Unity-2.3.1/Runtime/DialogueRunner.cs</url>
+          <line>956</line>
+          <properties documentPath="C:\prj\abyss_defence\Packages\YarnSpinner-Unity-2.3.1\Runtime\DialogueRunner.cs" containingFunctionPresentation="Method 'HandleLine'">
+            <startOffsets>
+              <option value="42154" />
+            </startOffsets>
+            <endOffsets>
+              <option value="42259" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="449" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Packages/YarnSpinner-Unity-2.2.4/Runtime/Views/LineView.cs</url>
+          <line>421</line>
+          <properties documentPath="C:\prj\abyss_defence\Packages\YarnSpinner-Unity-2.2.4\Runtime\Views\LineView.cs" containingFunctionPresentation="Method 'DismissLine'">
+            <startOffsets>
+              <option value="17760" />
+            </startOffsets>
+            <endOffsets>
+              <option value="17817" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="460" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Packages/YarnSpinner-Unity-2.2.4/Runtime/Views/OptionView.cs</url>
+          <line>54</line>
+          <properties documentPath="C:\prj\abyss_defence\Packages\YarnSpinner-Unity-2.2.4\Runtime\Views\OptionView.cs" containingFunctionPresentation="Method 'InvokeOptionSelected'">
+            <startOffsets>
+              <option value="1645" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1686" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="461" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

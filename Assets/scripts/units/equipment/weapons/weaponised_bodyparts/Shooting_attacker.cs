@@ -15,8 +15,7 @@ public class Shooting_attacker:
     public readonly List<IAttacker> child_attackers;
 
 
-    // internal override void Awake() {
-    //     base.Awake();
+    // internal void Awake() {
     //     foreach (var weapon_object in weapon_objects) {
     //         weapons.Add(weapon_object.GetComponent<Attacker_child_of_group>());
     //     }
@@ -27,7 +26,7 @@ public class Shooting_attacker:
     }
     
     
-    #region IWeaponry
+    #region IAttacker
     public bool is_weapon_ready_for_target(Transform target) {
         foreach (var weapon in child_attackers) {
             if (weapon.is_weapon_ready_for_target(target)) {

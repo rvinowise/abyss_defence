@@ -32,7 +32,7 @@ public class Proboscis :
         animator = GetComponent<Animator>();
     }
 
-    #region IWeaponry interface
+    #region IAttacker interface
     public override bool is_weapon_ready_for_target(Transform target) {
         var distance_to_target =
             transform.position.distance_to(target.position); 
@@ -58,7 +58,7 @@ public class Proboscis :
         intelligence_on_completed = on_completed;
     }
     
-    #endregion IWeaponry interface
+    #endregion IAttacker interface
 
     public bool is_attacking() {
         return animator.GetCurrentAnimatorStateInfo(0).IsName("strike");

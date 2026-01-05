@@ -36,7 +36,7 @@ public class Hitting_limb:
         }
     }
 
-    #region IWeaponry
+    #region IAttacker
 
     public float damaging_radius = 0.5f;
     public bool is_weapon_ready_for_target(Transform target) {
@@ -78,7 +78,7 @@ public class Hitting_limb:
         .start_as_root(actor.action_runner);
     }
 
-    #endregion IWeaponry
+    #endregion IAttacker
     
     
     

@@ -23,7 +23,7 @@ public class Parabolic_projectile_launcher :
     public float cooldown_seconds = 1;
     private float last_shot_time = float.MinValue;
     
-    #region IWeaponry interface
+    #region IAttacker interface
     public override bool is_weapon_ready_for_target(Transform target) {
         var distance_to_target =
             transform.position.distance_to(target.position); 
@@ -54,7 +54,7 @@ public class Parabolic_projectile_launcher :
         on_completed?.Invoke();
     }
     
-    #endregion IWeaponry interface
+    #endregion IAttacker interface
 
     
     private bool is_ready_to_attack() {
