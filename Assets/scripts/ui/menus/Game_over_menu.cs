@@ -54,7 +54,15 @@ public class Game_over_menu :
     }
 
     private void Start() {
-        damageable_player = Player_input.find_player().GetComponent<Humanoid>().damageable_body;
+        var player = Player_input.find_player();
+        if (player == null) {
+            return;
+        }
+        var humanoid = player.GetComponent<Humanoid>();
+        if (humanoid == null || humanoid.damageable_body == null) {
+            return;
+        }
+        damageable_player = humanoid.damageable_body;
         damageable_player.on_destroyed += finish_game;
     }
 

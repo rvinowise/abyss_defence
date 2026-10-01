@@ -44,6 +44,7 @@ public class Main_menu : MonoBehaviour
     }
 
     public void start_new_game() {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(first_scene);
     }
 
@@ -57,7 +58,12 @@ public class Main_menu : MonoBehaviour
 
     
     private void continue_from_last_saving() {
-        
+        var latest = save_load_game.latest_checkpoint();
+        if (latest == null) {
+            start_new_game();
+            return;
+        }
+        save_load_game.load_at_checkpoint(latest.Value);
     }
 
     private void switch_to_settings() {

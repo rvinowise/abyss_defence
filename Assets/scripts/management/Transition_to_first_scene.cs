@@ -12,12 +12,24 @@ public class Transition_to_first_scene : MonoBehaviour
     private AsyncOperation loading_scene;
     void Awake()
     {
+        if (SceneManager.GetActiveScene().name != "_preload") {
+            return;
+        }
         switch_from_preaload_to_first();
     }
 
     private void switch_from_preaload_to_first() {
-        //StartCoroutine(start_loading_scene(first_scene));
-        SceneManager.LoadScene(first_scene);
+        if (Application.CanStreamedLevelBeLoaded(first_scene)) {
+            SceneManager.LoadScene(first_scene);
+            return;
+        }
+        if (Application.CanStreamedLevelBeLoaded("arena")) {
+            SceneManager.LoadScene("arena");
+            return;
+        }
+        if (SceneManager.sceneCountInBuildSettings > 0) {
+            SceneManager.LoadScene(0);
+        }
     }
 
 
